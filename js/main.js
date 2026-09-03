@@ -2,14 +2,20 @@
 // op seed, en op printresolutie exporteren (SVG waar het kan, PNG anders).
 (() => {
   const FAV_KEY = 'genart-favorites-v1';
+  const SETTINGS_KEY = 'genart-settings-v1';
   const THUMB_PX = 260;   // canvas-resolutie per tegel in het contactvel
   const MODAL_PX = 760;   // canvas-resolutie in het grote voorbeeld
   const THUMB_ATTRACTOR_ITER = 90000;
 
+  function loadSettings() {
+    try { return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch { return {}; }
+  }
+  const SAVED = loadSettings();
+
   const state = {
     algoId: 'attractor',
-    paletteId: PALETTES[0].id,
-    batchSize: 24,
+    paletteId: SAVED.paletteId || PALETTES[0].id,
+    batchSize: SAVED.batchSize || 24,
     baseSeed: RNG.randomSeed(),
     seeds: [],
     favorites: loadFavorites(),
@@ -74,11 +80,25 @@
 
     PALETTES.forEach(p => addPaletteOption(p));
     Object.values(CUSTOM_PALETTES).forEach(p => addPaletteOption(p));
+    if (!paletteSelect.querySelector(`option[value="${state.paletteId}"]`)) {
+      state.paletteId = PALETTES[0].id;
+    }
     paletteSelect.value = state.paletteId;
     paletteSelect.addEventListener('change', () => {
       state.paletteId = paletteSelect.value;
       renderContactSheet();
+      saveSettings();
     });
+
+    // Onthouden invoer terugzetten: laatst ingevulde eigen kleuren (ook als
+    // die nooit op "Toepassen" zijn bevestigd).
+    if (SAVED.customBg) customBg.value = SAVED.customBg;
+    if (Array.isArray(SAVED.customInks)) {
+      if (SAVED.customInks[0]) customInk1.value = SAVED.customInks[0];
+      if (SAVED.customInks[1]) customInk2.value = SAVED.customInks[1];
+      if (SAVED.customInks[2]) customInk3.value = SAVED.customInks[2];
+    }
+    if (SAVED.customName) customPaletteName.value = SAVED.customName;
 
     customPaletteToggle.addEventListener('click', () => {
       customPalettePanel.hidden = !customPalettePanel.hidden;
@@ -86,11 +106,14 @@
     });
     customPaletteApplyBtn.addEventListener('click', applyCustomPalette);
     customPaletteRandomBtn.addEventListener('click', () => {
-      customBg.value = randomHexColor();
-      customInk1.value = randomHexColor();
-      customInk2.value = randomHexColor();
-      customInk3.value = randomHexColor();
+      setColorInput(customBg, randomHexColor());
+      setColorInput(customInk1, randomHexColor());
+      setColorInput(customInk2, randomHexColor());
+      setColorInput(customInk3, randomHexColor());
       applyCustomPalette();
+    });
+    [customBg, customInk1, customInk2, customInk3, customPaletteName].forEach(field => {
+      field.addEventListener('input', saveSettings);
     });
 
     EXPORT_SIZES.forEach(s => {
@@ -108,6 +131,7 @@
       state.batchSize = Math.max(4, Math.min(60, parseInt(batchSizeInput.value, 10) || 24));
       batchSizeInput.value = state.batchSize;
       generateBatch();
+      saveSettings();
     });
 
     regenerateBtn.addEventListener('click', () => generateBatch());
@@ -174,6 +198,24 @@
     return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
   }
 
+  // Zet .value van een <input type="color"> en stuurt een 'input'-event mee.
+  // Sommige browsers verversen het zichtbare kleurvakje pas op dat event
+  // i.p.v. meteen bij het programmatisch zetten van .value.
+  function setColorInput(inputEl, hex) {
+    inputEl.value = hex;
+    inputEl.dispatchEvent(new Event('input', { bubbles: true }));
+  }
+
+  function saveSettings() {
+    localStorage.setItem(SETTINGS_KEY, JSON.stringify({
+      batchSize: state.batchSize,
+      paletteId: state.paletteId,
+      customBg: customBg.value,
+      customInks: [customInk1.value, customInk2.value, customInk3.value],
+      customName: customPaletteName.value,
+    }));
+  }
+
   function applyCustomPalette() {
     const bg = customBg.value;
     const inks = [customInk1.value, customInk2.value, customInk3.value];
@@ -183,6 +225,7 @@
     state.paletteId = id;
     renderContactSheet();
     renderCustomPalettePresetList();
+    saveSettings();
   }
 
   function renderCustomPalettePresetList() {
@@ -211,15 +254,16 @@
       const useBtn = document.createElement('button');
       useBtn.textContent = 'gebruik';
       useBtn.addEventListener('click', () => {
-        customBg.value = p.bg;
-        customInk1.value = p.inks[0] || p.bg;
-        customInk2.value = p.inks[1] || p.bg;
-        customInk3.value = p.inks[2] || p.bg;
+        setColorInput(customBg, p.bg);
+        setColorInput(customInk1, p.inks[0] || p.bg);
+        setColorInput(customInk2, p.inks[1] || p.bg);
+        setColorInput(customInk3, p.inks[2] || p.bg);
         customPaletteName.value = p.name;
         upsertPaletteOption(p);
         paletteSelect.value = p.id;
         state.paletteId = p.id;
         renderContactSheet();
+        saveSettings();
       });
       item.appendChild(useBtn);
 
@@ -234,6 +278,7 @@
           state.paletteId = PALETTES[0].id;
           paletteSelect.value = state.paletteId;
           renderContactSheet();
+          saveSettings();
         }
         renderCustomPalettePresetList();
       });
