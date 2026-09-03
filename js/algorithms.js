@@ -280,11 +280,12 @@ Algorithms.harmonograph = {
 };
 
 // ---------------------------------------------------------------------
-// 5. Verfspetters — onregelmatige blob-vormen met uitwaaierende druppels
-//    en optionele drips. Volledig vector, dus ook als SVG te exporteren.
-//    Alle "toevalligheid" (druppelposities, randjitter) wordt hier in
-//    generateParams al vastgelegd, zodat render() zelf puur/deterministisch
-//    blijft en dezelfde seed altijd exact dezelfde spetter oplevert.
+// 5. Verfspetters — Pollock-achtige "action painting": uitgeslingerde,
+//    aflopende verflijnen die het canvas doorkruisen, met verfplassen
+//    eronder en fijne spetters overal overheen. Volledig vector (elke
+//    lijn is een dichtgetekende, taps toelopende ribbon-polygon), dus
+//    ook als SVG te exporteren. Alle toeval zit in generateParams, zodat
+//    render() puur blijft en dezelfde seed altijd hetzelfde oplevert.
 // ---------------------------------------------------------------------
 Algorithms.splatter = {
   id: 'splatter',
@@ -293,34 +294,62 @@ Algorithms.splatter = {
 
   generateParams(seed, paletteId) {
     const rnd = RNG.rngFor(seed);
-    const blobCount = 4 + Math.floor(rnd() * 9);
+
+    // Grote verfplassen als onderlaag.
+    const blobCount = 3 + Math.floor(rnd() * 6);
     const blobs = [];
     for (let i = 0; i < blobCount; i++) {
-      const cx = 0.1 + rnd() * 0.8;
-      const cy = 0.1 + rnd() * 0.8;
-      const baseR = 0.025 + rnd() * 0.075;
+      const cx = rnd(), cy = rnd();
+      const baseR = 0.035 + rnd() * 0.1;
       const pointCount = 7 + Math.floor(rnd() * 6);
       const jitter = 0.3 + rnd() * 0.5;
       const rotation = rnd() * Math.PI * 2;
       const colorIdx = Math.floor(rnd() * 997);
       const edgeJitters = Array.from({ length: pointCount }, () => rnd());
+      blobs.push({ cx, cy, baseR, pointCount, jitter, rotation, colorIdx, edgeJitters });
+    }
 
-      const dropletCount = 8 + Math.floor(rnd() * 34);
-      const dropletSpread = 0.05 + rnd() * 0.22;
+    // Uitgeslingerde, taps toelopende verflijnen — het hoofdeffect.
+    const flingCount = 16 + Math.floor(rnd() * 18);
+    const flings = [];
+    for (let i = 0; i < flingCount; i++) {
+      const sx = rnd(), sy = rnd();
+      const angle = rnd() * Math.PI * 2;
+      const len = 0.4 + rnd() * 0.85;
+      const curve = (rnd() * 2 - 1) * 0.6;
+      const ex = sx + Math.cos(angle) * len;
+      const ey = sy + Math.sin(angle) * len;
+      const mx = (sx + ex) / 2, my = (sy + ey) / 2;
+      const perpAngle = angle + Math.PI / 2;
+      const ctrlX = mx + Math.cos(perpAngle) * curve * len;
+      const ctrlY = my + Math.sin(perpAngle) * curve * len;
+
+      const maxWidth = 0.007 + rnd() * 0.024;
+      const colorIdx = Math.floor(rnd() * 997);
+      const segments = 24;
+      const widthJitters = Array.from({ length: segments + 1 }, () => 0.55 + rnd() * 0.85);
+      const taperPow = 0.8 + rnd() * 1.6;
+
+      const dropletCount = Math.floor(rnd() * 9);
       const droplets = Array.from({ length: dropletCount }, () => ({
-        angle: rnd() * Math.PI * 2,
-        dist: Math.pow(rnd(), 1.7), // dichter bij de blob = meer druppels
-        size: 0.15 + rnd() * 0.85,
+        t: rnd() * 0.55,
+        side: rnd() < 0.5 ? -1 : 1,
+        dist: 0.006 + rnd() * 0.03,
+        size: 0.2 + rnd() * 0.8,
       }));
 
-      const hasDrip = rnd() < 0.3;
-      const dripLen = 0.06 + rnd() * 0.16;
-      const dripAngle = Math.PI / 2 + (rnd() * 0.7 - 0.35);
-      const dripWobble = rnd() * 0.4 - 0.2;
-
-      blobs.push({ cx, cy, baseR, pointCount, jitter, rotation, colorIdx, edgeJitters, droplets, dropletSpread, hasDrip, dripLen, dripAngle, dripWobble });
+      flings.push({ sx, sy, ctrlX, ctrlY, ex, ey, maxWidth, colorIdx, segments, widthJitters, taperPow, droplets });
     }
-    return { seed, blobs, paletteId };
+
+    // Losse fijne spetters, verspreid over het hele vlak.
+    const speckCount = 60 + Math.floor(rnd() * 100);
+    const specks = Array.from({ length: speckCount }, () => ({
+      x: rnd(), y: rnd(),
+      r: 0.0015 + rnd() * 0.009,
+      colorIdx: Math.floor(rnd() * 997),
+    }));
+
+    return { seed, blobs, flings, specks, paletteId };
   },
 
   render(painter, params, w, h) {
@@ -328,49 +357,69 @@ Algorithms.splatter = {
     painter.setBackground(palette.bg);
     const scale = Math.min(w, h);
 
+    // 1) Verfplassen als onderlaag.
     params.blobs.forEach(b => {
       const color = palette.inks[b.colorIdx % palette.inks.length];
       const cx = b.cx * w, cy = b.cy * h;
       const baseR = b.baseR * scale;
-
-      // Onregelmatige hoofdvorm.
       const pts = [];
       for (let i = 0; i < b.pointCount; i++) {
         const angle = (i / b.pointCount) * Math.PI * 2 + b.rotation;
         const rMul = 1 + (b.edgeJitters[i] * 2 - 1) * b.jitter;
-        const r = baseR * rMul;
-        pts.push([cx + Math.cos(angle) * r, cy + Math.sin(angle) * r]);
+        pts.push([cx + Math.cos(angle) * baseR * rMul, cy + Math.sin(angle) * baseR * rMul]);
       }
       painter.polygon(pts, { fill: color });
+    });
 
-      // Uitwaaierende druppels: dichtbij groter, verder weg kleiner en schaarser.
-      const maxDist = b.dropletSpread * scale;
-      b.droplets.forEach(d => {
-        const dist = d.dist * maxDist;
-        const dx = cx + Math.cos(d.angle) * dist;
-        const dy = cy + Math.sin(d.angle) * dist;
-        const falloff = 1 - d.dist;
-        const dr = baseR * 0.4 * d.size * falloff;
-        if (dr > 0.35) painter.circle(dx, dy, dr, { fill: color });
-      });
-
-      // Optionele drip die uit de blob naar beneden loopt.
-      if (b.hasDrip) {
-        const dripLenPx = b.dripLen * scale;
-        const steps = 5;
-        const dripPts = [];
-        for (let i = 0; i <= steps; i++) {
-          const t = i / steps;
-          const wobble = Math.sin(t * Math.PI * 2 + b.dripWobble * 10) * baseR * 0.15 * (1 - t);
-          dripPts.push([
-            cx + Math.cos(b.dripAngle) * dripLenPx * t + wobble,
-            cy + Math.sin(b.dripAngle) * dripLenPx * t,
-          ]);
-        }
-        painter.polyline(dripPts, { stroke: color, strokeWidth: baseR * 0.5, fill: 'none' });
-        const end = dripPts[dripPts.length - 1];
-        painter.circle(end[0], end[1], baseR * 0.22, { fill: color });
+    // 2) Uitgeslingerde lijnen: kwadratische bezier, getekend als een
+    //    dichtgetekende ribbon die van maxWidth taps toeloopt naar dun.
+    params.flings.forEach(f => {
+      const color = palette.inks[f.colorIdx % palette.inks.length];
+      const p0 = [f.sx * w, f.sy * h];
+      const p1 = [f.ctrlX * w, f.ctrlY * h];
+      const p2 = [f.ex * w, f.ey * h];
+      const pts = [];
+      for (let i = 0; i <= f.segments; i++) {
+        const t = i / f.segments, mt = 1 - t;
+        pts.push([
+          mt * mt * p0[0] + 2 * mt * t * p1[0] + t * t * p2[0],
+          mt * mt * p0[1] + 2 * mt * t * p1[1] + t * t * p2[1],
+        ]);
       }
+      const maxWidthPx = f.maxWidth * scale;
+      const left = [], right = [];
+      for (let i = 0; i <= f.segments; i++) {
+        const t = i / f.segments;
+        const prev = pts[Math.max(0, i - 1)];
+        const next = pts[Math.min(f.segments, i + 1)];
+        let dx = next[0] - prev[0], dy = next[1] - prev[1];
+        const len = Math.hypot(dx, dy) || 1;
+        const nx = -dy / len, ny = dx / len;
+        const width = maxWidthPx * Math.pow(1 - t, f.taperPow) * f.widthJitters[i];
+        left.push([pts[i][0] + nx * width / 2, pts[i][1] + ny * width / 2]);
+        right.push([pts[i][0] - nx * width / 2, pts[i][1] - ny * width / 2]);
+      }
+      painter.polygon(left.concat(right.reverse()), { fill: color });
+
+      // Druppels die van de lijn af spatten, vooral bij het dikke begin.
+      f.droplets.forEach(d => {
+        const idx = Math.min(f.segments, Math.floor(d.t * f.segments));
+        const base = pts[idx];
+        const nextP = pts[Math.min(f.segments, idx + 1)];
+        let dx = nextP[0] - base[0], dy = nextP[1] - base[1];
+        const len = Math.hypot(dx, dy) || 1;
+        const nx = -dy / len, ny = dx / len;
+        const distPx = d.dist * scale;
+        const dr = maxWidthPx * 0.6 * d.size;
+        if (dr > 0.35) painter.circle(base[0] + nx * distPx * d.side, base[1] + ny * distPx * d.side, dr, { fill: color });
+      });
+    });
+
+    // 3) Fijne spetters bovenop, over het hele vlak.
+    params.specks.forEach(s => {
+      const color = palette.inks[s.colorIdx % palette.inks.length];
+      const r = s.r * scale;
+      if (r > 0.3) painter.circle(s.x * w, s.y * h, r, { fill: color });
     });
   },
 };

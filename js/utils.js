@@ -69,5 +69,45 @@ const Utils = (() => {
       .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
   }
 
-  return { hexToRgb, rgbToHex, mixPaletteColor, runChunked, downloadSVGString, downloadCanvasPNG, slugify };
+  // Deterministische 2D value-noise: een seeded rooster van willekeurige
+  // waarden, glad geïnterpoleerd. Puur — dezelfde (x,y) geeft altijd
+  // dezelfde waarde terug, wat nodig is voor reproduceerbare contourlijnen.
+  function makeNoise2D(seed, latticeSize = 64) {
+    const rnd = RNG.rngFor(seed);
+    const lattice = new Float32Array(latticeSize * latticeSize);
+    for (let i = 0; i < lattice.length; i++) lattice[i] = rnd();
+    function latticeVal(xi, yi) {
+      const x = ((xi % latticeSize) + latticeSize) % latticeSize;
+      const y = ((yi % latticeSize) + latticeSize) % latticeSize;
+      return lattice[y * latticeSize + x];
+    }
+    function smooth(t) { return t * t * (3 - 2 * t); }
+    return function noise2D(x, y) {
+      const xi = Math.floor(x), yi = Math.floor(y);
+      const xf = x - xi, yf = y - yi;
+      const v00 = latticeVal(xi, yi), v10 = latticeVal(xi + 1, yi);
+      const v01 = latticeVal(xi, yi + 1), v11 = latticeVal(xi + 1, yi + 1);
+      const sx = smooth(xf), sy = smooth(yf);
+      const top = v00 + (v10 - v00) * sx;
+      const bot = v01 + (v11 - v01) * sx;
+      return top + (bot - top) * sy;
+    };
+  }
+
+  // Sommeert een paar octaven van dezelfde noise-functie op oplopende
+  // frequentie/afnemende amplitude voor een organischer, "terrein-achtig" reliëf.
+  function fractalNoise2D(noise2D, x, y, octaves) {
+    let total = 0, amp = 0.5, freq = 1, maxVal = 0;
+    for (let i = 0; i < octaves; i++) {
+      total += noise2D(x * freq, y * freq) * amp;
+      maxVal += amp;
+      amp *= 0.5; freq *= 2;
+    }
+    return total / maxVal;
+  }
+
+  return {
+    hexToRgb, rgbToHex, mixPaletteColor, runChunked, downloadSVGString, downloadCanvasPNG, slugify,
+    makeNoise2D, fractalNoise2D,
+  };
 })();

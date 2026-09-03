@@ -153,8 +153,11 @@ button:disabled { opacity: 0.5; cursor: default; }
 
 .contact-sheet {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  grid-template-columns: repeat(4, 1fr);
   gap: 12px;
+}
+@media (max-width: 640px) {
+  .contact-sheet { grid-template-columns: repeat(2, 1fr); }
 }
 
 .tile {

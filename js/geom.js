@@ -58,5 +58,33 @@ const Geom = (() => {
     return [cx / poly.length, cy / poly.length];
   }
 
-  return { clipPolygonByHalfPlane, clipToRect, voronoiCells, polygonCentroid };
+  // Marching squares voor één rastercel: gegeven de 4 hoekwaarden en een
+  // drempelniveau, levert dit 0, 1 of 2 lijnsegmenten op (de isolijn(en)
+  // door die cel). Werkt via randkruisingen i.p.v. de klassieke 16-gevallen
+  // opzoektabel: elke rand met hoekpunten aan weerszijden van het niveau
+  // levert een geïnterpoleerd kruispunt op, en die kruispunten worden
+  // paarsgewijs verbonden. Bij 4 kruisingen (zadelpunt) beslist het
+  // gemiddelde van de hoekwaarden welke twee paren bij elkaar horen.
+  function marchingSquaresCell(tl, tr, br, bl, level, x0, y0, x1, y1) {
+    function interp(v0, v1, p0, p1) {
+      const t = (level - v0) / (v1 - v0);
+      return [p0[0] + (p1[0] - p0[0]) * t, p0[1] + (p1[1] - p0[1]) * t];
+    }
+    const topPt = (tl < level) !== (tr < level) ? interp(tl, tr, [x0, y0], [x1, y0]) : null;
+    const rightPt = (tr < level) !== (br < level) ? interp(tr, br, [x1, y0], [x1, y1]) : null;
+    const bottomPt = (bl < level) !== (br < level) ? interp(bl, br, [x0, y1], [x1, y1]) : null;
+    const leftPt = (tl < level) !== (bl < level) ? interp(tl, bl, [x0, y0], [x0, y1]) : null;
+
+    const crossed = [topPt, rightPt, bottomPt, leftPt].filter(Boolean);
+    if (crossed.length === 2) return [[crossed[0], crossed[1]]];
+    if (crossed.length === 4) {
+      const avg = (tl + tr + br + bl) / 4;
+      return avg >= level
+        ? [[topPt, rightPt], [bottomPt, leftPt]]
+        : [[topPt, leftPt], [bottomPt, rightPt]];
+    }
+    return [];
+  }
+
+  return { clipPolygonByHalfPlane, clipToRect, voronoiCells, polygonCentroid, marchingSquaresCell };
 })();

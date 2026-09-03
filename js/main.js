@@ -15,7 +15,7 @@
   const state = {
     algoId: 'attractor',
     paletteId: SAVED.paletteId || PALETTES[0].id,
-    batchSize: SAVED.batchSize || 24,
+    batchSize: Math.max(4, Math.min(12, SAVED.batchSize || 12)),
     baseSeed: RNG.randomSeed(),
     seeds: [],
     favorites: loadFavorites(),
@@ -130,8 +130,17 @@
     triptychExportSize.value = 'a3-300';
 
     batchSizeInput.value = state.batchSize;
+    // 'input' vuurt op elke toetsaanslag, dus ook als de pagina ververst
+    // wordt vóórdat het veld de focus verliest (waar 'change' pas op wacht).
+    batchSizeInput.addEventListener('input', () => {
+      const parsed = parseInt(batchSizeInput.value, 10);
+      if (!isNaN(parsed)) {
+        state.batchSize = Math.max(4, Math.min(12, parsed));
+        saveSettings();
+      }
+    });
     batchSizeInput.addEventListener('change', () => {
-      state.batchSize = Math.max(4, Math.min(60, parseInt(batchSizeInput.value, 10) || 24));
+      state.batchSize = Math.max(4, Math.min(12, parseInt(batchSizeInput.value, 10) || 12));
       batchSizeInput.value = state.batchSize;
       generateBatch();
       saveSettings();
