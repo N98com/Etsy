@@ -43,14 +43,24 @@ function customPaletteId(bg, inks) {
   return 'custom-' + [bg, ...inks].map(c => c.replace('#', '')).join('-');
 }
 
-// Registreert (of hergebruikt) een eigen kleurstelling en geeft het id terug.
-function registerCustomPalette(bg, inks) {
+// Registreert (of hergebruikt) een eigen kleurstelling als preset en geeft
+// het id terug. Een optionele naam wordt ook op een bestaand preset gezet
+// (zo kun je een eerder opgeslagen combinatie alsnog een naam geven).
+function registerCustomPalette(bg, inks, name) {
   const id = customPaletteId(bg, inks);
+  const label = name && name.trim() ? name.trim() : null;
   if (!CUSTOM_PALETTES[id]) {
-    CUSTOM_PALETTES[id] = { id, name: 'Eigen kleuren', bg, inks, keywords: 'custom colorway', custom: true };
-    saveCustomPalettes();
+    CUSTOM_PALETTES[id] = { id, name: label || 'Eigen kleuren', bg, inks, keywords: 'custom colorway', custom: true };
+  } else if (label) {
+    CUSTOM_PALETTES[id].name = label;
   }
+  saveCustomPalettes();
   return id;
+}
+
+function deleteCustomPalette(id) {
+  delete CUSTOM_PALETTES[id];
+  saveCustomPalettes();
 }
 
 function getPalette(id) {

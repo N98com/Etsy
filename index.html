@@ -3,13 +3,13 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Generatieve Kunst Werkbank</title>
+  <title>Art Generator</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
   <div class="login-gate" id="loginGate" hidden>
     <form class="login-card" id="loginForm">
-      <h1>Generatieve Kunst Werkbank</h1>
+      <h1>Art Generator</h1>
       <p class="hint">Log in om de werkbank te openen.</p>
       <label for="loginEmail">E-mail</label>
       <input type="email" id="loginEmail" required autocomplete="username">
@@ -23,8 +23,7 @@
   <div id="appRoot" hidden>
   <header>
     <div>
-      <h1>Generatieve Kunst Werkbank</h1>
-      <p>Contactvel-principe: genereer varianten, markeer de blijvers, exporteer op printformaat. Één keer code, oneindig veel unieke output.</p>
+      <h1>Art Generator</h1>
     </div>
     <button id="logoutBtn" class="ghost">Uitloggen</button>
   </header>
@@ -45,7 +44,13 @@
             <label>Kleur 2<input type="color" id="customInk2" value="#9c6644"></label>
             <label>Kleur 3<input type="color" id="customInk3" value="#3d2b1f"></label>
           </div>
-          <button type="button" class="primary" id="customPaletteApplyBtn" style="width:100%; margin-top:8px;">Toepassen</button>
+          <label for="customPaletteName">Naam (optioneel)</label>
+          <input type="text" id="customPaletteName" placeholder="bijv. Herfstpalet">
+          <div class="row" style="margin-top:8px;">
+            <button type="button" id="customPaletteRandomBtn">🎲 Willekeurig</button>
+            <button type="button" class="primary" id="customPaletteApplyBtn">Opslaan &amp; toepassen</button>
+          </div>
+          <div class="preset-list" id="customPalettePresetList"></div>
         </div>
 
         <label for="batchSizeInput">Aantal varianten in contactvel</label>

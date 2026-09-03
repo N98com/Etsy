@@ -42,7 +42,10 @@
   const customInk1 = el('customInk1');
   const customInk2 = el('customInk2');
   const customInk3 = el('customInk3');
+  const customPaletteName = el('customPaletteName');
   const customPaletteApplyBtn = el('customPaletteApplyBtn');
+  const customPaletteRandomBtn = el('customPaletteRandomBtn');
+  const customPalettePresetList = el('customPalettePresetList');
 
   const modalBackdrop = el('modalBackdrop');
   const modalCanvasWrap = el('modalCanvasWrap');
@@ -81,14 +84,13 @@
       customPalettePanel.hidden = !customPalettePanel.hidden;
       customPaletteToggle.textContent = customPalettePanel.hidden ? '+ Eigen kleuren samenstellen' : '− Eigen kleuren verbergen';
     });
-    customPaletteApplyBtn.addEventListener('click', () => {
-      const bg = customBg.value;
-      const inks = [customInk1.value, customInk2.value, customInk3.value];
-      const id = registerCustomPalette(bg, inks);
-      if (!paletteSelect.querySelector(`option[value="${id}"]`)) addPaletteOption(getPalette(id));
-      paletteSelect.value = id;
-      state.paletteId = id;
-      renderContactSheet();
+    customPaletteApplyBtn.addEventListener('click', applyCustomPalette);
+    customPaletteRandomBtn.addEventListener('click', () => {
+      customBg.value = randomHexColor();
+      customInk1.value = randomHexColor();
+      customInk2.value = randomHexColor();
+      customInk3.value = randomHexColor();
+      applyCustomPalette();
     });
 
     EXPORT_SIZES.forEach(s => {
@@ -148,13 +150,97 @@
     generateBatch();
     renderFavorites();
     renderTriptych();
+    renderCustomPalettePresetList();
+  }
+
+  function paletteOptionLabel(palette) {
+    return palette.custom ? `🎨 ${palette.name}` : palette.name;
   }
 
   function addPaletteOption(palette) {
     const opt = document.createElement('option');
     opt.value = palette.id;
-    opt.textContent = palette.custom ? `Eigen kleuren (${palette.bg})` : palette.name;
+    opt.textContent = paletteOptionLabel(palette);
     paletteSelect.appendChild(opt);
+  }
+
+  function upsertPaletteOption(palette) {
+    const existing = paletteSelect.querySelector(`option[value="${palette.id}"]`);
+    if (existing) existing.textContent = paletteOptionLabel(palette);
+    else addPaletteOption(palette);
+  }
+
+  function randomHexColor() {
+    return '#' + Math.floor(Math.random() * 0xffffff).toString(16).padStart(6, '0');
+  }
+
+  function applyCustomPalette() {
+    const bg = customBg.value;
+    const inks = [customInk1.value, customInk2.value, customInk3.value];
+    const id = registerCustomPalette(bg, inks, customPaletteName.value);
+    upsertPaletteOption(getPalette(id));
+    paletteSelect.value = id;
+    state.paletteId = id;
+    renderContactSheet();
+    renderCustomPalettePresetList();
+  }
+
+  function renderCustomPalettePresetList() {
+    customPalettePresetList.innerHTML = '';
+    const presets = Object.values(CUSTOM_PALETTES);
+    if (presets.length === 0) return;
+    presets.forEach(p => {
+      const item = document.createElement('div');
+      item.className = 'preset-item';
+
+      const swatches = document.createElement('div');
+      swatches.className = 'preset-swatches';
+      [p.bg, ...p.inks].forEach(c => {
+        const sw = document.createElement('span');
+        sw.style.background = c;
+        swatches.appendChild(sw);
+      });
+      item.appendChild(swatches);
+
+      const name = document.createElement('span');
+      name.className = 'preset-name';
+      name.textContent = p.name;
+      name.title = p.name;
+      item.appendChild(name);
+
+      const useBtn = document.createElement('button');
+      useBtn.textContent = 'gebruik';
+      useBtn.addEventListener('click', () => {
+        customBg.value = p.bg;
+        customInk1.value = p.inks[0] || p.bg;
+        customInk2.value = p.inks[1] || p.bg;
+        customInk3.value = p.inks[2] || p.bg;
+        customPaletteName.value = p.name;
+        upsertPaletteOption(p);
+        paletteSelect.value = p.id;
+        state.paletteId = p.id;
+        renderContactSheet();
+      });
+      item.appendChild(useBtn);
+
+      const rmBtn = document.createElement('button');
+      rmBtn.innerHTML = '&#10005;';
+      rmBtn.title = 'Preset verwijderen';
+      rmBtn.addEventListener('click', () => {
+        deleteCustomPalette(p.id);
+        const opt = paletteSelect.querySelector(`option[value="${p.id}"]`);
+        if (opt) opt.remove();
+        if (state.paletteId === p.id) {
+          state.paletteId = PALETTES[0].id;
+          paletteSelect.value = state.paletteId;
+          renderContactSheet();
+        }
+        renderCustomPalettePresetList();
+      });
+      item.appendChild(rmBtn);
+
+      customPalettePresetList.appendChild(item);
+    });
   }
 
   function selectAlgo(id) {

@@ -35,24 +35,55 @@ header {
 header h1 { margin: 0 0 4px; font-size: 1.4rem; }
 header p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
 
+/* De login-overlay heeft een eigen, altijd-donker kleurenschema — los van
+   het (lichte) thema van de werkbank zelf erachter. */
 .login-gate {
+  --lg-bg: #14110d;
+  --lg-card: #201a14;
+  --lg-line: #3a3025;
+  --lg-ink: #f1e8d8;
+  --lg-ink-soft: #a89a86;
+  --lg-accent: #c98a52;
+  --lg-accent-hover: #dba06a;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  background: var(--lg-bg);
 }
 
 .login-card {
   width: 100%;
   max-width: 340px;
-  background: var(--panel);
-  border: 1px solid var(--line);
+  background: var(--lg-card);
+  border: 1px solid var(--lg-line);
   border-radius: var(--radius);
   padding: 24px;
+  color: var(--lg-ink);
 }
-.login-card h1 { font-size: 1.2rem; margin: 0 0 4px; }
-.login-error { color: var(--danger); font-size: 0.82rem; min-height: 1.1em; margin: 8px 0 0; }
+.login-card h1 { font-size: 1.2rem; margin: 0 0 4px; color: var(--lg-ink); }
+.login-card .hint { color: var(--lg-ink-soft); }
+.login-card label { color: var(--lg-ink-soft); }
+.login-card input[type="email"],
+.login-card input[type="password"] {
+  background: var(--lg-bg);
+  border: 1px solid var(--lg-line);
+  color: var(--lg-ink);
+}
+.login-card input[type="email"]:focus,
+.login-card input[type="password"]:focus {
+  outline: 2px solid var(--lg-accent);
+  outline-offset: 1px;
+}
+.login-card button.primary {
+  background: var(--lg-accent);
+  border-color: var(--lg-accent);
+  color: #14110d;
+  font-weight: 600;
+}
+.login-card button.primary:hover { background: var(--lg-accent-hover); }
+.login-error { color: #e2836d; font-size: 0.82rem; min-height: 1.1em; margin: 8px 0 0; }
 
 .custom-palette-panel { margin-top: 8px; padding: 10px; background: var(--accent-soft); border-radius: 8px; }
 .swatch-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
@@ -61,6 +92,14 @@ header p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
   width: 100%; height: 32px; padding: 2px;
   border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer;
 }
+
+.preset-list { display: flex; flex-direction: column; gap: 3px; margin-top: 10px; max-height: 180px; overflow-y: auto; }
+.preset-item { display: flex; align-items: center; gap: 6px; font-size: 0.74rem; padding: 4px; border-radius: 5px; }
+.preset-item:hover { background: rgba(255,255,255,0.6); }
+.preset-swatches { display: flex; flex-shrink: 0; }
+.preset-swatches span { width: 14px; height: 14px; display: inline-block; border: 1px solid rgba(0,0,0,0.15); margin-right: -5px; border-radius: 2px; }
+.preset-item .preset-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.preset-item button { padding: 2px 6px; font-size: 0.68rem; }
 
 main {
   display: grid;
@@ -91,7 +130,7 @@ h2 { font-size: 0.95rem; margin: 0 0 10px; text-transform: uppercase; letter-spa
 label { display: block; font-size: 0.82rem; color: var(--ink-soft); margin: 10px 0 4px; }
 label:first-child { margin-top: 0; }
 
-select, input[type="text"], input[type="number"], input[type="date"] {
+select, input[type="text"], input[type="number"], input[type="date"], input[type="email"], input[type="password"] {
   width: 100%;
   padding: 7px 8px;
   border: 1px solid var(--line);

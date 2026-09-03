@@ -1,4 +1,4 @@
-# Generatieve Kunst Werkbank
+# Art Generator
 
 Een lokale, standalone tool (geen server, geen build-stap, geen dependencies)
 om generatieve kunst te produceren voor digitale/print-Etsy-listings.
