@@ -1,0 +1,73 @@
+// Kleine hulpfuncties gedeeld door de rest van de app.
+const Utils = (() => {
+  function hexToRgb(hex) {
+    const h = hex.replace('#', '');
+    const full = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const num = parseInt(full, 16);
+    return { r: (num >> 16) & 255, g: (num >> 8) & 255, b: num & 255 };
+  }
+
+  function rgbToHex(r, g, b) {
+    const c = v => Math.max(0, Math.min(255, Math.round(v))).toString(16).padStart(2, '0');
+    return `#${c(r)}${c(g)}${c(b)}`;
+  }
+
+  // Interpoleert tussen een lijst hexkleuren op positie t (0..1).
+  function mixPaletteColor(hexList, t) {
+    if (hexList.length === 1) return hexList[0];
+    const clamped = Math.max(0, Math.min(0.9999, t));
+    const scaled = clamped * (hexList.length - 1);
+    const i = Math.floor(scaled);
+    const frac = scaled - i;
+    const a = hexToRgb(hexList[i]);
+    const b = hexToRgb(hexList[i + 1]);
+    return rgbToHex(
+      a.r + (b.r - a.r) * frac,
+      a.g + (b.g - a.g) * frac,
+      a.b + (b.b - a.b) * frac
+    );
+  }
+
+  // Voert een groot aantal items uit in kleine batches, met een adempauze
+  // tussen batches zodat de browser-tab niet vastloopt (nuttig bij het
+  // opbouwen van een contactvel met 24+ renders).
+  function runChunked(total, batchSize, work, onDone) {
+    let i = 0;
+    function step() {
+      const end = Math.min(total, i + batchSize);
+      for (; i < end; i++) work(i);
+      if (i < total) {
+        setTimeout(step, 0);
+      } else if (onDone) {
+        onDone();
+      }
+    }
+    step();
+  }
+
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 4000);
+  }
+
+  function downloadSVGString(svgStr, filename) {
+    downloadBlob(new Blob([svgStr], { type: 'image/svg+xml' }), filename);
+  }
+
+  function downloadCanvasPNG(canvas, filename) {
+    canvas.toBlob(blob => downloadBlob(blob, filename), 'image/png');
+  }
+
+  function slugify(str) {
+    return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
+      .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  }
+
+  return { hexToRgb, rgbToHex, mixPaletteColor, runChunked, downloadSVGString, downloadCanvasPNG, slugify };
+})();

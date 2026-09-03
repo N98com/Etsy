@@ -1,0 +1,117 @@
+<!doctype html>
+<html lang="nl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Generatieve Kunst Werkbank</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Generatieve Kunst Werkbank</h1>
+    <p>Contactvel-principe: genereer varianten, markeer de blijvers, exporteer op printformaat. Één keer code, oneindig veel unieke output.</p>
+  </header>
+
+  <main>
+    <aside class="sidebar">
+      <div class="panel">
+        <h2>Algoritme</h2>
+        <div class="algo-tabs" id="algoTabs"></div>
+
+        <label for="paletteSelect">Kleurstelling (interieurstijl)</label>
+        <select id="paletteSelect"></select>
+
+        <label for="batchSizeInput">Aantal varianten in contactvel</label>
+        <input type="number" id="batchSizeInput" min="4" max="60" value="24">
+
+        <div class="row" style="margin-top:12px;">
+          <button class="primary" id="regenerateBtn">Nieuwe variant</button>
+        </div>
+        <label for="seedBaseInput">Basis-seed van dit contactvel</label>
+        <input type="text" id="seedBaseInput" readonly>
+      </div>
+
+      <div class="panel">
+        <h2>Personaliseren op seed</h2>
+        <p class="hint">Een geboortedatum, naam of coördinaten wordt de seed van een uniek, reproduceerbaar ontwerp — perfect voor made-to-order.</p>
+        <label for="personDate">Datum</label>
+        <input type="date" id="personDate">
+        <label for="personName">Naam</label>
+        <input type="text" id="personName" placeholder="bijv. Anna &amp; Tom">
+        <label for="personCoords">Coördinaten</label>
+        <input type="text" id="personCoords" placeholder="bijv. 52.3676, 4.9041">
+        <div class="row" style="margin-top:10px;">
+          <button id="personGenerateBtn">Genereer seed</button>
+        </div>
+        <p class="hint" id="personSeedDisplay"></p>
+        <button id="personOpenBtn" class="primary" disabled style="width:100%;">Open groot voorbeeld</button>
+      </div>
+
+      <div class="panel">
+        <h2>Favorieten</h2>
+        <div class="fav-list" id="favList"></div>
+      </div>
+
+      <div class="panel">
+        <h2>Triptiek-bouwer</h2>
+        <p class="hint">Drie seeds uit dezelfde familie naast elkaar — verkoopt beter dan losse prints.</p>
+        <div class="triptych-row">
+          <div class="triptych-slot" id="triptychSlot0">Slot 1 — leeg</div>
+          <div class="triptych-slot" id="triptychSlot1">Slot 2 — leeg</div>
+          <div class="triptych-slot" id="triptychSlot2">Slot 3 — leeg</div>
+        </div>
+        <label for="triptychExportSize">Exportformaat</label>
+        <select id="triptychExportSize"></select>
+        <button class="primary" id="triptychExportBtn" style="width:100%; margin-top:8px;" disabled>Exporteer triptiek (3 bestanden)</button>
+      </div>
+    </aside>
+
+    <section>
+      <div class="status-line" id="statusLine"></div>
+      <div class="contact-sheet" id="contactSheet"></div>
+    </section>
+  </main>
+
+  <footer>
+    Werkbank draait volledig lokaal in de browser — niets wordt geüpload. Ruwe render → kies de beste 5% → finetune kleur in Photoshop/Affinity → exporteer op printresolutie.
+  </footer>
+
+  <div class="modal-backdrop hidden" id="modalBackdrop">
+    <div class="modal">
+      <button class="modal-close ghost" id="modalCloseBtn">✕ sluiten</button>
+      <div class="modal-preview" id="modalCanvasWrap"></div>
+      <div class="modal-side">
+        <h3 id="modalTitle"></h3>
+        <label for="modalSeedInput">Seed</label>
+        <input type="text" id="modalSeedInput">
+        <p class="hint">Palet: <span id="modalPaletteLabel"></span></p>
+        <div class="keywords" id="modalKeywords"></div>
+
+        <label for="modalExportSize" style="margin-top:14px;">Exportformaat</label>
+        <select id="modalExportSize"></select>
+        <div class="row" style="margin-top:8px;">
+          <button class="primary" id="modalExportSVGBtn">Exporteer SVG</button>
+          <button id="modalExportPNGBtn">Exporteer PNG</button>
+        </div>
+        <p class="hint" id="modalStatus"></p>
+
+        <div class="row" style="margin-top:14px;">
+          <button id="modalStarBtn">☆ Markeer als favoriet</button>
+        </div>
+        <div class="row" style="margin-top:8px;">
+          <button id="modalTriptychBtn">→ Voeg toe aan triptiek</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/utils.js"></script>
+  <script src="js/rng.js"></script>
+  <script src="js/palettes.js"></script>
+  <script src="js/geom.js"></script>
+  <script src="js/painters.js"></script>
+  <script src="js/algorithms.js"></script>
+  <script src="js/export.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
