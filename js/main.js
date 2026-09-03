@@ -21,6 +21,9 @@
     favorites: loadFavorites(),
     triptych: [null, null, null],
     modal: null, // { algoId, seed, paletteId }
+    customInks: (Array.isArray(SAVED.customInks) && SAVED.customInks.length)
+      ? SAVED.customInks.slice(0, 6)
+      : ['#7f5539', '#9c6644', '#3d2b1f'],
   };
 
   // ---- DOM refs ----
@@ -44,10 +47,9 @@
   const personOpenBtn = el('personOpenBtn');
   const customPaletteToggle = el('customPaletteToggle');
   const customPalettePanel = el('customPalettePanel');
+  const customSwatchRow = el('customSwatchRow');
   const customBg = el('customBg');
-  const customInk1 = el('customInk1');
-  const customInk2 = el('customInk2');
-  const customInk3 = el('customInk3');
+  const customInkAddBtn = el('customInkAddBtn');
   const customPaletteName = el('customPaletteName');
   const customPaletteApplyBtn = el('customPaletteApplyBtn');
   const customPaletteRandomBtn = el('customPaletteRandomBtn');
@@ -93,12 +95,8 @@
     // Onthouden invoer terugzetten: laatst ingevulde eigen kleuren (ook als
     // die nooit op "Toepassen" zijn bevestigd).
     if (SAVED.customBg) customBg.value = SAVED.customBg;
-    if (Array.isArray(SAVED.customInks)) {
-      if (SAVED.customInks[0]) customInk1.value = SAVED.customInks[0];
-      if (SAVED.customInks[1]) customInk2.value = SAVED.customInks[1];
-      if (SAVED.customInks[2]) customInk3.value = SAVED.customInks[2];
-    }
     if (SAVED.customName) customPaletteName.value = SAVED.customName;
+    renderCustomInkSwatches();
 
     customPaletteToggle.addEventListener('click', () => {
       customPalettePanel.hidden = !customPalettePanel.hidden;
@@ -107,12 +105,17 @@
     customPaletteApplyBtn.addEventListener('click', applyCustomPalette);
     customPaletteRandomBtn.addEventListener('click', () => {
       setColorInput(customBg, randomHexColor());
-      setColorInput(customInk1, randomHexColor());
-      setColorInput(customInk2, randomHexColor());
-      setColorInput(customInk3, randomHexColor());
+      state.customInks = state.customInks.map(() => randomHexColor());
+      renderCustomInkSwatches();
       applyCustomPalette();
     });
-    [customBg, customInk1, customInk2, customInk3, customPaletteName].forEach(field => {
+    customInkAddBtn.addEventListener('click', () => {
+      if (state.customInks.length >= 6) return;
+      state.customInks.push(randomHexColor());
+      renderCustomInkSwatches();
+      saveSettings();
+    });
+    [customBg, customPaletteName].forEach(field => {
       field.addEventListener('input', saveSettings);
     });
 
@@ -211,14 +214,58 @@
       batchSize: state.batchSize,
       paletteId: state.paletteId,
       customBg: customBg.value,
-      customInks: [customInk1.value, customInk2.value, customInk3.value],
+      customInks: state.customInks,
       customName: customPaletteName.value,
     }));
   }
 
+  // Bouwt de rij kleurvakjes voor de "eigen kleuren"-inkten opnieuw op vanuit
+  // state.customInks — enige bron van waarheid, dus geen losse DOM-state om
+  // uit sync te raken. Achtergrond-vakje staat er los van en blijft staan.
+  function renderCustomInkSwatches() {
+    customSwatchRow.querySelectorAll('.swatch-cell.ink').forEach(elm => elm.remove());
+    state.customInks.forEach((hex, i) => {
+      const cell = document.createElement('div');
+      cell.className = 'swatch-cell ink';
+
+      const head = document.createElement('div');
+      head.className = 'swatch-cell-head';
+      const label = document.createElement('span');
+      label.textContent = `Kleur ${i + 1}`;
+      head.appendChild(label);
+      if (state.customInks.length > 1) {
+        const rm = document.createElement('button');
+        rm.type = 'button';
+        rm.className = 'swatch-remove';
+        rm.textContent = '✕';
+        rm.title = 'Kleur verwijderen';
+        rm.addEventListener('click', () => {
+          state.customInks.splice(i, 1);
+          renderCustomInkSwatches();
+          saveSettings();
+        });
+        head.appendChild(rm);
+      }
+      cell.appendChild(head);
+
+      const input = document.createElement('input');
+      input.type = 'color';
+      input.value = hex;
+      input.setAttribute('aria-label', `Kleur ${i + 1}`);
+      input.addEventListener('input', () => {
+        state.customInks[i] = input.value;
+        saveSettings();
+      });
+      cell.appendChild(input);
+
+      customSwatchRow.appendChild(cell);
+    });
+    customInkAddBtn.disabled = state.customInks.length >= 6;
+  }
+
   function applyCustomPalette() {
     const bg = customBg.value;
-    const inks = [customInk1.value, customInk2.value, customInk3.value];
+    const inks = state.customInks.slice();
     const id = registerCustomPalette(bg, inks, customPaletteName.value);
     upsertPaletteOption(getPalette(id));
     paletteSelect.value = id;
@@ -255,9 +302,8 @@
       useBtn.textContent = 'gebruik';
       useBtn.addEventListener('click', () => {
         setColorInput(customBg, p.bg);
-        setColorInput(customInk1, p.inks[0] || p.bg);
-        setColorInput(customInk2, p.inks[1] || p.bg);
-        setColorInput(customInk3, p.inks[2] || p.bg);
+        state.customInks = p.inks.length ? p.inks.slice(0, 6) : [p.bg];
+        renderCustomInkSwatches();
         customPaletteName.value = p.name;
         upsertPaletteOption(p);
         paletteSelect.value = p.id;

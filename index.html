@@ -38,12 +38,13 @@
         <select id="paletteSelect"></select>
         <button type="button" id="customPaletteToggle" class="ghost" style="width:100%; margin-top:6px; text-align:left; padding-left:0;">+ Eigen kleuren samenstellen</button>
         <div id="customPalettePanel" class="custom-palette-panel" hidden>
-          <div class="swatch-row">
-            <label>Achtergrond<input type="color" id="customBg" value="#f4ede4"></label>
-            <label>Kleur 1<input type="color" id="customInk1" value="#7f5539"></label>
-            <label>Kleur 2<input type="color" id="customInk2" value="#9c6644"></label>
-            <label>Kleur 3<input type="color" id="customInk3" value="#3d2b1f"></label>
+          <div class="swatch-row" id="customSwatchRow">
+            <div class="swatch-cell">
+              <div class="swatch-cell-head"><span>Achtergrond</span></div>
+              <input type="color" id="customBg" value="#f4ede4">
+            </div>
           </div>
+          <button type="button" id="customInkAddBtn" class="ghost" style="width:100%; margin-top:6px;">+ Kleur toevoegen</button>
           <label for="customPaletteName">Naam (optioneel)</label>
           <input type="text" id="customPaletteName" placeholder="bijv. Herfstpalet">
           <div class="row" style="margin-top:8px;">

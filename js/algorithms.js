@@ -279,4 +279,100 @@ Algorithms.harmonograph = {
   },
 };
 
-const ALGORITHM_LIST = [Algorithms.attractor, Algorithms.phyllotaxis, Algorithms.voronoi, Algorithms.harmonograph];
+// ---------------------------------------------------------------------
+// 5. Verfspetters — onregelmatige blob-vormen met uitwaaierende druppels
+//    en optionele drips. Volledig vector, dus ook als SVG te exporteren.
+//    Alle "toevalligheid" (druppelposities, randjitter) wordt hier in
+//    generateParams al vastgelegd, zodat render() zelf puur/deterministisch
+//    blijft en dezelfde seed altijd exact dezelfde spetter oplevert.
+// ---------------------------------------------------------------------
+Algorithms.splatter = {
+  id: 'splatter',
+  label: 'Verfspetters',
+  vector: true,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const blobCount = 4 + Math.floor(rnd() * 9);
+    const blobs = [];
+    for (let i = 0; i < blobCount; i++) {
+      const cx = 0.1 + rnd() * 0.8;
+      const cy = 0.1 + rnd() * 0.8;
+      const baseR = 0.025 + rnd() * 0.075;
+      const pointCount = 7 + Math.floor(rnd() * 6);
+      const jitter = 0.3 + rnd() * 0.5;
+      const rotation = rnd() * Math.PI * 2;
+      const colorIdx = Math.floor(rnd() * 997);
+      const edgeJitters = Array.from({ length: pointCount }, () => rnd());
+
+      const dropletCount = 8 + Math.floor(rnd() * 34);
+      const dropletSpread = 0.05 + rnd() * 0.22;
+      const droplets = Array.from({ length: dropletCount }, () => ({
+        angle: rnd() * Math.PI * 2,
+        dist: Math.pow(rnd(), 1.7), // dichter bij de blob = meer druppels
+        size: 0.15 + rnd() * 0.85,
+      }));
+
+      const hasDrip = rnd() < 0.3;
+      const dripLen = 0.06 + rnd() * 0.16;
+      const dripAngle = Math.PI / 2 + (rnd() * 0.7 - 0.35);
+      const dripWobble = rnd() * 0.4 - 0.2;
+
+      blobs.push({ cx, cy, baseR, pointCount, jitter, rotation, colorIdx, edgeJitters, droplets, dropletSpread, hasDrip, dripLen, dripAngle, dripWobble });
+    }
+    return { seed, blobs, paletteId };
+  },
+
+  render(painter, params, w, h) {
+    const palette = getPalette(params.paletteId);
+    painter.setBackground(palette.bg);
+    const scale = Math.min(w, h);
+
+    params.blobs.forEach(b => {
+      const color = palette.inks[b.colorIdx % palette.inks.length];
+      const cx = b.cx * w, cy = b.cy * h;
+      const baseR = b.baseR * scale;
+
+      // Onregelmatige hoofdvorm.
+      const pts = [];
+      for (let i = 0; i < b.pointCount; i++) {
+        const angle = (i / b.pointCount) * Math.PI * 2 + b.rotation;
+        const rMul = 1 + (b.edgeJitters[i] * 2 - 1) * b.jitter;
+        const r = baseR * rMul;
+        pts.push([cx + Math.cos(angle) * r, cy + Math.sin(angle) * r]);
+      }
+      painter.polygon(pts, { fill: color });
+
+      // Uitwaaierende druppels: dichtbij groter, verder weg kleiner en schaarser.
+      const maxDist = b.dropletSpread * scale;
+      b.droplets.forEach(d => {
+        const dist = d.dist * maxDist;
+        const dx = cx + Math.cos(d.angle) * dist;
+        const dy = cy + Math.sin(d.angle) * dist;
+        const falloff = 1 - d.dist;
+        const dr = baseR * 0.4 * d.size * falloff;
+        if (dr > 0.35) painter.circle(dx, dy, dr, { fill: color });
+      });
+
+      // Optionele drip die uit de blob naar beneden loopt.
+      if (b.hasDrip) {
+        const dripLenPx = b.dripLen * scale;
+        const steps = 5;
+        const dripPts = [];
+        for (let i = 0; i <= steps; i++) {
+          const t = i / steps;
+          const wobble = Math.sin(t * Math.PI * 2 + b.dripWobble * 10) * baseR * 0.15 * (1 - t);
+          dripPts.push([
+            cx + Math.cos(b.dripAngle) * dripLenPx * t + wobble,
+            cy + Math.sin(b.dripAngle) * dripLenPx * t,
+          ]);
+        }
+        painter.polyline(dripPts, { stroke: color, strokeWidth: baseR * 0.5, fill: 'none' });
+        const end = dripPts[dripPts.length - 1];
+        painter.circle(end[0], end[1], baseR * 0.22, { fill: color });
+      }
+    });
+  },
+};
+
+const ALGORITHM_LIST = [Algorithms.attractor, Algorithms.phyllotaxis, Algorithms.voronoi, Algorithms.harmonograph, Algorithms.splatter];
