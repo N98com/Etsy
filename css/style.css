@@ -1,12 +1,14 @@
 :root {
-  --bg: #faf7f2;
-  --panel: #ffffff;
-  --ink: #2c2620;
-  --ink-soft: #6b6156;
-  --line: #e4dcd0;
-  --accent: #9c6644;
-  --accent-soft: #efe6da;
-  --danger: #a4432f;
+  --bg: #14110d;
+  --panel: #201a14;
+  --ink: #f1e8d8;
+  --ink-soft: #a89a86;
+  --line: #3a3025;
+  --accent: #c98a52;
+  --accent-hover: #dba06a;
+  --accent-soft: #2b2118;
+  --accent-text: #14110d;
+  --danger: #e2836d;
   --radius: 10px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
@@ -35,69 +37,45 @@ header {
 header h1 { margin: 0 0 4px; font-size: 1.4rem; }
 header p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
 
-/* De login-overlay heeft een eigen, altijd-donker kleurenschema — los van
-   het (lichte) thema van de werkbank zelf erachter. */
 .login-gate {
-  --lg-bg: #14110d;
-  --lg-card: #201a14;
-  --lg-line: #3a3025;
-  --lg-ink: #f1e8d8;
-  --lg-ink-soft: #a89a86;
-  --lg-accent: #c98a52;
-  --lg-accent-hover: #dba06a;
   min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  background: var(--lg-bg);
+  background: var(--bg);
 }
 
 .login-card {
   width: 100%;
   max-width: 340px;
-  background: var(--lg-card);
-  border: 1px solid var(--lg-line);
+  background: var(--panel);
+  border: 1px solid var(--line);
   border-radius: var(--radius);
   padding: 24px;
-  color: var(--lg-ink);
+  color: var(--ink);
 }
-.login-card h1 { font-size: 1.2rem; margin: 0 0 4px; color: var(--lg-ink); }
-.login-card .hint { color: var(--lg-ink-soft); }
-.login-card label { color: var(--lg-ink-soft); }
-.login-card input[type="email"],
-.login-card input[type="password"] {
-  background: var(--lg-bg);
-  border: 1px solid var(--lg-line);
-  color: var(--lg-ink);
-}
+.login-card h1 { font-size: 1.2rem; margin: 0 0 4px; }
 .login-card input[type="email"]:focus,
 .login-card input[type="password"]:focus {
-  outline: 2px solid var(--lg-accent);
+  outline: 2px solid var(--accent);
   outline-offset: 1px;
 }
-.login-card button.primary {
-  background: var(--lg-accent);
-  border-color: var(--lg-accent);
-  color: #14110d;
-  font-weight: 600;
-}
-.login-card button.primary:hover { background: var(--lg-accent-hover); }
-.login-error { color: #e2836d; font-size: 0.82rem; min-height: 1.1em; margin: 8px 0 0; }
+.login-error { color: var(--danger); font-size: 0.82rem; min-height: 1.1em; margin: 8px 0 0; }
 
 .custom-palette-panel { margin-top: 8px; padding: 10px; background: var(--accent-soft); border-radius: 8px; }
 .swatch-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
 .swatch-row label { font-size: 0.68rem; margin: 0; text-align: center; }
 .swatch-row input[type="color"] {
   width: 100%; height: 32px; padding: 2px;
-  border: 1px solid var(--line); border-radius: 6px; background: #fff; cursor: pointer;
+  border: 1px solid var(--line); border-radius: 6px; background: var(--panel); cursor: pointer;
 }
 
 .preset-list { display: flex; flex-direction: column; gap: 3px; margin-top: 10px; max-height: 180px; overflow-y: auto; }
 .preset-item { display: flex; align-items: center; gap: 6px; font-size: 0.74rem; padding: 4px; border-radius: 5px; }
-.preset-item:hover { background: rgba(255,255,255,0.6); }
+.preset-item:hover { background: rgba(255,255,255,0.06); }
 .preset-swatches { display: flex; flex-shrink: 0; }
-.preset-swatches span { width: 14px; height: 14px; display: inline-block; border: 1px solid rgba(0,0,0,0.15); margin-right: -5px; border-radius: 2px; }
+.preset-swatches span { width: 14px; height: 14px; display: inline-block; border: 1px solid rgba(255,255,255,0.2); margin-right: -5px; border-radius: 2px; }
 .preset-item .preset-name { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .preset-item button { padding: 2px 6px; font-size: 0.68rem; }
 
@@ -135,10 +113,13 @@ select, input[type="text"], input[type="number"], input[type="date"], input[type
   padding: 7px 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: #fff;
+  background: var(--bg);
   color: var(--ink);
   font-size: 0.88rem;
 }
+input::placeholder { color: var(--ink-soft); opacity: 0.7; }
+/* Date/color pickers render a dark-on-dark native icon otherwise. */
+input[type="date"]::-webkit-calendar-picker-indicator { filter: invert(0.8); }
 
 button {
   cursor: pointer;
@@ -150,9 +131,9 @@ button {
   font-size: 0.85rem;
   transition: background 0.15s;
 }
-button:hover { background: #e5d6c2; }
-button.primary { background: var(--accent); color: #fff; border-color: var(--accent); }
-button.primary:hover { background: #7f5539; }
+button:hover { background: #382c1e; }
+button.primary { background: var(--accent); color: var(--accent-text); font-weight: 600; border-color: var(--accent); }
+button.primary:hover { background: var(--accent-hover); }
 button.ghost { background: transparent; }
 button:disabled { opacity: 0.5; cursor: default; }
 
@@ -161,7 +142,7 @@ button:disabled { opacity: 0.5; cursor: default; }
 
 .algo-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
 .algo-tabs button { flex: 1 1 45%; }
-.algo-tabs button.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+.algo-tabs button.active { background: var(--accent); color: var(--accent-text); font-weight: 600; border-color: var(--accent); }
 
 .contact-sheet {
   display: grid;
@@ -174,19 +155,19 @@ button:disabled { opacity: 0.5; cursor: default; }
   border: 1px solid var(--line);
   border-radius: 8px;
   overflow: hidden;
-  background: #fff;
+  background: var(--panel);
   cursor: pointer;
 }
 .tile canvas { display: block; width: 100%; height: auto; }
 .tile .label {
   position: absolute; bottom: 0; left: 0; right: 0;
   font-size: 0.68rem; padding: 3px 6px;
-  background: rgba(255,255,255,0.82); color: var(--ink-soft);
+  background: rgba(20,17,13,0.82); color: var(--ink-soft);
   display: flex; justify-content: space-between;
 }
 .tile .star {
   position: absolute; top: 4px; right: 4px;
-  background: rgba(255,255,255,0.85);
+  background: rgba(20,17,13,0.85);
   border-radius: 50%; width: 24px; height: 24px;
   display: flex; align-items: center; justify-content: center;
   font-size: 0.95rem; border: 1px solid var(--line);
@@ -205,20 +186,20 @@ button:disabled { opacity: 0.5; cursor: default; }
 .fav-item button { padding: 3px 6px; font-size: 0.7rem; }
 
 .triptych-row { display: flex; gap: 10px; margin: 10px 0; }
-.triptych-slot { flex: 1; aspect-ratio: 1; border: 1px dashed var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 0.72rem; overflow: hidden; background: #fff; }
+.triptych-slot { flex: 1; aspect-ratio: 1; border: 1px dashed var(--line); border-radius: 8px; display: flex; align-items: center; justify-content: center; color: var(--ink-soft); font-size: 0.72rem; overflow: hidden; background: var(--panel); }
 .triptych-slot canvas { width: 100%; height: 100%; object-fit: cover; }
 
 .modal-backdrop {
-  position: fixed; inset: 0; background: rgba(30,24,18,0.55);
+  position: fixed; inset: 0; background: rgba(6,5,3,0.7);
   display: flex; align-items: center; justify-content: center; padding: 20px; z-index: 50;
 }
 .modal-backdrop.hidden { display: none; }
 .modal {
-  background: var(--panel); border-radius: 12px; max-width: 960px; width: 100%;
+  background: var(--panel); border: 1px solid var(--line); border-radius: 12px; max-width: 960px; width: 100%;
   max-height: 92vh; overflow: auto; padding: 20px; display: grid; grid-template-columns: 1fr 300px; gap: 20px;
 }
 @media (max-width: 760px) { .modal { grid-template-columns: 1fr; } }
-.modal-preview { display: flex; align-items: center; justify-content: center; background: #f2ede5; border-radius: 8px; }
+.modal-preview { display: flex; align-items: center; justify-content: center; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; }
 .modal-preview canvas { max-width: 100%; max-height: 70vh; border-radius: 6px; }
 .modal-close { position: absolute; top: 14px; right: 14px; }
 .modal-side h3 { margin-top: 0; font-size: 1rem; }
