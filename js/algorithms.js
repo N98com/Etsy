@@ -14,7 +14,8 @@ Algorithms.attractor = {
 
   generateParams(seed, paletteId) {
     const rnd = RNG.rngFor(seed);
-    const type = rnd() < 0.5 ? 'clifford' : 'dejong';
+    const roll = rnd();
+    const type = roll < 0.3 ? 'clifford' : roll < 0.6 ? 'dejong' : roll < 0.8 ? 'hopalong' : 'symmetric';
     const range = 3;
     const a = (rnd() * 2 - 1) * range;
     const b = (rnd() * 2 - 1) * range;
@@ -25,9 +26,22 @@ Algorithms.attractor = {
 
   renderToCanvas(ctx, params, w, h, opts = {}) {
     const { type, a, b, c, d } = params;
-    const step = type === 'clifford'
-      ? (x, y) => [Math.sin(a * y) + c * Math.cos(a * x), Math.sin(b * x) + d * Math.cos(b * y)]
-      : (x, y) => [Math.sin(a * y) - Math.cos(b * x), Math.sin(c * x) - Math.cos(d * y)];
+    let step;
+    if (type === 'clifford') {
+      step = (x, y) => [Math.sin(a * y) + c * Math.cos(a * x), Math.sin(b * x) + d * Math.cos(b * y)];
+    } else if (type === 'dejong') {
+      step = (x, y) => [Math.sin(a * y) - Math.cos(b * x), Math.sin(c * x) - Math.cos(d * y)];
+    } else if (type === 'hopalong') {
+      // Hopalong / Martin-kaart: eenvoudig maar geeft heel andere, meer
+      // "gelaagde waaier"-achtige vormen dan Clifford/De Jong.
+      const hb = b * 0.6;
+      step = (x, y) => [y - Math.sign(x) * Math.sqrt(Math.abs(hb * x - c)), a - x];
+    } else {
+      // Symmetrische kaart: zelfde frequentie in beide assen, dus x<->y
+      // symmetrisch chaotisch gedrag.
+      const sb = b / 2.6;
+      step = (x, y) => [Math.sin(a * y) - sb * x, Math.sin(a * x) - sb * y];
+    }
 
     const burnIn = 50;
 
@@ -424,4 +438,338 @@ Algorithms.splatter = {
   },
 };
 
-const ALGORITHM_LIST = [Algorithms.attractor, Algorithms.phyllotaxis, Algorithms.voronoi, Algorithms.harmonograph, Algorithms.splatter];
+// ---------------------------------------------------------------------
+// 6. 10 PRINT — willekeurige diagonalen in een raster. Naadloos, en
+//    verrassend rijk op groot formaat.
+// ---------------------------------------------------------------------
+Algorithms.tenprint = {
+  id: 'tenprint',
+  label: '10 PRINT',
+  vector: true,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const cols = 16 + Math.floor(rnd() * 26);
+    const cells = Array.from({ length: cols * cols }, () => ({
+      flip: rnd() < 0.5,
+      colorIdx: Math.floor(rnd() * 997),
+    }));
+    const strokeWidthRel = 0.003 + rnd() * 0.006;
+    const monochrome = rnd() < 0.5;
+    return { seed, cols, cells, strokeWidthRel, monochrome, paletteId };
+  },
+
+  render(painter, params, w, h) {
+    const palette = getPalette(params.paletteId);
+    painter.setBackground(palette.bg);
+    const n = params.cols;
+    const cellW = w / n, cellH = h / n;
+    const strokeWidth = Math.min(cellW, cellH) * params.strokeWidthRel * 3.2;
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        const cell = params.cells[r * n + c];
+        const x0 = c * cellW, y0 = r * cellH;
+        const pts = cell.flip
+          ? [[x0, y0], [x0 + cellW, y0 + cellH]]
+          : [[x0 + cellW, y0], [x0, y0 + cellH]];
+        const color = params.monochrome ? palette.inks[palette.inks.length - 1] : palette.inks[cell.colorIdx % palette.inks.length];
+        painter.polyline(pts, { stroke: color, strokeWidth, fill: 'none' });
+      }
+    }
+  },
+};
+
+// ---------------------------------------------------------------------
+// 7. Hitomezashi — Japanse borduursteek: stippellijnen met verschoven
+//    fase per rij/kolom. Piepklein qua code, precies de japandi-esthetiek.
+// ---------------------------------------------------------------------
+Algorithms.hitomezashi = {
+  id: 'hitomezashi',
+  label: 'Hitomezashi',
+  vector: true,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const cols = 14 + Math.floor(rnd() * 16);
+    const rows = cols;
+    const H = Array.from({ length: rows + 1 }, () => (rnd() < 0.5 ? 0 : 1));
+    const V = Array.from({ length: cols + 1 }, () => (rnd() < 0.5 ? 0 : 1));
+    const strokeWidthRel = 0.006 + rnd() * 0.008;
+    return { seed, cols, rows, H, V, strokeWidthRel, paletteId };
+  },
+
+  render(painter, params, w, h) {
+    const palette = getPalette(params.paletteId);
+    painter.setBackground(palette.bg);
+    const { cols, rows, H, V } = params;
+    const cellW = w / cols, cellH = h / rows;
+    const color = palette.inks[palette.inks.length - 1];
+    const strokeWidth = Math.min(cellW, cellH) * params.strokeWidthRel * 2.5;
+
+    for (let j = 0; j <= rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        if ((i + H[j]) % 2 === 0) {
+          painter.polyline([[i * cellW, j * cellH], [(i + 1) * cellW, j * cellH]], { stroke: color, strokeWidth, fill: 'none' });
+        }
+      }
+    }
+    for (let i = 0; i <= cols; i++) {
+      for (let j = 0; j < rows; j++) {
+        if ((j + V[i]) % 2 === 0) {
+          painter.polyline([[i * cellW, j * cellH], [i * cellW, (j + 1) * cellH]], { stroke: color, strokeWidth, fill: 'none' });
+        }
+      }
+    }
+  },
+};
+
+// ---------------------------------------------------------------------
+// 8. Truchet-tegels — vierkant met twee kwartcirkels, willekeurig
+//    geroteerd, herhaald over een raster. Van nature naadloos, dus
+//    direct bruikbaar als licentieerbaar patroon.
+// ---------------------------------------------------------------------
+function quarterArcPoints(cx, cy, r, startAngle, endAngle, segments) {
+  const pts = [];
+  for (let i = 0; i <= segments; i++) {
+    const t = startAngle + (endAngle - startAngle) * (i / segments);
+    pts.push([cx + Math.cos(t) * r, cy + Math.sin(t) * r]);
+  }
+  return pts;
+}
+
+Algorithms.truchet = {
+  id: 'truchet',
+  label: 'Truchet-tegels',
+  vector: true,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const cols = 8 + Math.floor(rnd() * 10);
+    const orientations = Array.from({ length: cols * cols }, () => rnd() < 0.5);
+    const colorIdxA = Math.floor(rnd() * 997);
+    const colorIdxB = Math.floor(rnd() * 997);
+    const strokeWidthRel = 0.05 + rnd() * 0.09;
+    const twoTone = rnd() < 0.5;
+    return { seed, cols, orientations, colorIdxA, colorIdxB, strokeWidthRel, twoTone, paletteId };
+  },
+
+  render(painter, params, w, h) {
+    const palette = getPalette(params.paletteId);
+    painter.setBackground(palette.bg);
+    const n = params.cols;
+    const s = Math.min(w, h) / n;
+    const segments = 14;
+    const colorA = palette.inks[params.colorIdxA % palette.inks.length];
+    const colorB = params.twoTone ? palette.inks[params.colorIdxB % palette.inks.length] : colorA;
+
+    for (let r = 0; r < n; r++) {
+      for (let c = 0; c < n; c++) {
+        const x = c * s, y = r * s;
+        const flipped = params.orientations[r * n + c];
+        const strokeWidth = s * params.strokeWidthRel;
+        if (!flipped) {
+          painter.polyline(quarterArcPoints(x, y, s / 2, 0, Math.PI / 2, segments), { stroke: colorA, strokeWidth, fill: 'none' });
+          painter.polyline(quarterArcPoints(x + s, y + s, s / 2, Math.PI, Math.PI * 1.5, segments), { stroke: colorB, strokeWidth, fill: 'none' });
+        } else {
+          painter.polyline(quarterArcPoints(x + s, y, s / 2, Math.PI / 2, Math.PI, segments), { stroke: colorA, strokeWidth, fill: 'none' });
+          painter.polyline(quarterArcPoints(x, y + s, s / 2, Math.PI * 1.5, Math.PI * 2, segments), { stroke: colorB, strokeWidth, fill: 'none' });
+        }
+      }
+    }
+  },
+};
+
+// ---------------------------------------------------------------------
+// 9. Hypotrochoïden — spirograaf. Verwant aan de harmonograaf, maar
+//    strakker en symmetrischer door de vaste tandwielverhouding.
+// ---------------------------------------------------------------------
+Algorithms.hypotrochoid = {
+  id: 'hypotrochoid',
+  label: 'Hypotrochoïde',
+  vector: true,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const R = 5 + Math.floor(rnd() * 9);
+    const r = 1 + Math.floor(rnd() * (R - 1));
+    const d = 0.25 + rnd() * 1.35;
+    const layers = rnd() < 0.35 ? 2 : 1;
+    const strokeWidthRel = 0.0006 + rnd() * 0.0009;
+    return { seed, R, r, d, layers, strokeWidthRel, paletteId };
+  },
+
+  render(painter, params, w, h) {
+    const palette = getPalette(params.paletteId);
+    painter.setBackground(palette.bg);
+    const { R, r, d } = params;
+    const cx = w / 2, cy = h / 2;
+    const scale = (Math.min(w, h) * 0.44) / R;
+    const k = (R - r) / r;
+    const steps = 2200;
+    const tMax = Math.PI * 2 * r;
+
+    for (let l = 0; l < params.layers; l++) {
+      const rot = (l * Math.PI) / Math.max(params.layers, 1);
+      const pts = new Array(steps + 1);
+      for (let i = 0; i <= steps; i++) {
+        const t = (i / steps) * tMax;
+        const x = (R - r) * Math.cos(t) + d * r * Math.cos(k * t);
+        const y = (R - r) * Math.sin(t) - d * r * Math.sin(k * t);
+        const rx = x * Math.cos(rot) - y * Math.sin(rot);
+        const ry = x * Math.sin(rot) + y * Math.cos(rot);
+        pts[i] = [cx + rx * scale, cy + ry * scale];
+      }
+      painter.polyline(pts, { stroke: palette.inks[l % palette.inks.length], strokeWidth: w * params.strokeWidthRel, fill: 'none', opacity: params.layers > 1 ? 0.8 : 1 });
+    }
+  },
+};
+
+// ---------------------------------------------------------------------
+// 10. Contourlijnen — hoogtelijnen door een ruisveld via marching
+//     squares. Ziet eruit als een topografische kaart van een land dat
+//     niet bestaat.
+// ---------------------------------------------------------------------
+Algorithms.contours = {
+  id: 'contours',
+  label: 'Contourlijnen',
+  vector: true,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const gridSize = 28 + Math.floor(rnd() * 20);
+    const freq = 2.5 + rnd() * 3.5;
+    const octaves = 2 + Math.floor(rnd() * 3);
+    const levelCount = 5 + Math.floor(rnd() * 7);
+    const noiseSeed = Math.floor(rnd() * 1e9);
+    const strokeWidthRel = 0.0009 + rnd() * 0.0014;
+    return { seed, gridSize, freq, octaves, levelCount, noiseSeed, strokeWidthRel, paletteId };
+  },
+
+  render(painter, params, w, h) {
+    const palette = getPalette(params.paletteId);
+    painter.setBackground(palette.bg);
+    const noise2D = Utils.makeNoise2D(params.noiseSeed, 48);
+    const n = params.gridSize;
+
+    // Waarden op het rooster eenmalig bemonsteren.
+    const grid = new Float32Array((n + 1) * (n + 1));
+    for (let j = 0; j <= n; j++) {
+      for (let i = 0; i <= n; i++) {
+        grid[j * (n + 1) + i] = Utils.fractalNoise2D(noise2D, (i / n) * params.freq, (j / n) * params.freq, params.octaves);
+      }
+    }
+
+    const cellW = w / n, cellH = h / n;
+    const strokeWidth = Math.min(w, h) * params.strokeWidthRel;
+    for (let lvl = 0; lvl < params.levelCount; lvl++) {
+      const level = (lvl + 1) / (params.levelCount + 1);
+      const color = palette.inks[lvl % palette.inks.length];
+      for (let j = 0; j < n; j++) {
+        for (let i = 0; i < n; i++) {
+          const tl = grid[j * (n + 1) + i];
+          const tr = grid[j * (n + 1) + i + 1];
+          const br = grid[(j + 1) * (n + 1) + i + 1];
+          const bl = grid[(j + 1) * (n + 1) + i];
+          const x0 = i * cellW, y0 = j * cellH, x1 = x0 + cellW, y1 = y0 + cellH;
+          const segments = Geom.marchingSquaresCell(tl, tr, br, bl, level, x0, y0, x1, y1);
+          segments.forEach(seg => painter.polyline(seg, { stroke: color, strokeWidth, fill: 'none' }));
+        }
+      }
+    }
+  },
+};
+
+// ---------------------------------------------------------------------
+// 11. Chaosspel — iterated function system in de stijl van de
+//     Barnsley-varen, met per seed lichte variatie op de coëfficiënten.
+//     Raster, net als de strange attractor (hetzelfde soort dichtheidsplot).
+// ---------------------------------------------------------------------
+Algorithms.chaosgame = {
+  id: 'chaosgame',
+  label: 'Chaosspel',
+  vector: false,
+
+  generateParams(seed, paletteId) {
+    const rnd = RNG.rngFor(seed);
+    const j = () => (rnd() * 2 - 1) * 0.045;
+    const transforms = [
+      { a: 0, b: 0, c: 0, d: 0.16 + j(), e: 0, f: 0, p: 0.01 },
+      { a: 0.85 + j(), b: 0.04 + j(), c: -0.04 + j(), d: 0.85 + j(), e: 0, f: 1.6, p: 0.85 },
+      { a: 0.2 + j(), b: -0.26 + j(), c: 0.23 + j(), d: 0.22 + j(), e: 0, f: 1.6, p: 0.07 },
+      { a: -0.15 + j(), b: 0.28 + j(), c: 0.26 + j(), d: 0.24 + j(), e: 0, f: 0.44, p: 0.07 },
+    ];
+    let cum = 0;
+    transforms.forEach(t => { cum += t.p; t.cum = cum; });
+    return { seed, transforms, paletteId };
+  },
+
+  renderToCanvas(ctx, params, w, h, opts = {}) {
+    const rnd = RNG.rngFor(params.seed ^ 0x9e3779b9);
+    const { transforms } = params;
+    const total = transforms[transforms.length - 1].cum;
+    function pick() {
+      const r = rnd() * total;
+      for (let i = 0; i < transforms.length; i++) if (r <= transforms[i].cum) return transforms[i];
+      return transforms[transforms.length - 1];
+    }
+    function step(x, y) {
+      const t = pick();
+      return [t.a * x + t.b * y + t.e, t.c * x + t.d * y + t.f];
+    }
+
+    const burnIn = 30;
+    let x = 0, y = 0;
+    let minX = Infinity, maxX = -Infinity, minY = Infinity, maxY = -Infinity;
+    for (let i = 0; i < 8000; i++) {
+      [x, y] = step(x, y);
+      if (i > burnIn) {
+        if (x < minX) minX = x; if (x > maxX) maxX = x;
+        if (y < minY) minY = y; if (y > maxY) maxY = y;
+      }
+    }
+    const pad = 0.06;
+    const sx = (w * (1 - 2 * pad)) / ((maxX - minX) || 1);
+    const sy = (h * (1 - 2 * pad)) / ((maxY - minY) || 1);
+    const s = Math.min(sx, sy);
+    const ox = w / 2 - ((minX + maxX) / 2) * s;
+    // Varens groeien omhoog: onderkant tegen de onderrand van het canvas.
+    const oy = h * (1 - pad) - maxY * s;
+
+    const density = new Float32Array(w * h);
+    const iterations = opts.iterations || Math.min(20_000_000, Math.max(120000, w * h * 3));
+    x = 0; y = 0;
+    let maxV = 0;
+    for (let i = 0; i < iterations; i++) {
+      [x, y] = step(x, y);
+      if (i < burnIn) continue;
+      const px = x * s + ox, py = y * s + oy;
+      const xi = px | 0, yi = py | 0;
+      if (xi >= 0 && xi < w && yi >= 0 && yi < h) {
+        const idx = yi * w + xi;
+        const v = (density[idx] += 1);
+        if (v > maxV) maxV = v;
+      }
+    }
+
+    const palette = getPalette(params.paletteId);
+    const bg = Utils.hexToRgb(palette.bg);
+    const ink = Utils.hexToRgb(palette.inks[palette.inks.length - 1]);
+    const img = ctx.createImageData(w, h);
+    const logMax = Math.log(maxV + 1) || 1;
+    for (let i = 0; i < w * h; i++) {
+      const v = density[i];
+      const t = v > 0 ? Math.pow(Math.log(v + 1) / logMax, 0.5) : 0;
+      const o = i * 4;
+      img.data[o] = bg.r + (ink.r - bg.r) * t;
+      img.data[o + 1] = bg.g + (ink.g - bg.g) * t;
+      img.data[o + 2] = bg.b + (ink.b - bg.b) * t;
+      img.data[o + 3] = 255;
+    }
+    ctx.putImageData(img, 0, 0);
+  },
+};
+
+const ALGORITHM_LIST = [
+  Algorithms.attractor, Algorithms.phyllotaxis, Algorithms.voronoi, Algorithms.harmonograph, Algorithms.splatter,
+  Algorithms.tenprint, Algorithms.hitomezashi, Algorithms.truchet, Algorithms.hypotrochoid, Algorithms.contours, Algorithms.chaosgame,
+];
