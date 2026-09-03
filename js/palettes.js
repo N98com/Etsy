@@ -25,6 +25,34 @@ const PALETTES = [
     keywords: 'blush pink wall art, terracotta print, feminine minimalist decor' },
 ];
 
+// Eigen kleurstellingen die de gebruiker zelf samenstelt via de kleurenkiezer.
+// Het id wordt afgeleid van de gekozen kleuren zelf, zodat eenzelfde
+// combinatie altijd hetzelfde palet-id oplevert (reproduceerbaar, net als
+// een seed) en favorieten/triptieken na een herlaad blijven kloppen.
+const CUSTOM_PALETTES_KEY = 'genart-custom-palettes-v1';
+const CUSTOM_PALETTES = loadCustomPalettes();
+
+function loadCustomPalettes() {
+  try { return JSON.parse(localStorage.getItem(CUSTOM_PALETTES_KEY)) || {}; } catch { return {}; }
+}
+function saveCustomPalettes() {
+  localStorage.setItem(CUSTOM_PALETTES_KEY, JSON.stringify(CUSTOM_PALETTES));
+}
+
+function customPaletteId(bg, inks) {
+  return 'custom-' + [bg, ...inks].map(c => c.replace('#', '')).join('-');
+}
+
+// Registreert (of hergebruikt) een eigen kleurstelling en geeft het id terug.
+function registerCustomPalette(bg, inks) {
+  const id = customPaletteId(bg, inks);
+  if (!CUSTOM_PALETTES[id]) {
+    CUSTOM_PALETTES[id] = { id, name: 'Eigen kleuren', bg, inks, keywords: 'custom colorway', custom: true };
+    saveCustomPalettes();
+  }
+  return id;
+}
+
 function getPalette(id) {
-  return PALETTES.find(p => p.id === id) || PALETTES[0];
+  return PALETTES.find(p => p.id === id) || CUSTOM_PALETTES[id] || PALETTES[0];
 }

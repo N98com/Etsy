@@ -36,6 +36,13 @@
   const personGenerateBtn = el('personGenerateBtn');
   const personSeedDisplay = el('personSeedDisplay');
   const personOpenBtn = el('personOpenBtn');
+  const customPaletteToggle = el('customPaletteToggle');
+  const customPalettePanel = el('customPalettePanel');
+  const customBg = el('customBg');
+  const customInk1 = el('customInk1');
+  const customInk2 = el('customInk2');
+  const customInk3 = el('customInk3');
+  const customPaletteApplyBtn = el('customPaletteApplyBtn');
 
   const modalBackdrop = el('modalBackdrop');
   const modalCanvasWrap = el('modalCanvasWrap');
@@ -62,14 +69,25 @@
       algoTabs.appendChild(btn);
     });
 
-    PALETTES.forEach(p => {
-      const opt = document.createElement('option');
-      opt.value = p.id; opt.textContent = p.name;
-      paletteSelect.appendChild(opt);
-    });
+    PALETTES.forEach(p => addPaletteOption(p));
+    Object.values(CUSTOM_PALETTES).forEach(p => addPaletteOption(p));
     paletteSelect.value = state.paletteId;
     paletteSelect.addEventListener('change', () => {
       state.paletteId = paletteSelect.value;
+      renderContactSheet();
+    });
+
+    customPaletteToggle.addEventListener('click', () => {
+      customPalettePanel.hidden = !customPalettePanel.hidden;
+      customPaletteToggle.textContent = customPalettePanel.hidden ? '+ Eigen kleuren samenstellen' : '− Eigen kleuren verbergen';
+    });
+    customPaletteApplyBtn.addEventListener('click', () => {
+      const bg = customBg.value;
+      const inks = [customInk1.value, customInk2.value, customInk3.value];
+      const id = registerCustomPalette(bg, inks);
+      if (!paletteSelect.querySelector(`option[value="${id}"]`)) addPaletteOption(getPalette(id));
+      paletteSelect.value = id;
+      state.paletteId = id;
       renderContactSheet();
     });
 
@@ -130,6 +148,13 @@
     generateBatch();
     renderFavorites();
     renderTriptych();
+  }
+
+  function addPaletteOption(palette) {
+    const opt = document.createElement('option');
+    opt.value = palette.id;
+    opt.textContent = palette.custom ? `Eigen kleuren (${palette.bg})` : palette.name;
+    paletteSelect.appendChild(opt);
   }
 
   function selectAlgo(id) {
