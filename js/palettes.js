@@ -61,16 +61,29 @@ function customPaletteId(bg, inks) {
   return 'custom-' + [bg, ...inks].map(c => c.replace('#', '')).join('-');
 }
 
+// Hoeveel eigen kleurstellingen de snelkoppelingenlijst maximaal onthoudt.
+// Ouder dan dit wordt automatisch verwijderd — de volledige geschiedenis van
+// wat daadwerkelijk geëxporteerd is, staat los hiervan en blijft altijd staan
+// (zie EXPORT_HISTORY in main.js, die een eigen kopie van de kleuren bewaart).
+const MAX_CUSTOM_PALETTES = 10;
+
 // Registreert (of hergebruikt) een eigen kleurstelling als preset en geeft
 // het id terug. Een optionele naam wordt ook op een bestaand preset gezet
 // (zo kun je een eerder opgeslagen combinatie alsnog een naam geven).
+// Verwijderen-en-opnieuw-toevoegen zet de preset achteraan de lijst (meest
+// recent), ook als hij al bestond, zodat hergebruik 'm beschermt tegen de cap.
 function registerCustomPalette(bg, inks, name) {
   const id = customPaletteId(bg, inks);
   const label = name && name.trim() ? name.trim() : null;
-  if (!CUSTOM_PALETTES[id]) {
-    CUSTOM_PALETTES[id] = { id, name: label || 'Eigen kleuren', bg, inks, keywords: 'custom colorway', custom: true };
-  } else if (label) {
-    CUSTOM_PALETTES[id].name = label;
+  const existing = CUSTOM_PALETTES[id];
+  const entry = existing
+    ? { ...existing, name: label || existing.name }
+    : { id, name: label || 'Eigen kleuren', bg, inks, keywords: 'custom colorway', custom: true };
+  delete CUSTOM_PALETTES[id];
+  CUSTOM_PALETTES[id] = entry;
+  const keys = Object.keys(CUSTOM_PALETTES);
+  while (keys.length > MAX_CUSTOM_PALETTES) {
+    delete CUSTOM_PALETTES[keys.shift()];
   }
   saveCustomPalettes();
   return id;

@@ -25,11 +25,19 @@
     <div>
       <h1>Art Generator</h1>
     </div>
-    <button id="logoutBtn" class="ghost">Uitloggen</button>
+    <div class="header-actions">
+      <div class="icon-menu">
+        <button id="settingsBtn" class="icon-btn" title="Instellingen" aria-label="Instellingen">⚙</button>
+        <div id="settingsMenu" class="settings-menu" hidden>
+          <button type="button" id="historyMenuBtn" class="settings-menu-item">🕘 Geschiedenis</button>
+        </div>
+      </div>
+      <button id="logoutBtn" class="ghost">Uitloggen</button>
+    </div>
   </header>
 
   <main>
-    <aside class="sidebar">
+    <aside class="sidebar sidebar-left">
       <div class="panel">
         <h2>Algoritme</h2>
         <div class="algo-tabs" id="algoTabs"></div>
@@ -51,6 +59,7 @@
             <button type="button" id="customPaletteRandomBtn">🎲 Willekeurig</button>
             <button type="button" class="primary" id="customPaletteApplyBtn">Opslaan &amp; toepassen</button>
           </div>
+          <p class="hint" style="margin-top:8px;">Recente eigen kleuren (max. 10):</p>
           <div class="preset-list" id="customPalettePresetList"></div>
         </div>
 
@@ -62,6 +71,18 @@
         </div>
         <label for="seedBaseInput">Basis-seed van dit contactvel</label>
         <input type="text" id="seedBaseInput" readonly>
+      </div>
+    </aside>
+
+    <section>
+      <div class="status-line" id="statusLine"></div>
+      <div class="contact-sheet" id="contactSheet"></div>
+    </section>
+
+    <aside class="sidebar sidebar-right">
+      <div class="panel">
+        <h2>Favorieten</h2>
+        <div class="fav-list" id="favList"></div>
       </div>
 
       <div class="panel">
@@ -81,11 +102,6 @@
       </div>
 
       <div class="panel">
-        <h2>Favorieten</h2>
-        <div class="fav-list" id="favList"></div>
-      </div>
-
-      <div class="panel">
         <h2>Triptiek-bouwer</h2>
         <p class="hint">Drie seeds uit dezelfde familie naast elkaar — verkoopt beter dan losse prints.</p>
         <div class="triptych-row">
@@ -98,11 +114,6 @@
         <button class="primary" id="triptychExportBtn" style="width:100%; margin-top:8px;" disabled>Exporteer triptiek (3 bestanden)</button>
       </div>
     </aside>
-
-    <section>
-      <div class="status-line" id="statusLine"></div>
-      <div class="contact-sheet" id="contactSheet"></div>
-    </section>
   </main>
 
   <footer>
@@ -134,6 +145,17 @@
         <div class="row" style="margin-top:8px;">
           <button id="modalTriptychBtn">→ Voeg toe aan triptiek</button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop hidden" id="historyModalBackdrop">
+    <div class="modal history-modal">
+      <button class="modal-close ghost" id="historyCloseBtn">✕ sluiten</button>
+      <div>
+        <h3>Geschiedenis</h3>
+        <p class="hint">Elk ontwerp dat je daadwerkelijk hebt geëxporteerd (SVG of PNG), permanent bewaard — ook als het onderliggende kleurpreset intussen is opgeschoond.</p>
+        <div class="history-list" id="historyList"></div>
       </div>
     </div>
   </div>

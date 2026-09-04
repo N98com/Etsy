@@ -3,6 +3,7 @@
 (() => {
   const FAV_KEY = 'genart-favorites-v1';
   const SETTINGS_KEY = 'genart-settings-v1';
+  const HISTORY_KEY = 'genart-export-history-v1';
   const THUMB_PX = 260;   // canvas-resolutie per tegel in het contactvel
   const MODAL_PX = 760;   // canvas-resolutie in het grote voorbeeld
   const THUMB_ATTRACTOR_ITER = 90000;
@@ -11,6 +12,23 @@
     try { return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch { return {}; }
   }
   const SAVED = loadSettings();
+
+  // Permanente log van elk daadwerkelijk geëxporteerd ontwerp — los van (en
+  // ongelimiteerd, anders dan) de snelkoppelingenlijst met eigen kleuren.
+  // Elke regel bewaart een eigen kopie van het palet, zodat de geschiedenis
+  // correct blijft ook als de originele preset intussen is opgeschoond.
+  function loadExportHistory() {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
+  }
+  function saveExportHistory() {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(state.exportHistory));
+  }
+  function recordExport(algoId, seed, paletteId, format, sizeId) {
+    const paletteSnapshot = JSON.parse(JSON.stringify(getPalette(paletteId)));
+    state.exportHistory.unshift({ algoId, seed, palette: paletteSnapshot, format, sizeId, timestamp: Date.now() });
+    saveExportHistory();
+    if (!historyModalBackdrop.classList.contains('hidden')) renderHistoryList();
+  }
 
   const state = {
     algoId: 'attractor',
@@ -21,6 +39,7 @@
     favorites: loadFavorites(),
     triptych: [null, null, null],
     modal: null, // { algoId, seed, paletteId }
+    exportHistory: loadExportHistory(),
     customInks: (Array.isArray(SAVED.customInks) && SAVED.customInks.length)
       ? SAVED.customInks.slice(0, 6)
       : ['#7f5539', '#9c6644', '#3d2b1f'],
@@ -68,6 +87,13 @@
   const modalTriptychBtn = el('modalTriptychBtn');
   const modalStatus = el('modalStatus');
   const modalCloseBtn = el('modalCloseBtn');
+
+  const settingsBtn = el('settingsBtn');
+  const settingsMenu = el('settingsMenu');
+  const historyMenuBtn = el('historyMenuBtn');
+  const historyModalBackdrop = el('historyModalBackdrop');
+  const historyCloseBtn = el('historyCloseBtn');
+  const historyList = el('historyList');
 
   // ---- init ----
   function init() {
@@ -183,6 +209,19 @@
     modalExportPNGBtn.addEventListener('click', () => exportModal(false));
     triptychExportBtn.addEventListener('click', exportTriptych);
 
+    settingsBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      settingsMenu.hidden = !settingsMenu.hidden;
+    });
+    document.addEventListener('click', () => { settingsMenu.hidden = true; });
+    historyMenuBtn.addEventListener('click', () => {
+      settingsMenu.hidden = true;
+      renderHistoryList();
+      historyModalBackdrop.classList.remove('hidden');
+    });
+    historyCloseBtn.addEventListener('click', () => historyModalBackdrop.classList.add('hidden'));
+    historyModalBackdrop.addEventListener('click', e => { if (e.target === historyModalBackdrop) historyModalBackdrop.classList.add('hidden'); });
+
     generateBatch();
     renderFavorites();
     renderTriptych();
@@ -286,7 +325,7 @@
 
   function renderCustomPalettePresetList() {
     customPalettePresetList.innerHTML = '';
-    const presets = Object.values(CUSTOM_PALETTES);
+    const presets = Object.values(CUSTOM_PALETTES).reverse(); // meest recent eerst
     if (presets.length === 0) return;
     presets.forEach(p => {
       const item = document.createElement('div');
@@ -457,6 +496,7 @@
       else Utils.downloadCanvasPNG(result.canvas, filename);
       modalStatus.textContent = `Opgeslagen als ${filename}`;
       modalExportSVGBtn.disabled = false; modalExportPNGBtn.disabled = false;
+      recordExport(algoId, seed, paletteId, ext, modalExportSize.value);
     });
   }
 
@@ -569,6 +609,7 @@
           const filename = `triptiek-${i + 1}-${filenameFor(entry.algoId, entry.seed, entry.paletteId, sizeId, ext)}`;
           if (result.svg) Utils.downloadSVGString(result.svg, filename);
           else Utils.downloadCanvasPNG(result.canvas, filename);
+          recordExport(entry.algoId, entry.seed, entry.paletteId, ext, sizeId);
           done++;
           if (done === filled.length) {
             triptychExportBtn.disabled = false;
@@ -576,6 +617,68 @@
           }
         });
       }, i * 300);
+    });
+  }
+
+  // ---- geschiedenis ----
+  const EXPORT_FORMAT_LABEL = { svg: 'SVG', png: 'PNG' };
+
+  // Als een geschiedenisregel verwijst naar een eigen kleurpreset die
+  // intussen door de cap van 10 is opgeschoond, zet 'm terug (onder
+  // hetzelfde, uit de kleuren zelf afgeleide id) zodat de tegel weer
+  // met de juiste kleuren opent.
+  function ensurePaletteAvailable(snapshot) {
+    if (!snapshot.custom) return snapshot.id;
+    if (!CUSTOM_PALETTES[snapshot.id]) registerCustomPalette(snapshot.bg, snapshot.inks, snapshot.name);
+    return snapshot.id;
+  }
+
+  function renderHistoryList() {
+    historyList.innerHTML = '';
+    if (state.exportHistory.length === 0) {
+      historyList.innerHTML = '<p class="history-empty">Nog niets geëxporteerd. Zodra je een ontwerp downloadt (SVG of PNG), verschijnt het hier.</p>';
+      return;
+    }
+    state.exportHistory.forEach(entry => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
+
+      const mini = document.createElement('canvas');
+      mini.width = 72; mini.height = 72;
+      const algo = Algorithms[entry.algoId];
+      if (algo) {
+        const paletteId = ensurePaletteAvailable(entry.palette);
+        drawThumb(algo, mini, entry.seed, paletteId);
+      }
+      const img = document.createElement('img');
+      img.src = mini.toDataURL();
+      item.appendChild(img);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const line1 = document.createElement('div');
+      line1.className = 'line1';
+      line1.textContent = `${algo ? algo.label : entry.algoId} · #${entry.seed} · ${entry.palette.name}`;
+      const line2 = document.createElement('div');
+      line2.className = 'line2';
+      const date = new Date(entry.timestamp);
+      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeId} · ${date.toLocaleDateString('nl-NL')} ${date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}`;
+      meta.appendChild(line1);
+      meta.appendChild(line2);
+      item.appendChild(meta);
+
+      const openBtn = document.createElement('button');
+      openBtn.textContent = 'open';
+      openBtn.disabled = !algo;
+      openBtn.addEventListener('click', () => {
+        const paletteId = ensurePaletteAvailable(entry.palette);
+        historyModalBackdrop.classList.add('hidden');
+        if (entry.algoId !== state.algoId) selectAlgo(entry.algoId);
+        openModal(entry.algoId, entry.seed, paletteId);
+      });
+      item.appendChild(openBtn);
+
+      historyList.appendChild(item);
     });
   }
 
