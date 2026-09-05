@@ -37,6 +37,7 @@ window.LocationApp = (() => {
     showPlace: true,
     showCountry: true,
     showCoords: true,
+    gtaStyle: false,
     current: null, // { bounds, streets, landmarks, place, country, lat, lon }
     generating: false,
   };
@@ -60,6 +61,8 @@ window.LocationApp = (() => {
   const showPlaceCheck = el('showPlaceCheck');
   const showCountryCheck = el('showCountryCheck');
   const showCoordsCheck = el('showCoordsCheck');
+  const gtaStyleCheck = el('gtaStyleCheck');
+  const gtaStyleHint = el('gtaStyleHint');
   const resultPanel = el('locationResult');
   const resultPreview = el('locationResultPreview');
   const exportPanel = el('locationExportPanel');
@@ -128,6 +131,13 @@ window.LocationApp = (() => {
       state.showCoords = showCoordsCheck.checked;
       if (state.current) renderResult();
     }));
+
+    gtaStyleCheck.addEventListener('change', () => {
+      state.gtaStyle = gtaStyleCheck.checked;
+      paletteGrid.classList.toggle('disabled', state.gtaStyle);
+      gtaStyleHint.hidden = !state.gtaStyle;
+      if (state.current) renderResult();
+    });
 
     exportSVGBtn.addEventListener('click', () => exportResult(true));
     exportPNGBtn.addEventListener('click', () => exportResult(false));
@@ -284,6 +294,7 @@ window.LocationApp = (() => {
       streets: c.streets,
       landmarks: c.landmarks || [],
       palette: getMapPalette(state.mapPaletteId),
+      gtaStyle: state.gtaStyle,
       showStreetLabels: state.showStreetLabels,
       showLandmarks: state.showLandmarks && !!c.landmarks,
       caption: {
@@ -352,7 +363,7 @@ window.LocationApp = (() => {
         country: state.current.country,
         lat: state.current.lat,
         lon: state.current.lon,
-        paletteName: getMapPalette(state.mapPaletteId).name,
+        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
         format: wantSVG ? 'svg' : 'png',
         sizeLabel: opt.textContent,
         timestamp: Date.now(),

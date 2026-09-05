@@ -29,12 +29,49 @@ const MapRender = (() => {
     return { total, cityH, countryH, coordH, gap, padBottom };
   }
 
+  // Nagebootste terreinlijnen voor "GTA5 Style" — dezelfde marching-squares-
+  // over-ruis-techniek als de Contourlijnen-algoritme in Playground, maar
+  // hier puur decoratief (geen echte hoogtedata; GTA V's eigen kaart is ook
+  // artistiek getekend, niet een letterlijke hoogtekaart). Seed komt uit de
+  // bounding box, dus dezelfde locatie geeft altijd hetzelfde "reliëf".
+  function drawTerrainContours(painter, w, h, bounds, color) {
+    const seed = RNG.seedFromString(`${bounds.south},${bounds.west},${bounds.north},${bounds.east}`);
+    const noise2D = Utils.makeNoise2D(seed, 48);
+    const n = 46;
+    const grid = new Float32Array((n + 1) * (n + 1));
+    for (let j = 0; j <= n; j++) {
+      for (let i = 0; i <= n; i++) {
+        grid[j * (n + 1) + i] = Utils.fractalNoise2D(noise2D, (i / n) * 3.2, (j / n) * 3.2, 3);
+      }
+    }
+    const cellW = w / n, cellH = h / n;
+    const strokeWidth = Math.max(w, h) * 0.0012;
+    const levels = 9;
+    for (let lvl = 0; lvl < levels; lvl++) {
+      const level = (lvl + 1) / (levels + 1);
+      for (let j = 0; j < n; j++) {
+        for (let i = 0; i < n; i++) {
+          const tl = grid[j * (n + 1) + i], tr = grid[j * (n + 1) + i + 1];
+          const br = grid[(j + 1) * (n + 1) + i + 1], bl = grid[(j + 1) * (n + 1) + i];
+          const x0 = i * cellW, y0 = j * cellH, x1 = x0 + cellW, y1 = y0 + cellH;
+          Geom.marchingSquaresCell(tl, tr, br, bl, level, x0, y0, x1, y1)
+            .forEach(seg => painter.polyline(seg, { stroke: color, strokeWidth, fill: 'none' }));
+        }
+      }
+    }
+  }
+
   function render(painter, w, h, opts) {
     const {
-      bounds, streets = [], landmarks = [], palette,
+      bounds, streets = [], landmarks = [],
       showStreetLabels = false, showLandmarks = false,
-      caption = {}, matColor = '#f7f4ee',
+      caption = {}, gtaStyle = false,
     } = opts;
+    const palette = gtaStyle ? GTA_STYLE_PALETTE : opts.palette;
+    const matColor = gtaStyle ? '#0a0a0a' : (opts.matColor || '#f7f4ee');
+    const captionInk = gtaStyle ? '#ececec' : '#2a2620';
+    const captionSub = gtaStyle ? '#a8a8a8' : '#6b6156';
+    const captionFaint = gtaStyle ? '#828282' : '#8a8074';
 
     painter.setBackground(matColor);
 
@@ -46,10 +83,15 @@ const MapRender = (() => {
     const project = MapGeo.makeCoverProjector(bounds, mapW, mapH);
     drawMapBackground(painter, palette, mapW, mapH);
 
-    // Groen/parken eerst (onderlaag), dan water, dan wegen (klein -> groot).
-    streets
-      .filter(s => s.tags.leisure === 'park' || s.tags.landuse === 'forest' || s.tags.landuse === 'grass')
-      .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: palette.park }));
+    if (gtaStyle) {
+      drawTerrainContours(painter, mapW, mapH, bounds, '#242424');
+    } else {
+      // Groen/parken (alleen in het gewone kleurenschema — GTA-stijl houdt
+      // het bij land/water/wegen, net als het spel zelf).
+      streets
+        .filter(s => s.tags.leisure === 'park' || s.tags.landuse === 'forest' || s.tags.landuse === 'grass')
+        .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: palette.park }));
+    }
 
     streets
       .filter(s => s.tags.natural === 'water')
@@ -116,7 +158,7 @@ const MapRender = (() => {
       if (caption.showPlace) {
         y += layout.cityH * 0.75;
         painter.text(w / 2, y, (caption.place || '').toUpperCase(), {
-          fill: '#2a2620', fontSize: layout.cityH * 0.62, fontFamily: 'Georgia, serif', weight: '600',
+          fill: captionInk, fontSize: layout.cityH * 0.62, fontFamily: 'Georgia, serif', weight: '600',
           align: 'center', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.06,
         });
         y += layout.cityH * 0.25;
@@ -124,7 +166,7 @@ const MapRender = (() => {
       if (caption.showCountry) {
         y += layout.countryH * 0.75;
         painter.text(w / 2, y, caption.country || '', {
-          fill: '#6b6156', fontSize: layout.countryH * 0.62, fontFamily: 'Georgia, serif',
+          fill: captionSub, fontSize: layout.countryH * 0.62, fontFamily: 'Georgia, serif',
           align: 'center', baseline: 'alphabetic', letterSpacing: layout.countryH * 0.08,
         });
         y += layout.countryH * 0.25;
@@ -134,7 +176,7 @@ const MapRender = (() => {
         const lat = caption.lat, lon = caption.lon;
         const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
         painter.text(w / 2, y, label, {
-          fill: '#8a8074', fontSize: layout.coordH * 0.58, fontFamily: 'IBM Plex Mono, monospace',
+          fill: captionFaint, fontSize: layout.coordH * 0.58, fontFamily: 'IBM Plex Mono, monospace',
           align: 'center', baseline: 'alphabetic',
         });
       }

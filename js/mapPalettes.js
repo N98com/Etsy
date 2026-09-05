@@ -28,3 +28,11 @@ const MAP_PALETTES = [
 function getMapPalette(id) {
   return MAP_PALETTES.find(p => p.id === id) || MAP_PALETTES[0];
 }
+
+// Game Styles — een vast, niet-kiesbaar kleurenschema (los van MAP_PALETTES,
+// verschijnt dus niet in het gewone palet-rooster). Wordt in mapRender.js
+// gebruikt in plaats van het gekozen palet zodra "GTA5 Style" aanstaat.
+const GTA_STYLE_PALETTE = {
+  id: 'gta5', name: 'GTA5 Style',
+  bg: '#111111', water: '#7c8791', park: '#111111', road: '#ececec', roadMinor: '#4a4a4a', text: '#ececec',
+};

@@ -295,6 +295,7 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .checkbox-row input { width: auto; margin: 0; accent-color: var(--accent); }
 
 .map-palette-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
+.map-palette-grid.disabled { opacity: 0.35; pointer-events: none; }
 .map-palette-card {
   border: 2px solid var(--line); border-radius: 8px; padding: 6px; background: var(--panel);
   cursor: pointer; text-align: left;
