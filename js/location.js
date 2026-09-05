@@ -63,6 +63,8 @@ window.LocationApp = (() => {
   const showCoordsCheck = el('showCoordsCheck');
   const gtaStyleCheck = el('gtaStyleCheck');
   const gtaStyleHint = el('gtaStyleHint');
+  const streetLabelsHint = el('streetLabelsHint');
+  const areaTierHint = el('areaTierHint');
   const resultPanel = el('locationResult');
   const resultPreview = el('locationResultPreview');
   const exportPanel = el('locationExportPanel');
@@ -234,6 +236,28 @@ window.LocationApp = (() => {
   }
 
   // ---- genereren ----
+  const AREA_TIER_NOTE = {
+    street: '', city: '',
+    region: 'Groot gebied geselecteerd — alleen hoofdwegen en de bekendste landmarks worden getoond, om de kaart snel en overzichtelijk te houden.',
+    country: 'Zeer groot gebied (land-niveau) geselecteerd — alleen hoofdwegen, grote wateren en de bekendste landmarks van dit land worden getoond.',
+  };
+
+  // Straatnamen zijn bij een hele regio of een land niet leesbaar te tonen
+  // (te veel, te klein) — schakel de optie dan uit i.p.v. hem stilletjes te
+  // negeren, zodat duidelijk is waarom.
+  function applyAreaTier(tier) {
+    const labelsAllowed = tier === 'street' || tier === 'city';
+    showStreetLabelsCheck.disabled = !labelsAllowed;
+    streetLabelsHint.hidden = labelsAllowed;
+    if (!labelsAllowed && showStreetLabelsCheck.checked) {
+      showStreetLabelsCheck.checked = false;
+      state.showStreetLabels = false;
+    }
+    areaTierHint.textContent = AREA_TIER_NOTE[tier] || '';
+    areaTierHint.hidden = !AREA_TIER_NOTE[tier];
+    return labelsAllowed;
+  }
+
   async function generate() {
     if (state.generating) return;
     if (!map) {
@@ -245,11 +269,13 @@ window.LocationApp = (() => {
     statusEl.textContent = 'Bezig met ophalen van kaartdata…';
     try {
       const bounds = getOverlayBounds();
-      const streets = await MapGeo.fetchStreets(bounds);
+      const tier = MapGeo.classifyAreaTier(bounds);
+      applyAreaTier(tier);
+      const streets = await MapGeo.fetchStreets(bounds, tier);
       let landmarks = null;
       if (state.showLandmarks) {
         statusEl.textContent = 'Bezig met opzoeken van landmarks…';
-        landmarks = await MapGeo.fetchLandmarks(bounds);
+        landmarks = await MapGeo.fetchLandmarks(bounds, tier);
       }
       const centerLat = (bounds.north + bounds.south) / 2;
       const centerLon = (bounds.east + bounds.west) / 2;
@@ -261,7 +287,7 @@ window.LocationApp = (() => {
       } catch (geoErr) {
         statusEl.textContent = `Kaart opgehaald, maar plaatsnaam kon niet worden bepaald (${geoErr.message}).`;
       }
-      state.current = { bounds, streets, landmarks, place, country, lat: centerLat, lon: centerLon };
+      state.current = { bounds, tier, streets, landmarks, place, country, lat: centerLat, lon: centerLon };
       renderResult();
       updateExportSizes();
       resultPanel.hidden = false;

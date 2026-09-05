@@ -19,8 +19,46 @@ const MapGeo = (() => {
 
   function bboxStr(bounds) { return `${bounds.south},${bounds.west},${bounds.north},${bounds.east}`; }
 
-  function buildStreetsQuery(bounds) {
+  // Classificeert de grootte van het gekozen gebied, zodat we bij grote
+  // selecties (een regio of heel land) veel minder data opvragen — anders
+  // wijst Overpass de query af met "429 Too Many Requests" (te duur/te groot).
+  // Grofweg: straat/buurt (<8km), stad (<60km), regio (<250km), land (rest).
+  function areaSpanKm(bounds) {
+    const { south, west, north, east } = bounds;
+    const midLatRad = ((south + north) / 2) * Math.PI / 180;
+    const latSpanKm = (north - south) * 111;
+    const lonSpanKm = (east - west) * 111 * Math.cos(midLatRad);
+    return Math.max(latSpanKm, Math.abs(lonSpanKm));
+  }
+
+  function classifyAreaTier(bounds) {
+    const span = areaSpanKm(bounds);
+    if (span < 8) return 'street';
+    if (span < 60) return 'city';
+    if (span < 250) return 'region';
+    return 'country';
+  }
+
+  function buildStreetsQuery(bounds, tier = 'street') {
     const bbox = bboxStr(bounds);
+    if (tier === 'country') {
+      // Alleen de hoofdaders en grote wateroppervlaktes (met naam, als proxy
+      // voor "significant") — geen kleine weggetjes, geen parken/bos, geen
+      // rivierlijnen: bij deze schaal onzichtbaar maar wel zwaar qua data.
+      return `[out:json][timeout:25];(
+        way["highway"~"^(motorway|trunk|primary)$"](${bbox});
+        way["natural"="water"]["name"](${bbox});
+      );out body;>;out skel qt;`;
+    }
+    if (tier === 'region') {
+      return `[out:json][timeout:25];(
+        way["highway"~"^(motorway|trunk|primary|secondary|tertiary)$"](${bbox});
+        way["waterway"~"^(river|canal)$"](${bbox});
+        way["natural"="water"](${bbox});
+      );out body;>;out skel qt;`;
+    }
+    // street / city: volledig detail, zoals bij een straat of stad prima te
+    // behappen is voor Overpass.
     return `[out:json][timeout:25];(
       way["highway"](${bbox});
       way["waterway"](${bbox});
@@ -31,8 +69,21 @@ const MapGeo = (() => {
     );out body;>;out skel qt;`;
   }
 
-  function buildLandmarksQuery(bounds) {
+  function buildLandmarksQuery(bounds, tier = 'street') {
     const bbox = bboxStr(bounds);
+    if (tier === 'country' || tier === 'region') {
+      // Strenger: alleen plekken die zowel een wikidata- als wikipedia-tag
+      // hebben (dus écht bekend), en beperkt tot de belangrijkste categorieën
+      // — met een harde cap op het aantal resultaten zodat de respons klein
+      // blijft ongeacht hoeveel er in het gebied liggen.
+      const cap = tier === 'country' ? 40 : 60;
+      return `[out:json][timeout:25];(
+        node["tourism"~"^(attraction|museum)$"]["wikidata"]["wikipedia"](${bbox});
+        node["historic"~"^(monument|castle)$"]["wikidata"]["wikipedia"](${bbox});
+        way["building"~"^(cathedral|church|mosque|synagogue|temple)$"]["wikidata"]["wikipedia"](${bbox});
+        relation["building"~"^(cathedral|church|mosque|synagogue|temple)$"]["wikidata"]["wikipedia"](${bbox});
+      );out center ${cap};`;
+    }
     return `[out:json][timeout:25];(
       node["tourism"~"^(attraction|museum|viewpoint|artwork)$"]["wikidata"](${bbox});
       node["historic"~"^(monument|castle|memorial|ruins)$"]["wikidata"](${bbox});
@@ -42,13 +93,25 @@ const MapGeo = (() => {
     );out center;`;
   }
 
-  async function runOverpassQuery(query) {
-    const res = await fetch(OVERPASS_ENDPOINT, {
-      method: 'POST',
-      body: 'data=' + encodeURIComponent(query),
-    });
-    if (!res.ok) throw new Error(`Overpass antwoordde met status ${res.status}`);
-    return res.json();
+  function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
+
+  // Overpass' publieke instantie geeft af en toe kortstondig 429 terug, ook
+  // voor een op zich redelijke query (drukte op de server). Eén keer
+  // opnieuw proberen na een korte pauze lost dat meestal op; blijft het
+  // fout gaan dan is de query zelf te zwaar en geven we dat door.
+  async function runOverpassQuery(query, { retries = 1 } = {}) {
+    for (let attempt = 0; ; attempt++) {
+      const res = await fetch(OVERPASS_ENDPOINT, {
+        method: 'POST',
+        body: 'data=' + encodeURIComponent(query),
+      });
+      if (res.ok) return res.json();
+      if (res.status === 429 && attempt < retries) {
+        await wait(1500 * (attempt + 1));
+        continue;
+      }
+      throw new Error(`Overpass antwoordde met status ${res.status}`);
+    }
   }
 
   // Zet de platte elements-lijst van Overpass om in wegen/water/groen als
@@ -82,12 +145,12 @@ const MapGeo = (() => {
       .filter(Boolean);
   }
 
-  async function fetchStreets(bounds) {
-    return parseWays(await runOverpassQuery(buildStreetsQuery(bounds)));
+  async function fetchStreets(bounds, tier = 'street') {
+    return parseWays(await runOverpassQuery(buildStreetsQuery(bounds, tier)));
   }
 
-  async function fetchLandmarks(bounds) {
-    return parseLandmarks(await runOverpassQuery(buildLandmarksQuery(bounds)));
+  async function fetchLandmarks(bounds, tier = 'street') {
+    return parseLandmarks(await runOverpassQuery(buildLandmarksQuery(bounds, tier)));
   }
 
   async function reverseGeocode(lat, lon) {
@@ -129,7 +192,7 @@ const MapGeo = (() => {
   }
 
   return {
-    roadWeight, isMajorRoad,
+    roadWeight, isMajorRoad, classifyAreaTier,
     fetchStreets, fetchLandmarks, reverseGeocode, searchPlace,
     makeCoverProjector,
   };
