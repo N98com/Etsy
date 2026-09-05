@@ -94,6 +94,11 @@
   const historyModalBackdrop = el('historyModalBackdrop');
   const historyCloseBtn = el('historyCloseBtn');
   const historyList = el('historyList');
+  const historyTabPlayground = el('historyTabPlayground');
+  const historyTabLocation = el('historyTabLocation');
+  const historyPanelPlayground = el('historyPanelPlayground');
+  const historyPanelLocation = el('historyPanelLocation');
+  const locationHistoryList = el('locationHistoryList');
 
   // ---- init ----
   function init() {
@@ -216,11 +221,13 @@
     document.addEventListener('click', () => { settingsMenu.hidden = true; });
     historyMenuBtn.addEventListener('click', () => {
       settingsMenu.hidden = true;
-      renderHistoryList();
+      selectHistoryTab('playground');
       historyModalBackdrop.classList.remove('hidden');
     });
     historyCloseBtn.addEventListener('click', () => historyModalBackdrop.classList.add('hidden'));
     historyModalBackdrop.addEventListener('click', e => { if (e.target === historyModalBackdrop) historyModalBackdrop.classList.add('hidden'); });
+    historyTabPlayground.addEventListener('click', () => selectHistoryTab('playground'));
+    historyTabLocation.addEventListener('click', () => selectHistoryTab('location'));
 
     generateBatch();
     renderFavorites();
@@ -679,6 +686,51 @@
       item.appendChild(openBtn);
 
       historyList.appendChild(item);
+    });
+  }
+
+  function selectHistoryTab(name) {
+    historyTabPlayground.classList.toggle('active', name === 'playground');
+    historyTabLocation.classList.toggle('active', name === 'location');
+    historyPanelPlayground.hidden = name !== 'playground';
+    historyPanelLocation.hidden = name !== 'location';
+    if (name === 'playground') renderHistoryList();
+    else renderLocationHistoryList();
+  }
+
+  // De Locatie-tab (js/location.js) houdt zijn eigen geschiedenis bij — een
+  // kaart is geen seed+palet maar echte, potentieel zware geo-data, dus
+  // daar wordt alleen een miniatuur + metadata van bewaard, geen volledige
+  // straten/water-geometrie.
+  function renderLocationHistoryList() {
+    locationHistoryList.innerHTML = '';
+    const entries = window.LocationApp ? window.LocationApp.getHistory() : [];
+    if (entries.length === 0) {
+      locationHistoryList.innerHTML = '<p class="history-empty">Nog niets geëxporteerd vanuit Locatie. Zodra je een kaart downloadt, verschijnt hij hier.</p>';
+      return;
+    }
+    entries.forEach(entry => {
+      const item = document.createElement('div');
+      item.className = 'history-item';
+
+      const img = document.createElement('img');
+      img.src = entry.thumbnail;
+      item.appendChild(img);
+
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const line1 = document.createElement('div');
+      line1.className = 'line1';
+      line1.textContent = `${entry.place || 'Onbekende plaats'}${entry.country ? ', ' + entry.country : ''} · ${entry.paletteName}`;
+      const line2 = document.createElement('div');
+      line2.className = 'line2';
+      const date = new Date(entry.timestamp);
+      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeLabel} · ${date.toLocaleDateString('nl-NL')} ${date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}`;
+      meta.appendChild(line1);
+      meta.appendChild(line2);
+      item.appendChild(meta);
+
+      locationHistoryList.appendChild(item);
     });
   }
 

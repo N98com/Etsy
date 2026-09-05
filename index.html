@@ -227,8 +227,19 @@
       <button class="modal-close ghost" id="historyCloseBtn">✕ sluiten</button>
       <div>
         <h3>Geschiedenis</h3>
-        <p class="hint">Elk ontwerp dat je daadwerkelijk hebt geëxporteerd (SVG of PNG), permanent bewaard — ook als het onderliggende kleurpreset intussen is opgeschoond.</p>
-        <div class="history-list" id="historyList"></div>
+        <div class="view-tabs" style="padding:0; margin-bottom:10px; background:transparent; border-bottom:1px solid var(--line);">
+          <button type="button" class="view-tab active" id="historyTabPlayground" data-history="playground">Playground</button>
+          <button type="button" class="view-tab" id="historyTabLocation" data-history="location">Locatie</button>
+        </div>
+
+        <div id="historyPanelPlayground">
+          <p class="hint">Elk ontwerp dat je daadwerkelijk hebt geëxporteerd (SVG of PNG), permanent bewaard — ook als het onderliggende kleurpreset intussen is opgeschoond.</p>
+          <div class="history-list" id="historyList"></div>
+        </div>
+        <div id="historyPanelLocation" hidden>
+          <p class="hint">Elke kaart die je daadwerkelijk hebt geëxporteerd, met een miniatuur zoals hij eruitzag.</p>
+          <div class="history-list" id="locationHistoryList"></div>
+        </div>
       </div>
     </div>
   </div>

@@ -2,6 +2,23 @@
 // Analoog aan main.js, maar voor kaart-kunst i.p.v. de generatieve
 // algoritmes — losse module zodat de twee elkaar niet in de weg zitten.
 window.LocationApp = (() => {
+  const HISTORY_KEY = 'genart-location-history-v1';
+
+  function loadLocationHistory() {
+    try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
+  }
+  function saveLocationHistory(list) {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+  }
+  // Bewaart alleen een miniatuur + metadata, niet de volledige straten/
+  // water-geometrie — die kan flink oplopen qua omvang en is (anders dan
+  // een generatieve seed) niet compact reproduceerbaar.
+  function recordLocationExport(entry) {
+    const history = loadLocationHistory();
+    history.unshift(entry);
+    saveLocationHistory(history);
+  }
+
   const RATIO_PRESETS = [
     { id: '2x3', label: '2:3', w: 2, h: 3 },
     { id: '3x4', label: '3:4', w: 3, h: 4 },
@@ -300,6 +317,16 @@ window.LocationApp = (() => {
     });
   }
 
+  function makeHistoryThumbnail() {
+    const ratio = state.ratio.w / state.ratio.h;
+    const th = 200;
+    const tw = Math.round(th * ratio);
+    const canvas = document.createElement('canvas');
+    canvas.width = tw; canvas.height = th;
+    drawArtwork(new CanvasPainter(canvas.getContext('2d'), tw, th), tw, th);
+    return canvas.toDataURL('image/png');
+  }
+
   function exportResult(wantSVG) {
     if (!state.current) return;
     const opt = exportSizeSelect.selectedOptions[0];
@@ -319,6 +346,17 @@ window.LocationApp = (() => {
         drawArtwork(new CanvasPainter(canvas.getContext('2d'), w, h), w, h);
         Utils.downloadCanvasPNG(canvas, `locatie-${place}-${opt.value}-${date}.png`);
       }
+      recordLocationExport({
+        thumbnail: makeHistoryThumbnail(),
+        place: state.current.place,
+        country: state.current.country,
+        lat: state.current.lat,
+        lon: state.current.lon,
+        paletteName: getMapPalette(state.mapPaletteId).name,
+        format: wantSVG ? 'svg' : 'png',
+        sizeLabel: opt.textContent,
+        timestamp: Date.now(),
+      });
       exportStatus.textContent = 'Opgeslagen.';
       exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
     }, 20);
@@ -326,5 +364,5 @@ window.LocationApp = (() => {
 
   document.addEventListener('DOMContentLoaded', init);
 
-  return { onShow };
+  return { onShow, getHistory: loadLocationHistory };
 })();
