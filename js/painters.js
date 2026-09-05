@@ -4,6 +4,9 @@
 function fmt(n) { return Math.round(n * 100) / 100; }
 function fillAttr(fill) { return (fill && fill !== 'none') ? `fill="${fill}"` : 'fill="none"'; }
 function strokeAttr(stroke, w) { return stroke ? `stroke="${stroke}" stroke-width="${fmt(w || 1)}"` : 'stroke="none"'; }
+function escapeXml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
 
 class CanvasPainter {
   constructor(ctx, w, h) { this.ctx = ctx; this.w = w; this.h = h; }
@@ -49,6 +52,31 @@ class CanvasPainter {
   }
 
   polygon(points, opts = {}) { this.polyline(points, { ...opts, closed: true }); }
+
+  // Tekst — nodig voor kaart-onderschriften, straatnamen en landmark-labels.
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
+    const ctx = this.ctx;
+    ctx.save();
+    if (rotate) { ctx.translate(x, y); ctx.rotate(rotate * Math.PI / 180); x = 0; y = 0; }
+    ctx.fillStyle = fill || '#000';
+    ctx.font = `${weight} ${fontSize}px ${fontFamily}`;
+    ctx.textAlign = align;
+    ctx.textBaseline = baseline;
+    if (letterSpacing && 'letterSpacing' in ctx) ctx.letterSpacing = `${letterSpacing}px`;
+    ctx.fillText(str, x, y);
+    ctx.restore();
+  }
+
+  // Rechthoekige clip — gebruikt om de kaart binnen zijn kader af te snijden
+  // wanneer de geselecteerde geo-bounding-box net iets groter is dan het
+  // kader (een "cover"-fit, zoals background-size:cover).
+  beginClip(x, y, w, h) {
+    this.ctx.save();
+    this.ctx.beginPath();
+    this.ctx.rect(x, y, w, h);
+    this.ctx.clip();
+  }
+  endClip() { this.ctx.restore(); }
 }
 
 class SVGPainter {
@@ -76,6 +104,21 @@ class SVGPainter {
   }
 
   polygon(points, opts = {}) { this.polyline(points, { ...opts, closed: true }); }
+
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
+    const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start';
+    const dominant = baseline === 'middle' ? 'middle' : baseline === 'hanging' ? 'hanging' : 'auto';
+    const transform = rotate ? ` transform="rotate(${fmt(rotate)} ${fmt(x)} ${fmt(y)})"` : '';
+    const ls = letterSpacing ? ` letter-spacing="${fmt(letterSpacing)}"` : '';
+    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}" font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${transform}>${escapeXml(str)}</text>`);
+  }
+
+  beginClip(x, y, w, h) {
+    this._clipCounter = (this._clipCounter || 0) + 1;
+    const id = `clip${this._clipCounter}`;
+    this.parts.push(`<clipPath id="${id}"><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}"/></clipPath><g clip-path="url(#${id})">`);
+  }
+  endClip() { this.parts.push('</g>'); }
 
   toString() {
     return `<svg xmlns="http://www.w3.org/2000/svg" width="${this.w}" height="${this.h}" viewBox="0 0 ${this.w} ${this.h}">${this.parts.join('')}</svg>`;

@@ -4,6 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Art Generator</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
@@ -36,6 +37,12 @@
     </div>
   </header>
 
+  <nav class="view-tabs">
+    <button type="button" class="view-tab active" id="viewTabPlayground" data-view="playground">Playground</button>
+    <button type="button" class="view-tab" id="viewTabLocation" data-view="location">Locatie</button>
+  </nav>
+
+  <div id="playgroundView">
   <main>
     <aside class="sidebar sidebar-left">
       <div class="panel">
@@ -115,6 +122,72 @@
       </div>
     </aside>
   </main>
+  </div>
+
+  <div id="locationView" hidden>
+    <div class="location-layout">
+      <aside class="sidebar location-controls">
+        <div class="panel">
+          <h2>Gebied kiezen</h2>
+          <label for="locationSearchInput">Zoek een plaats</label>
+          <div class="row">
+            <input type="text" id="locationSearchInput" placeholder="bijv. Parijs, Frankrijk">
+            <button id="locationSearchBtn" style="flex:0 0 auto;">Zoek</button>
+          </div>
+          <div id="locationSearchResults" class="location-search-results" hidden></div>
+
+          <label>Beeldverhouding</label>
+          <div class="ratio-tabs" id="ratioTabs"></div>
+          <div class="row" id="customRatioRow" hidden style="margin-top:6px;">
+            <input type="number" id="customRatioW" min="1" value="2">
+            <span style="align-self:center; color:var(--ink-soft);">:</span>
+            <input type="number" id="customRatioH" min="1" value="3">
+          </div>
+
+          <p class="hint" style="margin-top:10px;">Sleep en zoom de kaart tot het kader het gewenste gebied dekt.</p>
+          <button class="primary" id="locationGenerateBtn" style="width:100%; margin-top:10px;">Genereer kaart</button>
+          <p class="hint" id="locationStatus"></p>
+        </div>
+
+        <div class="panel">
+          <h2>Stijl</h2>
+          <label>Kleurstelling</label>
+          <div class="map-palette-grid" id="mapPaletteGrid"></div>
+
+          <label class="checkbox-row"><input type="checkbox" id="showStreetLabelsCheck"> Straatnamen toevoegen</label>
+          <label class="checkbox-row"><input type="checkbox" id="showLandmarksCheck"> Landmarks toevoegen</label>
+
+          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Onderschrift</p>
+          <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Plaatsnaam</label>
+          <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Land</label>
+          <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coördinaten</label>
+        </div>
+
+        <div class="panel" id="locationExportPanel" hidden>
+          <h2>Exporteren</h2>
+          <label for="locationExportSize">Formaat</label>
+          <select id="locationExportSize"></select>
+          <div class="row" style="margin-top:8px;">
+            <button class="primary" id="locationExportSVGBtn">Exporteer SVG</button>
+            <button id="locationExportPNGBtn">Exporteer PNG</button>
+          </div>
+          <p class="hint" id="locationExportStatus"></p>
+        </div>
+      </aside>
+
+      <section class="location-main">
+        <div class="location-picker-wrap">
+          <div id="locationMap" class="location-map"></div>
+          <div class="location-overlay" id="locationOverlay"></div>
+        </div>
+
+        <div class="location-result" id="locationResult" hidden>
+          <h2>Resultaat</h2>
+          <div class="location-result-preview" id="locationResultPreview"></div>
+        </div>
+      </section>
+    </div>
+  </div>
 
   <footer>
     Werkbank draait volledig lokaal in de browser — niets wordt geüpload. Ruwe render → kies de beste 5% → finetune kleur in Photoshop/Affinity → exporteer op printresolutie.
@@ -171,5 +244,12 @@
   <script src="js/algorithms.js"></script>
   <script src="js/export.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/views.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+  <script src="js/mapPalettes.js"></script>
+  <script src="js/mapGeo.js"></script>
+  <script src="js/mapRender.js"></script>
+  <script src="js/location.js"></script>
 </body>
 </html>
