@@ -55,22 +55,30 @@ const MapGeo = (() => {
       // rivierlijnen: bij deze schaal onzichtbaar maar wel zwaar qua data.
       // "out geom" levert de coördinaten meteen per way (geen aparte
       // node-verzameling nodig via ">"), wat over zo'n groot gebied veel
-      // minder data en rekentijd kost. "out geom N" is bovendien een harde
-      // bovengrens als vangnet tegen een onverwacht dicht gebied.
-      return `[out:json][timeout:25];(
+      // minder data en rekentijd kost. Bewust GEEN "out geom N" harde
+      // bovengrens meer: Overpass knipt zo'n limiet af op interne
+      // ID-volgorde, niet ruimtelijk — een weg bestaat uit meerdere los
+      // genummerde stukjes, dus een afkap-limiet levert typisch een
+      // onvolledige, kapot ogende kaart op (losse streepjes i.p.v.
+      // doorlopende wegen) i.p.v. gewoon een kleinere kaart. De wegtype-
+      // filters hierboven doen het echte werk om de query behapbaar te
+      // houden; loopt het los, dan geeft Overpass een duidelijke
+      // timeout-foutmelding i.p.v. stilletjes een kapotte afbeelding.
+      return `[out:json][timeout:30];(
         way["highway"~"^(motorway|trunk|primary)$"](${bbox});
         way["natural"="water"]["name"](${bbox});
-      );out geom 1500;`;
+      );out geom;`;
     }
     if (tier === 'region') {
       // Geen tertiaire weggetjes en geen kanalen/naamloze plasjes meer — op
       // deze schaal (60-150km) zijn die op een echte kaart toch niet meer
-      // als individuele lijntjes te onderscheiden.
-      return `[out:json][timeout:25];(
+      // als individuele lijntjes te onderscheiden. Zie hierboven waarom er
+      // geen "out geom N" afkap-limiet meer op zit.
+      return `[out:json][timeout:30];(
         way["highway"~"^(motorway|trunk|primary|secondary)$"](${bbox});
         way["waterway"="river"](${bbox});
         way["natural"="water"]["name"](${bbox});
-      );out geom 3000;`;
+      );out geom;`;
     }
     // Game Styles (GTA V, RDR2) tekenen nooit parken/bos/gras — MapRender
     // gebruikt voor die stijlen een heel andere achtergrond (terreincontouren
@@ -89,8 +97,7 @@ const MapGeo = (() => {
       // voetpaden/opritten/servicewegen die Overpass met een ongefilterde
       // "way[highway]" query niet op tijd behapt. Op posterschaal zijn die
       // toch niet individueel te onderscheiden, dus alleen de wegtypes die
-      // daadwerkelijk zichtbaar zouden zijn. "out geom N" blijft ook hier
-      // een vangnet tegen een onverwacht dicht gebied.
+      // daadwerkelijk zichtbaar zouden zijn.
       //
       // Bij een ruime selectie (~25-60km) van zo'n dichtbebouwde stad is
       // zelfs het complete woonstratennet nog te veel: duizenden korte
@@ -99,15 +106,21 @@ const MapGeo = (() => {
       // als een echte overzichtskaart op die schaal zou doen. Bij een
       // kleinere/dichterbij gekozen selectie (<25km, bijv. één wijk) blijft
       // het woonstratennet wél staan — daar is dat juist het punt.
+      //
+      // Bewust geen "out geom N" afkap-limiet (zie toelichting bij
+      // country/region hierboven): dat sneed willekeurig stukken van wegen
+      // weg (Overpass knipt op interne ID-volgorde, niet ruimtelijk) en gaf
+      // zo een kapot ogende kaart vol losse streepjes i.p.v. een kleinere
+      // maar complete kaart.
       const span = areaSpanKm(bounds);
       const highwayFilter = span >= 25
         ? '^(motorway|trunk|primary|secondary|tertiary)$'
         : '^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$';
-      return `[out:json][timeout:25];(
+      return `[out:json][timeout:30];(
         way["highway"~"${highwayFilter}"](${bbox});
         way["waterway"](${bbox});
         way["natural"="water"](${bbox});${greenery}
-      );out geom 6000;`;
+      );out geom;`;
     }
     // street: kleine selectie, hier is volledig detail (incl. voetpaden e.d.)
     // prima te behappen voor Overpass.
