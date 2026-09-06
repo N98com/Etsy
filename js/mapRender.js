@@ -238,11 +238,16 @@ const MapRender = (() => {
     }
 
     const roads = streets.filter(s => s.tags.highway).sort((a, b) => MapGeo.roadWeight(a.tags) - MapGeo.roadWeight(b.tags));
-    const baseRoadWidth = Math.min(mapW, mapH) / 650;
+    // Afgestemd op de nieuwe, veel bredere ROAD_WEIGHT-reeks (mapGeo.js) —
+    // deze deler houdt een snelweg ongeveer even dik als voorheen, terwijl
+    // een woonstraat nu duidelijk dunner wordt i.p.v. bijna even dik.
+    const baseRoadWidth = Math.min(mapW, mapH) / 1100;
     roads.forEach(r => {
       const pts = r.coords.map(([lat, lon]) => project(lat, lon));
       const major = MapGeo.isMajorRoad(r.tags);
-      const roadW = baseRoadWidth * MapGeo.roadWeight(r.tags);
+      // Ondergrens zodat een dunne woonstraat/voetpad nog zichtbaar blijft
+      // i.p.v. weg te vallen door anti-aliasing bij een kleinere preview.
+      const roadW = Math.max(0.5, baseRoadWidth * MapGeo.roadWeight(r.tags));
       painter.polyline(pts, {
         stroke: major ? palette.road : palette.roadMinor,
         strokeWidth: roadW,

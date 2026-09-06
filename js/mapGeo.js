@@ -7,10 +7,14 @@ const MapGeo = (() => {
   const OVERPASS_ENDPOINT = 'https://overpass-api.de/api/interpreter';
   const NOMINATIM_ENDPOINT = 'https://nominatim.openstreetmap.org';
 
+  // Sterk niet-lineair oplopend (i.p.v. de vorige, te vlakke reeks) zodat
+  // een snelweg duidelijk dikker oogt dan een woonstraat, zoals Google
+  // Maps dat ook toont — anders verdrinkt elke hoofdader in het woonwijk-
+  // rasterwerk zodra een gebied genoeg straten bevat.
   const ROAD_WEIGHT = {
-    motorway: 3.2, motorway_link: 2.4, trunk: 3, trunk_link: 2.2, primary: 2.6, primary_link: 2,
-    secondary: 2.2, tertiary: 1.8, residential: 1.2, unclassified: 1.1, service: 0.7,
-    footway: 0.5, path: 0.5, cycleway: 0.5, pedestrian: 0.9, living_street: 1, track: 0.5,
+    motorway: 5.5, motorway_link: 3.6, trunk: 5, trunk_link: 3.2, primary: 3.8, primary_link: 2.6,
+    secondary: 2.6, tertiary: 1.6, residential: 0.85, unclassified: 0.75, service: 0.5,
+    footway: 0.35, path: 0.35, cycleway: 0.35, pedestrian: 0.55, living_street: 0.75, track: 0.35,
   };
   const MAJOR_ROAD_TYPES = ['motorway', 'trunk', 'primary', 'secondary'];
 
