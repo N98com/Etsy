@@ -137,9 +137,10 @@ const MapRender = (() => {
     }
   }
 
-  function relLuminance(hex) {
+  function lightenColor(hex, amount) {
     const { r, g, b } = Utils.hexToRgb(hex);
-    return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+    const mix = c => Math.round(c + (255 - c) * amount);
+    return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
   }
 
   // Zachte gloed rond een geïsoleerde vorm: een paar steeds transparantere,
@@ -187,11 +188,15 @@ const MapRender = (() => {
         // procedureel gegenereerd (zie drawCamoTerrain) i.p.v. echte
         // satellietbeelden.
         drawCamoTerrain(painter, mapW, mapH, bounds, palette.outer, palette.outerDark);
+        drawIsolateHalo(painter, projectedRings, palette.bg, Math.max(w, h) * 0.0015);
       } else {
-        const outsideColor = relLuminance(palette.bg) > 0.5 ? '#26221c' : '#f2ede4';
-        painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: outsideColor });
+        // Een geïsoleerd stuk land ligt in het echt in water — de omgeving
+        // met de eigen waterkleur van het palet vullen (i.p.v. een neutrale
+        // vlakke kleur) laat het als een echte kust/oceaan-overgang ogen,
+        // met een lichte "ondiep water"-gloed vlak langs de kust.
+        painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: palette.water });
+        drawIsolateHalo(painter, projectedRings, lightenColor(palette.water, 0.4), Math.max(w, h) * 0.0018);
       }
-      drawIsolateHalo(painter, projectedRings, palette.bg, Math.max(w, h) * 0.0015);
       painter.beginClipPath(projectedRings);
     } else {
       painter.beginClip(0, 0, mapW, mapH);
@@ -223,10 +228,14 @@ const MapRender = (() => {
         fill: palette.water, stroke: palette.coastline, strokeWidth: coastlineWidth,
       }));
 
+    // Alleen de waterlopen die op een echte kaart ook als lijn zichtbaar
+    // zijn (rivier/kanaal/beek) — sloten en drainagegreppels zijn op elke
+    // schaal te onbeduidend en zorgden er vooral voor dat het geheel dichtslibde
+    // tot dikke, vlekkerige banen. Dun en accuraat, niet dik.
     streets
-      .filter(s => s.tags.waterway)
+      .filter(s => s.tags.waterway === 'river' || s.tags.waterway === 'canal' || s.tags.waterway === 'stream')
       .forEach(s => {
-        const riverWidth = s.tags.waterway === 'river' ? Math.max(w, h) * 0.01 : Math.max(w, h) * 0.005;
+        const riverWidth = s.tags.waterway === 'river' ? Math.max(w, h) * 0.0035 : Math.max(w, h) * 0.0015;
         painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), { stroke: palette.water, strokeWidth: riverWidth, fill: 'none' });
       });
 
@@ -320,9 +329,11 @@ const MapRender = (() => {
 
     if (isolate) {
       // Scherpe contourlijn boven op de gevulde vorm, buiten de clip
-      // getekend zodat hij niet zelf wordt weg geknipt.
+      // getekend zodat hij niet zelf wordt weg geknipt — de coastline-kleur
+      // (waar het palet er een heeft) geeft een net zo scherpe land/water-
+      // overgang als bij losse meren.
       projectedRings.forEach(ring => {
-        painter.polygon(ring, { stroke: palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
+        painter.polygon(ring, { stroke: palette.coastline || palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
       });
     }
 
