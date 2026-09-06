@@ -50,22 +50,22 @@ const MapGeo = (() => {
   function buildStreetsQuery(bounds, tier = 'street', styleHint = null) {
     const bbox = bboxStr(bounds);
     if (tier === 'country') {
-      // Alleen de hoofdaders en grote wateroppervlaktes (met naam, als proxy
-      // voor "significant") — geen kleine weggetjes, geen parken/bos, geen
-      // rivierlijnen: bij deze schaal onzichtbaar maar wel zwaar qua data.
-      // "out geom" levert de coördinaten meteen per way (geen aparte
-      // node-verzameling nodig via ">"), wat over zo'n groot gebied veel
-      // minder data en rekentijd kost. Bewust GEEN "out geom N" harde
-      // bovengrens meer: Overpass knipt zo'n limiet af op interne
-      // ID-volgorde, niet ruimtelijk — een weg bestaat uit meerdere los
-      // genummerde stukjes, dus een afkap-limiet levert typisch een
-      // onvolledige, kapot ogende kaart op (losse streepjes i.p.v.
-      // doorlopende wegen) i.p.v. gewoon een kleinere kaart. De wegtype-
-      // filters hierboven doen het echte werk om de query behapbaar te
-      // houden; loopt het los, dan geeft Overpass een duidelijke
+      // Hoofdaders t/m secundaire wegen, plus rivieren en grote
+      // wateroppervlaktes (met naam, als proxy voor "significant" — anders
+      // komt elke naamloze vijver/plas van het hele land erbij, wat op
+      // deze schaal alleen maar ruis is). "out geom" levert de coördinaten
+      // meteen per way (geen aparte node-verzameling nodig via ">"), wat
+      // over zo'n groot gebied veel minder data en rekentijd kost. Bewust
+      // GEEN "out geom N" harde bovengrens: Overpass knipt zo'n limiet af
+      // op interne ID-volgorde, niet ruimtelijk — een weg bestaat uit
+      // meerdere los genummerde stukjes, dus een afkap-limiet levert
+      // typisch een onvolledige, kapot ogende kaart op (losse streepjes
+      // i.p.v. doorlopende wegen) i.p.v. gewoon een kleinere kaart. Loopt
+      // de query alsnog vast, dan geeft Overpass een duidelijke
       // timeout-foutmelding i.p.v. stilletjes een kapotte afbeelding.
-      return `[out:json][timeout:30];(
-        way["highway"~"^(motorway|trunk|primary)$"](${bbox});
+      return `[out:json][timeout:40];(
+        way["highway"~"^(motorway|trunk|primary|secondary)$"](${bbox});
+        way["waterway"="river"](${bbox});
         way["natural"="water"]["name"](${bbox});
       );out geom;`;
     }
@@ -91,33 +91,18 @@ const MapGeo = (() => {
       way["landuse"="forest"](${bbox});
       way["landuse"="grass"](${bbox});`;
     if (tier === 'city') {
-      // Een stad kan geografisch compact zijn (<60km, dus 'city'-tier) maar
-      // toch een enorm wegennet hebben — vooral Amerikaanse grootsteden als
-      // Los Angeles, San Francisco en New York hebben tienduizenden
-      // voetpaden/opritten/servicewegen die Overpass met een ongefilterde
-      // "way[highway]" query niet op tijd behapt. Op posterschaal zijn die
-      // toch niet individueel te onderscheiden, dus alleen de wegtypes die
-      // daadwerkelijk zichtbaar zouden zijn.
-      //
-      // Bij een ruime selectie (~25-60km) van zo'n dichtbebouwde stad is
-      // zelfs het complete woonstratennet nog te veel: duizenden korte
-      // straatjes worden op posterschaal een wirwar van losse streepjes
-      // i.p.v. een leesbare kaart. Dan tonen we alleen de hoofdaders, net
-      // als een echte overzichtskaart op die schaal zou doen. Bij een
-      // kleinere/dichterbij gekozen selectie (<25km, bijv. één wijk) blijft
-      // het woonstratennet wél staan — daar is dat juist het punt.
-      //
-      // Bewust geen "out geom N" afkap-limiet (zie toelichting bij
-      // country/region hierboven): dat sneed willekeurig stukken van wegen
-      // weg (Overpass knipt op interne ID-volgorde, niet ruimtelijk) en gaf
-      // zo een kapot ogende kaart vol losse streepjes i.p.v. een kleinere
-      // maar complete kaart.
-      const span = areaSpanKm(bounds);
-      const highwayFilter = span >= 25
-        ? '^(motorway|trunk|primary|secondary|tertiary)$'
-        : '^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$';
-      return `[out:json][timeout:30];(
-        way["highway"~"${highwayFilter}"](${bbox});
+      // Volledig woonstratennet, tot en met residential/unclassified/
+      // living_street — ook bij een ruime (~60km) selectie van een
+      // dichtbebouwde stad als Los Angeles. Alleen voetpaden/opritten/
+      // servicewegen/fietspaden vallen af: die zijn op posterschaal nooit
+      // individueel te onderscheiden en zorgden er eerder voor dat
+      // Overpass zulke queries niet op tijd behapte. Bewust geen
+      // "out geom N" afkap-limiet (zie toelichting bij country hierboven):
+      // dat sneed willekeurig stukken van wegen weg (Overpass knipt op
+      // interne ID-volgorde, niet ruimtelijk) en gaf zo een kapot ogende
+      // kaart vol losse streepjes i.p.v. een complete kaart.
+      return `[out:json][timeout:40];(
+        way["highway"~"^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$"](${bbox});
         way["waterway"](${bbox});
         way["natural"="water"](${bbox});${greenery}
       );out geom;`;
