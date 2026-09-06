@@ -316,3 +316,43 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .location-result h2 { font-size: 0.95rem; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); }
 .location-result-preview { display: flex; justify-content: center; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
 .location-result-preview canvas { max-width: 100%; max-height: 70vh; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+
+/* ---- Mockups-tab: artwork in een geïllustreerde sfeerscene ---- */
+.mockups-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  padding: 20px 24px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) { .mockups-layout { grid-template-columns: 1fr; } }
+
+.mockups-controls { display: flex; flex-direction: column; }
+
+.mockup-source-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-top: 4px;
+  max-height: 260px; overflow-y: auto;
+}
+.mockup-source-thumb {
+  border: 2px solid var(--line); border-radius: 6px; padding: 0; overflow: hidden;
+  cursor: pointer; background: var(--panel); aspect-ratio: 1; position: relative;
+}
+.mockup-source-thumb.active { border-color: var(--accent); }
+.mockup-source-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.mockup-source-empty { color: var(--ink-soft); font-size: 0.78rem; grid-column: 1 / -1; }
+
+.mockup-option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
+.mockup-option-card {
+  border: 2px solid var(--line); border-radius: 8px; padding: 6px; background: var(--panel);
+  cursor: pointer; text-align: left; font-size: 0.74rem; color: var(--ink);
+}
+.mockup-option-card.active { border-color: var(--accent); }
+.mockup-option-card .mockup-option-swatch { display: block; height: 20px; border-radius: 4px; margin-bottom: 4px; }
+
+.mockup-main { display: flex; flex-direction: column; gap: 20px; }
+.mockup-preview-wrap {
+  display: flex; align-items: center; justify-content: center; min-height: 480px;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px;
+}
+.mockup-preview-wrap canvas { max-width: 100%; max-height: 70vh; box-shadow: 0 8px 30px rgba(0,0,0,0.4); border-radius: 4px; }

@@ -734,5 +734,28 @@
     });
   }
 
+  // Rendert een geschiedenisregel (algoId+seed+paletsnapshot) opnieuw, op
+  // om het even welke resolutie — dit is precies wat de Mockups-tab nodig
+  // heeft om een artwork uit de historie in een scene te plaatsen, zonder
+  // dat mockups.js iets hoeft te weten over palet-herstel of vector/raster.
+  function renderPlaygroundEntry(entry, ctx, w, h) {
+    const algo = Algorithms[entry.algoId];
+    if (!algo) return false;
+    const paletteId = ensurePaletteAvailable(entry.palette);
+    const params = algo.generateParams(entry.seed, paletteId);
+    if (algo.vector) algo.render(new CanvasPainter(ctx, w, h), params, w, h);
+    else algo.renderToCanvas(ctx, params, w, h);
+    return true;
+  }
+
+  window.PlaygroundApp = {
+    getHistory: () => state.exportHistory,
+    renderEntry: renderPlaygroundEntry,
+    labelFor: entry => {
+      const algo = Algorithms[entry.algoId];
+      return `${algo ? algo.label : entry.algoId} · #${entry.seed} · ${entry.palette.name}`;
+    },
+  };
+
   document.addEventListener('DOMContentLoaded', init);
 })();

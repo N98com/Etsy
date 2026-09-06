@@ -8,8 +8,16 @@
   }
 
   ready(() => {
-    const tabs = { playground: document.getElementById('viewTabPlayground'), location: document.getElementById('viewTabLocation') };
-    const views = { playground: document.getElementById('playgroundView'), location: document.getElementById('locationView') };
+    const tabs = {
+      playground: document.getElementById('viewTabPlayground'),
+      location: document.getElementById('viewTabLocation'),
+      mockups: document.getElementById('viewTabMockups'),
+    };
+    const views = {
+      playground: document.getElementById('playgroundView'),
+      location: document.getElementById('locationView'),
+      mockups: document.getElementById('mockupsView'),
+    };
 
     function selectView(name) {
       Object.keys(views).forEach(key => {
@@ -17,9 +25,9 @@
         tabs[key].classList.toggle('active', key === name);
       });
       if (name === 'location' && window.LocationApp) window.LocationApp.onShow();
+      if (name === 'mockups' && window.MockupsApp) window.MockupsApp.onShow();
     }
 
-    tabs.playground.addEventListener('click', () => selectView('playground'));
-    tabs.location.addEventListener('click', () => selectView('location'));
+    Object.keys(tabs).forEach(key => tabs[key].addEventListener('click', () => selectView(key)));
   });
 })();

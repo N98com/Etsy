@@ -356,7 +356,11 @@ window.LocationApp = (() => {
 
   function makeHistoryThumbnail() {
     const ratio = state.ratio.w / state.ratio.h;
-    const th = 200;
+    // Iets groter dan strikt nodig voor de historielijst zelf, zodat de
+    // Mockups-tab er ook nog redelijk uitziet als hij vergroot wordt in een
+    // scene — Locatie-historie bewaart geen volledige geometrie (zie boven),
+    // dus dit is de enige bron die daar beschikbaar is.
+    const th = 340;
     const tw = Math.round(th * ratio);
     const canvas = document.createElement('canvas');
     canvas.width = tw; canvas.height = th;

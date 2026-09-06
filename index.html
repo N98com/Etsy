@@ -40,6 +40,7 @@
   <nav class="view-tabs">
     <button type="button" class="view-tab active" id="viewTabPlayground" data-view="playground">Playground</button>
     <button type="button" class="view-tab" id="viewTabLocation" data-view="location">Locatie</button>
+    <button type="button" class="view-tab" id="viewTabMockups" data-view="mockups">Mockups</button>
   </nav>
 
   <div id="playgroundView">
@@ -195,6 +196,50 @@
     </div>
   </div>
 
+  <div id="mockupsView" hidden>
+    <div class="mockups-layout">
+      <aside class="sidebar mockups-controls">
+        <div class="panel">
+          <h2>Artwork kiezen</h2>
+          <div class="view-tabs" id="mockupSourceTabs" style="padding:0; margin-bottom:10px; background:transparent; border-bottom:1px solid var(--line);">
+            <button type="button" class="view-tab active" id="mockupSourceTabPlayground" data-source="playground">Playground</button>
+            <button type="button" class="view-tab" id="mockupSourceTabLocation" data-source="location">Locatie</button>
+          </div>
+          <div class="mockup-source-grid" id="mockupSourceGrid"></div>
+          <p class="hint" id="mockupSourceHint">Alleen daadwerkelijk geëxporteerde ontwerpen (zie Geschiedenis) staan hier.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Omgeving</h2>
+          <label>Scene</label>
+          <div class="mockup-option-grid" id="mockupSceneGrid"></div>
+
+          <label style="margin-top:12px;">Lijst</label>
+          <div class="mockup-option-grid mockup-frame-grid" id="mockupFrameGrid"></div>
+
+          <label style="margin-top:12px;" id="mockupAspectLabel">Beeldverhouding</label>
+          <div class="ratio-tabs" id="mockupAspectTabs"></div>
+          <p class="hint" id="mockupAspectHint" hidden>Deze kaart heeft een vaste beeldverhouding vanuit Locatie.</p>
+        </div>
+
+        <div class="panel">
+          <h2>Exporteren</h2>
+          <label for="mockupExportSize">Formaat</label>
+          <select id="mockupExportSize"></select>
+          <button class="primary" id="mockupExportBtn" style="width:100%; margin-top:8px;">Exporteer mockup (PNG)</button>
+          <p class="hint" id="mockupExportStatus"></p>
+          <p class="hint" style="margin-top:10px;">Let op: dit zijn geïllustreerde sfeerscenes (getekende muur/vloer/meubels), geen foto's van een echte kamer — bedoeld als aantrekkelijke Etsy-preview naast je gewone productfoto's.</p>
+        </div>
+      </aside>
+
+      <section class="mockup-main">
+        <div class="mockup-preview-wrap" id="mockupPreviewWrap">
+          <p class="hint" id="mockupEmptyHint">Kies eerst een artwork uit je geschiedenis hiernaast.</p>
+        </div>
+      </section>
+    </div>
+  </div>
+
   <footer>
     Werkbank draait volledig lokaal in de browser — niets wordt geüpload. Ruwe render → kies de beste 5% → finetune kleur in Photoshop/Affinity → exporteer op printresolutie.
   </footer>
@@ -268,5 +313,6 @@
   <script src="js/mapGeo.js"></script>
   <script src="js/mapRender.js"></script>
   <script src="js/location.js"></script>
+  <script src="js/mockups.js"></script>
 </body>
 </html>
