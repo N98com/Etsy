@@ -14,19 +14,6 @@ const MapRender = (() => {
     return pts;
   }
 
-  // Klein huisje-icoon voor de GTA V "Safehouse toevoegen"-optie — een
-  // simpele procedurele vorm (vierkant + driehoekig dak) in plaats van een
-  // ingesloten PNG-asset, zodat hij op elke exportresolutie scherp blijft en
-  // ook in de SVG-export meekomt. (x,y) is het midden van het icoon.
-  function drawSafehouseIcon(painter, x, y, size, color) {
-    const roofH = size * 0.42, bodyH = size - roofH;
-    const bx0 = x - size / 2, bx1 = x + size / 2;
-    const by0 = y - size / 2 + roofH, by1 = y + size / 2;
-    painter.polygon([[bx0, by0], [bx1, by0], [bx1, by1], [bx0, by1]], { fill: color });
-    const overhang = size * 0.08;
-    painter.polygon([[bx0 - overhang, by0], [bx1 + overhang, by0], [x, y - size / 2]], { fill: color });
-  }
-
   // Landmark-icoon — meerdere vormen naast de standaard ster, kiesbaar in de
   // UI. (x,y) is het middelpunt, r de "straal" (halve breedte/hoogte).
   function drawLandmarkIcon(painter, icon, x, y, r, color) {
@@ -159,7 +146,7 @@ const MapRender = (() => {
 
   function render(painter, w, h, opts) {
     const {
-      bounds, streets = [], landmarks = [], buildings = [], safehouse = null,
+      bounds, streets = [], landmarks = [], buildings = [],
       showStreetLabels = false, showLandmarks = false,
       streetLabelColor = null, landmarkColor = null, landmarkIcon = 'star',
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null,
@@ -318,11 +305,6 @@ const MapRender = (() => {
           align: 'center', baseline: 'hanging',
         });
       });
-    }
-
-    if (gtaStyle && safehouse) {
-      const size = Math.min(mapW, mapH) * 0.055;
-      drawSafehouseIcon(painter, safehouse.u * mapW, safehouse.v * mapH, size, '#3ecf47');
     }
 
     painter.endClip();

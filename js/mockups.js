@@ -193,7 +193,6 @@ window.MockupsApp = (() => {
       streets: entry.recolor.streets,
       landmarks: entry.recolor.landmarks || [],
       buildings: entry.recolor.buildings || [],
-      safehouse: isGta ? (entry.recolor.safehouse || null) : null,
       palette: isGta ? GTA_STYLE_PALETTE : isMw2 ? MW2_STYLE_PALETTE : isRdr2 ? RDR2_STYLE_PALETTE : getMapPalette(variant.id),
       gtaStyle: isGta,
       mw2Style: isMw2,

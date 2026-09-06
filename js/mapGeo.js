@@ -47,7 +47,7 @@ const MapGeo = (() => {
     return 'continent';
   }
 
-  function buildStreetsQuery(bounds, tier = 'street') {
+  function buildStreetsQuery(bounds, tier = 'street', styleHint = null) {
     const bbox = bboxStr(bounds);
     if (tier === 'country') {
       // Alleen de hoofdaders en grote wateroppervlaktes (met naam, als proxy
@@ -72,15 +72,37 @@ const MapGeo = (() => {
         way["natural"="water"]["name"](${bbox});
       );out geom 3000;`;
     }
-    // street / city: volledig detail, zoals bij een straat of stad prima te
-    // behappen is voor Overpass.
+    // Game Styles (GTA V, RDR2) tekenen nooit parken/bos/gras — MapRender
+    // gebruikt voor die stijlen een heel andere achtergrond (terreincontouren
+    // resp. procedureel camouflage-terrein). Die data dan toch ophalen is
+    // pure verspilling, en juist in dichtbebouwde grote steden (Los Angeles,
+    // San Francisco, New York...) is dat verschil merkbaar in queryzwaarte.
+    const skipGreenery = styleHint === 'gta' || styleHint === 'rdr2';
+    const greenery = skipGreenery ? '' : `
+      way["leisure"="park"](${bbox});
+      way["landuse"="forest"](${bbox});
+      way["landuse"="grass"](${bbox});`;
+    if (tier === 'city') {
+      // Een stad kan geografisch compact zijn (<60km, dus 'city'-tier) maar
+      // toch een enorm wegennet hebben — vooral Amerikaanse grootsteden als
+      // Los Angeles, San Francisco en New York hebben tienduizenden
+      // voetpaden/opritten/servicewegen die Overpass met een ongefilterde
+      // "way[highway]" query niet op tijd behapt. Op posterschaal zijn die
+      // toch niet individueel te onderscheiden, dus alleen de wegtypes die
+      // daadwerkelijk zichtbaar zouden zijn. "out geom N" blijft ook hier
+      // een vangnet tegen een onverwacht dicht gebied.
+      return `[out:json][timeout:25];(
+        way["highway"~"^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$"](${bbox});
+        way["waterway"](${bbox});
+        way["natural"="water"](${bbox});${greenery}
+      );out geom 6000;`;
+    }
+    // street: kleine selectie, hier is volledig detail (incl. voetpaden e.d.)
+    // prima te behappen voor Overpass.
     return `[out:json][timeout:25];(
       way["highway"](${bbox});
       way["waterway"](${bbox});
-      way["natural"="water"](${bbox});
-      way["leisure"="park"](${bbox});
-      way["landuse"="forest"](${bbox});
-      way["landuse"="grass"](${bbox});
+      way["natural"="water"](${bbox});${greenery}
     );out geom;`;
   }
 
@@ -164,9 +186,9 @@ const MapGeo = (() => {
       .filter(Boolean);
   }
 
-  async function fetchStreets(bounds, tier = 'street') {
+  async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     if (tier === 'continent') return [];
-    return parseWays(await runOverpassQuery(buildStreetsQuery(bounds, tier)));
+    return parseWays(await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint)));
   }
 
   async function fetchLandmarks(bounds, tier = 'street') {

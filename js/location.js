@@ -42,7 +42,6 @@ window.LocationApp = (() => {
     landmarkIcon: 'star',
     isolateArea: false,
     selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
-    safehouse: null, // { u, v } — genormaliseerde positie binnen het kaartvlak (0..1), alleen relevant/getekend bij GTA V
     current: null, // { bounds, streets, landmarks, place, country, lat, lon, isolate }
     generating: false,
   };
@@ -107,11 +106,6 @@ window.LocationApp = (() => {
   const mw2StyleHint = el('mw2StyleHint');
   const rdr2StyleCheck = el('rdr2StyleCheck');
   const rdr2StyleHint = el('rdr2StyleHint');
-  const safehousePanel = el('safehousePanel');
-  const safehouseAddressInput = el('safehouseAddressInput');
-  const safehouseAddBtn = el('safehouseAddBtn');
-  const safehouseStatus = el('safehouseStatus');
-  const safehouseRemoveBtn = el('safehouseRemoveBtn');
   const streetLabelsHint = el('streetLabelsHint');
   const areaTierHint = el('areaTierHint');
   const resultPanel = el('locationResult');
@@ -216,20 +210,6 @@ window.LocationApp = (() => {
 
     [placeNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', applyCaptionNameOverrides));
 
-    safehouseAddBtn.addEventListener('click', addSafehouseByAddress);
-    safehouseAddressInput.addEventListener('keydown', e => { if (e.key === 'Enter') addSafehouseByAddress(); });
-    safehouseRemoveBtn.addEventListener('click', () => {
-      state.safehouse = null;
-      safehouseRemoveBtn.hidden = true;
-      safehouseStatus.textContent = SAFEHOUSE_DEFAULT_HINT;
-      if (state.current) renderResult();
-    });
-
-    // Eén keer registreren, niet per render — anders stapelen window-brede
-    // listeners zich op elke keer dat de preview opnieuw getekend wordt.
-    window.addEventListener('mousemove', onSafehouseDragMove);
-    window.addEventListener('mouseup', onSafehouseDragEnd);
-
     exportSVGBtn.addEventListener('click', () => exportResult(true));
     exportPNGBtn.addEventListener('click', () => exportResult(false));
 
@@ -246,7 +226,6 @@ window.LocationApp = (() => {
     gtaStyleHint.hidden = !state.gtaStyle;
     mw2StyleHint.hidden = !state.mw2Style;
     rdr2StyleHint.hidden = !state.rdr2Style;
-    safehousePanel.hidden = !state.gtaStyle;
     paletteGrid.classList.toggle('disabled', !!style);
     updatePickerTileLayer();
     if (state.current) generate();
@@ -444,7 +423,8 @@ window.LocationApp = (() => {
       const tier = MapGeo.classifyAreaTier(bounds);
       applyAreaTier(tier);
       refreshAutoLabelColors();
-      const streets = await MapGeo.fetchStreets(bounds, tier);
+      const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
+      const streets = await MapGeo.fetchStreets(bounds, tier, styleHint);
       let landmarks = null;
       if (state.showLandmarks) {
         statusEl.textContent = 'Bezig met opzoeken van landmarks…';
@@ -513,80 +493,6 @@ window.LocationApp = (() => {
     renderResult();
   }
 
-  // ---- safehouse (alleen GTA V) ----
-  const SAFEHOUSE_DEFAULT_HINT = 'Sleep het icoon op de kaart hiernaast om de positie handmatig aan te passen.';
-
-  // Positie wordt bewaard als (u,v): een fractie (0..1) binnen het kaartvlak
-  // zelf (dus exclusief het onderschrift eronder) — dat blijft, anders dan
-  // een pixel-positie, correct ongeacht op welke resolutie later
-  // geëxporteerd wordt, zonder dat we lat/lon hoeven te onthouden.
-  function computeUVFromLatLon(lat, lon) {
-    const c = state.current;
-    const refW = 1000, refH = Math.round(refW / (state.ratio.w / state.ratio.h));
-    const layout = MapRender.captionLayout(refH, { showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords });
-    const mapW = refW, mapH = refH - layout.total;
-    const project = c.isolate
-      ? MapGeo.makeContainProjector(c.bounds, mapW, mapH)
-      : MapGeo.makeCoverProjector(c.bounds, mapW, mapH);
-    const [x, y] = project(lat, lon);
-    return { u: x / mapW, v: y / mapH };
-  }
-
-  async function addSafehouseByAddress() {
-    const address = safehouseAddressInput.value.trim();
-    if (!address || !state.current) return;
-    safehouseStatus.textContent = 'Bezig met opzoeken van adres…';
-    try {
-      const results = await MapGeo.searchPlace(address);
-      if (!results.length) { safehouseStatus.textContent = `Niets gevonden voor "${address}".`; return; }
-      state.safehouse = computeUVFromLatLon(parseFloat(results[0].lat), parseFloat(results[0].lon));
-      safehouseRemoveBtn.hidden = false;
-      safehouseStatus.textContent = SAFEHOUSE_DEFAULT_HINT;
-      renderResult();
-    } catch (err) {
-      safehouseStatus.textContent = `Opzoeken mislukt: ${err.message}`;
-    }
-  }
-
-  // Vertaalt een muispositie op de preview-canvas naar pixels binnen het
-  // kaartvlak (mapW x mapH, dus exclusief onderschrift) op die canvas' eigen
-  // resolutie — nodig om zowel te bepalen of je het icoon raakt als waar je
-  // 'm naartoe sleept.
-  function safehousePxFromEvent(canvas, evt) {
-    const rect = canvas.getBoundingClientRect();
-    const px = (evt.clientX - rect.left) * (canvas.width / rect.width);
-    const py = (evt.clientY - rect.top) * (canvas.height / rect.height);
-    const layout = MapRender.captionLayout(canvas.height, { showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords });
-    return { px, py, mapW: canvas.width, mapH: canvas.height - layout.total };
-  }
-
-  let dragCanvas = null;
-  let dragging = false;
-
-  function onSafehouseMouseDown(canvas, evt) {
-    if (!state.gtaStyle || !state.safehouse) return;
-    const { px, py, mapW, mapH } = safehousePxFromEvent(canvas, evt);
-    const sx = state.safehouse.u * mapW, sy = state.safehouse.v * mapH;
-    const hitRadius = Math.min(mapW, mapH) * 0.05;
-    if (Math.hypot(px - sx, py - sy) <= hitRadius) {
-      dragCanvas = canvas;
-      dragging = true;
-      evt.preventDefault();
-    }
-  }
-
-  function onSafehouseDragMove(evt) {
-    if (!dragging || !dragCanvas) return;
-    const { px, py, mapW, mapH } = safehousePxFromEvent(dragCanvas, evt);
-    state.safehouse = { u: Math.min(1, Math.max(0, px / mapW)), v: Math.min(1, Math.max(0, py / mapH)) };
-    drawArtwork(new CanvasPainter(dragCanvas.getContext('2d'), dragCanvas.width, dragCanvas.height), dragCanvas.width, dragCanvas.height);
-  }
-
-  function onSafehouseDragEnd() {
-    dragging = false;
-    dragCanvas = null;
-  }
-
   function renderResult() {
     if (!state.current) return;
     const ratio = state.ratio.w / state.ratio.h;
@@ -596,7 +502,6 @@ window.LocationApp = (() => {
     const canvas = document.createElement('canvas');
     canvas.width = previewW; canvas.height = previewH;
     resultPreview.appendChild(canvas);
-    canvas.addEventListener('mousedown', evt => onSafehouseMouseDown(canvas, evt));
     drawArtwork(new CanvasPainter(canvas.getContext('2d'), previewW, previewH), previewW, previewH);
   }
 
@@ -607,7 +512,6 @@ window.LocationApp = (() => {
       streets: c.streets,
       landmarks: c.landmarks || [],
       buildings: c.buildings || [],
-      safehouse: state.gtaStyle ? state.safehouse : null,
       palette: getMapPalette(state.mapPaletteId),
       gtaStyle: state.gtaStyle,
       mw2Style: state.mw2Style,
@@ -678,7 +582,6 @@ window.LocationApp = (() => {
       streets: trimStreetsForStorage(c.streets),
       landmarks: c.landmarks || [],
       buildings: trimBuildingsForStorage(c.buildings || []),
-      safehouse: state.gtaStyle ? state.safehouse : null,
       ratio: state.ratio,
       tier: c.tier,
       isolate: c.isolate || null,
