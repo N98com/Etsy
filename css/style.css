@@ -321,6 +321,22 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .location-result-preview { display: flex; justify-content: center; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
 .location-result-preview canvas { max-width: 100%; max-height: 70vh; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 
+/* Op telefoon staat "Exporteren" anders bovenaan (het staat in de
+   zijbalk-HTML, die op smalle schermen als eerste kolom rendert) — ver
+   boven het resultaat waar het bij hoort. "display: contents" heft de
+   zijbalk/hoofdkolom als rendering-box op, zodat hun kinderen rechtstreeks
+   grid-items van .location-layout worden en dus onderling herordend kunnen
+   worden; alleen het exportpaneel krijgt een "order" om na de kaart-picker
+   en het resultaat te verschijnen, de rest houdt zijn natuurlijke
+   (source-)volgorde aan. Alleen op mobiel: op desktop blijft Exporteren
+   gewoon in de zijbalk staan. Moet ná de losstaande ".location-controls"/
+   ".location-main { display: flex }"-regels hierboven staan, anders wint
+   die (latere, even specifieke) regel het bij een cascade-gelijkspel. */
+@media (max-width: 900px) {
+  .location-controls, .location-main { display: contents; }
+  #locationExportPanel { order: 5; margin-top: 0; }
+}
+
 /* ---- Mockups-tab: kleurvarianten-showcase van een bestaand artwork ---- */
 .mockups-layout {
   display: grid;
