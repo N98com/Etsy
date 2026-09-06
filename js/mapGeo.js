@@ -34,11 +34,15 @@ const MapGeo = (() => {
   // 'continent' fetcht helemaal geen Overpass-data meer (zelfs alleen
   // hoofdwegen zou voor een heel continent nog veel te zwaar zijn) — daar
   // rendert MapRender alleen de silhouet + gegenereerde textuur.
+  // 'region' eindigt bewust vroeg (150km i.p.v. voorheen 250km): een "heel
+  // eiland" van gemiddelde grootte (Cyprus, Kreta, Sicilië...) valt zo in de
+  // veel lichtere 'country'-query i.p.v. de zwaardere 'region'-query die bij
+  // zulke oppervlaktes tot een 504 (gateway timeout) bij Overpass leidde.
   function classifyAreaTier(bounds) {
     const span = areaSpanKm(bounds);
     if (span < 8) return 'street';
     if (span < 60) return 'city';
-    if (span < 250) return 'region';
+    if (span < 150) return 'region';
     if (span < 1500) return 'country';
     return 'continent';
   }
@@ -49,17 +53,24 @@ const MapGeo = (() => {
       // Alleen de hoofdaders en grote wateroppervlaktes (met naam, als proxy
       // voor "significant") — geen kleine weggetjes, geen parken/bos, geen
       // rivierlijnen: bij deze schaal onzichtbaar maar wel zwaar qua data.
+      // "out geom" levert de coördinaten meteen per way (geen aparte
+      // node-verzameling nodig via ">"), wat over zo'n groot gebied veel
+      // minder data en rekentijd kost. "out geom N" is bovendien een harde
+      // bovengrens als vangnet tegen een onverwacht dicht gebied.
       return `[out:json][timeout:25];(
         way["highway"~"^(motorway|trunk|primary)$"](${bbox});
         way["natural"="water"]["name"](${bbox});
-      );out body;>;out skel qt;`;
+      );out geom 1500;`;
     }
     if (tier === 'region') {
+      // Geen tertiaire weggetjes en geen kanalen/naamloze plasjes meer — op
+      // deze schaal (60-150km) zijn die op een echte kaart toch niet meer
+      // als individuele lijntjes te onderscheiden.
       return `[out:json][timeout:25];(
-        way["highway"~"^(motorway|trunk|primary|secondary|tertiary)$"](${bbox});
-        way["waterway"~"^(river|canal)$"](${bbox});
-        way["natural"="water"](${bbox});
-      );out body;>;out skel qt;`;
+        way["highway"~"^(motorway|trunk|primary|secondary)$"](${bbox});
+        way["waterway"="river"](${bbox});
+        way["natural"="water"]["name"](${bbox});
+      );out geom 3000;`;
     }
     // street / city: volledig detail, zoals bij een straat of stad prima te
     // behappen is voor Overpass.
@@ -70,7 +81,7 @@ const MapGeo = (() => {
       way["leisure"="park"](${bbox});
       way["landuse"="forest"](${bbox});
       way["landuse"="grass"](${bbox});
-    );out body;>;out skel qt;`;
+    );out geom;`;
   }
 
   function buildLandmarksQuery(bounds, tier = 'street') {
@@ -104,7 +115,7 @@ const MapGeo = (() => {
     const bbox = bboxStr(bounds);
     return `[out:json][timeout:25];(
       way["building"](${bbox});
-    );out body;>;out skel qt;`;
+    );out geom;`;
   }
 
   function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
@@ -129,20 +140,14 @@ const MapGeo = (() => {
   }
 
   // Zet de platte elements-lijst van Overpass om in wegen/water/groen als
-  // arrays van [lat, lon]-coördinaten, met de originele tags erbij.
+  // arrays van [lat, lon]-coördinaten, met de originele tags erbij. Alle
+  // queries vragen "out geom" op, dus elke way draagt zijn coördinaten al
+  // inline mee (geen aparte node-verzameling meer nodig om te doorzoeken).
   function parseWays(data) {
-    const nodes = new Map();
-    (data.elements || []).forEach(el => {
-      if (el.type === 'node') nodes.set(el.id, [el.lat, el.lon]);
-    });
-    const ways = [];
-    (data.elements || []).forEach(el => {
-      if (el.type === 'way' && Array.isArray(el.nodes)) {
-        const coords = el.nodes.map(id => nodes.get(id)).filter(Boolean);
-        if (coords.length >= 2) ways.push({ tags: el.tags || {}, coords });
-      }
-    });
-    return ways;
+    return (data.elements || [])
+      .filter(el => el.type === 'way' && Array.isArray(el.geometry))
+      .map(el => ({ tags: el.tags || {}, coords: el.geometry.map(pt => [pt.lat, pt.lon]) }))
+      .filter(w => w.coords.length >= 2);
   }
 
   function parseLandmarks(data) {
