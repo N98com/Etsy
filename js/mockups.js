@@ -160,6 +160,7 @@ window.MockupsApp = (() => {
     const variants = MAP_PALETTES.map(mp => ({ id: mp.id, label: mp.name, kind: 'location' }));
     variants.push({ id: 'gta5', label: GTA_STYLE_PALETTE.name, kind: 'location' });
     variants.push({ id: 'mw2', label: MW2_STYLE_PALETTE.name, kind: 'location' });
+    variants.push({ id: 'rdr2', label: RDR2_STYLE_PALETTE.name, kind: 'location' });
     return variants;
   }
 
@@ -186,18 +187,24 @@ window.MockupsApp = (() => {
     }
     const isGta = variant.id === 'gta5';
     const isMw2 = variant.id === 'mw2';
+    const isRdr2 = variant.id === 'rdr2';
     MapRender.render(new CanvasPainter(ctx, w, h), w, h, {
       bounds: entry.recolor.bounds,
       streets: entry.recolor.streets,
       landmarks: entry.recolor.landmarks || [],
       buildings: entry.recolor.buildings || [],
-      palette: isGta ? GTA_STYLE_PALETTE : isMw2 ? MW2_STYLE_PALETTE : getMapPalette(variant.id),
+      safehouse: isGta ? (entry.recolor.safehouse || null) : null,
+      palette: isGta ? GTA_STYLE_PALETTE : isMw2 ? MW2_STYLE_PALETTE : isRdr2 ? RDR2_STYLE_PALETTE : getMapPalette(variant.id),
       gtaStyle: isGta,
       mw2Style: isMw2,
+      rdr2Style: isRdr2,
       tier: entry.recolor.tier,
       isolate: entry.recolor.isolate || null,
-      showStreetLabels: !!entry.showStreetLabels && !isGta && !isMw2,
+      showStreetLabels: !!entry.showStreetLabels && !isGta && !isMw2 && !isRdr2,
       showLandmarks: !!entry.showLandmarks && (entry.recolor.landmarks || []).length > 0,
+      streetLabelColor: entry.streetLabelColor || null,
+      landmarkColor: entry.landmarkColor || null,
+      landmarkIcon: entry.landmarkIcon || 'star',
       caption: { showPlace: true, showCountry: true, showCoords: false, place: entry.place, country: entry.country, lat: entry.lat, lon: entry.lon },
     });
   }

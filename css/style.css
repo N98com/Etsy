@@ -293,6 +293,10 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
   margin: 8px 0 0; cursor: pointer;
 }
 .checkbox-row input { width: auto; margin: 0; accent-color: var(--accent); }
+.checkbox-row input[type="color"] {
+  margin-left: auto; width: 30px; height: 22px; padding: 0; border: 1px solid var(--line);
+  border-radius: 4px; background: none; cursor: pointer; flex-shrink: 0;
+}
 
 .map-palette-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
 .map-palette-grid.disabled { opacity: 0.35; pointer-events: none; }

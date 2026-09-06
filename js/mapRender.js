@@ -14,6 +14,60 @@ const MapRender = (() => {
     return pts;
   }
 
+  // Klein huisje-icoon voor de GTA V "Safehouse toevoegen"-optie — een
+  // simpele procedurele vorm (vierkant + driehoekig dak) in plaats van een
+  // ingesloten PNG-asset, zodat hij op elke exportresolutie scherp blijft en
+  // ook in de SVG-export meekomt. (x,y) is het midden van het icoon.
+  function drawSafehouseIcon(painter, x, y, size, color) {
+    const roofH = size * 0.42, bodyH = size - roofH;
+    const bx0 = x - size / 2, bx1 = x + size / 2;
+    const by0 = y - size / 2 + roofH, by1 = y + size / 2;
+    painter.polygon([[bx0, by0], [bx1, by0], [bx1, by1], [bx0, by1]], { fill: color });
+    const overhang = size * 0.08;
+    painter.polygon([[bx0 - overhang, by0], [bx1 + overhang, by0], [x, y - size / 2]], { fill: color });
+  }
+
+  // Landmark-icoon — meerdere vormen naast de standaard ster, kiesbaar in de
+  // UI. (x,y) is het middelpunt, r de "straal" (halve breedte/hoogte).
+  function drawLandmarkIcon(painter, icon, x, y, r, color) {
+    if (icon === 'dot') {
+      painter.circle(x, y, r * 0.7, { fill: color });
+    } else if (icon === 'pin') {
+      const pinR = r * 0.7;
+      painter.circle(x, y - pinR * 0.35, pinR, { fill: color });
+      painter.polygon([[x - pinR * 0.55, y + pinR * 0.1], [x + pinR * 0.55, y + pinR * 0.1], [x, y + pinR * 1.5]], { fill: color });
+    } else if (icon === 'diamond') {
+      painter.polygon([[x, y - r], [x + r, y], [x, y + r], [x - r, y]], { fill: color });
+    } else {
+      painter.polygon(starPoints(x, y, r, r * 0.45, 5), { fill: color });
+    }
+  }
+
+  // Grove schatting van tekstbreedte (geen echte metrics — die zijn niet
+  // hetzelfde beschikbaar voor canvas en SVG) puur om overlappende labels te
+  // kunnen detecteren, niet om exact te positioneren.
+  function estimateTextWidth(text, fontSize) {
+    return text.length * fontSize * 0.54;
+  }
+
+  // Axis-aligned bounding box van een gedraaide tekstlabel, voor eenvoudige
+  // overlap-detectie tussen straatnaam-labels onderling.
+  function rotatedTextBBox(cx, cy, angleDeg, textW, textH) {
+    const rad = (angleDeg * Math.PI) / 180;
+    const hw = textW / 2, hh = textH / 2;
+    const cos = Math.cos(rad), sin = Math.sin(rad);
+    const xs = [], ys = [];
+    [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh]].forEach(([x, y]) => {
+      xs.push(cx + x * cos - y * sin);
+      ys.push(cy + x * sin + y * cos);
+    });
+    return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys) };
+  }
+
+  function bboxOverlaps(a, b, pad) {
+    return !(a.maxX + pad < b.minX || b.maxX + pad < a.minX || a.maxY + pad < b.minY || b.maxY + pad < a.minY);
+  }
+
   // Hoeveel van de canvas-hoogte het onderschrift in beslag neemt, puur
   // gebaseerd op welke regels aan staan — staat alles uit, dan vult de kaart
   // het hele vlak.
@@ -29,7 +83,7 @@ const MapRender = (() => {
     return { total, cityH, countryH, coordH, gap, padBottom };
   }
 
-  // Nagebootste terreinlijnen voor "GTA5 Style" — dezelfde marching-squares-
+  // Nagebootste terreinlijnen voor "GTA V" — dezelfde marching-squares-
   // over-ruis-techniek als de Contourlijnen-algoritme in Playground, maar
   // hier puur decoratief (geen echte hoogtedata; GTA V's eigen kaart is ook
   // artistiek getekend, niet een letterlijke hoogtekaart). Seed komt uit de
@@ -104,15 +158,16 @@ const MapRender = (() => {
 
   function render(painter, w, h, opts) {
     const {
-      bounds, streets = [], landmarks = [], buildings = [],
+      bounds, streets = [], landmarks = [], buildings = [], safehouse = null,
       showStreetLabels = false, showLandmarks = false,
-      caption = {}, gtaStyle = false, mw2Style = false, tier = null, isolate = null,
+      streetLabelColor = null, landmarkColor = null, landmarkIcon = 'star',
+      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null,
     } = opts;
-    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : opts.palette;
-    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : (opts.matColor || '#f7f4ee');
-    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : '#2a2620';
-    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : '#6b6156';
-    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : '#8a8074';
+    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
+    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : (opts.matColor || '#f7f4ee');
+    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : '#2a2620';
+    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : '#6b6156';
+    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : '#8a8074';
 
     painter.setBackground(matColor);
 
@@ -145,10 +200,11 @@ const MapRender = (() => {
 
     if (gtaStyle) {
       drawTerrainContours(painter, mapW, mapH, bounds, '#242424');
-    } else if (tier === 'continent') {
+    } else if (rdr2Style || tier === 'continent') {
       // Op continent-schaal is er geen Overpass-data (zie MapGeo.fetchStreets)
-      // — vul de silhouet met dezelfde gegenereerde textuur als GTA5 Style,
-      // in de kleur van het gekozen palet, zodat het geen kaal vlak wordt.
+      // — vul de silhouet met gegenereerde textuur i.p.v. een kaal vlak. Voor
+      // RDR2 is dit ook gewoon de bedoeling: een zacht reliëf/hillshade-
+      // gevoel zoals de originele perkament-kaart, ongeacht schaal.
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
     } else if (!mw2Style) {
       // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
@@ -158,9 +214,14 @@ const MapRender = (() => {
         .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: palette.park }));
     }
 
+    // Een dunne "coastline"-rand (waar het palet er een opgeeft) houdt land
+    // en water altijd duidelijk gescheiden, ook bij kleine/smalle meren.
+    const coastlineWidth = palette.coastline ? Math.max(1.5, Math.min(mapW, mapH) * 0.005) : undefined;
     streets
       .filter(s => s.tags.natural === 'water')
-      .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: palette.water }));
+      .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), {
+        fill: palette.water, stroke: palette.coastline, strokeWidth: coastlineWidth,
+      }));
 
     streets
       .filter(s => s.tags.waterway)
@@ -195,11 +256,28 @@ const MapRender = (() => {
     });
 
     if (showStreetLabels) {
-      const seenNames = new Set();
-      roads
-        .filter(r => MapGeo.isMajorRoad(r.tags) && r.tags.name && !seenNames.has(r.tags.name) && seenNames.add(r.tags.name))
-        .forEach(r => {
-          const pts = r.coords.map(([lat, lon]) => project(lat, lon));
+      // Eén label per straatnaam, op het langste segment met die naam (het
+      // meest representatieve stuk) — en daarna een simpele hebzuchtige
+      // plaatsing: straten met het langste (dus belangrijkste) segment
+      // krijgen voorrang, en een label dat een al geplaatst label zou
+      // overlappen wordt overgeslagen. Liever een paar straten zonder naam
+      // dan een onleesbare kluwen tekst over elkaar.
+      const byName = new Map();
+      roads.forEach(r => {
+        if (!MapGeo.isMajorRoad(r.tags) || !r.tags.name) return;
+        const pts = r.coords.map(([lat, lon]) => project(lat, lon));
+        let length = 0;
+        for (let i = 1; i < pts.length; i++) length += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
+        const existing = byName.get(r.tags.name);
+        if (!existing || length > existing.length) byName.set(r.tags.name, { pts, length, name: r.tags.name });
+      });
+
+      const labelColor = streetLabelColor || palette.text;
+      const fontSize = Math.min(mapW, mapH) * 0.014;
+      const placedBoxes = [];
+      [...byName.values()]
+        .sort((a, b) => b.length - a.length)
+        .forEach(({ pts, name }) => {
           const midIdx = Math.floor(pts.length / 2);
           const a = pts[Math.max(0, midIdx - 1)];
           const b = pts[Math.min(pts.length - 1, midIdx + 1)];
@@ -208,24 +286,34 @@ const MapRender = (() => {
           let angle = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI;
           if (angle > 90) angle -= 180;
           if (angle < -90) angle += 180;
-          painter.text(mid[0], mid[1] - 3, r.tags.name, {
-            fill: palette.text, fontSize: Math.min(mapW, mapH) * 0.014, fontFamily: 'Georgia, serif',
+          const textW = estimateTextWidth(name, fontSize);
+          const box = rotatedTextBBox(mid[0], mid[1] - fontSize * 0.4, angle, textW, fontSize * 1.3);
+          if (placedBoxes.some(p => bboxOverlaps(box, p, fontSize * 0.35))) return;
+          placedBoxes.push(box);
+          painter.text(mid[0], mid[1] - 3, name, {
+            fill: labelColor, fontSize, fontFamily: 'Georgia, serif',
             align: 'center', baseline: 'alphabetic', rotate: angle,
           });
         });
     }
 
     if (showLandmarks) {
+      const markColor = landmarkColor || palette.text;
       landmarks.forEach(lm => {
         const [x, y] = project(lm.lat, lm.lon);
         if (x < 0 || x > mapW || y < 0 || y > mapH) return;
         const r = Math.min(mapW, mapH) * 0.012;
-        painter.polygon(starPoints(x, y, r, r * 0.45, 5), { fill: palette.text });
+        drawLandmarkIcon(painter, landmarkIcon, x, y, r, markColor);
         painter.text(x, y + r * 2.2, lm.name, {
-          fill: palette.text, fontSize: Math.min(mapW, mapH) * 0.015, fontFamily: 'Georgia, serif', weight: '700',
+          fill: markColor, fontSize: Math.min(mapW, mapH) * 0.015, fontFamily: 'Georgia, serif', weight: '700',
           align: 'center', baseline: 'hanging',
         });
       });
+    }
+
+    if (gtaStyle && safehouse) {
+      const size = Math.min(mapW, mapH) * 0.055;
+      drawSafehouseIcon(painter, safehouse.u * mapW, safehouse.v * mapH, size, '#3ecf47');
     }
 
     painter.endClip();

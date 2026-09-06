@@ -31,10 +31,15 @@ function getMapPalette(id) {
 
 // Game Styles — een vast, niet-kiesbaar kleurenschema (los van MAP_PALETTES,
 // verschijnt dus niet in het gewone palet-rooster). Wordt in mapRender.js
-// gebruikt in plaats van het gekozen palet zodra "GTA5 Style" aanstaat.
+// gebruikt in plaats van het gekozen palet zodra "GTA V" aanstaat.
+// `coastline` is optioneel: als een palet dat meegeeft, tekent mapRender.js
+// een dunne rand om elk wateroppervlak zodat land/water nooit door elkaar
+// lopen — hier ingezet omdat vlakke kleur alleen bij kleine meren soms niet
+// genoeg contrast gaf.
 const GTA_STYLE_PALETTE = {
-  id: 'gta5', name: 'GTA5 Style',
-  bg: '#111111', water: '#7c8791', park: '#111111', road: '#ececec', roadMinor: '#4a4a4a', text: '#ececec',
+  id: 'gta5', name: 'GTA V',
+  bg: '#111111', water: '#8b99a3', park: '#111111', road: '#ececec', roadMinor: '#4a4a4a', text: '#ececec',
+  coastline: '#c3ccd2',
 };
 
 // Gebaseerd op de minimap-stijl van Call of Duty: Modern Warfare 2 (2009):
@@ -46,4 +51,15 @@ const MW2_STYLE_PALETTE = {
   id: 'mw2', name: 'OG MW2',
   bg: '#12160f', water: '#c3d6ce', park: '#12160f', road: '#ddd6bd', roadMinor: '#a7a186', text: '#ddd6bd',
   outer: '#8a9c78', outerDark: '#6d7f5e', building: '#ddd6bd',
+};
+
+// Gebaseerd op de kaart van Red Dead Redemption 2: een perkament/sepia
+// ondergrond met een duidelijk afwijkende, koelere blauw-grijze kleur voor
+// water (plus een donkere coastline-rand, zie hierboven) en dunne donkere
+// paden. Ook hier: kleuren met de hand benaderd, laat het weten als een
+// tint moet worden bijgesteld.
+const RDR2_STYLE_PALETTE = {
+  id: 'rdr2', name: 'RDR2',
+  bg: '#d9c9a0', water: '#7d8f8d', park: '#d9c9a0', road: '#4a3c28', roadMinor: '#8a7452', text: '#3a2f22',
+  coastline: '#4a3c28',
 };
