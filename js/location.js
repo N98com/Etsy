@@ -37,6 +37,7 @@ window.LocationApp = (() => {
     showCountry: true,
     showCoords: true,
     gtaStyle: false,
+    mw2Style: false,
     isolateArea: false,
     selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
     current: null, // { bounds, streets, landmarks, place, country, lat, lon, isolate }
@@ -44,6 +45,8 @@ window.LocationApp = (() => {
   };
 
   let map = null;
+  let osmLayer = null;
+  let satelliteLayer = null;
 
   const el = id => document.getElementById(id);
   const searchInput = el('locationSearchInput');
@@ -68,6 +71,8 @@ window.LocationApp = (() => {
   const isolateAreaHint = el('isolateAreaHint');
   const gtaStyleCheck = el('gtaStyleCheck');
   const gtaStyleHint = el('gtaStyleHint');
+  const mw2StyleCheck = el('mw2StyleCheck');
+  const mw2StyleHint = el('mw2StyleHint');
   const streetLabelsHint = el('streetLabelsHint');
   const areaTierHint = el('areaTierHint');
   const resultPanel = el('locationResult');
@@ -144,11 +149,31 @@ window.LocationApp = (() => {
       if (state.current) generate();
     });
 
+    // GTA5 Style en OG MW2 zijn allebei een vast, alles-vervangend kleuren-
+    // schema — elkaar uitsluitend dus, net als hun eigen kleurenpalet-lock.
     gtaStyleCheck.addEventListener('change', () => {
       state.gtaStyle = gtaStyleCheck.checked;
-      paletteGrid.classList.toggle('disabled', state.gtaStyle);
+      if (state.gtaStyle && state.mw2Style) {
+        state.mw2Style = false; mw2StyleCheck.checked = false; mw2StyleHint.hidden = true;
+        updatePickerTileLayer();
+      }
+      paletteGrid.classList.toggle('disabled', state.gtaStyle || state.mw2Style);
       gtaStyleHint.hidden = !state.gtaStyle;
       if (state.current) renderResult();
+    });
+
+    mw2StyleCheck.addEventListener('change', () => {
+      state.mw2Style = mw2StyleCheck.checked;
+      if (state.mw2Style && state.gtaStyle) {
+        state.gtaStyle = false; gtaStyleCheck.checked = false; gtaStyleHint.hidden = true;
+      }
+      paletteGrid.classList.toggle('disabled', state.gtaStyle || state.mw2Style);
+      mw2StyleHint.hidden = !state.mw2Style;
+      updatePickerTileLayer();
+      // Vereist mogelijk nieuwe data (gebouwen, en een andere isolatie-bron
+      // als er geen plaatsgrens gekozen is) — dus opnieuw genereren, niet
+      // alleen opnieuw tekenen.
+      if (state.current) generate();
     });
 
     [placeNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', applyCaptionNameOverrides));
@@ -184,11 +209,26 @@ window.LocationApp = (() => {
       return;
     }
     map = L.map('locationMap', { attributionControl: true }).setView([52.3676, 4.9041], 13);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 19,
       attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers',
-    }).addTo(map);
+    });
+    // Gratis, geen API-key nodig (i.t.t. Google Maps) — alleen als ondergrond
+    // om een gebied te herkennen voor OG MW2; de export zelf bevat geen
+    // satellietpixels, alleen de getekende MW2-stijl (zie MapRender).
+    satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
+      maxZoom: 19,
+      attribution: 'Tiles &copy; Esri',
+    });
+    (state.mw2Style ? satelliteLayer : osmLayer).addTo(map);
     updateOverlaySize();
+  }
+
+  function updatePickerTileLayer() {
+    if (!map || !osmLayer || !satelliteLayer) return;
+    const wantSatellite = state.mw2Style;
+    if (map.removeLayer) map.removeLayer(wantSatellite ? osmLayer : satelliteLayer);
+    (wantSatellite ? satelliteLayer : osmLayer).addTo(map);
   }
 
   function onShow() {
@@ -315,8 +355,23 @@ window.LocationApp = (() => {
     generateBtn.disabled = true;
     statusEl.textContent = 'Bezig met ophalen van kaartdata…';
     try {
-      const isolating = !!(state.isolateArea && state.selectedPlace && state.selectedPlace.rings);
-      const bounds = isolating ? state.selectedPlace.bounds : getOverlayBounds();
+      // OG MW2 isoleert altijd — met een gekozen plaatsgrens indien
+      // beschikbaar, anders gewoon het handmatig gekozen kader zelf (zodat
+      // de stijl ook zonder zoekopdracht bruikbaar is).
+      const hasRealBoundary = !!(state.selectedPlace && state.selectedPlace.rings);
+      const wantsIsolate = state.isolateArea || state.mw2Style;
+      const isolating = wantsIsolate && (hasRealBoundary || state.mw2Style);
+      let bounds, isolateRings = null;
+      if (isolating && hasRealBoundary) {
+        bounds = state.selectedPlace.bounds;
+        isolateRings = state.selectedPlace.rings;
+      } else if (isolating) {
+        bounds = getOverlayBounds();
+        const { north, south, east, west } = bounds;
+        isolateRings = [[[north, west], [north, east], [south, east], [south, west]]];
+      } else {
+        bounds = getOverlayBounds();
+      }
       const tier = MapGeo.classifyAreaTier(bounds);
       applyAreaTier(tier);
       const streets = await MapGeo.fetchStreets(bounds, tier);
@@ -325,10 +380,15 @@ window.LocationApp = (() => {
         statusEl.textContent = 'Bezig met opzoeken van landmarks…';
         landmarks = await MapGeo.fetchLandmarks(bounds, tier);
       }
+      let buildings = [];
+      if (state.mw2Style) {
+        statusEl.textContent = 'Bezig met ophalen van gebouwen…';
+        buildings = await MapGeo.fetchBuildings(bounds, tier);
+      }
       const centerLat = (bounds.north + bounds.south) / 2;
       const centerLon = (bounds.east + bounds.west) / 2;
       let place = '', country = '';
-      if (isolating) {
+      if (isolating && hasRealBoundary) {
         // Geen reverse-geocode nodig (en die zou hier ook het verkeerde
         // antwoord geven — het middelpunt van een regio/land ligt vaak
         // toevallig in een kleine plaats daarbinnen). De letterlijke
@@ -352,18 +412,18 @@ window.LocationApp = (() => {
       if (!placeNameInput.value.trim()) placeNameInput.value = place;
       if (!countryNameInput.value.trim()) countryNameInput.value = country;
       state.current = {
-        bounds, tier, streets, landmarks, lat: centerLat, lon: centerLon,
+        bounds, tier, streets, landmarks, buildings, lat: centerLat, lon: centerLon,
         autoPlace: place, autoCountry: country,
         place: placeNameInput.value.trim() || place,
         country: countryNameInput.value.trim() || country,
-        isolate: isolating ? { rings: state.selectedPlace.rings } : null,
+        isolate: isolating ? { rings: isolateRings } : null,
       };
       renderResult();
       updateExportSizes();
       resultPanel.hidden = false;
       exportPanel.hidden = false;
       statusEl.textContent = isolating
-        ? `Klaar — gebied geïsoleerd (${tier}-niveau).`
+        ? `Klaar — gebied geïsoleerd (${tier}-niveau)${state.mw2Style ? ` · ${buildings.length} gebouwen` : ''}.`
         : `Klaar — ${streets.length} elementen geladen.`;
     } catch (err) {
       statusEl.textContent = `Ophalen mislukt: ${err.message}. Probeer een kleiner gebied of probeer het zo opnieuw.`;
@@ -401,8 +461,10 @@ window.LocationApp = (() => {
       bounds: c.bounds,
       streets: c.streets,
       landmarks: c.landmarks || [],
+      buildings: c.buildings || [],
       palette: getMapPalette(state.mapPaletteId),
       gtaStyle: state.gtaStyle,
+      mw2Style: state.mw2Style,
       tier: c.tier,
       isolate: c.isolate,
       showStreetLabels: state.showStreetLabels,
@@ -455,12 +517,17 @@ window.LocationApp = (() => {
     }));
   }
 
+  function trimBuildingsForStorage(buildings) {
+    return buildings.map(b => ({ coords: b.coords }));
+  }
+
   function buildRecolorGeometry() {
     const c = state.current;
     const payload = {
       bounds: c.bounds,
       streets: trimStreetsForStorage(c.streets),
       landmarks: c.landmarks || [],
+      buildings: trimBuildingsForStorage(c.buildings || []),
       ratio: state.ratio,
       tier: c.tier,
       isolate: c.isolate || null,
@@ -507,7 +574,7 @@ window.LocationApp = (() => {
         country: state.current.country,
         lat: state.current.lat,
         lon: state.current.lon,
-        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
+        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
         showStreetLabels: state.showStreetLabels,
         showLandmarks: state.showLandmarks,
         format: wantSVG ? 'svg' : 'png',

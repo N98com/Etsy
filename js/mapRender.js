@@ -61,6 +61,28 @@ const MapRender = (() => {
     }
   }
 
+  // Vlakgevulde, blokkerige ruistextuur in twee groentinten voor de omgeving
+  // van "OG MW2" — een gegenereerd, legaal alternatief voor de getinte
+  // luchtfoto-achtergrond van de originele minimap (zie ook de toelichting
+  // bij MW2_STYLE_PALETTE: geen echte satellietbeelden, wel hetzelfde gevoel).
+  function drawCamoTerrain(painter, w, h, bounds, colorLight, colorDark) {
+    const seed = RNG.seedFromString(`mw2-${bounds.south},${bounds.west},${bounds.north},${bounds.east}`);
+    const noise2D = Utils.makeNoise2D(seed, 40);
+    const cols = 30, rows = Math.max(1, Math.round(cols * (h / w)));
+    const cellW = w / cols, cellH = h / rows;
+    const light = Utils.hexToRgb(colorLight), dark = Utils.hexToRgb(colorDark);
+    for (let j = 0; j < rows; j++) {
+      for (let i = 0; i < cols; i++) {
+        const t = Math.max(0, Math.min(1, Utils.fractalNoise2D(noise2D, (i / cols) * 4.5, (j / rows) * 4.5, 3)));
+        const r = Math.round(dark.r + (light.r - dark.r) * t);
+        const g = Math.round(dark.g + (light.g - dark.g) * t);
+        const b = Math.round(dark.b + (light.b - dark.b) * t);
+        const x0 = i * cellW, y0 = j * cellH;
+        painter.polygon([[x0, y0], [x0 + cellW, y0], [x0 + cellW, y0 + cellH], [x0, y0 + cellH]], { fill: `rgb(${r},${g},${b})` });
+      }
+    }
+  }
+
   function relLuminance(hex) {
     const { r, g, b } = Utils.hexToRgb(hex);
     return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
@@ -82,15 +104,15 @@ const MapRender = (() => {
 
   function render(painter, w, h, opts) {
     const {
-      bounds, streets = [], landmarks = [],
+      bounds, streets = [], landmarks = [], buildings = [],
       showStreetLabels = false, showLandmarks = false,
-      caption = {}, gtaStyle = false, tier = null, isolate = null,
+      caption = {}, gtaStyle = false, mw2Style = false, tier = null, isolate = null,
     } = opts;
-    const palette = gtaStyle ? GTA_STYLE_PALETTE : opts.palette;
-    const matColor = gtaStyle ? '#0a0a0a' : (opts.matColor || '#f7f4ee');
-    const captionInk = gtaStyle ? '#ececec' : '#2a2620';
-    const captionSub = gtaStyle ? '#a8a8a8' : '#6b6156';
-    const captionFaint = gtaStyle ? '#828282' : '#8a8074';
+    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : opts.palette;
+    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : (opts.matColor || '#f7f4ee');
+    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : '#2a2620';
+    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : '#6b6156';
+    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : '#8a8074';
 
     painter.setBackground(matColor);
 
@@ -105,8 +127,15 @@ const MapRender = (() => {
     let projectedRings = null;
     if (isolate) {
       projectedRings = isolate.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
-      const outsideColor = relLuminance(palette.bg) > 0.5 ? '#26221c' : '#f2ede4';
-      painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: outsideColor });
+      if (mw2Style) {
+        // De "getinte luchtfoto"-omgeving van de originele minimap, hier
+        // procedureel gegenereerd (zie drawCamoTerrain) i.p.v. echte
+        // satellietbeelden.
+        drawCamoTerrain(painter, mapW, mapH, bounds, palette.outer, palette.outerDark);
+      } else {
+        const outsideColor = relLuminance(palette.bg) > 0.5 ? '#26221c' : '#f2ede4';
+        painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: outsideColor });
+      }
       drawIsolateHalo(painter, projectedRings, palette.bg, Math.max(w, h) * 0.0015);
       painter.beginClipPath(projectedRings);
     } else {
@@ -121,9 +150,9 @@ const MapRender = (() => {
       // — vul de silhouet met dezelfde gegenereerde textuur als GTA5 Style,
       // in de kleur van het gekozen palet, zodat het geen kaal vlak wordt.
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
-    } else {
-      // Groen/parken (alleen in het gewone kleurenschema — GTA-stijl houdt
-      // het bij land/water/wegen, net als het spel zelf).
+    } else if (!mw2Style) {
+      // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
+      // het bij land/water/wegen/gebouwen, net als hun games zelf).
       streets
         .filter(s => s.tags.leisure === 'park' || s.tags.landuse === 'forest' || s.tags.landuse === 'grass')
         .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: palette.park }));
@@ -140,15 +169,28 @@ const MapRender = (() => {
         painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), { stroke: palette.water, strokeWidth: riverWidth, fill: 'none' });
       });
 
+    if (mw2Style) {
+      // Gebouwomtrekken zoals de originele minimap: dezelfde donkere vulling
+      // als de grond, alleen zichtbaar door hun lichte rand.
+      const buildingStroke = Math.max(1, Math.min(mapW, mapH) * 0.0018);
+      buildings.forEach(b => {
+        painter.polygon(b.coords.map(([lat, lon]) => project(lat, lon)), {
+          fill: palette.bg, stroke: palette.building, strokeWidth: buildingStroke,
+        });
+      });
+    }
+
     const roads = streets.filter(s => s.tags.highway).sort((a, b) => MapGeo.roadWeight(a.tags) - MapGeo.roadWeight(b.tags));
     const baseRoadWidth = Math.min(mapW, mapH) / 650;
     roads.forEach(r => {
       const pts = r.coords.map(([lat, lon]) => project(lat, lon));
       const major = MapGeo.isMajorRoad(r.tags);
+      const roadW = baseRoadWidth * MapGeo.roadWeight(r.tags);
       painter.polyline(pts, {
         stroke: major ? palette.road : palette.roadMinor,
-        strokeWidth: baseRoadWidth * MapGeo.roadWeight(r.tags),
+        strokeWidth: roadW,
         fill: 'none',
+        dash: mw2Style ? [roadW * 2.4, roadW * 1.8] : undefined,
       });
     });
 

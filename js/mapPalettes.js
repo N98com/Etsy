@@ -36,3 +36,14 @@ const GTA_STYLE_PALETTE = {
   id: 'gta5', name: 'GTA5 Style',
   bg: '#111111', water: '#7c8791', park: '#111111', road: '#ececec', roadMinor: '#4a4a4a', text: '#ececec',
 };
+
+// Gebaseerd op de minimap-stijl van Call of Duty: Modern Warfare 2 (2009):
+// het geïsoleerde gebied bijna zwart met lichte gebouwomtrekken en gestippelde
+// paden, de omgeving een gedempt kaki/legergroen. Kleuren met de hand
+// benaderd op basis van referentiebeelden — laat het weten als een tint moet
+// worden bijgesteld.
+const MW2_STYLE_PALETTE = {
+  id: 'mw2', name: 'OG MW2',
+  bg: '#12160f', water: '#c3d6ce', park: '#12160f', road: '#ddd6bd', roadMinor: '#a7a186', text: '#ddd6bd',
+  outer: '#8a9c78', outerDark: '#6d7f5e', building: '#ddd6bd',
+};

@@ -32,7 +32,7 @@ class CanvasPainter {
     if (stroke) { ctx.strokeStyle = stroke; ctx.lineWidth = strokeWidth || 1; ctx.stroke(); }
   }
 
-  polyline(points, { stroke, strokeWidth, fill, opacity, closed } = {}) {
+  polyline(points, { stroke, strokeWidth, fill, opacity, closed, dash } = {}) {
     if (points.length < 2) return;
     const ctx = this.ctx;
     ctx.save();
@@ -46,6 +46,7 @@ class CanvasPainter {
       ctx.lineWidth = strokeWidth || 1;
       ctx.lineJoin = 'round';
       ctx.lineCap = 'round';
+      if (dash) ctx.setLineDash(dash);
       ctx.stroke();
     }
     ctx.restore();
@@ -110,12 +111,13 @@ class SVGPainter {
     this.parts.push(`<ellipse cx="${fmt(x)}" cy="${fmt(y)}" rx="${fmt(Math.max(rx, 0.01))}" ry="${fmt(Math.max(ry, 0.01))}" transform="rotate(${deg} ${fmt(x)} ${fmt(y)})" ${fillAttr(fill)} ${strokeAttr(stroke, strokeWidth)}/>`);
   }
 
-  polyline(points, { stroke, strokeWidth, fill, opacity, closed } = {}) {
+  polyline(points, { stroke, strokeWidth, fill, opacity, closed, dash } = {}) {
     if (points.length < 2) return;
     const tag = closed ? 'polygon' : 'polyline';
     const ptStr = points.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join(' ');
     const op = opacity != null ? `opacity="${opacity}"` : '';
-    this.parts.push(`<${tag} points="${ptStr}" ${fillAttr(fill)} ${strokeAttr(stroke, strokeWidth)} ${op} stroke-linejoin="round" stroke-linecap="round"/>`);
+    const dashAttr = dash ? `stroke-dasharray="${dash.map(fmt).join(',')}"` : '';
+    this.parts.push(`<${tag} points="${ptStr}" ${fillAttr(fill)} ${strokeAttr(stroke, strokeWidth)} ${op} ${dashAttr} stroke-linejoin="round" stroke-linecap="round"/>`);
   }
 
   polygon(points, opts = {}) { this.polyline(points, { ...opts, closed: true }); }

@@ -97,6 +97,16 @@ const MapGeo = (() => {
     );out center;`;
   }
 
+  // Alle gebouwvoetafdrukken (niet alleen bekende landmarks) — alleen
+  // zinvol/betaalbaar op straat- en stadschaal, gebruikt voor de OG MW2
+  // Game Style die gebouwomtrekken tekent zoals de originele minimap dat deed.
+  function buildBuildingsQuery(bounds) {
+    const bbox = bboxStr(bounds);
+    return `[out:json][timeout:25];(
+      way["building"](${bbox});
+    );out body;>;out skel qt;`;
+  }
+
   function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
   // Overpass' publieke instantie geeft af en toe kortstondig 429 terug, ook
@@ -157,6 +167,11 @@ const MapGeo = (() => {
   async function fetchLandmarks(bounds, tier = 'street') {
     if (tier === 'continent') return [];
     return parseLandmarks(await runOverpassQuery(buildLandmarksQuery(bounds, tier)));
+  }
+
+  async function fetchBuildings(bounds, tier = 'street') {
+    if (tier !== 'street' && tier !== 'city') return [];
+    return parseWays(await runOverpassQuery(buildBuildingsQuery(bounds)));
   }
 
   async function reverseGeocode(lat, lon) {
@@ -282,7 +297,7 @@ const MapGeo = (() => {
 
   return {
     roadWeight, isMajorRoad, classifyAreaTier,
-    fetchStreets, fetchLandmarks, reverseGeocode, searchPlace, fetchBoundary,
+    fetchStreets, fetchLandmarks, fetchBuildings, reverseGeocode, searchPlace, fetchBoundary,
     makeCoverProjector, makeContainProjector,
   };
 })();

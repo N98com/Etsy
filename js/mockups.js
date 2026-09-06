@@ -159,6 +159,7 @@ window.MockupsApp = (() => {
     }
     const variants = MAP_PALETTES.map(mp => ({ id: mp.id, label: mp.name, kind: 'location' }));
     variants.push({ id: 'gta5', label: GTA_STYLE_PALETTE.name, kind: 'location' });
+    variants.push({ id: 'mw2', label: MW2_STYLE_PALETTE.name, kind: 'location' });
     return variants;
   }
 
@@ -184,15 +185,18 @@ window.MockupsApp = (() => {
       return;
     }
     const isGta = variant.id === 'gta5';
+    const isMw2 = variant.id === 'mw2';
     MapRender.render(new CanvasPainter(ctx, w, h), w, h, {
       bounds: entry.recolor.bounds,
       streets: entry.recolor.streets,
       landmarks: entry.recolor.landmarks || [],
-      palette: isGta ? GTA_STYLE_PALETTE : getMapPalette(variant.id),
+      buildings: entry.recolor.buildings || [],
+      palette: isGta ? GTA_STYLE_PALETTE : isMw2 ? MW2_STYLE_PALETTE : getMapPalette(variant.id),
       gtaStyle: isGta,
+      mw2Style: isMw2,
       tier: entry.recolor.tier,
       isolate: entry.recolor.isolate || null,
-      showStreetLabels: !!entry.showStreetLabels && !isGta,
+      showStreetLabels: !!entry.showStreetLabels && !isGta && !isMw2,
       showLandmarks: !!entry.showLandmarks && (entry.recolor.landmarks || []).length > 0,
       caption: { showPlace: true, showCountry: true, showCoords: false, place: entry.place, country: entry.country, lat: entry.lat, lon: entry.lon },
     });
