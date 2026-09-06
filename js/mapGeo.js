@@ -229,26 +229,44 @@ const MapGeo = (() => {
     const data = await res.json();
     const found = data[0];
     if (!found || !found.geojson) return null;
-    const rings = geojsonToRings(found.geojson);
-    if (rings.length === 0) return null;
+    const polygons = geojsonToPolygons(found.geojson);
+    if (polygons.length === 0) return null;
+    // Alleen de grootste aaneengesloten landmassa gebruiken — een land als
+    // Mauritius bestaat bestuurlijk ook uit verafgelegen eilandjes
+    // (Rodrigues, Agalega...) honderden kilometers verderop; die in de
+    // isolatie meenemen zou het hoofdeiland verdrinken in een enorme lege
+    // oceaan i.p.v. "zoals het op de kaart staat" gerenderd te worden.
+    let rings = polygons[0], bestArea = ringArea(polygons[0][0]);
+    for (let i = 1; i < polygons.length; i++) {
+      const area = ringArea(polygons[i][0]);
+      if (area > bestArea) { bestArea = area; rings = polygons[i]; }
+    }
     return { rings, bounds: boundsFromRings(rings) };
   }
 
   // Polygon -> [ [ [lat,lon], ... ] ], MultiPolygon -> meerdere van die
-  // ringen-lijsten — plat geslagen tot één lijst van ringen (elke ring een
-  // array van [lat,lon]-punten, eerste ring van elk polygoon is de
-  // buitenrand, de rest zijn gaten). GeoJSON is [lon,lat]; hier omgezet naar
-  // ons interne [lat,lon].
-  function geojsonToRings(geojson) {
+  // polygonen — elk polygoon een array van ringen (eerste ring de
+  // buitenrand, de rest gaten). GeoJSON is [lon,lat]; hier omgezet naar ons
+  // interne [lat,lon].
+  function geojsonToPolygons(geojson) {
     const polygons = geojson.type === 'MultiPolygon' ? geojson.coordinates
       : geojson.type === 'Polygon' ? [geojson.coordinates]
       : null;
     if (!polygons) return [];
-    const rings = [];
-    polygons.forEach(poly => poly.forEach(ring => {
-      rings.push(ring.map(([lon, lat]) => [lat, lon]));
-    }));
-    return rings;
+    return polygons.map(poly => poly.map(ring => ring.map(([lon, lat]) => [lat, lon])));
+  }
+
+  // Shoelace-formule — geen echte oppervlakte in km² (lengtegraden wegen
+  // niet overal even zwaar), maar ruim voldoende nauwkeurig om simpelweg
+  // "welk polygoon is duidelijk het grootst" te bepalen.
+  function ringArea(ring) {
+    let area = 0;
+    for (let i = 0; i < ring.length; i++) {
+      const [lat1, lon1] = ring[i];
+      const [lat2, lon2] = ring[(i + 1) % ring.length];
+      area += lon1 * lat2 - lon2 * lat1;
+    }
+    return Math.abs(area) / 2;
   }
 
   function boundsFromRings(rings) {
