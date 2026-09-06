@@ -190,6 +190,8 @@ window.MockupsApp = (() => {
       landmarks: entry.recolor.landmarks || [],
       palette: isGta ? GTA_STYLE_PALETTE : getMapPalette(variant.id),
       gtaStyle: isGta,
+      tier: entry.recolor.tier,
+      isolate: entry.recolor.isolate || null,
       showStreetLabels: !!entry.showStreetLabels && !isGta,
       showLandmarks: !!entry.showLandmarks && (entry.recolor.landmarks || []).length > 0,
       caption: { showPlace: true, showCountry: true, showCoords: false, place: entry.place, country: entry.country, lat: entry.lat, lon: entry.lon },

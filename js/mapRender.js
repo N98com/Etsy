@@ -61,11 +61,30 @@ const MapRender = (() => {
     }
   }
 
+  function relLuminance(hex) {
+    const { r, g, b } = Utils.hexToRgb(hex);
+    return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+  }
+
+  // Zachte gloed rond een geïsoleerde vorm: een paar steeds transparantere,
+  // steeds bredere lijnen in de kleur van het gebied zelf, getekend VOOR de
+  // clip (dus zichtbaar buiten de rand) — geeft de kust/grens een licht
+  // "oplichtend" randje op de effen achtergrond, zoals bij een uitgesneden
+  // sticker.
+  function drawIsolateHalo(painter, rings, color, baseWidth) {
+    const steps = [{ w: baseWidth * 7, o: 0.05 }, { w: baseWidth * 4.5, o: 0.09 }, { w: baseWidth * 2.5, o: 0.14 }, { w: baseWidth * 1.2, o: 0.22 }];
+    rings.forEach(ring => {
+      steps.forEach(({ w: sw, o }) => {
+        painter.polygon(ring, { stroke: color, strokeWidth: sw, fill: 'none', opacity: o });
+      });
+    });
+  }
+
   function render(painter, w, h, opts) {
     const {
       bounds, streets = [], landmarks = [],
       showStreetLabels = false, showLandmarks = false,
-      caption = {}, gtaStyle = false,
+      caption = {}, gtaStyle = false, tier = null, isolate = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : (opts.matColor || '#f7f4ee');
@@ -79,12 +98,29 @@ const MapRender = (() => {
     const mapH = h - layout.total;
     const mapW = w;
 
-    painter.beginClip(0, 0, mapW, mapH);
-    const project = MapGeo.makeCoverProjector(bounds, mapW, mapH);
+    const project = isolate
+      ? MapGeo.makeContainProjector(bounds, mapW, mapH)
+      : MapGeo.makeCoverProjector(bounds, mapW, mapH);
+
+    let projectedRings = null;
+    if (isolate) {
+      projectedRings = isolate.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
+      const outsideColor = relLuminance(palette.bg) > 0.5 ? '#26221c' : '#f2ede4';
+      painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: outsideColor });
+      drawIsolateHalo(painter, projectedRings, palette.bg, Math.max(w, h) * 0.0015);
+      painter.beginClipPath(projectedRings);
+    } else {
+      painter.beginClip(0, 0, mapW, mapH);
+    }
     drawMapBackground(painter, palette, mapW, mapH);
 
     if (gtaStyle) {
       drawTerrainContours(painter, mapW, mapH, bounds, '#242424');
+    } else if (tier === 'continent') {
+      // Op continent-schaal is er geen Overpass-data (zie MapGeo.fetchStreets)
+      // — vul de silhouet met dezelfde gegenereerde textuur als GTA5 Style,
+      // in de kleur van het gekozen palet, zodat het geen kaal vlak wordt.
+      drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
     } else {
       // Groen/parken (alleen in het gewone kleurenschema — GTA-stijl houdt
       // het bij land/water/wegen, net als het spel zelf).
@@ -151,6 +187,14 @@ const MapRender = (() => {
     }
 
     painter.endClip();
+
+    if (isolate) {
+      // Scherpe contourlijn boven op de gevulde vorm, buiten de clip
+      // getekend zodat hij niet zelf wordt weg geknipt.
+      projectedRings.forEach(ring => {
+        painter.polygon(ring, { stroke: palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
+      });
+    }
 
     // Onderschrift.
     if (layout.total > 0) {

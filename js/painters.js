@@ -76,6 +76,21 @@ class CanvasPainter {
     this.ctx.rect(x, y, w, h);
     this.ctx.clip();
   }
+
+  // Clip op een willekeurige vorm (voor "isoleer gebied") — rings is een
+  // lijst van ringen, elk een array van [x,y]-punten. Eén ring per polygoon
+  // is de buitenrand; een polygoon met een gat (een enclave) geeft je
+  // gewoon een extra ring — de evenodd-regel snijdt gaten er vanzelf uit.
+  beginClipPath(rings) {
+    this.ctx.save();
+    this.ctx.beginPath();
+    rings.forEach(ring => {
+      ring.forEach(([x, y], i) => (i === 0 ? this.ctx.moveTo(x, y) : this.ctx.lineTo(x, y)));
+      this.ctx.closePath();
+    });
+    this.ctx.clip('evenodd');
+  }
+
   endClip() { this.ctx.restore(); }
 }
 
@@ -118,6 +133,14 @@ class SVGPainter {
     const id = `clip${this._clipCounter}`;
     this.parts.push(`<clipPath id="${id}"><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}"/></clipPath><g clip-path="url(#${id})">`);
   }
+
+  beginClipPath(rings) {
+    this._clipCounter = (this._clipCounter || 0) + 1;
+    const id = `clip${this._clipCounter}`;
+    const d = rings.map(ring => 'M' + ring.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join('L') + 'Z').join(' ');
+    this.parts.push(`<clipPath id="${id}"><path d="${d}" clip-rule="evenodd"/></clipPath><g clip-path="url(#${id})">`);
+  }
+
   endClip() { this.parts.push('</g>'); }
 
   toString() {

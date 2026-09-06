@@ -37,7 +37,9 @@ window.LocationApp = (() => {
     showCountry: true,
     showCoords: true,
     gtaStyle: false,
-    current: null, // { bounds, streets, landmarks, place, country, lat, lon }
+    isolateArea: false,
+    selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
+    current: null, // { bounds, streets, landmarks, place, country, lat, lon, isolate }
     generating: false,
   };
 
@@ -60,6 +62,8 @@ window.LocationApp = (() => {
   const showPlaceCheck = el('showPlaceCheck');
   const showCountryCheck = el('showCountryCheck');
   const showCoordsCheck = el('showCoordsCheck');
+  const isolateAreaCheck = el('isolateAreaCheck');
+  const isolateAreaHint = el('isolateAreaHint');
   const gtaStyleCheck = el('gtaStyleCheck');
   const gtaStyleHint = el('gtaStyleHint');
   const streetLabelsHint = el('streetLabelsHint');
@@ -132,6 +136,11 @@ window.LocationApp = (() => {
       state.showCoords = showCoordsCheck.checked;
       if (state.current) renderResult();
     }));
+
+    isolateAreaCheck.addEventListener('change', () => {
+      state.isolateArea = isolateAreaCheck.checked;
+      if (state.current) generate();
+    });
 
     gtaStyleCheck.addEventListener('change', () => {
       state.gtaStyle = gtaStyleCheck.checked;
@@ -223,10 +232,7 @@ window.LocationApp = (() => {
         btn.type = 'button';
         btn.className = 'location-search-result';
         btn.textContent = r.display_name;
-        btn.addEventListener('click', () => {
-          map.setView([parseFloat(r.lat), parseFloat(r.lon)], 14);
-          searchResults.hidden = true;
-        });
+        btn.addEventListener('click', () => selectSearchResult(r));
         searchResults.appendChild(btn);
       });
     } catch (err) {
@@ -234,11 +240,43 @@ window.LocationApp = (() => {
     }
   }
 
+  // Naast de kaart verplaatsen, ook de exacte bestuurlijke grens van dit
+  // resultaat proberen op te halen — dat is wat "Isoleer gebied" gebruikt om
+  // precies deze wijk/stad/land/werelddeel uit te snijden, i.p.v. wat er
+  // toevallig in het handmatige kader staat. Niet elk resultaat heeft zo'n
+  // grens (bv. een los adres); dan blijft de optie uitgeschakeld.
+  function selectSearchResult(result) {
+    map.setView([parseFloat(result.lat), parseFloat(result.lon)], 12);
+    searchResults.hidden = true;
+
+    state.selectedPlace = { name: result.display_name, rings: null, bounds: null };
+    state.isolateArea = false;
+    isolateAreaCheck.checked = false;
+    isolateAreaCheck.disabled = true;
+    isolateAreaHint.hidden = false;
+    isolateAreaHint.textContent = 'Bezig met ophalen van gebiedsgrens…';
+
+    MapGeo.fetchBoundary(result).then(boundary => {
+      if (!state.selectedPlace || state.selectedPlace.name !== result.display_name) return;
+      if (!boundary) {
+        isolateAreaHint.textContent = `Geen exacte gebiedsgrens beschikbaar voor "${result.display_name}".`;
+        return;
+      }
+      state.selectedPlace.rings = boundary.rings;
+      state.selectedPlace.bounds = boundary.bounds;
+      isolateAreaCheck.disabled = false;
+      isolateAreaHint.textContent = `Isoleer precies de grens van "${result.display_name}".`;
+    }).catch(err => {
+      isolateAreaHint.textContent = `Ophalen van gebiedsgrens mislukt: ${err.message}`;
+    });
+  }
+
   // ---- genereren ----
   const AREA_TIER_NOTE = {
     street: '', city: '',
     region: 'Groot gebied geselecteerd — alleen hoofdwegen en de bekendste landmarks worden getoond, om de kaart snel en overzichtelijk te houden.',
     country: 'Zeer groot gebied (land-niveau) geselecteerd — alleen hoofdwegen, grote wateren en de bekendste landmarks van dit land worden getoond.',
+    continent: 'Werelddeel-niveau geselecteerd — op deze schaal is straat-/wegdata niet zinvol; alleen de silhouet van het gebied wordt getekend.',
   };
 
   // Straatnamen zijn bij een hele regio of een land niet leesbaar te tonen
@@ -267,7 +305,8 @@ window.LocationApp = (() => {
     generateBtn.disabled = true;
     statusEl.textContent = 'Bezig met ophalen van kaartdata…';
     try {
-      const bounds = getOverlayBounds();
+      const isolating = !!(state.isolateArea && state.selectedPlace && state.selectedPlace.rings);
+      const bounds = isolating ? state.selectedPlace.bounds : getOverlayBounds();
       const tier = MapGeo.classifyAreaTier(bounds);
       applyAreaTier(tier);
       const streets = await MapGeo.fetchStreets(bounds, tier);
@@ -286,12 +325,17 @@ window.LocationApp = (() => {
       } catch (geoErr) {
         statusEl.textContent = `Kaart opgehaald, maar plaatsnaam kon niet worden bepaald (${geoErr.message}).`;
       }
-      state.current = { bounds, tier, streets, landmarks, place, country, lat: centerLat, lon: centerLon };
+      state.current = {
+        bounds, tier, streets, landmarks, place, country, lat: centerLat, lon: centerLon,
+        isolate: isolating ? { rings: state.selectedPlace.rings } : null,
+      };
       renderResult();
       updateExportSizes();
       resultPanel.hidden = false;
       exportPanel.hidden = false;
-      statusEl.textContent = `Klaar — ${streets.length} elementen geladen.`;
+      statusEl.textContent = isolating
+        ? `Klaar — gebied geïsoleerd (${tier}-niveau).`
+        : `Klaar — ${streets.length} elementen geladen.`;
     } catch (err) {
       statusEl.textContent = `Ophalen mislukt: ${err.message}. Probeer een kleiner gebied of probeer het zo opnieuw.`;
     } finally {
@@ -320,6 +364,8 @@ window.LocationApp = (() => {
       landmarks: c.landmarks || [],
       palette: getMapPalette(state.mapPaletteId),
       gtaStyle: state.gtaStyle,
+      tier: c.tier,
+      isolate: c.isolate,
       showStreetLabels: state.showStreetLabels,
       showLandmarks: state.showLandmarks && !!c.landmarks,
       caption: {
@@ -377,6 +423,8 @@ window.LocationApp = (() => {
       streets: trimStreetsForStorage(c.streets),
       landmarks: c.landmarks || [],
       ratio: state.ratio,
+      tier: c.tier,
+      isolate: c.isolate || null,
     };
     return JSON.stringify(payload).length <= RECOLOR_MAX_JSON_LENGTH ? payload : null;
   }

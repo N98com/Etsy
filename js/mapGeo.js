@@ -31,12 +31,16 @@ const MapGeo = (() => {
     return Math.max(latSpanKm, Math.abs(lonSpanKm));
   }
 
+  // 'continent' fetcht helemaal geen Overpass-data meer (zelfs alleen
+  // hoofdwegen zou voor een heel continent nog veel te zwaar zijn) — daar
+  // rendert MapRender alleen de silhouet + gegenereerde textuur.
   function classifyAreaTier(bounds) {
     const span = areaSpanKm(bounds);
     if (span < 8) return 'street';
     if (span < 60) return 'city';
     if (span < 250) return 'region';
-    return 'country';
+    if (span < 1500) return 'country';
+    return 'continent';
   }
 
   function buildStreetsQuery(bounds, tier = 'street') {
@@ -146,10 +150,12 @@ const MapGeo = (() => {
   }
 
   async function fetchStreets(bounds, tier = 'street') {
+    if (tier === 'continent') return [];
     return parseWays(await runOverpassQuery(buildStreetsQuery(bounds, tier)));
   }
 
   async function fetchLandmarks(bounds, tier = 'street') {
+    if (tier === 'continent') return [];
     return parseLandmarks(await runOverpassQuery(buildLandmarksQuery(bounds, tier)));
   }
 
@@ -169,6 +175,69 @@ const MapGeo = (() => {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Nominatim antwoordde met status ${res.status}`);
     return res.json();
+  }
+
+  // Grovere vereenvoudiging (minder coördinaten) naarmate het gebied groter
+  // is — een landsgrens of continent hoeft niet elke bocht exact te volgen
+  // om als silhouet te werken, en dat scheelt enorm in downloadgrootte.
+  function thresholdForSpan(spanKm) {
+    if (spanKm < 60) return 0.0001;
+    if (spanKm < 250) return 0.001;
+    if (spanKm < 1500) return 0.01;
+    return 0.05;
+  }
+
+  function spanFromBoundingBox(bbox) {
+    // Nominatim geeft [south, north, west, east] als strings.
+    const south = parseFloat(bbox[0]), north = parseFloat(bbox[1]);
+    const west = parseFloat(bbox[2]), east = parseFloat(bbox[3]);
+    return areaSpanKm({ south, north, west, east });
+  }
+
+  // Haalt de echte bestuurlijke grens op van een specifiek zoekresultaat
+  // (stad, wijk, land, werelddeel...) zodat "isoleer gebied" precies dat
+  // gebied kan uitsnijden i.p.v. wat er toevallig in het kader staat.
+  // Niet elk resultaat heeft een grens (bv. een los adres) — dan is
+  // geometry leeg en blijft isoleren voor die keuze uitgeschakeld.
+  async function fetchBoundary(searchResult) {
+    const typeChar = { relation: 'R', way: 'W', node: 'N' }[searchResult.osm_type];
+    if (!typeChar) return null;
+    const threshold = thresholdForSpan(spanFromBoundingBox(searchResult.boundingbox));
+    const url = `${NOMINATIM_ENDPOINT}/lookup?format=jsonv2&osm_ids=${typeChar}${searchResult.osm_id}&polygon_geojson=1&polygon_threshold=${threshold}`;
+    const res = await fetch(url);
+    if (!res.ok) throw new Error(`Nominatim antwoordde met status ${res.status}`);
+    const data = await res.json();
+    const found = data[0];
+    if (!found || !found.geojson) return null;
+    const rings = geojsonToRings(found.geojson);
+    if (rings.length === 0) return null;
+    return { rings, bounds: boundsFromRings(rings) };
+  }
+
+  // Polygon -> [ [ [lat,lon], ... ] ], MultiPolygon -> meerdere van die
+  // ringen-lijsten — plat geslagen tot één lijst van ringen (elke ring een
+  // array van [lat,lon]-punten, eerste ring van elk polygoon is de
+  // buitenrand, de rest zijn gaten). GeoJSON is [lon,lat]; hier omgezet naar
+  // ons interne [lat,lon].
+  function geojsonToRings(geojson) {
+    const polygons = geojson.type === 'MultiPolygon' ? geojson.coordinates
+      : geojson.type === 'Polygon' ? [geojson.coordinates]
+      : null;
+    if (!polygons) return [];
+    const rings = [];
+    polygons.forEach(poly => poly.forEach(ring => {
+      rings.push(ring.map(([lon, lat]) => [lat, lon]));
+    }));
+    return rings;
+  }
+
+  function boundsFromRings(rings) {
+    let south = Infinity, north = -Infinity, west = Infinity, east = -Infinity;
+    rings.forEach(ring => ring.forEach(([lat, lon]) => {
+      if (lat < south) south = lat; if (lat > north) north = lat;
+      if (lon < west) west = lon; if (lon > east) east = lon;
+    }));
+    return { south, north, west, east };
   }
 
   // "Cover"-projectie: schaalt zodat de bounding box het volledige doelvlak
@@ -191,9 +260,29 @@ const MapGeo = (() => {
     };
   }
 
+  // "Contain"-projectie: schaalt zodat de hele bounding box binnen het
+  // doelvlak past (net als background-size:contain) — gebruikt voor
+  // "isoleer gebied", waar je per definitie de HELE vorm wilt zien, niet
+  // een bijgesneden stuk ervan.
+  function makeContainProjector(bounds, mapW, mapH) {
+    const { south, west, north, east } = bounds;
+    const midLatRad = ((south + north) / 2) * Math.PI / 180;
+    const lonScale = Math.cos(midLatRad) || 0.0001;
+    const spanX = (east - west) * lonScale;
+    const spanY = (north - south) || 0.0001;
+    const scale = Math.min(mapW / (spanX || 0.0001), mapH / spanY);
+    const drawW = spanX * scale, drawH = spanY * scale;
+    const offsetX = (mapW - drawW) / 2, offsetY = (mapH - drawH) / 2;
+    return function project(lat, lon) {
+      const x = offsetX + (lon - west) * lonScale * scale;
+      const y = offsetY + (north - lat) * scale;
+      return [x, y];
+    };
+  }
+
   return {
     roadWeight, isMajorRoad, classifyAreaTier,
-    fetchStreets, fetchLandmarks, reverseGeocode, searchPlace,
-    makeCoverProjector,
+    fetchStreets, fetchLandmarks, reverseGeocode, searchPlace, fetchBoundary,
+    makeCoverProjector, makeContainProjector,
   };
 })();
