@@ -60,7 +60,9 @@ window.LocationApp = (() => {
   const showStreetLabelsCheck = el('showStreetLabelsCheck');
   const showLandmarksCheck = el('showLandmarksCheck');
   const showPlaceCheck = el('showPlaceCheck');
+  const placeNameInput = el('placeNameInput');
   const showCountryCheck = el('showCountryCheck');
+  const countryNameInput = el('countryNameInput');
   const showCoordsCheck = el('showCoordsCheck');
   const isolateAreaCheck = el('isolateAreaCheck');
   const isolateAreaHint = el('isolateAreaHint');
@@ -149,6 +151,8 @@ window.LocationApp = (() => {
       if (state.current) renderResult();
     });
 
+    [placeNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', applyCaptionNameOverrides));
+
     exportSVGBtn.addEventListener('click', () => exportResult(true));
     exportPNGBtn.addEventListener('click', () => exportResult(false));
 
@@ -232,7 +236,7 @@ window.LocationApp = (() => {
         btn.type = 'button';
         btn.className = 'location-search-result';
         btn.textContent = r.display_name;
-        btn.addEventListener('click', () => selectSearchResult(r));
+        btn.addEventListener('click', () => selectSearchResult(r, q));
         searchResults.appendChild(btn);
       });
     } catch (err) {
@@ -245,12 +249,18 @@ window.LocationApp = (() => {
   // precies deze wijk/stad/land/werelddeel uit te snijden, i.p.v. wat er
   // toevallig in het handmatige kader staat. Niet elk resultaat heeft zo'n
   // grens (bv. een los adres); dan blijft de optie uitgeschakeld.
-  function selectSearchResult(result) {
+  function selectSearchResult(result, query) {
     map.setView([parseFloat(result.lat), parseFloat(result.lon)], 12);
     searchResults.hidden = true;
 
-    state.selectedPlace = { name: result.display_name, rings: null, bounds: null };
+    // De letterlijk getypte zoekterm bewaren we apart van display_name: bij
+    // "Isoleer gebied" gebruiken we die als plaatsnaam-onderschrift, want een
+    // reverse-geocode van het middelpunt van een regio/land wijst vaak een
+    // toevallige kleine plaats daarbinnen aan (bv. "Twente" -> "Ambt Delden").
+    state.selectedPlace = { name: result.display_name, query, rings: null, bounds: null };
     state.isolateArea = false;
+    placeNameInput.value = '';
+    countryNameInput.value = '';
     isolateAreaCheck.checked = false;
     isolateAreaCheck.disabled = true;
     isolateAreaHint.hidden = false;
@@ -317,16 +327,35 @@ window.LocationApp = (() => {
       }
       const centerLat = (bounds.north + bounds.south) / 2;
       const centerLon = (bounds.east + bounds.west) / 2;
-      statusEl.textContent = 'Plaatsnaam opzoeken…';
       let place = '', country = '';
-      try {
-        const geo = await MapGeo.reverseGeocode(centerLat, centerLon);
-        place = geo.place; country = geo.country;
-      } catch (geoErr) {
-        statusEl.textContent = `Kaart opgehaald, maar plaatsnaam kon niet worden bepaald (${geoErr.message}).`;
+      if (isolating) {
+        // Geen reverse-geocode nodig (en die zou hier ook het verkeerde
+        // antwoord geven — het middelpunt van een regio/land ligt vaak
+        // toevallig in een kleine plaats daarbinnen). De letterlijke
+        // zoekterm is wat de gebruiker bedoelde; het land halen we uit het
+        // laatste onderdeel van de volledige naam die Nominatim teruggaf.
+        const parts = state.selectedPlace.name.split(',').map(s => s.trim()).filter(Boolean);
+        place = state.selectedPlace.query || parts[0] || state.selectedPlace.name;
+        country = parts.length > 1 ? parts[parts.length - 1] : '';
+      } else {
+        statusEl.textContent = 'Plaatsnaam opzoeken…';
+        try {
+          const geo = await MapGeo.reverseGeocode(centerLat, centerLon);
+          place = geo.place; country = geo.country;
+        } catch (geoErr) {
+          statusEl.textContent = `Kaart opgehaald, maar plaatsnaam kon niet worden bepaald (${geoErr.message}).`;
+        }
       }
+      // De invulvelden tonen wat automatisch bepaald is, maar blijven altijd
+      // aanpasbaar — automatische plaatsnaam-detectie is niet altijd
+      // betrouwbaar (zeker bij isoleren), dus dit is het vangnet.
+      if (!placeNameInput.value.trim()) placeNameInput.value = place;
+      if (!countryNameInput.value.trim()) countryNameInput.value = country;
       state.current = {
-        bounds, tier, streets, landmarks, place, country, lat: centerLat, lon: centerLon,
+        bounds, tier, streets, landmarks, lat: centerLat, lon: centerLon,
+        autoPlace: place, autoCountry: country,
+        place: placeNameInput.value.trim() || place,
+        country: countryNameInput.value.trim() || country,
         isolate: isolating ? { rings: state.selectedPlace.rings } : null,
       };
       renderResult();
@@ -342,6 +371,16 @@ window.LocationApp = (() => {
       state.generating = false;
       generateBtn.disabled = false;
     }
+  }
+
+  // Handmatige correctie van plaatsnaam/land — altijd beschikbaar, niet
+  // alleen bij isoleren, want automatische detectie kan altijd een keer
+  // misgrijpen. Leeg veld = terugvallen op de automatisch bepaalde waarde.
+  function applyCaptionNameOverrides() {
+    if (!state.current) return;
+    state.current.place = placeNameInput.value.trim() || state.current.autoPlace;
+    state.current.country = countryNameInput.value.trim() || state.current.autoCountry;
+    renderResult();
   }
 
   function renderResult() {
