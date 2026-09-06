@@ -91,8 +91,20 @@ const MapGeo = (() => {
       // toch niet individueel te onderscheiden, dus alleen de wegtypes die
       // daadwerkelijk zichtbaar zouden zijn. "out geom N" blijft ook hier
       // een vangnet tegen een onverwacht dicht gebied.
+      //
+      // Bij een ruime selectie (~25-60km) van zo'n dichtbebouwde stad is
+      // zelfs het complete woonstratennet nog te veel: duizenden korte
+      // straatjes worden op posterschaal een wirwar van losse streepjes
+      // i.p.v. een leesbare kaart. Dan tonen we alleen de hoofdaders, net
+      // als een echte overzichtskaart op die schaal zou doen. Bij een
+      // kleinere/dichterbij gekozen selectie (<25km, bijv. één wijk) blijft
+      // het woonstratennet wél staan — daar is dat juist het punt.
+      const span = areaSpanKm(bounds);
+      const highwayFilter = span >= 25
+        ? '^(motorway|trunk|primary|secondary|tertiary)$'
+        : '^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$';
       return `[out:json][timeout:25];(
-        way["highway"~"^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$"](${bbox});
+        way["highway"~"${highwayFilter}"](${bbox});
         way["waterway"](${bbox});
         way["natural"="water"](${bbox});${greenery}
       );out geom 6000;`;
