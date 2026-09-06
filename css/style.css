@@ -317,7 +317,7 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .location-result-preview { display: flex; justify-content: center; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
 .location-result-preview canvas { max-width: 100%; max-height: 70vh; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
 
-/* ---- Mockups-tab: artwork in een geïllustreerde sfeerscene ---- */
+/* ---- Mockups-tab: kleurvarianten-showcase van een bestaand artwork ---- */
 .mockups-layout {
   display: grid;
   grid-template-columns: 300px 1fr;
@@ -341,14 +341,6 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .mockup-source-thumb.active { border-color: var(--accent); }
 .mockup-source-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .mockup-source-empty { color: var(--ink-soft); font-size: 0.78rem; grid-column: 1 / -1; }
-
-.mockup-option-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 4px; }
-.mockup-option-card {
-  border: 2px solid var(--line); border-radius: 8px; padding: 6px; background: var(--panel);
-  cursor: pointer; text-align: left; font-size: 0.74rem; color: var(--ink);
-}
-.mockup-option-card.active { border-color: var(--accent); }
-.mockup-option-card .mockup-option-swatch { display: block; height: 20px; border-radius: 4px; margin-bottom: 4px; }
 
 .mockup-main { display: flex; flex-direction: column; gap: 20px; }
 .mockup-preview-wrap {

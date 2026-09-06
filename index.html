@@ -210,25 +210,23 @@
         </div>
 
         <div class="panel">
-          <h2>Omgeving</h2>
-          <label>Scene</label>
-          <div class="mockup-option-grid" id="mockupSceneGrid"></div>
-
-          <label style="margin-top:12px;">Lijst</label>
-          <div class="mockup-option-grid mockup-frame-grid" id="mockupFrameGrid"></div>
+          <h2>Showcase</h2>
+          <label for="mockupTitleInput">Titel (optioneel)</label>
+          <input type="text" id="mockupTitleInput" placeholder="Kies je kleur">
 
           <label style="margin-top:12px;" id="mockupAspectLabel">Beeldverhouding</label>
           <div class="ratio-tabs" id="mockupAspectTabs"></div>
           <p class="hint" id="mockupAspectHint" hidden>Deze kaart heeft een vaste beeldverhouding vanuit Locatie.</p>
+          <p class="hint" id="mockupGeoHint" hidden>Deze kaart was te groot om alle kleurvarianten te bewaren — alleen de oorspronkelijke kleur is beschikbaar.</p>
         </div>
 
         <div class="panel">
           <h2>Exporteren</h2>
-          <label for="mockupExportSize">Formaat</label>
+          <label for="mockupExportSize">Formaat (breedte)</label>
           <select id="mockupExportSize"></select>
-          <button class="primary" id="mockupExportBtn" style="width:100%; margin-top:8px;">Exporteer mockup (PNG)</button>
+          <button class="primary" id="mockupExportBtn" style="width:100%; margin-top:8px;">Exporteer showcase (PNG)</button>
           <p class="hint" id="mockupExportStatus"></p>
-          <p class="hint" style="margin-top:10px;">Let op: dit zijn geïllustreerde sfeerscenes (getekende muur/vloer/meubels), geen foto's van een echte kamer — bedoeld als aantrekkelijke Etsy-preview naast je gewone productfoto's.</p>
+          <p class="hint" style="margin-top:10px;">Eén afbeelding met al je kleuropties naast elkaar — handig als eerste foto in je Etsy-listing, zodat kopers meteen zien welke kleuren beschikbaar zijn.</p>
         </div>
       </aside>
 

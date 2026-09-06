@@ -10,9 +10,8 @@ window.LocationApp = (() => {
   function saveLocationHistory(list) {
     localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
   }
-  // Bewaart alleen een miniatuur + metadata, niet de volledige straten/
-  // water-geometrie — die kan flink oplopen qua omvang en is (anders dan
-  // een generatieve seed) niet compact reproduceerbaar.
+  // Bewaart een miniatuur + metadata, en (als het compact genoeg is) ook een
+  // verkleinde kopie van de geometrie voor Showcase — zie buildRecolorGeometry.
   function recordLocationExport(entry) {
     const history = loadLocationHistory();
     history.unshift(entry);
@@ -354,6 +353,34 @@ window.LocationApp = (() => {
     });
   }
 
+  // Bewaart daarnaast (indien compact genoeg) een verkleinde kopie van de
+  // geometrie, zodat de Showcase-tab dezelfde kaart later in elk kleurpalet
+  // opnieuw kan tekenen — alleen tags die MapRender echt gebruikt, en een
+  // harde grootte-cap zodat één grote export niet de hele geschiedenis in
+  // localStorage opeet.
+  const RECOLOR_MAX_JSON_LENGTH = 180000;
+
+  function trimStreetsForStorage(streets) {
+    return streets.map(s => ({
+      tags: {
+        highway: s.tags.highway, waterway: s.tags.waterway, natural: s.tags.natural,
+        leisure: s.tags.leisure, landuse: s.tags.landuse, name: s.tags.name,
+      },
+      coords: s.coords,
+    }));
+  }
+
+  function buildRecolorGeometry() {
+    const c = state.current;
+    const payload = {
+      bounds: c.bounds,
+      streets: trimStreetsForStorage(c.streets),
+      landmarks: c.landmarks || [],
+      ratio: state.ratio,
+    };
+    return JSON.stringify(payload).length <= RECOLOR_MAX_JSON_LENGTH ? payload : null;
+  }
+
   function makeHistoryThumbnail() {
     const ratio = state.ratio.w / state.ratio.h;
     // Iets groter dan strikt nodig voor de historielijst zelf, zodat de
@@ -394,9 +421,12 @@ window.LocationApp = (() => {
         lat: state.current.lat,
         lon: state.current.lon,
         paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
+        showStreetLabels: state.showStreetLabels,
+        showLandmarks: state.showLandmarks,
         format: wantSVG ? 'svg' : 'png',
         sizeLabel: opt.textContent,
         timestamp: Date.now(),
+        recolor: buildRecolorGeometry(),
       });
       exportStatus.textContent = 'Opgeslagen.';
       exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;

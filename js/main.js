@@ -734,14 +734,16 @@
     });
   }
 
-  // Rendert een geschiedenisregel (algoId+seed+paletsnapshot) opnieuw, op
-  // om het even welke resolutie — dit is precies wat de Mockups-tab nodig
-  // heeft om een artwork uit de historie in een scene te plaatsen, zonder
-  // dat mockups.js iets hoeft te weten over palet-herstel of vector/raster.
-  function renderPlaygroundEntry(entry, ctx, w, h) {
+  // Rendert een geschiedenisregel (algoId+seed+paletsnapshot) opnieuw, op om
+  // het even welke resolutie — dit is wat de Mockups/Showcase-tab nodig heeft
+  // om een artwork uit de historie te tonen, zonder dat mockups.js iets hoeft
+  // te weten over palet-herstel of vector/raster. Met paletteIdOverride kan
+  // dezelfde seed in een ANDER (altijd ingebouwd, dus nooit opgeschoond)
+  // palet worden getekend — dat is precies de kleurvarianten-showcase.
+  function renderPlaygroundEntry(entry, ctx, w, h, paletteIdOverride) {
     const algo = Algorithms[entry.algoId];
     if (!algo) return false;
-    const paletteId = ensurePaletteAvailable(entry.palette);
+    const paletteId = paletteIdOverride || ensurePaletteAvailable(entry.palette);
     const params = algo.generateParams(entry.seed, paletteId);
     if (algo.vector) algo.render(new CanvasPainter(ctx, w, h), params, w, h);
     else algo.renderToCanvas(ctx, params, w, h);
