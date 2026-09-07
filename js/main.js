@@ -131,7 +131,7 @@
 
     customPaletteToggle.addEventListener('click', () => {
       customPalettePanel.hidden = !customPalettePanel.hidden;
-      customPaletteToggle.textContent = customPalettePanel.hidden ? '+ Eigen kleuren samenstellen' : '− Eigen kleuren verbergen';
+      customPaletteToggle.textContent = customPalettePanel.hidden ? '+ Build custom colors' : '− Hide custom colors';
     });
     customPaletteApplyBtn.addEventListener('click', applyCustomPalette);
     customPaletteRandomBtn.addEventListener('click', () => {
@@ -182,7 +182,7 @@
     personGenerateBtn.addEventListener('click', () => {
       const combined = `${personDate.value}|${personName.value.trim().toLowerCase()}|${personCoords.value.trim()}`;
       if (combined.replace(/\|/g, '').length === 0) {
-        personSeedDisplay.textContent = 'Vul minstens één veld in.';
+        personSeedDisplay.textContent = 'Fill in at least one field.';
         return;
       }
       const seed = RNG.seedFromString(combined);
@@ -286,14 +286,14 @@
       const head = document.createElement('div');
       head.className = 'swatch-cell-head';
       const label = document.createElement('span');
-      label.textContent = `Kleur ${i + 1}`;
+      label.textContent = `Color ${i + 1}`;
       head.appendChild(label);
       if (state.customInks.length > 1) {
         const rm = document.createElement('button');
         rm.type = 'button';
         rm.className = 'swatch-remove';
         rm.textContent = '✕';
-        rm.title = 'Kleur verwijderen';
+        rm.title = 'Remove color';
         rm.addEventListener('click', () => {
           state.customInks.splice(i, 1);
           renderCustomInkSwatches();
@@ -306,7 +306,7 @@
       const input = document.createElement('input');
       input.type = 'color';
       input.value = hex;
-      input.setAttribute('aria-label', `Kleur ${i + 1}`);
+      input.setAttribute('aria-label', `Color ${i + 1}`);
       input.addEventListener('input', () => {
         state.customInks[i] = input.value;
         saveSettings();
@@ -354,7 +354,7 @@
       item.appendChild(name);
 
       const useBtn = document.createElement('button');
-      useBtn.textContent = 'gebruik';
+      useBtn.textContent = 'use';
       useBtn.addEventListener('click', () => {
         setColorInput(customBg, p.bg);
         state.customInks = p.inks.length ? p.inks.slice(0, 6) : [p.bg];
@@ -370,7 +370,7 @@
 
       const rmBtn = document.createElement('button');
       rmBtn.innerHTML = '&#10005;';
-      rmBtn.title = 'Preset verwijderen';
+      rmBtn.title = 'Remove preset';
       rmBtn.addEventListener('click', () => {
         deleteCustomPalette(p.id);
         const opt = paletteSelect.querySelector(`option[value="${p.id}"]`);
@@ -417,7 +417,7 @@
       star.className = 'star';
       star.textContent = isFavorite(state.algoId, seed, state.paletteId) ? '★' : '☆';
       star.classList.toggle('active', isFavorite(state.algoId, seed, state.paletteId));
-      star.title = 'Markeer als favoriet';
+      star.title = 'Mark as favorite';
       star.addEventListener('click', ev => {
         ev.stopPropagation();
         toggleFavorite(state.algoId, seed, state.paletteId);
@@ -437,13 +437,13 @@
       return { tile, canvas, seed };
     });
 
-    statusLine.textContent = `Bezig met renderen van ${tiles.length} varianten…`;
+    statusLine.textContent = `Rendering ${tiles.length} variants…`;
     Utils.runChunked(tiles.length, 2, i => {
       const { tile, canvas, seed } = tiles[i];
       drawThumb(algo, canvas, seed, state.paletteId);
       tile.classList.remove('loading');
     }, () => {
-      statusLine.textContent = `${tiles.length} varianten — ${algo.label.toLowerCase()}, ${getPalette(state.paletteId).name}. Klik op een tegel voor groot voorbeeld en export.`;
+      statusLine.textContent = `${tiles.length} variants — ${algo.label.toLowerCase()}, ${getPalette(state.paletteId).name}. Click a tile for a large preview and export.`;
     });
   }
 
@@ -485,7 +485,7 @@
 
   function renderModalStar() {
     const fav = isFavorite(state.modal.algoId, state.modal.seed, state.modal.paletteId);
-    modalStarBtn.textContent = fav ? '★ Favoriet' : '☆ Markeer als favoriet';
+    modalStarBtn.textContent = fav ? '★ Favorite' : '☆ Mark as favorite';
     modalStarBtn.classList.toggle('primary', fav);
   }
 
@@ -494,14 +494,14 @@
     const algo = Algorithms[algoId];
     const params = algo.generateParams(seed, paletteId);
     const { w, h } = resolveExportSize(modalExportSize.value, 1);
-    modalStatus.textContent = `Bezig met renderen op ${w}×${h}px… dit kan even duren bij grote formaten.`;
+    modalStatus.textContent = `Rendering at ${w}×${h}px… this can take a while for large sizes.`;
     modalExportSVGBtn.disabled = true; modalExportPNGBtn.disabled = true;
     renderForExport(algo, params, w, h, wantSVG, result => {
       const ext = result.svg ? 'svg' : 'png';
       const filename = filenameFor(algoId, seed, paletteId, modalExportSize.value, ext);
       if (result.svg) Utils.downloadSVGString(result.svg, filename);
       else Utils.downloadCanvasPNG(result.canvas, filename);
-      modalStatus.textContent = `Opgeslagen als ${filename}`;
+      modalStatus.textContent = `Saved as ${filename}`;
       modalExportSVGBtn.disabled = false; modalExportPNGBtn.disabled = false;
       recordExport(algoId, seed, paletteId, ext, modalExportSize.value);
     });
@@ -527,7 +527,7 @@
   function renderFavorites() {
     favList.innerHTML = '';
     if (state.favorites.length === 0) {
-      favList.innerHTML = '<div class="hint">Nog geen favorieten. Klik op de ster bij een tegel.</div>';
+      favList.innerHTML = '<div class="hint">No favorites yet. Click the star on a tile.</div>';
       return;
     }
     state.favorites.forEach(f => {
@@ -554,13 +554,13 @@
 
       const tBtn = document.createElement('button');
       tBtn.textContent = '→T';
-      tBtn.title = 'Voeg toe aan triptiek';
+      tBtn.title = 'Add to triptych';
       tBtn.addEventListener('click', () => addToTriptych(f.algoId, f.seed, f.paletteId));
       item.appendChild(tBtn);
 
       const rmBtn = document.createElement('button');
       rmBtn.textContent = '✕';
-      rmBtn.title = 'Verwijder favoriet';
+      rmBtn.title = 'Remove favorite';
       rmBtn.addEventListener('click', () => {
         toggleFavorite(f.algoId, f.seed, f.paletteId);
         renderFavorites();
@@ -585,7 +585,7 @@
       const slotEl = triptychSlotsEl[i];
       slotEl.innerHTML = '';
       if (!entry) {
-        slotEl.textContent = `Slot ${i + 1} — leeg`;
+        slotEl.textContent = `Slot ${i + 1} — empty`;
         slotEl.onclick = null;
         return;
       }
@@ -594,7 +594,7 @@
       drawThumb(Algorithms[entry.algoId], canvas, entry.seed, entry.paletteId);
       slotEl.appendChild(canvas);
       slotEl.onclick = () => { state.triptych[i] = null; renderTriptych(); };
-      slotEl.title = 'Klik om leeg te maken';
+      slotEl.title = 'Click to clear';
     });
     triptychExportBtn.disabled = state.triptych.every(s => s === null);
   }
@@ -605,7 +605,7 @@
     const sizeId = triptychExportSize.value;
     const { w, h } = resolveExportSize(sizeId, 1);
     triptychExportBtn.disabled = true;
-    triptychExportBtn.textContent = 'Bezig met exporteren…';
+    triptychExportBtn.textContent = 'Exporting…';
     let done = 0;
     filled.forEach((entry, i) => {
       const algo = Algorithms[entry.algoId];
@@ -613,14 +613,14 @@
       setTimeout(() => {
         renderForExport(algo, params, w, h, algo.vector, result => {
           const ext = result.svg ? 'svg' : 'png';
-          const filename = `triptiek-${i + 1}-${filenameFor(entry.algoId, entry.seed, entry.paletteId, sizeId, ext)}`;
+          const filename = `triptych-${i + 1}-${filenameFor(entry.algoId, entry.seed, entry.paletteId, sizeId, ext)}`;
           if (result.svg) Utils.downloadSVGString(result.svg, filename);
           else Utils.downloadCanvasPNG(result.canvas, filename);
           recordExport(entry.algoId, entry.seed, entry.paletteId, ext, sizeId);
           done++;
           if (done === filled.length) {
             triptychExportBtn.disabled = false;
-            triptychExportBtn.textContent = 'Exporteer triptiek (3 bestanden)';
+            triptychExportBtn.textContent = 'Export triptych (3 files)';
           }
         });
       }, i * 300);
@@ -643,7 +643,7 @@
   function renderHistoryList() {
     historyList.innerHTML = '';
     if (state.exportHistory.length === 0) {
-      historyList.innerHTML = '<p class="history-empty">Nog niets geëxporteerd. Zodra je een ontwerp downloadt (SVG of PNG), verschijnt het hier.</p>';
+      historyList.innerHTML = '<p class="history-empty">Nothing exported yet. As soon as you download a design (SVG or PNG), it will appear here.</p>';
       return;
     }
     state.exportHistory.forEach(entry => {
@@ -669,7 +669,7 @@
       const line2 = document.createElement('div');
       line2.className = 'line2';
       const date = new Date(entry.timestamp);
-      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeId} · ${date.toLocaleDateString('nl-NL')} ${date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}`;
+      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeId} · ${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
       meta.appendChild(line1);
       meta.appendChild(line2);
       item.appendChild(meta);
@@ -706,7 +706,7 @@
     locationHistoryList.innerHTML = '';
     const entries = window.LocationApp ? window.LocationApp.getHistory() : [];
     if (entries.length === 0) {
-      locationHistoryList.innerHTML = '<p class="history-empty">Nog niets geëxporteerd vanuit Locatie. Zodra je een kaart downloadt, verschijnt hij hier.</p>';
+      locationHistoryList.innerHTML = '<p class="history-empty">Nothing exported yet from Location. As soon as you download a map, it will appear here.</p>';
       return;
     }
     entries.forEach(entry => {
@@ -721,11 +721,11 @@
       meta.className = 'meta';
       const line1 = document.createElement('div');
       line1.className = 'line1';
-      line1.textContent = `${entry.place || 'Onbekende plaats'}${entry.country ? ', ' + entry.country : ''} · ${entry.paletteName}`;
+      line1.textContent = `${entry.place || 'Unknown place'}${entry.country ? ', ' + entry.country : ''} · ${entry.paletteName}`;
       const line2 = document.createElement('div');
       line2.className = 'line2';
       const date = new Date(entry.timestamp);
-      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeLabel} · ${date.toLocaleDateString('nl-NL')} ${date.toLocaleTimeString('nl-NL', { hour: '2-digit', minute: '2-digit' })}`;
+      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeLabel} · ${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
       meta.appendChild(line1);
       meta.appendChild(line2);
       item.appendChild(meta);
@@ -733,31 +733,6 @@
       locationHistoryList.appendChild(item);
     });
   }
-
-  // Rendert een geschiedenisregel (algoId+seed+paletsnapshot) opnieuw, op om
-  // het even welke resolutie — dit is wat de Mockups/Showcase-tab nodig heeft
-  // om een artwork uit de historie te tonen, zonder dat mockups.js iets hoeft
-  // te weten over palet-herstel of vector/raster. Met paletteIdOverride kan
-  // dezelfde seed in een ANDER (altijd ingebouwd, dus nooit opgeschoond)
-  // palet worden getekend — dat is precies de kleurvarianten-showcase.
-  function renderPlaygroundEntry(entry, ctx, w, h, paletteIdOverride) {
-    const algo = Algorithms[entry.algoId];
-    if (!algo) return false;
-    const paletteId = paletteIdOverride || ensurePaletteAvailable(entry.palette);
-    const params = algo.generateParams(entry.seed, paletteId);
-    if (algo.vector) algo.render(new CanvasPainter(ctx, w, h), params, w, h);
-    else algo.renderToCanvas(ctx, params, w, h);
-    return true;
-  }
-
-  window.PlaygroundApp = {
-    getHistory: () => state.exportHistory,
-    renderEntry: renderPlaygroundEntry,
-    labelFor: entry => {
-      const algo = Algorithms[entry.algoId];
-      return `${algo ? algo.label : entry.algoId} · #${entry.seed} · ${entry.palette.name}`;
-    },
-  };
 
   document.addEventListener('DOMContentLoaded', init);
 })();

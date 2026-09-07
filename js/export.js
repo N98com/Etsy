@@ -1,12 +1,12 @@
 // Print-resolutie presets. cm -> pixels op basis van dpi (px = cm / 2.54 * dpi).
 const EXPORT_SIZES = [
-  { id: 'thumb-1000', label: 'Web preview (1000px, lange zijde)', longSidePx: 1000 },
+  { id: 'thumb-1000', label: 'Web preview (1000px, long side)', longSidePx: 1000 },
   { id: 'a4-300', label: 'A4 @ 300dpi (2480x3508)', cm: [21, 29.7], dpi: 300 },
   { id: 'a3-300', label: 'A3 @ 300dpi (3508x4961)', cm: [29.7, 42], dpi: 300 },
   { id: 'a2-300', label: 'A2 @ 300dpi (4961x7016)', cm: [42, 59.4], dpi: 300 },
-  { id: 'a2-150', label: 'A2 @ 150dpi — sneller, nog prima voor test (2480x3508)', cm: [42, 59.4], dpi: 150 },
-  { id: 'a1-300', label: 'A1 @ 300dpi (7016x9933) — kan traag zijn', cm: [59.4, 84.1], dpi: 300 },
-  { id: 'square-4000', label: 'Vierkant 4000x4000 (patroon-tegel)', square: 4000 },
+  { id: 'a2-150', label: 'A2 @ 150dpi — faster, still fine for testing (2480x3508)', cm: [42, 59.4], dpi: 150 },
+  { id: 'a1-300', label: 'A1 @ 300dpi (7016x9933) — can be slow', cm: [59.4, 84.1], dpi: 300 },
+  { id: 'square-4000', label: 'Square 4000x4000 (pattern tile)', square: 4000 },
 ];
 
 function resolveExportSize(sizeId, aspect) {

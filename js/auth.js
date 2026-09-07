@@ -11,7 +11,7 @@
       const gate = document.getElementById('loginGate');
       if (gate) {
         gate.hidden = false;
-        gate.innerHTML = '<p class="hint">Kon de inlogmodule niet laden. Controleer je internetverbinding en herlaad de pagina.</p>';
+        gate.innerHTML = '<p class="hint">Could not load the login module. Check your internet connection and reload the page.</p>';
       }
     });
     return;
@@ -47,17 +47,17 @@
       e.preventDefault();
       loginError.textContent = '';
       loginSubmitBtn.disabled = true;
-      loginSubmitBtn.textContent = 'Bezig…';
+      loginSubmitBtn.textContent = 'Working…';
       const { error } = await sb.auth.signInWithPassword({
         email: loginEmail.value.trim(),
         password: loginPassword.value,
       });
       loginSubmitBtn.disabled = false;
-      loginSubmitBtn.textContent = 'Inloggen';
+      loginSubmitBtn.textContent = 'Log in';
       if (error) {
         loginError.textContent = error.message === 'Invalid login credentials'
-          ? 'Onjuiste combinatie van e-mail en wachtwoord.'
-          : `Inloggen mislukt: ${error.message}`;
+          ? 'Incorrect email/password combination.'
+          : `Login failed: ${error.message}`;
         return;
       }
       loginPassword.value = '';

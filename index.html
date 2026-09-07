@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="nl">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,13 +11,13 @@
   <div class="login-gate" id="loginGate" hidden>
     <form class="login-card" id="loginForm">
       <h1>Art Generator</h1>
-      <p class="hint">Log in om de werkbank te openen.</p>
-      <label for="loginEmail">E-mail</label>
+      <p class="hint">Log in to open the workbench.</p>
+      <label for="loginEmail">Email</label>
       <input type="email" id="loginEmail" required autocomplete="username">
-      <label for="loginPassword">Wachtwoord</label>
+      <label for="loginPassword">Password</label>
       <input type="password" id="loginPassword" required autocomplete="current-password">
       <p class="login-error" id="loginError"></p>
-      <button type="submit" class="primary" id="loginSubmitBtn" style="width:100%; margin-top:6px;">Inloggen</button>
+      <button type="submit" class="primary" id="loginSubmitBtn" style="width:100%; margin-top:6px;">Log in</button>
     </form>
   </div>
 
@@ -28,56 +28,55 @@
     </div>
     <div class="header-actions">
       <div class="icon-menu">
-        <button id="settingsBtn" class="icon-btn" title="Instellingen" aria-label="Instellingen">⚙</button>
+        <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
         <div id="settingsMenu" class="settings-menu" hidden>
-          <button type="button" id="historyMenuBtn" class="settings-menu-item">🕘 Geschiedenis</button>
+          <button type="button" id="historyMenuBtn" class="settings-menu-item">🕘 History</button>
         </div>
       </div>
-      <button id="logoutBtn" class="ghost">Uitloggen</button>
+      <button id="logoutBtn" class="ghost">Log out</button>
     </div>
   </header>
 
   <nav class="view-tabs">
     <button type="button" class="view-tab active" id="viewTabPlayground" data-view="playground">Playground</button>
-    <button type="button" class="view-tab" id="viewTabLocation" data-view="location">Locatie</button>
-    <button type="button" class="view-tab" id="viewTabMockups" data-view="mockups">Mockups</button>
+    <button type="button" class="view-tab" id="viewTabLocation" data-view="location">Location</button>
   </nav>
 
   <div id="playgroundView">
   <main>
     <aside class="sidebar sidebar-left">
       <div class="panel">
-        <h2>Algoritme</h2>
+        <h2>Algorithm</h2>
         <div class="algo-tabs" id="algoTabs"></div>
 
-        <label for="paletteSelect">Kleurstelling (interieurstijl)</label>
+        <label for="paletteSelect">Color scheme (interior style)</label>
         <select id="paletteSelect"></select>
-        <button type="button" id="customPaletteToggle" class="ghost" style="width:100%; margin-top:6px; text-align:left; padding-left:0;">+ Eigen kleuren samenstellen</button>
+        <button type="button" id="customPaletteToggle" class="ghost" style="width:100%; margin-top:6px; text-align:left; padding-left:0;">+ Build custom colors</button>
         <div id="customPalettePanel" class="custom-palette-panel" hidden>
           <div class="swatch-row" id="customSwatchRow">
             <div class="swatch-cell">
-              <div class="swatch-cell-head"><span>Achtergrond</span></div>
+              <div class="swatch-cell-head"><span>Background</span></div>
               <input type="color" id="customBg" value="#f4ede4">
             </div>
           </div>
-          <button type="button" id="customInkAddBtn" class="ghost" style="width:100%; margin-top:6px;">+ Kleur toevoegen</button>
-          <label for="customPaletteName">Naam (optioneel)</label>
-          <input type="text" id="customPaletteName" placeholder="bijv. Herfstpalet">
+          <button type="button" id="customInkAddBtn" class="ghost" style="width:100%; margin-top:6px;">+ Add color</button>
+          <label for="customPaletteName">Name (optional)</label>
+          <input type="text" id="customPaletteName" placeholder="e.g. Autumn palette">
           <div class="row" style="margin-top:8px;">
-            <button type="button" id="customPaletteRandomBtn">🎲 Willekeurig</button>
-            <button type="button" class="primary" id="customPaletteApplyBtn">Opslaan &amp; toepassen</button>
+            <button type="button" id="customPaletteRandomBtn">🎲 Random</button>
+            <button type="button" class="primary" id="customPaletteApplyBtn">Save &amp; apply</button>
           </div>
-          <p class="hint" style="margin-top:8px;">Recente eigen kleuren (max. 10):</p>
+          <p class="hint" style="margin-top:8px;">Recent custom colors (max. 10):</p>
           <div class="preset-list" id="customPalettePresetList"></div>
         </div>
 
-        <label for="batchSizeInput">Aantal varianten in contactvel (max. 12, 4 per rij)</label>
+        <label for="batchSizeInput">Number of variants in contact sheet (max. 12, 4 per row)</label>
         <input type="number" id="batchSizeInput" min="4" max="12" step="4" value="12">
 
         <div class="row" style="margin-top:12px;">
-          <button class="primary" id="regenerateBtn">Nieuwe variant</button>
+          <button class="primary" id="regenerateBtn">New variant</button>
         </div>
-        <label for="seedBaseInput">Basis-seed van dit contactvel</label>
+        <label for="seedBaseInput">Base seed of this contact sheet</label>
         <input type="text" id="seedBaseInput" readonly>
       </div>
     </aside>
@@ -89,37 +88,37 @@
 
     <aside class="sidebar sidebar-right">
       <div class="panel">
-        <h2>Favorieten</h2>
+        <h2>Favorites</h2>
         <div class="fav-list" id="favList"></div>
       </div>
 
       <div class="panel">
-        <h2>Personaliseren op seed</h2>
-        <p class="hint">Een geboortedatum, naam of coördinaten wordt de seed van een uniek, reproduceerbaar ontwerp — perfect voor made-to-order.</p>
-        <label for="personDate">Datum</label>
+        <h2>Personalize by seed</h2>
+        <p class="hint">A birth date, name, or coordinates becomes the seed for a unique, reproducible design — perfect for made-to-order.</p>
+        <label for="personDate">Date</label>
         <input type="date" id="personDate">
-        <label for="personName">Naam</label>
-        <input type="text" id="personName" placeholder="bijv. Anna &amp; Tom">
-        <label for="personCoords">Coördinaten</label>
-        <input type="text" id="personCoords" placeholder="bijv. 52.3676, 4.9041">
+        <label for="personName">Name</label>
+        <input type="text" id="personName" placeholder="e.g. Anna &amp; Tom">
+        <label for="personCoords">Coordinates</label>
+        <input type="text" id="personCoords" placeholder="e.g. 52.3676, 4.9041">
         <div class="row" style="margin-top:10px;">
-          <button id="personGenerateBtn">Genereer seed</button>
+          <button id="personGenerateBtn">Generate seed</button>
         </div>
         <p class="hint" id="personSeedDisplay"></p>
-        <button id="personOpenBtn" class="primary" disabled style="width:100%;">Open groot voorbeeld</button>
+        <button id="personOpenBtn" class="primary" disabled style="width:100%;">Open large preview</button>
       </div>
 
       <div class="panel">
-        <h2>Triptiek-bouwer</h2>
-        <p class="hint">Drie seeds uit dezelfde familie naast elkaar — verkoopt beter dan losse prints.</p>
+        <h2>Triptych builder</h2>
+        <p class="hint">Three seeds from the same family side by side — sells better than individual prints.</p>
         <div class="triptych-row">
-          <div class="triptych-slot" id="triptychSlot0">Slot 1 — leeg</div>
-          <div class="triptych-slot" id="triptychSlot1">Slot 2 — leeg</div>
-          <div class="triptych-slot" id="triptychSlot2">Slot 3 — leeg</div>
+          <div class="triptych-slot" id="triptychSlot0">Slot 1 — empty</div>
+          <div class="triptych-slot" id="triptychSlot1">Slot 2 — empty</div>
+          <div class="triptych-slot" id="triptychSlot2">Slot 3 — empty</div>
         </div>
-        <label for="triptychExportSize">Exportformaat</label>
+        <label for="triptychExportSize">Export format</label>
         <select id="triptychExportSize"></select>
-        <button class="primary" id="triptychExportBtn" style="width:100%; margin-top:8px;" disabled>Exporteer triptiek (3 bestanden)</button>
+        <button class="primary" id="triptychExportBtn" style="width:100%; margin-top:8px;" disabled>Export triptych (3 files)</button>
       </div>
     </aside>
   </main>
@@ -129,15 +128,15 @@
     <div class="location-layout">
       <aside class="sidebar location-controls">
         <div class="panel">
-          <h2>Gebied kiezen</h2>
-          <label for="locationSearchInput">Zoek een plaats</label>
+          <h2>Choose area</h2>
+          <label for="locationSearchInput">Search for a place</label>
           <div class="row">
-            <input type="text" id="locationSearchInput" placeholder="bijv. Parijs, Frankrijk">
-            <button id="locationSearchBtn" style="flex:0 0 auto;">Zoek</button>
+            <input type="text" id="locationSearchInput" placeholder="e.g. Paris, France">
+            <button id="locationSearchBtn" style="flex:0 0 auto;">Search</button>
           </div>
           <div id="locationSearchResults" class="location-search-results" hidden></div>
 
-          <label>Beeldverhouding</label>
+          <label>Aspect ratio</label>
           <div class="ratio-tabs" id="ratioTabs"></div>
           <div class="row" id="customRatioRow" hidden style="margin-top:6px;">
             <input type="number" id="customRatioW" min="1" value="2">
@@ -145,59 +144,59 @@
             <input type="number" id="customRatioH" min="1" value="3">
           </div>
 
-          <p class="hint" style="margin-top:10px;">Sleep en zoom de kaart tot het kader het gewenste gebied dekt.</p>
-          <button class="primary" id="locationGenerateBtn" style="width:100%; margin-top:10px;">Genereer kaart</button>
+          <p class="hint" style="margin-top:10px;">Drag and zoom the map until the frame covers the desired area.</p>
+          <button class="primary" id="locationGenerateBtn" style="width:100%; margin-top:10px;">Generate map</button>
           <p class="hint" id="locationStatus"></p>
         </div>
 
         <div class="panel">
-          <h2>Stijl</h2>
-          <label>Kleurstelling</label>
+          <h2>Style</h2>
+          <label>Color scheme</label>
           <div class="map-palette-grid" id="mapPaletteGrid"></div>
 
           <label class="checkbox-row">
-            <input type="checkbox" id="showStreetLabelsCheck"> Straatnamen toevoegen
-            <input type="color" id="streetLabelColorInput" title="Kleur straatnamen">
+            <input type="checkbox" id="showStreetLabelsCheck"> Add street names
+            <input type="color" id="streetLabelColorInput" title="Street name color">
           </label>
-          <p class="hint" id="streetLabelsHint" hidden>Niet beschikbaar bij dit schaalniveau — te veel straten om leesbaar te labelen.</p>
+          <p class="hint" id="streetLabelsHint" hidden>Not available at this zoom level — too many streets to label legibly.</p>
           <label class="checkbox-row">
-            <input type="checkbox" id="showLandmarksCheck"> Landmarks toevoegen
-            <input type="color" id="landmarkColorInput" title="Kleur landmarks">
+            <input type="checkbox" id="showLandmarksCheck"> Add landmarks
+            <input type="color" id="landmarkColorInput" title="Landmark color">
           </label>
           <select id="landmarkIconSelect" style="margin-top:6px;">
-            <option value="star">Icoon: ster</option>
-            <option value="dot">Icoon: stip</option>
-            <option value="pin">Icoon: pin</option>
-            <option value="diamond">Icoon: ruit</option>
+            <option value="star">Icon: star</option>
+            <option value="dot">Icon: dot</option>
+            <option value="pin">Icon: pin</option>
+            <option value="diamond">Icon: diamond</option>
           </select>
           <p class="hint" id="areaTierHint" hidden></p>
 
-          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Onderschrift</p>
-          <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Plaatsnaam</label>
-          <input type="text" id="placeNameInput" placeholder="(automatisch)" style="margin-top:4px;">
-          <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Land</label>
-          <input type="text" id="countryNameInput" placeholder="(automatisch)" style="margin-top:4px;">
-          <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coördinaten</label>
+          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
+          <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
+          <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;">
+          <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Country</label>
+          <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;">
+          <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
 
-          <label class="checkbox-row"><input type="checkbox" id="isolateAreaCheck" disabled> Isoleer gebied</label>
-          <p class="hint" id="isolateAreaHint">Zoek en kies eerst een plaats/land/werelddeel hierboven om deze optie te gebruiken.</p>
+          <label class="checkbox-row"><input type="checkbox" id="isolateAreaCheck" disabled> Isolate area</label>
+          <p class="hint" id="isolateAreaHint">Search and select a place/country/continent above first to use this option.</p>
 
           <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Game Styles</p>
           <label class="checkbox-row"><input type="checkbox" id="gtaStyleCheck"> GTA V</label>
-          <p class="hint" id="gtaStyleHint" hidden>Kleurstelling uitgeschakeld — GTA V gebruikt een vast kleurenschema.</p>
+          <p class="hint" id="gtaStyleHint" hidden>Color scheme disabled — GTA V uses a fixed color scheme.</p>
           <label class="checkbox-row"><input type="checkbox" id="mw2StyleCheck"> OG MW2</label>
-          <p class="hint" id="mw2StyleHint" hidden>Kleurstelling uitgeschakeld en gebied automatisch geïsoleerd — de kaartkiezer toont nu satellietbeeld ter oriëntatie (verschijnt niet in de export).</p>
+          <p class="hint" id="mw2StyleHint" hidden>Color scheme disabled and area automatically isolated — the map picker now shows satellite imagery for orientation (it won't appear in the export).</p>
           <label class="checkbox-row"><input type="checkbox" id="rdr2StyleCheck"> RDR2</label>
-          <p class="hint" id="rdr2StyleHint" hidden>Kleurstelling uitgeschakeld en gebied automatisch geïsoleerd.</p>
+          <p class="hint" id="rdr2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
         </div>
 
         <div class="panel" id="locationExportPanel" hidden>
-          <h2>Exporteren</h2>
-          <label for="locationExportSize">Formaat</label>
+          <h2>Export</h2>
+          <label for="locationExportSize">Format</label>
           <select id="locationExportSize"></select>
           <div class="row" style="margin-top:8px;">
-            <button class="primary" id="locationExportSVGBtn">Exporteer SVG</button>
-            <button id="locationExportPNGBtn">Exporteer PNG</button>
+            <button class="primary" id="locationExportSVGBtn">Export SVG</button>
+            <button id="locationExportPNGBtn">Export PNG</button>
           </div>
           <p class="hint" id="locationExportStatus"></p>
         </div>
@@ -210,83 +209,41 @@
         </div>
 
         <div class="location-result" id="locationResult" hidden>
-          <h2>Resultaat</h2>
+          <h2>Result</h2>
           <div class="location-result-preview" id="locationResultPreview"></div>
         </div>
       </section>
     </div>
   </div>
 
-  <div id="mockupsView" hidden>
-    <div class="mockups-layout">
-      <aside class="sidebar mockups-controls">
-        <div class="panel">
-          <h2>Artwork kiezen</h2>
-          <div class="view-tabs" id="mockupSourceTabs" style="padding:0; margin-bottom:10px; background:transparent; border-bottom:1px solid var(--line);">
-            <button type="button" class="view-tab active" id="mockupSourceTabPlayground" data-source="playground">Playground</button>
-            <button type="button" class="view-tab" id="mockupSourceTabLocation" data-source="location">Locatie</button>
-          </div>
-          <div class="mockup-source-grid" id="mockupSourceGrid"></div>
-          <p class="hint" id="mockupSourceHint">Alleen daadwerkelijk geëxporteerde ontwerpen (zie Geschiedenis) staan hier.</p>
-        </div>
-
-        <div class="panel">
-          <h2>Showcase</h2>
-          <label for="mockupTitleInput">Titel (optioneel)</label>
-          <input type="text" id="mockupTitleInput" placeholder="Kies je kleur">
-
-          <label style="margin-top:12px;" id="mockupAspectLabel">Beeldverhouding</label>
-          <div class="ratio-tabs" id="mockupAspectTabs"></div>
-          <p class="hint" id="mockupAspectHint" hidden>Deze kaart heeft een vaste beeldverhouding vanuit Locatie.</p>
-          <p class="hint" id="mockupGeoHint" hidden>Deze kaart was te groot om alle kleurvarianten te bewaren — alleen de oorspronkelijke kleur is beschikbaar.</p>
-        </div>
-
-        <div class="panel">
-          <h2>Exporteren</h2>
-          <label for="mockupExportSize">Formaat (breedte)</label>
-          <select id="mockupExportSize"></select>
-          <button class="primary" id="mockupExportBtn" style="width:100%; margin-top:8px;">Exporteer showcase (PNG)</button>
-          <p class="hint" id="mockupExportStatus"></p>
-          <p class="hint" style="margin-top:10px;">Eén afbeelding met al je kleuropties naast elkaar — handig als eerste foto in je Etsy-listing, zodat kopers meteen zien welke kleuren beschikbaar zijn.</p>
-        </div>
-      </aside>
-
-      <section class="mockup-main">
-        <div class="mockup-preview-wrap" id="mockupPreviewWrap">
-          <p class="hint" id="mockupEmptyHint">Kies eerst een artwork uit je geschiedenis hiernaast.</p>
-        </div>
-      </section>
-    </div>
-  </div>
-
   <footer>
-    Werkbank draait volledig lokaal in de browser — niets wordt geüpload. Ruwe render → kies de beste 5% → finetune kleur in Photoshop/Affinity → exporteer op printresolutie.
+    Workbench runs entirely locally in the browser — nothing is uploaded. Raw render → pick the best 5% → finetune color in Photoshop/Affinity → export at print resolution.
   </footer>
 
   <div class="modal-backdrop hidden" id="modalBackdrop">
     <div class="modal">
-      <button class="modal-close ghost" id="modalCloseBtn">✕ sluiten</button>
+      <button class="modal-close ghost" id="modalCloseBtn">✕ close</button>
       <div class="modal-preview" id="modalCanvasWrap"></div>
       <div class="modal-side">
         <h3 id="modalTitle"></h3>
         <label for="modalSeedInput">Seed</label>
         <input type="text" id="modalSeedInput">
-        <p class="hint">Palet: <span id="modalPaletteLabel"></span></p>
+        <p class="hint">Palette: <span id="modalPaletteLabel"></span></p>
         <div class="keywords" id="modalKeywords"></div>
 
-        <label for="modalExportSize" style="margin-top:14px;">Exportformaat</label>
+        <label for="modalExportSize" style="margin-top:14px;">Export format</label>
         <select id="modalExportSize"></select>
         <div class="row" style="margin-top:8px;">
-          <button class="primary" id="modalExportSVGBtn">Exporteer SVG</button>
-          <button id="modalExportPNGBtn">Exporteer PNG</button>
+          <button class="primary" id="modalExportSVGBtn">Export SVG</button>
+          <button id="modalExportPNGBtn">Export PNG</button>
         </div>
         <p class="hint" id="modalStatus"></p>
 
         <div class="row" style="margin-top:14px;">
-          <button id="modalStarBtn">☆ Markeer als favoriet</button>
+          <button id="modalStarBtn">☆ Mark as favorite</button>
         </div>
         <div class="row" style="margin-top:8px;">
-          <button id="modalTriptychBtn">→ Voeg toe aan triptiek</button>
+          <button id="modalTriptychBtn">→ Add to triptych</button>
         </div>
       </div>
     </div>
@@ -294,20 +251,20 @@
 
   <div class="modal-backdrop hidden" id="historyModalBackdrop">
     <div class="modal history-modal">
-      <button class="modal-close ghost" id="historyCloseBtn">✕ sluiten</button>
+      <button class="modal-close ghost" id="historyCloseBtn">✕ close</button>
       <div>
-        <h3>Geschiedenis</h3>
+        <h3>History</h3>
         <div class="view-tabs" style="padding:0; margin-bottom:10px; background:transparent; border-bottom:1px solid var(--line);">
           <button type="button" class="view-tab active" id="historyTabPlayground" data-history="playground">Playground</button>
-          <button type="button" class="view-tab" id="historyTabLocation" data-history="location">Locatie</button>
+          <button type="button" class="view-tab" id="historyTabLocation" data-history="location">Location</button>
         </div>
 
         <div id="historyPanelPlayground">
-          <p class="hint">Elk ontwerp dat je daadwerkelijk hebt geëxporteerd (SVG of PNG), permanent bewaard — ook als het onderliggende kleurpreset intussen is opgeschoond.</p>
+          <p class="hint">Every design you've actually exported (SVG or PNG), saved permanently — even if the underlying color preset has since been cleaned up.</p>
           <div class="history-list" id="historyList"></div>
         </div>
         <div id="historyPanelLocation" hidden>
-          <p class="hint">Elke kaart die je daadwerkelijk hebt geëxporteerd, met een miniatuur zoals hij eruitzag.</p>
+          <p class="hint">Every map you've actually exported, with a thumbnail of how it looked.</p>
           <div class="history-list" id="locationHistoryList"></div>
         </div>
       </div>
@@ -332,6 +289,5 @@
   <script src="js/mapGeo.js"></script>
   <script src="js/mapRender.js"></script>
   <script src="js/location.js"></script>
-  <script src="js/mockups.js"></script>
 </body>
 </html>

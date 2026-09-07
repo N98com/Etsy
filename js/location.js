@@ -24,7 +24,7 @@ window.LocationApp = (() => {
     { id: '4x5', label: '4:5', w: 4, h: 5 },
     { id: '1x1', label: '1:1', w: 1, h: 1 },
     { id: '3x2', label: '3:2', w: 3, h: 2 },
-    { id: 'custom', label: 'Aangepast', w: null, h: null },
+    { id: 'custom', label: 'Custom', w: null, h: null },
   ];
 
   const state = {
@@ -252,7 +252,7 @@ window.LocationApp = (() => {
   function ensureMap() {
     if (map) return;
     if (typeof L === 'undefined') {
-      el('locationMap').innerHTML = '<p class="hint" style="padding:16px;">Kaartbibliotheek kon niet laden. Controleer je internetverbinding en herlaad de pagina.</p>';
+      el('locationMap').innerHTML = '<p class="hint" style="padding:16px;">Could not load the map library. Check your internet connection and reload the page.</p>';
       return;
     }
     map = L.map('locationMap', { attributionControl: true }).setView([52.3676, 4.9041], 13);
@@ -310,12 +310,12 @@ window.LocationApp = (() => {
     const q = searchInput.value.trim();
     if (!q) return;
     searchResults.hidden = false;
-    searchResults.innerHTML = '<div class="location-search-result">Zoeken…</div>';
+    searchResults.innerHTML = '<div class="location-search-result">Searching…</div>';
     try {
       const results = await MapGeo.searchPlace(q);
       searchResults.innerHTML = '';
       if (results.length === 0) {
-        searchResults.innerHTML = '<div class="location-search-result">Niets gevonden.</div>';
+        searchResults.innerHTML = '<div class="location-search-result">Nothing found.</div>';
         return;
       }
       results.forEach(r => {
@@ -327,7 +327,7 @@ window.LocationApp = (() => {
         searchResults.appendChild(btn);
       });
     } catch (err) {
-      searchResults.innerHTML = `<div class="location-search-result">Zoeken mislukt: ${err.message}</div>`;
+      searchResults.innerHTML = `<div class="location-search-result">Search failed: ${err.message}</div>`;
     }
   }
 
@@ -351,29 +351,29 @@ window.LocationApp = (() => {
     isolateAreaCheck.checked = false;
     isolateAreaCheck.disabled = true;
     isolateAreaHint.hidden = false;
-    isolateAreaHint.textContent = 'Bezig met ophalen van gebiedsgrens…';
+    isolateAreaHint.textContent = 'Fetching area boundary…';
 
     MapGeo.fetchBoundary(result).then(boundary => {
       if (!state.selectedPlace || state.selectedPlace.name !== result.display_name) return;
       if (!boundary) {
-        isolateAreaHint.textContent = `Geen exacte gebiedsgrens beschikbaar voor "${result.display_name}".`;
+        isolateAreaHint.textContent = `No exact area boundary available for "${result.display_name}".`;
         return;
       }
       state.selectedPlace.rings = boundary.rings;
       state.selectedPlace.bounds = boundary.bounds;
       isolateAreaCheck.disabled = false;
-      isolateAreaHint.textContent = `Isoleer precies de grens van "${result.display_name}".`;
+      isolateAreaHint.textContent = `Isolate exactly the boundary of "${result.display_name}".`;
     }).catch(err => {
-      isolateAreaHint.textContent = `Ophalen van gebiedsgrens mislukt: ${err.message}`;
+      isolateAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
     });
   }
 
   // ---- genereren ----
   const AREA_TIER_NOTE = {
     street: '', city: '',
-    region: 'Groot gebied geselecteerd — alleen hoofdwegen en de bekendste landmarks worden getoond, om de kaart snel en overzichtelijk te houden.',
-    country: 'Zeer groot gebied (land-niveau) geselecteerd — alleen hoofdwegen, grote wateren en de bekendste landmarks van dit land worden getoond.',
-    continent: 'Werelddeel-niveau geselecteerd — op deze schaal is straat-/wegdata niet zinvol; alleen de silhouet van het gebied wordt getekend.',
+    region: 'Large area selected — only main roads and the best-known landmarks are shown, to keep the map fast and readable.',
+    country: 'Very large area (country level) selected — only main roads, major bodies of water, and the best-known landmarks of this country are shown.',
+    continent: 'Continent level selected — at this scale, street/road data isn\'t meaningful; only the silhouette of the area is drawn.',
   };
 
   // Straatnamen zijn bij een hele regio of een land niet leesbaar te tonen
@@ -395,12 +395,12 @@ window.LocationApp = (() => {
   async function generate() {
     if (state.generating) return;
     if (!map) {
-      statusEl.textContent = 'De kaart is nog niet geladen — controleer je internetverbinding en herlaad de pagina.';
+      statusEl.textContent = 'The map hasn\'t loaded yet — check your internet connection and reload the page.';
       return;
     }
     state.generating = true;
     generateBtn.disabled = true;
-    statusEl.textContent = 'Bezig met ophalen van kaartdata…';
+    statusEl.textContent = 'Fetching map data…';
     try {
       // OG MW2 en RDR2 isoleren altijd — met een gekozen plaatsgrens indien
       // beschikbaar, anders gewoon het handmatig gekozen kader zelf (zodat
@@ -427,12 +427,12 @@ window.LocationApp = (() => {
       const streets = await MapGeo.fetchStreets(bounds, tier, styleHint);
       let landmarks = null;
       if (state.showLandmarks) {
-        statusEl.textContent = 'Bezig met opzoeken van landmarks…';
+        statusEl.textContent = 'Looking up landmarks…';
         landmarks = await MapGeo.fetchLandmarks(bounds, tier);
       }
       let buildings = [];
       if (state.mw2Style) {
-        statusEl.textContent = 'Bezig met ophalen van gebouwen…';
+        statusEl.textContent = 'Fetching buildings…';
         buildings = await MapGeo.fetchBuildings(bounds, tier);
       }
       const centerLat = (bounds.north + bounds.south) / 2;
@@ -448,12 +448,12 @@ window.LocationApp = (() => {
         place = state.selectedPlace.query || parts[0] || state.selectedPlace.name;
         country = parts.length > 1 ? parts[parts.length - 1] : '';
       } else {
-        statusEl.textContent = 'Plaatsnaam opzoeken…';
+        statusEl.textContent = 'Looking up place name…';
         try {
           const geo = await MapGeo.reverseGeocode(centerLat, centerLon);
           place = geo.place; country = geo.country;
         } catch (geoErr) {
-          statusEl.textContent = `Kaart opgehaald, maar plaatsnaam kon niet worden bepaald (${geoErr.message}).`;
+          statusEl.textContent = `Map fetched, but the place name could not be determined (${geoErr.message}).`;
         }
       }
       // De invulvelden tonen wat automatisch bepaald is, maar blijven altijd
@@ -473,10 +473,10 @@ window.LocationApp = (() => {
       resultPanel.hidden = false;
       exportPanel.hidden = false;
       statusEl.textContent = isolating
-        ? `Klaar — gebied geïsoleerd (${tier}-niveau)${state.mw2Style ? ` · ${buildings.length} gebouwen` : ''}.`
-        : `Klaar — ${streets.length} elementen geladen.`;
+        ? `Done — area isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
+        : `Done — ${streets.length} elements loaded.`;
     } catch (err) {
-      statusEl.textContent = `Ophalen mislukt: ${err.message}. Probeer een kleiner gebied of probeer het zo opnieuw.`;
+      statusEl.textContent = `Fetch failed: ${err.message}. Try a smaller area or try again.`;
     } finally {
       state.generating = false;
       generateBtn.disabled = false;
@@ -595,10 +595,8 @@ window.LocationApp = (() => {
 
   function makeHistoryThumbnail() {
     const ratio = state.ratio.w / state.ratio.h;
-    // Iets groter dan strikt nodig voor de historielijst zelf, zodat de
-    // Mockups-tab er ook nog redelijk uitziet als hij vergroot wordt in een
-    // scene — Locatie-historie bewaart geen volledige geometrie (zie boven),
-    // dus dit is de enige bron die daar beschikbaar is.
+    // A bit larger than strictly needed for the history list itself, so it
+    // still looks reasonable if reused/enlarged elsewhere.
     const th = 340;
     const tw = Math.round(th * ratio);
     const canvas = document.createElement('canvas');
@@ -611,20 +609,20 @@ window.LocationApp = (() => {
     if (!state.current) return;
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
-    exportStatus.textContent = `Bezig met renderen op ${w}×${h}px…`;
+    exportStatus.textContent = `Rendering at ${w}×${h}px…`;
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     setTimeout(() => {
-      const place = (state.current.place || 'kaart').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const place = (state.current.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const date = new Date().toISOString().slice(0, 10);
       if (wantSVG) {
         const painter = new SVGPainter(w, h);
         drawArtwork(painter, w, h);
-        Utils.downloadSVGString(painter.toString(), `locatie-${place}-${opt.value}-${date}.svg`);
+        Utils.downloadSVGString(painter.toString(), `location-${place}-${opt.value}-${date}.svg`);
       } else {
         const canvas = document.createElement('canvas');
         canvas.width = w; canvas.height = h;
         drawArtwork(new CanvasPainter(canvas.getContext('2d'), w, h), w, h);
-        Utils.downloadCanvasPNG(canvas, `locatie-${place}-${opt.value}-${date}.png`);
+        Utils.downloadCanvasPNG(canvas, `location-${place}-${opt.value}-${date}.png`);
       }
       recordLocationExport({
         thumbnail: makeHistoryThumbnail(),
@@ -643,7 +641,7 @@ window.LocationApp = (() => {
         timestamp: Date.now(),
         recolor: buildRecolorGeometry(),
       });
-      exportStatus.textContent = 'Opgeslagen.';
+      exportStatus.textContent = 'Saved.';
       exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
     }, 20);
   }

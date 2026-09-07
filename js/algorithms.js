@@ -252,7 +252,7 @@ Algorithms.voronoi = {
 // ---------------------------------------------------------------------
 Algorithms.harmonograph = {
   id: 'harmonograph',
-  label: 'Harmonograaf',
+  label: 'Harmonograph',
   vector: true,
 
   generateParams(seed, paletteId) {
@@ -303,7 +303,7 @@ Algorithms.harmonograph = {
 // ---------------------------------------------------------------------
 Algorithms.splatter = {
   id: 'splatter',
-  label: 'Verfspetters',
+  label: 'Paint Splatter',
   vector: true,
 
   generateParams(seed, paletteId) {
@@ -539,7 +539,7 @@ function quarterArcPoints(cx, cy, r, startAngle, endAngle, segments) {
 
 Algorithms.truchet = {
   id: 'truchet',
-  label: 'Truchet-tegels',
+  label: 'Truchet Tiles',
   vector: true,
 
   generateParams(seed, paletteId) {
@@ -585,7 +585,7 @@ Algorithms.truchet = {
 // ---------------------------------------------------------------------
 Algorithms.hypotrochoid = {
   id: 'hypotrochoid',
-  label: 'Hypotrochoïde',
+  label: 'Hypotrochoid',
   vector: true,
 
   generateParams(seed, paletteId) {
@@ -631,7 +631,7 @@ Algorithms.hypotrochoid = {
 // ---------------------------------------------------------------------
 Algorithms.contours = {
   id: 'contours',
-  label: 'Contourlijnen',
+  label: 'Contour Lines',
   vector: true,
 
   generateParams(seed, paletteId) {
@@ -686,7 +686,7 @@ Algorithms.contours = {
 // ---------------------------------------------------------------------
 Algorithms.chaosgame = {
   id: 'chaosgame',
-  label: 'Chaosspel',
+  label: 'Chaos Game',
   vector: false,
 
   generateParams(seed, paletteId) {

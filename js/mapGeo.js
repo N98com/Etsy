@@ -175,7 +175,7 @@ const MapGeo = (() => {
         await wait(1500 * (attempt + 1));
         continue;
       }
-      throw new Error(`Overpass antwoordde met status ${res.status}`);
+      throw new Error(`Overpass responded with status ${res.status}`);
     }
   }
 
@@ -289,7 +289,7 @@ const MapGeo = (() => {
   async function reverseGeocode(lat, lon) {
     const url = `${NOMINATIM_ENDPOINT}/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`Nominatim antwoordde met status ${res.status}`);
+    if (!res.ok) throw new Error(`Nominatim responded with status ${res.status}`);
     const data = await res.json();
     const addr = data.address || {};
     const place = addr.city || addr.town || addr.village || addr.municipality || addr.county || data.name || '';
@@ -300,7 +300,7 @@ const MapGeo = (() => {
   async function searchPlace(query) {
     const url = `${NOMINATIM_ENDPOINT}/search?format=jsonv2&q=${encodeURIComponent(query)}&limit=6`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`Nominatim antwoordde met status ${res.status}`);
+    if (!res.ok) throw new Error(`Nominatim responded with status ${res.status}`);
     return res.json();
   }
 
@@ -332,7 +332,7 @@ const MapGeo = (() => {
     const threshold = thresholdForSpan(spanFromBoundingBox(searchResult.boundingbox));
     const url = `${NOMINATIM_ENDPOINT}/lookup?format=jsonv2&osm_ids=${typeChar}${searchResult.osm_id}&polygon_geojson=1&polygon_threshold=${threshold}`;
     const res = await fetch(url);
-    if (!res.ok) throw new Error(`Nominatim antwoordde met status ${res.status}`);
+    if (!res.ok) throw new Error(`Nominatim responded with status ${res.status}`);
     const data = await res.json();
     const found = data[0];
     if (!found || !found.geojson) return null;

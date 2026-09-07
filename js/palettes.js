@@ -2,7 +2,7 @@
 // niet op wiskundige aantrekkelijkheid. De 'keywords' zijn ter referentie
 // voor je listing-titel/tags, niet functioneel gebruikt door de renderer.
 const PALETTES = [
-  { id: 'boho-sand', name: 'Boho Zand & Klei', bg: '#f4ede4',
+  { id: 'boho-sand', name: 'Boho Sand & Clay', bg: '#f4ede4',
     inks: ['#b08968', '#7f5539', '#9c6644', '#3d2b1f'],
     keywords: 'beige boho line art, terracotta wall art, neutral abstract print' },
   { id: 'japandi-rust', name: 'Japandi Rust', bg: '#eee7db',
@@ -11,34 +11,34 @@ const PALETTES = [
   { id: 'scandi-mono', name: 'Scandi Mono Ink', bg: '#f7f5f2',
     inks: ['#1c1c1c'],
     keywords: 'minimalist black line art, scandinavian poster, single line print' },
-  { id: 'clay-stone', name: 'Klei & Steen', bg: '#efe6da',
+  { id: 'clay-stone', name: 'Clay & Stone', bg: '#efe6da',
     inks: ['#a4785b', '#6b6156', '#3a3530'],
     keywords: 'earth tone abstract art, neutral wall decor, stone wall print' },
-  { id: 'sage-cream', name: 'Salie & Room', bg: '#f2f1e9',
+  { id: 'sage-cream', name: 'Sage & Cream', bg: '#f2f1e9',
     inks: ['#7c8a6d', '#c9c2a8', '#4f5a44'],
     keywords: 'sage green wall art, botanical minimalist print, soft green decor' },
-  { id: 'midnight-gold', name: 'Middernacht & Goud', bg: '#1b1d24',
+  { id: 'midnight-gold', name: 'Midnight & Gold', bg: '#1b1d24',
     inks: ['#d8b975', '#f2e9d8', '#8f7a4e'],
     keywords: 'moody dark academia print, gold line art, black gold wall decor' },
   { id: 'blush-clay', name: 'Blush & Terracotta', bg: '#f6ece6',
     inks: ['#c98a72', '#e0b8a8', '#7a4a3a'],
     keywords: 'blush pink wall art, terracotta print, feminine minimalist decor' },
-  { id: 'coastal-blue', name: 'Kust & Zand', bg: '#f0ede3',
+  { id: 'coastal-blue', name: 'Coast & Sand', bg: '#f0ede3',
     inks: ['#4a6670', '#7fa1a3', '#8c7b65', '#26343a'],
     keywords: 'coastal wall art, nautical blue print, beach house decor' },
-  { id: 'rust-ochre', name: 'Oker & Roest', bg: '#f6ede0',
+  { id: 'rust-ochre', name: 'Ochre & Rust', bg: '#f6ede0',
     inks: ['#c8752f', '#e0a94a', '#8a3d1f'],
     keywords: 'retro 70s wall art, mustard ochre print, burnt orange decor' },
-  { id: 'charcoal-bone', name: 'Antraciet & Beenwit', bg: '#efece6',
+  { id: 'charcoal-bone', name: 'Charcoal & Bone', bg: '#efece6',
     inks: ['#2b2b2b', '#5c5c5c', '#9c9488'],
     keywords: 'modern minimalist black print, charcoal wall art, monochrome decor' },
-  { id: 'lavender-sage', name: 'Lavendel & Salie', bg: '#f4f1ee',
+  { id: 'lavender-sage', name: 'Lavender & Sage', bg: '#f4f1ee',
     inks: ['#9a8fae', '#c9bfd6', '#7c8a6d'],
     keywords: 'soft pastel wall art, lavender botanical print, calming nursery decor' },
-  { id: 'forest-moss', name: 'Bos & Mos', bg: '#eef0e4',
+  { id: 'forest-moss', name: 'Forest & Moss', bg: '#eef0e4',
     inks: ['#3f5c3f', '#6b7a4f', '#233524'],
     keywords: 'dark green wall art, forest botanical print, moody woodland decor' },
-  { id: 'copper-teal', name: 'Koper & Petrol', bg: '#101820',
+  { id: 'copper-teal', name: 'Copper & Teal', bg: '#101820',
     inks: ['#c9812f', '#e0b877', '#2f7a7a'],
     keywords: 'art deco wall art, copper teal print, jewel tone decor' },
 ];
@@ -78,7 +78,7 @@ function registerCustomPalette(bg, inks, name) {
   const existing = CUSTOM_PALETTES[id];
   const entry = existing
     ? { ...existing, name: label || existing.name }
-    : { id, name: label || 'Eigen kleuren', bg, inks, keywords: 'custom colorway', custom: true };
+    : { id, name: label || 'Custom colors', bg, inks, keywords: 'custom colorway', custom: true };
   delete CUSTOM_PALETTES[id];
   CUSTOM_PALETTES[id] = entry;
   const keys = Object.keys(CUSTOM_PALETTES);
