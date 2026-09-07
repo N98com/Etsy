@@ -39,6 +39,12 @@ const MAP_PALETTES = [
     bg: '#efbb53', water: '#16324a', park: '#f2ce7e', road: '#c7362e', roadMinor: '#e8862a', text: '#16324a' },
   { id: 'golden-autumn-twilight', name: 'Golden Autumn Twilight',
     bg: '#f0bb4c', water: '#143349', park: '#e8862a', road: '#4a93b0', roadMinor: '#7db6cc', text: '#143349' },
+  // Zwart + goud, met donkergrijs voor het groen en een diep smaragdgroen
+  // als vierde (jewel-tone) kleur voor het water — een klassieke,
+  // luxueuze art-deco-combinatie: gouden wegen die oplichten tegen een
+  // zwarte ondergrond, met smaragd water als accent.
+  { id: 'emerald-gold-noir', name: 'Emerald Gold Noir',
+    bg: '#0d0d0d', water: '#175c46', park: '#242424', road: '#c9a227', roadMinor: '#7a6636', text: '#c9a227' },
 ];
 
 function getMapPalette(id) {
