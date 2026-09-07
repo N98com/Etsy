@@ -337,7 +337,14 @@ window.LocationApp = (() => {
   // toevallig in het handmatige kader staat. Niet elk resultaat heeft zo'n
   // grens (bv. een los adres); dan blijft de optie uitgeschakeld.
   function selectSearchResult(result, query) {
-    map.setView([parseFloat(result.lat), parseFloat(result.lon)], 12);
+    // Het selectie-kader staat altijd in het midden van de kaart-picker (zie
+    // .location-overlay in style.css), dus het centreren van de kaart op het
+    // gekozen resultaat centreert daarmee ook meteen het kader erop — handig
+    // vooral voor een verzoek om een specifiek adres. Zoom 16 (i.p.v. het
+    // eerdere 12, dat een hele wijk liet zien) toont een paar straten rond
+    // het adres, precies genoeg om zonder verder handmatig bijstellen te
+    // kunnen genereren.
+    map.setView([parseFloat(result.lat), parseFloat(result.lon)], 16);
     searchResults.hidden = true;
 
     // De letterlijk getypte zoekterm bewaren we apart van display_name: bij
