@@ -38,11 +38,11 @@
   </header>
 
   <nav class="view-tabs">
-    <button type="button" class="view-tab active" id="viewTabPlayground" data-view="playground">Playground</button>
-    <button type="button" class="view-tab" id="viewTabLocation" data-view="location">Location</button>
+    <button type="button" class="view-tab active" id="viewTabLocation" data-view="location">Location</button>
+    <button type="button" class="view-tab" id="viewTabPlayground" data-view="playground">Playground</button>
   </nav>
 
-  <div id="playgroundView">
+  <div id="playgroundView" hidden>
   <main>
     <aside class="sidebar sidebar-left">
       <div class="panel">
@@ -124,7 +124,7 @@
   </main>
   </div>
 
-  <div id="locationView" hidden>
+  <div id="locationView">
     <div class="location-layout">
       <aside class="sidebar location-controls">
         <div class="panel">

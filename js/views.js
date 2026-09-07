@@ -26,5 +26,12 @@
     }
 
     Object.keys(tabs).forEach(key => tabs[key].addEventListener('click', () => selectView(key)));
+
+    // Location is the default/main tab (see index.html: its view starts
+    // unhidden and its tab starts "active") — but the map itself is only
+    // initialized on selectView's onShow hook, which otherwise only fires on
+    // a click. Run it once at startup too, so the map isn't left blank
+    // until the user clicks away and back.
+    selectView('location');
   });
 })();
