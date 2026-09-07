@@ -149,7 +149,7 @@ const MapRender = (() => {
       bounds, streets = [], landmarks = [], buildings = [],
       showStreetLabels = false, showLandmarks = false,
       streetLabelColor = null, landmarkColor = null, landmarkIcon = 'star',
-      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null,
+      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null, highlight = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : (opts.matColor || '#f7f4ee');
@@ -322,6 +322,23 @@ const MapRender = (() => {
       });
     }
 
+    // "Highlight area": in tegenstelling tot isoleren blijft de omgeving
+    // hier gewoon intact (dezelfde bounds/projectie als een normale render,
+    // geen aparte contain-fit of weggesneden gebied) — alleen wordt alles
+    // BUITEN de opgezochte grens vervaagd, zodat het geselecteerde gebied
+    // als een soort spotlight blijft uitgelicht. De vervaging is een
+    // halfdoorzichtige waslaag in de eigen achtergrondkleur van het palet
+    // (i.p.v. een generieke grijstint), zodat het bij elk kleurenschema
+    // past. Eén evenodd-vorm van het volledige kaartvlak mét de opgezochte
+    // ring(en) als "gat" erin zorgt dat precies het gebied bùiten de ring
+    // de waslaag krijgt, en de ring zelf schoon blijft.
+    let projectedHighlightRings = null;
+    if (highlight && !isolate) {
+      projectedHighlightRings = highlight.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
+      const frame = [[0, 0], [mapW, 0], [mapW, mapH], [0, mapH], [0, 0]];
+      painter.multiPolygon([frame, ...projectedHighlightRings], { fill: palette.bg, opacity: 0.55 });
+    }
+
     painter.endClip();
 
     if (isolate) {
@@ -330,6 +347,15 @@ const MapRender = (() => {
       // (waar het palet er een heeft) geeft een net zo scherpe land/water-
       // overgang als bij losse meren.
       projectedRings.forEach(ring => {
+        painter.polygon(ring, { stroke: palette.coastline || palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
+      });
+    }
+
+    if (projectedHighlightRings) {
+      // Zelfde soort scherpe rand als bij isoleren, zodat de grens van het
+      // uitgelichte gebied duidelijk afgetekend blijft t.o.v. de vervaagde
+      // omgeving.
+      projectedHighlightRings.forEach(ring => {
         painter.polygon(ring, { stroke: palette.coastline || palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
       });
     }

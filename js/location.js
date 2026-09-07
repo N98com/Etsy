@@ -41,8 +41,9 @@ window.LocationApp = (() => {
     rdr2Style: false,
     landmarkIcon: 'star',
     isolateArea: false,
+    highlightArea: false,
     selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
-    current: null, // { bounds, streets, landmarks, place, country, lat, lon, isolate }
+    current: null, // { bounds, streets, landmarks, place, country, lat, lon, isolate, highlight }
     generating: false,
   };
 
@@ -100,6 +101,8 @@ window.LocationApp = (() => {
   const showCoordsCheck = el('showCoordsCheck');
   const isolateAreaCheck = el('isolateAreaCheck');
   const isolateAreaHint = el('isolateAreaHint');
+  const highlightAreaCheck = el('highlightAreaCheck');
+  const highlightAreaHint = el('highlightAreaHint');
   const gtaStyleCheck = el('gtaStyleCheck');
   const gtaStyleHint = el('gtaStyleHint');
   const mw2StyleCheck = el('mw2StyleCheck');
@@ -195,8 +198,17 @@ window.LocationApp = (() => {
       if (state.current) renderResult();
     }));
 
+    // Isoleren (weg-knippen) en uitlichten (omgeving laten staan maar
+    // vervagen) zijn twee verschillende weergaven van dezelfde opgezochte
+    // grens — elkaar dus uitsluitend, net als de Game Styles hieronder.
     isolateAreaCheck.addEventListener('change', () => {
       state.isolateArea = isolateAreaCheck.checked;
+      if (state.isolateArea) { state.highlightArea = false; highlightAreaCheck.checked = false; }
+      if (state.current) generate();
+    });
+    highlightAreaCheck.addEventListener('change', () => {
+      state.highlightArea = highlightAreaCheck.checked;
+      if (state.highlightArea) { state.isolateArea = false; isolateAreaCheck.checked = false; }
       if (state.current) generate();
     });
 
@@ -353,25 +365,34 @@ window.LocationApp = (() => {
     // toevallige kleine plaats daarbinnen aan (bv. "Twente" -> "Ambt Delden").
     state.selectedPlace = { name: result.display_name, query, rings: null, bounds: null };
     state.isolateArea = false;
+    state.highlightArea = false;
     placeNameInput.value = '';
     countryNameInput.value = '';
     isolateAreaCheck.checked = false;
     isolateAreaCheck.disabled = true;
     isolateAreaHint.hidden = false;
     isolateAreaHint.textContent = 'Fetching area boundary…';
+    highlightAreaCheck.checked = false;
+    highlightAreaCheck.disabled = true;
+    highlightAreaHint.hidden = false;
+    highlightAreaHint.textContent = 'Fetching area boundary…';
 
     MapGeo.fetchBoundary(result).then(boundary => {
       if (!state.selectedPlace || state.selectedPlace.name !== result.display_name) return;
       if (!boundary) {
         isolateAreaHint.textContent = `No exact area boundary available for "${result.display_name}".`;
+        highlightAreaHint.textContent = `No exact area boundary available for "${result.display_name}".`;
         return;
       }
       state.selectedPlace.rings = boundary.rings;
       state.selectedPlace.bounds = boundary.bounds;
       isolateAreaCheck.disabled = false;
       isolateAreaHint.textContent = `Isolate exactly the boundary of "${result.display_name}".`;
+      highlightAreaCheck.disabled = false;
+      highlightAreaHint.textContent = `Highlight exactly the boundary of "${result.display_name}", fading everything else.`;
     }).catch(err => {
       isolateAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
+      highlightAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
     });
   }
 
@@ -416,6 +437,12 @@ window.LocationApp = (() => {
       const hasRealBoundary = !!(state.selectedPlace && state.selectedPlace.rings);
       const wantsIsolate = state.isolateArea || forcesIsolate;
       const isolating = wantsIsolate && (hasRealBoundary || forcesIsolate);
+      // "Highlight area" gebruikt, anders dan isoleren, gewoon het handmatig
+      // gekozen kader als bounds (de omgeving moet immers intact blijven) —
+      // de opgezochte grens dient hier alleen om te bepalen wát er vervaagd
+      // wordt, niet om op te knippen. Isoleren (of een Game Style die dat
+      // forceert) gaat altijd voor: highlighten heeft dan geen betekenis.
+      const highlighting = !isolating && state.highlightArea && hasRealBoundary;
       let bounds, isolateRings = null;
       if (isolating && hasRealBoundary) {
         bounds = state.selectedPlace.bounds;
@@ -445,7 +472,7 @@ window.LocationApp = (() => {
       const centerLat = (bounds.north + bounds.south) / 2;
       const centerLon = (bounds.east + bounds.west) / 2;
       let place = '', country = '';
-      if (isolating && hasRealBoundary) {
+      if ((isolating || highlighting) && hasRealBoundary) {
         // Geen reverse-geocode nodig (en die zou hier ook het verkeerde
         // antwoord geven — het middelpunt van een regio/land ligt vaak
         // toevallig in een kleine plaats daarbinnen). De letterlijke
@@ -474,6 +501,7 @@ window.LocationApp = (() => {
         place: placeNameInput.value.trim() || place,
         country: countryNameInput.value.trim() || country,
         isolate: isolating ? { rings: isolateRings } : null,
+        highlight: highlighting ? { rings: state.selectedPlace.rings } : null,
       };
       renderResult();
       updateExportSizes();
@@ -481,6 +509,8 @@ window.LocationApp = (() => {
       exportPanel.hidden = false;
       statusEl.textContent = isolating
         ? `Done — area isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
+        : highlighting
+        ? `Done — area highlighted (${tier} level).`
         : `Done — ${streets.length} elements loaded.`;
     } catch (err) {
       statusEl.textContent = `Fetch failed: ${err.message}. Try a smaller area or try again.`;
@@ -525,6 +555,7 @@ window.LocationApp = (() => {
       rdr2Style: state.rdr2Style,
       tier: c.tier,
       isolate: c.isolate,
+      highlight: c.highlight,
       showStreetLabels: state.showStreetLabels,
       showLandmarks: state.showLandmarks && !!c.landmarks,
       streetLabelColor: streetLabelColorInput.value,
@@ -596,6 +627,7 @@ window.LocationApp = (() => {
       ratio: state.ratio,
       tier: c.tier,
       isolate: c.isolate || null,
+      highlight: c.highlight || null,
     };
     return JSON.stringify(payload).length <= RECOLOR_MAX_JSON_LENGTH ? payload : null;
   }
