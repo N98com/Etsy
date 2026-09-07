@@ -562,13 +562,17 @@ window.LocationApp = (() => {
   const RECOLOR_MAX_JSON_LENGTH = 180000;
 
   function trimStreetsForStorage(streets) {
-    return streets.map(s => ({
-      tags: {
+    return streets.map(s => {
+      const tags = {
         highway: s.tags.highway, waterway: s.tags.waterway, natural: s.tags.natural,
         leisure: s.tags.leisure, landuse: s.tags.landuse, name: s.tags.name,
-      },
-      coords: s.coords,
-    }));
+      };
+      // Grote wateroppervlaktes uit een multipolygon-relatie (bijv. een baai
+      // met een eiland erin) dragen "rings" i.p.v. "coords" — zie
+      // MapGeo.parseAreaRelations. Zonder dit onderscheid zou de opgeslagen
+      // geschiedenis/Showcase-versie zo'n water gewoon kwijtraken.
+      return s.rings ? { tags, rings: s.rings } : { tags, coords: s.coords };
+    });
   }
 
   function trimBuildingsForStorage(buildings) {

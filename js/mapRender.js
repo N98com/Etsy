@@ -208,12 +208,22 @@ const MapRender = (() => {
 
     // Een dunne "coastline"-rand (waar het palet er een opgeeft) houdt land
     // en water altijd duidelijk gescheiden, ook bij kleine/smalle meren.
+    // Grote wateroppervlaktes (baaien/sonten/zeearmen) staan in OSM vaak als
+    // multipolygon-relatie i.p.v. één simpele way — die komen hier binnen
+    // als "rings" (meerdere ringen, evenodd) i.p.v. "coords" (één ring) en
+    // worden met de multi-ring tekenprimitief getekend, anders blijven ze
+    // onzichtbaar en lijkt de zee simpelweg te ontbreken.
     const coastlineWidth = palette.coastline ? Math.max(1.5, Math.min(mapW, mapH) * 0.005) : undefined;
     streets
-      .filter(s => s.tags.natural === 'water')
-      .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), {
-        fill: palette.water, stroke: palette.coastline, strokeWidth: coastlineWidth,
-      }));
+      .filter(s => s.tags.natural === 'water' || s.tags.natural === 'bay')
+      .forEach(s => {
+        const waterOpts = { fill: palette.water, stroke: palette.coastline, strokeWidth: coastlineWidth };
+        if (s.rings) {
+          painter.multiPolygon(s.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon))), waterOpts);
+        } else {
+          painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), waterOpts);
+        }
+      });
 
     // Alleen de waterlopen die op een echte kaart ook als lijn zichtbaar
     // zijn (rivier/kanaal/beek) — sloten en drainagegreppels zijn op elke

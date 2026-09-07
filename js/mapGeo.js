@@ -70,7 +70,8 @@ const MapGeo = (() => {
       return `[out:json][timeout:40];(
         way["highway"~"^(motorway|trunk|primary|secondary)$"](${bbox});
         way["waterway"="river"](${bbox});
-        way["natural"="water"]["name"](${bbox});
+        way["natural"~"^(water|bay)$"]["name"](${bbox});
+        relation["natural"~"^(water|bay)$"]["name"](${bbox});
       );out geom;`;
     }
     if (tier === 'region') {
@@ -81,7 +82,8 @@ const MapGeo = (() => {
       return `[out:json][timeout:30];(
         way["highway"~"^(motorway|trunk|primary|secondary)$"](${bbox});
         way["waterway"="river"](${bbox});
-        way["natural"="water"]["name"](${bbox});
+        way["natural"~"^(water|bay)$"]["name"](${bbox});
+        relation["natural"~"^(water|bay)$"]["name"](${bbox});
       );out geom;`;
     }
     // Game Styles (GTA V, RDR2) tekenen nooit parken/bos/gras — MapRender
@@ -108,7 +110,8 @@ const MapGeo = (() => {
       return `[out:json][timeout:40];(
         way["highway"~"^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$"](${bbox});
         way["waterway"](${bbox});
-        way["natural"="water"](${bbox});${greenery}
+        way["natural"~"^(water|bay)$"](${bbox});
+        relation["natural"~"^(water|bay)$"](${bbox});${greenery}
       );out geom;`;
     }
     // street: kleine selectie, hier is volledig detail (incl. voetpaden e.d.)
@@ -116,7 +119,8 @@ const MapGeo = (() => {
     return `[out:json][timeout:25];(
       way["highway"](${bbox});
       way["waterway"](${bbox});
-      way["natural"="water"](${bbox});${greenery}
+      way["natural"~"^(water|bay)$"](${bbox});
+      relation["natural"~"^(water|bay)$"](${bbox});${greenery}
     );out geom;`;
   }
 
@@ -186,6 +190,72 @@ const MapGeo = (() => {
       .filter(w => w.coords.length >= 2);
   }
 
+  // Grote wateroppervlaktes (baaien/sonten/zeearmen) staan in OSM vaak niet
+  // als één simpele gesloten way, maar als multipolygon-relatie: meerdere
+  // los genummerde way-segmenten samen vormen de buitenrand (rol "outer"),
+  // met eventueel een los eiland erin als gat (rol "inner"). Zonder dit
+  // apart te verwerken blijft zo'n water helemaal ongetekend — precies het
+  // "de zee is verdwenen"-probleem. Deze functie plakt de segmenten van elke
+  // rol aan elkaar tot zo min mogelijk gesloten ringen door telkens het
+  // segment te zoeken waarvan een eindpunt exact overeenkomt met het huidige
+  // eindpunt (gedeelde OSM-knooppunten hebben identieke coördinaten).
+  // Segmenten die niet meer aansluiten (bijv. afgekapt op de rand van de
+  // bbox) worden gewoon zelf gesloten — een nette rechte afsluiting op de
+  // rand van de kaart, zoals elke kaart-renderer de zichtbare rand behandelt.
+  function stitchRings(segments) {
+    const keyOf = ([lat, lon]) => `${lat.toFixed(7)},${lon.toFixed(7)}`;
+    const remaining = segments.filter(s => s.length >= 2).map(s => s.slice());
+    const rings = [];
+    while (remaining.length) {
+      let ring = remaining.shift();
+      let extended = true;
+      while (extended && keyOf(ring[0]) !== keyOf(ring[ring.length - 1])) {
+        extended = false;
+        for (let i = 0; i < remaining.length; i++) {
+          const seg = remaining[i];
+          if (keyOf(seg[0]) === keyOf(ring[ring.length - 1])) {
+            ring = ring.concat(seg.slice(1));
+          } else if (keyOf(seg[seg.length - 1]) === keyOf(ring[ring.length - 1])) {
+            ring = ring.concat(seg.slice(0, -1).reverse());
+          } else if (keyOf(seg[seg.length - 1]) === keyOf(ring[0])) {
+            ring = seg.slice(0, -1).concat(ring);
+          } else if (keyOf(seg[0]) === keyOf(ring[0])) {
+            ring = seg.slice(1).reverse().concat(ring);
+          } else {
+            continue;
+          }
+          remaining.splice(i, 1);
+          extended = true;
+          break;
+        }
+      }
+      if (keyOf(ring[0]) !== keyOf(ring[ring.length - 1])) ring = ring.concat([ring[0]]);
+      rings.push(ring);
+    }
+    return rings;
+  }
+
+  // Zet multipolygon-relaties (bijv. natural=water/bay) om in vorm-objecten
+  // met meerdere ringen — outer- en inner-rollen worden samengevoegd tot één
+  // platte ringenlijst; de evenodd-vulregel (zie painters.js:multiPolygon)
+  // snijdt gaten er vanzelf uit, ongeacht welke ring "outer" was.
+  function parseAreaRelations(data) {
+    return (data.elements || [])
+      .filter(el => el.type === 'relation' && Array.isArray(el.members))
+      .map(el => {
+        const outerSegs = [], innerSegs = [];
+        el.members.forEach(m => {
+          if (m.type !== 'way' || !Array.isArray(m.geometry) || m.geometry.length < 2) return;
+          const coords = m.geometry.map(pt => [pt.lat, pt.lon]);
+          (m.role === 'inner' ? innerSegs : outerSegs).push(coords);
+        });
+        const rings = [...stitchRings(outerSegs), ...stitchRings(innerSegs)].filter(r => r.length >= 4);
+        if (rings.length === 0) return null;
+        return { tags: el.tags || {}, rings };
+      })
+      .filter(Boolean);
+  }
+
   function parseLandmarks(data) {
     return (data.elements || [])
       .map(el => {
@@ -202,7 +272,8 @@ const MapGeo = (() => {
 
   async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     if (tier === 'continent') return [];
-    return parseWays(await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint)));
+    const data = await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint));
+    return [...parseWays(data), ...parseAreaRelations(data)];
   }
 
   async function fetchLandmarks(bounds, tier = 'street') {
@@ -358,5 +429,6 @@ const MapGeo = (() => {
     roadWeight, isMajorRoad, classifyAreaTier,
     fetchStreets, fetchLandmarks, fetchBuildings, reverseGeocode, searchPlace, fetchBoundary,
     makeCoverProjector, makeContainProjector,
+    stitchRings, parseAreaRelations,
   };
 })();

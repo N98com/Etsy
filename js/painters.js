@@ -54,6 +54,27 @@ class CanvasPainter {
 
   polygon(points, opts = {}) { this.polyline(points, { ...opts, closed: true }); }
 
+  // Eén gevulde vorm opgebouwd uit meerdere ringen (evenodd) — nodig voor
+  // grote wateroppervlaktes die in OSM als multipolygon-relatie zijn
+  // gemodelleerd (bijv. een baai/sont met een eiland erin als gat), i.p.v.
+  // als één simpele gesloten way. Zelfde evenodd-principe als beginClipPath,
+  // maar dan als directe fill/stroke i.p.v. als clip-masker.
+  multiPolygon(rings, { fill, stroke, strokeWidth } = {}) {
+    const ctx = this.ctx;
+    ctx.beginPath();
+    rings.forEach(ring => {
+      ring.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
+      ctx.closePath();
+    });
+    if (fill && fill !== 'none') { ctx.fillStyle = fill; ctx.fill('evenodd'); }
+    if (stroke) {
+      ctx.strokeStyle = stroke;
+      ctx.lineWidth = strokeWidth || 1;
+      ctx.lineJoin = 'round';
+      ctx.stroke();
+    }
+  }
+
   // Tekst — nodig voor kaart-onderschriften, straatnamen en landmark-labels.
   text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
     const ctx = this.ctx;
@@ -121,6 +142,13 @@ class SVGPainter {
   }
 
   polygon(points, opts = {}) { this.polyline(points, { ...opts, closed: true }); }
+
+  // Zie CanvasPainter.multiPolygon — zelfde evenodd-opbouw als
+  // beginClipPath, maar als directe (niet-clippende) fill/stroke.
+  multiPolygon(rings, { fill, stroke, strokeWidth } = {}) {
+    const d = rings.map(ring => 'M' + ring.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join('L') + 'Z').join(' ');
+    this.parts.push(`<path d="${d}" fill-rule="evenodd" ${fillAttr(fill)} ${strokeAttr(stroke, strokeWidth)}/>`);
+  }
 
   text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
     const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start';
