@@ -23,6 +23,22 @@ const MAP_PALETTES = [
     bg: '#dbe8eb', water: '#4f93a8', park: '#c3d9d4', road: '#ffffff', roadMinor: '#edf4f3', text: '#264653' },
   { id: 'mauve', name: 'Mauve',
     bg: '#4a3b4c', water: '#372b39', park: '#5c4a5e', road: '#d9c4da', roadMinor: '#6c5a6e', text: '#f2e9f2' },
+  { id: 'peachy-coral-glow', name: 'Peachy Coral Glow',
+    bg: '#ebb57a', water: '#d8735c', park: '#e4a177', road: '#fff8f0', roadMinor: '#f0d2b3', text: '#4a2c1e' },
+  { id: 'dark-slate-whisper', name: 'Dark Slate Whisper',
+    bg: '#343849', water: '#2a2d39', park: '#3e4356', road: '#d8c9a3', roadMinor: '#4a5068', text: '#e8e4dc' },
+  { id: 'vintage-rose-garden', name: 'Vintage Rose Garden',
+    bg: '#f3e8e1', water: '#c4ac9c', park: '#edd3be', road: '#8a5a4a', roadMinor: '#c9a292', text: '#5c4438' },
+  { id: 'electric-midnight-glow', name: 'Electric Midnight Glow',
+    bg: '#1c1c1c', water: '#4a4a4a', park: '#242424', road: '#f9ea5c', roadMinor: '#f2c94c', text: '#f9ea5c' },
+  { id: 'soft-peachy-dreams', name: 'Soft Peachy Dreams',
+    bg: '#f5d2b8', water: '#a97c8d', park: '#efb49c', road: '#ffffff', roadMinor: '#e8c4b8', text: '#5c3e42' },
+  { id: 'candy-floss-dreams', name: 'Candy Floss Dreams',
+    bg: '#f5edda', water: '#afd4de', park: '#c8ede1', road: '#f0a99c', roadMinor: '#f3c4ba', text: '#6b4a42' },
+  { id: 'fiery-ice-cream-delight', name: 'Fiery Ice Cream Delight',
+    bg: '#efbb53', water: '#16324a', park: '#f2ce7e', road: '#c7362e', roadMinor: '#e8862a', text: '#16324a' },
+  { id: 'golden-autumn-twilight', name: 'Golden Autumn Twilight',
+    bg: '#f0bb4c', water: '#143349', park: '#e8862a', road: '#4a93b0', roadMinor: '#7db6cc', text: '#143349' },
 ];
 
 function getMapPalette(id) {
