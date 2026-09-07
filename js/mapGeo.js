@@ -111,7 +111,8 @@ const MapGeo = (() => {
         way["highway"~"^(motorway|trunk|primary|secondary|tertiary|residential|unclassified|living_street)$"](${bbox});
         way["waterway"](${bbox});
         way["natural"~"^(water|bay)$"](${bbox});
-        relation["natural"~"^(water|bay)$"](${bbox});${greenery}
+        relation["natural"~"^(water|bay)$"](${bbox});
+        way["natural"="coastline"](${bbox});${greenery}
       );out geom;`;
     }
     // street: kleine selectie, hier is volledig detail (incl. voetpaden e.d.)
@@ -120,7 +121,8 @@ const MapGeo = (() => {
       way["highway"](${bbox});
       way["waterway"](${bbox});
       way["natural"~"^(water|bay)$"](${bbox});
-      relation["natural"~"^(water|bay)$"](${bbox});${greenery}
+      relation["natural"~"^(water|bay)$"](${bbox});
+      way["natural"="coastline"](${bbox});${greenery}
     );out geom;`;
   }
 
@@ -202,25 +204,31 @@ const MapGeo = (() => {
   // Segmenten die niet meer aansluiten (bijv. afgekapt op de rand van de
   // bbox) worden gewoon zelf gesloten — een nette rechte afsluiting op de
   // rand van de kaart, zoals elke kaart-renderer de zichtbare rand behandelt.
-  function stitchRings(segments) {
-    const keyOf = ([lat, lon]) => `${lat.toFixed(7)},${lon.toFixed(7)}`;
+  function ringKey([lat, lon]) { return `${lat.toFixed(7)},${lon.toFixed(7)}`; }
+
+  // Kernlogica: plakt segmenten aan elkaar op gedeelde eindpunten, zo lang
+  // als er nog een match is. Laat een ketting die niet vanzelf sluit gewoon
+  // open — de aanroeper beslist wat daarmee te doen (stitchRings hieronder
+  // sluit 'm recht af; de kustlijn-afsluiting verderop wandelt in plaats
+  // daarvan langs de rand van de bbox, zie buildCoastlineWaterRings).
+  function stitchChains(segments) {
     const remaining = segments.filter(s => s.length >= 2).map(s => s.slice());
-    const rings = [];
+    const chains = [];
     while (remaining.length) {
-      let ring = remaining.shift();
+      let chain = remaining.shift();
       let extended = true;
-      while (extended && keyOf(ring[0]) !== keyOf(ring[ring.length - 1])) {
+      while (extended && ringKey(chain[0]) !== ringKey(chain[chain.length - 1])) {
         extended = false;
         for (let i = 0; i < remaining.length; i++) {
           const seg = remaining[i];
-          if (keyOf(seg[0]) === keyOf(ring[ring.length - 1])) {
-            ring = ring.concat(seg.slice(1));
-          } else if (keyOf(seg[seg.length - 1]) === keyOf(ring[ring.length - 1])) {
-            ring = ring.concat(seg.slice(0, -1).reverse());
-          } else if (keyOf(seg[seg.length - 1]) === keyOf(ring[0])) {
-            ring = seg.slice(0, -1).concat(ring);
-          } else if (keyOf(seg[0]) === keyOf(ring[0])) {
-            ring = seg.slice(1).reverse().concat(ring);
+          if (ringKey(seg[0]) === ringKey(chain[chain.length - 1])) {
+            chain = chain.concat(seg.slice(1));
+          } else if (ringKey(seg[seg.length - 1]) === ringKey(chain[chain.length - 1])) {
+            chain = chain.concat(seg.slice(0, -1).reverse());
+          } else if (ringKey(seg[seg.length - 1]) === ringKey(chain[0])) {
+            chain = seg.slice(0, -1).concat(chain);
+          } else if (ringKey(seg[0]) === ringKey(chain[0])) {
+            chain = seg.slice(1).reverse().concat(chain);
           } else {
             continue;
           }
@@ -229,10 +237,16 @@ const MapGeo = (() => {
           break;
         }
       }
-      if (keyOf(ring[0]) !== keyOf(ring[ring.length - 1])) ring = ring.concat([ring[0]]);
-      rings.push(ring);
+      chains.push(chain);
     }
-    return rings;
+    return chains;
+  }
+
+  function stitchRings(segments) {
+    return stitchChains(segments).map(ring => {
+      if (ringKey(ring[0]) !== ringKey(ring[ring.length - 1])) return ring.concat([ring[0]]);
+      return ring;
+    });
   }
 
   // Zet multipolygon-relaties (bijv. natural=water/bay) om in vorm-objecten
@@ -256,6 +270,180 @@ const MapGeo = (() => {
       .filter(Boolean);
   }
 
+  // ---- kustlijn -> watervlak ----
+  //
+  // De open zee heeft in OSM meestal GEEN eigen vlak (geen natural=water/bay):
+  // alleen een `natural=coastline`-lijn markeert de grens tussen land en zee.
+  // Zonder die lijn om te zetten in een gevuld vlak, blijft de open oceaan de
+  // achtergrondkleur (landkleur) tonen i.p.v. water — precies waarom een
+  // rivier/baai er "voller" water uitzag dan de zee ernaast: alleen de baai
+  // (via natural=water/bay, zie hierboven) en de losse waterway-lijnen kregen
+  // echt de waterkleur.
+  //
+  // Dit lost dat op met de standaardaanpak voor zo'n lokale (bbox-begrensde)
+  // kustlijn-selectie: knip elke kustlijn-way af op de rand van het gekozen
+  // kader, plak de afgeknipte stukken aan elkaar op gedeelde knooppunten, en
+  // sluit de overgebleven open uiteinden af door met de klok mee langs de
+  // rand van het kader te "wandelen" naar het volgkomende open uiteinde. Een
+  // OSM-kustlijn is altijd zo getekend dat water aan de RECHTERkant ligt als
+  // je 'm in zijn eigen richting volgt (harde OSM-conventie, geen aanname) —
+  // met de klok mee wandelen vanaf een uittredepunt geeft daardoor altijd
+  // precies de waterkant van de rand terug. Kleine eilanden die zelf al
+  // gesloten zijn (nergens de rand raken) worden gewoon als extra ring
+  // meegegeven: de evenodd-vulregel ponst er vanzelf een gat voor, ongeacht
+  // in welke richting zo'n eiland-lus getekend is.
+  function pointInBounds(lat, lon, b) {
+    return lat >= b.south && lat <= b.north && lon >= b.west && lon <= b.east;
+  }
+
+  // Liang-Barsky parametrische lijnclip tegen een lat/lon-rechthoek. Geeft
+  // null als het segment de rechthoek helemaal mist, anders het (mogelijk
+  // verkorte) stuk binnen de rechthoek plus de t-waarden (0..1 t.o.v. het
+  // originele segment) zodat de aanroeper weet of er geknipt is.
+  function clipSegment(p0, p1, b) {
+    let t0 = 0, t1 = 1;
+    const dLat = p1[0] - p0[0], dLon = p1[1] - p0[1];
+    const checks = [
+      [-dLat, p0[0] - b.south],
+      [dLat, b.north - p0[0]],
+      [-dLon, p0[1] - b.west],
+      [dLon, b.east - p0[1]],
+    ];
+    for (const [p, q] of checks) {
+      if (p === 0) {
+        if (q < 0) return null;
+      } else {
+        const r = q / p;
+        if (p < 0) { if (r > t1) return null; if (r > t0) t0 = r; }
+        else { if (r < t0) return null; if (r < t1) t1 = r; }
+      }
+    }
+    if (t0 > t1) return null;
+    return {
+      a: [p0[0] + t0 * dLat, p0[1] + t0 * dLon],
+      b: [p0[0] + t1 * dLat, p0[1] + t1 * dLon],
+      t0, t1,
+    };
+  }
+
+  // Knipt een hele polylijn tegen de rechthoek en levert de (mogelijk
+  // meerdere) stukjes op die binnen liggen — een way kan het kader meerdere
+  // keren in- en uitgaan.
+  function clipPolylineToBounds(coords, bounds) {
+    const runs = [];
+    let current = null;
+    for (let i = 0; i < coords.length - 1; i++) {
+      const clip = clipSegment(coords[i], coords[i + 1], bounds);
+      if (!clip) { current = null; continue; }
+      if (!current || clip.t0 > 1e-9) {
+        if (current && current.length >= 2) runs.push(current);
+        current = [clip.a];
+      }
+      current.push(clip.b);
+      if (clip.t1 < 1 - 1e-9) {
+        runs.push(current);
+        current = null;
+      }
+    }
+    if (current && current.length >= 2) runs.push(current);
+    return runs;
+  }
+
+  // Positie van een punt op de rand van de rechthoek, als één doorlopende
+  // waarde 0..4 met de klok mee (0=NW, 1=NE, 2=SE, 3=SW, terug naar 0=NW) —
+  // zodat "verder met de klok mee" simpelweg "grotere waarde" betekent.
+  // Geeft null als het punt niet (nagenoeg) op de rand ligt.
+  function perimeterPosition(pt, b) {
+    const [lat, lon] = pt;
+    const w = b.east - b.west, h = b.north - b.south;
+    const tolLat = Math.max(1e-9, h * 1e-7), tolLon = Math.max(1e-9, w * 1e-7);
+    if (Math.abs(lat - b.north) < tolLat) return (lon - b.west) / w;
+    if (Math.abs(lon - b.east) < tolLon) return 1 + (b.north - lat) / h;
+    if (Math.abs(lat - b.south) < tolLat) return 2 + (b.east - lon) / w;
+    if (Math.abs(lon - b.west) < tolLon) return 3 + (lat - b.south) / h;
+    return null;
+  }
+
+  // De hoekpunten van het kader die je passeert als je met de klok mee van
+  // positie `fromPos` naar `toPos` wandelt (beide 0..4, zie perimeterPosition).
+  function boundaryCornersBetween(fromPos, toPos, b) {
+    const corners = [[b.north, b.west], [b.north, b.east], [b.south, b.east], [b.south, b.west]];
+    const span = ((toPos - fromPos) % 4 + 4) % 4;
+    return corners
+      .map((c, k) => ({ c, rel: ((k - fromPos) % 4 + 4) % 4 }))
+      .filter(x => x.rel > 1e-9 && x.rel < span - 1e-9)
+      .sort((a, b2) => a.rel - b2.rel)
+      .map(x => x.c);
+  }
+
+  // Sluit de open kustlijn-kettingen (elk met beide uiteinden op de rand van
+  // het kader) tot complete watervlak-ringen, door telkens vanaf het
+  // eindpunt van een ketting met de klok mee te wandelen naar het
+  // eerstvolgende nog niet gebruikte beginpunt (van een andere ketting, of —
+  // als er geen andere meer over zijn — terug naar het eigen beginpunt).
+  function closeChainsAlongBoundary(chains, bounds) {
+    const entries = chains.map((points, idx) => ({
+      idx, points,
+      startPos: perimeterPosition(points[0], bounds),
+      endPos: perimeterPosition(points[points.length - 1], bounds),
+    })).filter(e => e.startPos != null && e.endPos != null);
+    const used = new Set();
+    const rings = [];
+    for (let startIdx = 0; startIdx < entries.length; startIdx++) {
+      if (used.has(startIdx)) continue;
+      used.add(startIdx);
+      let current = entries[startIdx];
+      const ring = [...current.points];
+      const originStartPos = current.startPos;
+      let guard = 0;
+      while (guard++ <= entries.length + 1) {
+        let best = null, bestRel = Infinity;
+        for (let i = 0; i < entries.length; i++) {
+          if (used.has(i)) continue;
+          const rel = ((entries[i].startPos - current.endPos) % 4 + 4) % 4;
+          if (rel < bestRel) { bestRel = rel; best = i; }
+        }
+        const relToOrigin = ((originStartPos - current.endPos) % 4 + 4) % 4;
+        if (best === null || relToOrigin <= bestRel + 1e-9) {
+          ring.push(...boundaryCornersBetween(current.endPos, originStartPos, bounds));
+          break;
+        }
+        ring.push(...boundaryCornersBetween(current.endPos, entries[best].startPos, bounds));
+        ring.push(...entries[best].points);
+        used.add(best);
+        current = entries[best];
+      }
+      ring.push(ring[0]);
+      rings.push(ring);
+    }
+    return rings;
+  }
+
+  // Bouwt het complete watervlak (met eventuele eilanden als gat) uit een
+  // lijst kustlijn-ways binnen het gekozen kader. Geeft een lege lijst terug
+  // als er geen kustlijn is (heel gewone binnenlandse selectie) OF als er
+  // wel losse eiland-lussen zijn maar geen enkele kustlijn de rand van het
+  // kader raakt — in dat zeldzame geval is niet met zekerheid te bepalen wat
+  // land en wat zee is, en is niets tekenen veiliger dan een gok die het
+  // verkeerd om zou kunnen hebben.
+  function buildCoastlineWaterRings(coastlineCoordsList, bounds) {
+    const allRuns = [];
+    coastlineCoordsList.forEach(coords => {
+      clipPolylineToBounds(coords, bounds).forEach(run => allRuns.push(run));
+    });
+    if (allRuns.length === 0) return [];
+    const chains = stitchChains(allRuns);
+    const closedRings = [], openChains = [];
+    chains.forEach(chain => {
+      if (chain.length >= 4 && ringKey(chain[0]) === ringKey(chain[chain.length - 1])) closedRings.push(chain);
+      else if (chain.length >= 2) openChains.push(chain);
+    });
+    if (openChains.length === 0) return [];
+    const waterRings = closeChainsAlongBoundary(openChains, bounds);
+    if (waterRings.length === 0) return [];
+    return [...waterRings, ...closedRings];
+  }
+
   function parseLandmarks(data) {
     return (data.elements || [])
       .map(el => {
@@ -273,7 +461,17 @@ const MapGeo = (() => {
   async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     if (tier === 'continent') return [];
     const data = await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint));
-    return [...parseWays(data), ...parseAreaRelations(data)];
+    const ways = parseWays(data);
+    // Kustlijn-ways zijn puur invoer voor het afgeleide watervlak hieronder —
+    // ze matchen zelf geen enkel render-filter (niet highway/waterway/
+    // natural=water/bay), dus zonder ze eruit te filteren zouden ze alleen
+    // maar nutteloos meegesleept worden in de opgeslagen geometrie.
+    const coastlineWays = ways.filter(w => w.tags.natural === 'coastline');
+    const otherWays = ways.filter(w => w.tags.natural !== 'coastline');
+    const result = [...otherWays, ...parseAreaRelations(data)];
+    const coastlineRings = buildCoastlineWaterRings(coastlineWays.map(w => w.coords), bounds);
+    if (coastlineRings.length > 0) result.push({ tags: { natural: 'water' }, rings: coastlineRings });
+    return result;
   }
 
   async function fetchLandmarks(bounds, tier = 'street') {
@@ -430,5 +628,7 @@ const MapGeo = (() => {
     fetchStreets, fetchLandmarks, fetchBuildings, reverseGeocode, searchPlace, fetchBoundary,
     makeCoverProjector, makeContainProjector,
     stitchRings, parseAreaRelations,
+    clipSegment, clipPolylineToBounds, perimeterPosition, boundaryCornersBetween,
+    closeChainsAlongBoundary, buildCoastlineWaterRings,
   };
 })();
