@@ -113,6 +113,9 @@ window.LocationApp = (() => {
   const addPinBtn = el('addPinBtn');
   const clearPinsBtn = el('clearPinsBtn');
   const pinColorInput = el('pinColorInput');
+  const pinAddressInput = el('pinAddressInput');
+  const pinAddressSearchBtn = el('pinAddressSearchBtn');
+  const pinAddressResults = el('pinAddressResults');
   const overlayEl = el('locationOverlay');
   const generateBtn = el('locationGenerateBtn');
   const statusEl = el('locationStatus');
@@ -189,6 +192,8 @@ window.LocationApp = (() => {
       pinMarkers.forEach(m => m && m.setStyle && m.setStyle({ fillColor: pinColorInput.value }));
       if (state.current) renderResult();
     });
+    pinAddressSearchBtn.addEventListener('click', runPinAddressSearch);
+    pinAddressInput.addEventListener('keydown', e => { if (e.key === 'Enter') runPinAddressSearch(); });
     refreshAutoPinColor();
 
     MAP_PALETTES.forEach(p => {
@@ -339,6 +344,39 @@ window.LocationApp = (() => {
     pinMarkers = [];
     state.pins = [];
     syncPinsToCurrent();
+  }
+
+  // Naast klikken op de kaart kan een pin ook op een getypt adres gezet
+  // worden — dezelfde Nominatim-zoekopdracht als "Search for a place"
+  // hierboven, maar het resultaat wordt alleen als pin toegevoegd (het
+  // gekozen kader/gebied blijft ongewijzigd).
+  async function runPinAddressSearch() {
+    const q = pinAddressInput.value.trim();
+    if (!q) return;
+    pinAddressResults.hidden = false;
+    pinAddressResults.innerHTML = '<div class="location-search-result">Searching…</div>';
+    try {
+      const results = await MapGeo.searchPlace(q);
+      pinAddressResults.innerHTML = '';
+      if (results.length === 0) {
+        pinAddressResults.innerHTML = '<div class="location-search-result">Nothing found.</div>';
+        return;
+      }
+      results.forEach(r => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'location-search-result';
+        btn.textContent = r.display_name;
+        btn.addEventListener('click', () => {
+          addPin(parseFloat(r.lat), parseFloat(r.lon));
+          pinAddressResults.hidden = true;
+          pinAddressInput.value = '';
+        });
+        pinAddressResults.appendChild(btn);
+      });
+    } catch (err) {
+      pinAddressResults.innerHTML = `<div class="location-search-result">Search failed: ${err.message}</div>`;
+    }
   }
 
   function syncPinsToCurrent() {

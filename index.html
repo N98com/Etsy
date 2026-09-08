@@ -179,6 +179,11 @@
             <input type="color" id="pinColorInput" title="Pin color">
           </div>
           <p class="hint" id="pinsHint">Click "Add pin", then click a spot on the map to place it. Click a pin to remove it.</p>
+          <div class="row" style="margin-top:6px;">
+            <input type="text" id="pinAddressInput" placeholder="Or type an address…">
+            <button type="button" id="pinAddressSearchBtn" style="flex:0 0 auto;">Add pin at address</button>
+          </div>
+          <div id="pinAddressResults" class="location-search-results" hidden></div>
 
           <label class="checkbox-row"><input type="checkbox" id="isolateAreaCheck" disabled> Isolate area</label>
           <p class="hint" id="isolateAreaHint">Search and select a place/country/continent above first to use this option.</p>
