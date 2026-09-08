@@ -153,6 +153,9 @@
           <h2>Layouts</h2>
           <div class="ratio-tabs" id="layoutTabs"></div>
           <p class="hint" id="layoutHint" style="margin-top:6px;"></p>
+
+          <label style="margin-top:10px; display:block;">Mask</label>
+          <div class="ratio-tabs" id="maskTabs"></div>
         </div>
 
         <div class="panel">
@@ -168,6 +171,14 @@
           <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Country</label>
           <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;">
           <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
+
+          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
+          <div class="row">
+            <button type="button" id="addPinBtn">Add pin</button>
+            <button type="button" id="clearPinsBtn">Clear pins</button>
+            <input type="color" id="pinColorInput" title="Pin color">
+          </div>
+          <p class="hint" id="pinsHint">Click "Add pin", then click a spot on the map to place it. Click a pin to remove it.</p>
 
           <label class="checkbox-row"><input type="checkbox" id="isolateAreaCheck" disabled> Isolate area</label>
           <p class="hint" id="isolateAreaHint">Search and select a place/country/continent above first to use this option.</p>

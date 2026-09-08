@@ -39,10 +39,23 @@ window.LocationApp = (() => {
     { id: 'ledger', label: 'Ledger', hint: 'Full-bleed map with a slim, left-aligned caption strip along the bottom edge.' },
   ];
 
+  // "Masks" knippen de kaart tot een vaste vorm — zie MapRender.render's
+  // buildMaskRing voor de tekencode van elke vorm.
+  const MASK_PRESETS = [
+    { id: 'none', label: 'None' },
+    { id: 'circle', label: 'Circle' },
+    { id: 'heart', label: 'Heart' },
+    { id: 'diamond', label: 'Diamond' },
+    { id: 'hexagon', label: 'Hexagon' },
+    { id: 'arch', label: 'Arch' },
+    { id: 'bloom', label: 'Bloom' },
+  ];
+
   const state = {
     ratioId: '2x3',
     ratio: { w: 2, h: 3 },
     layoutId: 'default',
+    maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
     showPlace: true,
     showCountry: true,
@@ -52,14 +65,39 @@ window.LocationApp = (() => {
     rdr2Style: false,
     isolateArea: false,
     highlightArea: false,
+    pins: [], // [{ lat, lon }]
+    addingPin: false,
     selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
-    current: null, // { bounds, streets, place, country, lat, lon, isolate, highlight }
+    current: null, // { bounds, streets, place, country, lat, lon, isolate, highlight, pins }
     generating: false,
   };
 
   let map = null;
   let osmLayer = null;
   let satelliteLayer = null;
+  let pinMarkers = []; // Leaflet circleMarkers op de picker-kaart, index-voor-index gelijk aan state.pins.
+  let pinColorTouched = false;
+
+  function getActivePalette() {
+    if (state.gtaStyle) return GTA_STYLE_PALETTE;
+    if (state.mw2Style) return MW2_STYLE_PALETTE;
+    if (state.rdr2Style) return RDR2_STYLE_PALETTE;
+    return getMapPalette(state.mapPaletteId);
+  }
+
+  // Een pinkleur die altijd goed opvalt tegen de achtergrond — een fel rood
+  // op een lichte kaart, een fel goud op een donkere, tenzij de gebruiker
+  // zelf iets anders kiest.
+  function relLuminance(hex) {
+    const { r, g, b } = Utils.hexToRgb(hex);
+    return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
+  }
+  function autoPinColor(bgHex) {
+    return relLuminance(bgHex) > 0.5 ? '#e63946' : '#ffb703';
+  }
+  function refreshAutoPinColor() {
+    if (!pinColorTouched) pinColorInput.value = autoPinColor(getActivePalette().bg);
+  }
 
   const el = id => document.getElementById(id);
   const searchInput = el('locationSearchInput');
@@ -71,6 +109,10 @@ window.LocationApp = (() => {
   const customRatioH = el('customRatioH');
   const layoutTabs = el('layoutTabs');
   const layoutHint = el('layoutHint');
+  const maskTabs = el('maskTabs');
+  const addPinBtn = el('addPinBtn');
+  const clearPinsBtn = el('clearPinsBtn');
+  const pinColorInput = el('pinColorInput');
   const overlayEl = el('locationOverlay');
   const generateBtn = el('locationGenerateBtn');
   const statusEl = el('locationStatus');
@@ -126,6 +168,29 @@ window.LocationApp = (() => {
     });
     layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === state.layoutId).hint;
 
+    MASK_PRESETS.forEach(m => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = m.label;
+      btn.dataset.maskId = m.id;
+      btn.className = m.id === state.maskId ? 'active' : '';
+      btn.addEventListener('click', () => selectMask(m.id));
+      maskTabs.appendChild(btn);
+    });
+
+    addPinBtn.addEventListener('click', () => {
+      state.addingPin = !state.addingPin;
+      addPinBtn.classList.toggle('active', state.addingPin);
+      addPinBtn.textContent = state.addingPin ? 'Click the map…' : 'Add pin';
+    });
+    clearPinsBtn.addEventListener('click', clearPins);
+    pinColorInput.addEventListener('input', () => {
+      pinColorTouched = true;
+      pinMarkers.forEach(m => m && m.setStyle && m.setStyle({ fillColor: pinColorInput.value }));
+      if (state.current) renderResult();
+    });
+    refreshAutoPinColor();
+
     MAP_PALETTES.forEach(p => {
       const card = document.createElement('button');
       card.type = 'button';
@@ -146,6 +211,7 @@ window.LocationApp = (() => {
       card.addEventListener('click', () => {
         state.mapPaletteId = p.id;
         [...paletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === p.id));
+        refreshAutoPinColor();
         if (state.current) renderResult();
       });
       paletteGrid.appendChild(card);
@@ -205,6 +271,7 @@ window.LocationApp = (() => {
     rdr2StyleHint.hidden = !state.rdr2Style;
     paletteGrid.classList.toggle('disabled', !!style);
     updatePickerTileLayer();
+    refreshAutoPinColor();
     if (state.current) generate();
   }
 
@@ -234,6 +301,52 @@ window.LocationApp = (() => {
     if (state.current) renderResult();
   }
 
+  // Een mask is, net als een layout, puur een tekenkeuze — geen nieuwe data
+  // nodig, dus gewoon opnieuw tekenen.
+  function selectMask(id) {
+    state.maskId = id;
+    [...maskTabs.children].forEach(b => b.classList.toggle('active', b.dataset.maskId === id));
+    if (state.current) renderResult();
+  }
+
+  // ---- pins ----
+  // Pins worden vastgelegd als platte { lat, lon } in state.pins (zo kunnen
+  // ze zonder omwegen mee de geschiedenis/Showcase-opslag in); de bijbehorende
+  // Leaflet circleMarker op de picker-kaart houden we er apart naast (index
+  // voor index gelijk), puur voor de live preview + het aanklikken om te
+  // verwijderen.
+  function addPin(lat, lon) {
+    state.pins.push({ lat, lon });
+    const marker = (map && typeof map.on === 'function' && typeof L !== 'undefined' && typeof L.circleMarker === 'function')
+      ? L.circleMarker([lat, lon], { radius: 6, color: '#ffffff', weight: 2, fillColor: pinColorInput.value || '#e63946', fillOpacity: 1 }).addTo(map)
+      : null;
+    if (marker) marker.on('click', () => removePinAt(pinMarkers.indexOf(marker)));
+    pinMarkers.push(marker);
+    syncPinsToCurrent();
+  }
+
+  function removePinAt(idx) {
+    if (idx < 0) return;
+    const marker = pinMarkers[idx];
+    if (map && marker) map.removeLayer(marker);
+    pinMarkers.splice(idx, 1);
+    state.pins.splice(idx, 1);
+    syncPinsToCurrent();
+  }
+
+  function clearPins() {
+    pinMarkers.forEach(m => { if (map && m) map.removeLayer(m); });
+    pinMarkers = [];
+    state.pins = [];
+    syncPinsToCurrent();
+  }
+
+  function syncPinsToCurrent() {
+    if (!state.current) return;
+    state.current.pins = state.pins.map(p => ({ lat: p.lat, lon: p.lon }));
+    renderResult();
+  }
+
   // ---- kaart (Leaflet) ----
   function ensureMap() {
     if (map) return;
@@ -254,6 +367,10 @@ window.LocationApp = (() => {
       attribution: 'Tiles &copy; Esri',
     });
     (state.mw2Style ? satelliteLayer : osmLayer).addTo(map);
+    // "Add pin"-modus: een klik op de kaart plaatst een pin op die plek.
+    if (typeof map.on === 'function') {
+      map.on('click', e => { if (state.addingPin) addPin(e.latlng.lat, e.latlng.lng); });
+    }
     updateOverlaySize();
   }
 
@@ -459,7 +576,9 @@ window.LocationApp = (() => {
         country: countryNameInput.value.trim() || country,
         isolate: isolating ? { rings: isolateRings } : null,
         highlight: highlighting ? { rings: state.selectedPlace.rings } : null,
+        pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon })),
       };
+      refreshAutoPinColor();
       renderResult();
       updateExportSizes();
       resultPanel.hidden = false;
@@ -513,6 +632,9 @@ window.LocationApp = (() => {
       isolate: c.isolate,
       highlight: c.highlight,
       layout: state.layoutId,
+      mask: state.maskId,
+      pins: c.pins || [],
+      pinColor: pinColorInput.value,
       caption: {
         showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords,
         place: c.place, country: c.country, lat: c.lat, lon: c.lon,
@@ -577,6 +699,9 @@ window.LocationApp = (() => {
       buildings: trimBuildingsForStorage(c.buildings || []),
       ratio: state.ratio,
       layout: state.layoutId,
+      mask: state.maskId,
+      pins: c.pins || [],
+      pinColor: pinColorInput.value,
       tier: c.tier,
       isolate: c.isolate || null,
       highlight: c.highlight || null,

@@ -45,6 +45,16 @@ const MAP_PALETTES = [
   // zwarte ondergrond, met smaragd water als accent.
   { id: 'emerald-gold-noir', name: 'Emerald Gold Noir',
     bg: '#0d0d0d', water: '#175c46', park: '#242424', road: '#c9a227', roadMinor: '#7a6636', text: '#c9a227' },
+  // De volgende vier zijn met de hand benaderd op basis van referentiebeelden
+  // die de gebruiker aanleverde (net als de acht hierboven).
+  { id: 'sandstone-lagoon', name: 'Sandstone Lagoon',
+    bg: '#d9b98a', water: '#4f9b93', park: '#c9a876', road: '#3d2b1f', roadMinor: '#6b5440', text: '#3d2b1f' },
+  { id: 'mint-etching', name: 'Mint Etching',
+    bg: '#eef1e7', water: '#8fae8a', park: '#dbe6d2', road: '#5b7d5e', roadMinor: '#9db89a', text: '#3f5b42' },
+  { id: 'obsidian-harbor', name: 'Obsidian Harbor',
+    bg: '#0d1012', water: '#141a1c', park: '#171b1d', road: '#5b7d80', roadMinor: '#3a4d4f', text: '#8aa3a5' },
+  { id: 'glacier-mist', name: 'Glacier Mist',
+    bg: '#eef1f3', water: '#cfe0e8', park: '#e3e9ec', road: '#647c8f', roadMinor: '#9db0bd', text: '#5c6b73' },
 ];
 
 function getMapPalette(id) {

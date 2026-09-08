@@ -93,11 +93,101 @@ const MapRender = (() => {
     });
   }
 
+  // "Masks" — knipt de kaart binnen zijn eigen kader (mapW x mapH) tot een
+  // vaste vorm i.p.v. de volle rechthoek, met de matkleur zichtbaar
+  // eromheen — puur decoratief, los van isoleren/uitlichten (die knippen op
+  // een echte geo-grens, niet op een vaste vorm). Elke vorm staat als een
+  // lijst punten in een neutrale eenheidsruimte en wordt daarna uniform
+  // geschaald + gecentreerd, zodat hij nooit uitgerekt raakt op een
+  // niet-vierkant formaat.
+  function fitAndCenterRing(basePoints, mapW, mapH, marginFactor) {
+    const xs = basePoints.map(p => p[0]), ys = basePoints.map(p => p[1]);
+    const minX = Math.min(...xs), maxX = Math.max(...xs);
+    const minY = Math.min(...ys), maxY = Math.max(...ys);
+    const bboxW = maxX - minX, bboxH = maxY - minY;
+    const scale = Math.min((mapW * marginFactor) / bboxW, (mapH * marginFactor) / bboxH);
+    const cx = mapW / 2, cy = mapH / 2;
+    const midX = (minX + maxX) / 2, midY = (minY + maxY) / 2;
+    return basePoints.map(([x, y]) => [cx + (x - midX) * scale, cy + (y - midY) * scale]);
+  }
+
+  function circleBasePoints() {
+    return Array.from({ length: 80 }, (_, i) => {
+      const a = (i / 80) * Math.PI * 2;
+      return [Math.cos(a), Math.sin(a)];
+    });
+  }
+
+  // Standaard parametrische hartkromme (x = 16 sin^3 t) — y omgekeerd zodat
+  // de punt van het hart onderaan komt te staan, zoals gebruikelijk.
+  function heartBasePoints() {
+    const pts = [];
+    for (let i = 0; i <= 100; i++) {
+      const t = (i / 100) * Math.PI * 2;
+      const x = 16 * Math.pow(Math.sin(t), 3);
+      const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+      pts.push([x, y]);
+    }
+    return pts;
+  }
+
+  function diamondBasePoints() {
+    return [[0, -1], [1, 0], [0, 1], [-1, 0]];
+  }
+
+  function hexagonBasePoints() {
+    return Array.from({ length: 6 }, (_, i) => {
+      const a = ((-90 + i * 60) * Math.PI) / 180;
+      return [Math.cos(a), Math.sin(a)];
+    });
+  }
+
+  // Rechthoek met een halfronde bovenkant — een deuropening/grafsteenvorm.
+  function archBasePoints() {
+    const pts = [[-1, 1], [-1, -0.2]];
+    for (let i = 0; i <= 24; i++) {
+      const a = Math.PI - (i / 24) * Math.PI;
+      pts.push([Math.cos(a), -0.2 - Math.sin(a)]);
+    }
+    pts.push([1, 1]);
+    return pts;
+  }
+
+  // Organisch "wolk"-silhouet — een cirkel licht vervormd met een paar
+  // samengestelde sinusgolven, met een deterministische fase op basis van
+  // de bounding box, zodat elke locatie een net iets andere, maar
+  // reproduceerbare, vorm krijgt.
+  function bloomBasePoints(seedStr) {
+    const rand = RNG.rngFor(RNG.seedFromString(seedStr || 'bloom'));
+    const phase1 = rand() * Math.PI * 2, phase2 = rand() * Math.PI * 2, phase3 = rand() * Math.PI * 2;
+    return Array.from({ length: 100 }, (_, i) => {
+      const a = (i / 100) * Math.PI * 2;
+      const r = 1 + 0.14 * Math.sin(a * 3 + phase1) + 0.09 * Math.sin(a * 5 + phase2) + 0.05 * Math.sin(a * 7 + phase3);
+      return [Math.cos(a) * r, Math.sin(a) * r];
+    });
+  }
+
+  const MASK_SHAPE_BUILDERS = {
+    circle: circleBasePoints,
+    heart: heartBasePoints,
+    diamond: diamondBasePoints,
+    hexagon: hexagonBasePoints,
+    arch: archBasePoints,
+    bloom: bloomBasePoints,
+  };
+
+  function buildMaskRing(maskId, mapW, mapH, seedStr) {
+    const builder = MASK_SHAPE_BUILDERS[maskId];
+    if (!builder) return null;
+    const margin = maskId === 'heart' ? 0.82 : maskId === 'diamond' ? 0.92 : 0.86;
+    return fitAndCenterRing(builder(seedStr), mapW, mapH, margin);
+  }
+
   function render(painter, w, h, opts) {
     const {
       bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null, highlight = null,
-      layout: layoutId = 'default',
+      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : (opts.matColor || '#f7f4ee');
@@ -126,6 +216,9 @@ const MapRender = (() => {
     // écht wazig — een Gaussian blur, geen doorzichtige waslaag — erbuiten).
     // Zie MapPainter.beginLayer/drawLayer. Isoleren gaat hier altijd voor.
     const highlighting = !!(highlight && !isolate);
+    // "Masks" knippen tot een vaste vorm i.p.v. de volle rechthoek — ook
+    // hier gaat isoleren (een echte geo-grens) altijd voor.
+    const masking = !!(maskId && maskId !== 'none' && !isolate);
 
     let projectedRings = null;
     if (isolate) {
@@ -147,7 +240,12 @@ const MapRender = (() => {
       painter.beginClipPath(projectedRings);
     } else {
       if (highlighting) painter.beginLayer();
-      painter.beginClip(0, 0, mapW, mapH);
+      if (masking) {
+        const seedStr = `${bounds.south},${bounds.west},${bounds.north},${bounds.east}`;
+        painter.beginClipPath([buildMaskRing(maskId, mapW, mapH, seedStr)]);
+      } else {
+        painter.beginClip(0, 0, mapW, mapH);
+      }
     }
     drawMapBackground(painter, palette, mapW, mapH);
 
@@ -226,6 +324,21 @@ const MapRender = (() => {
         dash: mw2Style ? [roadW * 2.4, roadW * 1.8] : undefined,
       });
     });
+
+    // Pins — kleine, minimalistische puntmarkeringen op door de gebruiker
+    // gekozen plekken. Getekend vóór endClip(), net als de wegen, zodat ze
+    // hetzelfde meedoen aan isoleren/masken/uitlichten als de rest van de
+    // kaart (een pin buiten het zichtbare gebied hoort ook daar te
+    // verdwijnen/vervagen — het was toch geen navigeerbaar punt binnen de
+    // uitgesneden weergave).
+    if (pins.length > 0) {
+      const pinR = Math.min(mapW, mapH) * 0.011;
+      const ringW = Math.max(1, pinR * 0.4);
+      pins.forEach(p => {
+        const [x, y] = project(p.lat, p.lon);
+        painter.circle(x, y, pinR, { fill: pinColor || '#e63946', stroke: '#ffffff', strokeWidth: ringW });
+      });
+    }
 
     painter.endClip();
     const mapLayer = highlighting ? painter.endLayer() : null;
