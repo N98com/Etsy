@@ -309,50 +309,26 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .map-palette-card .swatch-strip span { flex: 1; }
 .map-palette-card .map-palette-name { font-size: 0.74rem; color: var(--ink); }
 
-.location-main { display: flex; flex-direction: column; gap: 20px; }
-.location-picker-wrap { position: relative; width: 100%; height: 480px; border-radius: var(--radius); overflow: hidden; border: 1px solid var(--line); }
-.location-map { width: 100%; height: 100%; background: var(--panel); }
-.location-overlay {
-  position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-  border: 2px solid #fff; box-shadow: 0 0 0 2000px rgba(0,0,0,0.45); pointer-events: none;
+.location-main { display: flex; flex-direction: column; gap: 10px; }
+.location-canvas-wrap {
+  position: relative; width: 100%; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); background: var(--panel); display: flex; justify-content: center;
 }
-
-.location-result h2 { font-size: 0.95rem; margin: 0 0 10px; text-transform: uppercase; letter-spacing: 0.04em; color: var(--ink-soft); }
-.location-result-preview { display: flex; justify-content: center; background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; }
-.location-result-preview canvas { max-width: 100%; max-height: 70vh; box-shadow: 0 8px 30px rgba(0,0,0,0.4); }
+.location-canvas-wrap canvas { max-width: 100%; height: auto; cursor: grab; touch-action: none; }
+.location-canvas-wrap canvas:active { cursor: grabbing; }
 
 /* Op telefoon staat "Exporteren" anders bovenaan (het staat in de
    zijbalk-HTML, die op smalle schermen als eerste kolom rendert) — ver
-   boven het resultaat waar het bij hoort. "display: contents" heft de
+   boven de kaart waar het bij hoort. "display: contents" heft de
    zijbalk/hoofdkolom als rendering-box op, zodat hun kinderen rechtstreeks
    grid-items van .location-layout worden en dus onderling herordend kunnen
-   worden; alleen het exportpaneel krijgt een "order" om na de kaart-picker
-   en het resultaat te verschijnen, de rest houdt zijn natuurlijke
-   (source-)volgorde aan. Alleen op mobiel: op desktop blijft Exporteren
-   gewoon in de zijbalk staan. Moet ná de losstaande ".location-controls"/
-   ".location-main { display: flex }"-regels hierboven staan, anders wint
-   die (latere, even specifieke) regel het bij een cascade-gelijkspel. */
+   worden; alleen het exportpaneel krijgt een "order" om na de kaart te
+   verschijnen, de rest houdt zijn natuurlijke (source-)volgorde aan. Alleen
+   op mobiel: op desktop blijft Exporteren gewoon in de zijbalk staan. Moet
+   ná de losstaande ".location-controls"/".location-main { display: flex }"-
+   regels hierboven staan, anders wint die (latere, even specifieke) regel
+   het bij een cascade-gelijkspel. */
 @media (max-width: 900px) {
   .location-controls, .location-main { display: contents; }
   #locationExportPanel { order: 5; margin-top: 0; }
 }
-
-/* ---- Map Test-tab: kaart + resultaat samengevoegd in één levend canvas ---- */
-.maptest-layout {
-  display: grid;
-  grid-template-columns: 300px 1fr;
-  gap: 20px;
-  padding: 20px 24px 60px;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-@media (max-width: 900px) { .maptest-layout { grid-template-columns: 1fr; } }
-
-.maptest-controls { display: flex; flex-direction: column; }
-.maptest-main { display: flex; flex-direction: column; gap: 10px; }
-.maptest-canvas-wrap {
-  position: relative; width: 100%; border-radius: var(--radius); overflow: hidden;
-  border: 1px solid var(--line); background: var(--panel); display: flex; justify-content: center;
-}
-.maptest-canvas-wrap canvas { max-width: 100%; height: auto; cursor: grab; touch-action: none; }
-.maptest-canvas-wrap canvas:active { cursor: grabbing; }

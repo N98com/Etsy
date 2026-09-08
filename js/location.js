@@ -1,6 +1,25 @@
-// UI-laag voor de Locatie-tab: kaart-picker, stijlkeuzes en export.
-// Analoog aan main.js, maar voor kaart-kunst i.p.v. de generatieve
-// algoritmes — losse module zodat de twee elkaar niet in de weg zitten.
+// UI-laag voor de Locatie-tab: kaart en resultaat samengevoegd in één
+// levend, pannable/zoombaar canvas — de gestylde kaart IS de interactieve
+// kaart. Voorheen was dit een aparte rauwe Leaflet-achtergrond die je met
+// een kader selecteerde, gevolgd door een losse "Genereer"-stap; nu pas je
+// gewoon meteen aan wat je ziet, en exporteer je vanaf hetzelfde scherm.
+//
+// Overpass mag niet op elke pixel pan/zoom bevraagd worden (rate-limits),
+// dus: elke pan/zoom tekent METEEN opnieuw met de al opgehaalde data (snel,
+// geen netwerk), en een gedebounced timer haalt pas verse data op zodra je
+// even stilstaat — voor een ruimer gebied dan strikt zichtbaar is, zodat
+// kleine bewegingen binnen die marge niets hoeven te verversen.
+//
+// Isoleren/uitlichten/Game Styles blijven bestaan naast dit live-pannen:
+// - Uitlichten (highlight) gebruikt gewoon de normale live-view-bounds (de
+//   ring wordt getekend waar hij toevallig binnen het huidige zicht valt),
+//   dus pannen/zoomen blijft daarbij gewoon werken.
+// - Isoleren (of een Game Style die dat forceert) toont in plaats daarvan
+//   de vaste, opgezochte grens (contain-fit) — pannen/zoomen is dan
+//   zinloos (het is geen navigeerbaar venster meer) en wordt uitgeschakeld
+//   zolang dat actief is; zonder een opgezochte grens valt isoleren terug
+//   op de laatst bekeken live-view als rechthoek (het equivalent van het
+//   vroegere handmatige kader).
 window.LocationApp = (() => {
   const HISTORY_KEY = 'genart-location-history-v1';
 
@@ -28,9 +47,6 @@ window.LocationApp = (() => {
   ];
 
   // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
-  // "Default" is de vertrouwde opmaak (kaart + effen mat met onderschrift
-  // eronder); de rest is full-bleed (de kaart vult de hele afbeelding) met
-  // het onderschrift er op een eigen manier overheen getekend.
   const LAYOUT_PRESETS = [
     { id: 'default', label: 'Default', hint: 'The map sits above a plain mat that holds the caption.' },
     { id: 'fade', label: 'Fade', hint: 'Full-bleed map — the caption sits directly on it, over a dark fade at the bottom.' },
@@ -38,6 +54,7 @@ window.LocationApp = (() => {
     { id: 'stamp', label: 'Stamp', hint: 'Full-bleed map with a small captioned label tucked in the bottom-left corner.' },
     { id: 'ledger', label: 'Ledger', hint: 'Full-bleed map with a slim, left-aligned caption strip along the bottom edge.' },
   ];
+  const FULL_BLEED_LAYOUTS = new Set(['fade', 'stamp', 'ledger']);
 
   // "Masks" knippen de kaart tot een vaste vorm — zie MapRender.render's
   // buildMaskRing voor de tekencode van elke vorm.
@@ -51,32 +68,81 @@ window.LocationApp = (() => {
     { id: 'bloom', label: 'Bloom' },
   ];
 
-  const state = {
-    ratioId: '2x3',
-    ratio: { w: 2, h: 3 },
-    layoutId: 'default',
-    maskId: 'none',
-    mapPaletteId: MAP_PALETTES[0].id,
-    showPlace: true,
-    showCountry: true,
-    showCoords: true,
-    gtaStyle: false,
-    mw2Style: false,
-    rdr2Style: false,
-    isolateArea: false,
-    highlightArea: false,
-    pins: [], // [{ lat, lon }]
-    addingPin: false,
-    selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
-    current: null, // { bounds, streets, place, country, lat, lon, isolate, highlight, pins }
-    generating: false,
+  const AREA_TIER_NOTE = {
+    street: '', city: '',
+    region: 'Large area selected — only main roads are shown, to keep the map fast and readable.',
+    country: 'Very large area (country level) selected — only main roads and major bodies of water are shown.',
+    continent: 'Continent level selected — at this scale, street/road data isn\'t meaningful; only the silhouette of the area is drawn.',
   };
 
-  let map = null;
-  let osmLayer = null;
-  let satelliteLayer = null;
-  let pinMarkers = []; // Leaflet circleMarkers op de picker-kaart, index-voor-index gelijk aan state.pins.
+  const CANVAS_LONG_EDGE = 900; // preview-resolutie, niet de exportresolutie
+  const FETCH_DEBOUNCE_MS = 550;
+  const FETCH_PADDING = 0.6; // extra marge rond het zichtbare gebied bij ophalen
+  const RECOLOR_MAX_JSON_LENGTH = 180000;
+
+  const state = {
+    center: { lat: 52.3676, lon: 4.9041 },
+    scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
+    ratioId: '2x3', ratio: { w: 2, h: 3 },
+    layoutId: 'default', maskId: 'none',
+    mapPaletteId: MAP_PALETTES[0].id,
+    showPlace: true, showCountry: true, showCoords: true,
+    gtaStyle: false, mw2Style: false, rdr2Style: false,
+    isolateArea: false, highlightArea: false,
+    pins: [], addingPin: false,
+    autoPlace: '', autoCountry: '',
+    streets: [], buildings: [], tier: 'street',
+    fetchedBounds: null, fetchedTier: null, fetching: false,
+    selectedPlace: null, // { name, query, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
+  };
+
+  let canvas = null, ctx = null;
   let pinColorTouched = false;
+  let fetchTimer = null;
+  let placeNameTimer = null;
+  let renderQueued = false;
+  let ready = false;
+  let drag = null; // { x, y, moved, center }
+
+  const el = id => document.getElementById(id);
+  const searchInput = el('locationSearchInput');
+  const searchBtn = el('locationSearchBtn');
+  const searchResults = el('locationSearchResults');
+  const ratioTabs = el('ratioTabs');
+  const customRatioRow = el('customRatioRow');
+  const customRatioW = el('customRatioW');
+  const customRatioH = el('customRatioH');
+  const areaTierHint = el('areaTierHint');
+  const statusEl = el('locationStatus');
+  const layoutTabs = el('layoutTabs');
+  const layoutHint = el('layoutHint');
+  const maskTabs = el('maskTabs');
+  const paletteGrid = el('mapPaletteGrid');
+  const showPlaceCheck = el('showPlaceCheck');
+  const placeNameInput = el('placeNameInput');
+  const showCountryCheck = el('showCountryCheck');
+  const countryNameInput = el('countryNameInput');
+  const showCoordsCheck = el('showCoordsCheck');
+  const addPinBtn = el('addPinBtn');
+  const clearPinsBtn = el('clearPinsBtn');
+  const pinColorInput = el('pinColorInput');
+  const pinAddressInput = el('pinAddressInput');
+  const pinAddressSearchBtn = el('pinAddressSearchBtn');
+  const pinAddressResults = el('pinAddressResults');
+  const isolateAreaCheck = el('isolateAreaCheck');
+  const isolateAreaHint = el('isolateAreaHint');
+  const highlightAreaCheck = el('highlightAreaCheck');
+  const highlightAreaHint = el('highlightAreaHint');
+  const gtaStyleCheck = el('gtaStyleCheck');
+  const gtaStyleHint = el('gtaStyleHint');
+  const mw2StyleCheck = el('mw2StyleCheck');
+  const mw2StyleHint = el('mw2StyleHint');
+  const rdr2StyleCheck = el('rdr2StyleCheck');
+  const rdr2StyleHint = el('rdr2StyleHint');
+  const exportSizeSelect = el('locationExportSize');
+  const exportSVGBtn = el('locationExportSVGBtn');
+  const exportPNGBtn = el('locationExportPNGBtn');
+  const exportStatus = el('locationExportStatus');
 
   function getActivePalette() {
     if (state.gtaStyle) return GTA_STYLE_PALETTE;
@@ -99,354 +165,335 @@ window.LocationApp = (() => {
     if (!pinColorTouched) pinColorInput.value = autoPinColor(getActivePalette().bg);
   }
 
-  const el = id => document.getElementById(id);
-  const searchInput = el('locationSearchInput');
-  const searchBtn = el('locationSearchBtn');
-  const searchResults = el('locationSearchResults');
-  const ratioTabs = el('ratioTabs');
-  const customRatioRow = el('customRatioRow');
-  const customRatioW = el('customRatioW');
-  const customRatioH = el('customRatioH');
-  const layoutTabs = el('layoutTabs');
-  const layoutHint = el('layoutHint');
-  const maskTabs = el('maskTabs');
-  const addPinBtn = el('addPinBtn');
-  const clearPinsBtn = el('clearPinsBtn');
-  const pinColorInput = el('pinColorInput');
-  const pinAddressInput = el('pinAddressInput');
-  const pinAddressSearchBtn = el('pinAddressSearchBtn');
-  const pinAddressResults = el('pinAddressResults');
-  const overlayEl = el('locationOverlay');
-  const generateBtn = el('locationGenerateBtn');
-  const statusEl = el('locationStatus');
-  const paletteGrid = el('mapPaletteGrid');
-  const showPlaceCheck = el('showPlaceCheck');
-  const placeNameInput = el('placeNameInput');
-  const showCountryCheck = el('showCountryCheck');
-  const countryNameInput = el('countryNameInput');
-  const showCoordsCheck = el('showCoordsCheck');
-  const isolateAreaCheck = el('isolateAreaCheck');
-  const isolateAreaHint = el('isolateAreaHint');
-  const highlightAreaCheck = el('highlightAreaCheck');
-  const highlightAreaHint = el('highlightAreaHint');
-  const gtaStyleCheck = el('gtaStyleCheck');
-  const gtaStyleHint = el('gtaStyleHint');
-  const mw2StyleCheck = el('mw2StyleCheck');
-  const mw2StyleHint = el('mw2StyleHint');
-  const rdr2StyleCheck = el('rdr2StyleCheck');
-  const rdr2StyleHint = el('rdr2StyleHint');
-  const areaTierHint = el('areaTierHint');
-  const resultPanel = el('locationResult');
-  const resultPreview = el('locationResultPreview');
-  const exportPanel = el('locationExportPanel');
-  const exportSizeSelect = el('locationExportSize');
-  const exportSVGBtn = el('locationExportSVGBtn');
-  const exportPNGBtn = el('locationExportPNGBtn');
-  const exportStatus = el('locationExportStatus');
+  // ---- modus-helpers ----
+  function forcesIsolate() { return state.mw2Style || state.rdr2Style; }
+  function hasRealBoundary() { return !!(state.selectedPlace && state.selectedPlace.rings); }
+  function isolating() { return state.isolateArea || forcesIsolate(); }
+  function highlighting() { return !isolating() && state.highlightArea && hasRealBoundary(); }
 
-  function init() {
-    RATIO_PRESETS.forEach(r => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = r.label;
-      btn.dataset.ratioId = r.id;
-      btn.className = r.id === state.ratioId ? 'active' : '';
-      btn.addEventListener('click', () => selectRatio(r.id));
-      ratioTabs.appendChild(btn);
-    });
-
-    [customRatioW, customRatioH].forEach(inp => inp.addEventListener('input', () => {
-      if (state.ratioId !== 'custom') return;
-      applyCustomRatio();
-    }));
-
-    LAYOUT_PRESETS.forEach(l => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = l.label;
-      btn.dataset.layoutId = l.id;
-      btn.className = l.id === state.layoutId ? 'active' : '';
-      btn.addEventListener('click', () => selectLayout(l.id));
-      layoutTabs.appendChild(btn);
-    });
-    layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === state.layoutId).hint;
-
-    MASK_PRESETS.forEach(m => {
-      const btn = document.createElement('button');
-      btn.type = 'button';
-      btn.textContent = m.label;
-      btn.dataset.maskId = m.id;
-      btn.className = m.id === state.maskId ? 'active' : '';
-      btn.addEventListener('click', () => selectMask(m.id));
-      maskTabs.appendChild(btn);
-    });
-
-    addPinBtn.addEventListener('click', () => {
-      state.addingPin = !state.addingPin;
-      addPinBtn.classList.toggle('active', state.addingPin);
-      addPinBtn.textContent = state.addingPin ? 'Click the map…' : 'Add pin';
-    });
-    clearPinsBtn.addEventListener('click', clearPins);
-    pinColorInput.addEventListener('input', () => {
-      pinColorTouched = true;
-      pinMarkers.forEach(m => m && m.setStyle && m.setStyle({ fillColor: pinColorInput.value }));
-      if (state.current) renderResult();
-    });
-    pinAddressSearchBtn.addEventListener('click', runPinAddressSearch);
-    pinAddressInput.addEventListener('keydown', e => { if (e.key === 'Enter') runPinAddressSearch(); });
-    refreshAutoPinColor();
-
-    MAP_PALETTES.forEach(p => {
-      const card = document.createElement('button');
-      card.type = 'button';
-      card.className = 'map-palette-card' + (p.id === state.mapPaletteId ? ' active' : '');
-      card.dataset.paletteId = p.id;
-      const strip = document.createElement('div');
-      strip.className = 'swatch-strip';
-      [p.bg, p.water, p.park, p.road].forEach(c => {
-        const sw = document.createElement('span');
-        sw.style.background = c;
-        strip.appendChild(sw);
-      });
-      const name = document.createElement('div');
-      name.className = 'map-palette-name';
-      name.textContent = p.name;
-      card.appendChild(strip);
-      card.appendChild(name);
-      card.addEventListener('click', () => {
-        state.mapPaletteId = p.id;
-        [...paletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === p.id));
-        refreshAutoPinColor();
-        if (state.current) renderResult();
-      });
-      paletteGrid.appendChild(card);
-    });
-
-    searchBtn.addEventListener('click', runSearch);
-    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
-
-    generateBtn.addEventListener('click', generate);
-
-    [showPlaceCheck, showCountryCheck, showCoordsCheck].forEach(cb => cb.addEventListener('change', () => {
-      state.showPlace = showPlaceCheck.checked;
-      state.showCountry = showCountryCheck.checked;
-      state.showCoords = showCoordsCheck.checked;
-      if (state.current) renderResult();
-    }));
-
-    // Isoleren (weg-knippen) en uitlichten (omgeving laten staan maar
-    // vervagen) zijn twee verschillende weergaven van dezelfde opgezochte
-    // grens — elkaar dus uitsluitend, net als de Game Styles hieronder.
-    isolateAreaCheck.addEventListener('change', () => {
-      state.isolateArea = isolateAreaCheck.checked;
-      if (state.isolateArea) { state.highlightArea = false; highlightAreaCheck.checked = false; }
-      if (state.current) generate();
-    });
-    highlightAreaCheck.addEventListener('change', () => {
-      state.highlightArea = highlightAreaCheck.checked;
-      if (state.highlightArea) { state.isolateArea = false; isolateAreaCheck.checked = false; }
-      if (state.current) generate();
-    });
-
-    // GTA V, OG MW2 en RDR2 zijn elk een vast, alles-vervangend kleurenschema
-    // — elkaar dus uitsluitend, net als hun eigen kleurenpalet-lock. Elke
-    // wissel kan de isolatie-bron veranderen (alleen MW2/RDR2 forceren die),
-    // dus altijd opnieuw genereren, niet alleen opnieuw tekenen.
-    gtaStyleCheck.addEventListener('change', () => setGameStyle(gtaStyleCheck.checked ? 'gta' : null));
-    mw2StyleCheck.addEventListener('change', () => setGameStyle(mw2StyleCheck.checked ? 'mw2' : null));
-    rdr2StyleCheck.addEventListener('change', () => setGameStyle(rdr2StyleCheck.checked ? 'rdr2' : null));
-
-    [placeNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', applyCaptionNameOverrides));
-
-    exportSVGBtn.addEventListener('click', () => exportResult(true));
-    exportPNGBtn.addEventListener('click', () => exportResult(false));
-
-    window.addEventListener('resize', () => { if (map) updateOverlaySize(); });
+  // ---- geometrie: canvaspixels <-> lat/lon ----
+  function fullBleed() { return FULL_BLEED_LAYOUTS.has(state.layoutId); }
+  function captionOpts() { return { showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords }; }
+  function mapAreaHeight(h) {
+    if (fullBleed()) return h;
+    return h - MapRender.captionLayout(h, captionOpts()).total;
   }
 
-  function setGameStyle(style) {
-    state.gtaStyle = style === 'gta';
-    state.mw2Style = style === 'mw2';
-    state.rdr2Style = style === 'rdr2';
-    gtaStyleCheck.checked = state.gtaStyle;
-    mw2StyleCheck.checked = state.mw2Style;
-    rdr2StyleCheck.checked = state.rdr2Style;
-    gtaStyleHint.hidden = !state.gtaStyle;
-    mw2StyleHint.hidden = !state.mw2Style;
-    rdr2StyleHint.hidden = !state.rdr2Style;
-    paletteGrid.classList.toggle('disabled', !!style);
-    updatePickerTileLayer();
-    refreshAutoPinColor();
-    if (state.current) generate();
+  // Zelfde "cover"-wiskunde als MapGeo.makeCoverProjector, maar de bounds
+  // worden hier AFGELEID van center+scale+canvasgrootte (i.p.v. andersom),
+  // zodanig dat spanX/spanY exact de canvas-verhouding hebben — daardoor
+  // komt makeCoverProjector's cover-fit altijd 1-op-1 uit (geen crop/
+  // offset), en blijven klikken/pins pixel-nauwkeurig kloppen.
+  function liveViewBounds() {
+    const mapH = mapAreaHeight(canvas.height);
+    const cosLat = Math.cos((state.center.lat * Math.PI) / 180) || 0.0001;
+    const spanLatDeg = mapH / state.scale;
+    const spanLonDeg = canvas.width / (state.scale * cosLat);
+    return {
+      north: state.center.lat + spanLatDeg / 2, south: state.center.lat - spanLatDeg / 2,
+      east: state.center.lon + spanLonDeg / 2, west: state.center.lon - spanLonDeg / 2,
+    };
+  }
+  // De bounds die daadwerkelijk getekend/opgehaald worden: bij isoleren met
+  // een echte opgezochte grens is dat de VASTE grens-bounds (niet pannable);
+  // in elk ander geval (normaal, uitlichten, of isoleren zónder grens) de
+  // huidige live-view.
+  function effectiveBounds() {
+    if (isolating() && hasRealBoundary()) return state.selectedPlace.bounds;
+    return liveViewBounds();
+  }
+  function currentIsolateOpts() {
+    if (!isolating()) return null;
+    if (hasRealBoundary()) return { rings: state.selectedPlace.rings };
+    const b = liveViewBounds();
+    return { rings: [[[b.north, b.west], [b.north, b.east], [b.south, b.east], [b.south, b.west]]] };
   }
 
-  function selectRatio(id) {
-    state.ratioId = id;
-    [...ratioTabs.children].forEach(b => b.classList.toggle('active', b.dataset.ratioId === id));
-    customRatioRow.hidden = id !== 'custom';
-    if (id === 'custom') { applyCustomRatio(); return; }
-    const preset = RATIO_PRESETS.find(r => r.id === id);
-    state.ratio = { w: preset.w, h: preset.h };
-    updateOverlaySize();
+  // Isoleren tekent met MapGeo.makeContainProjector (contain-fit, dus vaak
+  // met marge/letterbox) i.p.v. de cover-fit hierboven — voor pin-klikken
+  // die ook tijdens isoleren moeten kloppen, hier dezelfde wiskunde
+  // dupliceren (inclusief de inverse, die MapGeo niet aanbiedt).
+  function containMetrics(bounds, mapW, mapH) {
+    const midLatRad = ((bounds.south + bounds.north) / 2) * Math.PI / 180;
+    const lonScale = Math.cos(midLatRad) || 0.0001;
+    const spanX = (bounds.east - bounds.west) * lonScale;
+    const spanY = (bounds.north - bounds.south) || 0.0001;
+    const scale = Math.min(mapW / (spanX || 0.0001), mapH / spanY);
+    const drawW = spanX * scale, drawH = spanY * scale;
+    return { lonScale, scale, offsetX: (mapW - drawW) / 2, offsetY: (mapH - drawH) / 2 };
+  }
+  function forwardProject(lat, lon) {
+    const bounds = effectiveBounds();
+    const mapH = mapAreaHeight(canvas.height);
+    if (isolating() && hasRealBoundary()) {
+      const m = containMetrics(bounds, canvas.width, mapH);
+      return [m.offsetX + (lon - bounds.west) * m.lonScale * m.scale, m.offsetY + (bounds.north - lat) * m.scale];
+    }
+    const cosLat = Math.cos((state.center.lat * Math.PI) / 180) || 0.0001;
+    return [(lon - bounds.west) * state.scale * cosLat, (bounds.north - lat) * state.scale];
+  }
+  function inverseProject(x, y) {
+    const bounds = effectiveBounds();
+    const mapH = mapAreaHeight(canvas.height);
+    if (isolating() && hasRealBoundary()) {
+      const m = containMetrics(bounds, canvas.width, mapH);
+      return { lat: bounds.north - (y - m.offsetY) / m.scale, lon: bounds.west + (x - m.offsetX) / (m.lonScale * m.scale) };
+    }
+    const cosLat = Math.cos((state.center.lat * Math.PI) / 180) || 0.0001;
+    return { lat: bounds.north - y / state.scale, lon: bounds.west + x / (state.scale * cosLat) };
+  }
+  function clampScale(s) {
+    const minScale = canvas.height / 55; // uitgezoomd tot een groot land/regio
+    const maxScale = canvas.height / 0.003; // ingezoomd tot straatniveau
+    return Math.max(minScale, Math.min(maxScale, s));
+  }
+  function canvasPoint(e) {
+    const rect = canvas.getBoundingClientRect();
+    const cx = e.touches ? e.touches[0].clientX : e.clientX;
+    const cy = e.touches ? e.touches[0].clientY : e.clientY;
+    return { x: (cx - rect.left) * (canvas.width / rect.width), y: (cy - rect.top) * (canvas.height / rect.height) };
   }
 
-  function applyCustomRatio() {
-    const w = Math.max(1, parseFloat(customRatioW.value) || 1);
-    const h = Math.max(1, parseFloat(customRatioH.value) || 1);
-    state.ratio = { w, h };
-    updateOverlaySize();
+  // ---- ophalen (gedebounced) ----
+  function boundsContain(outer, inner) {
+    return inner.north <= outer.north && inner.south >= outer.south && inner.east <= outer.east && inner.west >= outer.west;
   }
-
-  // Een layout is puur een tekenkeuze (zie MapRender.render) — geen nieuwe
-  // Overpass-data nodig, dus gewoon opnieuw tekenen i.p.v. opnieuw genereren.
-  function selectLayout(id) {
-    state.layoutId = id;
-    [...layoutTabs.children].forEach(b => b.classList.toggle('active', b.dataset.layoutId === id));
-    layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === id).hint;
-    if (state.current) renderResult();
+  function padBounds(b, factor) {
+    const latPad = (b.north - b.south) * factor, lonPad = (b.east - b.west) * factor;
+    return { north: b.north + latPad, south: b.south - latPad, east: b.east + lonPad, west: b.west - lonPad };
   }
-
-  // Een mask is, net als een layout, puur een tekenkeuze — geen nieuwe data
-  // nodig, dus gewoon opnieuw tekenen.
-  function selectMask(id) {
-    state.maskId = id;
-    [...maskTabs.children].forEach(b => b.classList.toggle('active', b.dataset.maskId === id));
-    if (state.current) renderResult();
+  // Forceert een verse fetch — nodig telkens als de BETEKENIS van de bounds
+  // verandert (isoleren/uitlichten aan/uit, Game Style, nieuwe zoekgrens),
+  // ook als de numerieke bounds toevallig nog binnen de oude marge vallen.
+  function invalidateFetch() {
+    state.fetchedBounds = null;
+    scheduleFetch(0);
   }
-
-  // ---- pins ----
-  // Pins worden vastgelegd als platte { lat, lon } in state.pins (zo kunnen
-  // ze zonder omwegen mee de geschiedenis/Showcase-opslag in); de bijbehorende
-  // Leaflet circleMarker op de picker-kaart houden we er apart naast (index
-  // voor index gelijk), puur voor de live preview + het aanklikken om te
-  // verwijderen.
-  function addPin(lat, lon) {
-    state.pins.push({ lat, lon });
-    const marker = (map && typeof map.on === 'function' && typeof L !== 'undefined' && typeof L.circleMarker === 'function')
-      ? L.circleMarker([lat, lon], { radius: 6, color: '#ffffff', weight: 2, fillColor: pinColorInput.value || '#e63946', fillOpacity: 1 }).addTo(map)
-      : null;
-    if (marker) marker.on('click', () => removePinAt(pinMarkers.indexOf(marker)));
-    pinMarkers.push(marker);
-    syncPinsToCurrent();
+  function scheduleFetch(delay = FETCH_DEBOUNCE_MS) {
+    clearTimeout(fetchTimer);
+    fetchTimer = setTimeout(maybeFetch, delay);
   }
-
-  function removePinAt(idx) {
-    if (idx < 0) return;
-    const marker = pinMarkers[idx];
-    if (map && marker) map.removeLayer(marker);
-    pinMarkers.splice(idx, 1);
-    state.pins.splice(idx, 1);
-    syncPinsToCurrent();
-  }
-
-  function clearPins() {
-    pinMarkers.forEach(m => { if (map && m) map.removeLayer(m); });
-    pinMarkers = [];
-    state.pins = [];
-    syncPinsToCurrent();
-  }
-
-  // Naast klikken op de kaart kan een pin ook op een getypt adres gezet
-  // worden — dezelfde Nominatim-zoekopdracht als "Search for a place"
-  // hierboven, maar het resultaat wordt alleen als pin toegevoegd (het
-  // gekozen kader/gebied blijft ongewijzigd).
-  async function runPinAddressSearch() {
-    const q = pinAddressInput.value.trim();
-    if (!q) return;
-    pinAddressResults.hidden = false;
-    pinAddressResults.innerHTML = '<div class="location-search-result">Searching…</div>';
+  async function maybeFetch() {
+    if (state.fetching) { scheduleFetch(200); return; }
+    const bounds = effectiveBounds();
+    const tier = MapGeo.classifyAreaTier(bounds);
+    const haveEnough = state.fetchedBounds && state.fetchedTier === tier && boundsContain(state.fetchedBounds, bounds);
+    if (haveEnough) return;
+    state.fetching = true;
+    statusEl.textContent = 'Fetching map data…';
     try {
-      const results = await MapGeo.searchPlace(q);
-      pinAddressResults.innerHTML = '';
-      if (results.length === 0) {
-        pinAddressResults.innerHTML = '<div class="location-search-result">Nothing found.</div>';
-        return;
+      // Een vaste, opgezochte isolatiegrens verandert niet door pannen, dus
+      // die hoeft niet gepad te worden; de live-view (normaal/uitlichten/
+      // isoleren-zonder-grens) wel, zodat kleine bewegingen niet meteen
+      // opnieuw hoeven te verversen.
+      const fixedBounds = isolating() && hasRealBoundary();
+      const padded = fixedBounds ? bounds : padBounds(bounds, FETCH_PADDING);
+      const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
+      const streets = await MapGeo.fetchStreets(padded, tier, styleHint);
+      let buildings = [];
+      if (state.mw2Style) {
+        statusEl.textContent = 'Fetching buildings…';
+        buildings = await MapGeo.fetchBuildings(padded, tier);
       }
-      results.forEach(r => {
-        const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'location-search-result';
-        btn.textContent = r.display_name;
-        btn.addEventListener('click', () => {
-          addPin(parseFloat(r.lat), parseFloat(r.lon));
-          pinAddressResults.hidden = true;
-          pinAddressInput.value = '';
-        });
-        pinAddressResults.appendChild(btn);
-      });
+      state.streets = streets;
+      state.buildings = buildings;
+      state.fetchedBounds = padded;
+      state.fetchedTier = tier;
+      state.tier = tier;
+      applyAreaTier(tier);
+      render();
+      updateExportSizes();
+      exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
+      statusEl.textContent = isolating()
+        ? `Isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
+        : highlighting()
+        ? `Highlighted (${tier} level).`
+        : `${streets.length} elements loaded.`;
+      schedulePlaceNameRefresh();
     } catch (err) {
-      pinAddressResults.innerHTML = `<div class="location-search-result">Search failed: ${err.message}</div>`;
+      statusEl.textContent = `Fetch failed: ${err.message}. Try a smaller or different area.`;
+    } finally {
+      state.fetching = false;
     }
   }
 
-  function syncPinsToCurrent() {
-    if (!state.current) return;
-    state.current.pins = state.pins.map(p => ({ lat: p.lat, lon: p.lon }));
-    renderResult();
+  function applyAreaTier(tier) {
+    areaTierHint.textContent = AREA_TIER_NOTE[tier] || '';
+    areaTierHint.hidden = !AREA_TIER_NOTE[tier];
   }
 
-  // ---- kaart (Leaflet) ----
-  function ensureMap() {
-    if (map) return;
-    if (typeof L === 'undefined') {
-      el('locationMap').innerHTML = '<p class="hint" style="padding:16px;">Could not load the map library. Check your internet connection and reload the page.</p>';
-      return;
+  function schedulePlaceNameRefresh() {
+    clearTimeout(placeNameTimer);
+    placeNameTimer = setTimeout(refreshPlaceName, 400);
+  }
+  async function refreshPlaceName() {
+    // Bij isoleren/uitlichten met een echte grens gebruiken we de letterlijke
+    // zoekterm als plaatsnaam (zie computePlaceCountry) — geen reverse-
+    // geocode nodig, en die zou hier ook vaak het verkeerde antwoord geven.
+    if ((isolating() || highlighting()) && hasRealBoundary()) return;
+    try {
+      const geo = await MapGeo.reverseGeocode(state.center.lat, state.center.lon);
+      state.autoPlace = geo.place; state.autoCountry = geo.country;
+      render();
+    } catch { /* stille no-op: het onderschrift is puur decoratief */ }
+  }
+
+  function computePlaceCountry() {
+    if ((isolating() || highlighting()) && hasRealBoundary()) {
+      const parts = state.selectedPlace.name.split(',').map(s => s.trim()).filter(Boolean);
+      return { place: state.selectedPlace.query || parts[0] || state.selectedPlace.name, country: parts.length > 1 ? parts[parts.length - 1] : '' };
     }
-    map = L.map('locationMap', { attributionControl: true }).setView([52.3676, 4.9041], 13);
-    osmLayer = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      maxZoom: 19,
-      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>-bijdragers',
+    return { place: state.autoPlace, country: state.autoCountry };
+  }
+
+  // ---- tekenen ----
+  function buildRenderOpts() {
+    const pc = computePlaceCountry();
+    return {
+      bounds: effectiveBounds(),
+      streets: state.streets,
+      buildings: state.buildings,
+      palette: getMapPalette(state.mapPaletteId),
+      gtaStyle: state.gtaStyle, mw2Style: state.mw2Style, rdr2Style: state.rdr2Style,
+      tier: state.tier,
+      isolate: currentIsolateOpts(),
+      highlight: highlighting() ? { rings: state.selectedPlace.rings } : null,
+      layout: state.layoutId, mask: state.maskId,
+      pins: state.pins, pinColor: pinColorInput.value,
+      caption: {
+        showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords,
+        place: placeNameInput.value.trim() || pc.place,
+        country: countryNameInput.value.trim() || pc.country,
+        lat: state.center.lat, lon: state.center.lon,
+      },
+    };
+  }
+  function render() {
+    MapRender.render(new CanvasPainter(ctx, canvas.width, canvas.height), canvas.width, canvas.height, buildRenderOpts());
+  }
+  function requestRender() {
+    if (renderQueued) return;
+    renderQueued = true;
+    requestAnimationFrame(() => { renderQueued = false; render(); });
+  }
+
+  // ---- pan/zoom/klik-interactie op het canvas zelf ----
+  function pinHitTest(pt, pin) {
+    const [x, y] = forwardProject(pin.lat, pin.lon);
+    const r = Math.min(canvas.width, mapAreaHeight(canvas.height)) * 0.016;
+    const headCenter = { x, y: y - r * 1.7 };
+    const dHead = Math.hypot(pt.x - headCenter.x, pt.y - headCenter.y);
+    const dTip = Math.hypot(pt.x - x, pt.y - y);
+    return dHead < r * 1.5 || dTip < r * 0.7;
+  }
+
+  function handleCanvasClick(pt) {
+    if (pt.y > mapAreaHeight(canvas.height)) return; // klik in de onderschrift-mat: negeren
+    const hitIdx = state.pins.findIndex(p => pinHitTest(pt, p));
+    if (hitIdx >= 0) { state.pins.splice(hitIdx, 1); render(); return; }
+    if (!state.addingPin) return;
+    const { lat, lon } = inverseProject(pt.x, pt.y);
+    state.pins.push({ lat, lon });
+    render();
+  }
+
+  function wireCanvasInteraction() {
+    // Pannen/zoomen is zinloos zolang isoleren een vaste, opgezochte grens
+    // toont (dat is geen navigeerbaar venster) — klikken (voor pins) blijft
+    // dan wel gewoon werken.
+    const panLocked = () => isolating() && hasRealBoundary();
+
+    canvas.addEventListener('mousedown', e => {
+      const pt = canvasPoint(e);
+      if (pt.y > mapAreaHeight(canvas.height)) return;
+      drag = { x: pt.x, y: pt.y, moved: false, center: { ...state.center } };
     });
-    // Gratis, geen API-key nodig (i.t.t. Google Maps) — alleen als ondergrond
-    // om een gebied te herkennen voor OG MW2; de export zelf bevat geen
-    // satellietpixels, alleen de getekende MW2-stijl (zie MapRender).
-    satelliteLayer = L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
-      maxZoom: 19,
-      attribution: 'Tiles &copy; Esri',
+    window.addEventListener('mousemove', e => {
+      if (!drag) return;
+      const pt = canvasPoint(e);
+      const dx = pt.x - drag.x, dy = pt.y - drag.y;
+      if (Math.abs(dx) > 2 || Math.abs(dy) > 2) drag.moved = true;
+      if (!panLocked()) {
+        const cosLat = Math.cos((drag.center.lat * Math.PI) / 180) || 0.0001;
+        state.center = { lat: drag.center.lat + dy / state.scale, lon: drag.center.lon - dx / (state.scale * cosLat) };
+        requestRender();
+        scheduleFetch();
+      }
     });
-    (state.mw2Style ? satelliteLayer : osmLayer).addTo(map);
-    // "Add pin"-modus: een klik op de kaart plaatst een pin op die plek.
-    if (typeof map.on === 'function') {
-      map.on('click', e => { if (state.addingPin) addPin(e.latlng.lat, e.latlng.lng); });
-    }
-    updateOverlaySize();
+    window.addEventListener('mouseup', e => {
+      if (!drag) return;
+      const wasClick = !drag.moved;
+      const pt = canvasPoint(e);
+      drag = null;
+      if (wasClick) handleCanvasClick(pt);
+    });
+    canvas.addEventListener('wheel', e => {
+      e.preventDefault();
+      if (panLocked()) return;
+      state.scale = clampScale(state.scale * Math.exp(-e.deltaY * 0.0016));
+      requestRender();
+      scheduleFetch();
+    }, { passive: false });
+
+    // Eenvoudige touch-ondersteuning: één vinger = pannen, twee vingers =
+    // knijpen om te zoomen.
+    let pinchDist = null;
+    canvas.addEventListener('touchstart', e => {
+      if (e.touches.length === 1) {
+        const pt = canvasPoint(e);
+        if (pt.y > mapAreaHeight(canvas.height)) return;
+        drag = { x: pt.x, y: pt.y, moved: false, center: { ...state.center } };
+      } else if (e.touches.length === 2) {
+        drag = null;
+        pinchDist = touchDist(e);
+      }
+    }, { passive: true });
+    canvas.addEventListener('touchmove', e => {
+      if (e.touches.length === 1 && drag) {
+        const pt = canvasPoint(e);
+        const dx = pt.x - drag.x, dy = pt.y - drag.y;
+        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) drag.moved = true;
+        if (!panLocked()) {
+          const cosLat = Math.cos((drag.center.lat * Math.PI) / 180) || 0.0001;
+          state.center = { lat: drag.center.lat + dy / state.scale, lon: drag.center.lon - dx / (state.scale * cosLat) };
+          requestRender();
+          scheduleFetch();
+        }
+      } else if (e.touches.length === 2 && pinchDist != null && !panLocked()) {
+        const d = touchDist(e);
+        state.scale = clampScale(state.scale * (d / pinchDist));
+        pinchDist = d;
+        requestRender();
+        scheduleFetch();
+      }
+      e.preventDefault();
+    }, { passive: false });
+    canvas.addEventListener('touchend', e => {
+      if (drag && !drag.moved && e.changedTouches.length === 1) {
+        const t = e.changedTouches[0];
+        const rect = canvas.getBoundingClientRect();
+        handleCanvasClick({
+          x: (t.clientX - rect.left) * (canvas.width / rect.width),
+          y: (t.clientY - rect.top) * (canvas.height / rect.height),
+        });
+      }
+      drag = null; pinchDist = null;
+    });
+  }
+  function touchDist(e) {
+    const [a, b] = e.touches;
+    return Math.hypot(a.clientX - b.clientX, a.clientY - b.clientY);
   }
 
-  function updatePickerTileLayer() {
-    if (!map || !osmLayer || !satelliteLayer) return;
-    const wantSatellite = state.mw2Style;
-    if (map.removeLayer) map.removeLayer(wantSatellite ? osmLayer : satelliteLayer);
-    (wantSatellite ? satelliteLayer : osmLayer).addTo(map);
+  // ---- zoeken / springen naar een plek ----
+  function jumpTo(lat, lon) {
+    state.center = { lat, lon };
+    state.scale = clampScale(mapAreaHeight(canvas.height) / 0.02);
+    placeNameInput.value = ''; countryNameInput.value = '';
+    render();
+    invalidateFetch();
   }
 
-  function onShow() {
-    ensureMap();
-    setTimeout(() => { if (map) { map.invalidateSize(); updateOverlaySize(); } }, 50);
-  }
-
-  function updateOverlaySize() {
-    const wrap = overlayEl.parentElement;
-    const margin = 28;
-    const availW = Math.max(40, wrap.clientWidth - margin * 2);
-    const availH = Math.max(40, wrap.clientHeight - margin * 2);
-    const ratio = state.ratio.w / state.ratio.h;
-    let w, h;
-    if (availW / availH > ratio) { h = availH; w = h * ratio; }
-    else { w = availW; h = w / ratio; }
-    overlayEl.style.width = `${w}px`;
-    overlayEl.style.height = `${h}px`;
-  }
-
-  function getOverlayBounds() {
-    const mapEl = el('locationMap');
-    const overlayRect = overlayEl.getBoundingClientRect();
-    const mapRect = mapEl.getBoundingClientRect();
-    const nw = map.containerPointToLatLng([overlayRect.left - mapRect.left, overlayRect.top - mapRect.top]);
-    const se = map.containerPointToLatLng([overlayRect.right - mapRect.left, overlayRect.bottom - mapRect.top]);
-    return { north: nw.lat, west: nw.lng, south: se.lat, east: se.lng };
-  }
-
-  // ---- zoeken ----
   async function runSearch() {
     const q = searchInput.value.trim();
     if (!q) return;
@@ -455,15 +502,10 @@ window.LocationApp = (() => {
     try {
       const results = await MapGeo.searchPlace(q);
       searchResults.innerHTML = '';
-      if (results.length === 0) {
-        searchResults.innerHTML = '<div class="location-search-result">Nothing found.</div>';
-        return;
-      }
+      if (results.length === 0) { searchResults.innerHTML = '<div class="location-search-result">Nothing found.</div>'; return; }
       results.forEach(r => {
         const btn = document.createElement('button');
-        btn.type = 'button';
-        btn.className = 'location-search-result';
-        btn.textContent = r.display_name;
+        btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
         btn.addEventListener('click', () => selectSearchResult(r, q));
         searchResults.appendChild(btn);
       });
@@ -473,30 +515,20 @@ window.LocationApp = (() => {
   }
 
   // Naast de kaart verplaatsen, ook de exacte bestuurlijke grens van dit
-  // resultaat proberen op te halen — dat is wat "Isoleer gebied" gebruikt om
-  // precies deze wijk/stad/land/werelddeel uit te snijden, i.p.v. wat er
-  // toevallig in het handmatige kader staat. Niet elk resultaat heeft zo'n
-  // grens (bv. een los adres); dan blijft de optie uitgeschakeld.
+  // resultaat proberen op te halen — dat is wat Isolate/Highlight gebruiken
+  // om precies deze wijk/stad/land/werelddeel te tonen. Niet elk resultaat
+  // heeft zo'n grens (bv. een los adres); dan blijven die opties uit.
   function selectSearchResult(result, query) {
-    // Het selectie-kader staat altijd in het midden van de kaart-picker (zie
-    // .location-overlay in style.css), dus het centreren van de kaart op het
-    // gekozen resultaat centreert daarmee ook meteen het kader erop — handig
-    // vooral voor een verzoek om een specifiek adres. Zoom 16 (i.p.v. het
-    // eerdere 12, dat een hele wijk liet zien) toont een paar straten rond
-    // het adres, precies genoeg om zonder verder handmatig bijstellen te
-    // kunnen genereren.
-    map.setView([parseFloat(result.lat), parseFloat(result.lon)], 16);
     searchResults.hidden = true;
+    jumpTo(parseFloat(result.lat), parseFloat(result.lon));
 
     // De letterlijk getypte zoekterm bewaren we apart van display_name: bij
-    // "Isoleer gebied" gebruiken we die als plaatsnaam-onderschrift, want een
-    // reverse-geocode van het middelpunt van een regio/land wijst vaak een
-    // toevallige kleine plaats daarbinnen aan (bv. "Twente" -> "Ambt Delden").
+    // isoleren/uitlichten gebruiken we die als plaatsnaam-onderschrift, want
+    // een reverse-geocode van het middelpunt van een regio/land wijst vaak
+    // een toevallige kleine plaats daarbinnen aan (bv. "Twente" -> "Ambt Delden").
     state.selectedPlace = { name: result.display_name, query, rings: null, bounds: null };
     state.isolateArea = false;
     state.highlightArea = false;
-    placeNameInput.value = '';
-    countryNameInput.value = '';
     isolateAreaCheck.checked = false;
     isolateAreaCheck.disabled = true;
     isolateAreaHint.hidden = false;
@@ -519,168 +551,100 @@ window.LocationApp = (() => {
       isolateAreaHint.textContent = `Isolate exactly the boundary of "${result.display_name}".`;
       highlightAreaCheck.disabled = false;
       highlightAreaHint.textContent = `Highlight exactly the boundary of "${result.display_name}", fading everything else.`;
+      if (forcesIsolate()) invalidateFetch(); // een Game Style stond al aan te wachten op deze grens
     }).catch(err => {
       isolateAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
       highlightAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
     });
   }
 
-  // ---- genereren ----
-  const AREA_TIER_NOTE = {
-    street: '', city: '',
-    region: 'Large area selected — only main roads are shown, to keep the map fast and readable.',
-    country: 'Very large area (country level) selected — only main roads and major bodies of water are shown.',
-    continent: 'Continent level selected — at this scale, street/road data isn\'t meaningful; only the silhouette of the area is drawn.',
-  };
-
-  function applyAreaTier(tier) {
-    areaTierHint.textContent = AREA_TIER_NOTE[tier] || '';
-    areaTierHint.hidden = !AREA_TIER_NOTE[tier];
-  }
-
-  async function generate() {
-    if (state.generating) return;
-    if (!map) {
-      statusEl.textContent = 'The map hasn\'t loaded yet — check your internet connection and reload the page.';
-      return;
-    }
-    state.generating = true;
-    generateBtn.disabled = true;
-    statusEl.textContent = 'Fetching map data…';
+  // Zelfde soort adres-zoekopdracht als hierboven, maar een gekozen
+  // resultaat zet gewoon een pin neer zonder het zicht te verplaatsen.
+  async function runPinAddressSearch() {
+    const q = pinAddressInput.value.trim();
+    if (!q) return;
+    pinAddressResults.hidden = false;
+    pinAddressResults.innerHTML = '<div class="location-search-result">Searching…</div>';
     try {
-      // OG MW2 en RDR2 isoleren altijd — met een gekozen plaatsgrens indien
-      // beschikbaar, anders gewoon het handmatig gekozen kader zelf (zodat
-      // de stijl ook zonder zoekopdracht bruikbaar is).
-      const forcesIsolate = state.mw2Style || state.rdr2Style;
-      const hasRealBoundary = !!(state.selectedPlace && state.selectedPlace.rings);
-      const wantsIsolate = state.isolateArea || forcesIsolate;
-      const isolating = wantsIsolate && (hasRealBoundary || forcesIsolate);
-      // "Highlight area" gebruikt, anders dan isoleren, gewoon het handmatig
-      // gekozen kader als bounds (de omgeving moet immers intact blijven) —
-      // de opgezochte grens dient hier alleen om te bepalen wát er vervaagd
-      // wordt, niet om op te knippen. Isoleren (of een Game Style die dat
-      // forceert) gaat altijd voor: highlighten heeft dan geen betekenis.
-      const highlighting = !isolating && state.highlightArea && hasRealBoundary;
-      let bounds, isolateRings = null;
-      if (isolating && hasRealBoundary) {
-        bounds = state.selectedPlace.bounds;
-        isolateRings = state.selectedPlace.rings;
-      } else if (isolating) {
-        bounds = getOverlayBounds();
-        const { north, south, east, west } = bounds;
-        isolateRings = [[[north, west], [north, east], [south, east], [south, west]]];
-      } else {
-        bounds = getOverlayBounds();
-      }
-      const tier = MapGeo.classifyAreaTier(bounds);
-      applyAreaTier(tier);
-      const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
-      const streets = await MapGeo.fetchStreets(bounds, tier, styleHint);
-      let buildings = [];
-      if (state.mw2Style) {
-        statusEl.textContent = 'Fetching buildings…';
-        buildings = await MapGeo.fetchBuildings(bounds, tier);
-      }
-      const centerLat = (bounds.north + bounds.south) / 2;
-      const centerLon = (bounds.east + bounds.west) / 2;
-      let place = '', country = '';
-      if ((isolating || highlighting) && hasRealBoundary) {
-        // Geen reverse-geocode nodig (en die zou hier ook het verkeerde
-        // antwoord geven — het middelpunt van een regio/land ligt vaak
-        // toevallig in een kleine plaats daarbinnen). De letterlijke
-        // zoekterm is wat de gebruiker bedoelde; het land halen we uit het
-        // laatste onderdeel van de volledige naam die Nominatim teruggaf.
-        const parts = state.selectedPlace.name.split(',').map(s => s.trim()).filter(Boolean);
-        place = state.selectedPlace.query || parts[0] || state.selectedPlace.name;
-        country = parts.length > 1 ? parts[parts.length - 1] : '';
-      } else {
-        statusEl.textContent = 'Looking up place name…';
-        try {
-          const geo = await MapGeo.reverseGeocode(centerLat, centerLon);
-          place = geo.place; country = geo.country;
-        } catch (geoErr) {
-          statusEl.textContent = `Map fetched, but the place name could not be determined (${geoErr.message}).`;
-        }
-      }
-      // De invulvelden tonen wat automatisch bepaald is, maar blijven altijd
-      // aanpasbaar — automatische plaatsnaam-detectie is niet altijd
-      // betrouwbaar (zeker bij isoleren), dus dit is het vangnet.
-      if (!placeNameInput.value.trim()) placeNameInput.value = place;
-      if (!countryNameInput.value.trim()) countryNameInput.value = country;
-      state.current = {
-        bounds, tier, streets, buildings, lat: centerLat, lon: centerLon,
-        autoPlace: place, autoCountry: country,
-        place: placeNameInput.value.trim() || place,
-        country: countryNameInput.value.trim() || country,
-        isolate: isolating ? { rings: isolateRings } : null,
-        highlight: highlighting ? { rings: state.selectedPlace.rings } : null,
-        pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon })),
-      };
-      refreshAutoPinColor();
-      renderResult();
-      updateExportSizes();
-      resultPanel.hidden = false;
-      exportPanel.hidden = false;
-      statusEl.textContent = isolating
-        ? `Done — area isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
-        : highlighting
-        ? `Done — area highlighted (${tier} level).`
-        : `Done — ${streets.length} elements loaded.`;
+      const results = await MapGeo.searchPlace(q);
+      pinAddressResults.innerHTML = '';
+      if (results.length === 0) { pinAddressResults.innerHTML = '<div class="location-search-result">Nothing found.</div>'; return; }
+      results.forEach(r => {
+        const btn = document.createElement('button');
+        btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
+        btn.addEventListener('click', () => {
+          state.pins.push({ lat: parseFloat(r.lat), lon: parseFloat(r.lon) });
+          render();
+          pinAddressResults.hidden = true;
+          pinAddressInput.value = '';
+        });
+        pinAddressResults.appendChild(btn);
+      });
     } catch (err) {
-      statusEl.textContent = `Fetch failed: ${err.message}. Try a smaller area or try again.`;
-    } finally {
-      state.generating = false;
-      generateBtn.disabled = false;
+      pinAddressResults.innerHTML = `<div class="location-search-result">Search failed: ${err.message}</div>`;
     }
   }
 
-  // Handmatige correctie van plaatsnaam/land — altijd beschikbaar, niet
-  // alleen bij isoleren, want automatische detectie kan altijd een keer
-  // misgrijpen. Leeg veld = terugvallen op de automatisch bepaalde waarde.
-  function applyCaptionNameOverrides() {
-    if (!state.current) return;
-    state.current.place = placeNameInput.value.trim() || state.current.autoPlace;
-    state.current.country = countryNameInput.value.trim() || state.current.autoCountry;
-    renderResult();
-  }
-
-  function renderResult() {
-    if (!state.current) return;
+  // ---- canvasgrootte / ratio / layout / mask ----
+  function resizeCanvasForRatio() {
     const ratio = state.ratio.w / state.ratio.h;
-    const previewH = 640;
-    const previewW = Math.round(previewH * ratio);
-    resultPreview.innerHTML = '';
-    const canvas = document.createElement('canvas');
-    canvas.width = previewW; canvas.height = previewH;
-    resultPreview.appendChild(canvas);
-    drawArtwork(new CanvasPainter(canvas.getContext('2d'), previewW, previewH), previewW, previewH);
+    let w, h;
+    if (ratio >= 1) { w = CANVAS_LONG_EDGE; h = Math.round(w / ratio); }
+    else { h = CANVAS_LONG_EDGE; w = Math.round(h * ratio); }
+    canvas.width = w; canvas.height = h;
   }
 
-  function drawArtwork(painter, w, h) {
-    const c = state.current;
-    MapRender.render(painter, w, h, {
-      bounds: c.bounds,
-      streets: c.streets,
-      buildings: c.buildings || [],
-      palette: getMapPalette(state.mapPaletteId),
-      gtaStyle: state.gtaStyle,
-      mw2Style: state.mw2Style,
-      rdr2Style: state.rdr2Style,
-      tier: c.tier,
-      isolate: c.isolate,
-      highlight: c.highlight,
-      layout: state.layoutId,
-      mask: state.maskId,
-      pins: c.pins || [],
-      pinColor: pinColorInput.value,
-      caption: {
-        showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords,
-        place: c.place, country: c.country, lat: c.lat, lon: c.lon,
-      },
-    });
+  function selectRatio(id) {
+    state.ratioId = id;
+    [...ratioTabs.children].forEach(b => b.classList.toggle('active', b.dataset.ratioId === id));
+    customRatioRow.hidden = id !== 'custom';
+    if (id === 'custom') { applyCustomRatio(); return; }
+    const preset = RATIO_PRESETS.find(r => r.id === id);
+    state.ratio = { w: preset.w, h: preset.h };
+    resizeCanvasForRatio();
+    updateExportSizes();
+    render();
+    invalidateFetch();
+  }
+  function applyCustomRatio() {
+    const w = Math.max(1, parseFloat(customRatioW.value) || 1);
+    const h = Math.max(1, parseFloat(customRatioH.value) || 1);
+    state.ratio = { w, h };
+    resizeCanvasForRatio();
+    updateExportSizes();
+    render();
+    invalidateFetch();
   }
 
-  // ---- export ----
+  function selectLayout(id) {
+    state.layoutId = id;
+    [...layoutTabs.children].forEach(b => b.classList.toggle('active', b.dataset.layoutId === id));
+    layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === id).hint;
+    render();
+    invalidateFetch(); // de kaart-hoogte kan veranderen (full-bleed vs. mat)
+  }
+  function selectMask(id) {
+    state.maskId = id;
+    [...maskTabs.children].forEach(b => b.classList.toggle('active', b.dataset.maskId === id));
+    render();
+  }
+
+  function setGameStyle(style) {
+    state.gtaStyle = style === 'gta';
+    state.mw2Style = style === 'mw2';
+    state.rdr2Style = style === 'rdr2';
+    gtaStyleCheck.checked = state.gtaStyle;
+    mw2StyleCheck.checked = state.mw2Style;
+    rdr2StyleCheck.checked = state.rdr2Style;
+    gtaStyleHint.hidden = !state.gtaStyle;
+    mw2StyleHint.hidden = !state.mw2Style;
+    rdr2StyleHint.hidden = !state.rdr2Style;
+    paletteGrid.classList.toggle('disabled', !!style);
+    refreshAutoPinColor();
+    render();
+    invalidateFetch();
+  }
+
   function updateExportSizes() {
     exportSizeSelect.innerHTML = '';
     Utils.computeExportSizes(state.ratio.w, state.ratio.h).forEach((s, i) => {
@@ -696,93 +660,199 @@ window.LocationApp = (() => {
   // opnieuw kan tekenen — alleen tags die MapRender echt gebruikt, en een
   // harde grootte-cap zodat één grote export niet de hele geschiedenis in
   // localStorage opeet.
-  const RECOLOR_MAX_JSON_LENGTH = 180000;
-
   function trimStreetsForStorage(streets) {
     return streets.map(s => {
       const tags = {
         highway: s.tags.highway, waterway: s.tags.waterway, natural: s.tags.natural,
         leisure: s.tags.leisure, landuse: s.tags.landuse, name: s.tags.name,
       };
-      // Grote wateroppervlaktes uit een multipolygon-relatie (bijv. een baai
-      // met een eiland erin) dragen "rings" i.p.v. "coords" — zie
-      // MapGeo.parseAreaRelations. Zonder dit onderscheid zou de opgeslagen
-      // geschiedenis/Showcase-versie zo'n water gewoon kwijtraken.
       return s.rings ? { tags, rings: s.rings } : { tags, coords: s.coords };
     });
   }
-
   function trimBuildingsForStorage(buildings) {
     return buildings.map(b => ({ coords: b.coords }));
   }
-
-  function buildRecolorGeometry() {
-    const c = state.current;
+  function buildRecolorGeometry(opts) {
     const payload = {
-      bounds: c.bounds,
-      streets: trimStreetsForStorage(c.streets),
-      buildings: trimBuildingsForStorage(c.buildings || []),
+      bounds: opts.bounds,
+      streets: trimStreetsForStorage(state.streets),
+      buildings: trimBuildingsForStorage(state.buildings),
       ratio: state.ratio,
       layout: state.layoutId,
       mask: state.maskId,
-      pins: c.pins || [],
-      pinColor: pinColorInput.value,
-      tier: c.tier,
-      isolate: c.isolate || null,
-      highlight: c.highlight || null,
+      pins: opts.pins,
+      pinColor: opts.pinColor,
+      tier: state.tier,
+      isolate: opts.isolate,
+      highlight: opts.highlight,
     };
     return JSON.stringify(payload).length <= RECOLOR_MAX_JSON_LENGTH ? payload : null;
   }
 
   function makeHistoryThumbnail() {
     const ratio = state.ratio.w / state.ratio.h;
-    // A bit larger than strictly needed for the history list itself, so it
-    // still looks reasonable if reused/enlarged elsewhere.
     const th = 340;
     const tw = Math.round(th * ratio);
-    const canvas = document.createElement('canvas');
-    canvas.width = tw; canvas.height = th;
-    drawArtwork(new CanvasPainter(canvas.getContext('2d'), tw, th), tw, th);
-    return canvas.toDataURL('image/png');
+    const thumbCanvas = document.createElement('canvas');
+    thumbCanvas.width = tw; thumbCanvas.height = th;
+    MapRender.render(new CanvasPainter(thumbCanvas.getContext('2d'), tw, th), tw, th, buildRenderOpts());
+    return thumbCanvas.toDataURL('image/png');
   }
 
   function exportResult(wantSVG) {
-    if (!state.current) return;
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
     exportStatus.textContent = `Rendering at ${w}×${h}px…`;
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     setTimeout(() => {
-      const place = (state.current.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const opts = buildRenderOpts();
+      const placeSlug = (opts.caption.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const date = new Date().toISOString().slice(0, 10);
       if (wantSVG) {
         const painter = new SVGPainter(w, h);
-        drawArtwork(painter, w, h);
-        Utils.downloadSVGString(painter.toString(), `location-${place}-${opt.value}-${date}.svg`);
+        MapRender.render(painter, w, h, opts);
+        Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
       } else {
-        const canvas = document.createElement('canvas');
-        canvas.width = w; canvas.height = h;
-        drawArtwork(new CanvasPainter(canvas.getContext('2d'), w, h), w, h);
-        Utils.downloadCanvasPNG(canvas, `location-${place}-${opt.value}-${date}.png`);
+        const exportCanvas = document.createElement('canvas');
+        exportCanvas.width = w; exportCanvas.height = h;
+        MapRender.render(new CanvasPainter(exportCanvas.getContext('2d'), w, h), w, h, opts);
+        Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
       }
       recordLocationExport({
         thumbnail: makeHistoryThumbnail(),
-        place: state.current.place,
-        country: state.current.country,
-        lat: state.current.lat,
-        lon: state.current.lon,
+        place: opts.caption.place,
+        country: opts.caption.country,
+        lat: opts.caption.lat,
+        lon: opts.caption.lon,
         paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
         format: wantSVG ? 'svg' : 'png',
         sizeLabel: opt.textContent,
         timestamp: Date.now(),
-        recolor: buildRecolorGeometry(),
+        recolor: buildRecolorGeometry(opts),
       });
       exportStatus.textContent = 'Saved.';
       exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
     }, 20);
   }
 
-  document.addEventListener('DOMContentLoaded', init);
+  function init() {
+    canvas = el('locationCanvas');
+    ctx = canvas.getContext('2d');
+    resizeCanvasForRatio();
+    state.scale = clampScale(mapAreaHeight(canvas.height) / 0.05);
+
+    RATIO_PRESETS.forEach(r => {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.textContent = r.label; btn.dataset.ratioId = r.id;
+      btn.className = r.id === state.ratioId ? 'active' : '';
+      btn.addEventListener('click', () => selectRatio(r.id));
+      ratioTabs.appendChild(btn);
+    });
+    [customRatioW, customRatioH].forEach(inp => inp.addEventListener('input', () => {
+      if (state.ratioId !== 'custom') return;
+      applyCustomRatio();
+    }));
+
+    LAYOUT_PRESETS.forEach(l => {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.textContent = l.label; btn.dataset.layoutId = l.id;
+      btn.className = l.id === state.layoutId ? 'active' : '';
+      btn.addEventListener('click', () => selectLayout(l.id));
+      layoutTabs.appendChild(btn);
+    });
+    layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === state.layoutId).hint;
+    MASK_PRESETS.forEach(m => {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.textContent = m.label; btn.dataset.maskId = m.id;
+      btn.className = m.id === state.maskId ? 'active' : '';
+      btn.addEventListener('click', () => selectMask(m.id));
+      maskTabs.appendChild(btn);
+    });
+
+    MAP_PALETTES.forEach(p => {
+      const card = document.createElement('button');
+      card.type = 'button';
+      card.className = 'map-palette-card' + (p.id === state.mapPaletteId ? ' active' : '');
+      card.dataset.paletteId = p.id;
+      const strip = document.createElement('div');
+      strip.className = 'swatch-strip';
+      [p.bg, p.water, p.park, p.road].forEach(c => {
+        const sw = document.createElement('span');
+        sw.style.background = c;
+        strip.appendChild(sw);
+      });
+      const name = document.createElement('div');
+      name.className = 'map-palette-name';
+      name.textContent = p.name;
+      card.appendChild(strip);
+      card.appendChild(name);
+      card.addEventListener('click', () => {
+        state.mapPaletteId = p.id;
+        [...paletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === p.id));
+        refreshAutoPinColor();
+        render();
+      });
+      paletteGrid.appendChild(card);
+    });
+
+    searchBtn.addEventListener('click', runSearch);
+    searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
+
+    [showPlaceCheck, showCountryCheck, showCoordsCheck].forEach(cb => cb.addEventListener('change', () => {
+      state.showPlace = showPlaceCheck.checked;
+      state.showCountry = showCountryCheck.checked;
+      state.showCoords = showCoordsCheck.checked;
+      render();
+      invalidateFetch(); // het onderschrift-blok kan van hoogte veranderen (mapH)
+    }));
+    [placeNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', render));
+
+    addPinBtn.addEventListener('click', () => {
+      state.addingPin = !state.addingPin;
+      addPinBtn.classList.toggle('active', state.addingPin);
+      addPinBtn.textContent = state.addingPin ? 'Click the map…' : 'Add pin';
+    });
+    clearPinsBtn.addEventListener('click', () => { state.pins = []; render(); });
+    pinColorInput.addEventListener('input', () => { pinColorTouched = true; render(); });
+    pinAddressSearchBtn.addEventListener('click', runPinAddressSearch);
+    pinAddressInput.addEventListener('keydown', e => { if (e.key === 'Enter') runPinAddressSearch(); });
+    refreshAutoPinColor();
+
+    // Isoleren (weg-knippen) en uitlichten (omgeving laten staan maar
+    // vervagen) zijn twee verschillende weergaven van dezelfde opgezochte
+    // grens — elkaar dus uitsluitend, net als de Game Styles hieronder.
+    isolateAreaCheck.addEventListener('change', () => {
+      state.isolateArea = isolateAreaCheck.checked;
+      if (state.isolateArea) { state.highlightArea = false; highlightAreaCheck.checked = false; }
+      render();
+      invalidateFetch();
+    });
+    highlightAreaCheck.addEventListener('change', () => {
+      state.highlightArea = highlightAreaCheck.checked;
+      if (state.highlightArea) { state.isolateArea = false; isolateAreaCheck.checked = false; }
+      render();
+      invalidateFetch();
+    });
+    gtaStyleCheck.addEventListener('change', () => setGameStyle(gtaStyleCheck.checked ? 'gta' : null));
+    mw2StyleCheck.addEventListener('change', () => setGameStyle(mw2StyleCheck.checked ? 'mw2' : null));
+    rdr2StyleCheck.addEventListener('change', () => setGameStyle(rdr2StyleCheck.checked ? 'rdr2' : null));
+
+    exportSVGBtn.addEventListener('click', () => exportResult(true));
+    exportPNGBtn.addEventListener('click', () => exportResult(false));
+    exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
+    updateExportSizes();
+
+    wireCanvasInteraction();
+    render();
+  }
+
+  function onShow() {
+    if (!ready) {
+      ready = true;
+      init();
+      scheduleFetch(0);
+    }
+  }
 
   return { onShow, getHistory: loadLocationHistory };
 })();

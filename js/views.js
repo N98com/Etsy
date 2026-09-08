@@ -1,7 +1,6 @@
-// Switches between the main views: Playground (all generative algorithms),
-// Location (map art) and Map Test (the live pannable/zoomable map editor).
-// Independent of all three, so main.js/location.js/mapTest.js don't need to
-// know about each other.
+// Switches between the two main views: Playground (all generative
+// algorithms) and Location (map art). Independent of both, so main.js
+// and location.js don't need to know about each other.
 (() => {
   function ready(fn) {
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
@@ -12,12 +11,10 @@
     const tabs = {
       playground: document.getElementById('viewTabPlayground'),
       location: document.getElementById('viewTabLocation'),
-      mapTest: document.getElementById('viewTabMapTest'),
     };
     const views = {
       playground: document.getElementById('playgroundView'),
       location: document.getElementById('locationView'),
-      mapTest: document.getElementById('mapTestView'),
     };
 
     function selectView(name) {
@@ -26,7 +23,6 @@
         tabs[key].classList.toggle('active', key === name);
       });
       if (name === 'location' && window.LocationApp) window.LocationApp.onShow();
-      if (name === 'mapTest' && window.MapTestApp) window.MapTestApp.onShow();
     }
 
     Object.keys(tabs).forEach(key => tabs[key].addEventListener('click', () => selectView(key)));
