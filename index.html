@@ -39,6 +39,7 @@
 
   <nav class="view-tabs">
     <button type="button" class="view-tab active" id="viewTabLocation" data-view="location">Location</button>
+    <button type="button" class="view-tab" id="viewTabMapTest" data-view="mapTest">Map Test</button>
     <button type="button" class="view-tab" id="viewTabPlayground" data-view="playground">Playground</button>
   </nav>
 
@@ -225,6 +226,81 @@
     </div>
   </div>
 
+  <div id="mapTestView" hidden>
+    <div class="maptest-layout">
+      <aside class="sidebar maptest-controls">
+        <div class="panel">
+          <h2>Live Map</h2>
+          <label for="mapTestSearchInput">Search for a place</label>
+          <div class="row">
+            <input type="text" id="mapTestSearchInput" placeholder="e.g. Paris, France">
+            <button id="mapTestSearchBtn" style="flex:0 0 auto;">Search</button>
+          </div>
+          <div id="mapTestSearchResults" class="location-search-results" hidden></div>
+
+          <label style="margin-top:10px; display:block;">Aspect ratio</label>
+          <div class="ratio-tabs" id="mapTestRatioTabs"></div>
+
+          <p class="hint" id="mapTestAreaTierHint" hidden></p>
+          <p class="hint" id="mapTestStatus" style="margin-top:10px;"></p>
+        </div>
+
+        <div class="panel">
+          <h2>Layouts</h2>
+          <div class="ratio-tabs" id="mapTestLayoutTabs"></div>
+          <p class="hint" id="mapTestLayoutHint" style="margin-top:6px;"></p>
+
+          <label style="margin-top:10px; display:block;">Mask</label>
+          <div class="ratio-tabs" id="mapTestMaskTabs"></div>
+        </div>
+
+        <div class="panel">
+          <h2>Style</h2>
+          <label>Color scheme</label>
+          <div class="map-palette-grid" id="mapTestPaletteGrid"></div>
+
+          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
+          <label class="checkbox-row"><input type="checkbox" id="mapTestShowPlaceCheck" checked> Place name</label>
+          <input type="text" id="mapTestPlaceNameInput" placeholder="(automatic)" style="margin-top:4px;">
+          <label class="checkbox-row"><input type="checkbox" id="mapTestShowCountryCheck" checked> Country</label>
+          <input type="text" id="mapTestCountryNameInput" placeholder="(automatic)" style="margin-top:4px;">
+          <label class="checkbox-row"><input type="checkbox" id="mapTestShowCoordsCheck" checked> Coordinates</label>
+
+          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
+          <div class="row">
+            <button type="button" id="mapTestAddPinBtn">Add pin</button>
+            <button type="button" id="mapTestClearPinsBtn">Clear pins</button>
+            <input type="color" id="mapTestPinColorInput" title="Pin color">
+          </div>
+          <p class="hint" id="mapTestPinsHint">Click "Add pin", then click the map to place it. Click a pin to remove it.</p>
+          <div class="row" style="margin-top:6px;">
+            <input type="text" id="mapTestPinAddressInput" placeholder="Or type an address…">
+            <button type="button" id="mapTestPinAddressSearchBtn" style="flex:0 0 auto;">Add pin at address</button>
+          </div>
+          <div id="mapTestPinAddressResults" class="location-search-results" hidden></div>
+        </div>
+
+        <div class="panel">
+          <h2>Export</h2>
+          <label for="mapTestExportSize">Format</label>
+          <select id="mapTestExportSize"></select>
+          <div class="row" style="margin-top:8px;">
+            <button class="primary" id="mapTestExportSVGBtn">Export SVG</button>
+            <button id="mapTestExportPNGBtn">Export PNG</button>
+          </div>
+          <p class="hint" id="mapTestExportStatus"></p>
+        </div>
+      </aside>
+
+      <section class="maptest-main">
+        <div class="maptest-canvas-wrap" id="mapTestCanvasWrap">
+          <canvas id="mapTestCanvas"></canvas>
+        </div>
+        <p class="hint">Drag to pan, scroll to zoom — this preview updates live and is exactly what gets exported.</p>
+      </section>
+    </div>
+  </div>
+
   <footer>
     Workbench runs entirely locally in the browser — nothing is uploaded. Raw render → pick the best 5% → finetune color in Photoshop/Affinity → export at print resolution.
   </footer>
@@ -298,5 +374,6 @@
   <script src="js/mapGeo.js"></script>
   <script src="js/mapRender.js"></script>
   <script src="js/location.js"></script>
+  <script src="js/mapTest.js"></script>
 </body>
 </html>

@@ -681,22 +681,9 @@ window.LocationApp = (() => {
   }
 
   // ---- export ----
-  function computeExportSizes(ratioW, ratioH) {
-    const dpi = 300;
-    const longEdgesCm = [21, 30, 40, 50, 60];
-    const isPortrait = ratioH >= ratioW;
-    return longEdgesCm.map(cm => {
-      let wCm, hCm;
-      if (isPortrait) { hCm = cm; wCm = (cm * ratioW) / ratioH; }
-      else { wCm = cm; hCm = (cm * ratioH) / ratioW; }
-      const wPx = Math.round((wCm / 2.54) * dpi), hPx = Math.round((hCm / 2.54) * dpi);
-      return { id: `cm${cm}`, label: `${Math.round(wCm)}×${Math.round(hCm)}cm @300dpi (${wPx}×${hPx})`, w: wPx, h: hPx };
-    });
-  }
-
   function updateExportSizes() {
     exportSizeSelect.innerHTML = '';
-    computeExportSizes(state.ratio.w, state.ratio.h).forEach((s, i) => {
+    Utils.computeExportSizes(state.ratio.w, state.ratio.h).forEach((s, i) => {
       const opt = document.createElement('option');
       opt.value = s.id; opt.textContent = s.label; opt.dataset.w = s.w; opt.dataset.h = s.h;
       if (i === 1) opt.selected = true;

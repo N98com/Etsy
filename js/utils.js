@@ -64,6 +64,22 @@ const Utils = (() => {
     canvas.toBlob(blob => downloadBlob(blob, filename), 'image/png');
   }
 
+  // Print-formaten (21/30/40/50/60cm lange zijde @300dpi) voor een gegeven
+  // beeldverhouding — gedeeld tussen Locatie en Map Test, die allebei
+  // dezelfde exportkeuzes aanbieden.
+  function computeExportSizes(ratioW, ratioH) {
+    const dpi = 300;
+    const longEdgesCm = [21, 30, 40, 50, 60];
+    const isPortrait = ratioH >= ratioW;
+    return longEdgesCm.map(cm => {
+      let wCm, hCm;
+      if (isPortrait) { hCm = cm; wCm = (cm * ratioW) / ratioH; }
+      else { wCm = cm; hCm = (cm * ratioH) / ratioW; }
+      const wPx = Math.round((wCm / 2.54) * dpi), hPx = Math.round((hCm / 2.54) * dpi);
+      return { id: `cm${cm}`, label: `${Math.round(wCm)}×${Math.round(hCm)}cm @300dpi (${wPx}×${hPx})`, w: wPx, h: hPx };
+    });
+  }
+
   function slugify(str) {
     return str.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g, '')
       .replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
@@ -108,6 +124,6 @@ const Utils = (() => {
 
   return {
     hexToRgb, rgbToHex, mixPaletteColor, runChunked, downloadSVGString, downloadCanvasPNG, slugify,
-    makeNoise2D, fractalNoise2D,
+    makeNoise2D, fractalNoise2D, computeExportSizes,
   };
 })();

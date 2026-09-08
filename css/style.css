@@ -336,3 +336,23 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
   .location-controls, .location-main { display: contents; }
   #locationExportPanel { order: 5; margin-top: 0; }
 }
+
+/* ---- Map Test-tab: kaart + resultaat samengevoegd in één levend canvas ---- */
+.maptest-layout {
+  display: grid;
+  grid-template-columns: 300px 1fr;
+  gap: 20px;
+  padding: 20px 24px 60px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+@media (max-width: 900px) { .maptest-layout { grid-template-columns: 1fr; } }
+
+.maptest-controls { display: flex; flex-direction: column; }
+.maptest-main { display: flex; flex-direction: column; gap: 10px; }
+.maptest-canvas-wrap {
+  position: relative; width: 100%; border-radius: var(--radius); overflow: hidden;
+  border: 1px solid var(--line); background: var(--panel); display: flex; justify-content: center;
+}
+.maptest-canvas-wrap canvas { max-width: 100%; height: auto; cursor: grab; touch-action: none; }
+.maptest-canvas-wrap canvas:active { cursor: grabbing; }
