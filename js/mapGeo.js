@@ -142,17 +142,11 @@ const MapGeo = (() => {
   // voor een op zich redelijke query (drukte op de server). Eén keer
   // opnieuw proberen na een korte pauze lost dat meestal op; blijft het
   // fout gaan dan is de query zelf te zwaar en geven we dat door.
-  // `signal` (optioneel) laat de aanroeper een nog lopende query afbreken
-  // zodra 'm niet meer relevant is (bijv. de gebruiker is intussen verder
-  // gepand/gezoomd) — voorkomt dat een trage, inmiddels achterhaalde
-  // respons alsnog de nieuwere kaart overschrijft, en geeft de browser vrij
-  // om de nieuwe query niet te hoeven wachten op de oude.
-  async function runOverpassQuery(query, { retries = 1, signal } = {}) {
+  async function runOverpassQuery(query, { retries = 1 } = {}) {
     for (let attempt = 0; ; attempt++) {
       const res = await fetch(OVERPASS_ENDPOINT, {
         method: 'POST',
         body: 'data=' + encodeURIComponent(query),
-        signal,
       });
       if (res.ok) return res.json();
       if (res.status === 429 && attempt < retries) {
@@ -426,9 +420,9 @@ const MapGeo = (() => {
     return [...waterRings, ...closedRings];
   }
 
-  async function fetchStreets(bounds, tier = 'street', styleHint = null, signal) {
+  async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     if (tier === 'continent') return [];
-    const data = await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint), { signal });
+    const data = await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint));
     const ways = parseWays(data);
     // Kustlijn-ways zijn puur invoer voor het afgeleide watervlak hieronder —
     // ze matchen zelf geen enkel render-filter (niet highway/waterway/
@@ -442,9 +436,9 @@ const MapGeo = (() => {
     return result;
   }
 
-  async function fetchBuildings(bounds, tier = 'street', signal) {
+  async function fetchBuildings(bounds, tier = 'street') {
     if (tier !== 'street' && tier !== 'city') return [];
-    return parseWays(await runOverpassQuery(buildBuildingsQuery(bounds), { signal }));
+    return parseWays(await runOverpassQuery(buildBuildingsQuery(bounds)));
   }
 
   async function reverseGeocode(lat, lon) {
