@@ -183,6 +183,34 @@ const MapRender = (() => {
     return fitAndCenterRing(builder(seedStr), mapW, mapH, margin);
   }
 
+  // Klassieke "kaart-pin" contour — een rond kopje op een punt, zoals bij
+  // Google Maps. (x, y) is de punt zelf (de exacte locatie); r is de straal
+  // van het ronde kopje. De twee raaklijnen van de punt naar de cirkel
+  // bepalen waar de rechte zijkanten overgaan in de boog: driehoeksmeetkunde
+  // op de rechthoekige driehoek punt-middelpunt-raakpunt (de raaklijn staat
+  // loodrecht op de straal in het raakpunt).
+  function pinOutlinePoints(x, y, r) {
+    const centerDist = r * 1.7;
+    const alpha = Math.acos(r / centerDist);
+    const centerX = x, centerY = y - centerDist;
+    const tipAngle = Math.PI / 2; // richting middelpunt -> punt (recht naar beneden)
+    const a1 = tipAngle - alpha;
+    const sweep = Math.PI * 2 - 2 * alpha; // de lange boog, niet de kant die naar de punt wijst
+    const steps = 28;
+    const pts = [[x, y]];
+    for (let i = 0; i <= steps; i++) {
+      const a = a1 - (i / steps) * sweep;
+      pts.push([centerX + r * Math.cos(a), centerY + r * Math.sin(a)]);
+    }
+    return { pts, centerX, centerY };
+  }
+
+  function drawPin(painter, x, y, r, color, holeColor) {
+    const { pts, centerX, centerY } = pinOutlinePoints(x, y, r);
+    painter.polygon(pts, { fill: color });
+    painter.circle(centerX, centerY, r * 0.38, { fill: holeColor });
+  }
+
   function render(painter, w, h, opts) {
     const {
       bounds, streets = [], buildings = [],
@@ -325,18 +353,17 @@ const MapRender = (() => {
       });
     });
 
-    // Pins — kleine, minimalistische puntmarkeringen op door de gebruiker
-    // gekozen plekken. Getekend vóór endClip(), net als de wegen, zodat ze
-    // hetzelfde meedoen aan isoleren/masken/uitlichten als de rest van de
-    // kaart (een pin buiten het zichtbare gebied hoort ook daar te
-    // verdwijnen/vervagen — het was toch geen navigeerbaar punt binnen de
-    // uitgesneden weergave).
+    // Pins — kleine kaart-pins (kopje + punt, zoals Google Maps) op door de
+    // gebruiker gekozen plekken; de punt van de vorm valt exact op de
+    // locatie. Getekend vóór endClip(), net als de wegen, zodat ze hetzelfde
+    // meedoen aan isoleren/masken/uitlichten als de rest van de kaart (een
+    // pin buiten het zichtbare gebied hoort ook daar te verdwijnen/vervagen
+    // — het was toch geen navigeerbaar punt binnen de uitgesneden weergave).
     if (pins.length > 0) {
-      const pinR = Math.min(mapW, mapH) * 0.011;
-      const ringW = Math.max(1, pinR * 0.4);
+      const pinR = Math.min(mapW, mapH) * 0.016;
       pins.forEach(p => {
         const [x, y] = project(p.lat, p.lon);
-        painter.circle(x, y, pinR, { fill: pinColor || '#e63946', stroke: '#ffffff', strokeWidth: ringW });
+        drawPin(painter, x, y, pinR, pinColor || '#e63946', matColor);
       });
     }
 
