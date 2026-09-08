@@ -31,51 +31,22 @@ window.LocationApp = (() => {
     ratioId: '2x3',
     ratio: { w: 2, h: 3 },
     mapPaletteId: MAP_PALETTES[0].id,
-    showStreetLabels: false,
-    showLandmarks: false,
     showPlace: true,
     showCountry: true,
     showCoords: true,
     gtaStyle: false,
     mw2Style: false,
     rdr2Style: false,
-    landmarkIcon: 'star',
     isolateArea: false,
     highlightArea: false,
     selectedPlace: null, // { name, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
-    current: null, // { bounds, streets, landmarks, place, country, lat, lon, isolate, highlight }
+    current: null, // { bounds, streets, place, country, lat, lon, isolate, highlight }
     generating: false,
   };
 
   let map = null;
   let osmLayer = null;
   let satelliteLayer = null;
-  let streetLabelColorTouched = false;
-  let landmarkColorTouched = false;
-
-  function getActivePalette() {
-    if (state.gtaStyle) return GTA_STYLE_PALETTE;
-    if (state.mw2Style) return MW2_STYLE_PALETTE;
-    if (state.rdr2Style) return RDR2_STYLE_PALETTE;
-    return getMapPalette(state.mapPaletteId);
-  }
-
-  // Een label-kleur die altijd goed afsteekt tegen de achtergrond, los van
-  // wegen-/tekstkleur (die soms te dicht bij elkaar liggen om als straatnaam
-  // op te vallen) — warm amber op een donkere kaart, warm roodbruin op een
-  // lichte, tenzij de gebruiker zelf iets anders kiest.
-  function relLuminance(hex) {
-    const { r, g, b } = Utils.hexToRgb(hex);
-    return 0.2126 * (r / 255) + 0.7152 * (g / 255) + 0.0722 * (b / 255);
-  }
-  function autoLabelColor(bgHex) {
-    return relLuminance(bgHex) > 0.5 ? '#8a3d1f' : '#f2c14e';
-  }
-  function refreshAutoLabelColors() {
-    const auto = autoLabelColor(getActivePalette().bg);
-    if (!streetLabelColorTouched) streetLabelColorInput.value = auto;
-    if (!landmarkColorTouched) landmarkColorInput.value = auto;
-  }
 
   const el = id => document.getElementById(id);
   const searchInput = el('locationSearchInput');
@@ -89,11 +60,6 @@ window.LocationApp = (() => {
   const generateBtn = el('locationGenerateBtn');
   const statusEl = el('locationStatus');
   const paletteGrid = el('mapPaletteGrid');
-  const showStreetLabelsCheck = el('showStreetLabelsCheck');
-  const streetLabelColorInput = el('streetLabelColorInput');
-  const showLandmarksCheck = el('showLandmarksCheck');
-  const landmarkColorInput = el('landmarkColorInput');
-  const landmarkIconSelect = el('landmarkIconSelect');
   const showPlaceCheck = el('showPlaceCheck');
   const placeNameInput = el('placeNameInput');
   const showCountryCheck = el('showCountryCheck');
@@ -109,7 +75,6 @@ window.LocationApp = (() => {
   const mw2StyleHint = el('mw2StyleHint');
   const rdr2StyleCheck = el('rdr2StyleCheck');
   const rdr2StyleHint = el('rdr2StyleHint');
-  const streetLabelsHint = el('streetLabelsHint');
   const areaTierHint = el('areaTierHint');
   const resultPanel = el('locationResult');
   const resultPreview = el('locationResultPreview');
@@ -155,7 +120,6 @@ window.LocationApp = (() => {
       card.addEventListener('click', () => {
         state.mapPaletteId = p.id;
         [...paletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === p.id));
-        refreshAutoLabelColors();
         if (state.current) renderResult();
       });
       paletteGrid.appendChild(card);
@@ -166,31 +130,6 @@ window.LocationApp = (() => {
 
     generateBtn.addEventListener('click', generate);
 
-    [showStreetLabelsCheck, showLandmarksCheck].forEach(cb => cb.addEventListener('change', () => {
-      state.showStreetLabels = showStreetLabelsCheck.checked;
-      state.showLandmarks = showLandmarksCheck.checked;
-      // Landmarks vereisen een aparte Overpass-call; als die nog niet
-      // opgehaald is voor het huidige gebied, opnieuw genereren.
-      if (state.showLandmarks && state.current && !state.current.landmarks) { generate(); return; }
-      if (state.current) renderResult();
-    }));
-
-    // De kleur staat altijd klaar (ook als de bijbehorende checkbox uit
-    // staat) en wordt automatisch op een goed-contrasterende tint gezet
-    // zodra er een nieuwe kaart/stijl komt — tenzij de gebruiker 'm zelf al
-    // een keer heeft aangepast, dan blijft die keuze staan.
-    streetLabelColorInput.addEventListener('input', () => {
-      streetLabelColorTouched = true;
-      if (state.current) renderResult();
-    });
-    landmarkColorInput.addEventListener('input', () => {
-      landmarkColorTouched = true;
-      if (state.current) renderResult();
-    });
-    landmarkIconSelect.addEventListener('change', () => {
-      state.landmarkIcon = landmarkIconSelect.value;
-      if (state.current) renderResult();
-    });
     [showPlaceCheck, showCountryCheck, showCoordsCheck].forEach(cb => cb.addEventListener('change', () => {
       state.showPlace = showPlaceCheck.checked;
       state.showCountry = showCountryCheck.checked;
@@ -399,25 +338,14 @@ window.LocationApp = (() => {
   // ---- genereren ----
   const AREA_TIER_NOTE = {
     street: '', city: '',
-    region: 'Large area selected — only main roads and the best-known landmarks are shown, to keep the map fast and readable.',
-    country: 'Very large area (country level) selected — only main roads, major bodies of water, and the best-known landmarks of this country are shown.',
+    region: 'Large area selected — only main roads are shown, to keep the map fast and readable.',
+    country: 'Very large area (country level) selected — only main roads and major bodies of water are shown.',
     continent: 'Continent level selected — at this scale, street/road data isn\'t meaningful; only the silhouette of the area is drawn.',
   };
 
-  // Straatnamen zijn bij een hele regio of een land niet leesbaar te tonen
-  // (te veel, te klein) — schakel de optie dan uit i.p.v. hem stilletjes te
-  // negeren, zodat duidelijk is waarom.
   function applyAreaTier(tier) {
-    const labelsAllowed = tier === 'street' || tier === 'city';
-    showStreetLabelsCheck.disabled = !labelsAllowed;
-    streetLabelsHint.hidden = labelsAllowed;
-    if (!labelsAllowed && showStreetLabelsCheck.checked) {
-      showStreetLabelsCheck.checked = false;
-      state.showStreetLabels = false;
-    }
     areaTierHint.textContent = AREA_TIER_NOTE[tier] || '';
     areaTierHint.hidden = !AREA_TIER_NOTE[tier];
-    return labelsAllowed;
   }
 
   async function generate() {
@@ -456,14 +384,8 @@ window.LocationApp = (() => {
       }
       const tier = MapGeo.classifyAreaTier(bounds);
       applyAreaTier(tier);
-      refreshAutoLabelColors();
       const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
       const streets = await MapGeo.fetchStreets(bounds, tier, styleHint);
-      let landmarks = null;
-      if (state.showLandmarks) {
-        statusEl.textContent = 'Looking up landmarks…';
-        landmarks = await MapGeo.fetchLandmarks(bounds, tier);
-      }
       let buildings = [];
       if (state.mw2Style) {
         statusEl.textContent = 'Fetching buildings…';
@@ -496,7 +418,7 @@ window.LocationApp = (() => {
       if (!placeNameInput.value.trim()) placeNameInput.value = place;
       if (!countryNameInput.value.trim()) countryNameInput.value = country;
       state.current = {
-        bounds, tier, streets, landmarks, buildings, lat: centerLat, lon: centerLon,
+        bounds, tier, streets, buildings, lat: centerLat, lon: centerLon,
         autoPlace: place, autoCountry: country,
         place: placeNameInput.value.trim() || place,
         country: countryNameInput.value.trim() || country,
@@ -547,7 +469,6 @@ window.LocationApp = (() => {
     MapRender.render(painter, w, h, {
       bounds: c.bounds,
       streets: c.streets,
-      landmarks: c.landmarks || [],
       buildings: c.buildings || [],
       palette: getMapPalette(state.mapPaletteId),
       gtaStyle: state.gtaStyle,
@@ -556,11 +477,6 @@ window.LocationApp = (() => {
       tier: c.tier,
       isolate: c.isolate,
       highlight: c.highlight,
-      showStreetLabels: state.showStreetLabels,
-      showLandmarks: state.showLandmarks && !!c.landmarks,
-      streetLabelColor: streetLabelColorInput.value,
-      landmarkColor: landmarkColorInput.value,
-      landmarkIcon: state.landmarkIcon,
       caption: {
         showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords,
         place: c.place, country: c.country, lat: c.lat, lon: c.lon,
@@ -622,7 +538,6 @@ window.LocationApp = (() => {
     const payload = {
       bounds: c.bounds,
       streets: trimStreetsForStorage(c.streets),
-      landmarks: c.landmarks || [],
       buildings: trimBuildingsForStorage(c.buildings || []),
       ratio: state.ratio,
       tier: c.tier,
@@ -670,11 +585,6 @@ window.LocationApp = (() => {
         lat: state.current.lat,
         lon: state.current.lon,
         paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
-        showStreetLabels: state.showStreetLabels,
-        showLandmarks: state.showLandmarks,
-        streetLabelColor: streetLabelColorInput.value,
-        landmarkColor: landmarkColorInput.value,
-        landmarkIcon: state.landmarkIcon,
         format: wantSVG ? 'svg' : 'png',
         sizeLabel: opt.textContent,
         timestamp: Date.now(),

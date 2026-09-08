@@ -4,57 +4,6 @@
 // tekening — dus het staat mee in de geëxporteerde SVG/PNG, niet als losse
 // HTML-laag erbovenop.
 const MapRender = (() => {
-  function starPoints(cx, cy, rOuter, rInner, points) {
-    const pts = [];
-    for (let i = 0; i < points * 2; i++) {
-      const r = i % 2 === 0 ? rOuter : rInner;
-      const angle = (i / (points * 2)) * Math.PI * 2 - Math.PI / 2;
-      pts.push([cx + Math.cos(angle) * r, cy + Math.sin(angle) * r]);
-    }
-    return pts;
-  }
-
-  // Landmark-icoon — meerdere vormen naast de standaard ster, kiesbaar in de
-  // UI. (x,y) is het middelpunt, r de "straal" (halve breedte/hoogte).
-  function drawLandmarkIcon(painter, icon, x, y, r, color) {
-    if (icon === 'dot') {
-      painter.circle(x, y, r * 0.7, { fill: color });
-    } else if (icon === 'pin') {
-      const pinR = r * 0.7;
-      painter.circle(x, y - pinR * 0.35, pinR, { fill: color });
-      painter.polygon([[x - pinR * 0.55, y + pinR * 0.1], [x + pinR * 0.55, y + pinR * 0.1], [x, y + pinR * 1.5]], { fill: color });
-    } else if (icon === 'diamond') {
-      painter.polygon([[x, y - r], [x + r, y], [x, y + r], [x - r, y]], { fill: color });
-    } else {
-      painter.polygon(starPoints(x, y, r, r * 0.45, 5), { fill: color });
-    }
-  }
-
-  // Grove schatting van tekstbreedte (geen echte metrics — die zijn niet
-  // hetzelfde beschikbaar voor canvas en SVG) puur om overlappende labels te
-  // kunnen detecteren, niet om exact te positioneren.
-  function estimateTextWidth(text, fontSize) {
-    return text.length * fontSize * 0.54;
-  }
-
-  // Axis-aligned bounding box van een gedraaide tekstlabel, voor eenvoudige
-  // overlap-detectie tussen straatnaam-labels onderling.
-  function rotatedTextBBox(cx, cy, angleDeg, textW, textH) {
-    const rad = (angleDeg * Math.PI) / 180;
-    const hw = textW / 2, hh = textH / 2;
-    const cos = Math.cos(rad), sin = Math.sin(rad);
-    const xs = [], ys = [];
-    [[-hw, -hh], [hw, -hh], [hw, hh], [-hw, hh]].forEach(([x, y]) => {
-      xs.push(cx + x * cos - y * sin);
-      ys.push(cy + x * sin + y * cos);
-    });
-    return { minX: Math.min(...xs), maxX: Math.max(...xs), minY: Math.min(...ys), maxY: Math.max(...ys) };
-  }
-
-  function bboxOverlaps(a, b, pad) {
-    return !(a.maxX + pad < b.minX || b.maxX + pad < a.minX || a.maxY + pad < b.minY || b.maxY + pad < a.minY);
-  }
-
   // Hoeveel van de canvas-hoogte het onderschrift in beslag neemt, puur
   // gebaseerd op welke regels aan staan — staat alles uit, dan vult de kaart
   // het hele vlak.
@@ -146,9 +95,7 @@ const MapRender = (() => {
 
   function render(painter, w, h, opts) {
     const {
-      bounds, streets = [], landmarks = [], buildings = [],
-      showStreetLabels = false, showLandmarks = false,
-      streetLabelColor = null, landmarkColor = null, landmarkIcon = 'star',
+      bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null, highlight = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
@@ -166,6 +113,12 @@ const MapRender = (() => {
     const project = isolate
       ? MapGeo.makeContainProjector(bounds, mapW, mapH)
       : MapGeo.makeCoverProjector(bounds, mapW, mapH);
+
+    // "Highlight area" tekent de kaart één keer als een losse laag, en
+    // componeert die daarna twee keer overheen (scherp binnen de ring,
+    // écht wazig — een Gaussian blur, geen doorzichtige waslaag — erbuiten).
+    // Zie MapPainter.beginLayer/drawLayer. Isoleren gaat hier altijd voor.
+    const highlighting = !!(highlight && !isolate);
 
     let projectedRings = null;
     if (isolate) {
@@ -186,6 +139,7 @@ const MapRender = (() => {
       }
       painter.beginClipPath(projectedRings);
     } else {
+      if (highlighting) painter.beginLayer();
       painter.beginClip(0, 0, mapW, mapH);
     }
     drawMapBackground(painter, palette, mapW, mapH);
@@ -266,80 +220,8 @@ const MapRender = (() => {
       });
     });
 
-    if (showStreetLabels) {
-      // Eén label per straatnaam, op het langste segment met die naam (het
-      // meest representatieve stuk) — en daarna een simpele hebzuchtige
-      // plaatsing: straten met het langste (dus belangrijkste) segment
-      // krijgen voorrang, en een label dat een al geplaatst label zou
-      // overlappen wordt overgeslagen. Liever een paar straten zonder naam
-      // dan een onleesbare kluwen tekst over elkaar.
-      const byName = new Map();
-      roads.forEach(r => {
-        if (!MapGeo.isMajorRoad(r.tags) || !r.tags.name) return;
-        const pts = r.coords.map(([lat, lon]) => project(lat, lon));
-        let length = 0;
-        for (let i = 1; i < pts.length; i++) length += Math.hypot(pts[i][0] - pts[i - 1][0], pts[i][1] - pts[i - 1][1]);
-        const existing = byName.get(r.tags.name);
-        if (!existing || length > existing.length) byName.set(r.tags.name, { pts, length, name: r.tags.name });
-      });
-
-      const labelColor = streetLabelColor || palette.text;
-      const fontSize = Math.min(mapW, mapH) * 0.014;
-      const placedBoxes = [];
-      [...byName.values()]
-        .sort((a, b) => b.length - a.length)
-        .forEach(({ pts, name }) => {
-          const midIdx = Math.floor(pts.length / 2);
-          const a = pts[Math.max(0, midIdx - 1)];
-          const b = pts[Math.min(pts.length - 1, midIdx + 1)];
-          const mid = pts[midIdx];
-          if (mid[0] < 0 || mid[0] > mapW || mid[1] < 0 || mid[1] > mapH) return;
-          let angle = Math.atan2(b[1] - a[1], b[0] - a[0]) * 180 / Math.PI;
-          if (angle > 90) angle -= 180;
-          if (angle < -90) angle += 180;
-          const textW = estimateTextWidth(name, fontSize);
-          const box = rotatedTextBBox(mid[0], mid[1] - fontSize * 0.4, angle, textW, fontSize * 1.3);
-          if (placedBoxes.some(p => bboxOverlaps(box, p, fontSize * 0.35))) return;
-          placedBoxes.push(box);
-          painter.text(mid[0], mid[1] - 3, name, {
-            fill: labelColor, fontSize, fontFamily: 'Georgia, serif',
-            align: 'center', baseline: 'alphabetic', rotate: angle,
-          });
-        });
-    }
-
-    if (showLandmarks) {
-      const markColor = landmarkColor || palette.text;
-      landmarks.forEach(lm => {
-        const [x, y] = project(lm.lat, lm.lon);
-        if (x < 0 || x > mapW || y < 0 || y > mapH) return;
-        const r = Math.min(mapW, mapH) * 0.012;
-        drawLandmarkIcon(painter, landmarkIcon, x, y, r, markColor);
-        painter.text(x, y + r * 2.2, lm.name, {
-          fill: markColor, fontSize: Math.min(mapW, mapH) * 0.015, fontFamily: 'Georgia, serif', weight: '700',
-          align: 'center', baseline: 'hanging',
-        });
-      });
-    }
-
-    // "Highlight area": in tegenstelling tot isoleren blijft de omgeving
-    // hier gewoon intact (dezelfde bounds/projectie als een normale render,
-    // geen aparte contain-fit of weggesneden gebied) — alleen wordt alles
-    // BUITEN de opgezochte grens vervaagd, zodat het geselecteerde gebied
-    // als een soort spotlight blijft uitgelicht. De vervaging is een
-    // halfdoorzichtige waslaag in de eigen achtergrondkleur van het palet
-    // (i.p.v. een generieke grijstint), zodat het bij elk kleurenschema
-    // past. Eén evenodd-vorm van het volledige kaartvlak mét de opgezochte
-    // ring(en) als "gat" erin zorgt dat precies het gebied bùiten de ring
-    // de waslaag krijgt, en de ring zelf schoon blijft.
-    let projectedHighlightRings = null;
-    if (highlight && !isolate) {
-      projectedHighlightRings = highlight.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
-      const frame = [[0, 0], [mapW, 0], [mapW, mapH], [0, mapH], [0, 0]];
-      painter.multiPolygon([frame, ...projectedHighlightRings], { fill: palette.bg, opacity: 0.55 });
-    }
-
     painter.endClip();
+    const mapLayer = highlighting ? painter.endLayer() : null;
 
     if (isolate) {
       // Scherpe contourlijn boven op de gevulde vorm, buiten de clip
@@ -351,7 +233,19 @@ const MapRender = (() => {
       });
     }
 
-    if (projectedHighlightRings) {
+    if (highlighting) {
+      // In tegenstelling tot isoleren blijft de omgeving hier gewoon intact
+      // (dezelfde bounds/projectie als een normale render) — alleen wordt
+      // de al getekende kaart-laag BUITEN de opgezochte grens echt wazig
+      // gemaakt (een Gaussian blur, zie Painter.drawLayer), zodat het
+      // geselecteerde gebied als een soort spotlight blijft uitgelicht.
+      // Eén evenodd-vorm van het volledige kaartvlak mét de ring als "gat"
+      // erin zorgt dat precies het gebied bùiten de ring vervaagd wordt.
+      const projectedHighlightRings = highlight.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
+      const frame = [[0, 0], [mapW, 0], [mapW, mapH], [0, mapH], [0, 0]];
+      const blurPx = Math.max(6, Math.min(mapW, mapH) * 0.025);
+      painter.drawLayer(mapLayer, { clipRings: projectedHighlightRings });
+      painter.drawLayer(mapLayer, { clipRings: [frame, ...projectedHighlightRings], blur: blurPx });
       // Zelfde soort scherpe rand als bij isoleren, zodat de grens van het
       // uitgelichte gebied duidelijk afgetekend blijft t.o.v. de vervaagde
       // omgeving.

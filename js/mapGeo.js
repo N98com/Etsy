@@ -126,30 +126,6 @@ const MapGeo = (() => {
     );out geom;`;
   }
 
-  function buildLandmarksQuery(bounds, tier = 'street') {
-    const bbox = bboxStr(bounds);
-    if (tier === 'country' || tier === 'region') {
-      // Strenger: alleen plekken die zowel een wikidata- als wikipedia-tag
-      // hebben (dus écht bekend), en beperkt tot de belangrijkste categorieën
-      // — met een harde cap op het aantal resultaten zodat de respons klein
-      // blijft ongeacht hoeveel er in het gebied liggen.
-      const cap = tier === 'country' ? 40 : 60;
-      return `[out:json][timeout:25];(
-        node["tourism"~"^(attraction|museum)$"]["wikidata"]["wikipedia"](${bbox});
-        node["historic"~"^(monument|castle)$"]["wikidata"]["wikipedia"](${bbox});
-        way["building"~"^(cathedral|church|mosque|synagogue|temple)$"]["wikidata"]["wikipedia"](${bbox});
-        relation["building"~"^(cathedral|church|mosque|synagogue|temple)$"]["wikidata"]["wikipedia"](${bbox});
-      );out center ${cap};`;
-    }
-    return `[out:json][timeout:25];(
-      node["tourism"~"^(attraction|museum|viewpoint|artwork)$"]["wikidata"](${bbox});
-      node["historic"~"^(monument|castle|memorial|ruins)$"]["wikidata"](${bbox});
-      way["tourism"~"^(attraction|museum)$"]["wikidata"](${bbox});
-      way["building"~"^(cathedral|church|mosque|synagogue|temple)$"]["wikidata"](${bbox});
-      relation["building"~"^(cathedral|church|mosque|synagogue|temple)$"]["wikidata"](${bbox});
-    );out center;`;
-  }
-
   // Alle gebouwvoetafdrukken (niet alleen bekende landmarks) — alleen
   // zinvol/betaalbaar op straat- en stadschaal, gebruikt voor de OG MW2
   // Game Style die gebouwomtrekken tekent zoals de originele minimap dat deed.
@@ -444,20 +420,6 @@ const MapGeo = (() => {
     return [...waterRings, ...closedRings];
   }
 
-  function parseLandmarks(data) {
-    return (data.elements || [])
-      .map(el => {
-        const tags = el.tags || {};
-        const name = tags.name;
-        if (!name) return null;
-        const lat = el.lat != null ? el.lat : (el.center && el.center.lat);
-        const lon = el.lon != null ? el.lon : (el.center && el.center.lon);
-        if (lat == null || lon == null) return null;
-        return { name, lat, lon };
-      })
-      .filter(Boolean);
-  }
-
   async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     if (tier === 'continent') return [];
     const data = await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint));
@@ -472,11 +434,6 @@ const MapGeo = (() => {
     const coastlineRings = buildCoastlineWaterRings(coastlineWays.map(w => w.coords), bounds);
     if (coastlineRings.length > 0) result.push({ tags: { natural: 'water' }, rings: coastlineRings });
     return result;
-  }
-
-  async function fetchLandmarks(bounds, tier = 'street') {
-    if (tier === 'continent') return [];
-    return parseLandmarks(await runOverpassQuery(buildLandmarksQuery(bounds, tier)));
   }
 
   async function fetchBuildings(bounds, tier = 'street') {
@@ -625,7 +582,7 @@ const MapGeo = (() => {
 
   return {
     roadWeight, isMajorRoad, classifyAreaTier,
-    fetchStreets, fetchLandmarks, fetchBuildings, reverseGeocode, searchPlace, fetchBoundary,
+    fetchStreets, fetchBuildings, reverseGeocode, searchPlace, fetchBoundary,
     makeCoverProjector, makeContainProjector,
     stitchRings, parseAreaRelations,
     clipSegment, clipPolylineToBounds, perimeterPosition, boundaryCornersBetween,
