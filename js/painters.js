@@ -77,6 +77,21 @@ class CanvasPainter {
     ctx.restore();
   }
 
+  // Verticaal kleurverloop over een rechthoek — gebruikt voor de
+  // "Fade"-layout: een donkere waas die van doorzichtig naar ondoorzichtig
+  // loopt zodat het onderschrift leesbaar blijft bovenop de kaart zelf,
+  // ongeacht welk kleurpalet eronder zit. stops is [{offset, color, opacity}].
+  verticalGradientRect(x, y, w, h, stops) {
+    const ctx = this.ctx;
+    const grad = ctx.createLinearGradient(x, y, x, y + h);
+    stops.forEach(({ offset, color, opacity }) => {
+      const { r, g, b } = Utils.hexToRgb(color);
+      grad.addColorStop(offset, `rgba(${r},${g},${b},${opacity})`);
+    });
+    ctx.fillStyle = grad;
+    ctx.fillRect(x, y, w, h);
+  }
+
   // "Highlight area"-ondersteuning: een laag apart van de hoofd-canvas
   // tekenen (dezelfde painter-aanroepen, alleen omgeleid naar een los
   // offscreen canvas) zodat hij daarna twee keer gecomponeerd kan worden —
@@ -190,6 +205,15 @@ class SVGPainter {
   multiPolygon(rings, { fill, stroke, strokeWidth } = {}) {
     const d = rings.map(ring => 'M' + ring.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join('L') + 'Z').join(' ');
     this.parts.push(`<path d="${d}" fill-rule="evenodd" ${fillAttr(fill)} ${strokeAttr(stroke, strokeWidth)}/>`);
+  }
+
+  // Zie CanvasPainter.verticalGradientRect.
+  verticalGradientRect(x, y, w, h, stops) {
+    this._gradCounter = (this._gradCounter || 0) + 1;
+    const id = `grad${this._gradCounter}`;
+    const stopEls = stops.map(({ offset, color, opacity }) =>
+      `<stop offset="${fmt(offset * 100)}%" stop-color="${color}" stop-opacity="${opacity}"/>`).join('');
+    this.parts.push(`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stopEls}</linearGradient><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="url(#${id})"/>`);
   }
 
   // Zie CanvasPainter.beginLayer/endLayer/drawLayer — hier is een "laag"

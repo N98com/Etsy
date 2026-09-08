@@ -97,6 +97,7 @@ const MapRender = (() => {
     const {
       bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null, highlight = null,
+      layout: layoutId = 'default',
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : (opts.matColor || '#f7f4ee');
@@ -106,8 +107,14 @@ const MapRender = (() => {
 
     painter.setBackground(matColor);
 
+    // "Default" en "Gallery" reserveren onderin een effen mat voor het
+    // onderschrift (de kaart wordt er dus kleiner voor). De andere layouts
+    // laten de kaart de hele afbeelding vullen ("full bleed") en tekenen het
+    // onderschrift er als losse laag overheen — zie de tekencode helemaal
+    // onderaan render().
+    const fullBleed = layoutId === 'fade' || layoutId === 'stamp' || layoutId === 'ledger';
     const layout = captionLayout(h, caption);
-    const mapH = h - layout.total;
+    const mapH = fullBleed ? h : h - layout.total;
     const mapW = w;
 
     const project = isolate
@@ -254,34 +261,166 @@ const MapRender = (() => {
       });
     }
 
-    // Onderschrift.
+    // Onderschrift — de vijf layouts uit de UI ("Layouts"-sectie) delen
+    // allemaal dezelfde onderliggende tekstblok-tekencode (drawCaptionBlock)
+    // waar mogelijk, en verschillen alleen in hoe/waar die geplaatst wordt.
     if (layout.total > 0) {
-      let y = mapH + layout.gap;
-      if (caption.showPlace) {
-        y += layout.cityH * 0.75;
-        painter.text(w / 2, y, (caption.place || '').toUpperCase(), {
-          fill: captionInk, fontSize: layout.cityH * 0.62, fontFamily: 'Georgia, serif', weight: '600',
-          align: 'center', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.06,
-        });
-        y += layout.cityH * 0.25;
+      if (layoutId === 'fade') {
+        // Kaart vult de hele afbeelding; het onderschrift staat er middenin
+        // bovenop, met een donkere waas eronder (van doorzichtig naar
+        // ondoorzichtig) zodat de tekst leesbaar blijft ongeacht de
+        // onderliggende kaartkleuren — vaste lichte inkt i.p.v. de
+        // paletafhankelijke captionInk/Sub/Faint, om diezelfde reden.
+        const fadeH = layout.total * 1.9;
+        painter.verticalGradientRect(0, h - fadeH, w, fadeH, [
+          { offset: 0, color: '#000000', opacity: 0 },
+          { offset: 0.55, color: '#000000', opacity: 0.32 },
+          { offset: 1, color: '#000000', opacity: 0.8 },
+        ]);
+        drawCaptionBlock(painter, w, h - layout.total, layout, caption, { ink: '#faf7ef', sub: '#e3ddcd', faint: '#c3bca8' });
+      } else if (layoutId === 'stamp') {
+        // Kaart vult de hele afbeelding; het onderschrift staat in een klein
+        // ondoorzichtig "label"-vlak in de linkerbenedenhoek, links
+        // uitgelijnd — als een postzegel/sticker op een ansichtkaart.
+        drawStampCaption(painter, w, h, layout, caption, matColor, captionInk, captionSub, captionFaint);
+      } else if (layoutId === 'ledger') {
+        // Kaart vult de hele afbeelding; een smalle volledige-breedte band
+        // onderin, links uitgelijnd, met land en coördinaten samengevoegd
+        // tot één regel — compact en architectonisch, geen brede mat.
+        drawLedgerCaption(painter, w, h, layout, caption, matColor, captionInk, captionSub, captionFaint);
+      } else {
+        // "Default" en "Gallery" reserveren een effen mat onderin; Gallery
+        // voegt daar bovenop een dunne ingesneden lijstrand en twee
+        // liniaaltjes rond het onderschrift aan toe, als een museumlabel.
+        if (layoutId === 'gallery') drawGalleryFrame(painter, w, h, mapH, layout, captionFaint);
+        drawCaptionBlock(painter, w, mapH, layout, caption, { ink: captionInk, sub: captionSub, faint: captionFaint });
       }
-      if (caption.showCountry) {
-        y += layout.countryH * 0.75;
-        painter.text(w / 2, y, caption.country || '', {
-          fill: captionSub, fontSize: layout.countryH * 0.62, fontFamily: 'Georgia, serif',
-          align: 'center', baseline: 'alphabetic', letterSpacing: layout.countryH * 0.08,
-        });
-        y += layout.countryH * 0.25;
-      }
+    }
+  }
+
+  // Het gecentreerde drieregelige onderschrift (plaatsnaam/land/coördinaten)
+  // — gedeeld door de layouts "Default", "Gallery" en "Fade", die alleen
+  // verschillen in de startpositie (topY) en de inktkleuren.
+  function drawCaptionBlock(painter, w, topY, layout, caption, ink) {
+    let y = topY + layout.gap;
+    if (caption.showPlace) {
+      y += layout.cityH * 0.75;
+      painter.text(w / 2, y, (caption.place || '').toUpperCase(), {
+        fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily: 'Georgia, serif', weight: '600',
+        align: 'center', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.06,
+      });
+      y += layout.cityH * 0.25;
+    }
+    if (caption.showCountry) {
+      y += layout.countryH * 0.75;
+      painter.text(w / 2, y, caption.country || '', {
+        fill: ink.sub, fontSize: layout.countryH * 0.62, fontFamily: 'Georgia, serif',
+        align: 'center', baseline: 'alphabetic', letterSpacing: layout.countryH * 0.08,
+      });
+      y += layout.countryH * 0.25;
+    }
+    if (caption.showCoords) {
+      y += layout.coordH * 0.8;
+      const lat = caption.lat, lon = caption.lon;
+      const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
+      painter.text(w / 2, y, label, {
+        fill: ink.faint, fontSize: layout.coordH * 0.58, fontFamily: 'IBM Plex Mono, monospace',
+        align: 'center', baseline: 'alphabetic',
+      });
+    }
+  }
+
+  // "Gallery": een dunne ingesneden lijstrand rond de hele afbeelding, plus
+  // twee korte liniaaltjes boven en onder het onderschrift-blok — geeft het
+  // een formeel "museumlabel"-gevoel bovenop de gewone Default-opmaak.
+  function drawGalleryFrame(painter, w, h, mapH, layout, ruleColor) {
+    const inset = Math.min(w, h) * 0.025;
+    const frameWidth = Math.max(1, Math.min(w, h) * 0.0015);
+    painter.polygon([[inset, inset], [w - inset, inset], [w - inset, h - inset], [inset, h - inset]], {
+      stroke: ruleColor, strokeWidth: frameWidth, fill: 'none', opacity: 0.45,
+    });
+    const ruleW = w * 0.2;
+    const ruleY1 = mapH + layout.gap * 0.45;
+    const ruleY2 = h - layout.padBottom * 0.5;
+    [ruleY1, ruleY2].forEach(ry => {
+      painter.polyline([[w / 2 - ruleW / 2, ry], [w / 2 + ruleW / 2, ry]], {
+        stroke: ruleColor, strokeWidth: frameWidth, opacity: 0.5,
+      });
+    });
+  }
+
+  // "Stamp": een klein ondoorzichtig label-vlak linksonder op de
+  // full-bleed kaart, met links uitgelijnde tekst — als een sticker/
+  // postzegel op een ansichtkaart, in plaats van een volle onderrand.
+  function drawStampCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
+    const pad = Math.min(w, h) * 0.045;
+    const plateW = Math.min(w * 0.52, w - pad * 2);
+    const plateH = layout.total * 0.9;
+    const x0 = pad, y1 = h - pad, y0 = y1 - plateH;
+    painter.polygon([[x0, y0], [x0 + plateW, y0], [x0 + plateW, y1], [x0, y1]], {
+      fill: matColor, stroke: ink, strokeWidth: Math.max(1, Math.min(w, h) * 0.0018), opacity: 0.97,
+    });
+    const textX = x0 + plateW * 0.09;
+    let y = y0 + layout.gap * 0.5;
+    if (caption.showPlace) {
+      y += layout.cityH * 0.68;
+      painter.text(textX, y, (caption.place || '').toUpperCase(), {
+        fill: ink, fontSize: layout.cityH * 0.48, fontFamily: 'Georgia, serif', weight: '600',
+        align: 'left', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.03,
+      });
+      y += layout.cityH * 0.2;
+    }
+    if (caption.showCountry) {
+      y += layout.countryH * 0.68;
+      painter.text(textX, y, caption.country || '', {
+        fill: sub, fontSize: layout.countryH * 0.52, fontFamily: 'Georgia, serif',
+        align: 'left', baseline: 'alphabetic',
+      });
+      y += layout.countryH * 0.2;
+    }
+    if (caption.showCoords) {
+      y += layout.coordH * 0.72;
+      const lat = caption.lat, lon = caption.lon;
+      const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
+      painter.text(textX, y, label, {
+        fill: faint, fontSize: layout.coordH * 0.48, fontFamily: 'IBM Plex Mono, monospace',
+        align: 'left', baseline: 'alphabetic',
+      });
+    }
+  }
+
+  // "Ledger": een smalle band over de hele breedte, links uitgelijnd, met
+  // land en coördinaten samengevoegd tot één regel — compacter en
+  // strakker dan Default/Gallery's brede, gecentreerde mat.
+  function drawLedgerCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
+    const bandH = layout.total * 0.62;
+    const y0 = h - bandH;
+    painter.polygon([[0, y0], [w, y0], [w, h], [0, h]], { fill: matColor });
+    painter.polyline([[0, y0], [w, y0]], {
+      stroke: ink, strokeWidth: Math.max(1, Math.min(w, h) * 0.0015), opacity: 0.35,
+    });
+    const textX = w * 0.055;
+    let y = y0 + bandH * 0.18;
+    if (caption.showPlace) {
+      y += layout.cityH * 0.55;
+      painter.text(textX, y, (caption.place || '').toUpperCase(), {
+        fill: ink, fontSize: layout.cityH * 0.5, fontFamily: 'Georgia, serif', weight: '600',
+        align: 'left', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.05,
+      });
+      y += layout.cityH * 0.14;
+    }
+    if (caption.showCountry || caption.showCoords) {
+      const parts = [];
+      if (caption.showCountry) parts.push(caption.country || '');
       if (caption.showCoords) {
-        y += layout.coordH * 0.8;
         const lat = caption.lat, lon = caption.lon;
-        const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
-        painter.text(w / 2, y, label, {
-          fill: captionFaint, fontSize: layout.coordH * 0.58, fontFamily: 'IBM Plex Mono, monospace',
-          align: 'center', baseline: 'alphabetic',
-        });
+        parts.push(`${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`);
       }
+      y += layout.countryH * 0.55;
+      painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
+        fill: sub, fontSize: layout.countryH * 0.48, fontFamily: 'Georgia, serif',
+        align: 'left', baseline: 'alphabetic',
+      });
     }
   }
 

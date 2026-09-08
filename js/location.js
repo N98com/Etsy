@@ -27,9 +27,22 @@ window.LocationApp = (() => {
     { id: 'custom', label: 'Custom', w: null, h: null },
   ];
 
+  // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
+  // "Default" is de vertrouwde opmaak (kaart + effen mat met onderschrift
+  // eronder); de rest is full-bleed (de kaart vult de hele afbeelding) met
+  // het onderschrift er op een eigen manier overheen getekend.
+  const LAYOUT_PRESETS = [
+    { id: 'default', label: 'Default', hint: 'The map sits above a plain mat that holds the caption.' },
+    { id: 'fade', label: 'Fade', hint: 'Full-bleed map — the caption sits directly on it, over a dark fade at the bottom.' },
+    { id: 'gallery', label: 'Gallery', hint: 'Like Default, with a thin frame line and museum-label rules around the caption.' },
+    { id: 'stamp', label: 'Stamp', hint: 'Full-bleed map with a small captioned label tucked in the bottom-left corner.' },
+    { id: 'ledger', label: 'Ledger', hint: 'Full-bleed map with a slim, left-aligned caption strip along the bottom edge.' },
+  ];
+
   const state = {
     ratioId: '2x3',
     ratio: { w: 2, h: 3 },
+    layoutId: 'default',
     mapPaletteId: MAP_PALETTES[0].id,
     showPlace: true,
     showCountry: true,
@@ -56,6 +69,8 @@ window.LocationApp = (() => {
   const customRatioRow = el('customRatioRow');
   const customRatioW = el('customRatioW');
   const customRatioH = el('customRatioH');
+  const layoutTabs = el('layoutTabs');
+  const layoutHint = el('layoutHint');
   const overlayEl = el('locationOverlay');
   const generateBtn = el('locationGenerateBtn');
   const statusEl = el('locationStatus');
@@ -99,6 +114,17 @@ window.LocationApp = (() => {
       if (state.ratioId !== 'custom') return;
       applyCustomRatio();
     }));
+
+    LAYOUT_PRESETS.forEach(l => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.textContent = l.label;
+      btn.dataset.layoutId = l.id;
+      btn.className = l.id === state.layoutId ? 'active' : '';
+      btn.addEventListener('click', () => selectLayout(l.id));
+      layoutTabs.appendChild(btn);
+    });
+    layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === state.layoutId).hint;
 
     MAP_PALETTES.forEach(p => {
       const card = document.createElement('button');
@@ -197,6 +223,15 @@ window.LocationApp = (() => {
     const h = Math.max(1, parseFloat(customRatioH.value) || 1);
     state.ratio = { w, h };
     updateOverlaySize();
+  }
+
+  // Een layout is puur een tekenkeuze (zie MapRender.render) — geen nieuwe
+  // Overpass-data nodig, dus gewoon opnieuw tekenen i.p.v. opnieuw genereren.
+  function selectLayout(id) {
+    state.layoutId = id;
+    [...layoutTabs.children].forEach(b => b.classList.toggle('active', b.dataset.layoutId === id));
+    layoutHint.textContent = LAYOUT_PRESETS.find(l => l.id === id).hint;
+    if (state.current) renderResult();
   }
 
   // ---- kaart (Leaflet) ----
@@ -477,6 +512,7 @@ window.LocationApp = (() => {
       tier: c.tier,
       isolate: c.isolate,
       highlight: c.highlight,
+      layout: state.layoutId,
       caption: {
         showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords,
         place: c.place, country: c.country, lat: c.lat, lon: c.lon,
@@ -540,6 +576,7 @@ window.LocationApp = (() => {
       streets: trimStreetsForStorage(c.streets),
       buildings: trimBuildingsForStorage(c.buildings || []),
       ratio: state.ratio,
+      layout: state.layoutId,
       tier: c.tier,
       isolate: c.isolate || null,
       highlight: c.highlight || null,
