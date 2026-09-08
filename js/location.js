@@ -100,6 +100,7 @@ window.LocationApp = (() => {
   let pinColorTouched = false;
   let fetchTimer = null;
   let placeNameTimer = null;
+  let activeFetchController = null; // AbortController van de lopende Overpass-fetch, zodat een nieuwere aanvraag de oude kan afbreken
   let renderQueued = false;
   let ready = false;
   let drag = null; // { x, y, moved, center }
@@ -274,11 +275,19 @@ window.LocationApp = (() => {
     fetchTimer = setTimeout(maybeFetch, delay);
   }
   async function maybeFetch() {
-    if (state.fetching) { scheduleFetch(200); return; }
     const bounds = effectiveBounds();
     const tier = MapGeo.classifyAreaTier(bounds);
     const haveEnough = state.fetchedBounds && state.fetchedTier === tier && boundsContain(state.fetchedBounds, bounds);
     if (haveEnough) return;
+    // Een eventuele nog lopende (inmiddels achterhaalde) fetch afbreken —
+    // net als een echte kaart-app: zodra je verder pant/zoomt telt alleen
+    // nog de nieuwste aanvraag, en de oude hoeft niet uitgezocht te worden.
+    // Dit is de kern van "traag bij zoomen" oplossen: zonder dit bleef een
+    // zware, allang niet meer relevante query soms nog minutenlang
+    // doorlopen en uiteindelijk de kaart alsnog (te laat) overschrijven.
+    if (activeFetchController) activeFetchController.abort();
+    const controller = new AbortController();
+    activeFetchController = controller;
     state.fetching = true;
     statusEl.textContent = 'Fetching map data…';
     try {
@@ -289,11 +298,11 @@ window.LocationApp = (() => {
       const fixedBounds = isolating() && hasRealBoundary();
       const padded = fixedBounds ? bounds : padBounds(bounds, FETCH_PADDING);
       const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
-      const streets = await MapGeo.fetchStreets(padded, tier, styleHint);
+      const streets = await MapGeo.fetchStreets(padded, tier, styleHint, controller.signal);
       let buildings = [];
       if (state.mw2Style) {
         statusEl.textContent = 'Fetching buildings…';
-        buildings = await MapGeo.fetchBuildings(padded, tier);
+        buildings = await MapGeo.fetchBuildings(padded, tier, controller.signal);
       }
       state.streets = streets;
       state.buildings = buildings;
@@ -311,9 +320,13 @@ window.LocationApp = (() => {
         : `${streets.length} elements loaded.`;
       schedulePlaceNameRefresh();
     } catch (err) {
+      if (err.name === 'AbortError') return; // een nieuwere fetch heeft het overgenomen, niets aan de hand
       statusEl.textContent = `Fetch failed: ${err.message}. Try a smaller or different area.`;
     } finally {
-      state.fetching = false;
+      if (activeFetchController === controller) {
+        state.fetching = false;
+        activeFetchController = null;
+      }
     }
   }
 
@@ -486,9 +499,34 @@ window.LocationApp = (() => {
   }
 
   // ---- zoeken / springen naar een plek ----
-  function jumpTo(lat, lon) {
+  // Zonder boundingbox (of voor een klein resultaat, zoals een los adres)
+  // zoomen we tot straatniveau (dezelfde tightness als voorheen); met een
+  // boundingbox (Nominatim geeft die bij elk zoekresultaat mee) zoomen we
+  // in plaats daarvan zo dat het HELE gezochte gebied in beeld past — zoek
+  // je "Nederland", dan zie je heel Nederland, zoek je "United States",
+  // dan heel Amerika, precies zoals een gewone kaart-app dat doet.
+  const ADDRESS_MIN_SPAN_DEG = 0.02;
+  function jumpTo(lat, lon, boundingbox) {
     state.center = { lat, lon };
-    state.scale = clampScale(mapAreaHeight(canvas.height) / 0.02);
+    let spanLatDeg = ADDRESS_MIN_SPAN_DEG, spanLonDeg = ADDRESS_MIN_SPAN_DEG;
+    if (boundingbox) {
+      const south = parseFloat(boundingbox[0]), north = parseFloat(boundingbox[1]);
+      const west = parseFloat(boundingbox[2]), east = parseFloat(boundingbox[3]);
+      if ([south, north, west, east].every(Number.isFinite)) {
+        spanLatDeg = Math.max(north - south, ADDRESS_MIN_SPAN_DEG);
+        spanLonDeg = Math.max(east - west, ADDRESS_MIN_SPAN_DEG);
+      }
+    }
+    const mapH = mapAreaHeight(canvas.height);
+    const cosLat = Math.cos((lat * Math.PI) / 180) || 0.0001;
+    const scaleForLat = mapH / spanLatDeg;
+    const scaleForLon = canvas.width / (spanLonDeg * cosLat);
+    // "Contain"-logica om de zoom te kiezen (het hele gezochte gebied moet
+    // zichtbaar zijn, niet afgesneden) — de live-view zelf blijft daarna
+    // gewoon zijn eigen cover-fit gebruiken zodra bounds/scale vaststaan.
+    // Een kleine marge (8%) zodat de rand niet precies tegen het kader
+    // aan plakt.
+    state.scale = clampScale(Math.min(scaleForLat, scaleForLon) * 0.92);
     placeNameInput.value = ''; countryNameInput.value = '';
     render();
     invalidateFetch();
@@ -520,7 +558,7 @@ window.LocationApp = (() => {
   // heeft zo'n grens (bv. een los adres); dan blijven die opties uit.
   function selectSearchResult(result, query) {
     searchResults.hidden = true;
-    jumpTo(parseFloat(result.lat), parseFloat(result.lon));
+    jumpTo(parseFloat(result.lat), parseFloat(result.lon), result.boundingbox);
 
     // De letterlijk getypte zoekterm bewaren we apart van display_name: bij
     // isoleren/uitlichten gebruiken we die als plaatsnaam-onderschrift, want
