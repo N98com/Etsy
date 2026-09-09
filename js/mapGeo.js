@@ -142,12 +142,23 @@ const MapGeo = (() => {
   // voor een op zich redelijke query (drukte op de server). Eén keer
   // opnieuw proberen na een korte pauze lost dat meestal op; blijft het
   // fout gaan dan is de query zelf te zwaar en geven we dat door.
-  async function runOverpassQuery(query, { retries = 1 } = {}) {
+  async function runOverpassQuery(query, { retries = 2 } = {}) {
     for (let attempt = 0; ; attempt++) {
-      const res = await fetch(OVERPASS_ENDPOINT, {
-        method: 'POST',
-        body: 'data=' + encodeURIComponent(query),
-      });
+      let res;
+      try {
+        res = await fetch(OVERPASS_ENDPOINT, {
+          method: 'POST',
+          body: 'data=' + encodeURIComponent(query),
+        });
+      } catch (err) {
+        // fetch() zelf kan ook mislukken (bv. Safari's "Load failed"/
+        // Chrome's "Failed to fetch") vóórdat er ooit een HTTP-status
+        // binnenkomt — vooral bij zware queries op deze gedeelde publieke
+        // server, die de verbinding soms afbreekt onder drukte. Dat is
+        // net zo goed de moeite van een nieuwe poging waard als een 429.
+        if (attempt < retries) { await wait(1500 * (attempt + 1)); continue; }
+        throw err;
+      }
       if (res.ok) return res.json();
       if (res.status === 429 && attempt < retries) {
         await wait(1500 * (attempt + 1));
