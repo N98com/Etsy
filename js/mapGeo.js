@@ -461,53 +461,6 @@ const MapGeo = (() => {
     return [...waterRings, ...closedRings];
   }
 
-  // Douglas-Peucker: verwijdert punten uit een lijn die nauwelijks bijdragen
-  // aan de vorm (minder dan `toleranceMeters` van de rechte lijn tussen hun
-  // buren afliggen). OSM-ways bevatten vaak veel meer punten dan op
-  // posterschaal ooit zichtbaar is; minder punten = minder werk voor zowel
-  // het tekenen als het cachen/opslaan, met een tolerantie ver onder wat
-  // zelfs op een grote print zichtbaar zou zijn.
-  function distToSegSq([px, py], [ax, ay], [bx, by]) {
-    const dx = bx - ax, dy = by - ay;
-    if (dx === 0 && dy === 0) { const ddx = px - ax, ddy = py - ay; return ddx * ddx + ddy * ddy; }
-    const t = Math.max(0, Math.min(1, ((px - ax) * dx + (py - ay) * dy) / (dx * dx + dy * dy)));
-    const cx = ax + t * dx, cy = ay + t * dy;
-    const ddx = px - cx, ddy = py - cy;
-    return ddx * ddx + ddy * ddy;
-  }
-  const M_PER_DEG_LAT = 111320; // ruwe, op deze schaal ruim voldoende benadering
-  function simplifyLatLon(points, toleranceMeters, midLatRad) {
-    if (points.length < 3 || toleranceMeters <= 0) return points;
-    // Naar lokale meters vertaald (lengtegraad gewogen met cos(breedtegraad))
-    // zodat de tolerantie in elke richting evenveel voorstelt — puur voor de
-    // afstandsberekening, de teruggegeven punten blijven de originele
-    // lat/lon-paren (Douglas-Peucker verwijdert punten, verzint er geen).
-    const lonScale = Math.cos(midLatRad);
-    const xy = points.map(([lat, lon]) => [lon * lonScale * M_PER_DEG_LAT, lat * M_PER_DEG_LAT]);
-    const tolSq = toleranceMeters * toleranceMeters;
-    function rdp(lo, hi) {
-      let maxDist = 0, idx = -1;
-      for (let i = lo + 1; i < hi; i++) {
-        const d = distToSegSq(xy[i], xy[lo], xy[hi]);
-        if (d > maxDist) { maxDist = d; idx = i; }
-      }
-      if (idx === -1 || maxDist <= tolSq) return [points[lo], points[hi]];
-      return rdp(lo, idx).slice(0, -1).concat(rdp(idx, hi));
-    }
-    return rdp(0, points.length - 1);
-  }
-  // Grovere tolerantie naarmate het gebied groter is — bij region/country
-  // is er toch al veel minder (of geen) detail te zien, dus daar mag
-  // agressiever vereenvoudigd worden dan bij een straatniveau-selectie.
-  const SIMPLIFY_TOLERANCE_M = { street: 3, city: 8, region: 20, country: 60 };
-  function simplifyWays(ways, tier, midLatRad) {
-    const toleranceMeters = SIMPLIFY_TOLERANCE_M[tier] || 0;
-    if (!toleranceMeters) return ways;
-    return ways.map(w => w.rings
-      ? { ...w, rings: w.rings.map(r => simplifyLatLon(r, toleranceMeters, midLatRad)) }
-      : { ...w, coords: simplifyLatLon(w.coords, toleranceMeters, midLatRad) });
-  }
-
   async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     if (tier === 'continent') return [];
     const data = await runOverpassQuery(buildStreetsQuery(bounds, tier, styleHint));
@@ -519,20 +472,14 @@ const MapGeo = (() => {
     const coastlineWays = ways.filter(w => w.tags.natural === 'coastline');
     const otherWays = ways.filter(w => w.tags.natural !== 'coastline');
     const result = [...otherWays, ...parseAreaRelations(data)];
-    // De ongesimplificeerde kustlijn-coördinaten blijven nodig voor het
-    // stitchen hierboven (dat matcht op exacte gedeelde eindpunten) —
-    // simplificeren gebeurt pas op het uiteindelijke, samengevoegde resultaat.
     const coastlineRings = buildCoastlineWaterRings(coastlineWays.map(w => w.coords), bounds);
     if (coastlineRings.length > 0) result.push({ tags: { natural: 'water' }, rings: coastlineRings });
-    const midLatRad = ((bounds.south + bounds.north) / 2) * Math.PI / 180;
-    return simplifyWays(result, tier, midLatRad);
+    return result;
   }
 
   async function fetchBuildings(bounds, tier = 'street') {
     if (tier !== 'street' && tier !== 'city') return [];
-    const ways = parseWays(await runOverpassQuery(buildBuildingsQuery(bounds)));
-    const midLatRad = ((bounds.south + bounds.north) / 2) * Math.PI / 180;
-    return simplifyWays(ways, tier, midLatRad);
+    return parseWays(await runOverpassQuery(buildBuildingsQuery(bounds)));
   }
 
   async function reverseGeocode(lat, lon) {
@@ -681,6 +628,5 @@ const MapGeo = (() => {
     stitchRings, parseAreaRelations,
     clipSegment, clipPolylineToBounds, perimeterPosition, boundaryCornersBetween,
     closeChainsAlongBoundary, buildCoastlineWaterRings,
-    simplifyLatLon,
   };
 })();
