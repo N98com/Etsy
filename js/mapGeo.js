@@ -146,21 +146,39 @@ const MapGeo = (() => {
 
   function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
+  // Bovenop de query's eigen server-side "[timeout:N]" (die alleen bepaalt
+  // hoe lang OVERPASS zelf mag rekenen) staat hier een client-side limiet
+  // op de hele aanvraag — zonder die grens kan fetch() onbeperkt blijven
+  // hangen als een server de verbinding stilletjes laat hangen (accepteert
+  // maar nooit antwoordt) i.p.v. actief te weigeren, en zou onze mirror-
+  // fallback hieronder dus nooit in actie komen.
+  const FETCH_TIMEOUT_MS = 45000;
+  async function fetchWithTimeout(url, options) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), FETCH_TIMEOUT_MS);
+    try {
+      return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+
   // Overpass' publieke instantie geeft af en toe kortstondig 429 terug, ook
   // voor een op zich redelijke query (drukte op de server) — dat is de
   // moeite van een nieuwe poging op DEZELFDE server waard. Een echte
-  // netwerkfout (fetch() die zelf faalt, bv. Safari's "Load failed") is
-  // een ander verhaal: dat betekent meestal dat de server niet even druk
-  // maar écht onbereikbaar is (storing), en dan heeft nogmaals dezelfde
-  // dode server proberen geen zin — daarvoor gaan we direct door naar de
-  // volgende, onafhankelijke mirror uit OVERPASS_ENDPOINTS.
+  // netwerkfout (fetch() die zelf faalt, bv. Safari's "Load failed", of een
+  // afgebroken hang via fetchWithTimeout) is een ander verhaal: dat
+  // betekent meestal dat de server niet even druk maar écht onbereikbaar
+  // is (storing), en dan heeft nogmaals dezelfde dode server proberen geen
+  // zin — daarvoor gaan we direct door naar de volgende, onafhankelijke
+  // mirror uit OVERPASS_ENDPOINTS.
   async function runOverpassQuery(query, { retries = 1 } = {}) {
     let lastErr;
     for (const endpoint of OVERPASS_ENDPOINTS) {
       for (let attempt = 0; attempt <= retries; attempt++) {
         let res;
         try {
-          res = await fetch(endpoint, {
+          res = await fetchWithTimeout(endpoint, {
             method: 'POST',
             body: 'data=' + encodeURIComponent(query),
           });
