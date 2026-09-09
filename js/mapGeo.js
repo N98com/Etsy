@@ -4,7 +4,15 @@
 // Draait in de browser van de bezoeker — niet in deze sandbox, dus hier geen
 // live netwerktests, wel zorgvuldig gebouwd tegen de gedocumenteerde API's.
 const MapGeo = (() => {
-  const OVERPASS_ENDPOINT = 'https://overpass-api.de/api/interpreter';
+  // Twee onafhankelijke publieke Overpass-instanties: als de eerste
+  // volledig onbereikbaar is (een echte storing, niet even druk — zie
+  // runOverpassQuery), valt de tool terug op de tweede i.p.v. helemaal
+  // stil te vallen. Twee losse organisaties, dus een storing bij de één
+  // treft de ander normaal gesproken niet.
+  const OVERPASS_ENDPOINTS = [
+    'https://overpass-api.de/api/interpreter',
+    'https://overpass.kumi.systems/api/interpreter',
+  ];
   const NOMINATIM_ENDPOINT = 'https://nominatim.openstreetmap.org';
 
   // Sterk niet-lineair oplopend (i.p.v. de vorige, te vlakke reeks) zodat
@@ -139,33 +147,37 @@ const MapGeo = (() => {
   function wait(ms) { return new Promise(resolve => setTimeout(resolve, ms)); }
 
   // Overpass' publieke instantie geeft af en toe kortstondig 429 terug, ook
-  // voor een op zich redelijke query (drukte op de server). Eén keer
-  // opnieuw proberen na een korte pauze lost dat meestal op; blijft het
-  // fout gaan dan is de query zelf te zwaar en geven we dat door.
-  async function runOverpassQuery(query, { retries = 2 } = {}) {
-    for (let attempt = 0; ; attempt++) {
-      let res;
-      try {
-        res = await fetch(OVERPASS_ENDPOINT, {
-          method: 'POST',
-          body: 'data=' + encodeURIComponent(query),
-        });
-      } catch (err) {
-        // fetch() zelf kan ook mislukken (bv. Safari's "Load failed"/
-        // Chrome's "Failed to fetch") vóórdat er ooit een HTTP-status
-        // binnenkomt — vooral bij zware queries op deze gedeelde publieke
-        // server, die de verbinding soms afbreekt onder drukte. Dat is
-        // net zo goed de moeite van een nieuwe poging waard als een 429.
-        if (attempt < retries) { await wait(1500 * (attempt + 1)); continue; }
-        throw err;
+  // voor een op zich redelijke query (drukte op de server) — dat is de
+  // moeite van een nieuwe poging op DEZELFDE server waard. Een echte
+  // netwerkfout (fetch() die zelf faalt, bv. Safari's "Load failed") is
+  // een ander verhaal: dat betekent meestal dat de server niet even druk
+  // maar écht onbereikbaar is (storing), en dan heeft nogmaals dezelfde
+  // dode server proberen geen zin — daarvoor gaan we direct door naar de
+  // volgende, onafhankelijke mirror uit OVERPASS_ENDPOINTS.
+  async function runOverpassQuery(query, { retries = 1 } = {}) {
+    let lastErr;
+    for (const endpoint of OVERPASS_ENDPOINTS) {
+      for (let attempt = 0; attempt <= retries; attempt++) {
+        let res;
+        try {
+          res = await fetch(endpoint, {
+            method: 'POST',
+            body: 'data=' + encodeURIComponent(query),
+          });
+        } catch (err) {
+          lastErr = err;
+          break; // naar de volgende mirror, niet nogmaals dezelfde
+        }
+        if (res.ok) return res.json();
+        if (res.status === 429 && attempt < retries) {
+          await wait(1500 * (attempt + 1));
+          continue;
+        }
+        lastErr = new Error(`Overpass responded with status ${res.status}`);
+        break; // ook een niet-429 HTTP-fout: volgende mirror proberen
       }
-      if (res.ok) return res.json();
-      if (res.status === 429 && attempt < retries) {
-        await wait(1500 * (attempt + 1));
-        continue;
-      }
-      throw new Error(`Overpass responded with status ${res.status}`);
     }
+    throw lastErr;
   }
 
   // Zet de platte elements-lijst van Overpass om in wegen/water/groen als
