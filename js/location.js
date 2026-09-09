@@ -79,6 +79,7 @@ window.LocationApp = (() => {
   const FETCH_DEBOUNCE_MS = 550;
   const FETCH_PADDING = 0.6; // extra marge rond het zichtbare gebied bij ophalen
   const RECOLOR_MAX_JSON_LENGTH = 180000;
+  const FETCH_CACHE_MAX = 20; // aantal eerder opgehaalde gebieden dat warm blijft
 
   const state = {
     center: { lat: 52.3676, lon: 4.9041 },
@@ -103,6 +104,10 @@ window.LocationApp = (() => {
   let renderQueued = false;
   let ready = false;
   let drag = null; // { x, y, moved, center }
+  // Cache van eerder opgehaalde Overpass-resultaten: nieuwste vooraan, zie
+  // findCachedFetch/storeCachedFetch. Voorkomt een nieuwe (trage) netwerkcall
+  // zodra je terugpant/-zoomt naar een gebied dat al eerder is opgehaald.
+  let fetchCache = [];
 
   const el = id => document.getElementById(id);
   const searchInput = el('locationSearchInput');
@@ -262,6 +267,21 @@ window.LocationApp = (() => {
     const latPad = (b.north - b.south) * factor, lonPad = (b.east - b.west) * factor;
     return { north: b.north + latPad, south: b.south - latPad, east: b.east + lonPad, west: b.west - lonPad };
   }
+  // De query-inhoud hangt alleen af van tier + styleHint (+ of gebouwen
+  // meegevraagd zijn), niet van isoleren/uitlichten — dus een cache-entry is
+  // bruikbaar voor elk gebied dat erin past, ongeacht in welke modus hij
+  // oorspronkelijk werd opgehaald.
+  function findCachedFetch(tier, styleHint, mw2, bounds) {
+    const idx = fetchCache.findIndex(e => e.tier === tier && e.styleHint === styleHint && e.mw2 === mw2 && boundsContain(e.bounds, bounds));
+    if (idx === -1) return null;
+    const [entry] = fetchCache.splice(idx, 1);
+    fetchCache.unshift(entry); // LRU: geraakte entry weer vooraan
+    return entry;
+  }
+  function storeCachedFetch(tier, styleHint, mw2, bounds, streets, buildings) {
+    fetchCache.unshift({ tier, styleHint, mw2, bounds, streets, buildings });
+    if (fetchCache.length > FETCH_CACHE_MAX) fetchCache.length = FETCH_CACHE_MAX;
+  }
   // Forceert een verse fetch — nodig telkens als de BETEKENIS van de bounds
   // verandert (isoleren/uitlichten aan/uit, Game Style, nieuwe zoekgrens),
   // ook als de numerieke bounds toevallig nog binnen de oude marge vallen.
@@ -273,43 +293,60 @@ window.LocationApp = (() => {
     clearTimeout(fetchTimer);
     fetchTimer = setTimeout(maybeFetch, delay);
   }
+  function applyFetchResult(padded, tier, streets, buildings, fromCache) {
+    state.streets = streets;
+    state.buildings = buildings;
+    state.fetchedBounds = padded;
+    state.fetchedTier = tier;
+    state.tier = tier;
+    applyAreaTier(tier);
+    render();
+    updateExportSizes();
+    exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
+    statusEl.textContent = isolating()
+      ? `Isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
+      : highlighting()
+      ? `Highlighted (${tier} level).`
+      : `${streets.length} elements loaded${fromCache ? ' (cached)' : ''}.`;
+    schedulePlaceNameRefresh();
+  }
+
   async function maybeFetch() {
     if (state.fetching) { scheduleFetch(200); return; }
     const bounds = effectiveBounds();
     const tier = MapGeo.classifyAreaTier(bounds);
     const haveEnough = state.fetchedBounds && state.fetchedTier === tier && boundsContain(state.fetchedBounds, bounds);
     if (haveEnough) return;
+    // Een vaste, opgezochte isolatiegrens verandert niet door pannen, dus
+    // die hoeft niet gepad te worden; de live-view (normaal/uitlichten/
+    // isoleren-zonder-grens) wel, zodat kleine bewegingen niet meteen
+    // opnieuw hoeven te verversen.
+    const fixedBounds = isolating() && hasRealBoundary();
+    const padded = fixedBounds ? bounds : padBounds(bounds, FETCH_PADDING);
+    const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
+    // Toets tegen de kale live-view (net als haveEnough hierboven), niet
+    // tegen de al opgehoogde `padded` — twee opgehoogde gebieden bevatten
+    // elkaar veel minder snel dan een kaal gebied in een opgehoogd gebied.
+    const cached = findCachedFetch(tier, styleHint, state.mw2Style, bounds);
+    if (cached) {
+      // fetchedBounds moet het gebied blijven dat de gecachte data ECHT
+      // dekt (de oude padded extent), niet de nieuw berekende `padded` voor
+      // deze pan — anders denkt een volgende kleine pan onterecht dat hij
+      // al genoeg data heeft voor een gebied dat feitelijk niet gecached is.
+      applyFetchResult(cached.bounds, tier, cached.streets, cached.buildings, true);
+      return;
+    }
     state.fetching = true;
     statusEl.textContent = 'Fetching map data…';
     try {
-      // Een vaste, opgezochte isolatiegrens verandert niet door pannen, dus
-      // die hoeft niet gepad te worden; de live-view (normaal/uitlichten/
-      // isoleren-zonder-grens) wel, zodat kleine bewegingen niet meteen
-      // opnieuw hoeven te verversen.
-      const fixedBounds = isolating() && hasRealBoundary();
-      const padded = fixedBounds ? bounds : padBounds(bounds, FETCH_PADDING);
-      const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
       const streets = await MapGeo.fetchStreets(padded, tier, styleHint);
       let buildings = [];
       if (state.mw2Style) {
         statusEl.textContent = 'Fetching buildings…';
         buildings = await MapGeo.fetchBuildings(padded, tier);
       }
-      state.streets = streets;
-      state.buildings = buildings;
-      state.fetchedBounds = padded;
-      state.fetchedTier = tier;
-      state.tier = tier;
-      applyAreaTier(tier);
-      render();
-      updateExportSizes();
-      exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
-      statusEl.textContent = isolating()
-        ? `Isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
-        : highlighting()
-        ? `Highlighted (${tier} level).`
-        : `${streets.length} elements loaded.`;
-      schedulePlaceNameRefresh();
+      storeCachedFetch(tier, styleHint, state.mw2Style, padded, streets, buildings);
+      applyFetchResult(padded, tier, streets, buildings, false);
     } catch (err) {
       statusEl.textContent = `Fetch failed: ${err.message}. Try a smaller or different area.`;
     } finally {
