@@ -57,18 +57,18 @@ const ProtomapsFetch = (() => {
   async function fetchTileFeatures(z, x, y) {
     try {
       const result = await getArchive().getZxy(z, x, y);
-      if (!result || !result.data) return [];
+      if (!result || !result.data) return { features: [], error: null };
       const pbf = new Pbf(new Uint8Array(result.data));
       const tile = new VectorTile(pbf);
-      return ProtomapsAdapter.translateTile(tile, z, x, y);
+      return { features: ProtomapsAdapter.translateTile(tile, z, x, y), error: null };
     } catch (err) {
-      // Eén mislukte/ontbrekende tegel (bv. leeg oceaangebied, of een
-      // kortstondige netwerkhapering) mag de rest van het gebied niet
-      // laten mislukken — gewoon overslaan. Wél loggen: een STELSELMATIGE
-      // fout (verkeerd API-gebruik, kapotte archiefstructuur) zou anders
-      // altijd stil verdwijnen als "0 elements loaded" zonder enig spoor.
+      // Loggen (zichtbaar voor wie wél DevTools bij de hand heeft) — maar
+      // nog belangrijker: dit geven we terug aan fetchArea hieronder, die
+      // beslist of dit een op zichzelf staand hikje was (mag genegeerd
+      // worden) of een stelselmatig probleem (moet zichtbaar worden op de
+      // pagina zelf, ook zonder DevTools — bv. op een telefoon).
       console.error(`ProtomapsFetch: tegel ${z}/${x}/${y} mislukt —`, err);
-      return [];
+      return { features: [], error: err };
     }
   }
 
@@ -77,7 +77,19 @@ const ProtomapsFetch = (() => {
     const z = TIER_ZOOM[tier] || TIER_ZOOM.street;
     const tiles = tilesForBounds(bounds, z);
     const perTile = await Promise.all(tiles.map(t => fetchTileFeatures(t.z, t.x, t.y)));
-    return perTile.flat();
+    const errorCount = perTile.reduce((n, r) => n + (r.error ? 1 : 0), 0);
+    // Eén of een paar mislukte tegels tussen verder geslaagde (bv. een
+    // kortstondige netwerkhapering) mogen genegeerd worden — maar als
+    // ELKE tegel dezelfde fout geeft, is dit geen toeval meer (verkeerd
+    // library-gebruik, kapot archief, CORS) en moet dat zichtbaar worden
+    // i.p.v. stil te verdwijnen als "0 elements loaded". Deze fout komt
+    // via fetchStreets/fetchBuildings terecht bij location.js' bestaande
+    // "Fetch failed: ..."-statustekst — dus rechtstreeks op de pagina
+    // zichtbaar, geen DevTools/console nodig.
+    if (tiles.length > 0 && errorCount === tiles.length) {
+      throw new Error(perTile[0].error.message || String(perTile[0].error));
+    }
+    return perTile.flatMap(r => r.features);
   }
 
   // fetchStreets en fetchBuildings halen dezelfde tegels op (alle data zit
