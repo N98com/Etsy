@@ -89,7 +89,15 @@ const ProtomapsFetch = (() => {
     if (tiles.length > 0 && errorCount === tiles.length) {
       throw new Error(perTile[0].error.message || String(perTile[0].error));
     }
-    return perTile.flatMap(r => r.features);
+    const all = perTile.flatMap(r => r.features);
+    // Geen enkele fout, maar ook geen enkel feature in ALLE opgehaalde
+    // tegels samen — voor een normale, bewoonde plek is dat vrijwel zeker
+    // een bug (verkeerde tegel-coördinaten, verkeerd zoomniveau) en geen
+    // toeval. Ook dit zichtbaar maken i.p.v. stil "0 elements loaded".
+    if (tiles.length > 0 && errorCount === 0 && all.length === 0) {
+      throw new Error(`${tiles.length} tegel(s) opgehaald op zoom ${z} (tier ${tier}), maar 0 features erin — mogelijk verkeerd zoomniveau/coördinaten. Gebied: ${bounds.south.toFixed(3)},${bounds.west.toFixed(3)} – ${bounds.north.toFixed(3)},${bounds.east.toFixed(3)}`);
+    }
+    return all;
   }
 
   // fetchStreets en fetchBuildings halen dezelfde tegels op (alle data zit
