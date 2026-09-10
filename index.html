@@ -290,7 +290,9 @@
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
   <script src="https://cdn.jsdelivr.net/npm/pmtiles@3/dist/pmtiles.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pbf@3/dist/pbf.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@mapbox/vector-tile@1/dist/vector-tile.js"></script>
+  <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
+       CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
+  <script src="js/vendor/vector-tile.js"></script>
   <script src="js/protomapsAdapter.js"></script>
   <script src="js/protomapsFetch.js"></script>
   <script src="js/mapGeo.js"></script>
