@@ -61,10 +61,13 @@ const ProtomapsFetch = (() => {
       const pbf = new Pbf(new Uint8Array(result.data));
       const tile = new VectorTile(pbf);
       return ProtomapsAdapter.translateTile(tile, z, x, y);
-    } catch {
+    } catch (err) {
       // Eén mislukte/ontbrekende tegel (bv. leeg oceaangebied, of een
       // kortstondige netwerkhapering) mag de rest van het gebied niet
-      // laten mislukken — gewoon overslaan.
+      // laten mislukken — gewoon overslaan. Wél loggen: een STELSELMATIGE
+      // fout (verkeerd API-gebruik, kapotte archiefstructuur) zou anders
+      // altijd stil verdwijnen als "0 elements loaded" zonder enig spoor.
+      console.error(`ProtomapsFetch: tegel ${z}/${x}/${y} mislukt —`, err);
       return [];
     }
   }
