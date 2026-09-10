@@ -339,11 +339,15 @@ window.LocationApp = (() => {
     state.fetching = true;
     statusEl.textContent = 'Fetching map data…';
     try {
-      const streets = await MapGeo.fetchStreets(padded, tier, styleHint);
+      // Zelf-gehoste Protomaps-planeetdata (R2) i.p.v. live Overpass-queries
+      // — zelfde interface (bounds, tier[, styleHint] -> zelfde vorm), dus
+      // verder ongewijzigd; MapGeo.fetchStreets/fetchBuildings blijven
+      // intact als terugvaloptie mocht dit ooit teruggedraaid moeten worden.
+      const streets = await ProtomapsFetch.fetchStreets(padded, tier, styleHint);
       let buildings = [];
       if (state.mw2Style) {
         statusEl.textContent = 'Fetching buildings…';
-        buildings = await MapGeo.fetchBuildings(padded, tier);
+        buildings = await ProtomapsFetch.fetchBuildings(padded, tier);
       }
       storeCachedFetch(tier, styleHint, state.mw2Style, padded, streets, buildings);
       applyFetchResult(padded, tier, streets, buildings, false);
