@@ -115,11 +115,13 @@ const ProtomapsFetch = (() => {
     return lastAreaPromise;
   }
 
-  // Zelfde wegtype-toelatingslijsten per tier als buildStreetsQuery voor
-  // Overpass gebruikte — houdt het resultaat consistent ongeacht databron.
+  // Land/regio begonnen bij exact dezelfde lijst als Overpass' oude
+  // country-query (motorway t/m secondary) — op verzoek iets gedetailleerder
+  // gemaakt met tertiary erbij, dat geeft op landschaal net dat beetje meer
+  // wegennet zonder meteen naar de volle woonstraten-dichtheid te gaan.
   const HIGHWAY_ALLOW = {
-    country: new Set(['motorway', 'trunk', 'primary', 'secondary']),
-    region: new Set(['motorway', 'trunk', 'primary', 'secondary']),
+    country: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
+    region: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
     city: new Set(['motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street']),
     // street: geen filter, alles toegestaan.
   };
