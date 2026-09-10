@@ -23,6 +23,14 @@
 window.LocationApp = (() => {
   const HISTORY_KEY = 'genart-location-history-v1';
 
+  // Arabische Unicode-blokken (basis + presentatievormen) — gebruikt om te
+  // detecteren of een getypte zoekterm Arabisch is, zodat we Nominatim
+  // vragen om de plaatsnaam/land in het Arabisch terug te geven (voor
+  // klanten uit het Midden-Oosten). Triggert alléén op een Arabische
+  // zoekterm — een gewone (Latijnse) zoekopdracht verandert niets.
+  const ARABIC_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
+  function isArabicText(s) { return ARABIC_RE.test(s || ''); }
+
   function loadLocationHistory() {
     try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
   }
@@ -91,7 +99,7 @@ window.LocationApp = (() => {
     gtaStyle: false, mw2Style: false, rdr2Style: false,
     isolateArea: false, highlightArea: false,
     pins: [], addingPin: false,
-    autoPlace: '', autoCountry: '',
+    autoPlace: '', autoCountry: '', captionLang: null,
     streets: [], buildings: [], tier: 'street',
     fetchedBounds: null, fetchedTier: null, fetching: false,
     selectedPlace: null, // { name, query, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
@@ -373,7 +381,7 @@ window.LocationApp = (() => {
     // geocode nodig, en die zou hier ook vaak het verkeerde antwoord geven.
     if ((isolating() || highlighting()) && hasRealBoundary()) return;
     try {
-      const geo = await MapGeo.reverseGeocode(state.center.lat, state.center.lon);
+      const geo = await MapGeo.reverseGeocode(state.center.lat, state.center.lon, state.captionLang);
       state.autoPlace = geo.place; state.autoCountry = geo.country;
       render();
     } catch { /* stille no-op: het onderschrift is puur decoratief */ }
@@ -538,16 +546,22 @@ window.LocationApp = (() => {
   async function runSearch() {
     const q = searchInput.value.trim();
     if (!q) return;
+    // Arabische zoekterm -> vraag Nominatim expliciet om Arabische namen
+    // terug (anders bepaalt de taal van de browser dit, meestal niet
+    // Arabisch) — zie ARABIC_RE hierboven. state.captionLang wordt pas in
+    // selectSearchResult gezet (per gekozen resultaat, niet per zoekactie).
+    const lang = isArabicText(q) ? 'ar' : null;
     searchResults.hidden = false;
     searchResults.innerHTML = '<div class="location-search-result">Searching…</div>';
     try {
-      const results = await MapGeo.searchPlace(q);
+      const results = await MapGeo.searchPlace(q, lang);
       searchResults.innerHTML = '';
       if (results.length === 0) { searchResults.innerHTML = '<div class="location-search-result">Nothing found.</div>'; return; }
       results.forEach(r => {
         const btn = document.createElement('button');
         btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
-        btn.addEventListener('click', () => selectSearchResult(r, q));
+        if (lang) btn.dir = 'rtl';
+        btn.addEventListener('click', () => selectSearchResult(r, q, lang));
         searchResults.appendChild(btn);
       });
     } catch (err) {
@@ -559,9 +573,13 @@ window.LocationApp = (() => {
   // resultaat proberen op te halen — dat is wat Isolate/Highlight gebruiken
   // om precies deze wijk/stad/land/werelddeel te tonen. Niet elk resultaat
   // heeft zo'n grens (bv. een los adres); dan blijven die opties uit.
-  function selectSearchResult(result, query) {
+  function selectSearchResult(result, query, lang) {
     searchResults.hidden = true;
     jumpTo(parseFloat(result.lat), parseFloat(result.lon));
+    // Blijft staan zolang dit gezochte gebied actief is (ook tijdens
+    // pannen, via refreshPlaceName hierboven) — de volgende zoekopdracht
+    // (Arabisch of niet) overschrijft hem gewoon weer.
+    state.captionLang = lang || null;
 
     // De letterlijk getypte zoekterm bewaren we apart van display_name: bij
     // isoleren/uitlichten gebruiken we die als plaatsnaam-onderschrift, want

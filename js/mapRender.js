@@ -4,6 +4,19 @@
 // tekening — dus het staat mee in de geëxporteerde SVG/PNG, niet als losse
 // HTML-laag erbovenop.
 const MapRender = (() => {
+  // Arabische tekst herkennen in de daadwerkelijke onderschrift-tekst (i.p.v.
+  // te vertrouwen op hoe hij ooit is opgehaald) — dekt zowel een Arabische
+  // zoekopdracht (location.js) als een handmatig ingetypte Arabische
+  // plaats-/landnaam-override. Nodig omdat: (1) letter-spacing de
+  // verbonden Arabische lettervormen stuk maakt, en (2) links uitgelijnde
+  // layouts (Stamp/Ledger) voor Arabisch beter vanaf rechts lezen.
+  const RTL_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
+  function isRTLText(s) { return RTL_RE.test(s || ''); }
+  // Single quotes rond de familienaam (i.p.v. dubbele) — SVGPainter.text zet
+  // fontFamily binnen een dubbel-aangehaald font-family="..."-attribuut;
+  // dubbele quotes zouden dat attribuut voortijdig afsluiten.
+  function captionFontFamily(rtl) { return rtl ? "'Amiri', Georgia, serif" : 'Georgia, serif'; }
+
   // Hoeveel van de canvas-hoogte het onderschrift in beslag neemt, puur
   // gebaseerd op welke regels aan staan — staat alles uit, dan vult de kaart
   // het hele vlak.
@@ -442,20 +455,22 @@ const MapRender = (() => {
   // — gedeeld door de layouts "Default", "Gallery" en "Fade", die alleen
   // verschillen in de startpositie (topY) en de inktkleuren.
   function drawCaptionBlock(painter, w, topY, layout, caption, ink) {
+    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
+    const fontFamily = captionFontFamily(rtl);
     let y = topY + layout.gap;
     if (caption.showPlace) {
       y += layout.cityH * 0.75;
       painter.text(w / 2, y, (caption.place || '').toUpperCase(), {
-        fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily: 'Georgia, serif', weight: '600',
-        align: 'center', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.06,
+        fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily, weight: '600',
+        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.06,
       });
       y += layout.cityH * 0.25;
     }
     if (caption.showCountry) {
       y += layout.countryH * 0.75;
       painter.text(w / 2, y, caption.country || '', {
-        fill: ink.sub, fontSize: layout.countryH * 0.62, fontFamily: 'Georgia, serif',
-        align: 'center', baseline: 'alphabetic', letterSpacing: layout.countryH * 0.08,
+        fill: ink.sub, fontSize: layout.countryH * 0.62, fontFamily,
+        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.countryH * 0.08,
       });
       y += layout.countryH * 0.25;
     }
@@ -493,6 +508,8 @@ const MapRender = (() => {
   // full-bleed kaart, met links uitgelijnde tekst — als een sticker/
   // postzegel op een ansichtkaart, in plaats van een volle onderrand.
   function drawStampCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
+    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
+    const fontFamily = captionFontFamily(rtl);
     const pad = Math.min(w, h) * 0.045;
     const plateW = Math.min(w * 0.52, w - pad * 2);
     const plateH = layout.total * 0.9;
@@ -500,21 +517,25 @@ const MapRender = (() => {
     painter.polygon([[x0, y0], [x0 + plateW, y0], [x0 + plateW, y1], [x0, y1]], {
       fill: matColor, stroke: ink, strokeWidth: Math.max(1, Math.min(w, h) * 0.0018), opacity: 0.97,
     });
-    const textX = x0 + plateW * 0.09;
+    // Arabisch leest van rechts naar links — het label spiegelt mee (tekst
+    // vanaf de rechterkant van het plaatje uitgelijnd) i.p.v. de vaste
+    // links uitgelijnde opmaak die voor Latijnse tekst bedoeld is.
+    const textX = rtl ? x0 + plateW * 0.91 : x0 + plateW * 0.09;
+    const align = rtl ? 'right' : 'left';
     let y = y0 + layout.gap * 0.5;
     if (caption.showPlace) {
       y += layout.cityH * 0.68;
       painter.text(textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.48, fontFamily: 'Georgia, serif', weight: '600',
-        align: 'left', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.03,
+        fill: ink, fontSize: layout.cityH * 0.48, fontFamily, weight: '600',
+        align, baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.03,
       });
       y += layout.cityH * 0.2;
     }
     if (caption.showCountry) {
       y += layout.countryH * 0.68;
       painter.text(textX, y, caption.country || '', {
-        fill: sub, fontSize: layout.countryH * 0.52, fontFamily: 'Georgia, serif',
-        align: 'left', baseline: 'alphabetic',
+        fill: sub, fontSize: layout.countryH * 0.52, fontFamily,
+        align, baseline: 'alphabetic',
       });
       y += layout.countryH * 0.2;
     }
@@ -524,7 +545,7 @@ const MapRender = (() => {
       const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
       painter.text(textX, y, label, {
         fill: faint, fontSize: layout.coordH * 0.48, fontFamily: 'IBM Plex Mono, monospace',
-        align: 'left', baseline: 'alphabetic',
+        align, baseline: 'alphabetic',
       });
     }
   }
@@ -533,19 +554,22 @@ const MapRender = (() => {
   // land en coördinaten samengevoegd tot één regel — compacter en
   // strakker dan Default/Gallery's brede, gecentreerde mat.
   function drawLedgerCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
+    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
+    const fontFamily = captionFontFamily(rtl);
     const bandH = layout.total * 0.62;
     const y0 = h - bandH;
     painter.polygon([[0, y0], [w, y0], [w, h], [0, h]], { fill: matColor });
     painter.polyline([[0, y0], [w, y0]], {
       stroke: ink, strokeWidth: Math.max(1, Math.min(w, h) * 0.0015), opacity: 0.35,
     });
-    const textX = w * 0.055;
+    const textX = rtl ? w * 0.945 : w * 0.055;
+    const align = rtl ? 'right' : 'left';
     let y = y0 + bandH * 0.18;
     if (caption.showPlace) {
       y += layout.cityH * 0.55;
       painter.text(textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.5, fontFamily: 'Georgia, serif', weight: '600',
-        align: 'left', baseline: 'alphabetic', letterSpacing: layout.cityH * 0.05,
+        fill: ink, fontSize: layout.cityH * 0.5, fontFamily, weight: '600',
+        align, baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.05,
       });
       y += layout.cityH * 0.14;
     }
@@ -558,8 +582,8 @@ const MapRender = (() => {
       }
       y += layout.countryH * 0.55;
       painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
-        fill: sub, fontSize: layout.countryH * 0.48, fontFamily: 'Georgia, serif',
-        align: 'left', baseline: 'alphabetic',
+        fill: sub, fontSize: layout.countryH * 0.48, fontFamily,
+        align, baseline: 'alphabetic',
       });
     }
   }

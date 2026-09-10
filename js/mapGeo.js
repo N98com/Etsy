@@ -535,8 +535,13 @@ const MapGeo = (() => {
     return simplifyWays(ways, tier, midLatRad);
   }
 
-  async function reverseGeocode(lat, lon) {
-    const url = `${NOMINATIM_ENDPOINT}/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1`;
+  // `lang` (optioneel, bv. "ar") forceert Nominatim's `accept-language`-
+  // parameter, zodat plaatsnaam/land in die taal terugkomen i.p.v. in de
+  // taal die de browser standaard meestuurt — nodig voor Arabische
+  // zoekopdrachten (zie location.js' isArabicText/state.captionLang),
+  // zonder dat gewoon zoeken hierdoor ooit iets anders krijgt dan voorheen.
+  async function reverseGeocode(lat, lon, lang) {
+    const url = `${NOMINATIM_ENDPOINT}/reverse?format=jsonv2&lat=${lat}&lon=${lon}&zoom=12&addressdetails=1${lang ? `&accept-language=${lang}` : ''}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Nominatim responded with status ${res.status}`);
     const data = await res.json();
@@ -546,8 +551,8 @@ const MapGeo = (() => {
     return { place, country, raw: data };
   }
 
-  async function searchPlace(query) {
-    const url = `${NOMINATIM_ENDPOINT}/search?format=jsonv2&q=${encodeURIComponent(query)}&limit=6`;
+  async function searchPlace(query, lang) {
+    const url = `${NOMINATIM_ENDPOINT}/search?format=jsonv2&q=${encodeURIComponent(query)}&limit=6${lang ? `&accept-language=${lang}` : ''}`;
     const res = await fetch(url);
     if (!res.ok) throw new Error(`Nominatim responded with status ${res.status}`);
     return res.json();

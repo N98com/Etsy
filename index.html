@@ -5,6 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Art Generator</title>
   <link rel="stylesheet" href="css/style.css">
+  <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
+       zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
+       js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap">
 </head>
 <body>
   <div class="login-gate" id="loginGate" hidden>
@@ -130,7 +136,7 @@
           <h2>Choose area</h2>
           <label for="locationSearchInput">Search for a place</label>
           <div class="row">
-            <input type="text" id="locationSearchInput" placeholder="e.g. Paris, France">
+            <input type="text" id="locationSearchInput" placeholder="e.g. Paris, France" dir="auto">
             <button id="locationSearchBtn" style="flex:0 0 auto;">Search</button>
           </div>
           <div id="locationSearchResults" class="location-search-results" hidden></div>
@@ -163,9 +169,9 @@
 
           <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
           <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
-          <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;">
+          <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
           <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Country</label>
-          <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;">
+          <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
           <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
 
           <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
@@ -277,18 +283,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=4"></script>
-  <script src="js/utils.js?v=4"></script>
-  <script src="js/rng.js?v=4"></script>
-  <script src="js/palettes.js?v=4"></script>
-  <script src="js/geom.js?v=4"></script>
-  <script src="js/painters.js?v=4"></script>
-  <script src="js/algorithms.js?v=4"></script>
-  <script src="js/export.js?v=4"></script>
-  <script src="js/main.js?v=4"></script>
-  <script src="js/views.js?v=4"></script>
+  <script src="js/auth.js?v=5"></script>
+  <script src="js/utils.js?v=5"></script>
+  <script src="js/rng.js?v=5"></script>
+  <script src="js/palettes.js?v=5"></script>
+  <script src="js/geom.js?v=5"></script>
+  <script src="js/painters.js?v=5"></script>
+  <script src="js/algorithms.js?v=5"></script>
+  <script src="js/export.js?v=5"></script>
+  <script src="js/main.js?v=5"></script>
+  <script src="js/views.js?v=5"></script>
 
-  <script src="js/mapPalettes.js?v=4"></script>
+  <script src="js/mapPalettes.js?v=5"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -296,11 +302,11 @@
   <script src="https://cdn.jsdelivr.net/npm/pbf@3/dist/pbf.js"></script>
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
-  <script src="js/vendor/vector-tile.js?v=4"></script>
-  <script src="js/protomapsAdapter.js?v=4"></script>
-  <script src="js/protomapsFetch.js?v=4"></script>
-  <script src="js/mapGeo.js?v=4"></script>
-  <script src="js/mapRender.js?v=4"></script>
-  <script src="js/location.js?v=4"></script>
+  <script src="js/vendor/vector-tile.js?v=5"></script>
+  <script src="js/protomapsAdapter.js?v=5"></script>
+  <script src="js/protomapsFetch.js?v=5"></script>
+  <script src="js/mapGeo.js?v=5"></script>
+  <script src="js/mapRender.js?v=5"></script>
+  <script src="js/location.js?v=5"></script>
 </body>
 </html>
