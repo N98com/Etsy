@@ -74,10 +74,14 @@ const ProtomapsAdapter = (() => {
     }
 
     if (layerName === 'landuse') {
-      if (feature.type !== GEOM_POLYGON) return [];
+      if (feature.type !== GEOM_POLYGON || parts.length === 0) return [];
       const mapped = LANDUSE_KIND_MAP[props.kind];
       if (!mapped) return [];
-      return [{ tags: { ...mapped }, rings: parts }];
+      // mapRender.js tekent park/bos/gras als simpele `.coords` (net als een
+      // enkele Overpass-way) i.p.v. `.rings` (dat is alleen voor de
+      // multipolygon-vlakken van water gereserveerd) — buitenring volstaat,
+      // net als bij gebouwen hieronder.
+      return [{ tags: { ...mapped }, coords: parts[0] }];
     }
 
     if (layerName === 'buildings') {
