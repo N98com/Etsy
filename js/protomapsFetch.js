@@ -30,11 +30,14 @@ const ProtomapsFetch = (() => {
     return { x: Math.max(0, Math.min(n - 1, x)), y: Math.max(0, Math.min(n - 1, y)) };
   }
 
-  // Zoomniveau per tier: diep genoeg voor voldoende detail, ondiep genoeg om
-  // het aantal tegels laag te houden. Nog te verifiëren tegen echte
-  // dekkingsdata (welke wegtypes daadwerkelijk aanwezig zijn op elk niveau)
-  // zodra dit live getest kan worden.
-  const TIER_ZOOM = { street: 15, city: 12, region: 9, country: 5 };
+  // Zoomniveau per tier. Belangrijk inzicht (na live testen op landniveau):
+  // Protomaps' geometrie op erg grove zoomniveaus (z5 e.d.) is voorvereenvoudigd
+  // met de aanname dat hij als dun lijntje op een kleine kaart-tegel getoond
+  // wordt — diezelfde vorm uitvergroot als hoofdmotief op een poster oogt dan
+  // "wild"/rafelig i.p.v. een nette hoofdwegenkaart. Vandaar land/regio nu
+  // een stuk dieper (minder voorvereenvoudigde brongeometrie), met het
+  // tegelaantal nog steeds ruim onder MAX_TILES voor een normaal land/regio.
+  const TIER_ZOOM = { street: 15, city: 12, region: 11, country: 8 };
 
   function tilesForBounds(bounds, z) {
     const nw = lonLatToTile(bounds.west, bounds.north, z);
