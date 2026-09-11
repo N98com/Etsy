@@ -155,38 +155,11 @@ const MapRender = (() => {
     });
   }
 
-  // Rechthoek met een halfronde bovenkant — een deuropening/grafsteenvorm.
-  function archBasePoints() {
-    const pts = [[-1, 1], [-1, -0.2]];
-    for (let i = 0; i <= 24; i++) {
-      const a = Math.PI - (i / 24) * Math.PI;
-      pts.push([Math.cos(a), -0.2 - Math.sin(a)]);
-    }
-    pts.push([1, 1]);
-    return pts;
-  }
-
-  // Organisch "wolk"-silhouet — een cirkel licht vervormd met een paar
-  // samengestelde sinusgolven, met een deterministische fase op basis van
-  // de bounding box, zodat elke locatie een net iets andere, maar
-  // reproduceerbare, vorm krijgt.
-  function bloomBasePoints(seedStr) {
-    const rand = RNG.rngFor(RNG.seedFromString(seedStr || 'bloom'));
-    const phase1 = rand() * Math.PI * 2, phase2 = rand() * Math.PI * 2, phase3 = rand() * Math.PI * 2;
-    return Array.from({ length: 100 }, (_, i) => {
-      const a = (i / 100) * Math.PI * 2;
-      const r = 1 + 0.14 * Math.sin(a * 3 + phase1) + 0.09 * Math.sin(a * 5 + phase2) + 0.05 * Math.sin(a * 7 + phase3);
-      return [Math.cos(a) * r, Math.sin(a) * r];
-    });
-  }
-
   const MASK_SHAPE_BUILDERS = {
     circle: circleBasePoints,
     heart: heartBasePoints,
     diamond: diamondBasePoints,
     hexagon: hexagonBasePoints,
-    arch: archBasePoints,
-    bloom: bloomBasePoints,
   };
 
   function buildMaskRing(maskId, mapW, mapH, seedStr) {

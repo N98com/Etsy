@@ -73,8 +73,6 @@ window.LocationApp = (() => {
     { id: 'heart', label: 'Heart' },
     { id: 'diamond', label: 'Diamond' },
     { id: 'hexagon', label: 'Hexagon' },
-    { id: 'arch', label: 'Arch' },
-    { id: 'bloom', label: 'Bloom' },
   ];
 
   const AREA_TIER_NOTE = {
