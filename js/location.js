@@ -11,16 +11,14 @@
 // een ruimer gebied dan strikt zichtbaar is, zodat kleine bewegingen binnen
 // die marge niets hoeven te verversen.
 //
-// Isoleren/uitlichten/Game Styles blijven bestaan naast dit live-pannen:
-// - Uitlichten (highlight) gebruikt gewoon de normale live-view-bounds (de
-//   ring wordt getekend waar hij toevallig binnen het huidige zicht valt),
-//   dus pannen/zoomen blijft daarbij gewoon werken.
-// - Isoleren (of een Game Style die dat forceert) toont in plaats daarvan
-//   de vaste, opgezochte grens (contain-fit) — pannen/zoomen is dan
-//   zinloos (het is geen navigeerbaar venster meer) en wordt uitgeschakeld
-//   zolang dat actief is; zonder een opgezochte grens valt isoleren terug
-//   op de laatst bekeken live-view als rechthoek (het equivalent van het
-//   vroegere handmatige kader).
+// Isoleren/Game Styles blijven bestaan naast dit live-pannen: "Isolate area"
+// en "Highlight area" waren losse gebruikersopties, maar zijn op verzoek uit
+// de UI gehaald. Isoleren zelf (contain-fit op een vaste, opgezochte grens)
+// bestaat wel nog — nu alleen nog automatisch aangestuurd door een Game
+// Style (MW2/RDR2, zie forcesIsolate) — pannen/zoomen is dan zinloos (het is
+// geen navigeerbaar venster meer) en wordt uitgeschakeld zolang dat actief
+// is; zonder een opgezochte grens valt isoleren terug op de laatst bekeken
+// live-view als rechthoek.
 window.LocationApp = (() => {
   const HISTORY_KEY = 'genart-location-history-v1';
 
@@ -96,7 +94,6 @@ window.LocationApp = (() => {
     mapPaletteId: MAP_PALETTES[0].id,
     showPlace: true, showCountry: true, showCoords: true,
     gtaStyle: false, mw2Style: false, rdr2Style: false,
-    isolateArea: false, highlightArea: false,
     pins: [], addingPin: false,
     autoPlace: '', autoCountry: '', captionLang: null,
     streets: [], buildings: [], tier: 'street',
@@ -141,10 +138,6 @@ window.LocationApp = (() => {
   const pinAddressInput = el('pinAddressInput');
   const pinAddressSearchBtn = el('pinAddressSearchBtn');
   const pinAddressResults = el('pinAddressResults');
-  const isolateAreaCheck = el('isolateAreaCheck');
-  const isolateAreaHint = el('isolateAreaHint');
-  const highlightAreaCheck = el('highlightAreaCheck');
-  const highlightAreaHint = el('highlightAreaHint');
   const gtaStyleCheck = el('gtaStyleCheck');
   const gtaStyleHint = el('gtaStyleHint');
   const mw2StyleCheck = el('mw2StyleCheck');
@@ -178,10 +171,12 @@ window.LocationApp = (() => {
   }
 
   // ---- modus-helpers ----
+  // Isoleren is geen losse gebruikersoptie meer (die knop is verwijderd) —
+  // het gebeurt alleen nog automatisch zodra een Game Style (MW2/RDR2) dat
+  // nodig heeft, zie forcesIsolate hieronder.
   function forcesIsolate() { return state.mw2Style || state.rdr2Style; }
   function hasRealBoundary() { return !!(state.selectedPlace && state.selectedPlace.rings); }
-  function isolating() { return state.isolateArea || forcesIsolate(); }
-  function highlighting() { return !isolating() && state.highlightArea && hasRealBoundary(); }
+  function isolating() { return forcesIsolate(); }
 
   // ---- geometrie: canvaspixels <-> lat/lon ----
   function fullBleed() { return FULL_BLEED_LAYOUTS.has(state.layoutId); }
@@ -333,8 +328,6 @@ window.LocationApp = (() => {
     exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
     statusEl.textContent = isolating()
       ? `Isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
-      : highlighting()
-      ? `Highlighted (${tier} level).`
       : `${streets.length} elements loaded${fromCache ? ' (cached)' : ''}.`;
     schedulePlaceNameRefresh();
   }
@@ -393,10 +386,10 @@ window.LocationApp = (() => {
     placeNameTimer = setTimeout(refreshPlaceName, 400);
   }
   async function refreshPlaceName() {
-    // Bij isoleren/uitlichten met een echte grens gebruiken we de letterlijke
-    // zoekterm als plaatsnaam (zie computePlaceCountry) — geen reverse-
-    // geocode nodig, en die zou hier ook vaak het verkeerde antwoord geven.
-    if ((isolating() || highlighting()) && hasRealBoundary()) return;
+    // Bij isoleren met een echte grens gebruiken we de letterlijke zoekterm
+    // als plaatsnaam (zie computePlaceCountry) — geen reverse-geocode nodig,
+    // en die zou hier ook vaak het verkeerde antwoord geven.
+    if (isolating() && hasRealBoundary()) return;
     try {
       const geo = await MapGeo.reverseGeocode(state.center.lat, state.center.lon, state.captionLang);
       state.autoPlace = geo.place; state.autoCountry = geo.country;
@@ -405,7 +398,7 @@ window.LocationApp = (() => {
   }
 
   function computePlaceCountry() {
-    if ((isolating() || highlighting()) && hasRealBoundary()) {
+    if (isolating() && hasRealBoundary()) {
       const parts = state.selectedPlace.name.split(',').map(s => s.trim()).filter(Boolean);
       return { place: state.selectedPlace.query || parts[0] || state.selectedPlace.name, country: parts.length > 1 ? parts[parts.length - 1] : '' };
     }
@@ -423,7 +416,6 @@ window.LocationApp = (() => {
       gtaStyle: state.gtaStyle, mw2Style: state.mw2Style, rdr2Style: state.rdr2Style,
       tier: state.tier,
       isolate: currentIsolateOpts(),
-      highlight: highlighting() ? { rings: state.selectedPlace.rings } : null,
       layout: state.layoutId, mask: state.maskId,
       pins: state.pins, pinColor: pinColorInput.value,
       caption: {
@@ -601,9 +593,10 @@ window.LocationApp = (() => {
   }
 
   // Naast de kaart verplaatsen, ook de exacte bestuurlijke grens van dit
-  // resultaat proberen op te halen — dat is wat Isolate/Highlight gebruiken
-  // om precies deze wijk/stad/land/werelddeel te tonen. Niet elk resultaat
-  // heeft zo'n grens (bv. een los adres); dan blijven die opties uit.
+  // resultaat proberen op te halen — nodig zodra een Game Style (MW2/RDR2)
+  // het gebied automatisch isoleert (zie forcesIsolate). Niet elk resultaat
+  // heeft zo'n grens (bv. een los adres); currentIsolateOpts valt dan terug
+  // op de live-view als rechthoekige "grens".
   function selectSearchResult(result, query, lang) {
     searchResults.hidden = true;
     // Nominatim geeft altijd een boundingbox mee ([south, north, west,
@@ -621,34 +614,16 @@ window.LocationApp = (() => {
     state.captionLang = lang || null;
 
     // De letterlijk getypte zoekterm bewaren we apart van display_name: bij
-    // isoleren/uitlichten gebruiken we die als plaatsnaam-onderschrift, want
-    // een reverse-geocode van het middelpunt van een regio/land wijst vaak
-    // een toevallige kleine plaats daarbinnen aan (bv. "Twente" -> "Ambt Delden").
+    // isoleren gebruiken we die als plaatsnaam-onderschrift, want een
+    // reverse-geocode van het middelpunt van een regio/land wijst vaak een
+    // toevallige kleine plaats daarbinnen aan (bv. "Twente" -> "Ambt Delden").
     state.selectedPlace = { name: result.display_name, query, rings: null, bounds: null };
-    state.isolateArea = false;
-    state.highlightArea = false;
-    isolateAreaCheck.checked = false;
-    isolateAreaCheck.disabled = true;
-    isolateAreaHint.hidden = false;
-    isolateAreaHint.textContent = 'Fetching area boundary…';
-    highlightAreaCheck.checked = false;
-    highlightAreaCheck.disabled = true;
-    highlightAreaHint.hidden = false;
-    highlightAreaHint.textContent = 'Fetching area boundary…';
 
     MapGeo.fetchBoundary(result).then(boundary => {
       if (!state.selectedPlace || state.selectedPlace.name !== result.display_name) return;
-      if (!boundary) {
-        isolateAreaHint.textContent = `No exact area boundary available for "${result.display_name}".`;
-        highlightAreaHint.textContent = `No exact area boundary available for "${result.display_name}".`;
-        return;
-      }
+      if (!boundary) return;
       state.selectedPlace.rings = boundary.rings;
       state.selectedPlace.bounds = boundary.bounds;
-      isolateAreaCheck.disabled = false;
-      isolateAreaHint.textContent = `Isolate exactly the boundary of "${result.display_name}".`;
-      highlightAreaCheck.disabled = false;
-      highlightAreaHint.textContent = `Highlight exactly the boundary of "${result.display_name}", fading everything else.`;
       // Deze grens dekt bewust maar de grootste aaneengesloten landmassa
       // (zie MapGeo.fetchBoundary) — voor een land met verafgelegen exclaves
       // (de VS met Alaska/Hawaii, Frankrijk met overzeese gebieden...) is dat
@@ -664,10 +639,7 @@ window.LocationApp = (() => {
         jumpTo(lat, lon, boundary.bounds);
       }
       if (forcesIsolate()) invalidateFetch(); // een Game Style stond al aan te wachten op deze grens
-    }).catch(err => {
-      isolateAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
-      highlightAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;
-    });
+    }).catch(() => { /* stille no-op: alleen relevant voor forcesIsolate, geen UI meer om te melden */ });
   }
 
   // Zelfde soort adres-zoekopdracht als hierboven, maar een gekozen
@@ -796,7 +768,6 @@ window.LocationApp = (() => {
       pinColor: opts.pinColor,
       tier: state.tier,
       isolate: opts.isolate,
-      highlight: opts.highlight,
     };
     return JSON.stringify(payload).length <= RECOLOR_MAX_JSON_LENGTH ? payload : null;
   }
@@ -930,21 +901,6 @@ window.LocationApp = (() => {
     pinAddressInput.addEventListener('keydown', e => { if (e.key === 'Enter') runPinAddressSearch(); });
     refreshAutoPinColor();
 
-    // Isoleren (weg-knippen) en uitlichten (omgeving laten staan maar
-    // vervagen) zijn twee verschillende weergaven van dezelfde opgezochte
-    // grens — elkaar dus uitsluitend, net als de Game Styles hieronder.
-    isolateAreaCheck.addEventListener('change', () => {
-      state.isolateArea = isolateAreaCheck.checked;
-      if (state.isolateArea) { state.highlightArea = false; highlightAreaCheck.checked = false; }
-      render();
-      invalidateFetch();
-    });
-    highlightAreaCheck.addEventListener('change', () => {
-      state.highlightArea = highlightAreaCheck.checked;
-      if (state.highlightArea) { state.isolateArea = false; isolateAreaCheck.checked = false; }
-      render();
-      invalidateFetch();
-    });
     gtaStyleCheck.addEventListener('change', () => setGameStyle(gtaStyleCheck.checked ? 'gta' : null));
     mw2StyleCheck.addEventListener('change', () => setGameStyle(mw2StyleCheck.checked ? 'mw2' : null));
     rdr2StyleCheck.addEventListener('change', () => setGameStyle(rdr2StyleCheck.checked ? 'rdr2' : null));

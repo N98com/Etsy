@@ -92,46 +92,6 @@ class CanvasPainter {
     ctx.fillRect(x, y, w, h);
   }
 
-  // "Highlight area"-ondersteuning: een laag apart van de hoofd-canvas
-  // tekenen (dezelfde painter-aanroepen, alleen omgeleid naar een los
-  // offscreen canvas) zodat hij daarna twee keer gecomponeerd kan worden —
-  // één keer scherp binnen de uitgelichte ring, één keer wazig (echte
-  // Gaussian blur via ctx.filter) daarbuiten. Zo hoeft de kaart-tekencode
-  // zelf niets te weten van isoleren/uitlichten.
-  beginLayer() {
-    if (!this._layerStack) this._layerStack = [];
-    this._layerStack.push(this.ctx);
-    const canvas = document.createElement('canvas');
-    canvas.width = this.w;
-    canvas.height = this.h;
-    this.ctx = canvas.getContext('2d');
-  }
-
-  endLayer() {
-    const canvas = this.ctx.canvas;
-    this.ctx = this._layerStack.pop();
-    return canvas;
-  }
-
-  // Zet een eerder vastgelegde laag op de hoofd-canvas, optioneel geknipt
-  // tot een evenodd-vormbeschrijving (rings) en/of vervaagd met een echte
-  // Gaussian blur (blur = straal in pixels).
-  drawLayer(layer, { clipRings, blur } = {}) {
-    const ctx = this.ctx;
-    ctx.save();
-    if (clipRings) {
-      ctx.beginPath();
-      clipRings.forEach(ring => {
-        ring.forEach(([x, y], i) => (i === 0 ? ctx.moveTo(x, y) : ctx.lineTo(x, y)));
-        ctx.closePath();
-      });
-      ctx.clip('evenodd');
-    }
-    if (blur) ctx.filter = `blur(${blur}px)`;
-    ctx.drawImage(layer, 0, 0);
-    ctx.restore();
-  }
-
   // Tekst — nodig voor de kaart-onderschriften (plaatsnaam/land/coördinaten).
   text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
     const ctx = this.ctx;
@@ -214,39 +174,6 @@ class SVGPainter {
     const stopEls = stops.map(({ offset, color, opacity }) =>
       `<stop offset="${fmt(offset * 100)}%" stop-color="${color}" stop-opacity="${opacity}"/>`).join('');
     this.parts.push(`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stopEls}</linearGradient><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="url(#${id})"/>`);
-  }
-
-  // Zie CanvasPainter.beginLayer/endLayer/drawLayer — hier is een "laag"
-  // gewoon een apart opgevangen stuk van de parts-array, dat later als
-  // <g clip-path=... filter=...> teruggeplakt wordt (een echte
-  // <feGaussianBlur>, niet een dekkende waslaag).
-  beginLayer() {
-    if (!this._layerStack) this._layerStack = [];
-    this._layerStack.push(this.parts);
-    this.parts = [];
-  }
-
-  endLayer() {
-    const captured = this.parts.join('');
-    this.parts = this._layerStack.pop();
-    return captured;
-  }
-
-  drawLayer(layer, { clipRings, blur } = {}) {
-    this._layerCounter = (this._layerCounter || 0) + 1;
-    const id = this._layerCounter;
-    let defs = '';
-    let attrs = '';
-    if (clipRings) {
-      const d = clipRings.map(ring => 'M' + ring.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join('L') + 'Z').join(' ');
-      defs += `<clipPath id="layerclip${id}"><path d="${d}" clip-rule="evenodd"/></clipPath>`;
-      attrs += ` clip-path="url(#layerclip${id})"`;
-    }
-    if (blur) {
-      defs += `<filter id="layerblur${id}" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="${fmt(blur)}"/></filter>`;
-      attrs += ` filter="url(#layerblur${id})"`;
-    }
-    this.parts.push(`${defs}<g${attrs}>${layer}</g>`);
   }
 
   text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {

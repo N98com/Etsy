@@ -200,7 +200,7 @@ const MapRender = (() => {
   function render(painter, w, h, opts) {
     const {
       bounds, streets = [], buildings = [],
-      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null, highlight = null,
+      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null,
       layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
@@ -225,11 +225,6 @@ const MapRender = (() => {
       ? MapGeo.makeContainProjector(bounds, mapW, mapH)
       : MapGeo.makeCoverProjector(bounds, mapW, mapH);
 
-    // "Highlight area" tekent de kaart één keer als een losse laag, en
-    // componeert die daarna twee keer overheen (scherp binnen de ring,
-    // écht wazig — een Gaussian blur, geen doorzichtige waslaag — erbuiten).
-    // Zie MapPainter.beginLayer/drawLayer. Isoleren gaat hier altijd voor.
-    const highlighting = !!(highlight && !isolate);
     // "Masks" knippen tot een vaste vorm i.p.v. de volle rechthoek — ook
     // hier gaat isoleren (een echte geo-grens) altijd voor.
     const masking = !!(maskId && maskId !== 'none' && !isolate);
@@ -253,7 +248,6 @@ const MapRender = (() => {
       }
       painter.beginClipPath(projectedRings);
     } else {
-      if (highlighting) painter.beginLayer();
       if (masking) {
         const seedStr = `${bounds.south},${bounds.west},${bounds.north},${bounds.east}`;
         painter.beginClipPath([buildMaskRing(maskId, mapW, mapH, seedStr)]);
@@ -371,7 +365,6 @@ const MapRender = (() => {
     }
 
     painter.endClip();
-    const mapLayer = highlighting ? painter.endLayer() : null;
 
     if (isolate) {
       // Scherpe contourlijn boven op de gevulde vorm, buiten de clip
@@ -379,27 +372,6 @@ const MapRender = (() => {
       // (waar het palet er een heeft) geeft een net zo scherpe land/water-
       // overgang als bij losse meren.
       projectedRings.forEach(ring => {
-        painter.polygon(ring, { stroke: palette.coastline || palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
-      });
-    }
-
-    if (highlighting) {
-      // In tegenstelling tot isoleren blijft de omgeving hier gewoon intact
-      // (dezelfde bounds/projectie als een normale render) — alleen wordt
-      // de al getekende kaart-laag BUITEN de opgezochte grens echt wazig
-      // gemaakt (een Gaussian blur, zie Painter.drawLayer), zodat het
-      // geselecteerde gebied als een soort spotlight blijft uitgelicht.
-      // Eén evenodd-vorm van het volledige kaartvlak mét de ring als "gat"
-      // erin zorgt dat precies het gebied bùiten de ring vervaagd wordt.
-      const projectedHighlightRings = highlight.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
-      const frame = [[0, 0], [mapW, 0], [mapW, mapH], [0, mapH], [0, 0]];
-      const blurPx = Math.max(6, Math.min(mapW, mapH) * 0.025);
-      painter.drawLayer(mapLayer, { clipRings: projectedHighlightRings });
-      painter.drawLayer(mapLayer, { clipRings: [frame, ...projectedHighlightRings], blur: blurPx });
-      // Zelfde soort scherpe rand als bij isoleren, zodat de grens van het
-      // uitgelichte gebied duidelijk afgetekend blijft t.o.v. de vervaagde
-      // omgeving.
-      projectedHighlightRings.forEach(ring => {
         painter.polygon(ring, { stroke: palette.coastline || palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
       });
     }
