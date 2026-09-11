@@ -533,9 +533,23 @@ window.LocationApp = (() => {
   }
 
   // ---- zoeken / springen naar een plek ----
-  function jumpTo(lat, lon) {
+  // Zoomniveau waarop de HELE meegegeven bounding box (van het zoekresultaat)
+  // in beeld past, met wat ademruimte rondom — i.p.v. altijd naar hetzelfde
+  // vaste straatniveau-zoom te springen ongeacht wat je zocht. Zonder dit
+  // sprong "United States" naar het middelpunt van het land maar bleef op
+  // straatschaal ingezoomd (vandaar een toevallige "Mills/Decatur County" in
+  // het onderschrift i.p.v. het hele land in beeld).
+  const RESULT_FIT_MARGIN = 0.85; // laat ~15% lucht rondom het gevonden gebied
+  function scaleForBounds(bounds) {
+    const mapH = mapAreaHeight(canvas.height);
+    const cosLat = Math.cos((((bounds.south + bounds.north) / 2) * Math.PI) / 180) || 0.0001;
+    const spanLatDeg = Math.max(bounds.north - bounds.south, 0.0005) / RESULT_FIT_MARGIN;
+    const spanLonDeg = Math.max(bounds.east - bounds.west, 0.0005) / RESULT_FIT_MARGIN;
+    return clampScale(Math.min(mapH / spanLatDeg, canvas.width / (spanLonDeg * cosLat)));
+  }
+  function jumpTo(lat, lon, bounds) {
     state.center = { lat, lon };
-    state.scale = clampScale(mapAreaHeight(canvas.height) / 0.02);
+    state.scale = bounds ? scaleForBounds(bounds) : clampScale(mapAreaHeight(canvas.height) / 0.02);
     placeNameInput.value = ''; countryNameInput.value = '';
     render();
     invalidateFetch();
@@ -573,7 +587,15 @@ window.LocationApp = (() => {
   // heeft zo'n grens (bv. een los adres); dan blijven die opties uit.
   function selectSearchResult(result, query, lang) {
     searchResults.hidden = true;
-    jumpTo(parseFloat(result.lat), parseFloat(result.lon));
+    // Nominatim geeft altijd een boundingbox mee ([south, north, west,
+    // east] als strings) — daarmee zoomt jumpTo meteen zo ver uit/in dat
+    // het hele gevonden gebied in beeld past, i.p.v. een vast straatniveau.
+    const bbox = result.boundingbox;
+    const bounds = bbox ? {
+      south: parseFloat(bbox[0]), north: parseFloat(bbox[1]),
+      west: parseFloat(bbox[2]), east: parseFloat(bbox[3]),
+    } : null;
+    jumpTo(parseFloat(result.lat), parseFloat(result.lon), bounds);
     // Blijft staan zolang dit gezochte gebied actief is (ook tijdens
     // pannen, via refreshPlaceName hierboven) — de volgende zoekopdracht
     // (Arabisch of niet) overschrijft hem gewoon weer.
