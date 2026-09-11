@@ -338,6 +338,21 @@ const MapRender = (() => {
         painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), { stroke: palette.water, strokeWidth: riverWidth, fill: 'none' });
       });
 
+    // Landsgrenzen — vooral op land/continent-schaal belangrijk voor
+    // geografische herkenbaarheid (zonder een grenslijn is bv. "VS + Mexico"
+    // niet van elkaar te onderscheiden, anders dan bij een kustlijn). Dun en
+    // onderbroken, zodat het nooit met een echte weg te verwarren is. Game
+    // Styles slaan dit over — die tekenen toch hun eigen wereld.
+    if (!gtaStyle && !mw2Style && !rdr2Style) {
+      const borderWidth = Math.max(0.6, Math.min(mapW, mapH) * 0.0012);
+      const dash = Math.min(mapW, mapH) * 0.006;
+      streets
+        .filter(s => s.tags.boundary === 'administrative')
+        .forEach(s => painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), {
+          stroke: palette.text, strokeWidth: borderWidth, fill: 'none', opacity: 0.55, dash: [dash, dash * 0.7],
+        }));
+    }
+
     if (mw2Style) {
       // Gebouwomtrekken zoals de originele minimap: dezelfde donkere vulling
       // als de grond, alleen zichtbaar door hun lichte rand.

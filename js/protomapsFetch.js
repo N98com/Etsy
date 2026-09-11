@@ -160,24 +160,22 @@ const ProtomapsFetch = (() => {
     city: new Set(['motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street']),
     // street: geen filter, alles toegestaan.
   };
-  const NAMED_WATER_ONLY_TIERS = new Set(['country', 'region', 'continent']);
 
+  // Water (lijnen én vlakken) altijd tonen, op elke schaal, ongefilterd op
+  // naam. Dat "alleen genoemd water"-filter komt oorspronkelijk van
+  // Overpass' ["name"]-tag-filter (nodig omdat een Overpass-query LETTERLIJK
+  // ELK water in het gekozen gebied teruggaf, ongeacht schaal) — maar
+  // Protomaps' tegels bevatten van zichzelf al alleen het water dat op dat
+  // zoomniveau significant genoeg is (net als bij wegen, zie HIGHWAY_ALLOW-
+  // commentaar). Het naamfilter bleek zelfs actief schadelijk: een oceaan/
+  // zee-vlak is in deze data een samengestelde vulling zonder eigen naam-tag,
+  // dus "alleen genoemd water" filterde op land/continent-schaal de HELE zee
+  // weg — precies het element dat een kaart op die schaal herkenbaar maakt.
   function filterStreets(features, tier, styleHint) {
     const allow = HIGHWAY_ALLOW[tier];
     const skipGreenery = styleHint === 'gta' || styleHint === 'rdr2';
     return features.filter(f => {
       if (f.tags.highway) return !allow || allow.has(f.tags.highway);
-      if (f.tags.waterway) {
-        // Grote schaal (region/country/continent): alleen genoemde
-        // waterlopen, net als Overpass' "waterway=river"-filter daar —
-        // voorkomt dat elk beekje op landschaal meegenomen wordt.
-        if (NAMED_WATER_ONLY_TIERS.has(tier)) return !!f.tags.name;
-        return true;
-      }
-      if (f.tags.natural === 'water') {
-        if (NAMED_WATER_ONLY_TIERS.has(tier)) return !!f.tags.name;
-        return true;
-      }
       if (f.tags.leisure === 'park' || f.tags.landuse) {
         // Net als Overpass: groen alleen op straat/stad-schaal, en nooit
         // voor Game Styles die toch een eigen achtergrond tekenen.

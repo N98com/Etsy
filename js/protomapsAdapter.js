@@ -11,8 +11,10 @@
 //   water   (Polygon):    kind="water"   -> meer/oceaan/brede rivier
 //   landuse (Polygon):    kind="residential", (park/forest/grass nog te
 //                          bevestigen tegen echte data — zie LANDUSE_KIND_MAP)
-//   buildings, earth, landcover, places, pois, boundaries: layers bestaan,
-//   niet allemaal gebruikt door onze huidige renderer.
+//   boundaries (LineString): admin_level (aanname o.b.v. het gangbare
+//                          Protomaps/OpenMapTiles-schema, NIET live
+//                          geverifieerd — zie translateFeature hieronder)
+//   earth, landcover, places, pois: layers bestaan, (nog) niet gebruikt.
 const ProtomapsAdapter = (() => {
   // Standaard slippy-tile inverse-projectie: tegel-lokale pixelcoördinaat
   // (0..extent) op tegel z/x/y terug naar lengte-/breedtegraad.
@@ -69,10 +71,6 @@ const ProtomapsAdapter = (() => {
         return parts.map(coords => ({ tags: { waterway: props.kind || 'stream', name: props.name || undefined }, coords }));
       }
       if (feature.type === GEOM_POLYGON) {
-        // name moet hier ook mee, anders filtert ProtomapsFetch's
-        // "alleen genoemd water" op region/country/continent-schaal ELK
-        // meer/zee weg (zelfs een oceaan) — dat viel niet op zolang alleen
-        // straat/stad-schaal (geen naamfilter) getest werd.
         return [{ tags: { natural: 'water', name: props.name || undefined }, rings: parts }];
       }
       return [];
@@ -94,6 +92,21 @@ const ProtomapsAdapter = (() => {
       // Net als parseWays voor Overpass-gebouwen: alleen de buitenring,
       // consistent met hoe trimBuildingsForStorage/render dit al gebruikt.
       return [{ tags: { building: 'yes' }, coords: parts[0] }];
+    }
+
+    if (layerName === 'boundaries') {
+      // Standaard Protomaps/OpenMapTiles-schema: admin_level volgt OSM's
+      // admin_level-tag (2 = landsgrens, 4 = provincie/staat, ...). Alleen
+      // landsgrenzen tekenen (geen provinciegrenzen) — geeft geografische
+      // herkenbaarheid op land/continent-schaal (zie mapRender.js) zonder
+      // extra drukte. Niet live tegen een echte tegel geverifieerd (anders
+      // dan roads/water eerder deze sessie via pmtiles.io) — als dit
+      // veldnamen niet blijken te kloppen, levert dit gewoon 0 extra lijnen
+      // op (geen crash), zie of landsgrenzen echt verschijnen bij het testen.
+      if (feature.type !== GEOM_LINESTRING) return [];
+      const level = parseInt(props.admin_level, 10);
+      if (!Number.isFinite(level) || level > 2) return [];
+      return parts.map(coords => ({ tags: { boundary: 'administrative' }, coords }));
     }
 
     // earth/landcover/places/pois/boundaries: (nog) geen renderdoel.
