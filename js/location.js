@@ -256,8 +256,19 @@ window.LocationApp = (() => {
     const cosLat = Math.cos((state.center.lat * Math.PI) / 180) || 0.0001;
     return { lat: bounds.north - y / state.scale, lon: bounds.west + x / (state.scale * cosLat) };
   }
+  // minScale was 55 (uitgezoomd tot "een groot land/regio") totdat
+  // scaleForBounds ook een heel land/continent op het canvas moest passen —
+  // een breed land als de VS (~58-68° lengtegraad, gepadd) of Rusland
+  // (~190°+) past domweg niet meer binnen die 55°-vloer op een liggend-
+  // portret canvas: de vloer dwong dan een té ver ingezoomde schaal af,
+  // waardoor het land links/rechts afgesneden werd i.p.v. volledig te
+  // passen. 300 is ruim genoeg voor elk realistisch land/continent
+  // (inclusief Rusland) en verandert verder niets aan het handmatige
+  // uitzoom-bereik (scrollen/pinchen kan nu ook net wat verder uitzoomen,
+  // ProtomapsFetch's continent-tier rendert op die schaal nog steeds
+  // gewoon een complete, alleen grovere kaart).
   function clampScale(s) {
-    const minScale = canvas.height / 55; // uitgezoomd tot een groot land/regio
+    const minScale = canvas.height / 300;
     const maxScale = canvas.height / 0.003; // ingezoomd tot straatniveau
     return Math.max(minScale, Math.min(maxScale, s));
   }
@@ -279,9 +290,19 @@ window.LocationApp = (() => {
   // De query-inhoud hangt alleen af van tier + styleHint (+ of gebouwen
   // meegevraagd zijn), niet van isoleren/uitlichten — dus een cache-entry is
   // bruikbaar voor elk gebied dat erin past, ongeacht in welke modus hij
-  // oorspronkelijk werd opgehaald.
+  // oorspronkelijk werd opgehaald. Bij country/continent-tier bepaalt de
+  // EXACTE bounds ook het zoomniveau (zie ProtomapsFetch.zoomForFetch) — een
+  // cache-entry die een groter (dus ondieper gezoomd) gebied dekt, mag dus
+  // alleen hergebruikt worden als hij op z'n minst even diep gezoomd was als
+  // wat er voor het NIEUWE (kleinere) gebied gekozen zou worden. Zonder deze
+  // check bleef een her-fit naar een strakkere grens (zie selectSearchResult's
+  // her-fit na fetchBoundary) hangen op de eerdere, grovere data — de
+  // kaart paste dan wel beter in beeld, maar kreeg nooit het extra detail
+  // waar die strakkere grens juist ruimte voor gaf.
   function findCachedFetch(tier, styleHint, mw2, bounds) {
-    const idx = fetchCache.findIndex(e => e.tier === tier && e.styleHint === styleHint && e.mw2 === mw2 && boundsContain(e.bounds, bounds));
+    const idx = fetchCache.findIndex(e => e.tier === tier && e.styleHint === styleHint && e.mw2 === mw2
+      && boundsContain(e.bounds, bounds)
+      && ProtomapsFetch.zoomForFetch(bounds, tier) <= ProtomapsFetch.zoomForFetch(e.bounds, tier));
     if (idx === -1) return null;
     const [entry] = fetchCache.splice(idx, 1);
     fetchCache.unshift(entry); // LRU: geraakte entry weer vooraan
@@ -630,6 +651,20 @@ window.LocationApp = (() => {
       isolateAreaHint.textContent = `Isolate exactly the boundary of "${result.display_name}".`;
       highlightAreaCheck.disabled = false;
       highlightAreaHint.textContent = `Highlight exactly the boundary of "${result.display_name}", fading everything else.`;
+      // Deze grens dekt bewust maar de grootste aaneengesloten landmassa
+      // (zie MapGeo.fetchBoundary) — voor een land met verafgelegen exclaves
+      // (de VS met Alaska/Hawaii, Frankrijk met overzeese gebieden...) is dat
+      // een VEEL strakkere pasvorm dan Nominatim's ruwe boundingbox waar de
+      // eerste jumpTo hierboven nog op moest afgaan (die omvat immers ALLES).
+      // Die te ruime bbox dwong een onnodig grof zoomniveau af (zie
+      // ProtomapsFetch's pickZoomForBounds) — dus zodra de precieze grens
+      // binnen is, opnieuw fitten op de live-view (isoleren gebruikt deze
+      // bounds toch al rechtstreeks via effectiveBounds, geen her-fit nodig).
+      if (!isolating()) {
+        const lat = (boundary.bounds.north + boundary.bounds.south) / 2;
+        const lon = (boundary.bounds.east + boundary.bounds.west) / 2;
+        jumpTo(lat, lon, boundary.bounds);
+      }
       if (forcesIsolate()) invalidateFetch(); // een Game Style stond al aan te wachten op deze grens
     }).catch(err => {
       isolateAreaHint.textContent = `Fetching area boundary failed: ${err.message}`;

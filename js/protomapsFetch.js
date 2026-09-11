@@ -14,7 +14,14 @@
 // nu, meer voor leesbaarheid: te veel wegjes op landschaal oogt als ruis).
 const ProtomapsFetch = (() => {
   const PMTILES_URL = 'https://pub-e184090159cf437fbbe48fe58c448cba.r2.dev/planet.pmtiles';
-  const MAX_TILES = 400; // defensieve bovengrens — mag nooit overschreden worden bij correcte TIER_ZOOM-waarden
+  // Bepaalt (samen met pickZoomForBounds) hoeveel detail een land/continent-
+  // schaal selectie krijgt: hoger budget = dieper zoomniveau haalbaar = meer
+  // wegen zichtbaar. 1100 is ruim genoeg om de meeste "normale" grote landen
+  // (VS, Brazilië, Australië: ~850-1000 tegels) tot op country-schaal-detail
+  // (zoom 8, zelfde diepte als de 'country'-tier) te tonen; een enorm/leeg
+  // land als Canada of Rusland valt vanzelf terug op een minder diepe zoom
+  // (nog steeds compleet, alleen soberder) om binnen dit budget te blijven.
+  const MAX_TILES = 1100;
 
   let archive = null;
   function getArchive() {
@@ -23,7 +30,16 @@ const ProtomapsFetch = (() => {
   }
 
   // Standaard slippy-tile voorwaartse projectie: lon/lat -> tegel x/y op zoom z.
+  // Web Mercator is buiten ~±85.05° niet gedefinieerd (tan/cos-formule geeft
+  // dan een negatief argument aan Math.log -> NaN, wat tilesForBounds'
+  // NaN <= se.y-lus stilletjes NUL tegels laat opleveren i.p.v. een fout).
+  // Kan voorkomen bij een brede live-view-bounds (zie location.js's
+  // scaleForBounds) waarvan de padding een extreem land/continent-selectie
+  // net over de rand duwt — vandaar hier geclampt, niet alleen als aanname
+  // dat de aanroeper altijd geldige coördinaten aanlevert.
+  const MAX_MERCATOR_LAT = 85.05;
   function lonLatToTile(lon, lat, z) {
+    lat = Math.max(-MAX_MERCATOR_LAT, Math.min(MAX_MERCATOR_LAT, lat));
     const n = Math.pow(2, z);
     const x = Math.floor(((lon + 180) / 360) * n);
     const latRad = (lat * Math.PI) / 180;
@@ -102,13 +118,22 @@ const ProtomapsFetch = (() => {
     }
   }
 
-  async function fetchArea(bounds, tier) {
-    // street/city/region: vast zoomniveau (oppervlakte-spreiding binnen die
-    // tiers is klein genoeg om altijd veilig te zijn). country/continent:
-    // dynamisch bepaald — zie pickZoomForBounds hierboven.
-    const z = (tier === 'street' || tier === 'city' || tier === 'region')
+  // street/city/region: vast zoomniveau (oppervlakte-spreiding binnen die
+  // tiers is klein genoeg om altijd veilig te zijn). country/continent:
+  // dynamisch bepaald — zie pickZoomForBounds hierboven. Los geëxporteerd
+  // (i.p.v. alleen inline in fetchArea) zodat location.js's cache ook kan
+  // navragen welk zoomniveau een gegeven bounds/tier-combinatie zou kiezen
+  // — nodig omdat een cache-hit puur op bounds-bevat-bounds niet meer
+  // volstaat nu diezelfde tier op een kleiner gebied een dieper zoomniveau
+  // kan opleveren (zie findCachedFetch in location.js).
+  function zoomForFetch(bounds, tier) {
+    return (tier === 'street' || tier === 'city' || tier === 'region')
       ? TIER_ZOOM[tier]
       : pickZoomForBounds(bounds, TIER_ZOOM.country);
+  }
+
+  async function fetchArea(bounds, tier) {
+    const z = zoomForFetch(bounds, tier);
     const tiles = tilesForBounds(bounds, z);
     const perTile = await Promise.all(tiles.map(t => fetchTileFeatures(t.z, t.x, t.y)));
     const errorCount = perTile.reduce((n, r) => n + (r.error ? 1 : 0), 0);
@@ -153,10 +178,15 @@ const ProtomapsFetch = (() => {
   const HIGHWAY_ALLOW = {
     country: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
     region: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
-    // Continent-schaal dekt nu ook een enkel groot land (zie pickZoomForBounds
-    // hierboven) — nog soberder dan country, anders verzuipt het weinige
-    // resterende detail op zo'n grove zoom in te veel wegklassen.
-    continent: new Set(['motorway', 'trunk', 'primary']),
+    // Continent-schaal haalt dankzij pickZoomForBounds + het hogere
+    // MAX_TILES-budget hierboven voor een "normaal" groot land (VS, Brazilië,
+    // Australië...) dezelfde zoomdiepte als country-tier (zoom 8) — dus
+    // hetzelfde wegklassen-filter. Voor een écht enorm/leeg land (Canada,
+    // Rusland) kiest pickZoomForBounds vanzelf een grovere zoom, waar
+    // secondary/tertiary toch al niet meer in de brontegels zit (Protomaps'
+    // eigen per-zoom selectie) — dit filter hoeft dat dus niet apart te
+    // beperken.
+    continent: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
     city: new Set(['motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street']),
     // street: geen filter, alles toegestaan.
   };
@@ -196,5 +226,5 @@ const ProtomapsFetch = (() => {
     return all.filter(f => f.tags.building);
   }
 
-  return { fetchStreets, fetchBuildings, tilesForBounds, lonLatToTile, PMTILES_URL };
+  return { fetchStreets, fetchBuildings, tilesForBounds, lonLatToTile, zoomForFetch, PMTILES_URL };
 })();
