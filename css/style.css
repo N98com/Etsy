@@ -272,7 +272,76 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 }
 @media (max-width: 900px) { .location-layout { grid-template-columns: 1fr; } }
 
-.location-controls { display: flex; flex-direction: column; }
+/* Zelfstandig scrollende, "sticky" zijbalk: op desktop blijft hij in beeld
+   terwijl je de (vaak veel langere) kaart-kolom scrollt, met de exportbalk
+   op zijn beurt sticky onderin DIT scrollende vak (zie .export-bar) — zo
+   is "downloaden" nooit meer weggescrold achter andere opties. Op mobiel
+   (zie media query onderaan dit bestand) staat dit weer gewoon uit: daar
+   is de winst van de accordion hieronder (maar één sectie tegelijk open)
+   al genoeg om het compact te houden, en zou een losstaand scrollend vak
+    boven de kaart alleen maar in de weg zitten. */
+.location-controls {
+  display: flex; flex-direction: column; gap: 12px;
+  position: sticky; top: 20px;
+  max-height: calc(100vh - 40px);
+  overflow-y: auto;
+}
+
+/* "Place"/"Look"/"Details"/"Effects" — vervangen de vier altijd-open
+   .panel-blokken van vroeger: op elk moment maar één sectie opengeklapt,
+   dus veel minder scrollen om bij een verderop gelegen optie te komen. */
+.accordion-item {
+  border: 1px solid var(--line); border-radius: var(--radius);
+  background: var(--panel); overflow: hidden; flex-shrink: 0;
+}
+.accordion-head {
+  width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
+  background: none; border: none; border-radius: 0; color: var(--ink); font: inherit;
+  cursor: pointer; padding: 12px 14px; text-align: left;
+}
+.accordion-head:hover { background: var(--accent-soft); }
+.accordion-head .step { display: flex; align-items: center; gap: 9px; }
+.accordion-head .step-num {
+  width: 20px; height: 20px; border-radius: 50%; background: var(--accent-soft); color: var(--accent);
+  display: flex; align-items: center; justify-content: center; font-size: 0.68rem; font-weight: 700; flex-shrink: 0;
+}
+.accordion-head .step-label { font-size: 0.88rem; font-weight: 600; }
+.accordion-head .step-sub { font-size: 0.72rem; color: var(--ink-soft); font-weight: 400; }
+.accordion-head .chev { color: var(--ink-soft); font-size: 0.68rem; transition: transform 0.18s ease; flex-shrink: 0; }
+.accordion-item.open .chev { transform: rotate(90deg); }
+/* Game Styles zijn een leuke extra, geen basisoptie — ✦ i.p.v. een
+   volgnummer, en (zie index.html) standaard dichtgeklapt. */
+.accordion-item.optional .step-num { background: rgba(217, 164, 65, 0.16); color: #d9a441; }
+
+.accordion-body { max-height: 0; overflow: hidden; transition: max-height 0.22s ease; }
+.accordion-item.open .accordion-body { max-height: 700px; }
+.accordion-body-inner { padding: 0 14px 14px; border-top: 1px solid var(--line); padding-top: 12px; }
+
+/* Sub-tabs binnen "Look" — layout/mask/kleuren stonden vroeger als drie
+   losse, altijd-zichtbare blokken onder elkaar; nu maar één tegelijk. */
+.subtabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 3px; margin-bottom: 10px; }
+.subtabs button { flex: 1; border: none; border-radius: 5px; background: transparent; color: var(--ink-soft); font: inherit; font-size: 0.76rem; font-weight: 600; padding: 6px 4px; }
+.subtabs button.active { background: var(--panel); color: var(--ink); }
+.subpane { display: none; }
+.subpane.active { display: block; }
+
+/* Blijft onderin de (scrollende) zijbalk "plakken" — de belangrijkste
+   knop van het scherm (downloaden) is zo nooit meer weggescrold achter
+   andere opties, ongeacht welke accordion-sectie openstaat. */
+.export-bar {
+  position: sticky; bottom: 0; flex-shrink: 0;
+  background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius);
+  padding: 14px;
+}
+
+/* Boven de kaart, i.p.v. verspreide kleine grijze hint-regeltjes tussen
+   andere labels in — plaats/schaal/aantal-elementen in één oogopslag. */
+.status-bar { display: flex; flex-wrap: wrap; gap: 8px; }
+.status-bar .hint {
+  margin: 0; background: var(--panel); border: 1px solid var(--line); border-radius: 999px;
+  padding: 6px 12px; font-size: 0.76rem;
+}
+.status-bar .hint:empty { display: none; }
 
 .location-search-results {
   margin-top: 4px; border: 1px solid var(--line); border-radius: 6px; overflow: hidden;
@@ -317,18 +386,13 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .location-canvas-wrap canvas { max-width: 100%; height: auto; cursor: grab; touch-action: none; }
 .location-canvas-wrap canvas:active { cursor: grabbing; }
 
-/* Op telefoon staat "Exporteren" anders bovenaan (het staat in de
-   zijbalk-HTML, die op smalle schermen als eerste kolom rendert) — ver
-   boven de kaart waar het bij hoort. "display: contents" heft de
-   zijbalk/hoofdkolom als rendering-box op, zodat hun kinderen rechtstreeks
-   grid-items van .location-layout worden en dus onderling herordend kunnen
-   worden; alleen het exportpaneel krijgt een "order" om na de kaart te
-   verschijnen, de rest houdt zijn natuurlijke (source-)volgorde aan. Alleen
-   op mobiel: op desktop blijft Exporteren gewoon in de zijbalk staan. Moet
-   ná de losstaande ".location-controls"/".location-main { display: flex }"-
-   regels hierboven staan, anders wint die (latere, even specifieke) regel
-   het bij een cascade-gelijkspel. */
+/* Op telefoon staat alles al in één kolom gestapeld (zie .location-layout
+   hierboven). Een zelfstandig scrollend, sticky zijpaneel (zie
+   .location-controls) is dan geen winst meer — het zou alleen een los
+   scrollend vak bóven de kaart worden. De accordion zelf (maar één sectie
+   tegelijk open) houdt het ook hier al compact, dus hier gewoon in de
+   normale paginastroom laten meescrollen. */
 @media (max-width: 900px) {
-  .location-controls, .location-main { display: contents; }
-  #locationExportPanel { order: 5; margin-top: 0; }
+  .location-controls { position: static; max-height: none; overflow-y: visible; }
+  .export-bar { position: static; }
 }

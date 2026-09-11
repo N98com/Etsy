@@ -910,8 +910,36 @@ window.LocationApp = (() => {
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     updateExportSizes();
 
+    initAccordion();
+    initLookSubtabs();
     wireCanvasInteraction();
     render();
+  }
+
+  // "Place"/"Look"/"Details"/"Effects" — maar één sectie tegelijk open,
+  // i.p.v. de vier altijd-open panelen van vroeger. Puur UI-chrome, raakt
+  // geen van de bestaande state/render-logica aan.
+  function initAccordion() {
+    document.querySelectorAll('.accordion-item').forEach(item => {
+      item.querySelector('.accordion-head').addEventListener('click', () => {
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+      });
+    });
+  }
+
+  // Sub-tabs binnen de "Look"-sectie (Layout/Mask/Colors): schakelt alleen
+  // welk blok zichtbaar is, de layoutTabs/maskTabs/paletteGrid-knoppen
+  // daarbinnen blijven precies dezelfde elementen met dezelfde listeners.
+  function initLookSubtabs() {
+    const tabs = document.getElementById('lookSubtabs');
+    tabs.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-sub]');
+      if (!btn) return;
+      [...tabs.children].forEach(b => b.classList.toggle('active', b === btn));
+      tabs.closest('.accordion-body-inner').querySelectorAll('.subpane').forEach(p => p.classList.toggle('active', p.dataset.pane === btn.dataset.sub));
+    });
   }
 
   function onShow() {
