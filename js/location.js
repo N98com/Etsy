@@ -4,11 +4,12 @@
 // een kader selecteerde, gevolgd door een losse "Genereer"-stap; nu pas je
 // gewoon meteen aan wat je ziet, en exporteer je vanaf hetzelfde scherm.
 //
-// Overpass mag niet op elke pixel pan/zoom bevraagd worden (rate-limits),
-// dus: elke pan/zoom tekent METEEN opnieuw met de al opgehaalde data (snel,
-// geen netwerk), en een gedebounced timer haalt pas verse data op zodra je
-// even stilstaat — voor een ruimer gebied dan strikt zichtbaar is, zodat
-// kleine bewegingen binnen die marge niets hoeven te verversen.
+// Niet elke pan/zoom-pixel mag een nieuwe tegel-fetch triggeren (netwerk-
+// latency + decodeerwerk per tegel), dus: elke pan/zoom tekent METEEN
+// opnieuw met de al opgehaalde data (snel, geen netwerk), en een
+// gedebounced timer haalt pas verse data op zodra je even stilstaat — voor
+// een ruimer gebied dan strikt zichtbaar is, zodat kleine bewegingen binnen
+// die marge niets hoeven te verversen.
 //
 // Isoleren/uitlichten/Game Styles blijven bestaan naast dit live-pannen:
 // - Uitlichten (highlight) gebruikt gewoon de normale live-view-bounds (de
@@ -112,7 +113,7 @@ window.LocationApp = (() => {
   let renderQueued = false;
   let ready = false;
   let drag = null; // { x, y, moved, center }
-  // Cache van eerder opgehaalde Overpass-resultaten: nieuwste vooraan, zie
+  // Cache van eerder opgehaalde gebieden: nieuwste vooraan, zie
   // findCachedFetch/storeCachedFetch. Voorkomt een nieuwe (trage) netwerkcall
   // zodra je terugpant/-zoomt naar een gebied dat al eerder is opgehaald.
   let fetchCache = [];
@@ -347,10 +348,7 @@ window.LocationApp = (() => {
     state.fetching = true;
     statusEl.textContent = 'Fetching map data…';
     try {
-      // Zelf-gehoste Protomaps-planeetdata (R2) i.p.v. live Overpass-queries
-      // — zelfde interface (bounds, tier[, styleHint] -> zelfde vorm), dus
-      // verder ongewijzigd; MapGeo.fetchStreets/fetchBuildings blijven
-      // intact als terugvaloptie mocht dit ooit teruggedraaid moeten worden.
+      // Zelf-gehoste Protomaps-planeetdata (R2) i.p.v. live Overpass-queries.
       const streets = await ProtomapsFetch.fetchStreets(padded, tier, styleHint);
       let buildings = [];
       if (state.mw2Style) {

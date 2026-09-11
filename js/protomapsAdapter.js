@@ -1,8 +1,9 @@
 // Vertaalt Protomaps' basiskaart-vector-tegels (MVT, laag-schema bevestigd via
-// pmtiles.io tegen build.protomaps.com) naar exact dezelfde interne vorm die
-// mapGeo.js nu uit Overpass haalt — {tags, coords} voor lijnen/wegen,
-// {tags, rings} voor vlakken — zodat mapRender.js/painters.js, de paletten,
-// masks en Game Styles ONGEWIJZIGD blijven werken ongeacht de databron.
+// pmtiles.io tegen build.protomaps.com) naar de interne vorm die de renderer
+// verwacht (voorheen uit Overpass afkomstig, inmiddels volledig vervangen) —
+// {tags, coords} voor lijnen/wegen, {tags, rings} voor vlakken — zodat
+// mapRender.js/painters.js, de paletten, masks en Game Styles ONGEWIJZIGD
+// blijven werken ongeacht de databron.
 //
 // Bevestigd schema (Hengelo, tegel 15/17003/10782, zie sessie-onderzoek):
 //   roads   (LineString): kind="minor_road", kind_detail="residential", ...
@@ -101,8 +102,8 @@ const ProtomapsAdapter = (() => {
 
   // Doorloopt alle features in alle relevante lagen van één gedecodeerde
   // tegel (een vector-tile.js VectorTile-object) en levert één platte lijst
-  // in dezelfde vorm als MapGeo.fetchStreets/fetchBuildings — direct te
-  // mengen met state.streets/state.buildings.
+  // in de vorm die location.js verwacht ({tags, coords}/{tags, rings}) —
+  // direct te mengen met state.streets/state.buildings.
   function translateTile(vectorTile, z, x, y) {
     const out = [];
     for (const layerName of Object.keys(vectorTile.layers)) {

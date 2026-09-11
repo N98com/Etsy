@@ -1,16 +1,17 @@
 // Haalt kaartdata op uit ons zelf-gehoste Protomaps-planeetbestand (PMTiles
-// op Cloudflare R2) i.p.v. live Overpass-queries. Zelfde publieke interface
-// als MapGeo.fetchStreets/fetchBuildings (bounds, tier[, styleHint] -> array
-// in identieke {tags, coords}/{tags, rings}-vorm), zodat location.js zonder
-// verdere aanpassingen kan wisselen tussen de twee databronnen.
+// op Cloudflare R2) — de databron die location.js voor straten/water/
+// gebouwen gebruikt (voorheen live Overpass-queries via mapGeo.js, zie
+// diens headercomment voor waarom dat pad verwijderd is). Publieke interface
+// (bounds, tier[, styleHint] -> array in {tags, coords}/{tags, rings}-vorm)
+// bleef gelijk, zodat location.js verder ongewijzigd bleef.
 //
 // Kern-aanpak: per tier een passend zoomniveau kiezen (klein gebied = diep
 // zoomen voor vol detail, groot gebied = ondiep zoomen zodat het aantal
-// benodigde tegels laag blijft — net zoals classifyAreaTier in mapGeo.js al
-// per tier de Overpass-querybelasting begrenst), de tegels ophalen/decoderen
-// via ProtomapsAdapter, en daarna dezelfde soort wegtype-/waterfilters
-// toepassen die buildStreetsQuery voor Overpass al per tier gebruikte —
-// zodat het resultaat er per tier hetzelfde uitziet, ongeacht de databron.
+// benodigde tegels laag blijft — zie pickZoomForBounds hieronder voor
+// land/continent-schaal), de tegels ophalen/decoderen via ProtomapsAdapter,
+// en daarna wegtype-/waterfilters per tier toepassen zodat het resultaat er
+// per schaal even opgeruimd uitziet (minder relevant voor een backend-limiet
+// nu, meer voor leesbaarheid: te veel wegjes op landschaal oogt als ruis).
 const ProtomapsFetch = (() => {
   const PMTILES_URL = 'https://pub-e184090159cf437fbbe48fe58c448cba.r2.dev/planet.pmtiles';
   const MAX_TILES = 400; // defensieve bovengrens — mag nooit overschreden worden bij correcte TIER_ZOOM-waarden
