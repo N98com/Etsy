@@ -68,7 +68,11 @@ const ProtomapsAdapter = (() => {
         return parts.map(coords => ({ tags: { waterway: props.kind || 'stream', name: props.name || undefined }, coords }));
       }
       if (feature.type === GEOM_POLYGON) {
-        return [{ tags: { natural: 'water' }, rings: parts }];
+        // name moet hier ook mee, anders filtert ProtomapsFetch's
+        // "alleen genoemd water" op region/country/continent-schaal ELK
+        // meer/zee weg (zelfs een oceaan) — dat viel niet op zolang alleen
+        // straat/stad-schaal (geen naamfilter) getest werd.
+        return [{ tags: { natural: 'water', name: props.name || undefined }, rings: parts }];
       }
       return [];
     }

@@ -43,9 +43,13 @@ const MapGeo = (() => {
     return Math.max(latSpanKm, Math.abs(lonSpanKm));
   }
 
-  // 'continent' fetcht helemaal geen Overpass-data meer (zelfs alleen
-  // hoofdwegen zou voor een heel continent nog veel te zwaar zijn) — daar
-  // rendert MapRender alleen de silhouet + gegenereerde textuur.
+  // 'continent' fetcht via deze (ongebruikte, want vervangen door
+  // ProtomapsFetch) Overpass-query helemaal geen data meer — dat was destijds
+  // nodig omdat zelfs alleen hoofdwegen voor een heel continent te zwaar was
+  // voor de gedeelde publieke Overpass-servers. ProtomapsFetch (de databron
+  // die location.js daadwerkelijk gebruikt) heeft die beperking niet meer —
+  // zie daar pickZoomForBounds, die deze tier juist wél van (grof gezoomde)
+  // echte data voorziet, tot en met een heel land/continent.
   // 'region' eindigt bewust vroeg (150km i.p.v. voorheen 250km): een "heel
   // eiland" van gemiddelde grootte (Cyprus, Kreta, Sicilië...) valt zo in de
   // veel lichtere 'country'-query i.p.v. de zwaardere 'region'-query die bij

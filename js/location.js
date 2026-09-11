@@ -80,7 +80,7 @@ window.LocationApp = (() => {
     street: '', city: '',
     region: 'Large area selected — only main roads are shown, to keep the map fast and readable.',
     country: 'Very large area (country level) selected — only main roads and major bodies of water are shown.',
-    continent: 'Continent level selected — at this scale, street/road data isn\'t meaningful; only the silhouette of the area is drawn.',
+    continent: 'Huge area selected (a large country or continent) — only motorways and major named waterways are shown, at a coarser zoom, to keep it fast.',
   };
 
   const CANVAS_LONG_EDGE = 900; // preview-resolutie, niet de exportresolutie

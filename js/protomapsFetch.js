@@ -39,6 +39,32 @@ const ProtomapsFetch = (() => {
   // tegelaantal nog steeds ruim onder MAX_TILES voor een normaal land/regio.
   const TIER_ZOOM = { street: 15, city: 12, region: 11, country: 8 };
 
+  // Ruwe tegeltelling op een zoomniveau, zonder MAX_TILES-afkap — gebruikt om
+  // vooraf het diepste zoomniveau te vinden dat het gekozen gebied nog
+  // VOLLEDIG dekt (geen afgeknipte rand doordat tilesForBounds bij MAX_TILES
+  // stopt).
+  function tileCountAtZoom(bounds, z) {
+    const nw = lonLatToTile(bounds.west, bounds.north, z);
+    const se = lonLatToTile(bounds.east, bounds.south, z);
+    return (se.x - nw.x + 1) * (se.y - nw.y + 1);
+  }
+
+  // Voor land/continent-schaal (waar de oppervlakte enorm kan variëren, van
+  // een klein land tot een heel continent) is één vast zoomniveau zoals bij
+  // street/city/region niet veilig — dus zoeken we hier het diepste
+  // zoomniveau dat het HELE gekozen gebied nog compleet dekt binnen het
+  // tegelbudget. Nu de data van ons eigen R2-gehoste PMTiles-bestand komt
+  // (geen Overpass-rate-limit meer zoals vroeger), is er geen reden meer om
+  // grote gebieden helemaal geen data te geven — dat leverde voorheen bij
+  // een hele (grote) staat of land alleen een nep-textuur op i.p.v. een
+  // echte kaart.
+  function pickZoomForBounds(bounds, maxZoom) {
+    for (let z = maxZoom; z >= 2; z--) {
+      if (tileCountAtZoom(bounds, z) <= MAX_TILES) return z;
+    }
+    return 2;
+  }
+
   function tilesForBounds(bounds, z) {
     const nw = lonLatToTile(bounds.west, bounds.north, z);
     const se = lonLatToTile(bounds.east, bounds.south, z);
@@ -76,8 +102,12 @@ const ProtomapsFetch = (() => {
   }
 
   async function fetchArea(bounds, tier) {
-    if (tier === 'continent') return []; // net als Overpass: geen data, alleen silhouet
-    const z = TIER_ZOOM[tier] || TIER_ZOOM.street;
+    // street/city/region: vast zoomniveau (oppervlakte-spreiding binnen die
+    // tiers is klein genoeg om altijd veilig te zijn). country/continent:
+    // dynamisch bepaald — zie pickZoomForBounds hierboven.
+    const z = (tier === 'street' || tier === 'city' || tier === 'region')
+      ? TIER_ZOOM[tier]
+      : pickZoomForBounds(bounds, TIER_ZOOM.country);
     const tiles = tilesForBounds(bounds, z);
     const perTile = await Promise.all(tiles.map(t => fetchTileFeatures(t.z, t.x, t.y)));
     const errorCount = perTile.reduce((n, r) => n + (r.error ? 1 : 0), 0);
@@ -122,9 +152,14 @@ const ProtomapsFetch = (() => {
   const HIGHWAY_ALLOW = {
     country: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
     region: new Set(['motorway', 'trunk', 'primary', 'secondary', 'tertiary']),
+    // Continent-schaal dekt nu ook een enkel groot land (zie pickZoomForBounds
+    // hierboven) — nog soberder dan country, anders verzuipt het weinige
+    // resterende detail op zo'n grove zoom in te veel wegklassen.
+    continent: new Set(['motorway', 'trunk', 'primary']),
     city: new Set(['motorway', 'motorway_link', 'trunk', 'trunk_link', 'primary', 'primary_link', 'secondary', 'secondary_link', 'tertiary', 'tertiary_link', 'residential', 'unclassified', 'living_street']),
     // street: geen filter, alles toegestaan.
   };
+  const NAMED_WATER_ONLY_TIERS = new Set(['country', 'region', 'continent']);
 
   function filterStreets(features, tier, styleHint) {
     const allow = HIGHWAY_ALLOW[tier];
@@ -132,14 +167,14 @@ const ProtomapsFetch = (() => {
     return features.filter(f => {
       if (f.tags.highway) return !allow || allow.has(f.tags.highway);
       if (f.tags.waterway) {
-        // Grote schaal (region/country): alleen genoemde waterlopen, net
-        // als Overpass' "waterway=river"-filter daar — voorkomt dat elk
-        // beekje op landschaal meegenomen wordt.
-        if (tier === 'country' || tier === 'region') return !!f.tags.name;
+        // Grote schaal (region/country/continent): alleen genoemde
+        // waterlopen, net als Overpass' "waterway=river"-filter daar —
+        // voorkomt dat elk beekje op landschaal meegenomen wordt.
+        if (NAMED_WATER_ONLY_TIERS.has(tier)) return !!f.tags.name;
         return true;
       }
       if (f.tags.natural === 'water') {
-        if (tier === 'country' || tier === 'region') return !!f.tags.name;
+        if (NAMED_WATER_ONLY_TIERS.has(tier)) return !!f.tags.name;
         return true;
       }
       if (f.tags.leisure === 'park' || f.tags.landuse) {

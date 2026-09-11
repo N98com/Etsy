@@ -292,11 +292,13 @@ const MapRender = (() => {
 
     if (gtaStyle) {
       drawTerrainContours(painter, mapW, mapH, bounds, '#242424');
-    } else if (rdr2Style || tier === 'continent') {
-      // Op continent-schaal is er geen Overpass-data (zie MapGeo.fetchStreets)
-      // — vul de silhouet met gegenereerde textuur i.p.v. een kaal vlak. Voor
-      // RDR2 is dit ook gewoon de bedoeling: een zacht reliëf/hillshade-
-      // gevoel zoals de originele perkament-kaart, ongeacht schaal.
+    } else if (rdr2Style) {
+      // RDR2 tekent altijd een zacht reliëf/hillshade-gevoel, ongeacht
+      // schaal, zoals de originele perkament-kaart — geen echte hoogtedata,
+      // puur decoratief. (Continent-schaal kreeg deze textuur vroeger ook,
+      // toen daar nog geen echte data voor was — zie ProtomapsFetch's
+      // pickZoomForBounds, dat inmiddels ook een heel land/continent van
+      // echte (grof gezoomde) straten/water voorziet.)
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
     } else if (!mw2Style) {
       // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
