@@ -25,8 +25,6 @@ const MAP_PALETTES = [
     bg: '#f3e8e1', water: '#c4ac9c', park: '#edd3be', road: '#8a5a4a', roadMinor: '#c9a292', text: '#5c4438' },
   { id: 'electric-midnight-glow', name: 'Electric Midnight Glow',
     bg: '#1c1c1c', water: '#4a4a4a', park: '#242424', road: '#f9ea5c', roadMinor: '#f2c94c', text: '#f9ea5c' },
-  { id: 'soft-peachy-dreams', name: 'Soft Peachy Dreams',
-    bg: '#f5d2b8', water: '#a97c8d', park: '#efb49c', road: '#ffffff', roadMinor: '#e8c4b8', text: '#5c3e42' },
   { id: 'candy-floss-dreams', name: 'Candy Floss Dreams',
     bg: '#f5edda', water: '#afd4de', park: '#c8ede1', road: '#f0a99c', roadMinor: '#f3c4ba', text: '#6b4a42' },
   { id: 'fiery-ice-cream-delight', name: 'Fiery Ice Cream Delight',
@@ -47,11 +45,6 @@ const MAP_PALETTES = [
     bg: '#0d1012', water: '#141a1c', park: '#171b1d', road: '#5b7d80', roadMinor: '#3a4d4f', text: '#8aa3a5' },
   { id: 'glacier-mist', name: 'Glacier Mist',
     bg: '#eef1f3', water: '#cfe0e8', park: '#e3e9ec', road: '#647c8f', roadMinor: '#9db0bd', text: '#5c6b73' },
-  // Gekozen uit een reeks van dertig voorgestelde kleurproeven (zie de
-  // gedeelde specimen-pagina) — felle magenta wegen en cyaan zijstraten op
-  // bijna zwart, als een nachtelijke skyline.
-  { id: 'neon-tokyo', name: 'Neon Tokyo',
-    bg: '#0d0d14', water: '#1a1a2e', park: '#14141f', road: '#ff2d75', roadMinor: '#3ae0e0', text: '#ff2d75' },
 ];
 
 function getMapPalette(id) {
