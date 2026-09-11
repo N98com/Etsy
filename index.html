@@ -41,6 +41,7 @@
           <label class="settings-menu-item settings-menu-toggle" for="mapgenLegacyCheck">
             <input type="checkbox" id="mapgenLegacyCheck"> MapGen 1.0 layout
           </label>
+          <button type="button" id="playgroundMenuBtn" class="settings-menu-item">🎨 Playground</button>
         </div>
       </div>
       <button id="logoutBtn" class="ghost">Log out</button>
@@ -49,7 +50,11 @@
 
   <nav class="view-tabs">
     <button type="button" class="view-tab active" id="viewTabLocation" data-view="location">Location</button>
-    <button type="button" class="view-tab" id="viewTabPlayground" data-view="playground">Playground</button>
+    <!-- Uit het zicht gehaald op verzoek — blijft functioneel bereikbaar
+         via Instellingen ▸ "Playground" (zie #playgroundMenuBtn in
+         js/main.js), die 'm gewoon aanklikt zodat views.js' bestaande
+         selectView-logica ongewijzigd blijft. -->
+    <button type="button" class="view-tab" id="viewTabPlayground" data-view="playground" hidden>Playground</button>
   </nav>
 
   <div id="playgroundView" hidden>
@@ -356,18 +361,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=19"></script>
-  <script src="js/utils.js?v=19"></script>
-  <script src="js/rng.js?v=19"></script>
-  <script src="js/palettes.js?v=19"></script>
-  <script src="js/geom.js?v=19"></script>
-  <script src="js/painters.js?v=19"></script>
-  <script src="js/algorithms.js?v=19"></script>
-  <script src="js/export.js?v=19"></script>
-  <script src="js/main.js?v=19"></script>
-  <script src="js/views.js?v=19"></script>
+  <script src="js/auth.js?v=20"></script>
+  <script src="js/utils.js?v=20"></script>
+  <script src="js/rng.js?v=20"></script>
+  <script src="js/palettes.js?v=20"></script>
+  <script src="js/geom.js?v=20"></script>
+  <script src="js/painters.js?v=20"></script>
+  <script src="js/algorithms.js?v=20"></script>
+  <script src="js/export.js?v=20"></script>
+  <script src="js/main.js?v=20"></script>
+  <script src="js/views.js?v=20"></script>
 
-  <script src="js/mapPalettes.js?v=19"></script>
+  <script src="js/mapPalettes.js?v=20"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -375,11 +380,11 @@
   <script src="https://cdn.jsdelivr.net/npm/pbf@3/dist/pbf.js"></script>
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
-  <script src="js/vendor/vector-tile.js?v=19"></script>
-  <script src="js/protomapsAdapter.js?v=19"></script>
-  <script src="js/protomapsFetch.js?v=19"></script>
-  <script src="js/mapGeo.js?v=19"></script>
-  <script src="js/mapRender.js?v=19"></script>
-  <script src="js/location.js?v=19"></script>
+  <script src="js/vendor/vector-tile.js?v=20"></script>
+  <script src="js/protomapsAdapter.js?v=20"></script>
+  <script src="js/protomapsFetch.js?v=20"></script>
+  <script src="js/mapGeo.js?v=20"></script>
+  <script src="js/mapRender.js?v=20"></script>
+  <script src="js/location.js?v=20"></script>
 </body>
 </html>

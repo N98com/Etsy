@@ -91,6 +91,7 @@
   const settingsBtn = el('settingsBtn');
   const settingsMenu = el('settingsMenu');
   const historyMenuBtn = el('historyMenuBtn');
+  const playgroundMenuBtn = el('playgroundMenuBtn');
   const historyModalBackdrop = el('historyModalBackdrop');
   const historyCloseBtn = el('historyCloseBtn');
   const historyList = el('historyList');
@@ -223,6 +224,13 @@
       settingsMenu.hidden = true;
       selectHistoryTab('playground');
       historyModalBackdrop.classList.remove('hidden');
+    });
+    // De Playground-tab zelf is uit .view-tabs gehaald (op verzoek uit het
+    // zicht) maar bestaat nog gewoon — deze knop klikt 'm simpelweg aan,
+    // zodat views.js' eigen selectView-logica ongewijzigd blijft werken.
+    playgroundMenuBtn.addEventListener('click', () => {
+      settingsMenu.hidden = true;
+      el('viewTabPlayground').click();
     });
     historyCloseBtn.addEventListener('click', () => historyModalBackdrop.classList.add('hidden'));
     historyModalBackdrop.addEventListener('click', e => { if (e.target === historyModalBackdrop) historyModalBackdrop.classList.add('hidden'); });
