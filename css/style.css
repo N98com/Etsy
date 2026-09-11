@@ -50,6 +50,8 @@ header p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
 }
 .settings-menu-item { display: block; width: 100%; text-align: left; background: transparent; border: none; padding: 8px 10px; }
 .settings-menu-item:hover { background: var(--accent-soft); }
+.settings-menu-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.88rem; }
+.settings-menu-toggle input { accent-color: var(--accent); margin: 0; }
 
 .view-tabs {
   display: flex; gap: 4px; padding: 0 24px; background: var(--panel);
@@ -294,6 +296,11 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
   border: 1px solid var(--line); border-radius: var(--radius);
   background: var(--panel); overflow: hidden; flex-shrink: 0;
 }
+
+/* "MapGen 1.0" (Instellingen ▸ MapGen 1.0 layout) — de oorspronkelijke
+   indeling van vóór de accordion: vier altijd-open .panel-blokken, geen
+   sticky/scroll-cap. Gebruikt dezelfde .panel-stijl als de Playground-tab. */
+.location-controls-old { display: flex; flex-direction: column; }
 .accordion-head {
   width: 100%; display: flex; align-items: center; justify-content: space-between; gap: 8px;
   background: none; border: none; border-radius: 0; color: var(--ink); font: inherit;
@@ -395,4 +402,18 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 @media (max-width: 900px) {
   .location-controls { position: static; max-height: none; overflow-y: visible; }
   .export-bar { position: static; }
+}
+
+/* "MapGen 1.0" op telefoon: "Exporteren" stond anders onderaan de vier
+   gestapelde panelen, ver onder de kaart. "display: contents" heft
+   .location-controls-old/.location-main als rendering-box op, zodat hun
+   kinderen rechtstreeks grid-items van .location-layout worden en dus
+   onderling herordend kunnen worden; alleen het exportpaneel krijgt een
+   "order" om na de kaart te verschijnen, de rest houdt zijn natuurlijke
+   (source-)volgorde aan. Alleen relevant als MapGen 1.0 actief is — de
+   gewone (accordion) indeling heeft dit niet nodig, Export zit daar al
+   altijd binnen bereik (zie .export-bar hierboven). */
+@media (max-width: 900px) {
+  .location-controls-old, .location-main { display: contents; }
+  #oldPanelExport { order: 5; margin-top: 0; }
 }

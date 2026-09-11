@@ -144,6 +144,7 @@ window.LocationApp = (() => {
   const mw2StyleHint = el('mw2StyleHint');
   const rdr2StyleCheck = el('rdr2StyleCheck');
   const rdr2StyleHint = el('rdr2StyleHint');
+  const mapgenLegacyCheck = el('mapgenLegacyCheck');
   const exportSizeSelect = el('locationExportSize');
   const exportSVGBtn = el('locationExportSVGBtn');
   const exportPNGBtn = el('locationExportPNGBtn');
@@ -912,8 +913,45 @@ window.LocationApp = (() => {
 
     initAccordion();
     initLookSubtabs();
+    initUiMode();
     wireCanvasInteraction();
     render();
+  }
+
+  // Welke van de twee zijbalk-indelingen actief is ("v2" = de huidige
+  // accordion, "v1" = "MapGen 1.0", de vier altijd-open panelen van
+  // vroeger) — zie Instellingen ▸ "MapGen 1.0 layout". Beide indelingen
+  // delen letterlijk dezelfde bedieningselementen (dus dezelfde state,
+  // geen dubbele knoppen); applyUiMode verplaatst ze alleen tussen de
+  // slot-div's in index.html.
+  const UI_MODE_KEY = 'genart-location-ui-mode';
+  const UNIT_PLACEMENT = [
+    ['unitSearch', 'placeSlotOld', 'placeSlotNew'],
+    ['unitRatio', 'placeSlotOld', 'placeSlotNew'],
+    ['unitStatus', 'placeSlotOld', 'statusSlotNew'],
+    ['unitLayout', 'layoutSlotOld', 'layoutSlotNew'],
+    ['maskTabs', 'maskSlotOld', 'maskSlotNew'],
+    ['mapPaletteGrid', 'colorsSlotOld', 'colorsSlotNew'],
+    ['unitCaption', 'detailsSlotOld', 'detailsSlotNew'],
+    ['unitPins', 'detailsSlotOld', 'detailsSlotNew'],
+    ['unitEffects', 'effectsSlotOld', 'effectsSlotNew'],
+    ['unitExport', 'exportSlotOld', 'exportSlotNew'],
+  ];
+  function applyUiMode(mode) {
+    const legacy = mode === 'v1';
+    UNIT_PLACEMENT.forEach(([unitId, oldSlotId, newSlotId]) => {
+      document.getElementById(legacy ? oldSlotId : newSlotId).appendChild(document.getElementById(unitId));
+    });
+    document.getElementById('locationControlsOld').hidden = !legacy;
+    document.getElementById('locationControlsNew').hidden = legacy;
+    mapgenLegacyCheck.checked = legacy;
+    try { localStorage.setItem(UI_MODE_KEY, mode); } catch (e) { /* privévenster e.d. — voorkeur onthouden is dan niet erg */ }
+  }
+  function initUiMode() {
+    let saved = 'v2';
+    try { saved = localStorage.getItem(UI_MODE_KEY) || 'v2'; } catch (e) { /* zie applyUiMode */ }
+    applyUiMode(saved);
+    mapgenLegacyCheck.addEventListener('change', () => applyUiMode(mapgenLegacyCheck.checked ? 'v1' : 'v2'));
   }
 
   // "Place"/"Look"/"Details"/"Effects" — maar één sectie tegelijk open,

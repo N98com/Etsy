@@ -38,6 +38,9 @@
         <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
         <div id="settingsMenu" class="settings-menu" hidden>
           <button type="button" id="historyMenuBtn" class="settings-menu-item">🕘 History</button>
+          <label class="settings-menu-item settings-menu-toggle" for="mapgenLegacyCheck">
+            <input type="checkbox" id="mapgenLegacyCheck"> MapGen 1.0 layout
+          </label>
         </div>
       </div>
       <button id="logoutBtn" class="ghost">Log out</button>
@@ -133,28 +136,13 @@
 
   <div id="locationView">
     <div class="location-layout">
-      <aside class="sidebar location-controls">
+      <aside class="sidebar location-controls" id="locationControlsNew">
         <div class="accordion-item open" data-acc="place">
           <button type="button" class="accordion-head">
             <span class="step"><span class="step-num">1</span><span class="step-label">Place</span></span>
             <span class="chev">▸</span>
           </button>
-          <div class="accordion-body"><div class="accordion-body-inner">
-            <label for="locationSearchInput">Search for a place</label>
-            <div class="row">
-              <input type="text" id="locationSearchInput" placeholder="e.g. Paris, France" dir="auto">
-              <button id="locationSearchBtn" style="flex:0 0 auto;">Search</button>
-            </div>
-            <div id="locationSearchResults" class="location-search-results" hidden></div>
-
-            <label>Aspect ratio</label>
-            <div class="ratio-tabs" id="ratioTabs"></div>
-            <div class="row" id="customRatioRow" hidden style="margin-top:6px;">
-              <input type="number" id="customRatioW" min="1" value="2">
-              <span style="align-self:center; color:var(--ink-soft);">:</span>
-              <input type="number" id="customRatioH" min="1" value="3">
-            </div>
-          </div></div>
+          <div class="accordion-body"><div class="accordion-body-inner" id="placeSlotNew"></div></div>
         </div>
 
         <div class="accordion-item" data-acc="look">
@@ -168,16 +156,9 @@
               <button type="button" data-sub="mask">Mask</button>
               <button type="button" data-sub="colors">Colors</button>
             </div>
-            <div class="subpane active" data-pane="layout">
-              <div class="ratio-tabs" id="layoutTabs"></div>
-              <p class="hint" id="layoutHint" style="margin-top:6px;"></p>
-            </div>
-            <div class="subpane" data-pane="mask">
-              <div class="ratio-tabs" id="maskTabs"></div>
-            </div>
-            <div class="subpane" data-pane="colors">
-              <div class="map-palette-grid" id="mapPaletteGrid"></div>
-            </div>
+            <div class="subpane active" data-pane="layout" id="layoutSlotNew"></div>
+            <div class="subpane" data-pane="mask" id="maskSlotNew"></div>
+            <div class="subpane" data-pane="colors" id="colorsSlotNew"></div>
           </div></div>
         </div>
 
@@ -186,27 +167,7 @@
             <span class="step"><span class="step-num">3</span><span class="step-label">Details <span class="step-sub">caption · pins</span></span></span>
             <span class="chev">▸</span>
           </button>
-          <div class="accordion-body"><div class="accordion-body-inner">
-            <p class="hint" style="text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
-            <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
-            <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-            <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Country</label>
-            <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-            <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
-
-            <p class="hint" style="margin-top:14px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
-            <div class="row">
-              <button type="button" id="addPinBtn">Add pin</button>
-              <button type="button" id="clearPinsBtn">Clear pins</button>
-              <input type="color" id="pinColorInput" title="Pin color">
-            </div>
-            <p class="hint" id="pinsHint">Click "Add pin", then click a spot on the map to place it. Click a pin to remove it.</p>
-            <div class="row" style="margin-top:6px;">
-              <input type="text" id="pinAddressInput" placeholder="Or type an address…">
-              <button type="button" id="pinAddressSearchBtn" style="flex:0 0 auto;">Add pin at address</button>
-            </div>
-            <div id="pinAddressResults" class="location-search-results" hidden></div>
-          </div></div>
+          <div class="accordion-body"><div class="accordion-body-inner" id="detailsSlotNew"></div></div>
         </div>
 
         <div class="accordion-item optional" data-acc="effects">
@@ -214,17 +175,114 @@
             <span class="step"><span class="step-num">✦</span><span class="step-label">Effects <span class="step-sub">optional game styles</span></span></span>
             <span class="chev">▸</span>
           </button>
-          <div class="accordion-body"><div class="accordion-body-inner">
-            <label class="checkbox-row"><input type="checkbox" id="gtaStyleCheck"> GTA V</label>
-            <p class="hint" id="gtaStyleHint" hidden>Color scheme disabled — GTA V uses a fixed color scheme.</p>
-            <label class="checkbox-row"><input type="checkbox" id="mw2StyleCheck"> OG MW2</label>
-            <p class="hint" id="mw2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
-            <label class="checkbox-row"><input type="checkbox" id="rdr2StyleCheck"> RDR2</label>
-            <p class="hint" id="rdr2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
-          </div></div>
+          <div class="accordion-body"><div class="accordion-body-inner" id="effectsSlotNew"></div></div>
         </div>
 
-        <div class="export-bar" id="locationExportPanel">
+        <div class="export-bar" id="exportSlotNew"></div>
+      </aside>
+
+      <!-- Vorige (v1) indeling — vier altijd-open panelen i.p.v. de
+           accordion hierboven. Bewaard onder Instellingen ▸ "MapGen 1.0
+           layout" voor wie de oude indeling terug wil; zie
+           js/location.js's applyUiMode, die dezelfde bedieningselementen
+           (dus dezelfde state, geen dubbele knoppen) tussen deze twee
+           indelingen heen en weer verplaatst. -->
+      <aside class="sidebar location-controls-old" id="locationControlsOld" hidden>
+        <div class="panel">
+          <h2>Choose area</h2>
+          <div id="placeSlotOld"></div>
+        </div>
+        <div class="panel">
+          <h2>Layouts</h2>
+          <div id="layoutSlotOld"></div>
+          <label style="margin-top:10px; display:block;">Mask</label>
+          <div id="maskSlotOld"></div>
+        </div>
+        <div class="panel">
+          <h2>Style</h2>
+          <label>Color scheme</label>
+          <div id="colorsSlotOld"></div>
+          <div id="detailsSlotOld"></div>
+          <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Game Styles</p>
+          <div id="effectsSlotOld"></div>
+        </div>
+        <div class="panel" id="oldPanelExport">
+          <h2>Export</h2>
+          <div id="exportSlotOld"></div>
+        </div>
+      </aside>
+
+      <section class="location-main">
+        <div class="status-bar" id="statusSlotNew"></div>
+        <div class="location-canvas-wrap" id="locationCanvasWrap">
+          <canvas id="locationCanvas"></canvas>
+        </div>
+        <p class="hint">Drag to pan, scroll to zoom — this preview updates live and is exactly what gets exported.</p>
+      </section>
+
+      <!-- De daadwerkelijke bedieningselementen — precies één exemplaar
+           van elk, hier alleen "geparkeerd"; applyUiMode() verplaatst ze
+           bij het opstarten (en bij het omschakelen) naar de juiste
+           hierboven gedefinieerde slot-div. -->
+      <div hidden>
+        <div id="unitSearch">
+          <label for="locationSearchInput">Search for a place</label>
+          <div class="row">
+            <input type="text" id="locationSearchInput" placeholder="e.g. Paris, France" dir="auto">
+            <button id="locationSearchBtn" style="flex:0 0 auto;">Search</button>
+          </div>
+          <div id="locationSearchResults" class="location-search-results" hidden></div>
+        </div>
+        <div id="unitRatio">
+          <label>Aspect ratio</label>
+          <div class="ratio-tabs" id="ratioTabs"></div>
+          <div class="row" id="customRatioRow" hidden style="margin-top:6px;">
+            <input type="number" id="customRatioW" min="1" value="2">
+            <span style="align-self:center; color:var(--ink-soft);">:</span>
+            <input type="number" id="customRatioH" min="1" value="3">
+          </div>
+        </div>
+        <div id="unitStatus">
+          <p class="hint" id="areaTierHint" hidden></p>
+          <p class="hint" id="locationStatus"></p>
+        </div>
+        <div id="unitLayout">
+          <div class="ratio-tabs" id="layoutTabs"></div>
+          <p class="hint" id="layoutHint" style="margin-top:6px;"></p>
+        </div>
+        <div class="ratio-tabs" id="maskTabs"></div>
+        <div class="map-palette-grid" id="mapPaletteGrid"></div>
+        <div id="unitCaption">
+          <p class="hint" style="text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
+          <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
+          <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
+          <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Country</label>
+          <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
+          <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
+        </div>
+        <div id="unitPins">
+          <p class="hint" style="margin-top:14px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
+          <div class="row">
+            <button type="button" id="addPinBtn">Add pin</button>
+            <button type="button" id="clearPinsBtn">Clear pins</button>
+            <input type="color" id="pinColorInput" title="Pin color">
+          </div>
+          <p class="hint" id="pinsHint">Click "Add pin", then click a spot on the map to place it. Click a pin to remove it.</p>
+          <div class="row" style="margin-top:6px;">
+            <input type="text" id="pinAddressInput" placeholder="Or type an address…">
+            <button type="button" id="pinAddressSearchBtn" style="flex:0 0 auto;">Add pin at address</button>
+          </div>
+          <div id="pinAddressResults" class="location-search-results" hidden></div>
+        </div>
+        <div id="unitEffects">
+          <label class="checkbox-row"><input type="checkbox" id="gtaStyleCheck"> GTA V</label>
+          <p class="hint" id="gtaStyleHint" hidden>Color scheme disabled — GTA V uses a fixed color scheme.</p>
+          <label class="checkbox-row"><input type="checkbox" id="mw2StyleCheck"> OG MW2</label>
+          <p class="hint" id="mw2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
+          <label class="checkbox-row"><input type="checkbox" id="rdr2StyleCheck"> RDR2</label>
+          <p class="hint" id="rdr2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
+        </div>
+        <div id="unitExport">
           <label for="locationExportSize">Format</label>
           <select id="locationExportSize"></select>
           <div class="row" style="margin-top:8px;">
@@ -233,18 +291,7 @@
           </div>
           <p class="hint" id="locationExportStatus"></p>
         </div>
-      </aside>
-
-      <section class="location-main">
-        <div class="status-bar">
-          <p class="hint" id="areaTierHint" hidden></p>
-          <p class="hint" id="locationStatus"></p>
-        </div>
-        <div class="location-canvas-wrap" id="locationCanvasWrap">
-          <canvas id="locationCanvas"></canvas>
-        </div>
-        <p class="hint">Drag to pan, scroll to zoom — this preview updates live and is exactly what gets exported.</p>
-      </section>
+      </div>
     </div>
   </div>
 
@@ -309,18 +356,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=18"></script>
-  <script src="js/utils.js?v=18"></script>
-  <script src="js/rng.js?v=18"></script>
-  <script src="js/palettes.js?v=18"></script>
-  <script src="js/geom.js?v=18"></script>
-  <script src="js/painters.js?v=18"></script>
-  <script src="js/algorithms.js?v=18"></script>
-  <script src="js/export.js?v=18"></script>
-  <script src="js/main.js?v=18"></script>
-  <script src="js/views.js?v=18"></script>
+  <script src="js/auth.js?v=19"></script>
+  <script src="js/utils.js?v=19"></script>
+  <script src="js/rng.js?v=19"></script>
+  <script src="js/palettes.js?v=19"></script>
+  <script src="js/geom.js?v=19"></script>
+  <script src="js/painters.js?v=19"></script>
+  <script src="js/algorithms.js?v=19"></script>
+  <script src="js/export.js?v=19"></script>
+  <script src="js/main.js?v=19"></script>
+  <script src="js/views.js?v=19"></script>
 
-  <script src="js/mapPalettes.js?v=18"></script>
+  <script src="js/mapPalettes.js?v=19"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -328,11 +375,11 @@
   <script src="https://cdn.jsdelivr.net/npm/pbf@3/dist/pbf.js"></script>
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
-  <script src="js/vendor/vector-tile.js?v=18"></script>
-  <script src="js/protomapsAdapter.js?v=18"></script>
-  <script src="js/protomapsFetch.js?v=18"></script>
-  <script src="js/mapGeo.js?v=18"></script>
-  <script src="js/mapRender.js?v=18"></script>
-  <script src="js/location.js?v=18"></script>
+  <script src="js/vendor/vector-tile.js?v=19"></script>
+  <script src="js/protomapsAdapter.js?v=19"></script>
+  <script src="js/protomapsFetch.js?v=19"></script>
+  <script src="js/mapGeo.js?v=19"></script>
+  <script src="js/mapRender.js?v=19"></script>
+  <script src="js/location.js?v=19"></script>
 </body>
 </html>
