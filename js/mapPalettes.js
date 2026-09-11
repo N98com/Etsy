@@ -47,6 +47,11 @@ const MAP_PALETTES = [
     bg: '#0d1012', water: '#141a1c', park: '#171b1d', road: '#5b7d80', roadMinor: '#3a4d4f', text: '#8aa3a5' },
   { id: 'glacier-mist', name: 'Glacier Mist',
     bg: '#eef1f3', water: '#cfe0e8', park: '#e3e9ec', road: '#647c8f', roadMinor: '#9db0bd', text: '#5c6b73' },
+  // Gekozen uit een reeks van dertig voorgestelde kleurproeven (zie de
+  // gedeelde specimen-pagina) — felle magenta wegen en cyaan zijstraten op
+  // bijna zwart, als een nachtelijke skyline.
+  { id: 'neon-tokyo', name: 'Neon Tokyo',
+    bg: '#0d0d14', water: '#1a1a2e', park: '#14141f', road: '#ff2d75', roadMinor: '#3ae0e0', text: '#ff2d75' },
 ];
 
 function getMapPalette(id) {
