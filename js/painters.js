@@ -132,22 +132,6 @@ class CanvasPainter {
     ctx.restore();
   }
 
-  // Verlegt de oorsprong voor alles wat tot de bijbehorende endTranslate()
-  // getekend wordt — gebruikt door mapRender.js's "Crown"-layout (mat
-  // bovenaan i.p.v. onderaan) om de hele kaart-tekencode een stuk naar
-  // beneden te schuiven zonder dat die code zelf iets van die verschuiving
-  // hoeft te weten (werkt ook door offscreen beginLayer/endLayer-lagen heen,
-  // zie het commentaar bij drawLayer's ctx.drawImage-aanroep: die tekent de
-  // laag terug op de hoofd-canvas terwijl deze translate nog actief is).
-  beginTranslate(dx, dy) {
-    this.ctx.save();
-    this.ctx.translate(dx, dy);
-  }
-
-  endTranslate() {
-    this.ctx.restore();
-  }
-
   // Tekst — nodig voor de kaart-onderschriften (plaatsnaam/land/coördinaten).
   text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
     const ctx = this.ctx;
@@ -263,26 +247,6 @@ class SVGPainter {
       attrs += ` filter="url(#layerblur${id})"`;
     }
     this.parts.push(`${defs}<g${attrs}>${layer}</g>`);
-  }
-
-  // Zie CanvasPainter.beginTranslate — hier net als beginLayer een apart
-  // opgevangen stuk van de parts-array, dat bij endTranslate() als
-  // <g transform="translate(...)"> teruggeplakt wordt. Een beginLayer/
-  // endLayer/drawLayer-laag die hier binnenin opgehaald wordt, werkt vanzelf
-  // mee: drawLayer plakt zijn <g> terug in het op dát moment actieve
-  // parts-array (de translate-buffer), dus die komt vanzelf binnen de
-  // translate-groep terecht.
-  beginTranslate(dx, dy) {
-    if (!this._translateStack) this._translateStack = [];
-    this._translateStack.push({ parts: this.parts, dx, dy });
-    this.parts = [];
-  }
-
-  endTranslate() {
-    const { parts: outerParts, dx, dy } = this._translateStack.pop();
-    const inner = this.parts.join('');
-    this.parts = outerParts;
-    this.parts.push(`<g transform="translate(${fmt(dx)} ${fmt(dy)})">${inner}</g>`);
   }
 
   text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {

@@ -55,19 +55,15 @@ window.LocationApp = (() => {
     { id: 'custom', label: 'Custom', w: null, h: null },
   ];
 
-  // Negen posterlayouts — zie js/mapRender.js voor de tekencode van elk.
+  // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
   const LAYOUT_PRESETS = [
     { id: 'default', label: 'Default', hint: 'The map sits above a plain mat that holds the caption.' },
-    { id: 'crown', label: 'Crown', hint: 'Like Default, upside down — the caption sits in a plain mat above the map instead of below it.' },
     { id: 'fade', label: 'Fade', hint: 'Full-bleed map — the caption sits directly on it, over a dark fade at the bottom.' },
     { id: 'gallery', label: 'Gallery', hint: 'Like Default, with a thin frame line and museum-label rules around the caption.' },
     { id: 'stamp', label: 'Stamp', hint: 'Full-bleed map with a small captioned label tucked in the bottom-left corner.' },
     { id: 'ledger', label: 'Ledger', hint: 'Full-bleed map with a slim, left-aligned caption strip along the bottom edge.' },
-    { id: 'seal', label: 'Seal', hint: 'Full-bleed map with a circular medallion near the base holding the place name and coordinates.' },
-    { id: 'headline', label: 'Headline', hint: 'Full-bleed map — the place name sits centered at the bottom, bracketed by two thin rules.' },
-    { id: 'quiet', label: 'Quiet', hint: 'Full-bleed map with a small, understated caption and plenty of empty space.' },
   ];
-  const FULL_BLEED_LAYOUTS = new Set(['fade', 'stamp', 'ledger', 'seal', 'headline', 'quiet']);
+  const FULL_BLEED_LAYOUTS = new Set(['fade', 'stamp', 'ledger']);
 
   // "Masks" knippen de kaart tot een vaste vorm — zie MapRender.render's
   // buildMaskRing voor de tekencode van elke vorm.

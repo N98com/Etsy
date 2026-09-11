@@ -243,19 +243,10 @@ const MapRender = (() => {
     // laten de kaart de hele afbeelding vullen ("full bleed") en tekenen het
     // onderschrift er als losse laag overheen — zie de tekencode helemaal
     // onderaan render().
-    const fullBleed = layoutId === 'fade' || layoutId === 'stamp' || layoutId === 'ledger'
-      || layoutId === 'seal' || layoutId === 'headline' || layoutId === 'quiet';
+    const fullBleed = layoutId === 'fade' || layoutId === 'stamp' || layoutId === 'ledger';
     const layout = captionLayout(h, caption);
     const mapH = fullBleed ? h : h - layout.total;
     const mapW = w;
-    // "Crown" is Default op zijn kop: de mat staat BOVEN de kaart i.p.v.
-    // eronder. Alle kaart-tekencode hieronder gaat uit van een kaart die bij
-    // y=0 begint — in plaats van dat overal handmatig te verleggen, wordt dat
-    // hele blok zo meteen in een translate(0, mapY) gewrapt (zie
-    // beginTranslate/endTranslate in painters.js), zodat pins/isoleren/
-    // uitlichten/masks/terreinlagen ongewijzigd kunnen blijven en gewoon
-    // "denken" dat de kaart bij (0,0) begint.
-    const mapY = layoutId === 'crown' ? layout.total : 0;
 
     const project = isolate
       ? MapGeo.makeContainProjector(bounds, mapW, mapH)
@@ -270,13 +261,6 @@ const MapRender = (() => {
     // hier gaat isoleren (een echte geo-grens) altijd voor.
     const masking = !!(maskId && maskId !== 'none' && !isolate);
 
-    // Alles tot en met de uitlicht-compositie hieronder tekent in "lokale"
-    // kaart-coördinaten (0,0 = linkerbovenhoek van de kaart) — deze translate
-    // verlegt dat blok als geheel naar (0, mapY), zonder dat elke afzonderlijke
-    // tekenfunctie (pins, isoleren, masks, terreinlagen, drawLayer-compositie)
-    // daar zelf iets van hoeft te weten. Bij mapY=0 (alle bestaande layouts)
-    // is dit een no-op.
-    painter.beginTranslate(0, mapY);
     let projectedRings = null;
     if (isolate) {
       projectedRings = isolate.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
@@ -446,7 +430,6 @@ const MapRender = (() => {
         painter.polygon(ring, { stroke: palette.coastline || palette.text, strokeWidth: Math.max(1, Math.max(w, h) * 0.0015), fill: 'none' });
       });
     }
-    painter.endTranslate();
 
     // Onderschrift — de vijf layouts uit de UI ("Layouts"-sectie) delen
     // allemaal dezelfde onderliggende tekstblok-tekencode (drawCaptionBlock)
@@ -475,41 +458,12 @@ const MapRender = (() => {
         // onderin, links uitgelijnd, met land en coördinaten samengevoegd
         // tot één regel — compact en architectonisch, geen brede mat.
         drawLedgerCaption(painter, w, h, layout, caption, matColor, captionInk, captionSub, captionFaint);
-      } else if (layoutId === 'seal') {
-        // Kaart vult de hele afbeelding; een rond medaillon onderin het
-        // midden draagt plaats/land/coördinaten, als een wassen zegel op
-        // een oude kaart.
-        drawSealCaption(painter, w, h, layout, caption, matColor, captionInk, captionSub, captionFaint);
-      } else if (layoutId === 'headline') {
-        // Kaart vult de hele afbeelding met een donkere waas onderin (zoals
-        // Fade); de plaatsnaam staat gecentreerd tussen twee dunne lijntjes,
-        // als een tijdschrift-kop.
-        const fadeH = layout.total * 1.5;
-        painter.verticalGradientRect(0, h - fadeH, w, fadeH, [
-          { offset: 0, color: '#000000', opacity: 0 },
-          { offset: 0.6, color: '#000000', opacity: 0.28 },
-          { offset: 1, color: '#000000', opacity: 0.62 },
-        ]);
-        drawHeadlineCaption(painter, w, h, layout, caption, '#faf7ef', '#e3ddcd', '#c3bca8');
-      } else if (layoutId === 'quiet') {
-        // Kaart vult de hele afbeelding; een klein, ingetogen onderschrift
-        // onderin met veel lege ruimte eromheen — een korte, zachte waas
-        // erachter houdt de tekst leesbaar ongeacht het onderliggende
-        // kleurpalet, zonder een zichtbaar vlak/plaat te tonen.
-        const fadeH = layout.total * 1.1;
-        painter.verticalGradientRect(0, h - fadeH, w, fadeH, [
-          { offset: 0, color: '#000000', opacity: 0 },
-          { offset: 1, color: '#000000', opacity: 0.4 },
-        ]);
-        drawQuietCaption(painter, w, h, layout, caption, '#f2ede1', '#c9c2b3');
       } else {
-        // "Default", "Crown" en "Gallery" reserveren een effen mat (Crown
-        // erboven, de andere twee eronder); Gallery voegt daar bovenop een
-        // dunne ingesneden lijstrand en twee liniaaltjes rond het
-        // onderschrift aan toe, als een museumlabel.
+        // "Default" en "Gallery" reserveren een effen mat onderin; Gallery
+        // voegt daar bovenop een dunne ingesneden lijstrand en twee
+        // liniaaltjes rond het onderschrift aan toe, als een museumlabel.
         if (layoutId === 'gallery') drawGalleryFrame(painter, w, h, mapH, layout, captionFaint);
-        const captionTopY = layoutId === 'crown' ? 0 : mapH;
-        drawCaptionBlock(painter, w, captionTopY, layout, caption, { ink: captionInk, sub: captionSub, faint: captionFaint });
+        drawCaptionBlock(painter, w, mapH, layout, caption, { ink: captionInk, sub: captionSub, faint: captionFaint });
       }
     }
   }
@@ -647,116 +601,6 @@ const MapRender = (() => {
       painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
         fill: sub, fontSize: layout.countryH * 0.48, fontFamily,
         align, baseline: 'alphabetic',
-      });
-    }
-  }
-
-  // "Seal": kaart vult de hele afbeelding; een rond medaillon onderin het
-  // midden draagt plaats/land/coördinaten, als een wassen zegel op een oude
-  // kaart — ruim gemaat (grotere straal dan strikt nodig) zodat drie regels
-  // tekst er comfortabel in passen.
-  function drawSealCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
-    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
-    const fontFamily = captionFontFamily(rtl);
-    const r = layout.total * 0.95;
-    const margin = Math.min(w, h) * 0.06;
-    const cx = w / 2, cy = h - margin - r;
-    painter.circle(cx, cy, r, { fill: matColor, stroke: ink, strokeWidth: Math.max(1, Math.min(w, h) * 0.0022) });
-    let y = cy - r * 0.28;
-    if (caption.showPlace) {
-      y += layout.cityH * 0.5;
-      painter.text(cx, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.46, fontFamily, weight: '600',
-        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.04,
-      });
-      y += layout.cityH * 0.42;
-    }
-    if (caption.showCountry) {
-      y += layout.countryH * 0.55;
-      painter.text(cx, y, (caption.country || '').toUpperCase(), {
-        fill: sub, fontSize: layout.countryH * 0.42, fontFamily,
-        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.countryH * 0.12,
-      });
-      y += layout.countryH * 0.38;
-    }
-    if (caption.showCoords) {
-      y += layout.coordH * 0.65;
-      const lat = caption.lat, lon = caption.lon;
-      const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
-      painter.text(cx, y, label, {
-        fill: faint, fontSize: layout.coordH * 0.42, fontFamily: 'IBM Plex Mono, monospace',
-        align: 'center', baseline: 'alphabetic',
-      });
-    }
-  }
-
-  // "Headline": kaart vult de hele afbeelding (met een donkere waas onderin,
-  // zie de aanroep in render()); de plaatsnaam staat gecentreerd tussen twee
-  // dunne liniaaltjes, als een tijdschrift-kop, met land+coördinaten als één
-  // compacte regel eronder.
-  function drawHeadlineCaption(painter, w, h, layout, caption, ink, sub, faint) {
-    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
-    const fontFamily = captionFontFamily(rtl);
-    const ruleW = Math.min(w * 0.34, w - Math.min(w, h) * 0.12);
-    const ruleWidth = Math.max(0.6, Math.min(w, h) * 0.0012);
-    let y = h - layout.total + layout.gap;
-    if (caption.showPlace) {
-      painter.polyline([[w / 2 - ruleW / 2, y], [w / 2 + ruleW / 2, y]], { stroke: ink, strokeWidth: ruleWidth, opacity: 0.6 });
-      y += layout.cityH * 0.72;
-      painter.text(w / 2, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.56, fontFamily, weight: '600',
-        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.06,
-      });
-      y += layout.cityH * 0.3;
-      painter.polyline([[w / 2 - ruleW / 2, y], [w / 2 + ruleW / 2, y]], { stroke: ink, strokeWidth: ruleWidth, opacity: 0.6 });
-    }
-    if (caption.showCountry || caption.showCoords) {
-      const parts = [];
-      if (caption.showCountry) parts.push(caption.country || '');
-      if (caption.showCoords) {
-        const lat = caption.lat, lon = caption.lon;
-        parts.push(`${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`);
-      }
-      y += layout.countryH * 0.75;
-      painter.text(w / 2, y, parts.filter(Boolean).join('   ·   '), {
-        fill: sub, fontSize: layout.countryH * 0.5, fontFamily: 'IBM Plex Mono, monospace',
-        align: 'center', baseline: 'alphabetic',
-      });
-    }
-  }
-
-  // "Quiet": kaart vult de hele afbeelding (met een korte, zachte waas
-  // onderin, zie render()); een klein onderschrift met veel lege ruimte
-  // eromheen — bewust GEEN hoofdletters/brede letter-spacing zoals de
-  // andere layouts, dat is precies wat "Quiet" onderscheidt.
-  function drawQuietCaption(painter, w, h, layout, caption, ink, faint) {
-    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
-    const fontFamily = captionFontFamily(rtl);
-    let y = h - layout.total + layout.gap;
-    if (caption.showPlace) {
-      const ruleW = Math.min(w, h) * 0.09;
-      y += layout.cityH * 0.4;
-      painter.polyline([[w / 2 - ruleW / 2, y], [w / 2 + ruleW / 2, y]], {
-        stroke: ink, strokeWidth: Math.max(0.4, Math.min(w, h) * 0.0008), opacity: 0.55,
-      });
-      y += layout.cityH * 0.5;
-      painter.text(w / 2, y, caption.place || '', {
-        fill: ink, fontSize: layout.cityH * 0.4, fontFamily,
-        align: 'center', baseline: 'alphabetic',
-      });
-      y += layout.cityH * 0.15;
-    }
-    if (caption.showCountry || caption.showCoords) {
-      const parts = [];
-      if (caption.showCountry) parts.push(caption.country || '');
-      if (caption.showCoords) {
-        const lat = caption.lat, lon = caption.lon;
-        parts.push(`${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`);
-      }
-      y += layout.countryH * 0.7 + layout.coordH * 0.5;
-      painter.text(w / 2, y, parts.filter(Boolean).join('   —   '), {
-        fill: faint, fontSize: layout.countryH * 0.4, fontFamily: 'IBM Plex Mono, monospace',
-        align: 'center', baseline: 'alphabetic',
       });
     }
   }
