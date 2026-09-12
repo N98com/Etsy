@@ -365,6 +365,23 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .ratio-tabs button { flex: 1 1 auto; padding: 7px 8px; font-size: 0.78rem; }
 .ratio-tabs button.active { background: var(--accent); color: var(--accent-text); font-weight: 600; border-color: var(--accent); }
 
+/* Hover-preview van de exportformaten bij een aspect ratio — zie de
+   mouseenter/mouseleave-listeners in location.js (alleen aangesloten met
+   een echte muis, via een hover:hover-check, dus dit blok blijft op
+   touchscreens altijd verborgen). */
+.ratio-sizes-hint {
+  margin-top: 6px;
+  padding: 8px 10px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.ratio-sizes-hint strong { color: var(--ink); font-size: 0.76rem; }
+.ratio-sizes-hint span { font-size: 0.74rem; }
+
 .checkbox-row {
   display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: var(--ink);
   margin: 8px 0 0; cursor: pointer;

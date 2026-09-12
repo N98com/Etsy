@@ -134,6 +134,7 @@ window.LocationApp = (() => {
   const searchBtn = el('locationSearchBtn');
   const searchResults = el('locationSearchResults');
   const ratioTabs = el('ratioTabs');
+  const ratioSizesHint = el('ratioSizesHint');
   const customRatioRow = el('customRatioRow');
   const customRatioW = el('customRatioW');
   const customRatioH = el('customRatioH');
@@ -913,11 +914,24 @@ window.LocationApp = (() => {
     resizeCanvasForRatio();
     state.scale = clampScale(mapAreaHeight(canvas.height) / 0.05);
 
+    // Hover een aspect ratio-knop, en de exportformaten die daaruit voortkomen
+    // verschijnen eronder — alleen zinvol met een echte muis (zie de
+    // hover:hover-check), op een touchscreen blijft dit gewoon uit, precies
+    // zoals gevraagd. "Custom" heeft geen vaste w/h, dus geen zinvolle lijst.
+    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
     RATIO_PRESETS.forEach(r => {
       const btn = document.createElement('button');
       btn.type = 'button'; btn.textContent = r.label; btn.dataset.ratioId = r.id;
       btn.className = r.id === state.ratioId ? 'active' : '';
       btn.addEventListener('click', () => selectRatio(r.id));
+      if (supportsHover && r.w && r.h) {
+        const sizesHtml = Utils.computeExportSizes(r.w, r.h).map(s => `<span>${s.label}</span>`).join('');
+        btn.addEventListener('mouseenter', () => {
+          ratioSizesHint.innerHTML = `<strong>${r.label} exports as:</strong>${sizesHtml}`;
+          ratioSizesHint.hidden = false;
+        });
+        btn.addEventListener('mouseleave', () => { ratioSizesHint.hidden = true; });
+      }
       ratioTabs.appendChild(btn);
     });
     [customRatioW, customRatioH].forEach(inp => inp.addEventListener('input', () => {
