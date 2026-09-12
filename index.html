@@ -6,7 +6,7 @@
   <title>MapGen2.0</title>
   <!-- ?v=N: zelfde cache-busting reden als bij de js/-bestanden verderop —
        verhoog bij elke push die css/style.css wijzigt. -->
-  <link rel="stylesheet" href="css/style.css?v=2">
+  <link rel="stylesheet" href="css/style.css?v=3">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
        js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
@@ -272,9 +272,20 @@
           <p class="hint" style="text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
           <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
           <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-          <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Country</label>
+          <label for="placeFontSizeInput" class="hint" style="margin-top:6px; display:block;">Place name size</label>
+          <input type="range" id="placeFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+
+          <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="showRegionCheck" checked> State / Province</label>
+          <input type="text" id="regionNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
+          <label for="regionFontSizeInput" class="hint" style="margin-top:6px; display:block;">State / Province size</label>
+          <input type="range" id="regionFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+
+          <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="showCountryCheck" checked> Country</label>
           <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-          <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
+          <label for="countryFontSizeInput" class="hint" style="margin-top:6px; display:block;">Country size</label>
+          <input type="range" id="countryFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+
+          <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
         </div>
         <div id="unitPins">
           <p class="hint" style="margin-top:14px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
@@ -303,6 +314,13 @@
         <div id="unitExport">
           <label for="locationExportSize">Format</label>
           <select id="locationExportSize"></select>
+          <!-- Alleen zichtbaar voor één specifiek account — zie
+               canUseWatermark() in location.js. Voor iedereen die verder
+               inlogt blijft dit hele blok hidden. -->
+          <div id="watermarkRow" hidden style="margin-top:10px;">
+            <label class="checkbox-row"><input type="checkbox" id="watermarkEnabledCheck"> Add watermark (preview export)</label>
+            <input type="text" id="watermarkTextInput" placeholder="Watermark text" value="PREVIEW" style="margin-top:4px;" disabled>
+          </div>
           <div class="row" style="margin-top:8px;">
             <button class="primary" id="locationExportSVGBtn">Export SVG</button>
             <button id="locationExportPNGBtn">Export PNG</button>
@@ -374,18 +392,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=25"></script>
-  <script src="js/utils.js?v=25"></script>
-  <script src="js/rng.js?v=25"></script>
-  <script src="js/palettes.js?v=25"></script>
-  <script src="js/geom.js?v=25"></script>
-  <script src="js/painters.js?v=25"></script>
-  <script src="js/algorithms.js?v=25"></script>
-  <script src="js/export.js?v=25"></script>
-  <script src="js/main.js?v=25"></script>
-  <script src="js/views.js?v=25"></script>
+  <script src="js/auth.js?v=26"></script>
+  <script src="js/utils.js?v=26"></script>
+  <script src="js/rng.js?v=26"></script>
+  <script src="js/palettes.js?v=26"></script>
+  <script src="js/geom.js?v=26"></script>
+  <script src="js/painters.js?v=26"></script>
+  <script src="js/algorithms.js?v=26"></script>
+  <script src="js/export.js?v=26"></script>
+  <script src="js/main.js?v=26"></script>
+  <script src="js/views.js?v=26"></script>
 
-  <script src="js/mapPalettes.js?v=25"></script>
+  <script src="js/mapPalettes.js?v=26"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -394,10 +412,10 @@
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
   <script src="js/vendor/vector-tile.js?v=22"></script>
-  <script src="js/protomapsAdapter.js?v=25"></script>
-  <script src="js/protomapsFetch.js?v=25"></script>
-  <script src="js/mapGeo.js?v=25"></script>
-  <script src="js/mapRender.js?v=25"></script>
-  <script src="js/location.js?v=25"></script>
+  <script src="js/protomapsAdapter.js?v=26"></script>
+  <script src="js/protomapsFetch.js?v=26"></script>
+  <script src="js/mapGeo.js?v=26"></script>
+  <script src="js/mapRender.js?v=26"></script>
+  <script src="js/location.js?v=26"></script>
 </body>
 </html>

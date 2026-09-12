@@ -34,11 +34,17 @@
     const loginSubmitBtn = document.getElementById('loginSubmitBtn');
     const logoutBtn = document.getElementById('logoutBtn');
 
-    function showApp() {
+    // Blootgesteld voor location.js — gate voor de watermerk-exportoptie,
+    // die alleen voor één specifiek account zichtbaar mag zijn (zie
+    // unitExport's initWatermarkGate). Puur een UI-gemak, geen
+    // beveiligingsgrens: de echte toegangscontrole is Supabase Auth zelf.
+    function showApp(email) {
+      window.currentUserEmail = email || null;
       loginGate.hidden = true;
       appRoot.hidden = false;
     }
     function showGate() {
+      window.currentUserEmail = null;
       appRoot.hidden = true;
       loginGate.hidden = false;
     }
@@ -66,11 +72,11 @@
     logoutBtn.addEventListener('click', () => sb.auth.signOut());
 
     sb.auth.onAuthStateChange((_event, session) => {
-      if (session) showApp(); else showGate();
+      if (session) showApp(session.user.email); else showGate();
     });
 
     sb.auth.getSession().then(({ data }) => {
-      if (data && data.session) showApp(); else showGate();
+      if (data && data.session) showApp(data.session.user.email); else showGate();
     });
   });
 })();

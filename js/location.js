@@ -107,10 +107,11 @@ window.LocationApp = (() => {
     layoutId: 'default', maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
-    showPlace: true, showCountry: true, showCoords: true,
+    showPlace: true, showRegion: true, showCountry: true, showCoords: true,
+    placeFontScale: 1, regionFontScale: 1, countryFontScale: 1,
     gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false,
     pins: [], addingPin: false,
-    autoPlace: '', autoCountry: '', captionLang: null,
+    autoPlace: '', autoRegion: '', autoCountry: '', captionLang: null,
     streets: [], buildings: [], tier: 'street',
     fetchedBounds: null, fetchedTier: null, fetching: false,
     selectedPlace: null, // { name, query, rings, bounds } — gevuld zodra een zoekresultaat een bestuurlijke grens blijkt te hebben
@@ -145,8 +146,13 @@ window.LocationApp = (() => {
   const fontTabs = el('fontTabs');
   const showPlaceCheck = el('showPlaceCheck');
   const placeNameInput = el('placeNameInput');
+  const placeFontSizeInput = el('placeFontSizeInput');
+  const showRegionCheck = el('showRegionCheck');
+  const regionNameInput = el('regionNameInput');
+  const regionFontSizeInput = el('regionFontSizeInput');
   const showCountryCheck = el('showCountryCheck');
   const countryNameInput = el('countryNameInput');
+  const countryFontSizeInput = el('countryFontSizeInput');
   const showCoordsCheck = el('showCoordsCheck');
   const addPinBtn = el('addPinBtn');
   const clearPinsBtn = el('clearPinsBtn');
@@ -167,6 +173,16 @@ window.LocationApp = (() => {
   const exportSVGBtn = el('locationExportSVGBtn');
   const exportPNGBtn = el('locationExportPNGBtn');
   const exportStatus = el('locationExportStatus');
+  const watermarkRow = el('watermarkRow');
+  const watermarkEnabledCheck = el('watermarkEnabledCheck');
+  const watermarkTextInput = el('watermarkTextInput');
+
+  // Watermerk-export: puur voor deze ene gebruiker, om klanten alvast een
+  // preview te kunnen sturen zonder dat het eindresultaat zomaar overgenomen
+  // kan worden — niemand anders die inlogt ziet deze optie. Client-side
+  // check (geen server-side afdwinging), zoals afgesproken puur een UI-gemak.
+  const WATERMARK_ACCOUNT_EMAIL = 'bramengbers@hotmail.nl';
+  function canUseWatermark() { return window.currentUserEmail === WATERMARK_ACCOUNT_EMAIL; }
 
   function getActivePalette() {
     if (state.gtaStyle) return GTA_STYLE_PALETTE;
@@ -200,7 +216,12 @@ window.LocationApp = (() => {
 
   // ---- geometrie: canvaspixels <-> lat/lon ----
   function fullBleed() { return FULL_BLEED_LAYOUTS.has(state.layoutId); }
-  function captionOpts() { return { showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords, font: state.captionFontId }; }
+  function captionOpts() {
+    return {
+      showPlace: state.showPlace, showRegion: state.showRegion, showCountry: state.showCountry, showCoords: state.showCoords,
+      font: state.captionFontId,
+    };
+  }
   function mapAreaHeight(h) {
     if (fullBleed()) return h;
     return h - MapRender.captionLayout(h, captionOpts()).total;
@@ -412,17 +433,20 @@ window.LocationApp = (() => {
     if (isolating() && hasRealBoundary()) return;
     try {
       const geo = await MapGeo.reverseGeocode(state.center.lat, state.center.lon, state.captionLang);
-      state.autoPlace = geo.place; state.autoCountry = geo.country;
+      state.autoPlace = geo.place; state.autoRegion = geo.region; state.autoCountry = geo.country;
       render();
     } catch { /* stille no-op: het onderschrift is puur decoratief */ }
   }
 
   function computePlaceCountry() {
     if (isolating() && hasRealBoundary()) {
+      // De letterlijke zoekterm/weergavenaam heeft geen apart staat/provincie-
+      // veld (het is vrije tekst, komma-gescheiden) — dat blijft hier dus
+      // leeg; de handmatige override vult het zo nodig zelf in.
       const parts = state.selectedPlace.name.split(',').map(s => s.trim()).filter(Boolean);
-      return { place: state.selectedPlace.query || parts[0] || state.selectedPlace.name, country: parts.length > 1 ? parts[parts.length - 1] : '' };
+      return { place: state.selectedPlace.query || parts[0] || state.selectedPlace.name, region: '', country: parts.length > 1 ? parts[parts.length - 1] : '' };
     }
-    return { place: state.autoPlace, country: state.autoCountry };
+    return { place: state.autoPlace, region: state.autoRegion, country: state.autoCountry };
   }
 
   // ---- tekenen ----
@@ -439,11 +463,13 @@ window.LocationApp = (() => {
       layout: state.layoutId, mask: state.maskId,
       pins: state.pins, pinColor: pinColorInput.value,
       caption: {
-        showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords,
+        showPlace: state.showPlace, showRegion: state.showRegion, showCountry: state.showCountry, showCoords: state.showCoords,
         place: placeNameInput.value.trim() || pc.place,
+        region: regionNameInput.value.trim() || pc.region,
         country: countryNameInput.value.trim() || pc.country,
         lat: state.center.lat, lon: state.center.lon,
         font: state.captionFontId,
+        placeScale: state.placeFontScale, regionScale: state.regionFontScale, countryScale: state.countryFontScale,
       },
     };
   }
@@ -582,7 +608,7 @@ window.LocationApp = (() => {
   function jumpTo(lat, lon, bounds) {
     state.center = { lat, lon };
     state.scale = bounds ? scaleForBounds(bounds) : clampScale(mapAreaHeight(canvas.height) / 0.02);
-    placeNameInput.value = ''; countryNameInput.value = '';
+    placeNameInput.value = ''; regionNameInput.value = ''; countryNameInput.value = '';
     render();
     invalidateFetch();
   }
@@ -818,6 +844,13 @@ window.LocationApp = (() => {
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     setTimeout(() => {
       const opts = buildRenderOpts();
+      // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
+      // de live preview of het geschiedenis-miniatuurtje hierbeneden — en
+      // client-side nogmaals achter canUseWatermark() i.p.v. alleen op de
+      // (verborgen) checkbox-state vertrouwen.
+      if (canUseWatermark() && watermarkEnabledCheck.checked) {
+        opts.watermarkText = watermarkTextInput.value.trim() || 'PREVIEW';
+      }
       const placeSlug = (opts.caption.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
       const date = new Date().toISOString().slice(0, 10);
       if (wantSVG) {
@@ -920,14 +953,18 @@ window.LocationApp = (() => {
     searchBtn.addEventListener('click', runSearch);
     searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
 
-    [showPlaceCheck, showCountryCheck, showCoordsCheck].forEach(cb => cb.addEventListener('change', () => {
+    [showPlaceCheck, showRegionCheck, showCountryCheck, showCoordsCheck].forEach(cb => cb.addEventListener('change', () => {
       state.showPlace = showPlaceCheck.checked;
+      state.showRegion = showRegionCheck.checked;
       state.showCountry = showCountryCheck.checked;
       state.showCoords = showCoordsCheck.checked;
       render();
       invalidateFetch(); // het onderschrift-blok kan van hoogte veranderen (mapH)
     }));
-    [placeNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', render));
+    [placeNameInput, regionNameInput, countryNameInput].forEach(inp => inp.addEventListener('input', render));
+    placeFontSizeInput.addEventListener('input', () => { state.placeFontScale = parseFloat(placeFontSizeInput.value); render(); });
+    regionFontSizeInput.addEventListener('input', () => { state.regionFontScale = parseFloat(regionFontSizeInput.value); render(); });
+    countryFontSizeInput.addEventListener('input', () => { state.countryFontScale = parseFloat(countryFontSizeInput.value); render(); });
 
     addPinBtn.addEventListener('click', () => {
       state.addingPin = !state.addingPin;
@@ -949,6 +986,8 @@ window.LocationApp = (() => {
     exportPNGBtn.addEventListener('click', () => exportResult(false));
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     updateExportSizes();
+    watermarkRow.hidden = !canUseWatermark();
+    watermarkEnabledCheck.addEventListener('change', () => { watermarkTextInput.disabled = !watermarkEnabledCheck.checked; });
 
     initAccordion();
     initLookSubtabs();

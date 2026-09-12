@@ -103,15 +103,16 @@ const MapRender = (() => {
   // gebaseerd op welke regels aan staan — staat alles uit, dan vult de kaart
   // het hele vlak.
   function captionLayout(h, caption) {
-    const { showPlace, showCountry, showCoords } = caption;
+    const { showPlace, showRegion, showCountry, showCoords } = caption;
     const cityH = showPlace ? h * 0.075 : 0;
+    const regionH = showRegion ? h * 0.03 : 0;
     const countryH = showCountry ? h * 0.032 : 0;
     const coordH = showCoords ? h * 0.026 : 0;
-    const anyShown = showPlace || showCountry || showCoords;
+    const anyShown = showPlace || showRegion || showCountry || showCoords;
     const gap = anyShown ? h * 0.03 : 0;
     const padBottom = anyShown ? h * 0.035 : 0;
-    const total = gap + cityH + countryH + coordH + padBottom;
-    return { total, cityH, countryH, coordH, gap, padBottom };
+    const total = gap + cityH + regionH + countryH + coordH + padBottom;
+    return { total, cityH, regionH, countryH, coordH, gap, padBottom };
   }
 
   // Nagebootste terreinlijnen voor "GTA V" — dezelfde marching-squares-
@@ -310,7 +311,7 @@ const MapRender = (() => {
     const {
       bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, tier = null, isolate = null,
-      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null,
+      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, watermarkText = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : experimentalStyle ? '#0a0a0a' : (opts.matColor || '#f7f4ee');
@@ -530,27 +531,43 @@ const MapRender = (() => {
         drawCaptionBlock(painter, w, mapH, layout, caption, { ink: captionInk, sub: captionSub, faint: captionFaint });
       }
     }
+
+    // Watermerk — als laatste stap getekend, dus altijd boven alles (ook
+    // boven het onderschrift), zodat het écht de hele geëxporteerde
+    // afbeelding beslaat. Alleen actief als de aanroeper een tekst meegeeft
+    // (zie unitExport in location.js — een aparte export-optie, staat nooit
+    // aan in de live preview).
+    if (watermarkText) drawWatermark(painter, w, h, watermarkText);
   }
 
   // Het gecentreerde drieregelige onderschrift (plaatsnaam/land/coördinaten)
   // — gedeeld door de layouts "Default", "Gallery" en "Fade", die alleen
   // verschillen in de startpositie (topY) en de inktkleuren.
   function drawCaptionBlock(painter, w, topY, layout, caption, ink) {
-    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
+    const rtl = isRTLText(caption.place) || isRTLText(caption.region) || isRTLText(caption.country);
     const font = resolveCaptionFont(rtl, caption.font);
+    const placeScale = caption.placeScale || 1, regionScale = caption.regionScale || 1, countryScale = caption.countryScale || 1;
     let y = topY + layout.gap;
     if (caption.showPlace) {
       y += layout.cityH * 0.75;
       const extra = drawPlaceName(painter, w / 2, y, (caption.place || '').toUpperCase(), {
-        fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
+        fill: ink.ink, fontSize: layout.cityH * 0.62 * placeScale, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align: 'center', letterSpacing: rtl ? 0 : layout.cityH * 0.06, maxWidth: w * 0.88,
       });
       y += layout.cityH * 0.25 + extra;
     }
+    if (caption.showRegion) {
+      y += layout.regionH * 0.75;
+      painter.text(w / 2, y, caption.region || '', {
+        fill: ink.sub, fontSize: layout.regionH * 0.62 * regionScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.regionH * 0.08,
+      });
+      y += layout.regionH * 0.25;
+    }
     if (caption.showCountry) {
       y += layout.countryH * 0.75;
       painter.text(w / 2, y, caption.country || '', {
-        fill: ink.sub, fontSize: layout.countryH * 0.62, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: ink.sub, fontSize: layout.countryH * 0.62 * countryScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.countryH * 0.08,
       });
       y += layout.countryH * 0.25;
@@ -589,8 +606,9 @@ const MapRender = (() => {
   // full-bleed kaart, met links uitgelijnde tekst — als een sticker/
   // postzegel op een ansichtkaart, in plaats van een volle onderrand.
   function drawStampCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
-    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
+    const rtl = isRTLText(caption.place) || isRTLText(caption.region) || isRTLText(caption.country);
     const font = resolveCaptionFont(rtl, caption.font);
+    const placeScale = caption.placeScale || 1, regionScale = caption.regionScale || 1, countryScale = caption.countryScale || 1;
     const pad = Math.min(w, h) * 0.045;
     const plateW = Math.min(w * 0.52, w - pad * 2);
     const plateH = layout.total * 0.9;
@@ -607,15 +625,23 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.68;
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.48, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
+        fill: ink, fontSize: layout.cityH * 0.48 * placeScale, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.03, maxWidth: plateW * 0.82,
       });
       y += layout.cityH * 0.2 + extra;
     }
+    if (caption.showRegion) {
+      y += layout.regionH * 0.68;
+      painter.text(textX, y, caption.region || '', {
+        fill: sub, fontSize: layout.regionH * 0.52 * regionScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        align, baseline: 'alphabetic',
+      });
+      y += layout.regionH * 0.2;
+    }
     if (caption.showCountry) {
       y += layout.countryH * 0.68;
       painter.text(textX, y, caption.country || '', {
-        fill: sub, fontSize: layout.countryH * 0.52, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: sub, fontSize: layout.countryH * 0.52 * countryScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
       });
       y += layout.countryH * 0.2;
@@ -635,8 +661,9 @@ const MapRender = (() => {
   // land en coördinaten samengevoegd tot één regel — compacter en
   // strakker dan Default/Gallery's brede, gecentreerde mat.
   function drawLedgerCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
-    const rtl = isRTLText(caption.place) || isRTLText(caption.country);
+    const rtl = isRTLText(caption.place) || isRTLText(caption.region) || isRTLText(caption.country);
     const font = resolveCaptionFont(rtl, caption.font);
+    const placeScale = caption.placeScale || 1, countryScale = caption.countryScale || 1;
     const bandH = layout.total * 0.62;
     const y0 = h - bandH;
     painter.polygon([[0, y0], [w, y0], [w, h], [0, h]], { fill: matColor });
@@ -649,13 +676,17 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.55;
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.5, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
+        fill: ink, fontSize: layout.cityH * 0.5 * placeScale, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.05, maxWidth: w * 0.89,
       });
       y += layout.cityH * 0.14 + extra;
     }
-    if (caption.showCountry || caption.showCoords) {
+    if (caption.showRegion || caption.showCountry || caption.showCoords) {
+      // Ledger's compacte tweede regel voegt land+coördinaten al samen —
+      // staat/provincie sluit hier vooraan bij aan i.p.v. een eigen regel,
+      // dat past beter bij Ledgers bewust smalle, één-regelige ontwerp.
       const parts = [];
+      if (caption.showRegion) parts.push(caption.region || '');
       if (caption.showCountry) parts.push(caption.country || '');
       if (caption.showCoords) {
         const lat = caption.lat, lon = caption.lon;
@@ -663,7 +694,7 @@ const MapRender = (() => {
       }
       y += layout.countryH * 0.55;
       painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
-        fill: sub, fontSize: layout.countryH * 0.48, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: sub, fontSize: layout.countryH * 0.48 * countryScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
       });
     }
@@ -671,6 +702,29 @@ const MapRender = (() => {
 
   function drawMapBackground(painter, palette, w, h) {
     painter.polygon([[0, 0], [w, 0], [w, h], [0, h]], { fill: palette.bg });
+  }
+
+  // Klein, diagonaal herhaald watermerk over de volle afbeelding — puur voor
+  // een export die je als preview aan een klant kunt sturen zonder dat het
+  // eindresultaat zomaar overgenomen kan worden. Vast neutraal grijs op een
+  // gematigde dekking (i.p.v. wit of zwart): dat blijft op zowel een heel
+  // lichte als een heel donkere paletkeuze redelijk goed leesbaar, in
+  // tegenstelling tot een kleur die alleen op één van de twee werkt.
+  function drawWatermark(painter, w, h, text) {
+    const fontSize = Math.max(11, Math.min(w, h) * 0.026);
+    const stepX = fontSize * 8.5, stepY = fontSize * 6;
+    const angle = -28;
+    // Ruim buiten de randen beginnen/eindigen: na rotatie moeten de tegels
+    // ook de hoeken nog vullen, anders blijft daar een leeg driehoekje over.
+    const pad = Math.max(w, h) * 0.5;
+    for (let y = -pad; y < h + pad; y += stepY) {
+      for (let x = -pad; x < w + pad; x += stepX) {
+        painter.text(x, y, text, {
+          fill: '#888888', fontSize, fontFamily: 'IBM Plex Mono, monospace', weight: '600',
+          align: 'center', baseline: 'middle', opacity: 0.3, rotate: angle,
+        });
+      }
+    }
   }
 
   return { render, captionLayout };

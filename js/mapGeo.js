@@ -65,7 +65,12 @@ const MapGeo = (() => {
     const addr = data.address || {};
     const place = addr.city || addr.town || addr.village || addr.municipality || addr.county || data.name || '';
     const country = addr.country || '';
-    return { place, country, raw: data };
+    // "state" dekt zowel een Amerikaanse staat als bv. een Canadese provincie
+    // of Duitse deelstaat (Nominatim gebruikt hetzelfde adresveld voor alle
+    // landen die een bestuurlijk niveau boven de plaats hebben) — "region"
+    // is de fallback voor landen die dat via een ander veld teruggeven.
+    const region = addr.state || addr.province || addr.region || '';
+    return { place, country, region, raw: data };
   }
 
   async function searchPlace(query, lang) {
