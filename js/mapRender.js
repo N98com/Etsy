@@ -64,6 +64,33 @@ const MapRender = (() => {
     }
   }
 
+  // "Experimental": een grijswaarden-"heightmap"-vulling — dezelfde
+  // marching-squares-ruis als drawTerrainContours hierboven, maar als
+  // aaneengesloten gevulde cellen (donker bij lage, wit bij hoge
+  // ruiswaarden) i.p.v. dunne contourlijnen, die op de meeste locaties als
+  // willekeurige krabbels oogden. Water/kustlijn/wegen komen er gewoon
+  // overheen, net als bij elk ander kleurenschema.
+  function drawHeightmapFill(painter, w, h, bounds) {
+    const seed = RNG.seedFromString(`${bounds.south},${bounds.west},${bounds.north},${bounds.east}`);
+    const noise2D = Utils.makeNoise2D(seed, 48);
+    const n = 56;
+    const cellW = w / n, cellH = h / n;
+    const ramp = ['#0d0d0d', '#4a4a4a', '#8a8a8a', '#e8e8e8'];
+    for (let j = 0; j < n; j++) {
+      for (let i = 0; i < n; i++) {
+        const v = Utils.fractalNoise2D(noise2D, ((i + 0.5) / n) * 3.2, ((j + 0.5) / n) * 3.2, 4);
+        const x0 = i * cellW, y0 = j * cellH;
+        const color = Utils.mixPaletteColor(ramp, Math.max(0, Math.min(1, v)));
+        // Zelfde kleur als stroke (1px) zodat aangrenzende cellen naadloos
+        // aansluiten — zonder dit ontstaat een zichtbaar rastertje van dunne
+        // achtergrondlijntjes door anti-aliasing tussen de tegels.
+        painter.polygon([[x0, y0], [x0 + cellW, y0], [x0 + cellW, y0 + cellH], [x0, y0 + cellH]], {
+          fill: color, stroke: color, strokeWidth: 1,
+        });
+      }
+    }
+  }
+
   // Vlakgevulde, blokkerige ruistextuur in twee groentinten voor de omgeving
   // van "OG MW2" — een gegenereerd, legaal alternatief voor de getinte
   // luchtfoto-achtergrond van de originele minimap (zie ook de toelichting
@@ -268,11 +295,7 @@ const MapRender = (() => {
       // echte (grof gezoomde) straten/water voorziet.)
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
     } else if (experimentalStyle) {
-      // Bewust GEEN reliëf-textuur (eerdere versie gebruikte hier dezelfde
-      // marching-squares-textuur als GTA V/RDR2, maar die oogde als
-      // willekeurige krabbels op plekken zonder echte kustlijn i.p.v.
-      // bergreliëf) — een strak effen zwart vlak tegen het water is een
-      // betrouwbaarder "graveerposter"-look, op elke locatie.
+      drawHeightmapFill(painter, mapW, mapH, bounds);
     } else if (!mw2Style) {
       // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
       // het bij land/water/wegen/gebouwen, net als hun games zelf).
@@ -337,28 +360,32 @@ const MapRender = (() => {
       });
     }
 
-    // "Experimental" toont puur land/water/reliëf, zoals de aangeleverde
-    // referentieafbeelding (een reliëfkaart zonder wegen) — dus geen wegen.
-    if (!experimentalStyle) {
-      const roads = streets.filter(s => s.tags.highway).sort((a, b) => MapGeo.roadWeight(a.tags) - MapGeo.roadWeight(b.tags));
-      // Afgestemd op de nieuwe, veel bredere ROAD_WEIGHT-reeks (mapGeo.js) —
-      // deze deler houdt een snelweg ongeveer even dik als voorheen, terwijl
-      // een woonstraat nu duidelijk dunner wordt i.p.v. bijna even dik.
-      const baseRoadWidth = Math.min(mapW, mapH) / 1100;
-      roads.forEach(r => {
-        const pts = r.coords.map(([lat, lon]) => project(lat, lon));
-        const major = MapGeo.isMajorRoad(r.tags);
-        // Ondergrens zodat een dunne woonstraat/voetpad nog zichtbaar blijft
-        // i.p.v. weg te vallen door anti-aliasing bij een kleinere preview.
-        const roadW = Math.max(0.5, baseRoadWidth * MapGeo.roadWeight(r.tags));
-        painter.polyline(pts, {
-          stroke: major ? palette.road : palette.roadMinor,
-          strokeWidth: roadW,
-          fill: 'none',
-          dash: mw2Style ? [roadW * 2.4, roadW * 1.8] : undefined,
-        });
-      });
+    const roads = streets.filter(s => s.tags.highway).sort((a, b) => MapGeo.roadWeight(a.tags) - MapGeo.roadWeight(b.tags));
+    // Afgestemd op de nieuwe, veel bredere ROAD_WEIGHT-reeks (mapGeo.js) —
+    // deze deler houdt een snelweg ongeveer even dik als voorheen, terwijl
+    // een woonstraat nu duidelijk dunner wordt i.p.v. bijna even dik.
+    const baseRoadWidth = Math.min(mapW, mapH) / 1100;
+    const projectedRoads = roads.map(r => ({
+      pts: r.coords.map(([lat, lon]) => project(lat, lon)),
+      major: MapGeo.isMajorRoad(r.tags),
+      // Ondergrens zodat een dunne woonstraat/voetpad nog zichtbaar blijft
+      // i.p.v. weg te vallen door anti-aliasing bij een kleinere preview.
+      roadW: Math.max(0.5, baseRoadWidth * MapGeo.roadWeight(r.tags)),
+    }));
+    if (experimentalStyle) {
+      // Donkere "casing" onder elke weg — de heightmap-ondergrond loopt van
+      // donker tot wit, dus een vaste wegkleur zonder rand zou op de
+      // lichtste stukken reliëf onleesbaar worden.
+      projectedRoads.forEach(r => painter.polyline(r.pts, { stroke: '#0d0d0d', strokeWidth: r.roadW * 2.2, fill: 'none' }));
     }
+    projectedRoads.forEach(r => {
+      painter.polyline(r.pts, {
+        stroke: r.major ? palette.road : palette.roadMinor,
+        strokeWidth: r.roadW,
+        fill: 'none',
+        dash: mw2Style ? [r.roadW * 2.4, r.roadW * 1.8] : undefined,
+      });
+    });
 
     // Pins — kleine kaart-pins (kopje + punt, zoals Google Maps) op door de
     // gebruiker gekozen plekken; de punt van de vorm valt exact op de

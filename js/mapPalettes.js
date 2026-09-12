@@ -86,14 +86,14 @@ const RDR2_STYLE_PALETTE = {
   coastline: '#4a3c28',
 };
 
-// Gebaseerd op een aangeleverde referentieafbeelding van een reliëfkaart
-// van een fjordkust: zwart land, een romige oceaan, geen wegen/gebouwen —
-// puur de kustlijn, als een strakke "graveerposter". (Een eerdere versie
-// voegde er ook een reliëf-textuur aan toe zoals GTA V/RDR2, maar die
-// oogde op de meeste locaties als willekeurige krabbels i.p.v. bergreliëf
-// — weer verwijderd, zie mapRender.js.)
+// Een grijswaarden-"heightmap": land loopt van bijna zwart (laag) tot bijna
+// wit (hoog) via een gevulde ruistextuur (drawHeightmapFill in mapRender.js),
+// met de zee als vast, diep zwart ("zeeniveau") eronder — en wegen er
+// gewoon overheen getekend, wit met een donkere casing zodat ze ook op de
+// lichtste bergtoppen leesbaar blijven. (Een eerdere versie had geen reliëf
+// en geen wegen, puur een kustlijn-graveerposter — op verzoek vervangen.)
 const EXPERIMENTAL_STYLE_PALETTE = {
   id: 'experimental', name: 'Experimental',
-  bg: '#0a0a0a', water: '#f2ede0', park: '#0a0a0a', road: '#0a0a0a', roadMinor: '#0a0a0a', text: '#f2ede0',
-  coastline: '#f2ede0',
+  bg: '#0d0d0d', water: '#000000', park: '#0d0d0d', road: '#ffffff', roadMinor: '#c9c9c9', text: '#f2ede0',
+  coastline: '#e8e8e8',
 };
