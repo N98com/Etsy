@@ -17,6 +17,71 @@ const MapRender = (() => {
   // dubbele quotes zouden dat attribuut voortijdig afsluiten.
   function captionFontFamily(rtl) { return rtl ? "'Amiri', Georgia, serif" : 'Georgia, serif'; }
 
+  // Tekstbreedte meten voor het pas-op-de-plaatsnaam-mechanisme hieronder.
+  // Gebruikt een verborgen canvas (letterSpacing telt mee in measureText,
+  // net als bij CanvasPainter.text) zodat de meting exact hetzelfde
+  // lettertype/gewicht/spacing gebruikt als wat er echt getekend wordt —
+  // werkt voor zowel de canvas-preview als de SVG-export, want beide draaien
+  // in dezelfde browser. In de Node-testomgeving (geen `document`) valt dit
+  // terug op een grove schatting per teken; dat hoeft niet pixel-perfect te
+  // zijn, het bepaalt alleen of de test-fixtures het wikkel-pad raken.
+  let _measureCtx = null;
+  function measureTextWidth(str, fontSize, fontFamily, weight, letterSpacing) {
+    if (typeof document !== 'undefined') {
+      if (!_measureCtx) _measureCtx = document.createElement('canvas').getContext('2d');
+      _measureCtx.font = `${weight} ${fontSize}px ${fontFamily}`;
+      if ('letterSpacing' in _measureCtx) _measureCtx.letterSpacing = `${letterSpacing || 0}px`;
+      return _measureCtx.measureText(str).width;
+    }
+    const avgCharWidth = fontSize * (weight === '600' || weight === 'bold' ? 0.62 : 0.54);
+    return str.length * avgCharWidth + Math.max(0, str.length - 1) * (letterSpacing || 0);
+  }
+
+  // Past een (mogelijk lange) plaatsnaam in maxWidth: op één regel als het
+  // kan, anders gewikkeld naar twee regels op de spatie die de breedste
+  // regel het kleinst houdt, en pas als zelfs dat niet past (bv. één lang
+  // woord zonder spatie) het lettertype zelf verkleind — zodat er altijd
+  // marge aan weerszijden overblijft.
+  function fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing) {
+    if (measureTextWidth(text, fontSize, fontFamily, weight, letterSpacing) <= maxWidth) {
+      return { lines: [text], fontSize, letterSpacing };
+    }
+    const words = text.split(' ');
+    let lines = [text];
+    if (words.length > 1) {
+      let bestSplit = 1, bestDiff = Infinity;
+      for (let i = 1; i < words.length; i++) {
+        const w1 = measureTextWidth(words.slice(0, i).join(' '), fontSize, fontFamily, weight, letterSpacing);
+        const w2 = measureTextWidth(words.slice(i).join(' '), fontSize, fontFamily, weight, letterSpacing);
+        const diff = Math.abs(w1 - w2);
+        if (diff < bestDiff) { bestDiff = diff; bestSplit = i; }
+      }
+      lines = [words.slice(0, bestSplit).join(' '), words.slice(bestSplit).join(' ')];
+    }
+    const widest = Math.max(...lines.map(l => measureTextWidth(l, fontSize, fontFamily, weight, letterSpacing)));
+    if (widest > maxWidth) {
+      const scale = maxWidth / widest;
+      fontSize *= scale;
+      letterSpacing *= scale;
+    }
+    return { lines, fontSize, letterSpacing };
+  }
+
+  // Tekent de (eventueel gewikkelde) plaatsnaam en geeft de extra
+  // regelhoogte terug die de aanroeper aan zijn cursor moet toevoegen
+  // bovenop wat een enkele regel al innam — 0 als alles op één regel paste.
+  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, align, letterSpacing, maxWidth }) {
+    const fitted = fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing);
+    if (fitted.lines.length === 1) {
+      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+      return 0;
+    }
+    const lineGap = fitted.fontSize * 1.05;
+    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+    return lineGap * 0.55;
+  }
+
   // Hoeveel van de canvas-hoogte het onderschrift in beslag neemt, puur
   // gebaseerd op welke regels aan staan — staat alles uit, dan vult de kaart
   // het hele vlak.
@@ -459,11 +524,11 @@ const MapRender = (() => {
     let y = topY + layout.gap;
     if (caption.showPlace) {
       y += layout.cityH * 0.75;
-      painter.text(w / 2, y, (caption.place || '').toUpperCase(), {
+      const extra = drawPlaceName(painter, w / 2, y, (caption.place || '').toUpperCase(), {
         fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily, weight: '600',
-        align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.06,
+        align: 'center', letterSpacing: rtl ? 0 : layout.cityH * 0.06, maxWidth: w * 0.88,
       });
-      y += layout.cityH * 0.25;
+      y += layout.cityH * 0.25 + extra;
     }
     if (caption.showCountry) {
       y += layout.countryH * 0.75;
@@ -524,11 +589,11 @@ const MapRender = (() => {
     let y = y0 + layout.gap * 0.5;
     if (caption.showPlace) {
       y += layout.cityH * 0.68;
-      painter.text(textX, y, (caption.place || '').toUpperCase(), {
+      const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
         fill: ink, fontSize: layout.cityH * 0.48, fontFamily, weight: '600',
-        align, baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.03,
+        align, letterSpacing: rtl ? 0 : layout.cityH * 0.03, maxWidth: plateW * 0.82,
       });
-      y += layout.cityH * 0.2;
+      y += layout.cityH * 0.2 + extra;
     }
     if (caption.showCountry) {
       y += layout.countryH * 0.68;
@@ -566,11 +631,11 @@ const MapRender = (() => {
     let y = y0 + bandH * 0.18;
     if (caption.showPlace) {
       y += layout.cityH * 0.55;
-      painter.text(textX, y, (caption.place || '').toUpperCase(), {
+      const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
         fill: ink, fontSize: layout.cityH * 0.5, fontFamily, weight: '600',
-        align, baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.cityH * 0.05,
+        align, letterSpacing: rtl ? 0 : layout.cityH * 0.05, maxWidth: w * 0.89,
       });
-      y += layout.cityH * 0.14;
+      y += layout.cityH * 0.14 + extra;
     }
     if (caption.showCountry || caption.showCoords) {
       const parts = [];
