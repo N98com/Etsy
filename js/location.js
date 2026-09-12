@@ -144,6 +144,7 @@ window.LocationApp = (() => {
   const layoutHint = el('layoutHint');
   const maskTabs = el('maskTabs');
   const paletteGrid = el('mapPaletteGrid');
+  const solidPaletteGrid = el('solidPaletteGrid');
   const fontTabs = el('fontTabs');
   const showPlaceCheck = el('showPlaceCheck');
   const placeNameInput = el('placeNameInput');
@@ -965,7 +966,10 @@ window.LocationApp = (() => {
       fontTabs.appendChild(btn);
     });
 
-    MAP_PALETTES.forEach(p => {
+    // Twee aparte roosters (gewone paletten + effen kleuren), maar samen
+    // één keuze (state.mapPaletteId) — selecteren in het ene rooster moet
+    // de actieve kaart in het andere dus altijd deselecteren.
+    function buildPaletteCard(p, grid) {
       const card = document.createElement('button');
       card.type = 'button';
       card.className = 'map-palette-card' + (p.id === state.mapPaletteId ? ' active' : '');
@@ -984,12 +988,14 @@ window.LocationApp = (() => {
       card.appendChild(name);
       card.addEventListener('click', () => {
         state.mapPaletteId = p.id;
-        [...paletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === p.id));
+        [...paletteGrid.children, ...solidPaletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === p.id));
         refreshAutoPinColor();
         render();
       });
-      paletteGrid.appendChild(card);
-    });
+      grid.appendChild(card);
+    }
+    MAP_PALETTES.forEach(p => buildPaletteCard(p, paletteGrid));
+    SOLID_PALETTES.forEach(p => buildPaletteCard(p, solidPaletteGrid));
 
     searchBtn.addEventListener('click', runSearch);
     searchInput.addEventListener('keydown', e => { if (e.key === 'Enter') runSearch(); });
@@ -1036,6 +1042,7 @@ window.LocationApp = (() => {
 
     initAccordion();
     initLookSubtabs();
+    initColorSubtabs();
     initUiMode();
     wireCanvasInteraction();
     render();
@@ -1054,7 +1061,8 @@ window.LocationApp = (() => {
     ['unitStatus', 'placeSlotOld', 'statusSlotNew'],
     ['unitLayout', 'layoutSlotOld', 'layoutSlotNew'],
     ['maskTabs', 'maskSlotOld', 'maskSlotNew'],
-    ['mapPaletteGrid', 'colorsSlotOld', 'colorsSlotNew'],
+    ['mapPaletteGrid', 'colorsSlotOld', 'colorsSlotNewPalettes'],
+    ['solidPaletteGrid', 'colorsSlotOldSolid', 'colorsSlotNewSolid'],
     ['unitCaptionFont', 'fontSlotOld', 'fontSlotNew'],
     ['unitCaption', 'detailsSlotOld', 'detailsSlotNew'],
     ['unitPins', 'detailsSlotOld', 'detailsSlotNew'],
@@ -1101,6 +1109,20 @@ window.LocationApp = (() => {
       if (!btn) return;
       [...tabs.children].forEach(b => b.classList.toggle('active', b === btn));
       tabs.closest('.accordion-body-inner').querySelectorAll('.subpane').forEach(p => p.classList.toggle('active', p.dataset.pane === btn.dataset.sub));
+    });
+  }
+
+  // Geneste sub-tabs binnen "Colors" zelf (Palettes/Solid) — eigen
+  // .color-subtabs/.color-subpane klassen (niet .subtabs/.subpane) zodat
+  // initLookSubtabs()'s class-based query hierboven dit niveau niet ook
+  // per ongeluk meeschakelt.
+  function initColorSubtabs() {
+    const tabs = document.getElementById('colorSubtabs');
+    tabs.addEventListener('click', e => {
+      const btn = e.target.closest('button[data-csub]');
+      if (!btn) return;
+      [...tabs.children].forEach(b => b.classList.toggle('active', b === btn));
+      tabs.parentElement.querySelectorAll('.color-subpane').forEach(p => p.classList.toggle('active', p.dataset.cpane === btn.dataset.csub));
     });
   }
 

@@ -6,7 +6,7 @@
   <title>MapGen2.0</title>
   <!-- ?v=N: zelfde cache-busting reden als bij de js/-bestanden verderop —
        verhoog bij elke push die css/style.css wijzigt. -->
-  <link rel="stylesheet" href="css/style.css?v=4">
+  <link rel="stylesheet" href="css/style.css?v=5">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
        js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
@@ -168,7 +168,14 @@
             </div>
             <div class="subpane active" data-pane="layout" id="layoutSlotNew"></div>
             <div class="subpane" data-pane="mask" id="maskSlotNew"></div>
-            <div class="subpane" data-pane="colors" id="colorsSlotNew"></div>
+            <div class="subpane" data-pane="colors" id="colorsSlotNew">
+              <div class="color-subtabs" id="colorSubtabs">
+                <button type="button" class="active" data-csub="palettes">Palettes</button>
+                <button type="button" data-csub="solid">Solid</button>
+              </div>
+              <div class="color-subpane active" data-cpane="palettes" id="colorsSlotNewPalettes"></div>
+              <div class="color-subpane" data-cpane="solid" id="colorsSlotNewSolid"></div>
+            </div>
             <div class="subpane" data-pane="font" id="fontSlotNew"></div>
           </div></div>
         </div>
@@ -213,6 +220,8 @@
           <h2>Style</h2>
           <label>Color scheme</label>
           <div id="colorsSlotOld"></div>
+          <label style="margin-top:10px; display:block;">Solid</label>
+          <div id="colorsSlotOldSolid"></div>
           <label style="margin-top:10px; display:block;">Font</label>
           <div id="fontSlotOld"></div>
           <div id="detailsSlotOld"></div>
@@ -266,6 +275,7 @@
         </div>
         <div class="ratio-tabs" id="maskTabs"></div>
         <div class="map-palette-grid" id="mapPaletteGrid"></div>
+        <div class="map-palette-grid" id="solidPaletteGrid"></div>
         <div id="unitCaptionFont">
           <div class="ratio-tabs" id="fontTabs"></div>
         </div>
@@ -405,18 +415,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=31"></script>
-  <script src="js/utils.js?v=31"></script>
-  <script src="js/rng.js?v=31"></script>
-  <script src="js/palettes.js?v=31"></script>
-  <script src="js/geom.js?v=31"></script>
-  <script src="js/painters.js?v=31"></script>
-  <script src="js/algorithms.js?v=31"></script>
-  <script src="js/export.js?v=31"></script>
-  <script src="js/main.js?v=31"></script>
-  <script src="js/views.js?v=31"></script>
+  <script src="js/auth.js?v=32"></script>
+  <script src="js/utils.js?v=32"></script>
+  <script src="js/rng.js?v=32"></script>
+  <script src="js/palettes.js?v=32"></script>
+  <script src="js/geom.js?v=32"></script>
+  <script src="js/painters.js?v=32"></script>
+  <script src="js/algorithms.js?v=32"></script>
+  <script src="js/export.js?v=32"></script>
+  <script src="js/main.js?v=32"></script>
+  <script src="js/views.js?v=32"></script>
 
-  <script src="js/mapPalettes.js?v=31"></script>
+  <script src="js/mapPalettes.js?v=32"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -425,10 +435,10 @@
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
   <script src="js/vendor/vector-tile.js?v=22"></script>
-  <script src="js/protomapsAdapter.js?v=31"></script>
-  <script src="js/protomapsFetch.js?v=31"></script>
-  <script src="js/mapGeo.js?v=31"></script>
-  <script src="js/mapRender.js?v=31"></script>
-  <script src="js/location.js?v=31"></script>
+  <script src="js/protomapsAdapter.js?v=32"></script>
+  <script src="js/protomapsFetch.js?v=32"></script>
+  <script src="js/mapGeo.js?v=32"></script>
+  <script src="js/mapRender.js?v=32"></script>
+  <script src="js/location.js?v=32"></script>
 </body>
 </html>

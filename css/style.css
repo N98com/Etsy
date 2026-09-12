@@ -332,6 +332,11 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .subtabs button.active { background: var(--panel); color: var(--ink); }
 .subpane { display: none; }
 .subpane.active { display: block; }
+.color-subtabs { display: flex; gap: 4px; background: var(--bg); border: 1px solid var(--line); border-radius: 7px; padding: 3px; margin-bottom: 10px; }
+.color-subtabs button { flex: 1; border: none; border-radius: 5px; background: transparent; color: var(--ink-soft); font: inherit; font-size: 0.76rem; font-weight: 600; padding: 6px 4px; }
+.color-subtabs button.active { background: var(--panel); color: var(--ink); }
+.color-subpane { display: none; }
+.color-subpane.active { display: block; }
 
 /* Blijft onderin de (scrollende) zijbalk "plakken" — de belangrijkste
    knop van het scherm (downloaden) is zo nooit meer weggescrold achter

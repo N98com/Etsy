@@ -49,8 +49,27 @@ const MAP_PALETTES = [
     bg: '#3b4e48', water: '#2f413c', park: '#3b4e48', road: '#d9c9a8', roadMinor: '#a99872', text: '#f1ead9' },
 ];
 
+// Effen kleurenreeks: elke kaart is één vlakke ondergrondkleur met puur witte
+// wegen/tekst erover — geen apart water/groen (net als bij een aantal
+// donkere kaarten hierboven wordt water/park bewust gelijk aan de
+// achtergrond gehouden). Met de hand benaderd op basis van een aangeleverd
+// referentiebeeld van 5 posters (Merlot/Forest/Blueprint/Charcoal/Noir);
+// hier onder eigen namen gevoerd, los van de originele fotolabels.
+const SOLID_PALETTES = [
+  { id: 'claret', name: 'Claret',
+    bg: '#5c1a24', water: '#5c1a24', park: '#5c1a24', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  { id: 'woodland', name: 'Woodland',
+    bg: '#1f3324', water: '#1f3324', park: '#1f3324', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  { id: 'cobalt', name: 'Cobalt',
+    bg: '#152238', water: '#152238', park: '#152238', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  { id: 'slate', name: 'Slate',
+    bg: '#3b4552', water: '#3b4552', park: '#3b4552', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  { id: 'onyx', name: 'Onyx',
+    bg: '#0a0a0a', water: '#0a0a0a', park: '#0a0a0a', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+];
+
 function getMapPalette(id) {
-  return MAP_PALETTES.find(p => p.id === id) || MAP_PALETTES[0];
+  return MAP_PALETTES.find(p => p.id === id) || SOLID_PALETTES.find(p => p.id === id) || MAP_PALETTES[0];
 }
 
 // Game Styles — een vast, niet-kiesbaar kleurenschema (los van MAP_PALETTES,
