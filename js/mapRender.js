@@ -628,7 +628,7 @@ const MapRender = (() => {
       y += layout.coordH * 0.8;
       const lat = caption.lat, lon = caption.lon;
       const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
-      const coordFontSize = layout.coordH * 0.58;
+      const coordFontSize = layout.coordH * 0.58 * (caption.coordsScale || 1);
       painter.text(w / 2, y, label, {
         fill: ink.faint, fontSize: coordFontSize, fontFamily: 'IBM Plex Mono, monospace',
         align: 'center', baseline: 'alphabetic',
@@ -710,7 +710,7 @@ const MapRender = (() => {
       y += layout.coordH * 0.72;
       const lat = caption.lat, lon = caption.lon;
       const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
-      const coordFontSize = layout.coordH * 0.48;
+      const coordFontSize = layout.coordH * 0.48 * (caption.coordsScale || 1);
       painter.text(textX, y, label, {
         fill: faint, fontSize: coordFontSize, fontFamily: 'IBM Plex Mono, monospace',
         align, baseline: 'alphabetic',

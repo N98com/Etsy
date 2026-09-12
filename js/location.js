@@ -108,7 +108,7 @@ window.LocationApp = (() => {
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
     showPlace: true, showRegion: true, showCountry: true, showCoords: true,
-    placeFontScale: 1, regionFontScale: 1, countryFontScale: 1,
+    placeFontScale: 1, regionFontScale: 1, countryFontScale: 1, coordsFontScale: 1,
     textHighlight: false,
     gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false, nightlightStyle: false,
     pins: [], addingPin: false,
@@ -156,6 +156,7 @@ window.LocationApp = (() => {
   const countryNameInput = el('countryNameInput');
   const countryFontSizeInput = el('countryFontSizeInput');
   const showCoordsCheck = el('showCoordsCheck');
+  const coordsFontSizeInput = el('coordsFontSizeInput');
   const textHighlightCheck = el('textHighlightCheck');
   const textHighlightColorInput = el('textHighlightColorInput');
   const addPinBtn = el('addPinBtn');
@@ -498,7 +499,7 @@ window.LocationApp = (() => {
         country: countryNameInput.value.trim() || pc.country,
         lat: state.center.lat, lon: state.center.lon,
         font: state.captionFontId,
-        placeScale: state.placeFontScale, regionScale: state.regionFontScale, countryScale: state.countryFontScale,
+        placeScale: state.placeFontScale, regionScale: state.regionFontScale, countryScale: state.countryFontScale, coordsScale: state.coordsFontScale,
         highlight: state.textHighlight, highlightColor: textHighlightColorInput.value,
       },
     };
@@ -1005,6 +1006,7 @@ window.LocationApp = (() => {
     placeFontSizeInput.addEventListener('input', () => { state.placeFontScale = parseFloat(placeFontSizeInput.value); render(); });
     regionFontSizeInput.addEventListener('input', () => { state.regionFontScale = parseFloat(regionFontSizeInput.value); render(); });
     countryFontSizeInput.addEventListener('input', () => { state.countryFontScale = parseFloat(countryFontSizeInput.value); render(); });
+    coordsFontSizeInput.addEventListener('input', () => { state.coordsFontScale = parseFloat(coordsFontSizeInput.value); render(); });
     textHighlightCheck.addEventListener('change', () => { state.textHighlight = textHighlightCheck.checked; render(); });
     textHighlightColorInput.addEventListener('input', () => { highlightColorTouched = true; render(); });
     refreshAutoHighlightColor();
