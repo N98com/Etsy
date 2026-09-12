@@ -17,18 +17,10 @@ const MAP_PALETTES = [
     bg: '#dbe8eb', water: '#4f93a8', park: '#c3d9d4', road: '#ffffff', roadMinor: '#edf4f3', text: '#264653' },
   { id: 'mauve', name: 'Mauve',
     bg: '#4a3b4c', water: '#372b39', park: '#5c4a5e', road: '#d9c4da', roadMinor: '#6c5a6e', text: '#f2e9f2' },
-  { id: 'peachy-coral-glow', name: 'Peachy Coral Glow',
-    bg: '#ebb57a', water: '#d8735c', park: '#e4a177', road: '#fff8f0', roadMinor: '#f0d2b3', text: '#4a2c1e' },
-  { id: 'dark-slate-whisper', name: 'Dark Slate Whisper',
-    bg: '#343849', water: '#2a2d39', park: '#3e4356', road: '#d8c9a3', roadMinor: '#4a5068', text: '#e8e4dc' },
   { id: 'vintage-rose-garden', name: 'Vintage Rose Garden',
     bg: '#f3e8e1', water: '#c4ac9c', park: '#edd3be', road: '#8a5a4a', roadMinor: '#c9a292', text: '#5c4438' },
   { id: 'electric-midnight-glow', name: 'Electric Midnight Glow',
     bg: '#1c1c1c', water: '#4a4a4a', park: '#242424', road: '#f9ea5c', roadMinor: '#f2c94c', text: '#f9ea5c' },
-  { id: 'candy-floss-dreams', name: 'Candy Floss Dreams',
-    bg: '#f5edda', water: '#afd4de', park: '#c8ede1', road: '#f0a99c', roadMinor: '#f3c4ba', text: '#6b4a42' },
-  { id: 'fiery-ice-cream-delight', name: 'Fiery Ice Cream Delight',
-    bg: '#efbb53', water: '#16324a', park: '#f2ce7e', road: '#c7362e', roadMinor: '#e8862a', text: '#16324a' },
   // Zwart + goud, met donkergrijs voor het groen en een diep smaragdgroen
   // als vierde (jewel-tone) kleur voor het water — een klassieke,
   // luxueuze art-deco-combinatie: gouden wegen die oplichten tegen een
@@ -110,4 +102,17 @@ const EXPERIMENTAL_STYLE_PALETTE = {
   id: 'experimental', name: 'Experimental',
   bg: '#0d0d0d', water: '#000000', park: '#0d0d0d', road: '#ffffff', roadMinor: '#c9c9c9', text: '#f2ede0',
   coastline: '#e8e8e8',
+};
+
+// Gebaseerd op nachtfoto's van steden vanuit de ruimte (ISS/satelliet):
+// een vrijwel zwart canvas — land en water zijn 's nachts allebei gewoon
+// onzichtbaar, alleen de verlichte wegen/bebouwing gloeien op, in het
+// karakteristieke warme oranje van straatverlichting. Water krijgt daarom
+// bewust dezelfde kleur als de achtergrond i.p.v. een eigen tint (er is
+// vanuit de ruimte geen zichtbaar verschil, alleen de afwezigheid van
+// licht) — de "gloed" zelf (bredere, transparantere lagen onder de scherpe
+// kernlijn) zit in mapRender.js's road-tekencode, niet in dit palet.
+const NIGHTLIGHT_STYLE_PALETTE = {
+  id: 'nightlight', name: 'Nightlight',
+  bg: '#060504', water: '#020202', park: '#060504', road: '#ffb454', roadMinor: '#8f5322', text: '#ffe8c9',
 };

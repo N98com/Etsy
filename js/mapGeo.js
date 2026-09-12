@@ -17,10 +17,13 @@ const MapGeo = (() => {
   // Sterk niet-lineair oplopend (i.p.v. de vorige, te vlakke reeks) zodat
   // een snelweg duidelijk dikker oogt dan een woonstraat, zoals Google
   // Maps dat ook toont — anders verdrinkt elke hoofdader in het woonwijk-
-  // rasterwerk zodra een gebied genoeg straten bevat.
+  // rasterwerk zodra een gebied genoeg straten bevat. De hogere klassen
+  // (motorway t/m secondary) zijn op verzoek iets afgezwakt — oogden op
+  // metro-schaal te grofweg/dikgedrukt; kleinere wegen ongewijzigd, want
+  // die klacht ging specifiek over de snelwegen.
   const ROAD_WEIGHT = {
-    motorway: 5.5, motorway_link: 3.6, trunk: 5, trunk_link: 3.2, primary: 3.8, primary_link: 2.6,
-    secondary: 2.6, tertiary: 1.6, residential: 0.85, unclassified: 0.75, service: 0.5,
+    motorway: 4.0, motorway_link: 2.8, trunk: 3.7, trunk_link: 2.5, primary: 2.9, primary_link: 2.1,
+    secondary: 2.1, tertiary: 1.4, residential: 0.85, unclassified: 0.75, service: 0.5,
     footway: 0.35, path: 0.35, cycleway: 0.35, pedestrian: 0.55, living_street: 0.75, track: 0.35,
   };
   const MAJOR_ROAD_TYPES = ['motorway', 'trunk', 'primary', 'secondary'];
@@ -30,11 +33,20 @@ const MapGeo = (() => {
 
   // Classificeert de grootte van het gekozen gebied — dit bepaalt hoeveel
   // wegdetail getoond wordt (zie ProtomapsFetch's TIER_ZOOM/HIGHWAY_ALLOW):
-  // straat/buurt (<8km) toont alles, stad (<60km) het volle woonstratennet,
+  // straat/buurt (<8km) toont alles, stad (<160km) het volle woonstratennet,
   // regio/land/continent steeds sobere hoofdaders — puur een visuele/
   // esthetische keuze (te veel wegjes op landschaal oogt als ruis), niet
   // langer een technische beperking van de databron zoals toen dit nog
   // Overpass' queryzwaarte moest begrenzen.
+  //
+  // De city-grens stond op 60km, maar een hele Amerikaanse metro-selectie
+  // (Houston, LA, Raleigh...) beslaat al snel 90-160km — precies het gebied
+  // dat daardoor als 'region' alle woonstraten kwijtraakte. Nu tot 160km
+  // (dekt een normale metro-selectie), wat 'region' met zich meeschuift naar
+  // 160-350km zodat er geen gat ontstaat. Kost meer opgehaalde tegels bij
+  // een grote stad (zoom 12 blijft vast, zie TIER_ZOOM.city) — bij het
+  // huidige MAX_TILES-budget (1100) past een 160km-gebied daar nog ruim
+  // onder (~350 tegels), dus geen extra afkapping, alleen iets meer laadtijd.
   function areaSpanKm(bounds) {
     const { south, west, north, east } = bounds;
     const midLatRad = ((south + north) / 2) * Math.PI / 180;
@@ -46,8 +58,8 @@ const MapGeo = (() => {
   function classifyAreaTier(bounds) {
     const span = areaSpanKm(bounds);
     if (span < 8) return 'street';
-    if (span < 60) return 'city';
-    if (span < 150) return 'region';
+    if (span < 160) return 'city';
+    if (span < 350) return 'region';
     if (span < 1500) return 'country';
     return 'continent';
   }

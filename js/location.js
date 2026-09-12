@@ -109,7 +109,8 @@ window.LocationApp = (() => {
     captionFontId: CAPTION_FONT_PRESETS[0].id,
     showPlace: true, showRegion: true, showCountry: true, showCoords: true,
     placeFontScale: 1, regionFontScale: 1, countryFontScale: 1,
-    gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false,
+    textHighlight: false,
+    gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false, nightlightStyle: false,
     pins: [], addingPin: false,
     autoPlace: '', autoRegion: '', autoCountry: '', captionLang: null,
     streets: [], buildings: [], tier: 'street',
@@ -119,6 +120,7 @@ window.LocationApp = (() => {
 
   let canvas = null, ctx = null;
   let pinColorTouched = false;
+  let highlightColorTouched = false;
   let fetchTimer = null;
   let placeNameTimer = null;
   let renderQueued = false;
@@ -154,6 +156,8 @@ window.LocationApp = (() => {
   const countryNameInput = el('countryNameInput');
   const countryFontSizeInput = el('countryFontSizeInput');
   const showCoordsCheck = el('showCoordsCheck');
+  const textHighlightCheck = el('textHighlightCheck');
+  const textHighlightColorInput = el('textHighlightColorInput');
   const addPinBtn = el('addPinBtn');
   const clearPinsBtn = el('clearPinsBtn');
   const pinColorInput = el('pinColorInput');
@@ -168,6 +172,8 @@ window.LocationApp = (() => {
   const rdr2StyleHint = el('rdr2StyleHint');
   const experimentalStyleCheck = el('experimentalStyleCheck');
   const experimentalStyleHint = el('experimentalStyleHint');
+  const nightlightStyleCheck = el('nightlightStyleCheck');
+  const nightlightStyleHint = el('nightlightStyleHint');
   const mapgenLegacyCheck = el('mapgenLegacyCheck');
   const exportSizeSelect = el('locationExportSize');
   const exportSVGBtn = el('locationExportSVGBtn');
@@ -189,6 +195,7 @@ window.LocationApp = (() => {
     if (state.mw2Style) return MW2_STYLE_PALETTE;
     if (state.rdr2Style) return RDR2_STYLE_PALETTE;
     if (state.experimentalStyle) return EXPERIMENTAL_STYLE_PALETTE;
+    if (state.nightlightStyle) return NIGHTLIGHT_STYLE_PALETTE;
     return getMapPalette(state.mapPaletteId);
   }
 
@@ -204,6 +211,27 @@ window.LocationApp = (() => {
   }
   function refreshAutoPinColor() {
     if (!pinColorTouched) pinColorInput.value = autoPinColor(getActivePalette().bg);
+  }
+
+  // Zelfde idee voor de "highlight tekst"-contourrand, maar dan contrasterend
+  // tegen de daadwerkelijke onderschrift-inktkleur i.p.v. de kaartachtergrond
+  // — bij een gewoon kleurenpalet is die inkt altijd hetzelfde vaste donkere
+  // tintje (los van welk palet je kiest, zie captionInk in mapRender.js),
+  // bij een Game Style juist anders. Zelfde ternary als daar; als de één
+  // wijzigt, moet de ander meeveranderen.
+  function activeCaptionInk() {
+    if (state.gtaStyle) return '#ececec';
+    if (state.mw2Style) return '#ddd6bd';
+    if (state.rdr2Style) return '#3a2f22';
+    if (state.experimentalStyle) return '#f2ede0';
+    if (state.nightlightStyle) return '#ffe8c9';
+    return '#2a2620';
+  }
+  function autoHighlightColor() {
+    return relLuminance(activeCaptionInk()) > 0.5 ? '#1a1a1a' : '#ffffff';
+  }
+  function refreshAutoHighlightColor() {
+    if (!highlightColorTouched) textHighlightColorInput.value = autoHighlightColor();
   }
 
   // ---- modus-helpers ----
@@ -385,7 +413,7 @@ window.LocationApp = (() => {
     // opnieuw hoeven te verversen.
     const fixedBounds = isolating() && hasRealBoundary();
     const padded = fixedBounds ? bounds : padBounds(bounds, FETCH_PADDING);
-    const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : state.experimentalStyle ? 'experimental' : null;
+    const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : state.experimentalStyle ? 'experimental' : state.nightlightStyle ? 'nightlight' : null;
     // Toets tegen de kale live-view (net als haveEnough hierboven), niet
     // tegen de al opgehoogde `padded` — twee opgehoogde gebieden bevatten
     // elkaar veel minder snel dan een kaal gebied in een opgehoogd gebied.
@@ -458,6 +486,7 @@ window.LocationApp = (() => {
       buildings: state.buildings,
       palette: getMapPalette(state.mapPaletteId),
       gtaStyle: state.gtaStyle, mw2Style: state.mw2Style, rdr2Style: state.rdr2Style, experimentalStyle: state.experimentalStyle,
+      nightlightStyle: state.nightlightStyle,
       tier: state.tier,
       isolate: currentIsolateOpts(),
       layout: state.layoutId, mask: state.maskId,
@@ -470,6 +499,7 @@ window.LocationApp = (() => {
         lat: state.center.lat, lon: state.center.lon,
         font: state.captionFontId,
         placeScale: state.placeFontScale, regionScale: state.regionFontScale, countryScale: state.countryFontScale,
+        highlight: state.textHighlight, highlightColor: textHighlightColorInput.value,
       },
     };
   }
@@ -770,16 +800,20 @@ window.LocationApp = (() => {
     state.mw2Style = style === 'mw2';
     state.rdr2Style = style === 'rdr2';
     state.experimentalStyle = style === 'experimental';
+    state.nightlightStyle = style === 'nightlight';
     gtaStyleCheck.checked = state.gtaStyle;
     mw2StyleCheck.checked = state.mw2Style;
     rdr2StyleCheck.checked = state.rdr2Style;
     experimentalStyleCheck.checked = state.experimentalStyle;
+    nightlightStyleCheck.checked = state.nightlightStyle;
     gtaStyleHint.hidden = !state.gtaStyle;
     mw2StyleHint.hidden = !state.mw2Style;
     rdr2StyleHint.hidden = !state.rdr2Style;
     experimentalStyleHint.hidden = !state.experimentalStyle;
+    nightlightStyleHint.hidden = !state.nightlightStyle;
     paletteGrid.classList.toggle('disabled', !!style);
     refreshAutoPinColor();
+    refreshAutoHighlightColor();
     render();
     invalidateFetch();
   }
@@ -833,7 +867,9 @@ window.LocationApp = (() => {
     const tw = Math.round(th * ratio);
     const thumbCanvas = document.createElement('canvas');
     thumbCanvas.width = tw; thumbCanvas.height = th;
-    MapRender.render(new CanvasPainter(thumbCanvas.getContext('2d'), tw, th), tw, th, buildRenderOpts());
+    const thumbOpts = buildRenderOpts();
+    thumbOpts.printBorder = true; // toont wat er écht geëxporteerd is, rand inbegrepen
+    MapRender.render(new CanvasPainter(thumbCanvas.getContext('2d'), tw, th), tw, th, thumbOpts);
     return thumbCanvas.toDataURL('image/png');
   }
 
@@ -844,6 +880,10 @@ window.LocationApp = (() => {
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     setTimeout(() => {
       const opts = buildRenderOpts();
+      // Witte print-veiligheidsrand: alleen op de export, nooit op de live
+      // preview (die rekent voor pan/zoom/pin-plaatsing op ruwe canvaspixels,
+      // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
+      opts.printBorder = true;
       // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
       // de live preview of het geschiedenis-miniatuurtje hierbeneden — en
       // client-side nogmaals achter canUseWatermark() i.p.v. alleen op de
@@ -869,7 +909,7 @@ window.LocationApp = (() => {
         country: opts.caption.country,
         lat: opts.caption.lat,
         lon: opts.caption.lon,
-        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
+        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : state.nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
         format: wantSVG ? 'svg' : 'png',
         sizeLabel: opt.textContent,
         timestamp: Date.now(),
@@ -965,6 +1005,9 @@ window.LocationApp = (() => {
     placeFontSizeInput.addEventListener('input', () => { state.placeFontScale = parseFloat(placeFontSizeInput.value); render(); });
     regionFontSizeInput.addEventListener('input', () => { state.regionFontScale = parseFloat(regionFontSizeInput.value); render(); });
     countryFontSizeInput.addEventListener('input', () => { state.countryFontScale = parseFloat(countryFontSizeInput.value); render(); });
+    textHighlightCheck.addEventListener('change', () => { state.textHighlight = textHighlightCheck.checked; render(); });
+    textHighlightColorInput.addEventListener('input', () => { highlightColorTouched = true; render(); });
+    refreshAutoHighlightColor();
 
     addPinBtn.addEventListener('click', () => {
       state.addingPin = !state.addingPin;
@@ -981,6 +1024,7 @@ window.LocationApp = (() => {
     mw2StyleCheck.addEventListener('change', () => setGameStyle(mw2StyleCheck.checked ? 'mw2' : null));
     rdr2StyleCheck.addEventListener('change', () => setGameStyle(rdr2StyleCheck.checked ? 'rdr2' : null));
     experimentalStyleCheck.addEventListener('change', () => setGameStyle(experimentalStyleCheck.checked ? 'experimental' : null));
+    nightlightStyleCheck.addEventListener('change', () => setGameStyle(nightlightStyleCheck.checked ? 'nightlight' : null));
 
     exportSVGBtn.addEventListener('click', () => exportResult(true));
     exportPNGBtn.addEventListener('click', () => exportResult(false));

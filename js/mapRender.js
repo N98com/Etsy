@@ -34,6 +34,16 @@ const MapRender = (() => {
     return CAPTION_FONT_PRESETS[fontId] || CAPTION_FONT_PRESETS.default;
   }
 
+  // "Highlight tekst" — een dunne contourrand om elke onderschriftregel, in
+  // een kleur die location.js al vooraf bepaalt (automatisch contrasterend
+  // op basis van de actieve inktkleur, met dezelfde handmatige-override-optie
+  // als de pinkleur) en hier gewoon wordt doorgegeven. Dikte relatief aan de
+  // fontgrootte van de regel zelf, dus blijft evenredig dun bij elke schaal.
+  function highlightStroke(caption, fontSize) {
+    if (!caption.highlight) return {};
+    return { stroke: caption.highlightColor || '#ffffff', strokeWidth: Math.max(0.6, fontSize * 0.055) };
+  }
+
   // Tekstbreedte meten voor het pas-op-de-plaatsnaam-mechanisme hieronder.
   // Gebruikt een verborgen canvas (letterSpacing telt mee in measureText,
   // net als bij CanvasPainter.text) zodat de meting exact hetzelfde
@@ -87,15 +97,15 @@ const MapRender = (() => {
   // Tekent de (eventueel gewikkelde) plaatsnaam en geeft de extra
   // regelhoogte terug die de aanroeper aan zijn cursor moet toevoegen
   // bovenop wat een enkele regel al innam — 0 als alles op één regel paste.
-  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, fontStyle, align, letterSpacing, maxWidth }) {
+  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, fontStyle, align, letterSpacing, maxWidth, stroke, strokeWidth }) {
     const fitted = fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing, fontStyle);
     if (fitted.lines.length === 1) {
-      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing, stroke, strokeWidth });
       return 0;
     }
     const lineGap = fitted.fontSize * 1.05;
-    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
-    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing, stroke, strokeWidth });
+    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing, stroke, strokeWidth });
     return lineGap * 0.55;
   }
 
@@ -307,17 +317,36 @@ const MapRender = (() => {
     painter.circle(centerX, centerY, r * 0.38, { fill: holeColor });
   }
 
+  // Witte print-veiligheidsrand — puur bij export (nooit in de live preview,
+  // dat zou pan/zoom/pin-plaatsing ontregelen die op ruwe canvaspixels
+  // rekent). De meeste van deze posters gaan in een lijst; een standaard
+  // fotolijst overlapt de afdruk typisch 3-6mm (tot ~10mm bij een dieper
+  // profiel) — een vaste pixelmarge zou bij elk formaat een andere fysieke
+  // maat betekenen, dus een percentage van de kortste zijde: 3% komt bij het
+  // standaard 30cm-formaat (2:3, dus 20cm korte zijde) neer op ~6mm, en
+  // schuift netjes mee naar ~4mm bij het kleinste (21cm) en ~12mm bij het
+  // grootste (120cm) formaat — ruim binnen die 3-10mm-marge op elke schaal.
+  const PRINT_BORDER_FRACTION = 0.03;
   function render(painter, w, h, opts) {
+    if (!opts.printBorder) return renderContent(painter, w, h, opts);
+    const border = Math.round(Math.min(w, h) * PRINT_BORDER_FRACTION);
+    painter.polygon([[0, 0], [w, 0], [w, h], [0, h]], { fill: '#ffffff' });
+    painter.translate(border, border);
+    renderContent(painter, w - border * 2, h - border * 2, opts);
+    painter.restoreTranslate();
+  }
+
+  function renderContent(painter, w, h, opts) {
     const {
       bounds, streets = [], buildings = [],
-      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, tier = null, isolate = null,
+      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, nightlightStyle = false, tier = null, isolate = null,
       layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, watermarkText = null,
     } = opts;
-    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : opts.palette;
-    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : experimentalStyle ? '#0a0a0a' : (opts.matColor || '#f7f4ee');
-    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : experimentalStyle ? '#f2ede0' : '#2a2620';
-    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : experimentalStyle ? '#c9c2b0' : '#6b6156';
-    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : experimentalStyle ? '#948c7c' : '#8a8074';
+    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE : opts.palette;
+    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : experimentalStyle ? '#0a0a0a' : nightlightStyle ? '#020202' : (opts.matColor || '#f7f4ee');
+    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : experimentalStyle ? '#f2ede0' : nightlightStyle ? '#ffe8c9' : '#2a2620';
+    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : experimentalStyle ? '#c9c2b0' : nightlightStyle ? '#d9a86c' : '#6b6156';
+    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : experimentalStyle ? '#948c7c' : nightlightStyle ? '#8a6b47' : '#8a8074';
 
     painter.setBackground(matColor);
 
@@ -379,6 +408,10 @@ const MapRender = (() => {
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
     } else if (experimentalStyle) {
       drawHeightmapFill(painter, mapW, mapH, bounds);
+    } else if (nightlightStyle) {
+      // Geen reliëf/parken — 's nachts vanuit de ruimte is er behalve de
+      // verlichte wegen zelf (zie de gloed-lagen bij het wegtekenen
+      // hieronder) niets zichtbaar, puur zwart.
     } else if (!mw2Style) {
       // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
       // het bij land/water/wegen/gebouwen, net als hun games zelf).
@@ -422,7 +455,7 @@ const MapRender = (() => {
     // niet van elkaar te onderscheiden, anders dan bij een kustlijn). Dun en
     // onderbroken, zodat het nooit met een echte weg te verwarren is. Game
     // Styles slaan dit over — die tekenen toch hun eigen wereld.
-    if (!gtaStyle && !mw2Style && !rdr2Style && !experimentalStyle) {
+    if (!gtaStyle && !mw2Style && !rdr2Style && !experimentalStyle && !nightlightStyle) {
       const borderWidth = Math.max(0.6, Math.min(mapW, mapH) * 0.0012);
       const dash = Math.min(mapW, mapH) * 0.006;
       streets
@@ -460,6 +493,19 @@ const MapRender = (() => {
       // donker tot wit, dus een vaste wegkleur zonder rand zou op de
       // lichtste stukken reliëf onleesbaar worden.
       projectedRoads.forEach(r => painter.polyline(r.pts, { stroke: '#0d0d0d', strokeWidth: r.roadW * 2.2, fill: 'none' }));
+    }
+    if (nightlightStyle) {
+      // Zachte "gloed" onder de scherpe kernlijn — twee steeds bredere,
+      // transparantere lagen, zoals lichtvervuiling er op een echte
+      // nachtfoto vanuit de ruimte uitziet. Waar veel wegen dicht bij elkaar
+      // liggen (een binnenstad) stapelen deze halfdoorzichtige lagen vanzelf
+      // op tot een helderder gloeiende cluster, precies zoals op een echte
+      // satellietfoto — geen extra code nodig, dat is gewoon alpha-blending.
+      [[4.2, 0.10], [2.1, 0.22]].forEach(([mult, op]) => {
+        projectedRoads.forEach(r => painter.polyline(r.pts, {
+          stroke: r.major ? palette.road : palette.roadMinor, strokeWidth: r.roadW * mult, opacity: op, fill: 'none',
+        }));
+      });
     }
     projectedRoads.forEach(r => {
       painter.polyline(r.pts, {
@@ -550,25 +596,31 @@ const MapRender = (() => {
     let y = topY + layout.gap;
     if (caption.showPlace) {
       y += layout.cityH * 0.75;
+      const placeFontSize = layout.cityH * 0.62 * placeScale;
       const extra = drawPlaceName(painter, w / 2, y, (caption.place || '').toUpperCase(), {
-        fill: ink.ink, fontSize: layout.cityH * 0.62 * placeScale, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
+        fill: ink.ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align: 'center', letterSpacing: rtl ? 0 : layout.cityH * 0.06, maxWidth: w * 0.88,
+        ...highlightStroke(caption, placeFontSize),
       });
       y += layout.cityH * 0.25 + extra;
     }
     if (caption.showRegion) {
       y += layout.regionH * 0.75;
+      const regionFontSize = layout.regionH * 0.62 * regionScale;
       painter.text(w / 2, y, caption.region || '', {
-        fill: ink.sub, fontSize: layout.regionH * 0.62 * regionScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: ink.sub, fontSize: regionFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.regionH * 0.08,
+        ...highlightStroke(caption, regionFontSize),
       });
       y += layout.regionH * 0.25;
     }
     if (caption.showCountry) {
       y += layout.countryH * 0.75;
+      const countryFontSize = layout.countryH * 0.62 * countryScale;
       painter.text(w / 2, y, caption.country || '', {
-        fill: ink.sub, fontSize: layout.countryH * 0.62 * countryScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: ink.sub, fontSize: countryFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.countryH * 0.08,
+        ...highlightStroke(caption, countryFontSize),
       });
       y += layout.countryH * 0.25;
     }
@@ -576,9 +628,11 @@ const MapRender = (() => {
       y += layout.coordH * 0.8;
       const lat = caption.lat, lon = caption.lon;
       const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
+      const coordFontSize = layout.coordH * 0.58;
       painter.text(w / 2, y, label, {
-        fill: ink.faint, fontSize: layout.coordH * 0.58, fontFamily: 'IBM Plex Mono, monospace',
+        fill: ink.faint, fontSize: coordFontSize, fontFamily: 'IBM Plex Mono, monospace',
         align: 'center', baseline: 'alphabetic',
+        ...highlightStroke(caption, coordFontSize),
       });
     }
   }
@@ -624,25 +678,31 @@ const MapRender = (() => {
     let y = y0 + layout.gap * 0.5;
     if (caption.showPlace) {
       y += layout.cityH * 0.68;
+      const placeFontSize = layout.cityH * 0.48 * placeScale;
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.48 * placeScale, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
+        fill: ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.03, maxWidth: plateW * 0.82,
+        ...highlightStroke(caption, placeFontSize),
       });
       y += layout.cityH * 0.2 + extra;
     }
     if (caption.showRegion) {
       y += layout.regionH * 0.68;
+      const regionFontSize = layout.regionH * 0.52 * regionScale;
       painter.text(textX, y, caption.region || '', {
-        fill: sub, fontSize: layout.regionH * 0.52 * regionScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: sub, fontSize: regionFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
+        ...highlightStroke(caption, regionFontSize),
       });
       y += layout.regionH * 0.2;
     }
     if (caption.showCountry) {
       y += layout.countryH * 0.68;
+      const countryFontSize = layout.countryH * 0.52 * countryScale;
       painter.text(textX, y, caption.country || '', {
-        fill: sub, fontSize: layout.countryH * 0.52 * countryScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: sub, fontSize: countryFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
+        ...highlightStroke(caption, countryFontSize),
       });
       y += layout.countryH * 0.2;
     }
@@ -650,9 +710,11 @@ const MapRender = (() => {
       y += layout.coordH * 0.72;
       const lat = caption.lat, lon = caption.lon;
       const label = `${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`;
+      const coordFontSize = layout.coordH * 0.48;
       painter.text(textX, y, label, {
-        fill: faint, fontSize: layout.coordH * 0.48, fontFamily: 'IBM Plex Mono, monospace',
+        fill: faint, fontSize: coordFontSize, fontFamily: 'IBM Plex Mono, monospace',
         align, baseline: 'alphabetic',
+        ...highlightStroke(caption, coordFontSize),
       });
     }
   }
@@ -675,9 +737,11 @@ const MapRender = (() => {
     let y = y0 + bandH * 0.18;
     if (caption.showPlace) {
       y += layout.cityH * 0.55;
+      const placeFontSize = layout.cityH * 0.5 * placeScale;
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.5 * placeScale, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
+        fill: ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.05, maxWidth: w * 0.89,
+        ...highlightStroke(caption, placeFontSize),
       });
       y += layout.cityH * 0.14 + extra;
     }
@@ -693,9 +757,11 @@ const MapRender = (() => {
         parts.push(`${Math.abs(lat).toFixed(4)}°${lat >= 0 ? 'N' : 'S'} / ${Math.abs(lon).toFixed(4)}°${lon >= 0 ? 'E' : 'W'}`);
       }
       y += layout.countryH * 0.55;
+      const combinedFontSize = layout.countryH * 0.48 * countryScale;
       painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
-        fill: sub, fontSize: layout.countryH * 0.48 * countryScale, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
+        fill: sub, fontSize: combinedFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
+        ...highlightStroke(caption, combinedFontSize),
       });
     }
   }
