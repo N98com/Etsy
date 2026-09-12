@@ -93,7 +93,7 @@ window.LocationApp = (() => {
     layoutId: 'default', maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
     showPlace: true, showCountry: true, showCoords: true,
-    gtaStyle: false, mw2Style: false, rdr2Style: false,
+    gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false,
     pins: [], addingPin: false,
     autoPlace: '', autoCountry: '', captionLang: null,
     streets: [], buildings: [], tier: 'street',
@@ -144,6 +144,8 @@ window.LocationApp = (() => {
   const mw2StyleHint = el('mw2StyleHint');
   const rdr2StyleCheck = el('rdr2StyleCheck');
   const rdr2StyleHint = el('rdr2StyleHint');
+  const experimentalStyleCheck = el('experimentalStyleCheck');
+  const experimentalStyleHint = el('experimentalStyleHint');
   const mapgenLegacyCheck = el('mapgenLegacyCheck');
   const exportSizeSelect = el('locationExportSize');
   const exportSVGBtn = el('locationExportSVGBtn');
@@ -154,6 +156,7 @@ window.LocationApp = (() => {
     if (state.gtaStyle) return GTA_STYLE_PALETTE;
     if (state.mw2Style) return MW2_STYLE_PALETTE;
     if (state.rdr2Style) return RDR2_STYLE_PALETTE;
+    if (state.experimentalStyle) return EXPERIMENTAL_STYLE_PALETTE;
     return getMapPalette(state.mapPaletteId);
   }
 
@@ -345,7 +348,7 @@ window.LocationApp = (() => {
     // opnieuw hoeven te verversen.
     const fixedBounds = isolating() && hasRealBoundary();
     const padded = fixedBounds ? bounds : padBounds(bounds, FETCH_PADDING);
-    const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : null;
+    const styleHint = state.gtaStyle ? 'gta' : state.rdr2Style ? 'rdr2' : state.experimentalStyle ? 'experimental' : null;
     // Toets tegen de kale live-view (net als haveEnough hierboven), niet
     // tegen de al opgehoogde `padded` — twee opgehoogde gebieden bevatten
     // elkaar veel minder snel dan een kaal gebied in een opgehoogd gebied.
@@ -414,7 +417,7 @@ window.LocationApp = (() => {
       streets: state.streets,
       buildings: state.buildings,
       palette: getMapPalette(state.mapPaletteId),
-      gtaStyle: state.gtaStyle, mw2Style: state.mw2Style, rdr2Style: state.rdr2Style,
+      gtaStyle: state.gtaStyle, mw2Style: state.mw2Style, rdr2Style: state.rdr2Style, experimentalStyle: state.experimentalStyle,
       tier: state.tier,
       isolate: currentIsolateOpts(),
       layout: state.layoutId, mask: state.maskId,
@@ -718,12 +721,15 @@ window.LocationApp = (() => {
     state.gtaStyle = style === 'gta';
     state.mw2Style = style === 'mw2';
     state.rdr2Style = style === 'rdr2';
+    state.experimentalStyle = style === 'experimental';
     gtaStyleCheck.checked = state.gtaStyle;
     mw2StyleCheck.checked = state.mw2Style;
     rdr2StyleCheck.checked = state.rdr2Style;
+    experimentalStyleCheck.checked = state.experimentalStyle;
     gtaStyleHint.hidden = !state.gtaStyle;
     mw2StyleHint.hidden = !state.mw2Style;
     rdr2StyleHint.hidden = !state.rdr2Style;
+    experimentalStyleHint.hidden = !state.experimentalStyle;
     paletteGrid.classList.toggle('disabled', !!style);
     refreshAutoPinColor();
     render();
@@ -808,7 +814,7 @@ window.LocationApp = (() => {
         country: opts.caption.country,
         lat: opts.caption.lat,
         lon: opts.caption.lon,
-        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
+        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
         format: wantSVG ? 'svg' : 'png',
         sizeLabel: opt.textContent,
         timestamp: Date.now(),
@@ -905,6 +911,7 @@ window.LocationApp = (() => {
     gtaStyleCheck.addEventListener('change', () => setGameStyle(gtaStyleCheck.checked ? 'gta' : null));
     mw2StyleCheck.addEventListener('change', () => setGameStyle(mw2StyleCheck.checked ? 'mw2' : null));
     rdr2StyleCheck.addEventListener('change', () => setGameStyle(rdr2StyleCheck.checked ? 'rdr2' : null));
+    experimentalStyleCheck.addEventListener('change', () => setGameStyle(experimentalStyleCheck.checked ? 'experimental' : null));
 
     exportSVGBtn.addEventListener('click', () => exportResult(true));
     exportPNGBtn.addEventListener('click', () => exportResult(false));

@@ -200,14 +200,14 @@ const MapRender = (() => {
   function render(painter, w, h, opts) {
     const {
       bounds, streets = [], buildings = [],
-      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, tier = null, isolate = null,
+      caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, tier = null, isolate = null,
       layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null,
     } = opts;
-    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : opts.palette;
-    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : (opts.matColor || '#f7f4ee');
-    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : '#2a2620';
-    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : '#6b6156';
-    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : '#8a8074';
+    const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : opts.palette;
+    const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : experimentalStyle ? '#0a0a0a' : (opts.matColor || '#f7f4ee');
+    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : experimentalStyle ? '#f2ede0' : '#2a2620';
+    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : experimentalStyle ? '#c9c2b0' : '#6b6156';
+    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : experimentalStyle ? '#948c7c' : '#8a8074';
 
     painter.setBackground(matColor);
 
@@ -267,6 +267,12 @@ const MapRender = (() => {
       // pickZoomForBounds, dat inmiddels ook een heel land/continent van
       // echte (grof gezoomde) straten/water voorziet.)
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
+    } else if (experimentalStyle) {
+      // Zelfde procedurele marching-squares-textuur als GTA V/RDR2 hierboven
+      // (geen echte hoogtedata) — subtiel donkergrijs op het zwarte land,
+      // suggereert het bergachtige reliëf uit de referentieafbeelding zonder
+      // het silhouet te overheersen.
+      drawTerrainContours(painter, mapW, mapH, bounds, '#262626');
     } else if (!mw2Style) {
       // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
       // het bij land/water/wegen/gebouwen, net als hun games zelf).
@@ -310,7 +316,7 @@ const MapRender = (() => {
     // niet van elkaar te onderscheiden, anders dan bij een kustlijn). Dun en
     // onderbroken, zodat het nooit met een echte weg te verwarren is. Game
     // Styles slaan dit over — die tekenen toch hun eigen wereld.
-    if (!gtaStyle && !mw2Style && !rdr2Style) {
+    if (!gtaStyle && !mw2Style && !rdr2Style && !experimentalStyle) {
       const borderWidth = Math.max(0.6, Math.min(mapW, mapH) * 0.0012);
       const dash = Math.min(mapW, mapH) * 0.006;
       streets
@@ -331,24 +337,28 @@ const MapRender = (() => {
       });
     }
 
-    const roads = streets.filter(s => s.tags.highway).sort((a, b) => MapGeo.roadWeight(a.tags) - MapGeo.roadWeight(b.tags));
-    // Afgestemd op de nieuwe, veel bredere ROAD_WEIGHT-reeks (mapGeo.js) —
-    // deze deler houdt een snelweg ongeveer even dik als voorheen, terwijl
-    // een woonstraat nu duidelijk dunner wordt i.p.v. bijna even dik.
-    const baseRoadWidth = Math.min(mapW, mapH) / 1100;
-    roads.forEach(r => {
-      const pts = r.coords.map(([lat, lon]) => project(lat, lon));
-      const major = MapGeo.isMajorRoad(r.tags);
-      // Ondergrens zodat een dunne woonstraat/voetpad nog zichtbaar blijft
-      // i.p.v. weg te vallen door anti-aliasing bij een kleinere preview.
-      const roadW = Math.max(0.5, baseRoadWidth * MapGeo.roadWeight(r.tags));
-      painter.polyline(pts, {
-        stroke: major ? palette.road : palette.roadMinor,
-        strokeWidth: roadW,
-        fill: 'none',
-        dash: mw2Style ? [roadW * 2.4, roadW * 1.8] : undefined,
+    // "Experimental" toont puur land/water/reliëf, zoals de aangeleverde
+    // referentieafbeelding (een reliëfkaart zonder wegen) — dus geen wegen.
+    if (!experimentalStyle) {
+      const roads = streets.filter(s => s.tags.highway).sort((a, b) => MapGeo.roadWeight(a.tags) - MapGeo.roadWeight(b.tags));
+      // Afgestemd op de nieuwe, veel bredere ROAD_WEIGHT-reeks (mapGeo.js) —
+      // deze deler houdt een snelweg ongeveer even dik als voorheen, terwijl
+      // een woonstraat nu duidelijk dunner wordt i.p.v. bijna even dik.
+      const baseRoadWidth = Math.min(mapW, mapH) / 1100;
+      roads.forEach(r => {
+        const pts = r.coords.map(([lat, lon]) => project(lat, lon));
+        const major = MapGeo.isMajorRoad(r.tags);
+        // Ondergrens zodat een dunne woonstraat/voetpad nog zichtbaar blijft
+        // i.p.v. weg te vallen door anti-aliasing bij een kleinere preview.
+        const roadW = Math.max(0.5, baseRoadWidth * MapGeo.roadWeight(r.tags));
+        painter.polyline(pts, {
+          stroke: major ? palette.road : palette.roadMinor,
+          strokeWidth: roadW,
+          fill: 'none',
+          dash: mw2Style ? [roadW * 2.4, roadW * 1.8] : undefined,
+        });
       });
-    });
+    }
 
     // Pins — kleine kaart-pins (kopje + punt, zoals Google Maps) op door de
     // gebruiker gekozen plekken; de punt van de vorm valt exact op de

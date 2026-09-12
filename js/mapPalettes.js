@@ -85,3 +85,14 @@ const RDR2_STYLE_PALETTE = {
   bg: '#d9c9a0', water: '#7d8f8d', park: '#d9c9a0', road: '#4a3c28', roadMinor: '#8a7452', text: '#3a2f22',
   coastline: '#4a3c28',
 };
+
+// Gebaseerd op een aangeleverde referentieafbeelding van een reliëfkaart
+// van een fjordkust: zwart land, een romige oceaan, geen wegen/gebouwen —
+// puur de kustlijn plus een subtiele reliëf-textuur (zie mapRender.js'
+// drawTerrainContours, hergebruikt van GTA V/RDR2 hierboven) die de
+// bergachtige structuur van het land suggereert.
+const EXPERIMENTAL_STYLE_PALETTE = {
+  id: 'experimental', name: 'Experimental',
+  bg: '#0a0a0a', water: '#f2ede0', park: '#0a0a0a', road: '#0a0a0a', roadMinor: '#0a0a0a', text: '#f2ede0',
+  coastline: '#f2ede0',
+};

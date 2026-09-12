@@ -203,7 +203,7 @@ const ProtomapsFetch = (() => {
   // weg — precies het element dat een kaart op die schaal herkenbaar maakt.
   function filterStreets(features, tier, styleHint) {
     const allow = HIGHWAY_ALLOW[tier];
-    const skipGreenery = styleHint === 'gta' || styleHint === 'rdr2';
+    const skipGreenery = styleHint === 'gta' || styleHint === 'rdr2' || styleHint === 'experimental';
     return features.filter(f => {
       if (f.tags.highway) return !allow || allow.has(f.tags.highway);
       if (f.tags.leisure === 'park' || f.tags.landuse) {

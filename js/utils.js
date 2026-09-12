@@ -64,12 +64,14 @@ const Utils = (() => {
     canvas.toBlob(blob => downloadBlob(blob, filename), 'image/png');
   }
 
-  // Print-formaten (21/30/40/50/60cm lange zijde @300dpi) voor een gegeven
+  // Print-formaten (21 t/m 120cm lange zijde @300dpi) voor een gegeven
   // beeldverhouding — gedeeld tussen Locatie en Map Test, die allebei
-  // dezelfde exportkeuzes aanbieden.
+  // dezelfde exportkeuzes aanbieden. De laatste vier (70/90/100/120) zijn
+  // op verzoek toegevoegd als grotere formaten bovenop de oorspronkelijke
+  // 21-60cm-reeks.
   function computeExportSizes(ratioW, ratioH) {
     const dpi = 300;
-    const longEdgesCm = [21, 30, 40, 50, 60];
+    const longEdgesCm = [21, 30, 40, 50, 60, 70, 90, 100, 120];
     const isPortrait = ratioH >= ratioW;
     return longEdgesCm.map(cm => {
       let wCm, hCm;
