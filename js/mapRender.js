@@ -268,11 +268,11 @@ const MapRender = (() => {
       // echte (grof gezoomde) straten/water voorziet.)
       drawTerrainContours(painter, mapW, mapH, bounds, palette.roadMinor);
     } else if (experimentalStyle) {
-      // Zelfde procedurele marching-squares-textuur als GTA V/RDR2 hierboven
-      // (geen echte hoogtedata) — subtiel donkergrijs op het zwarte land,
-      // suggereert het bergachtige reliëf uit de referentieafbeelding zonder
-      // het silhouet te overheersen.
-      drawTerrainContours(painter, mapW, mapH, bounds, '#262626');
+      // Bewust GEEN reliëf-textuur (eerdere versie gebruikte hier dezelfde
+      // marching-squares-textuur als GTA V/RDR2, maar die oogde als
+      // willekeurige krabbels op plekken zonder echte kustlijn i.p.v.
+      // bergreliëf) — een strak effen zwart vlak tegen het water is een
+      // betrouwbaarder "graveerposter"-look, op elke locatie.
     } else if (!mw2Style) {
       // Groen/parken (alleen in het gewone kleurenschema — Game Styles houden
       // het bij land/water/wegen/gebouwen, net als hun games zelf).
