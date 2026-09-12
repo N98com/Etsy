@@ -9,10 +9,14 @@
   <link rel="stylesheet" href="css/style.css?v=2">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
-       js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode. -->
+       js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
+       De andere vier: de kiesbare onderschrift-"Font"-opties onder Look —
+       zie CAPTION_FONT_PRESETS in zowel js/location.js (UI) als
+       js/mapRender.js (tekencode). Alleen de gewichten/stijlen die die
+       vijf opties daadwerkelijk gebruiken worden geladen. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=EB+Garamond:ital,wght@1,400&family=Playfair+Display:wght@700&family=Space+Mono:wght@400;700&family=Kalam:wght@700&display=swap">
 </head>
 <body>
   <div class="login-gate" id="loginGate" hidden>
@@ -160,10 +164,12 @@
               <button type="button" class="active" data-sub="layout">Layout</button>
               <button type="button" data-sub="mask">Mask</button>
               <button type="button" data-sub="colors">Colors</button>
+              <button type="button" data-sub="font">Font</button>
             </div>
             <div class="subpane active" data-pane="layout" id="layoutSlotNew"></div>
             <div class="subpane" data-pane="mask" id="maskSlotNew"></div>
             <div class="subpane" data-pane="colors" id="colorsSlotNew"></div>
+            <div class="subpane" data-pane="font" id="fontSlotNew"></div>
           </div></div>
         </div>
 
@@ -207,6 +213,8 @@
           <h2>Style</h2>
           <label>Color scheme</label>
           <div id="colorsSlotOld"></div>
+          <label style="margin-top:10px; display:block;">Font</label>
+          <div id="fontSlotOld"></div>
           <div id="detailsSlotOld"></div>
           <p class="hint" style="margin-top:10px; text-transform:uppercase; letter-spacing:0.04em;">Game Styles</p>
           <div id="effectsSlotOld"></div>
@@ -257,6 +265,9 @@
         </div>
         <div class="ratio-tabs" id="maskTabs"></div>
         <div class="map-palette-grid" id="mapPaletteGrid"></div>
+        <div id="unitCaptionFont">
+          <div class="ratio-tabs" id="fontTabs"></div>
+        </div>
         <div id="unitCaption">
           <p class="hint" style="text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
           <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
@@ -363,18 +374,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=24"></script>
-  <script src="js/utils.js?v=24"></script>
-  <script src="js/rng.js?v=24"></script>
-  <script src="js/palettes.js?v=24"></script>
-  <script src="js/geom.js?v=24"></script>
-  <script src="js/painters.js?v=24"></script>
-  <script src="js/algorithms.js?v=24"></script>
-  <script src="js/export.js?v=24"></script>
-  <script src="js/main.js?v=24"></script>
-  <script src="js/views.js?v=24"></script>
+  <script src="js/auth.js?v=25"></script>
+  <script src="js/utils.js?v=25"></script>
+  <script src="js/rng.js?v=25"></script>
+  <script src="js/palettes.js?v=25"></script>
+  <script src="js/geom.js?v=25"></script>
+  <script src="js/painters.js?v=25"></script>
+  <script src="js/algorithms.js?v=25"></script>
+  <script src="js/export.js?v=25"></script>
+  <script src="js/main.js?v=25"></script>
+  <script src="js/views.js?v=25"></script>
 
-  <script src="js/mapPalettes.js?v=24"></script>
+  <script src="js/mapPalettes.js?v=25"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -383,10 +394,10 @@
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
   <script src="js/vendor/vector-tile.js?v=22"></script>
-  <script src="js/protomapsAdapter.js?v=24"></script>
-  <script src="js/protomapsFetch.js?v=24"></script>
-  <script src="js/mapGeo.js?v=24"></script>
-  <script src="js/mapRender.js?v=24"></script>
-  <script src="js/location.js?v=24"></script>
+  <script src="js/protomapsAdapter.js?v=25"></script>
+  <script src="js/protomapsFetch.js?v=25"></script>
+  <script src="js/mapGeo.js?v=25"></script>
+  <script src="js/mapRender.js?v=25"></script>
+  <script src="js/location.js?v=25"></script>
 </body>
 </html>

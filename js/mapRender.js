@@ -12,10 +12,27 @@ const MapRender = (() => {
   // layouts (Stamp/Ledger) voor Arabisch beter vanaf rechts lezen.
   const RTL_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
   function isRTLText(s) { return RTL_RE.test(s || ''); }
-  // Single quotes rond de familienaam (i.p.v. dubbele) — SVGPainter.text zet
-  // fontFamily binnen een dubbel-aangehaald font-family="..."-attribuut;
-  // dubbele quotes zouden dat attribuut voortijdig afsluiten.
-  function captionFontFamily(rtl) { return rtl ? "'Amiri', Georgia, serif" : 'Georgia, serif'; }
+  // Kiesbare onderschrift-lettertypes ("Font" onder Look) — id's komen 1-op-1
+  // overeen met CAPTION_FONT_PRESETS in location.js, dat de UI-knoppen bouwt.
+  // Single quotes rond elke familienaam (i.p.v. dubbele) — SVGPainter.text
+  // zet fontFamily binnen een dubbel-aangehaald font-family="..."-attribuut;
+  // dubbele quotes zouden dat attribuut voortijdig afsluiten. placeWeight/
+  // otherWeight geven de plaatsnaam net iets meer gewicht dan land/coords,
+  // net als het oorspronkelijke vaste Georgia-onderschrift altijd al deed.
+  const CAPTION_FONT_PRESETS = {
+    default: { family: 'Georgia, serif', style: 'normal', placeWeight: '600', otherWeight: '400' },
+    'eb-garamond-italic': { family: "'EB Garamond', Georgia, serif", style: 'italic', placeWeight: '400', otherWeight: '400' },
+    'playfair-bold': { family: "'Playfair Display', Georgia, serif", style: 'normal', placeWeight: '700', otherWeight: '700' },
+    'space-mono': { family: "'Space Mono', monospace", style: 'normal', placeWeight: '700', otherWeight: '400' },
+    'kalam-bold': { family: "'Kalam', cursive", style: 'normal', placeWeight: '700', otherWeight: '700' },
+  };
+  // Arabisch/RTL-onderschriften gebruiken altijd Amiri (het enige geladen
+  // lettertype met Arabische glyphs) — de gekozen Latijnse font-optie wordt
+  // dan genegeerd, ongeacht welke van de vijf is aangevinkt.
+  function resolveCaptionFont(rtl, fontId) {
+    if (rtl) return { family: "'Amiri', Georgia, serif", style: 'normal', placeWeight: '600', otherWeight: '400' };
+    return CAPTION_FONT_PRESETS[fontId] || CAPTION_FONT_PRESETS.default;
+  }
 
   // Tekstbreedte meten voor het pas-op-de-plaatsnaam-mechanisme hieronder.
   // Gebruikt een verborgen canvas (letterSpacing telt mee in measureText,
@@ -26,14 +43,14 @@ const MapRender = (() => {
   // terug op een grove schatting per teken; dat hoeft niet pixel-perfect te
   // zijn, het bepaalt alleen of de test-fixtures het wikkel-pad raken.
   let _measureCtx = null;
-  function measureTextWidth(str, fontSize, fontFamily, weight, letterSpacing) {
+  function measureTextWidth(str, fontSize, fontFamily, weight, letterSpacing, fontStyle) {
     if (typeof document !== 'undefined') {
       if (!_measureCtx) _measureCtx = document.createElement('canvas').getContext('2d');
-      _measureCtx.font = `${weight} ${fontSize}px ${fontFamily}`;
+      _measureCtx.font = `${fontStyle || 'normal'} ${weight} ${fontSize}px ${fontFamily}`;
       if ('letterSpacing' in _measureCtx) _measureCtx.letterSpacing = `${letterSpacing || 0}px`;
       return _measureCtx.measureText(str).width;
     }
-    const avgCharWidth = fontSize * (weight === '600' || weight === 'bold' ? 0.62 : 0.54);
+    const avgCharWidth = fontSize * (weight === '600' || weight === '700' || weight === 'bold' ? 0.62 : 0.54);
     return str.length * avgCharWidth + Math.max(0, str.length - 1) * (letterSpacing || 0);
   }
 
@@ -42,8 +59,8 @@ const MapRender = (() => {
   // regel het kleinst houdt, en pas als zelfs dat niet past (bv. één lang
   // woord zonder spatie) het lettertype zelf verkleind — zodat er altijd
   // marge aan weerszijden overblijft.
-  function fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing) {
-    if (measureTextWidth(text, fontSize, fontFamily, weight, letterSpacing) <= maxWidth) {
+  function fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing, fontStyle) {
+    if (measureTextWidth(text, fontSize, fontFamily, weight, letterSpacing, fontStyle) <= maxWidth) {
       return { lines: [text], fontSize, letterSpacing };
     }
     const words = text.split(' ');
@@ -51,14 +68,14 @@ const MapRender = (() => {
     if (words.length > 1) {
       let bestSplit = 1, bestDiff = Infinity;
       for (let i = 1; i < words.length; i++) {
-        const w1 = measureTextWidth(words.slice(0, i).join(' '), fontSize, fontFamily, weight, letterSpacing);
-        const w2 = measureTextWidth(words.slice(i).join(' '), fontSize, fontFamily, weight, letterSpacing);
+        const w1 = measureTextWidth(words.slice(0, i).join(' '), fontSize, fontFamily, weight, letterSpacing, fontStyle);
+        const w2 = measureTextWidth(words.slice(i).join(' '), fontSize, fontFamily, weight, letterSpacing, fontStyle);
         const diff = Math.abs(w1 - w2);
         if (diff < bestDiff) { bestDiff = diff; bestSplit = i; }
       }
       lines = [words.slice(0, bestSplit).join(' '), words.slice(bestSplit).join(' ')];
     }
-    const widest = Math.max(...lines.map(l => measureTextWidth(l, fontSize, fontFamily, weight, letterSpacing)));
+    const widest = Math.max(...lines.map(l => measureTextWidth(l, fontSize, fontFamily, weight, letterSpacing, fontStyle)));
     if (widest > maxWidth) {
       const scale = maxWidth / widest;
       fontSize *= scale;
@@ -70,15 +87,15 @@ const MapRender = (() => {
   // Tekent de (eventueel gewikkelde) plaatsnaam en geeft de extra
   // regelhoogte terug die de aanroeper aan zijn cursor moet toevoegen
   // bovenop wat een enkele regel al innam — 0 als alles op één regel paste.
-  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, align, letterSpacing, maxWidth }) {
-    const fitted = fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing);
+  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, fontStyle, align, letterSpacing, maxWidth }) {
+    const fitted = fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing, fontStyle);
     if (fitted.lines.length === 1) {
-      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
       return 0;
     }
     const lineGap = fitted.fontSize * 1.05;
-    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
-    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
     return lineGap * 0.55;
   }
 
@@ -520,12 +537,12 @@ const MapRender = (() => {
   // verschillen in de startpositie (topY) en de inktkleuren.
   function drawCaptionBlock(painter, w, topY, layout, caption, ink) {
     const rtl = isRTLText(caption.place) || isRTLText(caption.country);
-    const fontFamily = captionFontFamily(rtl);
+    const font = resolveCaptionFont(rtl, caption.font);
     let y = topY + layout.gap;
     if (caption.showPlace) {
       y += layout.cityH * 0.75;
       const extra = drawPlaceName(painter, w / 2, y, (caption.place || '').toUpperCase(), {
-        fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily, weight: '600',
+        fill: ink.ink, fontSize: layout.cityH * 0.62, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align: 'center', letterSpacing: rtl ? 0 : layout.cityH * 0.06, maxWidth: w * 0.88,
       });
       y += layout.cityH * 0.25 + extra;
@@ -533,7 +550,7 @@ const MapRender = (() => {
     if (caption.showCountry) {
       y += layout.countryH * 0.75;
       painter.text(w / 2, y, caption.country || '', {
-        fill: ink.sub, fontSize: layout.countryH * 0.62, fontFamily,
+        fill: ink.sub, fontSize: layout.countryH * 0.62, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.countryH * 0.08,
       });
       y += layout.countryH * 0.25;
@@ -573,7 +590,7 @@ const MapRender = (() => {
   // postzegel op een ansichtkaart, in plaats van een volle onderrand.
   function drawStampCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
     const rtl = isRTLText(caption.place) || isRTLText(caption.country);
-    const fontFamily = captionFontFamily(rtl);
+    const font = resolveCaptionFont(rtl, caption.font);
     const pad = Math.min(w, h) * 0.045;
     const plateW = Math.min(w * 0.52, w - pad * 2);
     const plateH = layout.total * 0.9;
@@ -590,7 +607,7 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.68;
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.48, fontFamily, weight: '600',
+        fill: ink, fontSize: layout.cityH * 0.48, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.03, maxWidth: plateW * 0.82,
       });
       y += layout.cityH * 0.2 + extra;
@@ -598,7 +615,7 @@ const MapRender = (() => {
     if (caption.showCountry) {
       y += layout.countryH * 0.68;
       painter.text(textX, y, caption.country || '', {
-        fill: sub, fontSize: layout.countryH * 0.52, fontFamily,
+        fill: sub, fontSize: layout.countryH * 0.52, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
       });
       y += layout.countryH * 0.2;
@@ -619,7 +636,7 @@ const MapRender = (() => {
   // strakker dan Default/Gallery's brede, gecentreerde mat.
   function drawLedgerCaption(painter, w, h, layout, caption, matColor, ink, sub, faint) {
     const rtl = isRTLText(caption.place) || isRTLText(caption.country);
-    const fontFamily = captionFontFamily(rtl);
+    const font = resolveCaptionFont(rtl, caption.font);
     const bandH = layout.total * 0.62;
     const y0 = h - bandH;
     painter.polygon([[0, y0], [w, y0], [w, h], [0, h]], { fill: matColor });
@@ -632,7 +649,7 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.55;
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
-        fill: ink, fontSize: layout.cityH * 0.5, fontFamily, weight: '600',
+        fill: ink, fontSize: layout.cityH * 0.5, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.05, maxWidth: w * 0.89,
       });
       y += layout.cityH * 0.14 + extra;
@@ -646,7 +663,7 @@ const MapRender = (() => {
       }
       y += layout.countryH * 0.55;
       painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
-        fill: sub, fontSize: layout.countryH * 0.48, fontFamily,
+        fill: sub, fontSize: layout.countryH * 0.48, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
       });
     }

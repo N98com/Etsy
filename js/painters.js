@@ -93,12 +93,12 @@ class CanvasPainter {
   }
 
   // Tekst — nodig voor de kaart-onderschriften (plaatsnaam/land/coördinaten).
-  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
     const ctx = this.ctx;
     ctx.save();
     if (rotate) { ctx.translate(x, y); ctx.rotate(rotate * Math.PI / 180); x = 0; y = 0; }
     ctx.fillStyle = fill || '#000';
-    ctx.font = `${weight} ${fontSize}px ${fontFamily}`;
+    ctx.font = `${fontStyle} ${weight} ${fontSize}px ${fontFamily}`;
     ctx.textAlign = align;
     ctx.textBaseline = baseline;
     if (letterSpacing && 'letterSpacing' in ctx) ctx.letterSpacing = `${letterSpacing}px`;
@@ -176,12 +176,12 @@ class SVGPainter {
     this.parts.push(`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stopEls}</linearGradient><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="url(#${id})"/>`);
   }
 
-  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate } = {}) {
     const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start';
     const dominant = baseline === 'middle' ? 'middle' : baseline === 'hanging' ? 'hanging' : 'auto';
     const transform = rotate ? ` transform="rotate(${fmt(rotate)} ${fmt(x)} ${fmt(y)})"` : '';
     const ls = letterSpacing ? ` letter-spacing="${fmt(letterSpacing)}"` : '';
-    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}" font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${transform}>${escapeXml(str)}</text>`);
+    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}" font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" font-style="${fontStyle}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${transform}>${escapeXml(str)}</text>`);
   }
 
   beginClip(x, y, w, h) {

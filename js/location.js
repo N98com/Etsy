@@ -73,6 +73,20 @@ window.LocationApp = (() => {
     { id: 'hexagon', label: 'Hexagon' },
   ];
 
+  // Vijf onderschrift-lettertypes, gekozen uit een specimen-vergelijking op
+  // basis van een aangeleverde referentieafbeelding — id's + family/weight/
+  // style komen 1-op-1 overeen met CAPTION_FONT_PRESETS in mapRender.js
+  // (dat de daadwerkelijke tekencode heeft). previewFamily/previewWeight/
+  // previewStyle renderen de knop zelf al in dat lettertype, zodat je het
+  // verschil meteen ziet zonder eerst te hoeven klikken.
+  const CAPTION_FONT_PRESETS = [
+    { id: 'default', label: 'Default', previewFamily: 'Georgia, serif', previewWeight: '600', previewStyle: 'normal' },
+    { id: 'eb-garamond-italic', label: 'EB Garamond', previewFamily: "'EB Garamond', Georgia, serif", previewWeight: '400', previewStyle: 'italic' },
+    { id: 'playfair-bold', label: 'Playfair Display', previewFamily: "'Playfair Display', Georgia, serif", previewWeight: '700', previewStyle: 'normal' },
+    { id: 'space-mono', label: 'Space Mono', previewFamily: "'Space Mono', monospace", previewWeight: '700', previewStyle: 'normal' },
+    { id: 'kalam-bold', label: 'Kalam', previewFamily: "'Kalam', cursive", previewWeight: '700', previewStyle: 'normal' },
+  ];
+
   const AREA_TIER_NOTE = {
     street: '', city: '',
     region: 'Large area selected — only main roads are shown, to keep the map fast and readable.',
@@ -92,6 +106,7 @@ window.LocationApp = (() => {
     ratioId: '2x3', ratio: { w: 2, h: 3 },
     layoutId: 'default', maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
+    captionFontId: CAPTION_FONT_PRESETS[0].id,
     showPlace: true, showCountry: true, showCoords: true,
     gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false,
     pins: [], addingPin: false,
@@ -127,6 +142,7 @@ window.LocationApp = (() => {
   const layoutHint = el('layoutHint');
   const maskTabs = el('maskTabs');
   const paletteGrid = el('mapPaletteGrid');
+  const fontTabs = el('fontTabs');
   const showPlaceCheck = el('showPlaceCheck');
   const placeNameInput = el('placeNameInput');
   const showCountryCheck = el('showCountryCheck');
@@ -184,7 +200,7 @@ window.LocationApp = (() => {
 
   // ---- geometrie: canvaspixels <-> lat/lon ----
   function fullBleed() { return FULL_BLEED_LAYOUTS.has(state.layoutId); }
-  function captionOpts() { return { showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords }; }
+  function captionOpts() { return { showPlace: state.showPlace, showCountry: state.showCountry, showCoords: state.showCoords, font: state.captionFontId }; }
   function mapAreaHeight(h) {
     if (fullBleed()) return h;
     return h - MapRender.captionLayout(h, captionOpts()).total;
@@ -427,6 +443,7 @@ window.LocationApp = (() => {
         place: placeNameInput.value.trim() || pc.place,
         country: countryNameInput.value.trim() || pc.country,
         lat: state.center.lat, lon: state.center.lon,
+        font: state.captionFontId,
       },
     };
   }
@@ -716,6 +733,11 @@ window.LocationApp = (() => {
     [...maskTabs.children].forEach(b => b.classList.toggle('active', b.dataset.maskId === id));
     render();
   }
+  function selectCaptionFont(id) {
+    state.captionFontId = id;
+    [...fontTabs.children].forEach(b => b.classList.toggle('active', b.dataset.fontId === id));
+    render();
+  }
 
   function setGameStyle(style) {
     state.gtaStyle = style === 'gta';
@@ -858,6 +880,16 @@ window.LocationApp = (() => {
       btn.addEventListener('click', () => selectMask(m.id));
       maskTabs.appendChild(btn);
     });
+    CAPTION_FONT_PRESETS.forEach(f => {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.textContent = f.label; btn.dataset.fontId = f.id;
+      btn.className = f.id === state.captionFontId ? 'active' : '';
+      btn.style.fontFamily = f.previewFamily;
+      btn.style.fontWeight = f.previewWeight;
+      btn.style.fontStyle = f.previewStyle;
+      btn.addEventListener('click', () => selectCaptionFont(f.id));
+      fontTabs.appendChild(btn);
+    });
 
     MAP_PALETTES.forEach(p => {
       const card = document.createElement('button');
@@ -939,6 +971,7 @@ window.LocationApp = (() => {
     ['unitLayout', 'layoutSlotOld', 'layoutSlotNew'],
     ['maskTabs', 'maskSlotOld', 'maskSlotNew'],
     ['mapPaletteGrid', 'colorsSlotOld', 'colorsSlotNew'],
+    ['unitCaptionFont', 'fontSlotOld', 'fontSlotNew'],
     ['unitCaption', 'detailsSlotOld', 'detailsSlotNew'],
     ['unitPins', 'detailsSlotOld', 'detailsSlotNew'],
     ['unitEffects', 'effectsSlotOld', 'effectsSlotNew'],

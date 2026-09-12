@@ -45,6 +45,20 @@ const MAP_PALETTES = [
     bg: '#0d1012', water: '#141a1c', park: '#171b1d', road: '#5b7d80', roadMinor: '#3a4d4f', text: '#8aa3a5' },
   { id: 'glacier-mist', name: 'Glacier Mist',
     bg: '#eef1f3', water: '#cfe0e8', park: '#e3e9ec', road: '#647c8f', roadMinor: '#9db0bd', text: '#5c6b73' },
+  // Nog vier, met de hand benaderd op basis van aangeleverde referentie-
+  // posters: een roze lijnenkaart op crème, een zwarte kaart met zandkleurige
+  // wegen, een crème kaart met staalblauwe wegen, en een donkere olijf-teal
+  // kaart met crème wegen. Water/park krijgen bewust bijna dezelfde tint als
+  // de ondergrond (net als sandstone-lagoon/obsidian-harbor hierboven) — de
+  // referenties tonen geen apart gekleurd water, puur de wegenstructuur.
+  { id: 'rosewater-bloom', name: 'Rosewater Bloom',
+    bg: '#f6f1e7', water: '#efe7d8', park: '#f6f1e7', road: '#b23a57', roadMinor: '#e7b4c2', text: '#211c1a' },
+  { id: 'coal-dune', name: 'Coal Dune',
+    bg: '#0d0d0d', water: '#161616', park: '#0d0d0d', road: '#cbb088', roadMinor: '#8a7454', text: '#f2ede0' },
+  { id: 'foggy-harbor', name: 'Foggy Harbor',
+    bg: '#edeae0', water: '#e3dfd2', park: '#edeae0', road: '#5c7a8a', roadMinor: '#9fb4bc', text: '#2a3b42' },
+  { id: 'verdigris-dusk', name: 'Verdigris Dusk',
+    bg: '#3b4e48', water: '#2f413c', park: '#3b4e48', road: '#d9c9a8', roadMinor: '#a99872', text: '#f1ead9' },
 ];
 
 function getMapPalette(id) {
