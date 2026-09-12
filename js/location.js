@@ -109,7 +109,6 @@ window.LocationApp = (() => {
     captionFontId: CAPTION_FONT_PRESETS[0].id,
     showPlace: true, showRegion: true, showCountry: true, showCoords: true,
     placeFontScale: 1, regionFontScale: 1, countryFontScale: 1, coordsFontScale: 1,
-    textHighlight: false,
     gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false, nightlightStyle: false,
     pins: [], addingPin: false,
     autoPlace: '', autoRegion: '', autoCountry: '', captionLang: null,
@@ -120,7 +119,6 @@ window.LocationApp = (() => {
 
   let canvas = null, ctx = null;
   let pinColorTouched = false;
-  let highlightColorTouched = false;
   let fetchTimer = null;
   let placeNameTimer = null;
   let renderQueued = false;
@@ -149,16 +147,18 @@ window.LocationApp = (() => {
   const showPlaceCheck = el('showPlaceCheck');
   const placeNameInput = el('placeNameInput');
   const placeFontSizeInput = el('placeFontSizeInput');
+  const placeFontSizeRow = el('placeFontSizeRow');
   const showRegionCheck = el('showRegionCheck');
   const regionNameInput = el('regionNameInput');
   const regionFontSizeInput = el('regionFontSizeInput');
+  const regionFontSizeRow = el('regionFontSizeRow');
   const showCountryCheck = el('showCountryCheck');
   const countryNameInput = el('countryNameInput');
   const countryFontSizeInput = el('countryFontSizeInput');
+  const countryFontSizeRow = el('countryFontSizeRow');
   const showCoordsCheck = el('showCoordsCheck');
   const coordsFontSizeInput = el('coordsFontSizeInput');
-  const textHighlightCheck = el('textHighlightCheck');
-  const textHighlightColorInput = el('textHighlightColorInput');
+  const coordsFontSizeRow = el('coordsFontSizeRow');
   const addPinBtn = el('addPinBtn');
   const clearPinsBtn = el('clearPinsBtn');
   const pinColorInput = el('pinColorInput');
@@ -214,25 +214,13 @@ window.LocationApp = (() => {
     if (!pinColorTouched) pinColorInput.value = autoPinColor(getActivePalette().bg);
   }
 
-  // Zelfde idee voor de "highlight tekst"-contourrand, maar dan contrasterend
-  // tegen de daadwerkelijke onderschrift-inktkleur i.p.v. de kaartachtergrond
-  // — bij een gewoon kleurenpalet is die inkt altijd hetzelfde vaste donkere
-  // tintje (los van welk palet je kiest, zie captionInk in mapRender.js),
-  // bij een Game Style juist anders. Zelfde ternary als daar; als de één
-  // wijzigt, moet de ander meeveranderen.
-  function activeCaptionInk() {
-    if (state.gtaStyle) return '#ececec';
-    if (state.mw2Style) return '#ddd6bd';
-    if (state.rdr2Style) return '#3a2f22';
-    if (state.experimentalStyle) return '#f2ede0';
-    if (state.nightlightStyle) return '#ffe8c9';
-    return '#2a2620';
-  }
-  function autoHighlightColor() {
-    return relLuminance(activeCaptionInk()) > 0.5 ? '#1a1a1a' : '#ffffff';
-  }
-  function refreshAutoHighlightColor() {
-    if (!highlightColorTouched) textHighlightColorInput.value = autoHighlightColor();
+  // Elke tekstgrootte-slider heeft alleen zin zolang de bijbehorende regel
+  // ook echt getoond wordt — verstopt dus mee met de show-checkbox.
+  function refreshFontSizeRowVisibility() {
+    placeFontSizeRow.hidden = !state.showPlace;
+    regionFontSizeRow.hidden = !state.showRegion;
+    countryFontSizeRow.hidden = !state.showCountry;
+    coordsFontSizeRow.hidden = !state.showCoords;
   }
 
   // ---- modus-helpers ----
@@ -500,7 +488,6 @@ window.LocationApp = (() => {
         lat: state.center.lat, lon: state.center.lon,
         font: state.captionFontId,
         placeScale: state.placeFontScale, regionScale: state.regionFontScale, countryScale: state.countryFontScale, coordsScale: state.coordsFontScale,
-        highlight: state.textHighlight, highlightColor: textHighlightColorInput.value,
       },
     };
   }
@@ -814,7 +801,6 @@ window.LocationApp = (() => {
     nightlightStyleHint.hidden = !state.nightlightStyle;
     paletteGrid.classList.toggle('disabled', !!style);
     refreshAutoPinColor();
-    refreshAutoHighlightColor();
     render();
     invalidateFetch();
   }
@@ -999,6 +985,7 @@ window.LocationApp = (() => {
       state.showRegion = showRegionCheck.checked;
       state.showCountry = showCountryCheck.checked;
       state.showCoords = showCoordsCheck.checked;
+      refreshFontSizeRowVisibility();
       render();
       invalidateFetch(); // het onderschrift-blok kan van hoogte veranderen (mapH)
     }));
@@ -1007,9 +994,7 @@ window.LocationApp = (() => {
     regionFontSizeInput.addEventListener('input', () => { state.regionFontScale = parseFloat(regionFontSizeInput.value); render(); });
     countryFontSizeInput.addEventListener('input', () => { state.countryFontScale = parseFloat(countryFontSizeInput.value); render(); });
     coordsFontSizeInput.addEventListener('input', () => { state.coordsFontScale = parseFloat(coordsFontSizeInput.value); render(); });
-    textHighlightCheck.addEventListener('change', () => { state.textHighlight = textHighlightCheck.checked; render(); });
-    textHighlightColorInput.addEventListener('input', () => { highlightColorTouched = true; render(); });
-    refreshAutoHighlightColor();
+    refreshFontSizeRowVisibility();
 
     addPinBtn.addEventListener('click', () => {
       state.addingPin = !state.addingPin;

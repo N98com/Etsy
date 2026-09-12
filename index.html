@@ -272,28 +272,30 @@
           <p class="hint" style="text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
           <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Place name</label>
           <input type="text" id="placeNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-          <label for="placeFontSizeInput" class="hint" style="margin-top:6px; display:block;">Place name size</label>
-          <input type="range" id="placeFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+          <div id="placeFontSizeRow">
+            <label for="placeFontSizeInput" class="hint" style="margin-top:6px; display:block;">Place name size</label>
+            <input type="range" id="placeFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+          </div>
 
           <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="showRegionCheck" checked> State / Province</label>
           <input type="text" id="regionNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-          <label for="regionFontSizeInput" class="hint" style="margin-top:6px; display:block;">State / Province size</label>
-          <input type="range" id="regionFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+          <div id="regionFontSizeRow">
+            <label for="regionFontSizeInput" class="hint" style="margin-top:6px; display:block;">State / Province size</label>
+            <input type="range" id="regionFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+          </div>
 
           <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="showCountryCheck" checked> Country</label>
           <input type="text" id="countryNameInput" placeholder="(automatic)" style="margin-top:4px;" dir="auto">
-          <label for="countryFontSizeInput" class="hint" style="margin-top:6px; display:block;">Country size</label>
-          <input type="range" id="countryFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+          <div id="countryFontSizeRow">
+            <label for="countryFontSizeInput" class="hint" style="margin-top:6px; display:block;">Country size</label>
+            <input type="range" id="countryFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+          </div>
 
           <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
-          <label for="coordsFontSizeInput" class="hint" style="margin-top:6px; display:block;">Coordinates size</label>
-          <input type="range" id="coordsFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
-
-          <label class="checkbox-row" style="margin-top:10px;"><input type="checkbox" id="textHighlightCheck"> Highlight text</label>
-          <div class="row" style="margin-top:4px;">
-            <input type="color" id="textHighlightColorInput" title="Highlight color">
+          <div id="coordsFontSizeRow">
+            <label for="coordsFontSizeInput" class="hint" style="margin-top:6px; display:block;">Coordinates size</label>
+            <input type="range" id="coordsFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
           </div>
-          <p class="hint" style="margin-top:4px;">Adds a thin outline around the caption so it stands out — automatically a contrasting color, or pick your own above.</p>
         </div>
         <div id="unitPins">
           <p class="hint" style="margin-top:14px; text-transform:uppercase; letter-spacing:0.04em;">Pins</p>
@@ -402,18 +404,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=28"></script>
-  <script src="js/utils.js?v=28"></script>
-  <script src="js/rng.js?v=28"></script>
-  <script src="js/palettes.js?v=28"></script>
-  <script src="js/geom.js?v=28"></script>
-  <script src="js/painters.js?v=28"></script>
-  <script src="js/algorithms.js?v=28"></script>
-  <script src="js/export.js?v=28"></script>
-  <script src="js/main.js?v=28"></script>
-  <script src="js/views.js?v=28"></script>
+  <script src="js/auth.js?v=29"></script>
+  <script src="js/utils.js?v=29"></script>
+  <script src="js/rng.js?v=29"></script>
+  <script src="js/palettes.js?v=29"></script>
+  <script src="js/geom.js?v=29"></script>
+  <script src="js/painters.js?v=29"></script>
+  <script src="js/algorithms.js?v=29"></script>
+  <script src="js/export.js?v=29"></script>
+  <script src="js/main.js?v=29"></script>
+  <script src="js/views.js?v=29"></script>
 
-  <script src="js/mapPalettes.js?v=28"></script>
+  <script src="js/mapPalettes.js?v=29"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -422,10 +424,10 @@
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
   <script src="js/vendor/vector-tile.js?v=22"></script>
-  <script src="js/protomapsAdapter.js?v=28"></script>
-  <script src="js/protomapsFetch.js?v=28"></script>
-  <script src="js/mapGeo.js?v=28"></script>
-  <script src="js/mapRender.js?v=28"></script>
-  <script src="js/location.js?v=28"></script>
+  <script src="js/protomapsAdapter.js?v=29"></script>
+  <script src="js/protomapsFetch.js?v=29"></script>
+  <script src="js/mapGeo.js?v=29"></script>
+  <script src="js/mapRender.js?v=29"></script>
+  <script src="js/location.js?v=29"></script>
 </body>
 </html>

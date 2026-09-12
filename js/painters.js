@@ -93,25 +93,16 @@ class CanvasPainter {
   }
 
   // Tekst — nodig voor de kaart-onderschriften (plaatsnaam/land/coördinaten).
-  // stroke/strokeWidth (optioneel) tekenen een dunne contourrand ONDER de
-  // vulling — de "highlight tekst"-optie in de Locatie-tab, zodat het
-  // onderschrift beter opvalt tegen een drukke of laagcontrast-achtergrond.
-  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity, stroke, strokeWidth } = {}) {
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity } = {}) {
     const ctx = this.ctx;
     ctx.save();
     if (opacity != null) ctx.globalAlpha = opacity;
     if (rotate) { ctx.translate(x, y); ctx.rotate(rotate * Math.PI / 180); x = 0; y = 0; }
+    ctx.fillStyle = fill || '#000';
     ctx.font = `${fontStyle} ${weight} ${fontSize}px ${fontFamily}`;
     ctx.textAlign = align;
     ctx.textBaseline = baseline;
     if (letterSpacing && 'letterSpacing' in ctx) ctx.letterSpacing = `${letterSpacing}px`;
-    if (stroke) {
-      ctx.strokeStyle = stroke;
-      ctx.lineWidth = strokeWidth || 1;
-      ctx.lineJoin = 'round';
-      ctx.strokeText(str, x, y);
-    }
-    ctx.fillStyle = fill || '#000';
     ctx.fillText(str, x, y);
     ctx.restore();
   }
@@ -193,18 +184,13 @@ class SVGPainter {
     this.parts.push(`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stopEls}</linearGradient><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="url(#${id})"/>`);
   }
 
-  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity, stroke, strokeWidth } = {}) {
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity } = {}) {
     const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start';
     const dominant = baseline === 'middle' ? 'middle' : baseline === 'hanging' ? 'hanging' : 'auto';
     const transform = rotate ? ` transform="rotate(${fmt(rotate)} ${fmt(x)} ${fmt(y)})"` : '';
     const ls = letterSpacing ? ` letter-spacing="${fmt(letterSpacing)}"` : '';
     const op = opacity != null ? ` opacity="${opacity}"` : '';
-    // paint-order="stroke" tekent de contour ONDER de vulling (het SVG-
-    // standaardgedrag is andersom, wat de contour over de letters heen zou
-    // laten happen) — zelfde volgorde als CanvasPainter's strokeText-vóór-
-    // fillText hierboven.
-    const strokeAttrs = stroke ? ` stroke="${stroke}" stroke-width="${fmt(strokeWidth || 1)}" paint-order="stroke"` : '';
-    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}" font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" font-style="${fontStyle}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${op}${strokeAttrs}${transform}>${escapeXml(str)}</text>`);
+    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}" font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" font-style="${fontStyle}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${op}${transform}>${escapeXml(str)}</text>`);
   }
 
   beginClip(x, y, w, h) {

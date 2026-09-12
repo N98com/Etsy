@@ -34,16 +34,6 @@ const MapRender = (() => {
     return CAPTION_FONT_PRESETS[fontId] || CAPTION_FONT_PRESETS.default;
   }
 
-  // "Highlight tekst" — een dunne contourrand om elke onderschriftregel, in
-  // een kleur die location.js al vooraf bepaalt (automatisch contrasterend
-  // op basis van de actieve inktkleur, met dezelfde handmatige-override-optie
-  // als de pinkleur) en hier gewoon wordt doorgegeven. Dikte relatief aan de
-  // fontgrootte van de regel zelf, dus blijft evenredig dun bij elke schaal.
-  function highlightStroke(caption, fontSize) {
-    if (!caption.highlight) return {};
-    return { stroke: caption.highlightColor || '#ffffff', strokeWidth: Math.max(0.6, fontSize * 0.055) };
-  }
-
   // Tekstbreedte meten voor het pas-op-de-plaatsnaam-mechanisme hieronder.
   // Gebruikt een verborgen canvas (letterSpacing telt mee in measureText,
   // net als bij CanvasPainter.text) zodat de meting exact hetzelfde
@@ -97,15 +87,15 @@ const MapRender = (() => {
   // Tekent de (eventueel gewikkelde) plaatsnaam en geeft de extra
   // regelhoogte terug die de aanroeper aan zijn cursor moet toevoegen
   // bovenop wat een enkele regel al innam — 0 als alles op één regel paste.
-  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, fontStyle, align, letterSpacing, maxWidth, stroke, strokeWidth }) {
+  function drawPlaceName(painter, x, y, text, { fill, fontSize, fontFamily, weight, fontStyle, align, letterSpacing, maxWidth }) {
     const fitted = fitPlaceNameLines(text, maxWidth, fontSize, fontFamily, weight, letterSpacing, fontStyle);
     if (fitted.lines.length === 1) {
-      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing, stroke, strokeWidth });
+      painter.text(x, y, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
       return 0;
     }
     const lineGap = fitted.fontSize * 1.05;
-    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing, stroke, strokeWidth });
-    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing, stroke, strokeWidth });
+    painter.text(x, y - lineGap * 0.45, fitted.lines[0], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
+    painter.text(x, y + lineGap * 0.55, fitted.lines[1], { fill, fontSize: fitted.fontSize, fontFamily, weight, fontStyle, align, baseline: 'alphabetic', letterSpacing: fitted.letterSpacing });
     return lineGap * 0.55;
   }
 
@@ -600,7 +590,6 @@ const MapRender = (() => {
       const extra = drawPlaceName(painter, w / 2, y, (caption.place || '').toUpperCase(), {
         fill: ink.ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align: 'center', letterSpacing: rtl ? 0 : layout.cityH * 0.06, maxWidth: w * 0.88,
-        ...highlightStroke(caption, placeFontSize),
       });
       y += layout.cityH * 0.25 + extra;
     }
@@ -610,7 +599,6 @@ const MapRender = (() => {
       painter.text(w / 2, y, caption.region || '', {
         fill: ink.sub, fontSize: regionFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.regionH * 0.08,
-        ...highlightStroke(caption, regionFontSize),
       });
       y += layout.regionH * 0.25;
     }
@@ -620,7 +608,6 @@ const MapRender = (() => {
       painter.text(w / 2, y, caption.country || '', {
         fill: ink.sub, fontSize: countryFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align: 'center', baseline: 'alphabetic', letterSpacing: rtl ? 0 : layout.countryH * 0.08,
-        ...highlightStroke(caption, countryFontSize),
       });
       y += layout.countryH * 0.25;
     }
@@ -632,7 +619,6 @@ const MapRender = (() => {
       painter.text(w / 2, y, label, {
         fill: ink.faint, fontSize: coordFontSize, fontFamily: 'IBM Plex Mono, monospace',
         align: 'center', baseline: 'alphabetic',
-        ...highlightStroke(caption, coordFontSize),
       });
     }
   }
@@ -682,7 +668,6 @@ const MapRender = (() => {
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
         fill: ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.03, maxWidth: plateW * 0.82,
-        ...highlightStroke(caption, placeFontSize),
       });
       y += layout.cityH * 0.2 + extra;
     }
@@ -692,7 +677,6 @@ const MapRender = (() => {
       painter.text(textX, y, caption.region || '', {
         fill: sub, fontSize: regionFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
-        ...highlightStroke(caption, regionFontSize),
       });
       y += layout.regionH * 0.2;
     }
@@ -702,7 +686,6 @@ const MapRender = (() => {
       painter.text(textX, y, caption.country || '', {
         fill: sub, fontSize: countryFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
-        ...highlightStroke(caption, countryFontSize),
       });
       y += layout.countryH * 0.2;
     }
@@ -714,7 +697,6 @@ const MapRender = (() => {
       painter.text(textX, y, label, {
         fill: faint, fontSize: coordFontSize, fontFamily: 'IBM Plex Mono, monospace',
         align, baseline: 'alphabetic',
-        ...highlightStroke(caption, coordFontSize),
       });
     }
   }
@@ -741,7 +723,6 @@ const MapRender = (() => {
       const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
         fill: ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
         align, letterSpacing: rtl ? 0 : layout.cityH * 0.05, maxWidth: w * 0.89,
-        ...highlightStroke(caption, placeFontSize),
       });
       y += layout.cityH * 0.14 + extra;
     }
@@ -761,7 +742,6 @@ const MapRender = (() => {
       painter.text(textX, y, parts.filter(Boolean).join('   ·   '), {
         fill: sub, fontSize: combinedFontSize, fontFamily: font.family, weight: font.otherWeight, fontStyle: font.style,
         align, baseline: 'alphabetic',
-        ...highlightStroke(caption, combinedFontSize),
       });
     }
   }
