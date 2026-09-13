@@ -854,19 +854,34 @@ window.LocationApp = (() => {
   }
 
   // Bij een gekozen Sizes-preset (een écht, bestelbaar Prodigi-formaat) toont
-  // "Format" voortaan alléén dat ene exacte formaat — geen keuze uit een
-  // reeks toevallige tussenmaten meer, precies zoals gevraagd ("laat de tool
-  // automatisch dit formaat zien"). Alleen bij "Custom" (geen vaste,
-  // bestelbare maat) valt dit terug op de oude, proportionele reeks.
+  // "Format" dat exacte formaat als standaardkeuze (zie showFormatHint) —
+  // plus, op verzoek, een paar oversized varianten erboven op dezelfde
+  // beeldverhouding. Die zijn niet bedoeld voor de normale catalogus, maar
+  // voor de uitzondering: een klant die zelf om een groter formaat vraagt
+  // dan wat je standaard aanbiedt — dan kun je alsnog de juiste PNG op
+  // maat leveren. Alleen mogelijk voor een Sizes-preset (die kent inW/inH
+  // in inches, dus schaalt exact); "Custom" (pixels) en de oude
+  // proportionele reeks blijven ongewijzigd.
+  const OVERSIZE_SCALES = [1, 1.5, 2, 3];
   function updateExportSizes(exactPreset) {
     exportSizeSelect.innerHTML = '';
     if (exactPreset && exactPreset.pxW) {
-      const opt = document.createElement('option');
-      opt.value = exactPreset.id;
-      opt.textContent = `${exactPreset.cmW}×${exactPreset.cmH}cm @300dpi (${exactPreset.pxW}×${exactPreset.pxH})`;
-      opt.dataset.w = exactPreset.pxW; opt.dataset.h = exactPreset.pxH;
-      opt.selected = true;
-      exportSizeSelect.appendChild(opt);
+      const dpi = 300;
+      const scales = exactPreset.inW ? OVERSIZE_SCALES : [1];
+      scales.forEach((scale, i) => {
+        const pxW = exactPreset.inW ? Math.round(exactPreset.inW * scale * dpi) : exactPreset.pxW;
+        const pxH = exactPreset.inW ? Math.round(exactPreset.inH * scale * dpi) : exactPreset.pxH;
+        const cmW = exactPreset.inW ? Math.round(exactPreset.inW * scale * 2.54) : exactPreset.cmW;
+        const cmH = exactPreset.inW ? Math.round(exactPreset.inH * scale * 2.54) : exactPreset.cmH;
+        const opt = document.createElement('option');
+        opt.value = `${exactPreset.id}@${scale}x`;
+        opt.textContent = scale === 1
+          ? `${cmW}×${cmH}cm @300dpi (${pxW}×${pxH})`
+          : `${cmW}×${cmH}cm @300dpi (${pxW}×${pxH}) — ${scale}× oversized (custom orders)`;
+        opt.dataset.w = pxW; opt.dataset.h = pxH;
+        opt.selected = i === 0;
+        exportSizeSelect.appendChild(opt);
+      });
       return;
     }
     Utils.computeExportSizes(state.ratio.w, state.ratio.h).forEach((s, i) => {
