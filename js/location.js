@@ -83,6 +83,17 @@ window.LocationApp = (() => {
   const FETCH_PADDING = 0.6; // extra marge rond het zichtbare gebied bij ophalen
   const FETCH_CACHE_MAX = 20; // aantal eerder opgehaalde gebieden dat warm blijft
 
+  // Grens (in totaal aantal pixels) waarboven een PNG-export via Utils'
+  // tegel-encoder loopt i.p.v. in één keer op één grote canvas — bij bv.
+  // 96×120cm@300dpi (ruim 160 miljoen pixels) heeft die ene canvas alleen al
+  // ~640MB nodig, wat op mobiel vaak simpelweg mislukt. 35 miljoen pixels
+  // ligt tussen het 60cm-formaat (blijft op de snelle, directe weg) en het
+  // 70cm-formaat (waar dit voor het eerst misging) in. STREAMING_PNG_TILE_
+  // PIXEL_BUDGET is hoeveel pixels (~4 bytes elk) één tegel maximaal beslaat
+  // — ruim binnen het geheugen van elk toestel, ongeacht het totale formaat.
+  const LARGE_PNG_PIXEL_THRESHOLD = 35_000_000;
+  const STREAMING_PNG_TILE_PIXEL_BUDGET = 12_000_000;
+
   const state = {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
@@ -106,6 +117,12 @@ window.LocationApp = (() => {
   let placeNameTimer = null;
   let renderQueued = false;
   let ready = false;
+  // Een klaarstaande grote PNG (zie exportResult): het tegel-encoderen kan
+  // tientallen seconden duren, ruim voorbij het korte venster waarin een
+  // mobiele browser een <a download>-klik nog aan de oorspronkelijke tik
+  // koppelt — dus wordt niet meteen gedownload zodra het klaar is, maar pas
+  // bij een tweede, verse tik op dezelfde knop (zie exportPNGBtn's listener).
+  let pendingPNGDownload = null;
   let drag = null; // { x, y, moved, center }
   // Cache van eerder opgehaalde gebieden: nieuwste vooraan, zie
   // findCachedFetch/storeCachedFetch. Voorkomt een nieuwe (trage) netwerkcall
@@ -477,6 +494,14 @@ window.LocationApp = (() => {
     };
   }
   function render() {
+    // Een klaarstaande grote-PNG-download (zie exportResult) hoort bij
+    // precies de instellingen van het moment dat 'm werd voorbereid — zodra
+    // er iets verandert (elke aanpassing loopt via deze render()) is hij
+    // niet meer geldig.
+    if (pendingPNGDownload) {
+      pendingPNGDownload = null;
+      exportPNGBtn.textContent = 'Export PNG';
+    }
     MapRender.render(new CanvasPainter(ctx, canvas.width, canvas.height), canvas.width, canvas.height, buildRenderOpts());
   }
   function requestRender() {
@@ -800,16 +825,44 @@ window.LocationApp = (() => {
     });
   }
 
+  // Tekent alleen de rijen [y0, y0+tileH) van de volledige w×h afbeelding,
+  // in een kleine tileH-hoge canvas — voor Utils.encodeStreamingPNG (zie
+  // exportResult), dat een grote PNG in stroken opbouwt i.p.v. in één keer
+  // op één grote (bij de grootste formaten: honderden MB's) canvas. Werkt
+  // door MapRender's bestaande translate/restoreTranslate (dezelfde die de
+  // print-rand al gebruikt) — de tekencode zelf blijft in w×h-coördinaten
+  // rekenen, alleen de fysieke canvas waar dat op landt is klein en
+  // verschoven; alles buiten die kleine canvas wordt simpelweg niet
+  // getekend, precies zoals normale canvas-clipping werkt.
+  function renderPNGTile(y0, tileH, w, h, opts) {
+    const tileCanvas = document.createElement('canvas');
+    tileCanvas.width = w; tileCanvas.height = tileH;
+    const tileCtx = tileCanvas.getContext('2d');
+    const painter = new CanvasPainter(tileCtx, w, h);
+    painter.translate(0, -y0);
+    MapRender.render(painter, w, h, opts);
+    painter.restoreTranslate();
+    return tileCtx.getImageData(0, 0, w, tileH);
+  }
+
   // Belangrijk: het renderen + de daadwerkelijke <a>-klik in Utils'
   // triggerSave draaien bewust zonder setTimeout ertussen — dat brak
   // downloaden op mobiel (vooral iOS Safari): zo'n macrotaak-vertraging
   // verbreekt de koppeling met de "user gesture" van de klik, en zonder die
   // koppeling doet een <a download>-klik naar een blob-URL op mobiel vaak
   // stilzwijgend niets. canvas.toBlob() (gebruikt door Utils.downloadCanvasPNG
-  // voor PNG) werkt wél via een korte async callback — dat mag, want de klik
-  // zelf volgt nog steeds direct op diezelfde gebruikersactie, alleen iets
-  // later; de status wordt daarom pas in die callback gezet (zie onDone/
-  // onError hieronder), niet er blind achteraan.
+  // voor kleinere/normale PNG's) werkt wél via een korte async callback —
+  // dat mag, want de klik zelf volgt nog steeds direct op diezelfde
+  // gebruikersactie, alleen iets later.
+  //
+  // Bij een heel groot PNG-formaat (zie LARGE_PNG_PIXEL_THRESHOLD) geldt dat
+  // niet meer: het tegel-encoderen (zie renderPNGTile/Utils.encodeStreamingPNG
+  // hierboven) kan tientallen seconden duren — ruim voorbij het korte venster
+  // waarin een mobiele browser een klik nog als "verse gebruikersactie"
+  // beschouwt. Zo'n export wordt dus NIET automatisch gedownload zodra hij
+  // klaar is; in plaats daarvan verandert de knop in "Tap to download PNG"
+  // en pas een tweede, eigen tik (een echte, verse klik) triggert de
+  // daadwerkelijke <a>-download — zie exportPNGBtn's listener in init().
   function exportResult(wantSVG) {
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
@@ -841,29 +894,50 @@ window.LocationApp = (() => {
         MapRender.render(painter, w, h, opts);
         Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
         exportStatus.textContent = 'Saved.';
-      } else {
-        const exportCanvas = document.createElement('canvas');
-        exportCanvas.width = w; exportCanvas.height = h;
-        // Sommige browsers klemmen een te grote canvas.width/height stil af
-        // i.p.v. een fout te gooien — dat is dan de eerste, betrouwbaarste
-        // aanwijzing dat dit formaat het toestel te boven gaat.
-        if (exportCanvas.width !== w || exportCanvas.height !== h) {
-          throw new Error(`canvas werd afgeklemd naar ${exportCanvas.width}×${exportCanvas.height}`);
-        }
-        const ctx2d = exportCanvas.getContext('2d');
-        if (!ctx2d) throw new Error('kon geen 2D-canvascontext aanmaken op dit formaat');
-        MapRender.render(new CanvasPainter(ctx2d, w, h), w, h, opts);
-        Utils.downloadCanvasPNG(
-          exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`,
-          () => { exportStatus.textContent = 'Saved.'; },
-          (e) => {
-            console.error('Export mislukt:', e);
-            exportStatus.textContent = 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
-          },
-        );
+        return;
       }
+      const filename = `location-${placeSlug}-${opt.value}-${date}.png`;
+      if (w * h > LARGE_PNG_PIXEL_THRESHOLD && Utils.supportsStreamingPNG()) {
+        const tileHeight = Math.max(64, Math.min(h, Math.floor(STREAMING_PNG_TILE_PIXEL_BUDGET / w)));
+        exportPNGBtn.textContent = 'Preparing…';
+        exportStatus.textContent = 'Preparing large export… this can take a minute.';
+        Utils.encodeStreamingPNG(
+          w, h, tileHeight,
+          (y0, tileH) => renderPNGTile(y0, tileH, w, h, opts),
+          ({ tile, tileCount }) => { exportStatus.textContent = `Preparing large export… ${Math.round((tile / tileCount) * 100)}%`; },
+        ).then(blob => {
+          pendingPNGDownload = { blob, filename };
+          exportPNGBtn.textContent = 'Tap to download PNG';
+          exportStatus.textContent = 'Ready — tap "Tap to download PNG" to save it.';
+        }).catch(e => {
+          console.error('Export mislukt:', e);
+          exportPNGBtn.textContent = 'Export PNG';
+          exportStatus.textContent = 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
+        });
+        return;
+      }
+      const exportCanvas = document.createElement('canvas');
+      exportCanvas.width = w; exportCanvas.height = h;
+      // Sommige browsers klemmen een te grote canvas.width/height stil af
+      // i.p.v. een fout te gooien — dat is dan de eerste, betrouwbaarste
+      // aanwijzing dat dit formaat het toestel te boven gaat.
+      if (exportCanvas.width !== w || exportCanvas.height !== h) {
+        throw new Error(`canvas werd afgeklemd naar ${exportCanvas.width}×${exportCanvas.height}`);
+      }
+      const ctx2d = exportCanvas.getContext('2d');
+      if (!ctx2d) throw new Error('kon geen 2D-canvascontext aanmaken op dit formaat');
+      MapRender.render(new CanvasPainter(ctx2d, w, h), w, h, opts);
+      Utils.downloadCanvasPNG(
+        exportCanvas, filename,
+        () => { exportStatus.textContent = 'Saved.'; },
+        (e) => {
+          console.error('Export mislukt:', e);
+          exportStatus.textContent = 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
+        },
+      );
     } catch (e) {
       console.error('Export mislukt:', e);
+      exportPNGBtn.textContent = 'Export PNG';
       exportStatus.textContent = wantSVG
         ? 'Export failed. Please try again.'
         : 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
@@ -995,7 +1069,20 @@ window.LocationApp = (() => {
     nightlightStyleCheck.addEventListener('change', () => setGameStyle(nightlightStyleCheck.checked ? 'nightlight' : null));
 
     exportSVGBtn.addEventListener('click', () => exportResult(true));
-    exportPNGBtn.addEventListener('click', () => exportResult(false));
+    exportPNGBtn.addEventListener('click', () => {
+      // Een grote PNG die al klaarstaat (zie exportResult) downloadt hier,
+      // bij deze tweede, verse tik — niet automatisch zodra 'm klaar was,
+      // want die voorbereiding kan te lang geduurd hebben voor een mobiele
+      // browser om de download nog aan die eerdere tik te koppelen.
+      if (pendingPNGDownload) {
+        Utils.downloadBlob(pendingPNGDownload.blob, pendingPNGDownload.filename);
+        pendingPNGDownload = null;
+        exportPNGBtn.textContent = 'Export PNG';
+        exportStatus.textContent = 'Saved.';
+        return;
+      }
+      exportResult(false);
+    });
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     updateExportSizes();
     watermarkRow.hidden = !canUseWatermark();

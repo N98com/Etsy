@@ -99,6 +99,112 @@ const Utils = (() => {
     }, 'image/png');
   }
 
+  // ---- Streaming PNG-encoder voor zeer grote exportformaten -------------
+  // Bij de grootste printformaten (bv. 96×120cm@300dpi, ruim 160 miljoen
+  // pixels) heeft één enkele canvas al ~640MB nodig voor de ruwe pixels
+  // alleen — dat overschrijdt op mobiel (vooral iOS Safari) al snel het
+  // geheugenbudget, met een mislukte export tot gevolg. Deze encoder bouwt
+  // de PNG zelf, in horizontale stroken: elke strook wordt apart (in een
+  // kleine canvas) getekend, direct als PNG-scanlines de compressie in
+  // gestuurd, en daarna weggegooid — op elk moment zit dus maar één strook
+  // (niet de hele afbeelding) in het geheugen. Gebruikt de standaard
+  // CompressionStream('deflate')-API voor de zlib-compressie die een PNG
+  // IDAT-chunk sowieso al moet bevatten (RFC 1950 — exact het 'deflate'-
+  // formaat van de Compression Streams API, dus geen aparte zlib-library
+  // nodig). Alle scanlines gebruiken filtertype 0 ("None") — iets minder
+  // compact dan adaptieve filtering, maar veel eenvoudiger en nog steeds
+  // een volledig geldige PNG.
+  function supportsStreamingPNG() {
+    return typeof CompressionStream === 'function';
+  }
+
+  const CRC_TABLE = (() => {
+    const table = new Uint32Array(256);
+    for (let n = 0; n < 256; n++) {
+      let c = n;
+      for (let k = 0; k < 8; k++) c = (c & 1) ? (0xEDB88320 ^ (c >>> 1)) : (c >>> 1);
+      table[n] = c >>> 0;
+    }
+    return table;
+  })();
+  function crc32(bytes) {
+    let crc = 0xFFFFFFFF;
+    for (let i = 0; i < bytes.length; i++) crc = CRC_TABLE[(crc ^ bytes[i]) & 0xFF] ^ (crc >>> 8);
+    return (crc ^ 0xFFFFFFFF) >>> 0;
+  }
+  function u32be(n, out, offset) {
+    out[offset] = (n >>> 24) & 255; out[offset + 1] = (n >>> 16) & 255;
+    out[offset + 2] = (n >>> 8) & 255; out[offset + 3] = n & 255;
+  }
+  function pngChunk(type, data) {
+    const out = new Uint8Array(12 + data.length);
+    u32be(data.length, out, 0);
+    for (let i = 0; i < 4; i++) out[4 + i] = type.charCodeAt(i);
+    out.set(data, 8);
+    u32be(crc32(out.subarray(4, 8 + data.length)), out, 8 + data.length);
+    return out;
+  }
+
+  // renderTile(y0, tileH) => een ImageData (breedte×tileH, RGBA8) met exact
+  // de rijen [y0, y0+tileH) van de volledige afbeelding — synchroon, want
+  // de aanroeper tekent die strook zelf in een kleine canvas. onProgress
+  // (optioneel) krijgt {tile, tileCount} na elke verwerkte strook, handig
+  // om tussentijds een statusregel bij te werken (dit hele proces is async
+  // en kan bij de grootste formaten tientallen seconden duren).
+  async function encodeStreamingPNG(width, height, tileHeight, renderTile, onProgress) {
+    const cs = new CompressionStream('deflate');
+    const writer = cs.writable.getWriter();
+    const reader = cs.readable.getReader();
+    const compressedParts = [];
+    let compressedLen = 0;
+    const pump = (async () => {
+      for (;;) {
+        const { value, done } = await reader.read();
+        if (done) break;
+        compressedParts.push(value);
+        compressedLen += value.length;
+      }
+    })();
+
+    const rowBytes = width * 4;
+    const tileCount = Math.ceil(height / tileHeight);
+    for (let tile = 0, y0 = 0; y0 < height; tile++, y0 += tileHeight) {
+      const h = Math.min(tileHeight, height - y0);
+      const imgData = renderTile(y0, h);
+      const buf = new Uint8Array(h * (rowBytes + 1));
+      for (let row = 0; row < h; row++) {
+        const dst = row * (rowBytes + 1);
+        buf[dst] = 0; // filtertype "None"
+        buf.set(imgData.data.subarray(row * rowBytes, row * rowBytes + rowBytes), dst + 1);
+      }
+      await writer.write(buf);
+      if (onProgress) onProgress({ tile: tile + 1, tileCount });
+    }
+    await writer.close();
+    await pump;
+
+    const idatData = new Uint8Array(compressedLen);
+    let off = 0;
+    for (const part of compressedParts) { idatData.set(part, off); off += part.length; }
+
+    const ihdrData = new Uint8Array(13);
+    u32be(width, ihdrData, 0);
+    u32be(height, ihdrData, 4);
+    ihdrData[8] = 8; // bit depth
+    ihdrData[9] = 6; // kleurtype: RGBA
+    ihdrData[10] = 0; ihdrData[11] = 0; ihdrData[12] = 0; // compressie/filter/interlace: standaard
+
+    const sig = new Uint8Array([137, 80, 78, 71, 13, 10, 26, 10]);
+    const ihdr = pngChunk('IHDR', ihdrData);
+    const idat = pngChunk('IDAT', idatData);
+    const iend = pngChunk('IEND', new Uint8Array(0));
+
+    const out = new Uint8Array(sig.length + ihdr.length + idat.length + iend.length);
+    let p = 0;
+    [sig, ihdr, idat, iend].forEach(part => { out.set(part, p); p += part.length; });
+    return new Blob([out], { type: 'image/png' });
+  }
+
   // Print-formaten (21 t/m 120cm lange zijde @300dpi) voor een gegeven
   // beeldverhouding — gedeeld tussen Locatie en Map Test, die allebei
   // dezelfde exportkeuzes aanbieden. De laatste vier (70/90/100/120) zijn
@@ -160,7 +266,7 @@ const Utils = (() => {
   }
 
   return {
-    hexToRgb, rgbToHex, mixPaletteColor, runChunked, downloadSVGString, downloadCanvasPNG, slugify,
-    makeNoise2D, fractalNoise2D, computeExportSizes,
+    hexToRgb, rgbToHex, mixPaletteColor, runChunked, downloadSVGString, downloadCanvasPNG, downloadBlob, slugify,
+    makeNoise2D, fractalNoise2D, computeExportSizes, supportsStreamingPNG, encodeStreamingPNG,
   };
 })();
