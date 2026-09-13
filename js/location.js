@@ -810,30 +810,54 @@ window.LocationApp = (() => {
   function exportResult(wantSVG) {
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
-    const opts = buildRenderOpts();
-    // Witte print-veiligheidsrand: alleen op de export, nooit op de live
-    // preview (die rekent voor pan/zoom/pin-plaatsing op ruwe canvaspixels,
-    // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
-    opts.printBorder = true;
-    // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
-    // de live preview — en client-side nogmaals achter canUseWatermark()
-    // i.p.v. alleen op de (verborgen) checkbox-state vertrouwen.
-    if (canUseWatermark() && watermarkEnabledCheck.checked) {
-      opts.watermarkText = watermarkTextInput.value.trim() || 'PREVIEW';
+    // Alles hieronder in try/catch: bij een heel groot PNG-formaat kan een
+    // mobiel toestel simpelweg de canvas niet aan (bv. een canvas-grootte-
+    // limiet van het besturingssysteem/de browser, of te weinig geheugen —
+    // 11339×14173px is ruim 160 miljoen pixels, ~640MB alleen al aan ruwe
+    // pixels). Zonder deze try/catch liep zo'n fout ongevangen tot buiten de
+    // klik-handler: geen foutmelding, gewoon stilte — precies het gemelde
+    // "doet niks". Nu krijgt de gebruiker in elk geval een duidelijke
+    // melding i.p.v. niets, met SVG als alternatief (vectordata, geen
+    // pixel-geheugenlimiet, werkt op elk formaat).
+    try {
+      const opts = buildRenderOpts();
+      // Witte print-veiligheidsrand: alleen op de export, nooit op de live
+      // preview (die rekent voor pan/zoom/pin-plaatsing op ruwe canvaspixels,
+      // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
+      opts.printBorder = true;
+      // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
+      // de live preview — en client-side nogmaals achter canUseWatermark()
+      // i.p.v. alleen op de (verborgen) checkbox-state vertrouwen.
+      if (canUseWatermark() && watermarkEnabledCheck.checked) {
+        opts.watermarkText = watermarkTextInput.value.trim() || 'PREVIEW';
+      }
+      const placeSlug = (opts.caption.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+      const date = new Date().toISOString().slice(0, 10);
+      if (wantSVG) {
+        const painter = new SVGPainter(w, h);
+        MapRender.render(painter, w, h, opts);
+        Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
+      } else {
+        const exportCanvas = document.createElement('canvas');
+        exportCanvas.width = w; exportCanvas.height = h;
+        // Sommige browsers klemmen een te grote canvas.width/height stil af
+        // i.p.v. een fout te gooien — dat is dan de eerste, betrouwbaarste
+        // aanwijzing dat dit formaat het toestel te boven gaat.
+        if (exportCanvas.width !== w || exportCanvas.height !== h) {
+          throw new Error(`canvas werd afgeklemd naar ${exportCanvas.width}×${exportCanvas.height}`);
+        }
+        const ctx2d = exportCanvas.getContext('2d');
+        if (!ctx2d) throw new Error('kon geen 2D-canvascontext aanmaken op dit formaat');
+        MapRender.render(new CanvasPainter(ctx2d, w, h), w, h, opts);
+        Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
+      }
+      exportStatus.textContent = 'Saved.';
+    } catch (e) {
+      console.error('Export mislukt:', e);
+      exportStatus.textContent = wantSVG
+        ? 'Export failed. Please try again.'
+        : 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
     }
-    const placeSlug = (opts.caption.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-    const date = new Date().toISOString().slice(0, 10);
-    if (wantSVG) {
-      const painter = new SVGPainter(w, h);
-      MapRender.render(painter, w, h, opts);
-      Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
-    } else {
-      const exportCanvas = document.createElement('canvas');
-      exportCanvas.width = w; exportCanvas.height = h;
-      MapRender.render(new CanvasPainter(exportCanvas.getContext('2d'), w, h), w, h, opts);
-      Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
-    }
-    exportStatus.textContent = 'Saved.';
   }
 
   function init() {
