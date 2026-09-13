@@ -884,59 +884,63 @@ window.LocationApp = (() => {
     return thumbCanvas.toDataURL('image/png');
   }
 
+  // Belangrijk: dit hele verloop draait bewust volledig synchroon binnen de
+  // click-handler, zonder setTimeout/Promise ertussen — dat brak downloaden
+  // op mobiel (vooral iOS Safari). Zo'n async stap verbreekt de koppeling
+  // met de "user gesture" van de klik, en zonder die koppeling doet een
+  // <a download>-klik naar een blob-URL op mobiel vaak stilzwijgend niets:
+  // geen foutmelding, geen download, alleen de "Saved."-status die daarna
+  // toch getoond wordt (precies het gemelde probleem). Zie ook Utils'
+  // triggerSave, dat op mobiel sowieso een ander pad neemt (nieuw tabblad
+  // i.p.v. <a download>) omdat die dat daar nog onbetrouwbaarder maakt.
   function exportResult(wantSVG) {
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
-    exportStatus.textContent = `Rendering at ${w}×${h}px…`;
-    exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
-    setTimeout(() => {
-      const opts = buildRenderOpts();
-      // Witte print-veiligheidsrand: alleen op de export, nooit op de live
-      // preview (die rekent voor pan/zoom/pin-plaatsing op ruwe canvaspixels,
-      // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
-      opts.printBorder = true;
-      // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
-      // de live preview of het geschiedenis-miniatuurtje hierbeneden — en
-      // client-side nogmaals achter canUseWatermark() i.p.v. alleen op de
-      // (verborgen) checkbox-state vertrouwen.
-      if (canUseWatermark() && watermarkEnabledCheck.checked) {
-        opts.watermarkText = watermarkTextInput.value.trim() || 'PREVIEW';
-      }
-      const placeSlug = (opts.caption.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
-      const date = new Date().toISOString().slice(0, 10);
-      if (wantSVG) {
-        const painter = new SVGPainter(w, h);
-        MapRender.render(painter, w, h, opts);
-        Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
-      } else {
-        const exportCanvas = document.createElement('canvas');
-        exportCanvas.width = w; exportCanvas.height = h;
-        MapRender.render(new CanvasPainter(exportCanvas.getContext('2d'), w, h), w, h, opts);
-        Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
-      }
-      // De download hierboven is op dit punt al gelukt, dus een onverwachte
-      // fout bij het wegschrijven van de geschiedenis-entry (bv. iets anders
-      // dan de inmiddels afgevangen quota-fout) mag nooit de "Saved."-status
-      // of het heractiveren van de exportknoppen blokkeren.
-      try {
-        recordLocationExport({
-          thumbnail: makeHistoryThumbnail(),
-          place: opts.caption.place,
-          country: opts.caption.country,
-          lat: opts.caption.lat,
-          lon: opts.caption.lon,
-          paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : state.nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
-          format: wantSVG ? 'svg' : 'png',
-          sizeLabel: opt.textContent,
-          timestamp: Date.now(),
-          recolor: buildRecolorGeometry(opts),
-        });
-      } catch (e) {
-        console.error('Kon export niet aan geschiedenis toevoegen:', e);
-      }
-      exportStatus.textContent = 'Saved.';
-      exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
-    }, 20);
+    const opts = buildRenderOpts();
+    // Witte print-veiligheidsrand: alleen op de export, nooit op de live
+    // preview (die rekent voor pan/zoom/pin-plaatsing op ruwe canvaspixels,
+    // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
+    opts.printBorder = true;
+    // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
+    // de live preview of het geschiedenis-miniatuurtje hierbeneden — en
+    // client-side nogmaals achter canUseWatermark() i.p.v. alleen op de
+    // (verborgen) checkbox-state vertrouwen.
+    if (canUseWatermark() && watermarkEnabledCheck.checked) {
+      opts.watermarkText = watermarkTextInput.value.trim() || 'PREVIEW';
+    }
+    const placeSlug = (opts.caption.place || 'map').toLowerCase().replace(/[^a-z0-9]+/g, '-');
+    const date = new Date().toISOString().slice(0, 10);
+    if (wantSVG) {
+      const painter = new SVGPainter(w, h);
+      MapRender.render(painter, w, h, opts);
+      Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
+    } else {
+      const exportCanvas = document.createElement('canvas');
+      exportCanvas.width = w; exportCanvas.height = h;
+      MapRender.render(new CanvasPainter(exportCanvas.getContext('2d'), w, h), w, h, opts);
+      Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
+    }
+    // De download hierboven is op dit punt al gelukt, dus een onverwachte
+    // fout bij het wegschrijven van de geschiedenis-entry (bv. iets anders
+    // dan de inmiddels afgevangen quota-fout) mag nooit de "Saved."-status
+    // of het heractiveren van de exportknoppen blokkeren.
+    try {
+      recordLocationExport({
+        thumbnail: makeHistoryThumbnail(),
+        place: opts.caption.place,
+        country: opts.caption.country,
+        lat: opts.caption.lat,
+        lon: opts.caption.lon,
+        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : state.nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
+        format: wantSVG ? 'svg' : 'png',
+        sizeLabel: opt.textContent,
+        timestamp: Date.now(),
+        recolor: buildRecolorGeometry(opts),
+      });
+    } catch (e) {
+      console.error('Kon export niet aan geschiedenis toevoegen:', e);
+    }
+    exportStatus.textContent = 'Saved.';
   }
 
   function init() {

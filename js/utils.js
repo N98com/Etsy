@@ -45,23 +45,49 @@ const Utils = (() => {
     step();
   }
 
-  function downloadBlob(blob, filename) {
-    const url = URL.createObjectURL(blob);
+  function isMobileDevice() {
+    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  }
+
+  // Activeert de download/opslaan-actie voor een blob- of data-URL. Op
+  // mobiel (vooral iOS Safari) is <a download> naar zo'n URL onbetrouwbaar:
+  // er verschijnt geen enkele foutmelding, maar er wordt ook niets naar het
+  // toestel opgeslagen — precies het gemelde probleem. Daar openen we de
+  // afbeelding/SVG in plaats daarvan in een nieuw tabblad, zodat de
+  // gebruiker 'm alsnog opslaat via de vertrouwde native "Bewaar
+  // afbeelding"/Delen-optie (lang indrukken).
+  function triggerSave(href, filename, revoke) {
+    if (isMobileDevice()) {
+      window.open(href, '_blank');
+      if (revoke) setTimeout(revoke, 60000);
+      return;
+    }
     const a = document.createElement('a');
-    a.href = url;
+    a.href = href;
     a.download = filename;
     document.body.appendChild(a);
     a.click();
     a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 4000);
+    if (revoke) setTimeout(revoke, 4000);
+  }
+
+  function downloadBlob(blob, filename) {
+    const url = URL.createObjectURL(blob);
+    triggerSave(url, filename, () => URL.revokeObjectURL(url));
   }
 
   function downloadSVGString(svgStr, filename) {
     downloadBlob(new Blob([svgStr], { type: 'image/svg+xml' }), filename);
   }
 
+  // toDataURL is bewust synchroon gekozen i.p.v. toBlob (dat werkt via een
+  // async callback): de download/window.open-actie moet nog binnen hetzelfde
+  // "user gesture"-venster vallen als de klik die 'm triggerde, en een async
+  // stap ertussen (zoals toBlob's callback, of een setTimeout) verbreekt die
+  // koppeling op strikte mobiele browsers net zo goed als de afwezigheid van
+  // een gebruikersactie — met exact hetzelfde stille-faalgedrag tot gevolg.
   function downloadCanvasPNG(canvas, filename) {
-    canvas.toBlob(blob => downloadBlob(blob, filename), 'image/png');
+    triggerSave(canvas.toDataURL('image/png'), filename, null);
   }
 
   // Print-formaten (21 t/m 120cm lange zijde @300dpi) voor een gegeven
