@@ -29,8 +29,8 @@ window.LocationApp = (() => {
   function isArabicText(s) { return ARABIC_RE.test(s || ''); }
 
   const RATIO_PRESETS = [
+    { id: '5x7', label: '5:7', w: 5, h: 7 },
     { id: '2x3', label: '2:3', w: 2, h: 3 },
-    { id: '5x7', label: '5:7 (Prodigi)', w: 5, h: 7 },
     { id: '3x4', label: '3:4', w: 3, h: 4 },
     { id: '4x5', label: '4:5', w: 4, h: 5 },
     { id: '1x1', label: '1:1', w: 1, h: 1 },
@@ -98,7 +98,7 @@ window.LocationApp = (() => {
   const state = {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
-    ratioId: '2x3', ratio: { w: 2, h: 3 },
+    ratioId: '5x7', ratio: { w: 5, h: 7 },
     layoutId: 'default', maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
