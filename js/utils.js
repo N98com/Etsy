@@ -45,23 +45,17 @@ const Utils = (() => {
     step();
   }
 
-  function isMobileDevice() {
-    return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-  }
-
-  // Activeert de download/opslaan-actie voor een blob- of data-URL. Op
-  // mobiel (vooral iOS Safari) is <a download> naar zo'n URL onbetrouwbaar:
-  // er verschijnt geen enkele foutmelding, maar er wordt ook niets naar het
-  // toestel opgeslagen — precies het gemelde probleem. Daar openen we de
-  // afbeelding/SVG in plaats daarvan in een nieuw tabblad, zodat de
-  // gebruiker 'm alsnog opslaat via de vertrouwde native "Bewaar
-  // afbeelding"/Delen-optie (lang indrukken).
+  // Activeert de download voor een blob- of data-URL via een onzichtbare
+  // <a download>-klik. Eerder probeerde dit op mobiel via window.open() (een
+  // nieuw tabblad om via "Bewaar afbeelding" op te slaan), als vermoedelijke
+  // fix voor <a download> die daar niets leek te doen — maar dat bleek de
+  // browser's downloadmanager juist te laten struikelen over de (zeer lange)
+  // data-URL, met een verkeerd bestand (.txt i.p.v. de PNG) tot gevolg. De
+  // eigenlijke oorzaak van het oorspronkelijke probleem zat 'm in
+  // exportResult() (js/location.js), dat via een setTimeout draaide los van
+  // de klik — user-gesture-koppeling die <a download> juist nodig heeft. Nu
+  // dat weg is, werkt <a download> hier gewoon overal, zoals vanouds.
   function triggerSave(href, filename, revoke) {
-    if (isMobileDevice()) {
-      window.open(href, '_blank');
-      if (revoke) setTimeout(revoke, 60000);
-      return;
-    }
     const a = document.createElement('a');
     a.href = href;
     a.download = filename;
@@ -81,11 +75,11 @@ const Utils = (() => {
   }
 
   // toDataURL is bewust synchroon gekozen i.p.v. toBlob (dat werkt via een
-  // async callback): de download/window.open-actie moet nog binnen hetzelfde
+  // async callback): de <a>-klik in triggerSave moet nog binnen hetzelfde
   // "user gesture"-venster vallen als de klik die 'm triggerde, en een async
   // stap ertussen (zoals toBlob's callback, of een setTimeout) verbreekt die
   // koppeling op strikte mobiele browsers net zo goed als de afwezigheid van
-  // een gebruikersactie — met exact hetzelfde stille-faalgedrag tot gevolg.
+  // een gebruikersactie.
   function downloadCanvasPNG(canvas, filename) {
     triggerSave(canvas.toDataURL('image/png'), filename, null);
   }
