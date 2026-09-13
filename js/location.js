@@ -20,8 +20,6 @@
 // is; zonder een opgezochte grens valt isoleren terug op de laatst bekeken
 // live-view als rechthoek.
 window.LocationApp = (() => {
-  const HISTORY_KEY = 'genart-location-history-v1';
-
   // Arabische Unicode-blokken (basis + presentatievormen) — gebruikt om te
   // detecteren of een getypte zoekterm Arabisch is, zodat we Nominatim
   // vragen om de plaatsnaam/land in het Arabisch terug te geven (voor
@@ -29,42 +27,6 @@ window.LocationApp = (() => {
   // zoekterm — een gewone (Latijnse) zoekopdracht verandert niets.
   const ARABIC_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
   function isArabicText(s) { return ARABIC_RE.test(s || ''); }
-
-  // Bovengrens aan het aantal bewaarde entries — elke entry draagt een PNG-
-  // miniatuur (en soms recolor-geometrie) mee, dus zonder cap groeit dit
-  // ongemerkt door tot localStorage's quota (meestal 5-10MB) vol zit. Dat
-  // deed precies dít kapot: setItem gooide dan een QuotaExceededError, nergens
-  // opgevangen (geen try/catch), middenin exportResult's setTimeout-callback — de
-  // download zelf was al gebeurd en lukte dus prima, maar de geschiedenis-
-  // entry werd nooit opgeslagen, stil en zonder foutmelding voor de gebruiker.
-  const HISTORY_MAX_ENTRIES = 60;
-
-  function loadLocationHistory() {
-    try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
-  }
-  // Slaat op, en valt bij een volle quota terug op het steeds verder
-  // wegknippen van de oudste (dus minst relevante) entries totdat het wél
-  // past — zodat de zojuist gemaakte render (voorin de lijst, want unshift)
-  // nooit stilzwijgend verloren gaat zoals hiervoor gebeurde.
-  function saveLocationHistory(list) {
-    let trimmed = list;
-    while (true) {
-      try {
-        localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
-        return;
-      } catch (e) {
-        if (trimmed.length <= 1) return; // zelfs 1 entry past niet meer — niets meer aan te doen
-        trimmed = trimmed.slice(0, Math.ceil(trimmed.length / 2));
-      }
-    }
-  }
-  // Bewaart een miniatuur + metadata, en (als het compact genoeg is) ook een
-  // verkleinde kopie van de geometrie voor Showcase — zie buildRecolorGeometry.
-  function recordLocationExport(entry) {
-    const history = loadLocationHistory();
-    history.unshift(entry);
-    saveLocationHistory(history.slice(0, HISTORY_MAX_ENTRIES));
-  }
 
   const RATIO_PRESETS = [
     { id: '2x3', label: '2:3', w: 2, h: 3 },
@@ -119,7 +81,6 @@ window.LocationApp = (() => {
   const CANVAS_LONG_EDGE = 900; // preview-resolutie, niet de exportresolutie
   const FETCH_DEBOUNCE_MS = 550;
   const FETCH_PADDING = 0.6; // extra marge rond het zichtbare gebied bij ophalen
-  const RECOLOR_MAX_JSON_LENGTH = 180000;
   const FETCH_CACHE_MAX = 20; // aantal eerder opgehaalde gebieden dat warm blijft
 
   const state = {
@@ -839,60 +800,13 @@ window.LocationApp = (() => {
     });
   }
 
-  // Bewaart daarnaast (indien compact genoeg) een verkleinde kopie van de
-  // geometrie, zodat de Showcase-tab dezelfde kaart later in elk kleurpalet
-  // opnieuw kan tekenen — alleen tags die MapRender echt gebruikt, en een
-  // harde grootte-cap zodat één grote export niet de hele geschiedenis in
-  // localStorage opeet.
-  function trimStreetsForStorage(streets) {
-    return streets.map(s => {
-      const tags = {
-        highway: s.tags.highway, waterway: s.tags.waterway, natural: s.tags.natural,
-        leisure: s.tags.leisure, landuse: s.tags.landuse, name: s.tags.name,
-      };
-      return s.rings ? { tags, rings: s.rings } : { tags, coords: s.coords };
-    });
-  }
-  function trimBuildingsForStorage(buildings) {
-    return buildings.map(b => ({ coords: b.coords }));
-  }
-  function buildRecolorGeometry(opts) {
-    const payload = {
-      bounds: opts.bounds,
-      streets: trimStreetsForStorage(state.streets),
-      buildings: trimBuildingsForStorage(state.buildings),
-      ratio: state.ratio,
-      layout: state.layoutId,
-      mask: state.maskId,
-      pins: opts.pins,
-      pinColor: opts.pinColor,
-      tier: state.tier,
-      isolate: opts.isolate,
-    };
-    return JSON.stringify(payload).length <= RECOLOR_MAX_JSON_LENGTH ? payload : null;
-  }
-
-  function makeHistoryThumbnail() {
-    const ratio = state.ratio.w / state.ratio.h;
-    const th = 340;
-    const tw = Math.round(th * ratio);
-    const thumbCanvas = document.createElement('canvas');
-    thumbCanvas.width = tw; thumbCanvas.height = th;
-    const thumbOpts = buildRenderOpts();
-    thumbOpts.printBorder = true; // toont wat er écht geëxporteerd is, rand inbegrepen
-    MapRender.render(new CanvasPainter(thumbCanvas.getContext('2d'), tw, th), tw, th, thumbOpts);
-    return thumbCanvas.toDataURL('image/png');
-  }
-
   // Belangrijk: dit hele verloop draait bewust volledig synchroon binnen de
   // click-handler, zonder setTimeout/Promise ertussen — dat brak downloaden
   // op mobiel (vooral iOS Safari). Zo'n async stap verbreekt de koppeling
   // met de "user gesture" van de klik, en zonder die koppeling doet een
   // <a download>-klik naar een blob-URL op mobiel vaak stilzwijgend niets:
   // geen foutmelding, geen download, alleen de "Saved."-status die daarna
-  // toch getoond wordt (precies het gemelde probleem). Zie ook Utils'
-  // triggerSave, dat op mobiel sowieso een ander pad neemt (nieuw tabblad
-  // i.p.v. <a download>) omdat die dat daar nog onbetrouwbaarder maakt.
+  // toch getoond wordt (precies het gemelde probleem).
   function exportResult(wantSVG) {
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
@@ -902,9 +816,8 @@ window.LocationApp = (() => {
     // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
     opts.printBorder = true;
     // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
-    // de live preview of het geschiedenis-miniatuurtje hierbeneden — en
-    // client-side nogmaals achter canUseWatermark() i.p.v. alleen op de
-    // (verborgen) checkbox-state vertrouwen.
+    // de live preview — en client-side nogmaals achter canUseWatermark()
+    // i.p.v. alleen op de (verborgen) checkbox-state vertrouwen.
     if (canUseWatermark() && watermarkEnabledCheck.checked) {
       opts.watermarkText = watermarkTextInput.value.trim() || 'PREVIEW';
     }
@@ -919,26 +832,6 @@ window.LocationApp = (() => {
       exportCanvas.width = w; exportCanvas.height = h;
       MapRender.render(new CanvasPainter(exportCanvas.getContext('2d'), w, h), w, h, opts);
       Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
-    }
-    // De download hierboven is op dit punt al gelukt, dus een onverwachte
-    // fout bij het wegschrijven van de geschiedenis-entry (bv. iets anders
-    // dan de inmiddels afgevangen quota-fout) mag nooit de "Saved."-status
-    // of het heractiveren van de exportknoppen blokkeren.
-    try {
-      recordLocationExport({
-        thumbnail: makeHistoryThumbnail(),
-        place: opts.caption.place,
-        country: opts.caption.country,
-        lat: opts.caption.lat,
-        lon: opts.caption.lon,
-        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : state.nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
-        format: wantSVG ? 'svg' : 'png',
-        sizeLabel: opt.textContent,
-        timestamp: Date.now(),
-        recolor: buildRecolorGeometry(opts),
-      });
-    } catch (e) {
-      console.error('Kon export niet aan geschiedenis toevoegen:', e);
     }
     exportStatus.textContent = 'Saved.';
   }
@@ -1168,5 +1061,5 @@ window.LocationApp = (() => {
     }
   }
 
-  return { onShow, getHistory: loadLocationHistory };
+  return { onShow };
 })();

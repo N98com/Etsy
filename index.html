@@ -6,7 +6,7 @@
   <title>MapGen2.0</title>
   <!-- ?v=N: zelfde cache-busting reden als bij de js/-bestanden verderop —
        verhoog bij elke push die css/style.css wijzigt. -->
-  <link rel="stylesheet" href="css/style.css?v=5">
+  <link rel="stylesheet" href="css/style.css?v=6">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
        js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
@@ -41,7 +41,6 @@
       <div class="icon-menu">
         <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
         <div id="settingsMenu" class="settings-menu" hidden>
-          <button type="button" id="historyMenuBtn" class="settings-menu-item">🕘 History</button>
           <label class="settings-menu-item settings-menu-toggle" for="mapgenLegacyCheck">
             <input type="checkbox" id="mapgenLegacyCheck"> MapGen 1.0 layout
           </label>
@@ -387,27 +386,6 @@
     </div>
   </div>
 
-  <div class="modal-backdrop hidden" id="historyModalBackdrop">
-    <div class="modal history-modal">
-      <button class="modal-close ghost" id="historyCloseBtn">✕ close</button>
-      <div>
-        <h3>History</h3>
-        <div class="view-tabs" style="padding:0; margin-bottom:10px; background:transparent; border-bottom:1px solid var(--line);">
-          <button type="button" class="view-tab active" id="historyTabPlayground" data-history="playground">Playground</button>
-          <button type="button" class="view-tab" id="historyTabLocation" data-history="location">Location</button>
-        </div>
-
-        <div id="historyPanelPlayground">
-          <p class="hint">Every design you've actually exported (SVG or PNG), saved permanently — even if the underlying color preset has since been cleaned up.</p>
-          <div class="history-list" id="historyList"></div>
-        </div>
-        <div id="historyPanelLocation" hidden>
-          <p class="hint">Every map you've actually exported, with a thumbnail of how it looked.</p>
-          <div class="history-list" id="locationHistoryList"></div>
-        </div>
-      </div>
-    </div>
-  </div>
   </div>
 
   <!-- ?v=N op elk eigen js/-bestand hieronder: cache-busting, want GitHub
@@ -415,18 +393,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=35"></script>
-  <script src="js/utils.js?v=35"></script>
-  <script src="js/rng.js?v=35"></script>
-  <script src="js/palettes.js?v=35"></script>
-  <script src="js/geom.js?v=35"></script>
-  <script src="js/painters.js?v=35"></script>
-  <script src="js/algorithms.js?v=35"></script>
-  <script src="js/export.js?v=35"></script>
-  <script src="js/main.js?v=35"></script>
-  <script src="js/views.js?v=35"></script>
+  <script src="js/auth.js?v=36"></script>
+  <script src="js/utils.js?v=36"></script>
+  <script src="js/rng.js?v=36"></script>
+  <script src="js/palettes.js?v=36"></script>
+  <script src="js/geom.js?v=36"></script>
+  <script src="js/painters.js?v=36"></script>
+  <script src="js/algorithms.js?v=36"></script>
+  <script src="js/export.js?v=36"></script>
+  <script src="js/main.js?v=36"></script>
+  <script src="js/views.js?v=36"></script>
 
-  <script src="js/mapPalettes.js?v=35"></script>
+  <script src="js/mapPalettes.js?v=36"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -435,10 +413,10 @@
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
   <script src="js/vendor/vector-tile.js?v=22"></script>
-  <script src="js/protomapsAdapter.js?v=35"></script>
-  <script src="js/protomapsFetch.js?v=35"></script>
-  <script src="js/mapGeo.js?v=35"></script>
-  <script src="js/mapRender.js?v=35"></script>
-  <script src="js/location.js?v=35"></script>
+  <script src="js/protomapsAdapter.js?v=36"></script>
+  <script src="js/protomapsFetch.js?v=36"></script>
+  <script src="js/mapGeo.js?v=36"></script>
+  <script src="js/mapRender.js?v=36"></script>
+  <script src="js/location.js?v=36"></script>
 </body>
 </html>

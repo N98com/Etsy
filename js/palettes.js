@@ -62,9 +62,7 @@ function customPaletteId(bg, inks) {
 }
 
 // Hoeveel eigen kleurstellingen de snelkoppelingenlijst maximaal onthoudt.
-// Ouder dan dit wordt automatisch verwijderd — de volledige geschiedenis van
-// wat daadwerkelijk geëxporteerd is, staat los hiervan en blijft altijd staan
-// (zie EXPORT_HISTORY in main.js, die een eigen kopie van de kleuren bewaart).
+// Ouder dan dit wordt automatisch verwijderd.
 const MAX_CUSTOM_PALETTES = 10;
 
 // Registreert (of hergebruikt) een eigen kleurstelling als preset en geeft

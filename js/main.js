@@ -3,7 +3,6 @@
 (() => {
   const FAV_KEY = 'genart-favorites-v1';
   const SETTINGS_KEY = 'genart-settings-v1';
-  const HISTORY_KEY = 'genart-export-history-v1';
   const THUMB_PX = 260;   // canvas-resolutie per tegel in het contactvel
   const MODAL_PX = 760;   // canvas-resolutie in het grote voorbeeld
   const THUMB_ATTRACTOR_ITER = 90000;
@@ -12,23 +11,6 @@
     try { return JSON.parse(localStorage.getItem(SETTINGS_KEY)) || {}; } catch { return {}; }
   }
   const SAVED = loadSettings();
-
-  // Permanente log van elk daadwerkelijk geëxporteerd ontwerp — los van (en
-  // ongelimiteerd, anders dan) de snelkoppelingenlijst met eigen kleuren.
-  // Elke regel bewaart een eigen kopie van het palet, zodat de geschiedenis
-  // correct blijft ook als de originele preset intussen is opgeschoond.
-  function loadExportHistory() {
-    try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
-  }
-  function saveExportHistory() {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(state.exportHistory));
-  }
-  function recordExport(algoId, seed, paletteId, format, sizeId) {
-    const paletteSnapshot = JSON.parse(JSON.stringify(getPalette(paletteId)));
-    state.exportHistory.unshift({ algoId, seed, palette: paletteSnapshot, format, sizeId, timestamp: Date.now() });
-    saveExportHistory();
-    if (!historyModalBackdrop.classList.contains('hidden')) renderHistoryList();
-  }
 
   const state = {
     algoId: 'attractor',
@@ -39,7 +21,6 @@
     favorites: loadFavorites(),
     triptych: [null, null, null],
     modal: null, // { algoId, seed, paletteId }
-    exportHistory: loadExportHistory(),
     customInks: (Array.isArray(SAVED.customInks) && SAVED.customInks.length)
       ? SAVED.customInks.slice(0, 6)
       : ['#7f5539', '#9c6644', '#3d2b1f'],
@@ -90,16 +71,7 @@
 
   const settingsBtn = el('settingsBtn');
   const settingsMenu = el('settingsMenu');
-  const historyMenuBtn = el('historyMenuBtn');
   const playgroundMenuBtn = el('playgroundMenuBtn');
-  const historyModalBackdrop = el('historyModalBackdrop');
-  const historyCloseBtn = el('historyCloseBtn');
-  const historyList = el('historyList');
-  const historyTabPlayground = el('historyTabPlayground');
-  const historyTabLocation = el('historyTabLocation');
-  const historyPanelPlayground = el('historyPanelPlayground');
-  const historyPanelLocation = el('historyPanelLocation');
-  const locationHistoryList = el('locationHistoryList');
 
   // ---- init ----
   function init() {
@@ -220,11 +192,6 @@
       settingsMenu.hidden = !settingsMenu.hidden;
     });
     document.addEventListener('click', () => { settingsMenu.hidden = true; });
-    historyMenuBtn.addEventListener('click', () => {
-      settingsMenu.hidden = true;
-      selectHistoryTab('playground');
-      historyModalBackdrop.classList.remove('hidden');
-    });
     // De Playground-tab zelf is uit .view-tabs gehaald (op verzoek uit het
     // zicht) maar bestaat nog gewoon — deze knop klikt 'm simpelweg aan,
     // zodat views.js' eigen selectView-logica ongewijzigd blijft werken.
@@ -232,10 +199,6 @@
       settingsMenu.hidden = true;
       el('viewTabPlayground').click();
     });
-    historyCloseBtn.addEventListener('click', () => historyModalBackdrop.classList.add('hidden'));
-    historyModalBackdrop.addEventListener('click', e => { if (e.target === historyModalBackdrop) historyModalBackdrop.classList.add('hidden'); });
-    historyTabPlayground.addEventListener('click', () => selectHistoryTab('playground'));
-    historyTabLocation.addEventListener('click', () => selectHistoryTab('location'));
 
     generateBatch();
     renderFavorites();
@@ -511,7 +474,6 @@
       else Utils.downloadCanvasPNG(result.canvas, filename);
       modalStatus.textContent = `Saved as ${filename}`;
       modalExportSVGBtn.disabled = false; modalExportPNGBtn.disabled = false;
-      recordExport(algoId, seed, paletteId, ext, modalExportSize.value);
     });
   }
 
@@ -624,7 +586,6 @@
           const filename = `triptych-${i + 1}-${filenameFor(entry.algoId, entry.seed, entry.paletteId, sizeId, ext)}`;
           if (result.svg) Utils.downloadSVGString(result.svg, filename);
           else Utils.downloadCanvasPNG(result.canvas, filename);
-          recordExport(entry.algoId, entry.seed, entry.paletteId, ext, sizeId);
           done++;
           if (done === filled.length) {
             triptychExportBtn.disabled = false;
@@ -632,113 +593,6 @@
           }
         });
       }, i * 300);
-    });
-  }
-
-  // ---- geschiedenis ----
-  const EXPORT_FORMAT_LABEL = { svg: 'SVG', png: 'PNG' };
-
-  // Als een geschiedenisregel verwijst naar een eigen kleurpreset die
-  // intussen door de cap van 10 is opgeschoond, zet 'm terug (onder
-  // hetzelfde, uit de kleuren zelf afgeleide id) zodat de tegel weer
-  // met de juiste kleuren opent.
-  function ensurePaletteAvailable(snapshot) {
-    if (!snapshot.custom) return snapshot.id;
-    if (!CUSTOM_PALETTES[snapshot.id]) registerCustomPalette(snapshot.bg, snapshot.inks, snapshot.name);
-    return snapshot.id;
-  }
-
-  function renderHistoryList() {
-    historyList.innerHTML = '';
-    if (state.exportHistory.length === 0) {
-      historyList.innerHTML = '<p class="history-empty">Nothing exported yet. As soon as you download a design (SVG or PNG), it will appear here.</p>';
-      return;
-    }
-    state.exportHistory.forEach(entry => {
-      const item = document.createElement('div');
-      item.className = 'history-item';
-
-      const mini = document.createElement('canvas');
-      mini.width = 72; mini.height = 72;
-      const algo = Algorithms[entry.algoId];
-      if (algo) {
-        const paletteId = ensurePaletteAvailable(entry.palette);
-        drawThumb(algo, mini, entry.seed, paletteId);
-      }
-      const img = document.createElement('img');
-      img.src = mini.toDataURL();
-      item.appendChild(img);
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      const line1 = document.createElement('div');
-      line1.className = 'line1';
-      line1.textContent = `${algo ? algo.label : entry.algoId} · #${entry.seed} · ${entry.palette.name}`;
-      const line2 = document.createElement('div');
-      line2.className = 'line2';
-      const date = new Date(entry.timestamp);
-      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeId} · ${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
-      meta.appendChild(line1);
-      meta.appendChild(line2);
-      item.appendChild(meta);
-
-      const openBtn = document.createElement('button');
-      openBtn.textContent = 'open';
-      openBtn.disabled = !algo;
-      openBtn.addEventListener('click', () => {
-        const paletteId = ensurePaletteAvailable(entry.palette);
-        historyModalBackdrop.classList.add('hidden');
-        if (entry.algoId !== state.algoId) selectAlgo(entry.algoId);
-        openModal(entry.algoId, entry.seed, paletteId);
-      });
-      item.appendChild(openBtn);
-
-      historyList.appendChild(item);
-    });
-  }
-
-  function selectHistoryTab(name) {
-    historyTabPlayground.classList.toggle('active', name === 'playground');
-    historyTabLocation.classList.toggle('active', name === 'location');
-    historyPanelPlayground.hidden = name !== 'playground';
-    historyPanelLocation.hidden = name !== 'location';
-    if (name === 'playground') renderHistoryList();
-    else renderLocationHistoryList();
-  }
-
-  // De Locatie-tab (js/location.js) houdt zijn eigen geschiedenis bij — een
-  // kaart is geen seed+palet maar echte, potentieel zware geo-data, dus
-  // daar wordt alleen een miniatuur + metadata van bewaard, geen volledige
-  // straten/water-geometrie.
-  function renderLocationHistoryList() {
-    locationHistoryList.innerHTML = '';
-    const entries = window.LocationApp ? window.LocationApp.getHistory() : [];
-    if (entries.length === 0) {
-      locationHistoryList.innerHTML = '<p class="history-empty">Nothing exported yet from Location. As soon as you download a map, it will appear here.</p>';
-      return;
-    }
-    entries.forEach(entry => {
-      const item = document.createElement('div');
-      item.className = 'history-item';
-
-      const img = document.createElement('img');
-      img.src = entry.thumbnail;
-      item.appendChild(img);
-
-      const meta = document.createElement('div');
-      meta.className = 'meta';
-      const line1 = document.createElement('div');
-      line1.className = 'line1';
-      line1.textContent = `${entry.place || 'Unknown place'}${entry.country ? ', ' + entry.country : ''} · ${entry.paletteName}`;
-      const line2 = document.createElement('div');
-      line2.className = 'line2';
-      const date = new Date(entry.timestamp);
-      line2.textContent = `${EXPORT_FORMAT_LABEL[entry.format] || entry.format} · ${entry.sizeLabel} · ${date.toLocaleDateString('en-US')} ${date.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}`;
-      meta.appendChild(line1);
-      meta.appendChild(line2);
-      item.appendChild(meta);
-
-      locationHistoryList.appendChild(item);
     });
   }
 
