@@ -74,14 +74,33 @@ const Utils = (() => {
     downloadBlob(new Blob([svgStr], { type: 'image/svg+xml' }), filename);
   }
 
+  // Zet een data:-URL synchroon om in een Blob (handmatig base64-decoderen
+  // i.p.v. de ingebouwde fetch(dataURL).then(r=>r.blob()), want dat laatste
+  // is weer async). Nodig omdat een <a href> die de hele PNG als base64-tekst
+  // bevat (canvas.toDataURL() rechtstreeks als href) bij een groter exportformaat
+  // de URL-lengtelimiet van mobiele browsers kan overschrijden — dat leverde
+  // precies dít op: geen foutmelding, maar een leeg (0kb) bestand. Een korte
+  // blob:-URL via URL.createObjectURL heeft dat probleem niet, ongeacht de
+  // bestandsgrootte.
+  function dataURLToBlob(dataURL) {
+    const [header, base64] = dataURL.split(',');
+    const mime = header.match(/:(.*?);/)[1];
+    const binary = atob(base64);
+    const bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+    return new Blob([bytes], { type: mime });
+  }
+
   // toDataURL is bewust synchroon gekozen i.p.v. toBlob (dat werkt via een
   // async callback): de <a>-klik in triggerSave moet nog binnen hetzelfde
   // "user gesture"-venster vallen als de klik die 'm triggerde, en een async
   // stap ertussen (zoals toBlob's callback, of een setTimeout) verbreekt die
   // koppeling op strikte mobiele browsers net zo goed als de afwezigheid van
-  // een gebruikersactie.
+  // een gebruikersactie. dataURLToBlob hierboven zet 'm daarna alsnog
+  // (synchroon) om naar een korte blob:-URL, zodat de bestandsgrootte er
+  // niet meer toe doet.
   function downloadCanvasPNG(canvas, filename) {
-    triggerSave(canvas.toDataURL('image/png'), filename, null);
+    downloadBlob(dataURLToBlob(canvas.toDataURL('image/png')), filename);
   }
 
   // Print-formaten (21 t/m 120cm lange zijde @300dpi) voor een gegeven
