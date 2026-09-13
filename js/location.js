@@ -800,13 +800,16 @@ window.LocationApp = (() => {
     });
   }
 
-  // Belangrijk: dit hele verloop draait bewust volledig synchroon binnen de
-  // click-handler, zonder setTimeout/Promise ertussen — dat brak downloaden
-  // op mobiel (vooral iOS Safari). Zo'n async stap verbreekt de koppeling
-  // met de "user gesture" van de klik, en zonder die koppeling doet een
-  // <a download>-klik naar een blob-URL op mobiel vaak stilzwijgend niets:
-  // geen foutmelding, geen download, alleen de "Saved."-status die daarna
-  // toch getoond wordt (precies het gemelde probleem).
+  // Belangrijk: het renderen + de daadwerkelijke <a>-klik in Utils'
+  // triggerSave draaien bewust zonder setTimeout ertussen — dat brak
+  // downloaden op mobiel (vooral iOS Safari): zo'n macrotaak-vertraging
+  // verbreekt de koppeling met de "user gesture" van de klik, en zonder die
+  // koppeling doet een <a download>-klik naar een blob-URL op mobiel vaak
+  // stilzwijgend niets. canvas.toBlob() (gebruikt door Utils.downloadCanvasPNG
+  // voor PNG) werkt wél via een korte async callback — dat mag, want de klik
+  // zelf volgt nog steeds direct op diezelfde gebruikersactie, alleen iets
+  // later; de status wordt daarom pas in die callback gezet (zie onDone/
+  // onError hieronder), niet er blind achteraan.
   function exportResult(wantSVG) {
     const opt = exportSizeSelect.selectedOptions[0];
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
@@ -837,6 +840,7 @@ window.LocationApp = (() => {
         const painter = new SVGPainter(w, h);
         MapRender.render(painter, w, h, opts);
         Utils.downloadSVGString(painter.toString(), `location-${placeSlug}-${opt.value}-${date}.svg`);
+        exportStatus.textContent = 'Saved.';
       } else {
         const exportCanvas = document.createElement('canvas');
         exportCanvas.width = w; exportCanvas.height = h;
@@ -849,9 +853,15 @@ window.LocationApp = (() => {
         const ctx2d = exportCanvas.getContext('2d');
         if (!ctx2d) throw new Error('kon geen 2D-canvascontext aanmaken op dit formaat');
         MapRender.render(new CanvasPainter(ctx2d, w, h), w, h, opts);
-        Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
+        Utils.downloadCanvasPNG(
+          exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`,
+          () => { exportStatus.textContent = 'Saved.'; },
+          (e) => {
+            console.error('Export mislukt:', e);
+            exportStatus.textContent = 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
+          },
+        );
       }
-      exportStatus.textContent = 'Saved.';
     } catch (e) {
       console.error('Export mislukt:', e);
       exportStatus.textContent = wantSVG

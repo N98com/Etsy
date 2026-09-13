@@ -74,33 +74,29 @@ const Utils = (() => {
     downloadBlob(new Blob([svgStr], { type: 'image/svg+xml' }), filename);
   }
 
-  // Zet een data:-URL synchroon om in een Blob (handmatig base64-decoderen
-  // i.p.v. de ingebouwde fetch(dataURL).then(r=>r.blob()), want dat laatste
-  // is weer async). Nodig omdat een <a href> die de hele PNG als base64-tekst
-  // bevat (canvas.toDataURL() rechtstreeks als href) bij een groter exportformaat
-  // de URL-lengtelimiet van mobiele browsers kan overschrijden — dat leverde
-  // precies dít op: geen foutmelding, maar een leeg (0kb) bestand. Een korte
-  // blob:-URL via URL.createObjectURL heeft dat probleem niet, ongeacht de
-  // bestandsgrootte.
-  function dataURLToBlob(dataURL) {
-    const [header, base64] = dataURL.split(',');
-    const mime = header.match(/:(.*?);/)[1];
-    const binary = atob(base64);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-    return new Blob([bytes], { type: mime });
-  }
-
-  // toDataURL is bewust synchroon gekozen i.p.v. toBlob (dat werkt via een
-  // async callback): de <a>-klik in triggerSave moet nog binnen hetzelfde
-  // "user gesture"-venster vallen als de klik die 'm triggerde, en een async
-  // stap ertussen (zoals toBlob's callback, of een setTimeout) verbreekt die
-  // koppeling op strikte mobiele browsers net zo goed als de afwezigheid van
-  // een gebruikersactie. dataURLToBlob hierboven zet 'm daarna alsnog
-  // (synchroon) om naar een korte blob:-URL, zodat de bestandsgrootte er
-  // niet meer toe doet.
-  function downloadCanvasPNG(canvas, filename) {
-    downloadBlob(dataURLToBlob(canvas.toDataURL('image/png')), filename);
+  // canvas.toBlob() gebruikt de native, geoptimaliseerde PNG-encoder van de
+  // browser en levert direct een Blob — geen omweg via een base64-tekst
+  // (canvas.toDataURL()) die daarna weer met de hand (JS-lus, teken voor
+  // teken) teruggezet moest worden naar bytes. Die handmatige omweg loste
+  // wel het "0kb-bestand bij een groot exportformaat"-probleem op (een
+  // <a href> met de hele PNG als base64-tekst kan de URL-lengtelimiet van
+  // mobiele browsers overschrijden), maar was zelf traag genoeg om
+  // downloaden op de computer merkbaar te vertragen, zeker bij de grootste
+  // formaten — dat is nu weer weg, want toBlob→downloadBlob geeft toch al
+  // een korte blob:-URL, zonder ooit een megabytes-lange data-URL te maken.
+  // Enige kanttekening: toBlob werkt via een async callback i.p.v. synchroon
+  // (vandaar de onDone/onError-parameters hieronder) — callers die downloaden
+  // moeten opvolgen met een status-update doen dat dus pas ná deze callback,
+  // niet er meteen achteraan.
+  function downloadCanvasPNG(canvas, filename, onDone, onError) {
+    canvas.toBlob(blob => {
+      if (!blob) {
+        if (onError) onError(new Error('canvas.toBlob gaf geen blob terug'));
+        return;
+      }
+      downloadBlob(blob, filename);
+      if (onDone) onDone();
+    }, 'image/png');
   }
 
   // Print-formaten (21 t/m 120cm lange zijde @300dpi) voor een gegeven
