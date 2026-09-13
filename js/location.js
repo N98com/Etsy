@@ -782,12 +782,20 @@ window.LocationApp = (() => {
     render();
     invalidateFetch();
   }
+  // Custom vraagt tegenwoordig rechtstreeks om pixelafmetingen (niet langer
+  // een abstracte verhouding) — zie customRatioW/H in index.html. De
+  // verhouding voor de live preview (resizeCanvasForRatio) volgt daar
+  // gewoon uit (w/h), en het exacte px-formaat wordt, net als bij een
+  // gekozen Sizes-preset, direct in "Format" getoond via updateExportSizes.
   function applyCustomRatio() {
-    const w = Math.max(1, parseFloat(customRatioW.value) || 1);
-    const h = Math.max(1, parseFloat(customRatioH.value) || 1);
-    state.ratio = { w, h };
+    const pxW = Math.max(1, Math.round(parseFloat(customRatioW.value)) || 1);
+    const pxH = Math.max(1, Math.round(parseFloat(customRatioH.value)) || 1);
+    state.ratio = { w: pxW, h: pxH };
     resizeCanvasForRatio();
-    updateExportSizes();
+    const dpi = 300;
+    const exact = { id: 'custom', pxW, pxH, cmW: Math.round((pxW / dpi) * 2.54), cmH: Math.round((pxH / dpi) * 2.54) };
+    updateExportSizes(exact);
+    showFormatHint(exact);
     render();
     invalidateFetch();
   }
@@ -834,6 +842,15 @@ window.LocationApp = (() => {
 
   function currentRatioPreset() {
     return RATIO_PRESETS.find(r => r.id === state.ratioId);
+  }
+
+  // Permanent (niet-hover) readout onder de Sizes-dropdown/Custom-velden,
+  // zodat het exacte formaat meteen zichtbaar is zonder naar "Format"
+  // onderin te hoeven scrollen.
+  function showFormatHint(exact) {
+    if (!exact || !exact.pxW) { ratioSizesHint.hidden = true; return; }
+    ratioSizesHint.textContent = `→ ${exact.cmW}×${exact.cmH}cm @300dpi (${exact.pxW}×${exact.pxH}px)`;
+    ratioSizesHint.hidden = false;
   }
 
   // Bij een gekozen Sizes-preset (een écht, bestelbaar Prodigi-formaat) toont
@@ -997,14 +1014,14 @@ window.LocationApp = (() => {
       ratioTabs.appendChild(opt);
     });
     ratioTabs.addEventListener('change', () => selectRatio(ratioTabs.value));
-    function updateRatioHint() {
-      const preset = currentRatioPreset();
-      if (!preset || !preset.pxW) { ratioSizesHint.hidden = true; return; }
-      ratioSizesHint.textContent = `→ ${preset.cmW}×${preset.cmH}cm @300dpi (${preset.pxW}×${preset.pxH}px)`;
-      ratioSizesHint.hidden = false;
-    }
-    ratioTabs.addEventListener('change', updateRatioHint);
-    updateRatioHint();
+    // Bij "custom" houdt applyCustomRatio() de hint zelf al bij (dynamisch,
+    // op basis van de ingevoerde pixels) — hier alleen voor de vaste
+    // Sizes-presets, anders overschrijft dit elkaar in de verkeerde volgorde.
+    ratioTabs.addEventListener('change', () => {
+      if (state.ratioId === 'custom') return;
+      showFormatHint(currentRatioPreset());
+    });
+    showFormatHint(currentRatioPreset());
     [customRatioW, customRatioH].forEach(inp => inp.addEventListener('input', () => {
       if (state.ratioId !== 'custom') return;
       applyCustomRatio();
