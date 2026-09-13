@@ -11,12 +11,8 @@ const MAP_PALETTES = [
     bg: '#243349', water: '#182236', park: '#2e3e57', road: '#e9c46a', roadMinor: '#48597a', text: '#f2ede1' },
   { id: 'coral', name: 'Coral',
     bg: '#f2c8c1', water: '#e0968a', park: '#f5dbd4', road: '#ffffff', roadMinor: '#f8e4df', text: '#5c2e26' },
-  { id: 'marron', name: 'Marron',
-    bg: '#5a4436', water: '#392b23', park: '#6c5646', road: '#c9a876', roadMinor: '#7a6552', text: '#f2e9dc' },
   { id: 'mauve', name: 'Mauve',
     bg: '#4a3b4c', water: '#372b39', park: '#5c4a5e', road: '#d9c4da', roadMinor: '#6c5a6e', text: '#f2e9f2' },
-  { id: 'vintage-rose-garden', name: 'Vintage Rose Garden',
-    bg: '#f3e8e1', water: '#c4ac9c', park: '#edd3be', road: '#8a5a4a', roadMinor: '#c9a292', text: '#5c4438' },
   { id: 'electric-midnight-glow', name: 'Electric Midnight Glow',
     bg: '#1c1c1c', water: '#4a4a4a', park: '#242424', road: '#f9ea5c', roadMinor: '#f2c94c', text: '#f9ea5c' },
   // Zwart + goud, met donkergrijs voor het groen en een diep smaragdgroen
