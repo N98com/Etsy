@@ -30,18 +30,40 @@ window.LocationApp = (() => {
   const ARABIC_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
   function isArabicText(s) { return ARABIC_RE.test(s || ''); }
 
+  // Bovengrens aan het aantal bewaarde entries — elke entry draagt een PNG-
+  // miniatuur (en soms recolor-geometrie) mee, dus zonder cap groeit dit
+  // ongemerkt door tot localStorage's quota (meestal 5-10MB) vol zit. Dat
+  // deed precies dít kapot: setItem gooide dan een QuotaExceededError, nergens
+  // opgevangen (geen try/catch), middenin exportResult's setTimeout-callback — de
+  // download zelf was al gebeurd en lukte dus prima, maar de geschiedenis-
+  // entry werd nooit opgeslagen, stil en zonder foutmelding voor de gebruiker.
+  const HISTORY_MAX_ENTRIES = 60;
+
   function loadLocationHistory() {
     try { return JSON.parse(localStorage.getItem(HISTORY_KEY)) || []; } catch { return []; }
   }
+  // Slaat op, en valt bij een volle quota terug op het steeds verder
+  // wegknippen van de oudste (dus minst relevante) entries totdat het wél
+  // past — zodat de zojuist gemaakte render (voorin de lijst, want unshift)
+  // nooit stilzwijgend verloren gaat zoals hiervoor gebeurde.
   function saveLocationHistory(list) {
-    localStorage.setItem(HISTORY_KEY, JSON.stringify(list));
+    let trimmed = list;
+    while (true) {
+      try {
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(trimmed));
+        return;
+      } catch (e) {
+        if (trimmed.length <= 1) return; // zelfs 1 entry past niet meer — niets meer aan te doen
+        trimmed = trimmed.slice(0, Math.ceil(trimmed.length / 2));
+      }
+    }
   }
   // Bewaart een miniatuur + metadata, en (als het compact genoeg is) ook een
   // verkleinde kopie van de geometrie voor Showcase — zie buildRecolorGeometry.
   function recordLocationExport(entry) {
     const history = loadLocationHistory();
     history.unshift(entry);
-    saveLocationHistory(history);
+    saveLocationHistory(history.slice(0, HISTORY_MAX_ENTRIES));
   }
 
   const RATIO_PRESETS = [
@@ -892,18 +914,26 @@ window.LocationApp = (() => {
         MapRender.render(new CanvasPainter(exportCanvas.getContext('2d'), w, h), w, h, opts);
         Utils.downloadCanvasPNG(exportCanvas, `location-${placeSlug}-${opt.value}-${date}.png`);
       }
-      recordLocationExport({
-        thumbnail: makeHistoryThumbnail(),
-        place: opts.caption.place,
-        country: opts.caption.country,
-        lat: opts.caption.lat,
-        lon: opts.caption.lon,
-        paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : state.nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
-        format: wantSVG ? 'svg' : 'png',
-        sizeLabel: opt.textContent,
-        timestamp: Date.now(),
-        recolor: buildRecolorGeometry(opts),
-      });
+      // De download hierboven is op dit punt al gelukt, dus een onverwachte
+      // fout bij het wegschrijven van de geschiedenis-entry (bv. iets anders
+      // dan de inmiddels afgevangen quota-fout) mag nooit de "Saved."-status
+      // of het heractiveren van de exportknoppen blokkeren.
+      try {
+        recordLocationExport({
+          thumbnail: makeHistoryThumbnail(),
+          place: opts.caption.place,
+          country: opts.caption.country,
+          lat: opts.caption.lat,
+          lon: opts.caption.lon,
+          paletteName: state.gtaStyle ? GTA_STYLE_PALETTE.name : state.mw2Style ? MW2_STYLE_PALETTE.name : state.rdr2Style ? RDR2_STYLE_PALETTE.name : state.experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE.name : state.nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE.name : getMapPalette(state.mapPaletteId).name,
+          format: wantSVG ? 'svg' : 'png',
+          sizeLabel: opt.textContent,
+          timestamp: Date.now(),
+          recolor: buildRecolorGeometry(opts),
+        });
+      } catch (e) {
+        console.error('Kon export niet aan geschiedenis toevoegen:', e);
+      }
       exportStatus.textContent = 'Saved.';
       exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
     }, 20);
