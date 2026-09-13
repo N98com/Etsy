@@ -30,6 +30,7 @@ window.LocationApp = (() => {
 
   const RATIO_PRESETS = [
     { id: '2x3', label: '2:3', w: 2, h: 3 },
+    { id: '5x7', label: '5:7 (Prodigi)', w: 5, h: 7 },
     { id: '3x4', label: '3:4', w: 3, h: 4 },
     { id: '4x5', label: '4:5', w: 4, h: 5 },
     { id: '1x1', label: '1:1', w: 1, h: 1 },
