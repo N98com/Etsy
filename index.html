@@ -6,7 +6,7 @@
   <title>MapGen2.0</title>
   <!-- ?v=N: zelfde cache-busting reden als bij de js/-bestanden verderop —
        verhoog bij elke push die css/style.css wijzigt. -->
-  <link rel="stylesheet" href="css/style.css?v=6">
+  <link rel="stylesheet" href="css/style.css?v=7">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
        js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
@@ -255,9 +255,9 @@
           <div id="locationSearchResults" class="location-search-results" hidden></div>
         </div>
         <div id="unitRatio">
-          <label>Aspect ratio</label>
-          <div class="ratio-tabs" id="ratioTabs"></div>
-          <p class="hint ratio-sizes-hint" id="ratioSizesHint" hidden></p>
+          <label for="ratioTabs">Sizes</label>
+          <select class="ratio-select" id="ratioTabs"></select>
+          <p class="hint" id="ratioSizesHint" hidden></p>
           <div class="row" id="customRatioRow" hidden style="margin-top:6px;">
             <input type="number" id="customRatioW" min="1" value="2">
             <span style="align-self:center; color:var(--ink-soft);">:</span>
@@ -393,18 +393,18 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=43"></script>
-  <script src="js/utils.js?v=43"></script>
-  <script src="js/rng.js?v=43"></script>
-  <script src="js/palettes.js?v=43"></script>
-  <script src="js/geom.js?v=43"></script>
-  <script src="js/painters.js?v=43"></script>
-  <script src="js/algorithms.js?v=43"></script>
-  <script src="js/export.js?v=43"></script>
-  <script src="js/main.js?v=43"></script>
-  <script src="js/views.js?v=43"></script>
+  <script src="js/auth.js?v=44"></script>
+  <script src="js/utils.js?v=44"></script>
+  <script src="js/rng.js?v=44"></script>
+  <script src="js/palettes.js?v=44"></script>
+  <script src="js/geom.js?v=44"></script>
+  <script src="js/painters.js?v=44"></script>
+  <script src="js/algorithms.js?v=44"></script>
+  <script src="js/export.js?v=44"></script>
+  <script src="js/main.js?v=44"></script>
+  <script src="js/views.js?v=44"></script>
 
-  <script src="js/mapPalettes.js?v=43"></script>
+  <script src="js/mapPalettes.js?v=44"></script>
   <!-- PMTiles-archief lezen (range-requests) + MVT-vector-tegels decoderen —
        databron voor de kaart (zelf-gehoste Protomaps-planeet op R2), i.p.v.
        live Overpass-queries. Zie js/protomapsAdapter.js/protomapsFetch.js. -->
@@ -413,10 +413,10 @@
   <!-- @mapbox/vector-tile publiceert zelf geen browserbestand (alleen
        CommonJS-broncode) — vandaar hier zelf gebundeld, zie js/vendor/. -->
   <script src="js/vendor/vector-tile.js?v=22"></script>
-  <script src="js/protomapsAdapter.js?v=43"></script>
-  <script src="js/protomapsFetch.js?v=43"></script>
-  <script src="js/mapGeo.js?v=43"></script>
-  <script src="js/mapRender.js?v=43"></script>
-  <script src="js/location.js?v=43"></script>
+  <script src="js/protomapsAdapter.js?v=44"></script>
+  <script src="js/protomapsFetch.js?v=44"></script>
+  <script src="js/mapGeo.js?v=44"></script>
+  <script src="js/mapRender.js?v=44"></script>
+  <script src="js/location.js?v=44"></script>
 </body>
 </html>

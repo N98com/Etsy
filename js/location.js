@@ -28,15 +28,32 @@ window.LocationApp = (() => {
   const ARABIC_RE = /[؀-ۿݐ-ݿࢠ-ࣿﭐ-﷿ﹰ-﻿]/;
   function isArabicText(s) { return ARABIC_RE.test(s || ''); }
 
-  const RATIO_PRESETS = [
-    { id: '5x7', label: '5:7', w: 5, h: 7 },
-    { id: '2x3', label: '2:3', w: 2, h: 3 },
-    { id: '3x4', label: '3:4', w: 3, h: 4 },
-    { id: '4x5', label: '4:5', w: 4, h: 5 },
-    { id: '1x1', label: '1:1', w: 1, h: 1 },
-    { id: '3x2', label: '3:2', w: 3, h: 2 },
-    { id: 'custom', label: 'Custom', w: null, h: null },
+  // Sizes-dropdown: de echte, bestelbare formaten uit Prodigi's Enhanced
+  // Matte Art-maattabel (200gsm print-on-demand papier, zie de N°98 Print
+  // Sizes-referentietool) — alleen de staand/liggend-formaten (dus geen
+  // vierkante) die wereldwijd verzonden worden (dus zonder de vijf grootste,
+  // die alleen vanuit UK/EU/VS-printlocaties gaan). Elke optie is dus een
+  // écht Prodigi-product: kiezen zet niet alleen de beeldverhouding, maar
+  // toont ook meteen exact dát ene bestelbare formaat in "Format" hieronder
+  // — geen tussenmaat die toevallig in de buurt komt.
+  function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
+  const PRODIGI_SIZES_IN = [
+    [10, 12], [11, 14], [11, 17], [12, 16], [10, 20], [12, 18], [12, 24],
+    [16, 20], [14, 24], [16, 32], [20, 30], [20, 36], [24, 32], [20, 40],
+    [24, 36], [26, 38], [28, 40], [30, 45], [30, 60], [40, 48], [40, 50],
   ];
+  const RATIO_PRESETS = PRODIGI_SIZES_IN.map(([inW, inH]) => {
+    const g = gcd(inW, inH);
+    const cmW = Math.round(inW * 2.54), cmH = Math.round(inH * 2.54);
+    const dpi = 300;
+    return {
+      id: `in${inW}x${inH}`, label: `${inW}×${inH}in · ${cmW}×${cmH}cm`,
+      w: inW / g, h: inH / g,
+      inW, inH, cmW, cmH,
+      pxW: Math.round(inW * dpi), pxH: Math.round(inH * dpi),
+    };
+  });
+  RATIO_PRESETS.push({ id: 'custom', label: 'Custom', w: null, h: null });
 
   // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
   const LAYOUT_PRESETS = [
@@ -98,7 +115,7 @@ window.LocationApp = (() => {
   const state = {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
-    ratioId: '5x7', ratio: { w: 5, h: 7 },
+    ratioId: 'in10x12', ratio: { w: 5, h: 6 },
     layoutId: 'default', maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
@@ -385,7 +402,7 @@ window.LocationApp = (() => {
     state.tier = tier;
     applyAreaTier(tier);
     render();
-    updateExportSizes();
+    updateExportSizes(currentRatioPreset());
     exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
     statusEl.textContent = isolating()
       ? `Isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
@@ -756,13 +773,12 @@ window.LocationApp = (() => {
 
   function selectRatio(id) {
     state.ratioId = id;
-    [...ratioTabs.children].forEach(b => b.classList.toggle('active', b.dataset.ratioId === id));
     customRatioRow.hidden = id !== 'custom';
     if (id === 'custom') { applyCustomRatio(); return; }
     const preset = RATIO_PRESETS.find(r => r.id === id);
     state.ratio = { w: preset.w, h: preset.h };
     resizeCanvasForRatio();
-    updateExportSizes();
+    updateExportSizes(preset);
     render();
     invalidateFetch();
   }
@@ -816,8 +832,26 @@ window.LocationApp = (() => {
     invalidateFetch();
   }
 
-  function updateExportSizes() {
+  function currentRatioPreset() {
+    return RATIO_PRESETS.find(r => r.id === state.ratioId);
+  }
+
+  // Bij een gekozen Sizes-preset (een écht, bestelbaar Prodigi-formaat) toont
+  // "Format" voortaan alléén dat ene exacte formaat — geen keuze uit een
+  // reeks toevallige tussenmaten meer, precies zoals gevraagd ("laat de tool
+  // automatisch dit formaat zien"). Alleen bij "Custom" (geen vaste,
+  // bestelbare maat) valt dit terug op de oude, proportionele reeks.
+  function updateExportSizes(exactPreset) {
     exportSizeSelect.innerHTML = '';
+    if (exactPreset && exactPreset.pxW) {
+      const opt = document.createElement('option');
+      opt.value = exactPreset.id;
+      opt.textContent = `${exactPreset.cmW}×${exactPreset.cmH}cm @300dpi (${exactPreset.pxW}×${exactPreset.pxH})`;
+      opt.dataset.w = exactPreset.pxW; opt.dataset.h = exactPreset.pxH;
+      opt.selected = true;
+      exportSizeSelect.appendChild(opt);
+      return;
+    }
     Utils.computeExportSizes(state.ratio.w, state.ratio.h).forEach((s, i) => {
       const opt = document.createElement('option');
       opt.value = s.id; opt.textContent = s.label; opt.dataset.w = s.w; opt.dataset.h = s.h;
@@ -951,26 +985,26 @@ window.LocationApp = (() => {
     resizeCanvasForRatio();
     state.scale = clampScale(mapAreaHeight(canvas.height) / 0.05);
 
-    // Hover een aspect ratio-knop, en de exportformaten die daaruit voortkomen
-    // verschijnen eronder — alleen zinvol met een echte muis (zie de
-    // hover:hover-check), op een touchscreen blijft dit gewoon uit, precies
-    // zoals gevraagd. "Custom" heeft geen vaste w/h, dus geen zinvolle lijst.
-    const supportsHover = window.matchMedia && window.matchMedia('(hover: hover)').matches;
+    // De Sizes-dropdown toont, per optie, meteen het echte Prodigi-formaat
+    // (inches + cm) — geen aparte hover-preview meer nodig, want zodra je
+    // kiest verschijnt exact dat formaat ook in "Format" hieronder (zie
+    // updateExportSizes). ratioSizesHint blijft staan als permanent
+    // (niet-hover) leesbaar readout van de huidige keuze.
     RATIO_PRESETS.forEach(r => {
-      const btn = document.createElement('button');
-      btn.type = 'button'; btn.textContent = r.label; btn.dataset.ratioId = r.id;
-      btn.className = r.id === state.ratioId ? 'active' : '';
-      btn.addEventListener('click', () => selectRatio(r.id));
-      if (supportsHover && r.w && r.h) {
-        const sizesHtml = Utils.computeExportSizes(r.w, r.h).map(s => `<span>${s.label}</span>`).join('');
-        btn.addEventListener('mouseenter', () => {
-          ratioSizesHint.innerHTML = `<strong>${r.label} exports as:</strong>${sizesHtml}`;
-          ratioSizesHint.hidden = false;
-        });
-        btn.addEventListener('mouseleave', () => { ratioSizesHint.hidden = true; });
-      }
-      ratioTabs.appendChild(btn);
+      const opt = document.createElement('option');
+      opt.value = r.id; opt.textContent = r.label;
+      opt.selected = r.id === state.ratioId;
+      ratioTabs.appendChild(opt);
     });
+    ratioTabs.addEventListener('change', () => selectRatio(ratioTabs.value));
+    function updateRatioHint() {
+      const preset = currentRatioPreset();
+      if (!preset || !preset.pxW) { ratioSizesHint.hidden = true; return; }
+      ratioSizesHint.textContent = `→ ${preset.cmW}×${preset.cmH}cm @300dpi (${preset.pxW}×${preset.pxH}px)`;
+      ratioSizesHint.hidden = false;
+    }
+    ratioTabs.addEventListener('change', updateRatioHint);
+    updateRatioHint();
     [customRatioW, customRatioH].forEach(inp => inp.addEventListener('input', () => {
       if (state.ratioId !== 'custom') return;
       applyCustomRatio();
@@ -1085,7 +1119,7 @@ window.LocationApp = (() => {
       exportResult(false);
     });
     exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
-    updateExportSizes();
+    updateExportSizes(currentRatioPreset());
     watermarkRow.hidden = !canUseWatermark();
     watermarkEnabledCheck.addEventListener('change', () => { watermarkTextInput.disabled = !watermarkEnabledCheck.checked; });
 
