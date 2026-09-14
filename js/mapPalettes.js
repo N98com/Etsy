@@ -64,25 +64,30 @@ const MAP_PALETTES = [
 // achtergrond gehouden). Met de hand benaderd op basis van een aangeleverd
 // referentiebeeld van 5 posters (Merlot/Forest/Blueprint/Charcoal/Noir);
 // hier onder eigen namen gevoerd, los van de originele fotolabels.
+// Water ligt bij elke Solid ~22% donkerder dan de ondergrond (park blijft
+// wél gelijk aan bg) — op verzoek, zodat water zich onderscheidt van het
+// land i.p.v. volledig wegvalt. Bij Onyx (al bijna zwart) is 22% donkerder
+// nauwelijks zichtbaar, dus daar is water simpelweg zuiver zwart — de
+// donkerst mogelijke stap vanaf #0a0a0a.
 const SOLID_PALETTES = [
   { id: 'claret', name: 'Claret',
-    bg: '#5c1a24', water: '#5c1a24', park: '#5c1a24', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#5c1a24', water: '#48141c', park: '#5c1a24', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'woodland', name: 'Woodland',
-    bg: '#1f3324', water: '#1f3324', park: '#1f3324', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#1f3324', water: '#18281c', park: '#1f3324', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'cobalt', name: 'Cobalt',
-    bg: '#152238', water: '#152238', park: '#152238', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#152238', water: '#101b2c', park: '#152238', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'slate', name: 'Slate',
-    bg: '#3b4552', water: '#3b4552', park: '#3b4552', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#3b4552', water: '#2e3640', park: '#3b4552', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'onyx', name: 'Onyx',
-    bg: '#0a0a0a', water: '#0a0a0a', park: '#0a0a0a', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#0a0a0a', water: '#000000', park: '#0a0a0a', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'rust', name: 'Rust',
-    bg: '#6b3421', water: '#6b3421', park: '#6b3421', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#6b3421', water: '#53291a', park: '#6b3421', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'bronze', name: 'Bronze',
-    bg: '#5c4620', water: '#5c4620', park: '#5c4620', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+    bg: '#5c4620', water: '#483719', park: '#5c4620', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   // Enige lichte Solid — hier dus juist donkere wegen/tekst op een lichte
   // ondergrond, spiegelbeeld van de rest van deze reeks.
   { id: 'ivory', name: 'Ivory',
-    bg: '#f2ede4', water: '#f2ede4', park: '#f2ede4', road: '#2a2a2a', roadMinor: '#8a8a82', text: '#2a2a2a' },
+    bg: '#f2ede4', water: '#bdb9b2', park: '#f2ede4', road: '#2a2a2a', roadMinor: '#8a8a82', text: '#2a2a2a' },
 ];
 
 function getMapPalette(id) {
