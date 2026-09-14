@@ -75,6 +75,14 @@ const SOLID_PALETTES = [
     bg: '#3b4552', water: '#3b4552', park: '#3b4552', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
   { id: 'onyx', name: 'Onyx',
     bg: '#0a0a0a', water: '#0a0a0a', park: '#0a0a0a', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  { id: 'rust', name: 'Rust',
+    bg: '#6b3421', water: '#6b3421', park: '#6b3421', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  { id: 'bronze', name: 'Bronze',
+    bg: '#5c4620', water: '#5c4620', park: '#5c4620', road: '#ffffff', roadMinor: '#c9c9c9', text: '#ffffff' },
+  // Enige lichte Solid — hier dus juist donkere wegen/tekst op een lichte
+  // ondergrond, spiegelbeeld van de rest van deze reeks.
+  { id: 'ivory', name: 'Ivory',
+    bg: '#f2ede4', water: '#f2ede4', park: '#f2ede4', road: '#2a2a2a', roadMinor: '#8a8a82', text: '#2a2a2a' },
 ];
 
 function getMapPalette(id) {
