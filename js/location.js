@@ -200,6 +200,7 @@ window.LocationApp = (() => {
   const exportSVGBtn = el('locationExportSVGBtn');
   const exportPNGBtn = el('locationExportPNGBtn');
   const exportStatus = el('locationExportStatus');
+  const printBorderCheck = el('printBorderCheck');
   const watermarkRow = el('watermarkRow');
   const watermarkEnabledCheck = el('watermarkEnabledCheck');
   const watermarkTextInput = el('watermarkTextInput');
@@ -947,7 +948,9 @@ window.LocationApp = (() => {
       // Witte print-veiligheidsrand: alleen op de export, nooit op de live
       // preview (die rekent voor pan/zoom/pin-plaatsing op ruwe canvaspixels,
       // een rand zou dat ontregelen — zie MapRender.render's PRINT_BORDER_FRACTION).
-      opts.printBorder = true;
+      // Stond voorheen altijd aan; nu via een checkbox (standaard aan, zelfde
+      // gedrag als voorheen) zodat 'm ook uitgezet kan worden.
+      opts.printBorder = printBorderCheck.checked;
       // Watermerk: alleen op de daadwerkelijk gedownloade export, nooit op
       // de live preview — en client-side nogmaals achter canUseWatermark()
       // i.p.v. alleen op de (verborgen) checkbox-state vertrouwen.

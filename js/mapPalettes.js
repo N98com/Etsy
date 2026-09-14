@@ -43,6 +43,19 @@ const MAP_PALETTES = [
     bg: '#0d0d0d', water: '#161616', park: '#0d0d0d', road: '#cbb088', roadMinor: '#8a7454', text: '#f2ede0' },
   { id: 'verdigris-dusk', name: 'Verdigris Dusk',
     bg: '#3b4e48', water: '#2f413c', park: '#3b4e48', road: '#d9c9a8', roadMinor: '#a99872', text: '#f1ead9' },
+  // Vier PREVIEW-kandidaten, met de hand benaderd op basis van een
+  // aangeleverde referentieafbeelding (4 posters: licht/donker monochroom,
+  // elk met en zonder een lichte teal wateraccent). Nog niet definitief —
+  // de gebruiker bekijkt ze eerst live op Amsterdam en kiest welke blijven;
+  // de rest verwijderen we weer.
+  { id: 'chalk-line', name: 'Chalk Line',
+    bg: '#f5f3ee', water: '#f5f3ee', park: '#f5f3ee', road: '#1c1c1c', roadMinor: '#6b6b66', text: '#1c1c1c' },
+  { id: 'graphite-line', name: 'Graphite Line',
+    bg: '#34322e', water: '#34322e', park: '#34322e', road: '#f2f0ea', roadMinor: '#a9a69c', text: '#f2f0ea' },
+  { id: 'chalk-harbor', name: 'Chalk Harbor',
+    bg: '#f5f3ee', water: '#a8cbc4', park: '#f5f3ee', road: '#1c1c1c', roadMinor: '#6b6b66', text: '#1c1c1c' },
+  { id: 'graphite-harbor', name: 'Graphite Harbor',
+    bg: '#34322e', water: '#8fc0b7', park: '#34322e', road: '#f2f0ea', roadMinor: '#a9a69c', text: '#f2f0ea' },
 ];
 
 // Effen kleurenreeks: elke kaart is één vlakke ondergrondkleur met puur witte
