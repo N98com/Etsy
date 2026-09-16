@@ -6,6 +6,20 @@
   const SUPABASE_URL = 'https://tzhzyprycgpnhxkmexkh.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6aHp5cHJ5Y2dwbmh4a21leGtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NjU4MzEsImV4cCI6MjEwNDA0MTgzMX0.mSwdD5jAq87upgzMMvCmaf194yClDkStuNNlGe0Vm6E';
 
+  // Embed-modus (?embed=1, zie location.js): dit is de klant-gerichte
+  // configurator op een Shopify-productpagina, niet jouw eigen werkbank —
+  // een willekeurige bezoeker moet nooit een inlogscherm van jouw account
+  // te zien krijgen. Sla de hele Supabase-gate over en toon de app direct.
+  // window.currentUserEmail blijft null, dus canUseWatermark() (location.js)
+  // klopt vanzelf nog steeds: geen enkele embed-bezoeker matcht dat account.
+  if (new URLSearchParams(window.location.search).get('embed') === '1') {
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('loginGate').hidden = true;
+      document.getElementById('appRoot').hidden = false;
+    });
+    return;
+  }
+
   if (!window.supabase || typeof window.supabase.createClient !== 'function') {
     document.addEventListener('DOMContentLoaded', () => {
       const gate = document.getElementById('loginGate');

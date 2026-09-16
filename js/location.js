@@ -405,6 +405,7 @@ window.LocationApp = (() => {
     render();
     updateExportSizes(currentRatioPreset());
     exportSVGBtn.disabled = false; exportPNGBtn.disabled = false;
+    if (embedMode) embedConfirmBtn.disabled = false;
     statusEl.textContent = isolating()
       ? `Isolated (${tier} level)${state.mw2Style ? ` · ${buildings.length} buildings` : ''}.`
       : `${streets.length} elements loaded${fromCache ? ' (cached)' : ''}.`;
@@ -1014,6 +1015,89 @@ window.LocationApp = (() => {
     }
   }
 
+  // ---- embed-modus (Shopify-productpagina) ----
+  // ?embed=1 schakelt de tool om naar "klant kiest, bevestigt, en de
+  // omringende pagina neemt het over" i.p.v. "klant download zelf een
+  // bestand". ?parentOrigin=<url> is optioneel: geef 'm mee zodra het
+  // definitieve Shopify-domein bekend is, dan gaan berichten alleen naar
+  // die origin i.p.v. naar '*'. Zonder parentOrigin valt dit terug op '*'
+  // (prima voor lokaal testen, maar scherp dit aan zodra er een echte
+  // winkel achter zit — anders kan elke pagina die deze tool in een
+  // iframe zet de bevestigde ontwerp-data afluisteren).
+  const embedParams = new URLSearchParams(window.location.search);
+  const embedMode = embedParams.get('embed') === '1';
+  const embedParentOrigin = embedParams.get('parentOrigin') || '*';
+  const embedConfirmRow = el('embedConfirmRow');
+  const embedConfirmBtn = el('embedConfirmBtn');
+  const embedConfirmStatus = el('embedConfirmStatus');
+
+  function postToParent(type, payload) {
+    if (window.parent === window) return; // niet in een iframe — niks te doen
+    window.parent.postMessage({ source: 'mapgen2', type, payload }, embedParentOrigin);
+  }
+
+  // Compacte, klant-relevante samenvatting van de huidige keuzes — geen
+  // interne staat (fetchedBounds, pins-array, caches) die de ontvangende
+  // pagina toch niks aan heeft. Wordt zowel nu (bij bevestigen) als later
+  // bij het genereren van het print-klare bestand gebruikt, dus de vorm
+  // hiervan is ook de contractvorm richting de fulfillment-pipeline.
+  function buildDesignSummary() {
+    const preset = currentRatioPreset();
+    const opts = buildRenderOpts();
+    const palette = getActivePalette();
+    return {
+      location: {
+        place: opts.caption.place, region: opts.caption.region, country: opts.caption.country,
+        lat: opts.caption.lat, lon: opts.caption.lon,
+      },
+      size: preset ? {
+        id: preset.id, label: preset.label,
+        inW: preset.inW, inH: preset.inH, cmW: preset.cmW, cmH: preset.cmH,
+      } : { id: state.ratioId, label: 'Custom', pxW: customRatioW ? parseInt(customRatioW.value, 10) : null, pxH: customRatioH ? parseInt(customRatioH.value, 10) : null },
+      palette: { id: state.mapPaletteId, name: palette.name || state.mapPaletteId },
+      layoutId: state.layoutId, maskId: state.maskId,
+      style: { gta: state.gtaStyle, mw2: state.mw2Style, rdr2: state.rdr2Style, experimental: state.experimentalStyle, nightlight: state.nightlightStyle },
+      caption: {
+        showPlace: opts.caption.showPlace, showRegion: opts.caption.showRegion,
+        showCountry: opts.caption.showCountry, showCoords: opts.caption.showCoords,
+      },
+      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, color: pinColorInput.value })),
+    };
+  }
+
+  // Snelle, lichte preview (lange zijde ~700px) puur als thumbnail voor in
+  // de winkelwagen — geen printBorder/watermark, dat slaat alleen op de
+  // uiteindelijke print-export. Synchroon: bij deze resolutie duurt dat
+  // hooguit een fractie van een seconde, geen setTimeout-yield nodig.
+  function renderEmbedPreviewDataURL() {
+    const preset = currentRatioPreset();
+    const aspect = preset && preset.inW ? preset.inW / preset.inH : (state.ratio.w / state.ratio.h);
+    const longSide = 700;
+    const w = aspect >= 1 ? longSide : Math.round(longSide * aspect);
+    const h = aspect >= 1 ? Math.round(longSide / aspect) : longSide;
+    const previewCanvas = document.createElement('canvas');
+    previewCanvas.width = w; previewCanvas.height = h;
+    const pctx = previewCanvas.getContext('2d');
+    MapRender.render(new CanvasPainter(pctx, w, h), w, h, buildRenderOpts());
+    return previewCanvas.toDataURL('image/jpeg', 0.85);
+  }
+
+  function confirmDesign() {
+    try {
+      embedConfirmBtn.disabled = true;
+      embedConfirmStatus.textContent = 'Preparing preview…';
+      const summary = buildDesignSummary();
+      const previewDataUrl = renderEmbedPreviewDataURL();
+      postToParent('confirm', { design: summary, previewDataUrl });
+      embedConfirmStatus.textContent = 'Design confirmed.';
+    } catch (e) {
+      console.error('Confirm mislukt:', e);
+      embedConfirmStatus.textContent = 'Something went wrong preparing your design — please try again.';
+    } finally {
+      embedConfirmBtn.disabled = false;
+    }
+  }
+
   function init() {
     canvas = el('locationCanvas');
     ctx = canvas.getContext('2d');
@@ -1158,12 +1242,23 @@ window.LocationApp = (() => {
     watermarkRow.hidden = !canUseWatermark();
     watermarkEnabledCheck.addEventListener('change', () => { watermarkTextInput.disabled = !watermarkEnabledCheck.checked; });
 
+    // Embed-modus: klant bevestigt i.p.v. zelf te downloaden — zie
+    // confirmDesign/postToParent hierboven. De losse SVG/PNG-knoppen
+    // blijven verborgen (die zijn voor los/handmatig gebruik van de tool).
+    if (embedMode) {
+      embedConfirmRow.hidden = false;
+      embedConfirmBtn.addEventListener('click', confirmDesign);
+      embedConfirmBtn.disabled = true;
+    }
+
     initAccordion();
     initLookSubtabs();
     initColorSubtabs();
     initUiMode();
     wireCanvasInteraction();
     render();
+
+    if (embedMode) postToParent('ready', {});
   }
 
   // Welke van de twee zijbalk-indelingen actief is ("v2" = de huidige

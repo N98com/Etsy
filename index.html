@@ -349,6 +349,18 @@
             <button id="locationExportPNGBtn">Export PNG</button>
           </div>
           <p class="hint" id="locationExportStatus"></p>
+          <!-- Alleen zichtbaar wanneer de tool embedded draait (?embed=1),
+               bv. op een Shopify-productpagina — zie embedMode in
+               location.js. Vervangt daar de losse SVG/PNG-downloadknoppen:
+               de klant downloadt zelf niks, maar bevestigt zijn ontwerp,
+               waarna de keuzes + een lage-resolutie preview via
+               postMessage naar de omringende pagina gaan (die ze als line
+               item properties aan "Add to cart" hangt). Het print-klare
+               bestand op volle resolutie wordt achteraf gegenereerd. -->
+          <div class="row" id="embedConfirmRow" hidden style="margin-top:8px;">
+            <button class="primary" id="embedConfirmBtn">Confirm design</button>
+          </div>
+          <p class="hint" id="embedConfirmStatus"></p>
         </div>
       </div>
     </div>
@@ -394,7 +406,7 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=50"></script>
+  <script src="js/auth.js?v=51"></script>
   <script src="js/utils.js?v=50"></script>
   <script src="js/rng.js?v=50"></script>
   <script src="js/palettes.js?v=50"></script>
@@ -418,6 +430,6 @@
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=50"></script>
-  <script src="js/location.js?v=50"></script>
+  <script src="js/location.js?v=51"></script>
 </body>
 </html>
