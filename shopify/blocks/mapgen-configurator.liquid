@@ -1,0 +1,146 @@
+{%- liquid
+  assign product_form_id = 'BuyButtons-ProductForm-section.id' | replace: 'section.id', section.id
+  assign embed_base = block.settings.embed_url | default: 'https://n98com.github.io/Etsy/index.html'
+  assign frame_id = 'MapgenFrame-' | append: block.id
+  assign status_id = 'MapgenStatus-' | append: block.id
+  assign btn_hint_id = 'MapgenBtnHint-' | append: block.id
+-%}
+
+<div class="mapgen-configurator" {{ block.shopify_attributes }}>
+  <iframe
+    id="{{ frame_id }}"
+    src="{{ embed_base }}?embed=1"
+    class="mapgen-configurator__frame"
+    loading="lazy"
+    title="{{ block.settings.iframe_title | default: 'Design your map' | escape }}"
+  ></iframe>
+
+  <input type="hidden" name="properties[Location]" id="MapgenLocation-{{ block.id }}" form="{{ product_form_id }}">
+  <input type="hidden" name="properties[Size]" id="MapgenSize-{{ block.id }}" form="{{ product_form_id }}">
+  <input type="hidden" name="properties[Color]" id="MapgenColor-{{ block.id }}" form="{{ product_form_id }}">
+  <input type="hidden" name="properties[Layout]" id="MapgenLayout-{{ block.id }}" form="{{ product_form_id }}">
+  <input type="hidden" name="properties[_Design JSON]" id="MapgenDesignJson-{{ block.id }}" form="{{ product_form_id }}">
+
+  <p id="{{ status_id }}" class="mapgen-configurator__status">
+    {{ block.settings.waiting_text | default: 'Design your map above, then click "Confirm design" before adding to cart.' }}
+  </p>
+  <p id="{{ btn_hint_id }}" class="mapgen-configurator__hint" hidden>
+    {{ block.settings.blocked_text | default: 'Please confirm your design above before adding this item to your cart.' }}
+  </p>
+</div>
+
+<style>
+  .mapgen-configurator__frame {
+    width: 100%;
+    min-height: 900px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: block;
+  }
+  .mapgen-configurator__status {
+    margin-top: 8px;
+    font-size: 0.85em;
+    color: #666;
+  }
+  .mapgen-configurator__status.is-confirmed {
+    color: #1a7f37;
+    font-weight: 600;
+  }
+  .mapgen-configurator__hint {
+    margin-top: 4px;
+    font-size: 0.85em;
+    color: #b42318;
+  }
+</style>
+
+<script>
+  (function () {
+    var blockId = {{ block.id | json }};
+    var formId = {{ product_form_id | json }};
+    var statusEl = document.getElementById('MapgenStatus-' + blockId);
+    var hintEl = document.getElementById('MapgenBtnHint-' + blockId);
+    var fields = {
+      location: document.getElementById('MapgenLocation-' + blockId),
+      size: document.getElementById('MapgenSize-' + blockId),
+      color: document.getElementById('MapgenColor-' + blockId),
+      layout: document.getElementById('MapgenLayout-' + blockId),
+      json: document.getElementById('MapgenDesignJson-' + blockId),
+    };
+    var confirmed = false;
+
+    function formatLocation(loc) {
+      return [loc.place, loc.region, loc.country].filter(Boolean).join(', ') || 'Unnamed location';
+    }
+
+    window.addEventListener('message', function (event) {
+      var data = event.data;
+      if (!data || data.source !== 'mapgen2') return;
+
+      if (data.type === 'confirm' && data.payload && data.payload.design) {
+        var d = data.payload.design;
+        var locationStr = formatLocation(d.location);
+        fields.location.value = locationStr;
+        fields.size.value = d.size.label;
+        fields.color.value = d.palette.name;
+        fields.layout.value = d.layoutId;
+        fields.json.value = JSON.stringify(d);
+        confirmed = true;
+        statusEl.textContent = 'Design confirmed: ' + locationStr + ' — ' + d.size.label + ' — ' + d.palette.name + '.';
+        statusEl.classList.add('is-confirmed');
+        hintEl.hidden = true;
+      }
+    });
+
+    // Blokkeert "Add to cart" zolang er nog geen bevestigd ontwerp is — de
+    // klant moet eerst op "Confirm design" in de tool klikken. We luisteren
+    // op het formulier zelf (capture-fase) i.p.v. op de losse
+    // add-to-cart-component, zodat dit blok niet breekt zodra Horizon die
+    // interne knop-structuur bij een update verandert.
+    var formEl = document.getElementById(formId);
+    if (formEl) {
+      formEl.addEventListener('submit', function (event) {
+        if (!confirmed) {
+          event.preventDefault();
+          event.stopPropagation();
+          hintEl.hidden = false;
+          hintEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, true);
+    }
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Map configurator",
+  "settings": [
+    {
+      "type": "url",
+      "id": "embed_url",
+      "label": "MapGen2.0 URL",
+      "info": "Base URL of the MapGen2.0 tool, without ?embed=1 (e.g. https://n98com.github.io/Etsy/index.html)"
+    },
+    {
+      "type": "text",
+      "id": "iframe_title",
+      "label": "Iframe accessibility title",
+      "default": "Design your map"
+    },
+    {
+      "type": "text",
+      "id": "waiting_text",
+      "label": "Waiting message",
+      "default": "Design your map above, then click \"Confirm design\" before adding to cart."
+    },
+    {
+      "type": "text",
+      "id": "blocked_text",
+      "label": "Add-to-cart-blocked message",
+      "default": "Please confirm your design above before adding this item to your cart."
+    }
+  ],
+  "presets": [
+    { "name": "Map configurator" }
+  ]
+}
+{% endschema %}
