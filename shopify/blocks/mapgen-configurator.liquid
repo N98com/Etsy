@@ -30,12 +30,33 @@
 </div>
 
 <style>
+  /* Breekt uit de smalle product-details-kolom (~500-600px) naar de volle
+     paginabreedte — de tool zelf is ontworpen voor een volledig browservenster
+     (3-koloms werkbank tot 1600px) en oogt anders veel te compact. */
+  .mapgen-configurator {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    padding-inline: 16px;
+    box-sizing: border-box;
+  }
   .mapgen-configurator__frame {
     width: 100%;
+    max-width: 1400px;
     min-height: 900px;
+    margin: 0 auto;
     border: 1px solid #ddd;
     border-radius: 8px;
     display: block;
+  }
+  .mapgen-configurator__status,
+  .mapgen-configurator__hint {
+    max-width: 1400px;
+    margin-left: auto;
+    margin-right: auto;
   }
   .mapgen-configurator__status {
     margin-top: 8px;
