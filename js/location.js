@@ -42,7 +42,7 @@ window.LocationApp = (() => {
   // afgedrukt. [inW, inH, cmW, cmH] per formaat, zoals Gelato ze zelf voert.
   const GELATO_SIZES = [
     [8, 10, 20, 25], [11, 14, 27, 35], [12, 16, 30, 40], [16, 20, 40, 50],
-    [18, 24, 45, 60], [20, 28, 50, 70], [24, 32, 60, 80], [28, 40, 70, 100],
+    [18, 24, 45, 60], [20, 28, 50, 70], [24, 36, 60, 90], [28, 40, 70, 100],
   ];
   const RATIO_PRESETS = GELATO_SIZES.map(([inW, inH, cmW, cmH]) => {
     const g = gcd(cmW, cmH);
