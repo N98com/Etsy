@@ -37,20 +37,21 @@ window.LocationApp = (() => {
   // toont ook meteen exact dát ene bestelbare formaat in "Format" hieronder
   // — geen tussenmaat die toevallig in de buurt komt.
   function gcd(a, b) { return b === 0 ? a : gcd(b, a % b); }
-  const PRODIGI_SIZES_IN = [
-    [10, 12], [11, 14], [11, 17], [12, 16], [10, 20], [12, 18], [12, 24],
-    [16, 20], [14, 24], [16, 32], [20, 30], [20, 36], [24, 32], [20, 40],
-    [24, 36], [26, 38], [28, 40], [30, 45], [30, 60], [40, 48], [40, 50],
+  // Gelato's eigen "nette" cm-maten zijn de echte druk-target (niet inch×2,54
+  // afgerond) — anders wijkt het exportbestand 1-2cm af van wat er echt wordt
+  // afgedrukt. [inW, inH, cmW, cmH] per formaat, zoals Gelato ze zelf voert.
+  const GELATO_SIZES = [
+    [8, 10, 20, 25], [11, 14, 27, 35], [12, 16, 30, 40], [16, 20, 40, 50],
+    [18, 24, 45, 60], [20, 28, 50, 70], [24, 32, 60, 80], [28, 40, 70, 100],
   ];
-  const RATIO_PRESETS = PRODIGI_SIZES_IN.map(([inW, inH]) => {
-    const g = gcd(inW, inH);
-    const cmW = Math.round(inW * 2.54), cmH = Math.round(inH * 2.54);
+  const RATIO_PRESETS = GELATO_SIZES.map(([inW, inH, cmW, cmH]) => {
+    const g = gcd(cmW, cmH);
     const dpi = 300;
     return {
       id: `in${inW}x${inH}`, label: `${inW}×${inH}in · ${cmW}×${cmH}cm`,
-      w: inW / g, h: inH / g,
+      w: cmW / g, h: cmH / g,
       inW, inH, cmW, cmH,
-      pxW: Math.round(inW * dpi), pxH: Math.round(inH * dpi),
+      pxW: Math.round((cmW / 2.54) * dpi), pxH: Math.round((cmH / 2.54) * dpi),
     };
   });
   RATIO_PRESETS.push({ id: 'custom', label: 'Custom', w: null, h: null });
@@ -871,10 +872,12 @@ window.LocationApp = (() => {
       const dpi = 300;
       const scales = exactPreset.inW ? OVERSIZE_SCALES : [1];
       scales.forEach((scale, i) => {
-        const pxW = exactPreset.inW ? Math.round(exactPreset.inW * scale * dpi) : exactPreset.pxW;
-        const pxH = exactPreset.inW ? Math.round(exactPreset.inH * scale * dpi) : exactPreset.pxH;
-        const cmW = exactPreset.inW ? Math.round(exactPreset.inW * scale * 2.54) : exactPreset.cmW;
-        const cmH = exactPreset.inW ? Math.round(exactPreset.inH * scale * 2.54) : exactPreset.cmH;
+        // Schaal vanaf Gelato's eigen cm-maat (niet inches×2,54) zodat het
+        // basisformaat (scale 1) exact matcht met wat er echt wordt gedrukt.
+        const pxW = exactPreset.inW ? Math.round((exactPreset.cmW * scale / 2.54) * dpi) : exactPreset.pxW;
+        const pxH = exactPreset.inW ? Math.round((exactPreset.cmH * scale / 2.54) * dpi) : exactPreset.pxH;
+        const cmW = exactPreset.inW ? Math.round(exactPreset.cmW * scale) : exactPreset.cmW;
+        const cmH = exactPreset.inW ? Math.round(exactPreset.cmH * scale) : exactPreset.cmH;
         const opt = document.createElement('option');
         opt.value = `${exactPreset.id}@${scale}x`;
         opt.textContent = scale === 1
