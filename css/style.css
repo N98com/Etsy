@@ -181,6 +181,7 @@ button:disabled { opacity: 0.5; cursor: default; }
 
 .row { display: flex; gap: 8px; }
 .row > * { flex: 1; }
+.row input[type="color"] { flex: 0 0 auto; }
 
 .algo-tabs { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 4px; }
 .algo-tabs button { flex: 1 1 45%; }
