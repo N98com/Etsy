@@ -97,6 +97,13 @@ window.LocationApp = (() => {
     { id: 'hexagon', label: 'Hexagon' },
   ];
 
+  // Pin-icoontjes — zie mapRender.js's drawPinIcon voor de tekencode van elk.
+  const PIN_ICON_PRESETS = [
+    { id: 'basic', label: 'Basic' },
+    { id: 'heart', label: 'Heart' },
+    { id: 'house', label: 'House' },
+  ];
+
   // Vijf onderschrift-lettertypes, gekozen uit een specimen-vergelijking op
   // basis van een aangeleverde referentieafbeelding — id's + family/weight/
   // style komen 1-op-1 overeen met CAPTION_FONT_PRESETS in mapRender.js
@@ -138,7 +145,7 @@ window.LocationApp = (() => {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
     ratioId: 'in10x12', ratio: { w: 5, h: 6 },
-    layoutId: 'fade', maskId: 'none',
+    layoutId: 'fade', maskId: 'none', pinIconId: 'basic',
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
     showPlace: true, showRegion: false, showCountry: true, showCoords: true,
@@ -185,6 +192,7 @@ window.LocationApp = (() => {
   const layoutTabs = el('layoutTabs');
   const layoutHint = el('layoutHint');
   const maskTabs = el('maskTabs');
+  const pinIconTabs = el('pinIconTabs');
   const paletteGrid = el('mapPaletteGrid');
   const solidPaletteGrid = el('solidPaletteGrid');
   const fontTabs = el('fontTabs');
@@ -525,7 +533,7 @@ window.LocationApp = (() => {
       tier: state.tier,
       isolate: currentIsolateOpts(),
       layout: state.layoutId, mask: state.maskId,
-      pins: state.pins, pinColor: pinColorInput.value,
+      pins: state.pins, pinColor: pinColorInput.value, pinIcon: state.pinIconId,
       caption: {
         showPlace: state.showPlace, showRegion: state.showRegion, showCountry: state.showCountry, showCoords: state.showCoords,
         place: placeNameInput.value.trim() || pc.place,
@@ -852,6 +860,11 @@ window.LocationApp = (() => {
     [...maskTabs.children].forEach(b => b.classList.toggle('active', b.dataset.maskId === id));
     render();
   }
+  function selectPinIcon(id) {
+    state.pinIconId = id;
+    [...pinIconTabs.children].forEach(b => b.classList.toggle('active', b.dataset.pinIconId === id));
+    render();
+  }
   function selectCaptionFont(id) {
     state.captionFontId = id;
     [...fontTabs.children].forEach(b => b.classList.toggle('active', b.dataset.fontId === id));
@@ -1098,7 +1111,7 @@ window.LocationApp = (() => {
         inW: preset.inW, inH: preset.inH, cmW: preset.cmW, cmH: preset.cmH,
       } : { id: state.ratioId, label: 'Custom', pxW: customRatioW ? parseInt(customRatioW.value, 10) : null, pxH: customRatioH ? parseInt(customRatioH.value, 10) : null },
       palette: { id: state.mapPaletteId, name: palette.name || state.mapPaletteId },
-      layoutId: state.layoutId, maskId: state.maskId,
+      layoutId: state.layoutId, maskId: state.maskId, pinIconId: state.pinIconId,
       style: { gta: state.gtaStyle, mw2: state.mw2Style, rdr2: state.rdr2Style, experimental: state.experimentalStyle, nightlight: state.nightlightStyle },
       caption: {
         showPlace: opts.caption.showPlace, showRegion: opts.caption.showRegion,
@@ -1196,6 +1209,13 @@ window.LocationApp = (() => {
       btn.className = m.id === state.maskId ? 'active' : '';
       btn.addEventListener('click', () => selectMask(m.id));
       maskTabs.appendChild(btn);
+    });
+    PIN_ICON_PRESETS.forEach(p => {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.textContent = p.label; btn.dataset.pinIconId = p.id;
+      btn.className = p.id === state.pinIconId ? 'active' : '';
+      btn.addEventListener('click', () => selectPinIcon(p.id));
+      pinIconTabs.appendChild(btn);
     });
     CAPTION_FONT_PRESETS.forEach(f => {
       const btn = document.createElement('button');

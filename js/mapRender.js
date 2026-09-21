@@ -307,6 +307,59 @@ const MapRender = (() => {
     painter.circle(centerX, centerY, r * 0.38, { fill: holeColor });
   }
 
+  // Hartje-pin: klassieke parametrische hartcurve (x = 16sin³t,
+  // y = 13cost - 5cos2t - 2cos3t - cos4t), waarvan de punt (cusp, bij t=π)
+  // exact op (x, y) valt — dezelfde "punt raakt de locatie"-conventie als de
+  // Basic-pin. Alleen polygon/circle beschikbaar in de painter-abstractie,
+  // dus de curve wordt bemonsterd tot een puntenlijst i.p.v. als bezier-pad
+  // getekend.
+  function heartOutlinePoints(x, y, r) {
+    const steps = 48;
+    const raw = [];
+    for (let i = 0; i <= steps; i++) {
+      const t = (i / steps) * Math.PI * 2;
+      const hx = 16 * Math.pow(Math.sin(t), 3);
+      const hy = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+      raw.push([hx, hy]);
+    }
+    let maxY = -Infinity, tipX = 0;
+    raw.forEach(([px, py]) => { if (py > maxY) { maxY = py; tipX = px; } });
+    const scale = r / 16;
+    return raw.map(([px, py]) => [x + (px - tipX) * scale, y + (py - maxY) * scale]);
+  }
+  function drawHeart(painter, x, y, r, color) {
+    painter.polygon(heartOutlinePoints(x, y, r), { fill: color });
+  }
+
+  // Huisje-pin: simpel dak+muur-pictogram, met de onderrand (niet een losse
+  // punt) precies op (x, y) — gangbare conventie voor "home"-markers.
+  function houseOutlinePoints(x, y, r) {
+    const halfW = r * 0.9, wallH = r * 1.3, roofH = r;
+    return [
+      [x - halfW, y],
+      [x - halfW, y - wallH],
+      [x, y - wallH - roofH],
+      [x + halfW, y - wallH],
+      [x + halfW, y],
+    ];
+  }
+  function drawHouse(painter, x, y, r, color, holeColor) {
+    painter.polygon(houseOutlinePoints(x, y, r), { fill: color });
+    const doorW = r * 0.5, doorH = r * 0.7;
+    painter.polygon([
+      [x - doorW / 2, y],
+      [x - doorW / 2, y - doorH],
+      [x + doorW / 2, y - doorH],
+      [x + doorW / 2, y],
+    ], { fill: holeColor });
+  }
+
+  function drawPinIcon(painter, x, y, r, color, holeColor, iconId) {
+    if (iconId === 'heart') return drawHeart(painter, x, y, r, color);
+    if (iconId === 'house') return drawHouse(painter, x, y, r, color, holeColor);
+    return drawPin(painter, x, y, r, color, holeColor);
+  }
+
   // Witte print-veiligheidsrand — puur bij export (nooit in de live preview,
   // dat zou pan/zoom/pin-plaatsing ontregelen die op ruwe canvaspixels
   // rekent). De meeste van deze posters gaan in een lijst; een standaard
@@ -330,7 +383,7 @@ const MapRender = (() => {
     const {
       bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, nightlightStyle = false, tier = null, isolate = null,
-      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, watermarkText = null,
+      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, pinIcon: pinIconId = 'basic', watermarkText = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : experimentalStyle ? '#0a0a0a' : nightlightStyle ? '#020202' : (opts.matColor || '#f7f4ee');
@@ -516,7 +569,7 @@ const MapRender = (() => {
       const pinR = Math.min(mapW, mapH) * 0.016;
       pins.forEach(p => {
         const [x, y] = project(p.lat, p.lon);
-        drawPin(painter, x, y, pinR, pinColor || '#e63946', matColor);
+        drawPinIcon(painter, x, y, pinR, pinColor || '#e63946', matColor, pinIconId);
       });
     }
 
