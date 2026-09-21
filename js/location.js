@@ -63,17 +63,44 @@ window.LocationApp = (() => {
     [16, 20], [14, 24], [16, 32], [20, 30], [20, 36], [24, 32], [20, 40],
     [24, 36], [26, 38], [28, 40], [30, 45], [30, 60], [40, 48], [40, 50],
   ];
-  const OTHER_RATIO_PRESETS = OTHER_SIZES_IN.map(([inW, inH]) => {
-    const g = gcd(inW, inH);
-    const cmW = Math.round(inW * 2.54), cmH = Math.round(inH * 2.54);
-    const dpi = 300;
-    return {
-      id: `other-in${inW}x${inH}`, label: `${inW}×${inH}in · ${cmW}×${cmH}cm`,
-      w: inW / g, h: inH / g,
-      inW, inH, cmW, cmH,
-      pxW: Math.round(inW * dpi), pxH: Math.round(inH * dpi),
-    };
-  });
+  // Meest gangbare beeldverhoudingen als losse voorkeuze — handig om snel een
+  // custom-aanvraag buiten de vaste maten te fulfillen zonder zelf px/cm uit
+  // te rekenen. Basislengte 24in (ruim genoeg voor een hoge-resolutie export,
+  // vervolgens desgewenst nog op te schalen via "Format" hieronder).
+  const RATIO_ONLY_SIZES = [
+    { name: 'Square', ratio: '1:1', inW: 24, inH: 24 },
+    { name: 'Portrait', ratio: '4:5', inW: 19, inH: 24 },
+    { name: 'Portrait', ratio: '3:4', inW: 18, inH: 24 },
+    { name: 'Portrait', ratio: '2:3', inW: 16, inH: 24 },
+    { name: 'Portrait', ratio: '5:7', inW: 17, inH: 24 },
+    { name: 'Landscape', ratio: '4:3', inW: 24, inH: 18 },
+    { name: 'Landscape', ratio: '16:9', inW: 24, inH: 14 },
+    { name: 'ISO / A-series', ratio: '1:1.41', inW: 16, inH: 22 },
+  ];
+  const OTHER_RATIO_PRESETS = [
+    ...OTHER_SIZES_IN.map(([inW, inH]) => {
+      const g = gcd(inW, inH);
+      const cmW = Math.round(inW * 2.54), cmH = Math.round(inH * 2.54);
+      const dpi = 300;
+      return {
+        id: `other-in${inW}x${inH}`, label: `${inW}×${inH}in · ${cmW}×${cmH}cm`,
+        w: inW / g, h: inH / g,
+        inW, inH, cmW, cmH,
+        pxW: Math.round(inW * dpi), pxH: Math.round(inH * dpi),
+      };
+    }),
+    ...RATIO_ONLY_SIZES.map(({ name, ratio, inW, inH }) => {
+      const g = gcd(inW, inH);
+      const cmW = Math.round(inW * 2.54), cmH = Math.round(inH * 2.54);
+      const dpi = 300;
+      return {
+        id: `other-ratio-${inW}x${inH}`, label: `${name} · ${ratio} · ${inW}×${inH}in · ${cmW}×${cmH}cm`,
+        w: inW / g, h: inH / g,
+        inW, inH, cmW, cmH,
+        pxW: Math.round(inW * dpi), pxH: Math.round(inH * dpi),
+      };
+    }),
+  ];
   RATIO_PRESETS.push({ id: 'custom', label: 'Custom', w: null, h: null });
   RATIO_PRESETS.push({ id: 'other', label: 'Other', w: null, h: null });
 
