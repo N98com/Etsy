@@ -275,11 +275,20 @@
           <div class="ratio-tabs" id="layoutTabs"></div>
           <p class="hint" id="layoutHint" style="margin-top:6px;"></p>
         </div>
-        <div class="ratio-tabs" id="maskTabs"></div>
+        <div id="unitMask">
+          <div class="ratio-tabs" id="maskTabs"></div>
+          <div class="row" id="maskColorRow" style="margin-top:6px; align-items:center;">
+            <label for="maskColorInput" class="hint" style="flex:0 0 auto; margin:0;">Mask color</label>
+            <input type="color" id="maskColorInput" value="#f7f4ee" title="Mask / mat color">
+          </div>
+          <p class="hint">Colors the area outside the mask shape (and the plain mat, when no mask is selected). Caption text automatically switches to stay readable against it.</p>
+        </div>
         <div class="map-palette-grid" id="mapPaletteGrid"></div>
         <div class="map-palette-grid" id="solidPaletteGrid"></div>
         <div id="unitCaptionFont">
           <div class="ratio-tabs" id="fontTabs"></div>
+          <label class="checkbox-row" style="margin-top:8px;"><input type="checkbox" id="captionColorOverrideCheck"> Override text color</label>
+          <input type="color" id="captionColorInput" value="#2a2620" title="Caption text color" style="margin-top:4px;" disabled>
         </div>
         <div id="unitCaption">
           <p class="hint" style="text-transform:uppercase; letter-spacing:0.04em;">Caption</p>
@@ -434,7 +443,7 @@
   <script src="js/protomapsAdapter.js?v=50"></script>
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
-  <script src="js/mapRender.js?v=51"></script>
-  <script src="js/location.js?v=56"></script>
+  <script src="js/mapRender.js?v=52"></script>
+  <script src="js/location.js?v=57"></script>
 </body>
 </html>

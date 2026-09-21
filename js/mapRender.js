@@ -202,6 +202,21 @@ const MapRender = (() => {
     return `rgb(${mix(r)},${mix(g)},${mix(b)})`;
   }
 
+  // Kiest een leesbaar onderschrift-kleurenset (hoofd/sub/faint) op basis van
+  // de relatieve luminantie van de mat/mask-kleur — WCAG-formule, simpele
+  // licht/donker-knip op 0.5. De "licht"-set is exact gelijk aan de oude
+  // vaste standaardwaarden, dus dit verandert niets aan het bestaande gedrag
+  // zolang er geen aangepaste mat-kleur is gekozen (default '#f7f4ee' is
+  // ruim boven de 0.5-drempel).
+  function pickContrastInkSet(bgHex) {
+    const { r, g, b } = Utils.hexToRgb(bgHex);
+    const toLinear = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+    const lum = 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+    return lum > 0.5
+      ? { ink: '#2a2620', sub: '#6b6156', faint: '#8a8074' }
+      : { ink: '#f5f1ea', sub: '#c9c2b0', faint: '#a89f8c' };
+  }
+
   // Zachte gloed rond een geïsoleerde vorm: een paar steeds transparantere,
   // steeds bredere lijnen in de kleur van het gebied zelf, getekend VOOR de
   // clip (dus zichtbaar buiten de rand) — geeft de kust/grens een licht
@@ -384,12 +399,20 @@ const MapRender = (() => {
       bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, nightlightStyle = false, tier = null, isolate = null,
       layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, pinIcon: pinIconId = 'basic', watermarkText = null,
+      captionTextColor = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE : opts.palette;
     const matColor = gtaStyle ? '#0a0a0a' : mw2Style ? '#0d100a' : rdr2Style ? '#c7b688' : experimentalStyle ? '#0a0a0a' : nightlightStyle ? '#020202' : (opts.matColor || '#f7f4ee');
-    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : experimentalStyle ? '#f2ede0' : nightlightStyle ? '#ffe8c9' : '#2a2620';
-    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : experimentalStyle ? '#c9c2b0' : nightlightStyle ? '#d9a86c' : '#6b6156';
-    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : experimentalStyle ? '#948c7c' : nightlightStyle ? '#8a6b47' : '#8a8074';
+    // Buiten een game-style: handmatige tekstkleur wint altijd (vlak, geen
+    // sub/faint-variatie — de gebruiker koos die kleur juist omdat de
+    // automatische keuze niet beviel); anders wordt automatisch een
+    // leesbaar contrast tegen de mat/mask-kleur gekozen (zie
+    // pickContrastInkSet — bij de standaard mat-kleur exact gelijk aan de
+    // oude vaste waarden, dus geen gedragsverandering zonder opt-in).
+    const autoInkSet = pickContrastInkSet(matColor);
+    const captionInk = gtaStyle ? '#ececec' : mw2Style ? '#ddd6bd' : rdr2Style ? '#3a2f22' : experimentalStyle ? '#f2ede0' : nightlightStyle ? '#ffe8c9' : (captionTextColor || autoInkSet.ink);
+    const captionSub = gtaStyle ? '#a8a8a8' : mw2Style ? '#a39c81' : rdr2Style ? '#5c4d38' : experimentalStyle ? '#c9c2b0' : nightlightStyle ? '#d9a86c' : (captionTextColor || autoInkSet.sub);
+    const captionFaint = gtaStyle ? '#828282' : mw2Style ? '#847d66' : rdr2Style ? '#6b5c45' : experimentalStyle ? '#948c7c' : nightlightStyle ? '#8a6b47' : (captionTextColor || autoInkSet.faint);
 
     painter.setBackground(matColor);
 

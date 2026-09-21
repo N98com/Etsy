@@ -219,10 +219,13 @@ window.LocationApp = (() => {
   const layoutTabs = el('layoutTabs');
   const layoutHint = el('layoutHint');
   const maskTabs = el('maskTabs');
+  const maskColorInput = el('maskColorInput');
   const pinIconTabs = el('pinIconTabs');
   const paletteGrid = el('mapPaletteGrid');
   const solidPaletteGrid = el('solidPaletteGrid');
   const fontTabs = el('fontTabs');
+  const captionColorOverrideCheck = el('captionColorOverrideCheck');
+  const captionColorInput = el('captionColorInput');
   const showPlaceCheck = el('showPlaceCheck');
   const placeNameInput = el('placeNameInput');
   const placeFontSizeInput = el('placeFontSizeInput');
@@ -559,7 +562,8 @@ window.LocationApp = (() => {
       nightlightStyle: state.nightlightStyle,
       tier: state.tier,
       isolate: currentIsolateOpts(),
-      layout: state.layoutId, mask: state.maskId,
+      layout: state.layoutId, mask: state.maskId, matColor: maskColorInput.value,
+      captionTextColor: captionColorOverrideCheck.checked ? captionColorInput.value : null,
       pins: state.pins, pinColor: pinColorInput.value, pinIcon: state.pinIconId,
       caption: {
         showPlace: state.showPlace, showRegion: state.showRegion, showCountry: state.showCountry, showCoords: state.showCoords,
@@ -1139,6 +1143,8 @@ window.LocationApp = (() => {
       } : { id: state.ratioId, label: 'Custom', pxW: customRatioW ? parseInt(customRatioW.value, 10) : null, pxH: customRatioH ? parseInt(customRatioH.value, 10) : null },
       palette: { id: state.mapPaletteId, name: palette.name || state.mapPaletteId },
       layoutId: state.layoutId, maskId: state.maskId, pinIconId: state.pinIconId,
+      matColor: maskColorInput.value,
+      captionTextColor: captionColorOverrideCheck.checked ? captionColorInput.value : null,
       style: { gta: state.gtaStyle, mw2: state.mw2Style, rdr2: state.rdr2Style, experimental: state.experimentalStyle, nightlight: state.nightlightStyle },
       caption: {
         showPlace: opts.caption.showPlace, showRegion: opts.caption.showRegion,
@@ -1312,6 +1318,15 @@ window.LocationApp = (() => {
     });
     clearPinsBtn.addEventListener('click', () => { state.pins = []; render(); });
     pinColorInput.addEventListener('input', () => { pinColorTouched = true; render(); });
+    maskColorInput.addEventListener('input', () => render());
+    captionColorOverrideCheck.addEventListener('change', () => {
+      captionColorInput.disabled = !captionColorOverrideCheck.checked;
+      render();
+    });
+    captionColorInput.addEventListener('input', () => {
+      if (!captionColorOverrideCheck.checked) return;
+      render();
+    });
     pinAddressSearchBtn.addEventListener('click', runPinAddressSearch);
     pinAddressInput.addEventListener('keydown', e => { if (e.key === 'Enter') runPinAddressSearch(); });
     refreshAutoPinColor();
@@ -1373,7 +1388,7 @@ window.LocationApp = (() => {
     ['unitRatio', 'placeSlotOld', 'placeSlotNew'],
     ['unitStatus', 'placeSlotOld', 'statusSlotNew'],
     ['unitLayout', 'layoutSlotOld', 'layoutSlotNew'],
-    ['maskTabs', 'maskSlotOld', 'maskSlotNew'],
+    ['unitMask', 'maskSlotOld', 'maskSlotNew'],
     ['mapPaletteGrid', 'colorsSlotOld', 'colorsSlotNewPalettes'],
     ['solidPaletteGrid', 'colorsSlotOldSolid', 'colorsSlotNewSolid'],
     ['unitCaptionFont', 'fontSlotOld', 'fontSlotNew'],
