@@ -54,11 +54,32 @@ window.LocationApp = (() => {
       pxW: Math.round((cmW / 2.54) * dpi), pxH: Math.round((cmH / 2.54) * dpi),
     };
   });
+
+  // De oorspronkelijke, bredere maatlijst (van vóór de overstap naar Gelato's
+  // 8 vaste formaten) — niet meer de standaardkeuzes, maar nog steeds nodig
+  // voor niet-standaard/custom-orders. Ondergebracht onder Sizes → "Other".
+  const OTHER_SIZES_IN = [
+    [10, 12], [11, 14], [11, 17], [12, 16], [10, 20], [12, 18], [12, 24],
+    [16, 20], [14, 24], [16, 32], [20, 30], [20, 36], [24, 32], [20, 40],
+    [24, 36], [26, 38], [28, 40], [30, 45], [30, 60], [40, 48], [40, 50],
+  ];
+  const OTHER_RATIO_PRESETS = OTHER_SIZES_IN.map(([inW, inH]) => {
+    const g = gcd(inW, inH);
+    const cmW = Math.round(inW * 2.54), cmH = Math.round(inH * 2.54);
+    const dpi = 300;
+    return {
+      id: `other-in${inW}x${inH}`, label: `${inW}×${inH}in · ${cmW}×${cmH}cm`,
+      w: inW / g, h: inH / g,
+      inW, inH, cmW, cmH,
+      pxW: Math.round(inW * dpi), pxH: Math.round(inH * dpi),
+    };
+  });
   RATIO_PRESETS.push({ id: 'custom', label: 'Custom', w: null, h: null });
+  RATIO_PRESETS.push({ id: 'other', label: 'Other', w: null, h: null });
 
   // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
   const LAYOUT_PRESETS = [
-    { id: 'default', label: 'Default', hint: 'The map sits above a plain mat that holds the caption.' },
+    { id: 'default', label: 'Frame', hint: 'The map sits above a plain mat that holds the caption.' },
     { id: 'fade', label: 'Fade', hint: 'Full-bleed map — the caption sits directly on it, over a dark fade at the bottom.' },
     { id: 'gallery', label: 'Gallery', hint: 'Like Default, with a thin frame line and museum-label rules around the caption.' },
     { id: 'stamp', label: 'Stamp', hint: 'Full-bleed map with a small captioned label tucked in the bottom-left corner.' },
@@ -117,10 +138,10 @@ window.LocationApp = (() => {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
     ratioId: 'in10x12', ratio: { w: 5, h: 6 },
-    layoutId: 'default', maskId: 'none',
+    layoutId: 'fade', maskId: 'none',
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
-    showPlace: true, showRegion: true, showCountry: true, showCoords: true,
+    showPlace: true, showRegion: false, showCountry: true, showCoords: true,
     placeFontScale: 1, regionFontScale: 1, countryFontScale: 1, coordsFontScale: 1,
     gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false, nightlightStyle: false,
     pins: [], addingPin: false,
@@ -157,6 +178,8 @@ window.LocationApp = (() => {
   const customRatioRow = el('customRatioRow');
   const customRatioW = el('customRatioW');
   const customRatioH = el('customRatioH');
+  const otherRatioRow = el('otherRatioRow');
+  const otherRatioSelect = el('otherRatioSelect');
   const areaTierHint = el('areaTierHint');
   const statusEl = el('locationStatus');
   const layoutTabs = el('layoutTabs');
@@ -777,11 +800,25 @@ window.LocationApp = (() => {
   function selectRatio(id) {
     state.ratioId = id;
     customRatioRow.hidden = id !== 'custom';
+    otherRatioRow.hidden = id !== 'other';
     if (id === 'custom') { applyCustomRatio(); return; }
+    if (id === 'other') { applyOtherRatio(); return; }
     const preset = RATIO_PRESETS.find(r => r.id === id);
     state.ratio = { w: preset.w, h: preset.h };
     resizeCanvasForRatio();
     updateExportSizes(preset);
+    render();
+    invalidateFetch();
+  }
+  // "Other" is de oude, bredere maatlijst (zie OTHER_RATIO_PRESETS) — zelfde
+  // mechanisme als een normale Sizes-preset, maar dan via de secundaire
+  // dropdown i.p.v. rechtstreeks uit RATIO_PRESETS.
+  function applyOtherRatio() {
+    const preset = OTHER_RATIO_PRESETS.find(p => p.id === otherRatioSelect.value) || OTHER_RATIO_PRESETS[0];
+    state.ratio = { w: preset.w, h: preset.h };
+    resizeCanvasForRatio();
+    updateExportSizes(preset);
+    showFormatHint(preset);
     render();
     invalidateFetch();
   }
@@ -844,6 +881,9 @@ window.LocationApp = (() => {
   }
 
   function currentRatioPreset() {
+    if (state.ratioId === 'other') {
+      return OTHER_RATIO_PRESETS.find(p => p.id === otherRatioSelect.value) || OTHER_RATIO_PRESETS[0];
+    }
     return RATIO_PRESETS.find(r => r.id === state.ratioId);
   }
 
@@ -1123,7 +1163,7 @@ window.LocationApp = (() => {
     // op basis van de ingevoerde pixels) — hier alleen voor de vaste
     // Sizes-presets, anders overschrijft dit elkaar in de verkeerde volgorde.
     ratioTabs.addEventListener('change', () => {
-      if (state.ratioId === 'custom') return;
+      if (state.ratioId === 'custom' || state.ratioId === 'other') return;
       showFormatHint(currentRatioPreset());
     });
     showFormatHint(currentRatioPreset());
@@ -1131,6 +1171,16 @@ window.LocationApp = (() => {
       if (state.ratioId !== 'custom') return;
       applyCustomRatio();
     }));
+
+    OTHER_RATIO_PRESETS.forEach(p => {
+      const opt = document.createElement('option');
+      opt.value = p.id; opt.textContent = p.label;
+      otherRatioSelect.appendChild(opt);
+    });
+    otherRatioSelect.addEventListener('change', () => {
+      if (state.ratioId !== 'other') return;
+      applyOtherRatio();
+    });
 
     LAYOUT_PRESETS.forEach(l => {
       const btn = document.createElement('button');
