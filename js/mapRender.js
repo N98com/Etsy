@@ -624,7 +624,13 @@ const MapRender = (() => {
           { offset: 0.55, color: '#000000', opacity: 0.32 },
           { offset: 1, color: '#000000', opacity: 0.8 },
         ]);
-        drawCaptionBlock(painter, w, h - layout.total, layout, caption, { ink: '#faf7ef', sub: '#e3ddcd', faint: '#c3bca8' });
+        // Handmatige override wint ook hier (zie de toelichting hierboven bij
+        // captionInk) — zonder override blijft dit de vaste lichte inkt,
+        // want die is hier juist bewust gekozen (leesbaar tegen de waas over
+        // de kaart), niet afgeleid van de mat-kleur.
+        drawCaptionBlock(painter, w, h - layout.total, layout, caption, {
+          ink: captionTextColor || '#faf7ef', sub: captionTextColor || '#e3ddcd', faint: captionTextColor || '#c3bca8',
+        });
       } else if (layoutId === 'stamp') {
         // Kaart vult de hele afbeelding; het onderschrift staat in een klein
         // ondoorzichtig "label"-vlak in de linkerbenedenhoek, links
