@@ -1,0 +1,39 @@
+name: Supabase keep-alive ping
+
+# Supabase's free tier pauses a project after 7 days with no database
+# activity — which breaks the login gate in js/auth.js until someone
+# manually resumes it in the Supabase dashboard. This pings a trivial
+# table every 3 days (comfortable margin inside that 7-day window) so the
+# project always looks "recently active," with no dependency on anyone
+# actually opening the tool in between.
+#
+# One-time setup required (see README note below / ask Claude): run this
+# once in the Supabase SQL editor before this workflow can succeed:
+#   create table public.keepalive (id int primary key default 1);
+#   insert into public.keepalive (id) values (1);
+
+on:
+  schedule:
+    - cron: '0 6 */3 * *'
+  workflow_dispatch: {}
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Supabase REST API
+        run: |
+          # Same anon key as js/auth.js — meant to be public, like any
+          # Supabase frontend key; real access control is Supabase Auth /
+          # RLS, not keeping this secret.
+          STATUS=$(curl -sS -o /tmp/resp.json -w "%{http_code}" \
+            "https://tzhzyprycgpnhxkmexkh.supabase.co/rest/v1/keepalive?select=id&limit=1" \
+            -H "apikey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6aHp5cHJ5Y2dwbmh4a21leGtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NjU4MzEsImV4cCI6MjEwNDA0MTgzMX0.mSwdD5jAq87upgzMMvCmaf194yClDkStuNNlGe0Vm6E" \
+            -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6aHp5cHJ5Y2dwbmh4a21leGtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NjU4MzEsImV4cCI6MjEwNDA0MTgzMX0.mSwdD5jAq87upgzMMvCmaf194yClDkStuNNlGe0Vm6E")
+          echo "HTTP status: $STATUS"
+          cat /tmp/resp.json
+          echo
+          if [ "$STATUS" -ge 400 ]; then
+            echo "::error::Supabase ping failed (HTTP $STATUS) — has the 'keepalive' table been created yet? See the note at the top of this workflow file."
+            exit 1
+          fi
