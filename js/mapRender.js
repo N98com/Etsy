@@ -398,7 +398,7 @@ const MapRender = (() => {
     const {
       bounds, streets = [], buildings = [],
       caption = {}, gtaStyle = false, mw2Style = false, rdr2Style = false, experimentalStyle = false, nightlightStyle = false, tier = null, isolate = null,
-      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, pinIcon: pinIconId = 'basic', watermarkText = null,
+      layout: layoutId = 'default', mask: maskId = null, pins = [], pinColor = null, pinIcon: pinIconId = 'basic', pinScale = 1, watermarkText = null,
       captionTextColor = null,
     } = opts;
     const palette = gtaStyle ? GTA_STYLE_PALETTE : mw2Style ? MW2_STYLE_PALETTE : rdr2Style ? RDR2_STYLE_PALETTE : experimentalStyle ? EXPERIMENTAL_STYLE_PALETTE : nightlightStyle ? NIGHTLIGHT_STYLE_PALETTE : opts.palette;
@@ -589,7 +589,7 @@ const MapRender = (() => {
     // pin buiten het zichtbare gebied hoort ook daar te verdwijnen/vervagen
     // — het was toch geen navigeerbaar punt binnen de uitgesneden weergave).
     if (pins.length > 0) {
-      const pinR = Math.min(mapW, mapH) * 0.016;
+      const pinR = Math.min(mapW, mapH) * 0.016 * pinScale; // pinScale: schuifregelaar "Pin size"
       pins.forEach(p => {
         const [x, y] = project(p.lat, p.lon);
         drawPinIcon(painter, x, y, pinR, pinColor || '#e63946', matColor, pinIconId);

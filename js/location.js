@@ -172,7 +172,7 @@ window.LocationApp = (() => {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
     ratioId: 'in10x12', ratio: { w: 5, h: 6 },
-    layoutId: 'fade', maskId: 'none', pinIconId: 'basic',
+    layoutId: 'fade', maskId: 'none', pinIconId: 'basic', pinScale: 1,
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
     showPlace: true, showRegion: false, showCountry: true, showCoords: true,
@@ -245,6 +245,7 @@ window.LocationApp = (() => {
   const clearPinsBtn = el('clearPinsBtn');
   const pinColorInput = el('pinColorInput');
   const pinAddressInput = el('pinAddressInput');
+  const pinSizeInput = el('pinSizeInput');
   const pinAddressSearchBtn = el('pinAddressSearchBtn');
   const pinAddressResults = el('pinAddressResults');
   const gtaStyleCheck = el('gtaStyleCheck');
@@ -564,7 +565,7 @@ window.LocationApp = (() => {
       isolate: currentIsolateOpts(),
       layout: state.layoutId, mask: state.maskId, matColor: maskColorInput.value,
       captionTextColor: captionColorOverrideCheck.checked ? captionColorInput.value : null,
-      pins: state.pins, pinColor: pinColorInput.value, pinIcon: state.pinIconId,
+      pins: state.pins, pinColor: pinColorInput.value, pinIcon: state.pinIconId, pinScale: state.pinScale,
       caption: {
         showPlace: state.showPlace, showRegion: state.showRegion, showCountry: state.showCountry, showCoords: state.showCoords,
         place: placeNameInput.value.trim() || pc.place,
@@ -596,7 +597,7 @@ window.LocationApp = (() => {
   // ---- pan/zoom/klik-interactie op het canvas zelf ----
   function pinHitTest(pt, pin) {
     const [x, y] = forwardProject(pin.lat, pin.lon);
-    const r = Math.min(canvas.width, mapAreaHeight(canvas.height)) * 0.016;
+    const r = Math.min(canvas.width, mapAreaHeight(canvas.height)) * 0.016 * state.pinScale;
     const headCenter = { x, y: y - r * 1.7 };
     const dHead = Math.hypot(pt.x - headCenter.x, pt.y - headCenter.y);
     const dTip = Math.hypot(pt.x - x, pt.y - y);
@@ -1165,7 +1166,7 @@ window.LocationApp = (() => {
         inW: preset.inW, inH: preset.inH, cmW: preset.cmW, cmH: preset.cmH,
       } : { id: state.ratioId, label: 'Custom', pxW: customRatioW ? parseInt(customRatioW.value, 10) : null, pxH: customRatioH ? parseInt(customRatioH.value, 10) : null },
       palette: { id: state.mapPaletteId, name: palette.name || state.mapPaletteId },
-      layoutId: state.layoutId, maskId: state.maskId, pinIconId: state.pinIconId,
+      layoutId: state.layoutId, maskId: state.maskId, pinIconId: state.pinIconId, pinScale: state.pinScale,
       matColor: maskColorInput.value,
       captionTextColor: captionColorOverrideCheck.checked ? captionColorInput.value : null,
       style: { gta: state.gtaStyle, mw2: state.mw2Style, rdr2: state.rdr2Style, experimental: state.experimentalStyle, nightlight: state.nightlightStyle },
@@ -1332,6 +1333,7 @@ window.LocationApp = (() => {
     regionFontSizeInput.addEventListener('input', () => { state.regionFontScale = parseFloat(regionFontSizeInput.value); render(); });
     countryFontSizeInput.addEventListener('input', () => { state.countryFontScale = parseFloat(countryFontSizeInput.value); render(); });
     coordsFontSizeInput.addEventListener('input', () => { state.coordsFontScale = parseFloat(coordsFontSizeInput.value); render(); });
+    pinSizeInput.addEventListener('input', () => { state.pinScale = parseFloat(pinSizeInput.value); render(); });
     refreshFontSizeRowVisibility();
 
     addPinBtn.addEventListener('click', () => {

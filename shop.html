@@ -255,6 +255,10 @@
         <input type="color" id="pinColorInput" title="Pin colour" aria-label="Pin colour">
       </div>
       <div class="ratio-tabs" id="pinIconTabs"></div>
+      <div id="pinSizeRow" class="size-row">
+        <label for="pinSizeInput" class="hint">Pin size</label>
+        <input type="range" id="pinSizeInput" min="0.6" max="3" step="0.05" value="1">
+      </div>
       <p class="hint" id="pinsHint">Tap "Place a pin", then tap the spot on the map. Tap a pin again to remove it.</p>
       <div class="row">
         <input type="text" id="pinAddressInput" placeholder="…or type an address" aria-label="Pin address">
@@ -299,8 +303,8 @@
   <script src="js/protomapsAdapter.js?v=50"></script>
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
-  <script src="js/mapRender.js?v=53"></script>
-  <script src="js/location.js?v=60"></script>
+  <script src="js/mapRender.js?v=54"></script>
+  <script src="js/location.js?v=61"></script>
   <script src="js/shop.js?v=4"></script>
 </body>
 </html>
