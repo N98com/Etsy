@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="en" data-shop="1">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Design your map — N°98 Cartes</title>
+  <!-- Klantgerichte configurator: dezelfde kaartmotor als index.html
+       (js/location.js), maar in een stap-voor-stap-indeling voor de webshop.
+       Geen login (zie data-shop="1" hierboven, gelezen door location.js als
+       embed/klant-modus), geen export-knoppen, geen Game Styles.
+       ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
+       js/shop.js wijzigt. -->
+  <link rel="stylesheet" href="css/shop.css?v=1">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
+       die de kaart zelf tekent (zie CAPTION_FONT_PRESETS in location.js) —
+       die moeten hier ook geladen zijn, anders tekent het canvas een fallback. -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=EB+Garamond:ital,wght@1,400&family=Playfair+Display:wght@700&family=Space+Mono:wght@400;700&family=Kalam:wght@700&display=swap">
+</head>
+<body class="shop">
+  <div class="shop-app">
+    <header class="shop-head">
+      <a class="shop-logo" href="#" aria-label="N°98 Cartes home">
+        <span class="shop-logo-mark">N°98</span>
+        <span class="shop-logo-sub">CARTES</span>
+      </a>
+      <span class="shop-head-title">Design your map</span>
+    </header>
+
+    <div class="shop-layout">
+      <section class="shop-stage" aria-label="Live preview of your map">
+        <div class="stage-frame">
+          <div class="location-canvas-wrap" id="locationCanvasWrap">
+            <canvas id="locationCanvas"></canvas>
+          </div>
+        </div>
+        <p class="stage-hint"><span id="stageSize">50×70 cm</span> · Drag &amp; zoom to frame</p>
+        <div class="status-bar" id="statusSlotNew"></div>
+      </section>
+
+      <section class="shop-panel" aria-label="Design your map, step by step">
+        <div class="steps" role="tablist" aria-label="Steps">
+          <button type="button" class="step-tab active" role="tab" aria-selected="true" data-step="0"><span class="step-tab-num">01</span><span class="step-tab-label">Place</span></button>
+          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="1"><span class="step-tab-num">02</span><span class="step-tab-label">Style</span></button>
+          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="2"><span class="step-tab-num">03</span><span class="step-tab-label">Text</span></button>
+          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="3"><span class="step-tab-num">04</span><span class="step-tab-label">Size</span></button>
+        </div>
+
+        <div class="step-panel active" data-panel="0" role="tabpanel">
+          <h2 class="step-title">Where should we draw?</h2>
+          <p class="step-lede">Search a city, street or address — then drag and zoom the map until the framing feels right.</p>
+          <div class="step-slot" id="shopSlotSearch"></div>
+          <div class="step-block">
+            <h3 class="step-sub">Mark a special spot <span class="optional">optional</span></h3>
+            <div class="step-slot" id="shopSlotPins"></div>
+          </div>
+        </div>
+
+        <div class="step-panel" data-panel="1" role="tabpanel" hidden>
+          <h2 class="step-title">Choose your colours</h2>
+          <p class="step-lede">Every palette is designed to work on a wall. The preview changes instantly.</p>
+          <div class="step-slot" id="shopSlotPalettes"></div>
+          <details class="step-more">
+            <summary>Solid colours</summary>
+            <div class="step-slot" id="shopSlotSolid"></div>
+          </details>
+          <details class="step-more">
+            <summary>Layout &amp; shape</summary>
+            <h3 class="step-sub">Layout</h3>
+            <div class="step-slot" id="shopSlotLayout"></div>
+            <h3 class="step-sub">Shape</h3>
+            <div class="step-slot" id="shopSlotMask"></div>
+          </details>
+        </div>
+
+        <div class="step-panel" data-panel="2" role="tabpanel" hidden>
+          <h2 class="step-title">Make it personal</h2>
+          <p class="step-lede">Leave a field empty to use the place name we found, or write your own — a name, a date, a line that matters.</p>
+          <div class="step-slot" id="shopSlotCaption"></div>
+          <details class="step-more">
+            <summary>Text size</summary>
+            <div class="step-slot" id="shopSlotTextSizes"></div>
+          </details>
+          <h3 class="step-sub">Typeface</h3>
+          <div class="step-slot" id="shopSlotFont"></div>
+        </div>
+
+        <div class="step-panel" data-panel="3" role="tabpanel" hidden>
+          <h2 class="step-title">Pick your size</h2>
+          <p class="step-lede">All sizes are printed to order. The preview adapts to the shape of the size you pick.</p>
+          <div class="size-grid" id="shopSizeGrid"></div>
+          <div class="step-slot" id="shopSlotBorder"></div>
+          <div class="summary" id="shopSummary"></div>
+        </div>
+
+        <div class="step-nav">
+          <button type="button" class="btn-ghost" id="stepBackBtn" hidden>Back</button>
+          <button type="button" class="btn-outline" id="stepNextBtn">Next: Style</button>
+        </div>
+      </section>
+    </div>
+
+    <div class="buy-bar">
+      <div class="buy-price">
+        <span class="buy-amount" id="buyAmount">€99</span>
+        <span class="buy-size" id="buySize">50×70 cm</span>
+      </div>
+      <button type="button" class="btn-buy" id="buyBtn">Add to cart</button>
+    </div>
+    <div class="shop-toast" id="shopToast" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <!-- ===== Geparkeerd: alles wat location.js bij ID verwacht. =====
+       js/shop.js verplaatst na het opstarten de klant-relevante blokken naar
+       de stappen hierboven. De rest (export, game styles, legacy-indeling,
+       instellingen) blijft hier onzichtbaar maar bestaat, zodat location.js
+       ongewijzigd kan blijven werken. -->
+  <div hidden>
+    <input type="checkbox" id="mapgenLegacyCheck">
+    <aside id="locationControlsNew">
+      <div id="placeSlotNew"></div>
+      <div class="accordion-body-inner">
+        <div class="subtabs" id="lookSubtabs"></div>
+        <div id="layoutSlotNew"></div>
+        <div id="maskSlotNew"></div>
+        <div id="colorsSlotNew">
+          <div class="color-subtabs" id="colorSubtabs"></div>
+          <div id="colorsSlotNewPalettes"></div>
+          <div id="colorsSlotNewSolid"></div>
+        </div>
+        <div id="fontSlotNew"></div>
+      </div>
+      <div id="detailsSlotNew"></div>
+      <div id="effectsSlotNew"></div>
+      <div id="exportSlotNew"></div>
+    </aside>
+    <aside id="locationControlsOld">
+      <div id="placeSlotOld"></div>
+      <div id="layoutSlotOld"></div>
+      <div id="maskSlotOld"></div>
+      <div id="colorsSlotOld"></div>
+      <div id="colorsSlotOldSolid"></div>
+      <div id="fontSlotOld"></div>
+      <div id="detailsSlotOld"></div>
+      <div id="effectsSlotOld"></div>
+      <div id="exportSlotOld"></div>
+    </aside>
+
+    <div id="unitSearch">
+      <label for="locationSearchInput">Search for a place</label>
+      <div class="row">
+        <input type="text" id="locationSearchInput" placeholder="e.g. Paris, France" dir="auto" autocomplete="off">
+        <button id="locationSearchBtn" aria-label="Search">Search</button>
+      </div>
+      <div id="locationSearchResults" class="location-search-results" hidden></div>
+    </div>
+    <div id="unitRatio">
+      <label for="ratioTabs">Sizes</label>
+      <select class="ratio-select" id="ratioTabs"></select>
+      <p class="hint" id="ratioSizesHint" hidden></p>
+      <div class="row" id="customRatioRow" hidden>
+        <input type="number" id="customRatioW" min="1" step="1" value="2400">
+        <input type="number" id="customRatioH" min="1" step="1" value="3600">
+      </div>
+      <div id="otherRatioRow" hidden>
+        <select class="ratio-select" id="otherRatioSelect"></select>
+      </div>
+    </div>
+    <div id="unitStatus">
+      <p class="hint" id="areaTierHint" hidden></p>
+      <p class="hint" id="locationStatus"></p>
+    </div>
+    <div id="unitLayout">
+      <div class="ratio-tabs" id="layoutTabs"></div>
+      <p class="hint" id="layoutHint"></p>
+    </div>
+    <div id="unitMask">
+      <div class="ratio-tabs" id="maskTabs"></div>
+      <div class="row color-row" id="maskColorRow">
+        <label for="maskColorInput" class="hint">Background colour</label>
+        <input type="color" id="maskColorInput" value="#f7f4ee" title="Background colour">
+      </div>
+    </div>
+    <div class="map-palette-grid" id="mapPaletteGrid"></div>
+    <div class="map-palette-grid" id="solidPaletteGrid"></div>
+    <div id="unitCaptionFont">
+      <div class="ratio-tabs" id="fontTabs"></div>
+      <label class="checkbox-row"><input type="checkbox" id="captionColorOverrideCheck"> Choose my own text colour</label>
+      <input type="color" id="captionColorInput" value="#1d3557" title="Text colour" disabled>
+    </div>
+    <div id="unitCaption">
+      <div class="caption-field">
+        <label class="checkbox-row"><input type="checkbox" id="showPlaceCheck" checked> Title</label>
+        <input type="text" id="placeNameInput" placeholder="Place name (automatic)" dir="auto" aria-label="Title">
+      </div>
+      <div id="placeFontSizeRow" class="size-row">
+        <label for="placeFontSizeInput">Title</label>
+        <input type="range" id="placeFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+      </div>
+      <!-- Staat standaard uit; in de shop verborgen om de stap rustig te houden. -->
+      <div class="caption-field" hidden>
+        <label class="checkbox-row"><input type="checkbox" id="showRegionCheck"> State / province</label>
+        <input type="text" id="regionNameInput" placeholder="State / province (automatic)" dir="auto" aria-label="State or province">
+      </div>
+      <div id="regionFontSizeRow" class="size-row">
+        <label for="regionFontSizeInput">State / province</label>
+        <input type="range" id="regionFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+      </div>
+      <div class="caption-field">
+        <label class="checkbox-row"><input type="checkbox" id="showCountryCheck" checked> Subtitle</label>
+        <input type="text" id="countryNameInput" placeholder="Country (automatic)" dir="auto" aria-label="Subtitle">
+      </div>
+      <div id="countryFontSizeRow" class="size-row">
+        <label for="countryFontSizeInput">Subtitle</label>
+        <input type="range" id="countryFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+      </div>
+      <div class="caption-field">
+        <label class="checkbox-row"><input type="checkbox" id="showCoordsCheck" checked> Coordinates</label>
+      </div>
+      <div id="coordsFontSizeRow" class="size-row">
+        <label for="coordsFontSizeInput">Coordinates</label>
+        <input type="range" id="coordsFontSizeInput" min="0.7" max="1.5" step="0.05" value="1">
+      </div>
+    </div>
+    <div id="unitPins">
+      <div class="row">
+        <button type="button" id="addPinBtn">Place a pin on the map</button>
+        <button type="button" id="clearPinsBtn">Remove pins</button>
+        <input type="color" id="pinColorInput" title="Pin colour" aria-label="Pin colour">
+      </div>
+      <div class="ratio-tabs" id="pinIconTabs"></div>
+      <p class="hint" id="pinsHint">Tap "Place a pin", then tap the spot on the map. Tap a pin again to remove it.</p>
+      <div class="row">
+        <input type="text" id="pinAddressInput" placeholder="…or type an address" aria-label="Pin address">
+        <button type="button" id="pinAddressSearchBtn">Add</button>
+      </div>
+      <div id="pinAddressResults" class="location-search-results" hidden></div>
+    </div>
+    <div id="unitEffects">
+      <input type="checkbox" id="gtaStyleCheck"><p id="gtaStyleHint" hidden></p>
+      <input type="checkbox" id="mw2StyleCheck"><p id="mw2StyleHint" hidden></p>
+      <input type="checkbox" id="rdr2StyleCheck"><p id="rdr2StyleHint" hidden></p>
+      <input type="checkbox" id="experimentalStyleCheck"><p id="experimentalStyleHint" hidden></p>
+      <input type="checkbox" id="nightlightStyleCheck"><p id="nightlightStyleHint" hidden></p>
+    </div>
+    <div id="unitExport">
+      <select id="locationExportSize"></select>
+      <label class="checkbox-row"><input type="checkbox" id="printBorderCheck" checked> White border around the print</label>
+      <div id="watermarkRow" hidden>
+        <input type="checkbox" id="watermarkEnabledCheck">
+        <input type="text" id="watermarkTextInput" value="PREVIEW" disabled>
+      </div>
+      <button id="locationExportSVGBtn">Export SVG</button>
+      <button id="locationExportPNGBtn">Export PNG</button>
+      <p id="locationExportStatus"></p>
+      <div id="embedConfirmRow" hidden><button id="embedConfirmBtn">Confirm design</button></div>
+      <p id="embedConfirmStatus"></p>
+    </div>
+  </div>
+
+  <!-- Alleen wat de kaart nodig heeft — geen login (auth.js), geen
+       Playground (main.js/algorithms.js), geen tab-wissel (views.js). -->
+  <script src="js/utils.js?v=50"></script>
+  <script src="js/rng.js?v=50"></script>
+  <script src="js/palettes.js?v=50"></script>
+  <script src="js/geom.js?v=50"></script>
+  <script src="js/painters.js?v=50"></script>
+  <script src="js/export.js?v=50"></script>
+  <script src="js/mapPalettes.js?v=50"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pmtiles@3/dist/pmtiles.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/pbf@3/dist/pbf.js"></script>
+  <script src="js/vendor/vector-tile.js?v=22"></script>
+  <script src="js/protomapsAdapter.js?v=50"></script>
+  <script src="js/protomapsFetch.js?v=50"></script>
+  <script src="js/mapGeo.js?v=50"></script>
+  <script src="js/mapRender.js?v=53"></script>
+  <script src="js/location.js?v=58"></script>
+  <script src="js/shop.js?v=1"></script>
+</body>
+</html>

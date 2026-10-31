@@ -1112,7 +1112,9 @@ window.LocationApp = (() => {
   // winkel achter zit — anders kan elke pagina die deze tool in een
   // iframe zet de bevestigde ontwerp-data afluisteren).
   const embedParams = new URLSearchParams(window.location.search);
-  const embedMode = embedParams.get('embed') === '1';
+  // shop.html (de klant-configurator) zet data-shop="1" op <html> en draait
+  // altijd in deze klant-modus, ook zonder ?embed=1 in de URL.
+  const embedMode = embedParams.get('embed') === '1' || document.documentElement.dataset.shop === '1';
   const embedParentOrigin = embedParams.get('parentOrigin') || '*';
   const embedConfirmRow = el('embedConfirmRow');
   const embedConfirmBtn = el('embedConfirmBtn');
