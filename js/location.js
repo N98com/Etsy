@@ -619,7 +619,15 @@ window.LocationApp = (() => {
     // dan wel gewoon werken.
     const panLocked = () => isolating() && hasRealBoundary();
 
+    // Na een tik op een touchscreen stuurt de browser er nog een nagebootste
+    // mousedown/mouseup achteraan. Zonder deze rem werd een tik dus twee keer
+    // als klik verwerkt: de eerste zette een pin neer, de tweede raakte die
+    // nieuwe pin en haalde 'm meteen weer weg.
+    let lastTouchAt = 0;
+    const isEmulatedMouse = () => Date.now() - lastTouchAt < 800;
+
     canvas.addEventListener('mousedown', e => {
+      if (isEmulatedMouse()) return;
       const pt = canvasPoint(e);
       if (pt.y > mapAreaHeight(canvas.height)) return;
       drag = { x: pt.x, y: pt.y, moved: false, center: { ...state.center } };
@@ -655,6 +663,7 @@ window.LocationApp = (() => {
     // knijpen om te zoomen.
     let pinchDist = null;
     canvas.addEventListener('touchstart', e => {
+      lastTouchAt = Date.now();
       if (e.touches.length === 1) {
         const pt = canvasPoint(e);
         if (pt.y > mapAreaHeight(canvas.height)) return;
@@ -685,7 +694,9 @@ window.LocationApp = (() => {
       e.preventDefault();
     }, { passive: false });
     canvas.addEventListener('touchend', e => {
+      lastTouchAt = Date.now();
       if (drag && !drag.moved && e.changedTouches.length === 1) {
+        e.preventDefault(); // geen nagebootste muisklik na deze tik (zie lastTouchAt)
         const t = e.changedTouches[0];
         const rect = canvas.getBoundingClientRect();
         handleCanvasClick({
@@ -815,7 +826,17 @@ window.LocationApp = (() => {
         const btn = document.createElement('button');
         btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
         btn.addEventListener('click', () => {
-          state.pins.push({ lat: parseFloat(r.lat), lon: parseFloat(r.lon) });
+          const lat = parseFloat(r.lat), lon = parseFloat(r.lon);
+          state.pins.push({ lat, lon });
+          // Het zicht blijft staan zolang de pin al in beeld valt; ligt het
+          // adres erbuiten, dan schuift de kaart ernaartoe — anders lijkt het
+          // alsof er niets gebeurd is.
+          const [px, py] = forwardProject(lat, lon);
+          const inView = px >= 0 && px <= canvas.width && py >= 0 && py <= mapAreaHeight(canvas.height);
+          if (!inView && !(isolating() && hasRealBoundary())) {
+            state.center = { lat, lon };
+            scheduleFetch(0);
+          }
           render();
           pinAddressResults.hidden = true;
           pinAddressInput.value = '';
