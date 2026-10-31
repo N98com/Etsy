@@ -1485,5 +1485,8 @@ window.LocationApp = (() => {
     }
   }
 
-  return { onShow };
+  // getSummary: alleen-lezen samenvatting van het huidige ontwerp (plaats,
+  // palet, formaat) — gebruikt door shop.html voor het naambordje en het
+  // overzicht. Verandert niks aan de state.
+  return { onShow, getSummary: () => buildDesignSummary() };
 })();

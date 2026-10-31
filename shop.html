@@ -11,47 +11,64 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=2">
+  <link rel="stylesheet" href="css/shop.css?v=4">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
        die de kaart zelf tekent (zie CAPTION_FONT_PRESETS in location.js) —
        die moeten hier ook geladen zijn, anders tekent het canvas een fallback. -->
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=Hanken+Grotesk:wght@400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Hanken+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=EB+Garamond:ital,wght@1,400&family=Playfair+Display:wght@700&family=Space+Mono:wght@400;700&family=Kalam:wght@700&display=swap">
 </head>
 <body class="shop">
   <div class="shop-app">
+    <div class="shop-note">Every map is printed to order — made for one wall only</div>
     <header class="shop-head">
+      <span class="shop-head-side shop-head-left">Bespoke map prints</span>
       <a class="shop-logo" href="#" aria-label="N°98 Maps home">
         <img class="shop-logo-mark" src="img/n98-logo.svg" alt="N°98" width="1840" height="656">
         <span class="shop-logo-sub">MAPS</span>
       </a>
-      <span class="shop-head-title">Design your map</span>
+      <span class="shop-head-side shop-head-right">Netherlands · Est. 2026</span>
     </header>
 
     <div class="shop-layout">
       <section class="shop-stage" aria-label="Live preview of your map">
+        <div class="stage-views" role="group" aria-label="Preview mode">
+          <button type="button" class="view-btn active" data-view="studio" aria-pressed="true">Studio</button>
+          <button type="button" class="view-btn" data-view="room" aria-pressed="false">On the wall</button>
+        </div>
         <div class="stage-frame">
           <div class="location-canvas-wrap" id="locationCanvasWrap">
             <canvas id="locationCanvas"></canvas>
           </div>
+          <div class="room-view" id="roomView" hidden>
+            <div class="room-box" id="roomBox">
+              <div class="room-inner" id="roomInner">
+                <img src="img/room-wall.jpg" alt="Your map, framed on a dark green wall" width="760" height="1240">
+                <canvas class="room-poster" id="roomPoster" width="708" height="1200"></canvas>
+              </div>
+            </div>
+          </div>
         </div>
-        <p class="stage-hint"><span id="stageSize">50×70 cm</span> · Drag &amp; zoom to frame</p>
+        <p class="stage-placard"><span id="placardPlace">Your map</span><span class="placard-sep" aria-hidden="true"></span><span id="stageSize">50×70 cm</span></p>
+        <p class="stage-hint" id="stageHint">Drag to move · Pinch or scroll to zoom</p>
         <div class="status-bar" id="statusSlotNew"></div>
       </section>
 
       <section class="shop-panel" aria-label="Design your map, step by step">
         <div class="steps" role="tablist" aria-label="Steps">
-          <button type="button" class="step-tab active" role="tab" aria-selected="true" data-step="0"><span class="step-tab-num">01</span><span class="step-tab-label">Place</span></button>
-          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="1"><span class="step-tab-num">02</span><span class="step-tab-label">Style</span></button>
-          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="2"><span class="step-tab-num">03</span><span class="step-tab-label">Text</span></button>
-          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="3"><span class="step-tab-num">04</span><span class="step-tab-label">Size</span></button>
+          <button type="button" class="step-tab active" role="tab" aria-selected="true" data-step="0"><span class="step-tab-num">I</span><span class="step-tab-label">Place</span></button>
+          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="1"><span class="step-tab-num">II</span><span class="step-tab-label">Style</span></button>
+          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="2"><span class="step-tab-num">III</span><span class="step-tab-label">Text</span></button>
+          <button type="button" class="step-tab" role="tab" aria-selected="false" data-step="3"><span class="step-tab-num">IV</span><span class="step-tab-label">Size</span></button>
+          <span class="step-indicator" aria-hidden="true"></span>
         </div>
 
         <div class="step-panel active" data-panel="0" role="tabpanel">
-          <h2 class="step-title">Where should we draw?</h2>
-          <p class="step-lede">Search a city, street or address — then drag and zoom the map until the framing feels right.</p>
+          <p class="step-eyebrow">Step I of IV</p>
+          <h2 class="step-title">Where shall we <em>draw?</em></h2>
+          <p class="step-lede">Search a city, a street or the address of a doorstep — then drag and zoom until the framing feels right.</p>
           <div class="step-slot" id="shopSlotSearch"></div>
           <div class="step-block">
             <h3 class="step-sub">Mark a special spot <span class="optional">optional</span></h3>
@@ -60,8 +77,9 @@
         </div>
 
         <div class="step-panel" data-panel="1" role="tabpanel" hidden>
-          <h2 class="step-title">Choose your colours</h2>
-          <p class="step-lede">Every palette is designed to work on a wall. The preview changes instantly.</p>
+          <p class="step-eyebrow">Step II of IV</p>
+          <h2 class="step-title">Choose your <em>palette</em></h2>
+          <p class="step-lede">Each palette is composed to live on a wall. Your map changes the moment you choose.</p>
           <div class="step-slot" id="shopSlotPalettes"></div>
           <details class="step-more">
             <summary>Solid colours</summary>
@@ -77,23 +95,25 @@
         </div>
 
         <div class="step-panel" data-panel="2" role="tabpanel" hidden>
-          <h2 class="step-title">Make it personal</h2>
-          <p class="step-lede">Leave a field empty to use the place name we found, or write your own — a name, a date, a line that matters.</p>
+          <p class="step-eyebrow">Step III of IV</p>
+          <h2 class="step-title">Make it <em>personal</em></h2>
+          <p class="step-lede">Keep the place name we found, or write your own — a name, a date, a line that matters.</p>
           <div class="step-slot" id="shopSlotCaption"></div>
+          <h3 class="step-sub">Typeface</h3>
+          <div class="step-slot" id="shopSlotFont"></div>
           <details class="step-more">
             <summary>Text size</summary>
             <div class="step-slot" id="shopSlotTextSizes"></div>
           </details>
-          <h3 class="step-sub">Typeface</h3>
-          <div class="step-slot" id="shopSlotFont"></div>
         </div>
 
         <div class="step-panel" data-panel="3" role="tabpanel" hidden>
-          <h2 class="step-title">Pick your size</h2>
-          <p class="step-lede">All sizes are printed to order. The preview adapts to the shape of the size you pick.</p>
+          <p class="step-eyebrow">Step IV of IV</p>
+          <h2 class="step-title">Choose your <em>size</em></h2>
+          <p class="step-lede">Printed to order in eight gallery sizes. The preview takes the exact shape of the size you choose.</p>
           <div class="size-grid" id="shopSizeGrid"></div>
           <div class="step-slot" id="shopSlotBorder"></div>
-          <div class="summary" id="shopSummary"></div>
+          <dl class="summary" id="shopSummary"></dl>
         </div>
 
         <div class="step-nav">
@@ -104,11 +124,14 @@
     </div>
 
     <div class="buy-bar">
-      <div class="buy-price">
-        <span class="buy-amount" id="buyAmount">€99</span>
-        <span class="buy-size" id="buySize">50×70 cm</span>
+      <p class="buy-note">Your preview is the exact file we print</p>
+      <div class="buy-row">
+        <div class="buy-price">
+          <span class="buy-amount" id="buyAmount">€99</span>
+          <span class="buy-size" id="buySize">50×70 cm</span>
+        </div>
+        <button type="button" class="btn-buy" id="buyBtn"><span id="buyLabel">Add to cart</span><svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></button>
       </div>
-      <button type="button" class="btn-buy" id="buyBtn">Add to cart</button>
     </div>
     <div class="shop-toast" id="shopToast" role="status" aria-live="polite" hidden></div>
   </div>
@@ -277,7 +300,7 @@
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=53"></script>
-  <script src="js/location.js?v=59"></script>
-  <script src="js/shop.js?v=1"></script>
+  <script src="js/location.js?v=60"></script>
+  <script src="js/shop.js?v=3"></script>
 </body>
 </html>
