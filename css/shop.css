@@ -39,9 +39,9 @@ button { cursor: pointer; }
   display: flex; align-items: center; justify-content: space-between; gap: 16px;
   padding: 10px 20px; border-bottom: 1px solid var(--line); background: var(--paper);
 }
-.shop-logo { display: flex; align-items: baseline; gap: 8px; color: var(--ink); text-decoration: none; }
-.shop-logo-mark { font-family: var(--serif); font-size: 28px; font-weight: 500; line-height: 1; }
-.shop-logo-sub { font-family: var(--mono); font-size: 10px; letter-spacing: 0.28em; color: var(--mute); }
+.shop-logo { display: flex; align-items: center; gap: 10px; color: var(--ink); text-decoration: none; }
+.shop-logo-mark { display: block; height: 26px; width: auto; }
+.shop-logo-sub { font-family: var(--mono); font-size: 10px; letter-spacing: 0.3em; color: var(--mute); padding-top: 3px; }
 .shop-head-title { font-family: var(--serif); font-size: 20px; font-style: italic; color: var(--ink-2); }
 .is-embedded .shop-head { display: none; }
 
