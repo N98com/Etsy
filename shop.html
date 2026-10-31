@@ -11,7 +11,7 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=4">
+  <link rel="stylesheet" href="css/shop.css?v=5">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
@@ -45,8 +45,8 @@
           <div class="room-view" id="roomView" hidden>
             <div class="room-box" id="roomBox">
               <div class="room-inner" id="roomInner">
-                <img src="img/room-wall.jpg" alt="Your map, framed on a dark green wall" width="760" height="1240">
-                <canvas class="room-poster" id="roomPoster" width="708" height="1200"></canvas>
+                <img src="img/room-wall-empty.jpg" alt="Your map, framed and to scale on a dark green wall" width="1080" height="1300">
+                <canvas class="room-art" id="roomArt" width="1020" height="1100"></canvas>
               </div>
             </div>
           </div>
@@ -301,6 +301,6 @@
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=53"></script>
   <script src="js/location.js?v=60"></script>
-  <script src="js/shop.js?v=3"></script>
+  <script src="js/shop.js?v=4"></script>
 </body>
 </html>

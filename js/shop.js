@@ -14,12 +14,22 @@
   const DEFAULT_SIZE = 'in20x28'; // 50×70 cm — het populairste wandformaat
   const STEP_NAMES = ['Place', 'Style', 'Text', 'Size'];
 
-  // "Aan de muur": de lege middelste lijst in img/room-wall.jpg (760×1240).
-  // Hoekpunten van de passe-partout-opening, in pixels van die foto:
-  // linksboven, rechtsboven, rechtsonder, linksonder.
-  const ROOM_W = 760, ROOM_H = 1240;
-  const ROOM_QUAD = [[197, 208], [551, 171], [551, 785], [197, 790]];
-  const POSTER_W = 354, POSTER_H = 600; // CSS-maat van .room-poster vóór vervorming
+  // "Aan de muur": een lege muur (img/room-wall-empty.jpg, 1080×1300) waarop
+  // we zelf een lijst tekenen — op echte schaal, zodat 20×25 en 70×100 ook
+  // echt verschillend groot hangen.
+  //
+  // Het muurvlak staat licht schuin in de foto. WALL_REF beschrijft dat vlak:
+  // een rechthoek van 354×600 "muur-eenheden" op het vlak valt in de foto
+  // precies op deze vier hoekpunten (linksboven, rechtsboven, rechtsonder,
+  // linksonder) — gemeten aan een lijst die oorspronkelijk in de foto hing.
+  const ROOM_W = 1080, ROOM_H = 1300;
+  const WALL_REF = { w: 354, h: 600, quad: [[476, 288], [830, 274], [830, 866], [476, 870]] }; // schuinte bewust afgezwakt t.o.v. de foto
+  const PX_PER_CM = 8;              // muur-eenheden per centimeter
+  const FRAME_CM = 2.2;             // breedte van de houten lijst
+  const HANG_CENTER = [64, 300];    // middelpunt van de lijst op het muurvlak (midden van de foto)
+  const HANG_MIN_TOP = -260, HANG_MAX_BOTTOM = 700; // blijf boven de plant, onder de bovenrand
+  // het tekenvlak (canvas) op het muurvlak: genoeg ruimte voor 70×100 + schaduw
+  const ART = { x: -440, y: -300, w: 1020, h: 1100 };
 
   const $ = id => document.getElementById(id);
   const inIframe = window.parent !== window;
@@ -37,10 +47,18 @@
     try { return window.LocationApp.getSummary(); } catch (e) { return null; }
   }
 
-  // Projectieve transformatie (homografie) van een rechthoek naar vier
-  // willekeurige hoekpunten, als CSS matrix3d — zo valt de poster precies in
-  // het licht schuin hangende lijstje.
+  // Projectieve transformatie (homografie) van een rechthoek (0,0)-(w,h) naar
+  // vier willekeurige hoekpunten. solveHomography geeft de 8 coëfficiënten,
+  // project past ze toe op een punt, quadMatrix maakt er een CSS matrix3d van.
+  function project(m, x, y) {
+    const d = m[6] * x + m[7] * y + 1;
+    return [(m[0] * x + m[1] * y + m[2]) / d, (m[3] * x + m[4] * y + m[5]) / d];
+  }
   function quadMatrix(w, h, quad) {
+    const m = solveHomography(w, h, quad);
+    return `matrix3d(${m[0]},${m[3]},0,${m[6]},${m[1]},${m[4]},0,${m[7]},0,0,1,0,${m[2]},${m[5]},0,1)`;
+  }
+  function solveHomography(w, h, quad) {
     const src = [[0, 0], [w, 0], [w, h], [0, h]];
     const A = [], b = [];
     for (let i = 0; i < 4; i++) {
@@ -60,8 +78,7 @@
         b[r] -= f * b[c];
       }
     }
-    const m = b.map((v, i) => v / A[i][i]);
-    return `matrix3d(${m[0]},${m[3]},0,${m[6]},${m[1]},${m[4]},0,${m[7]},0,0,1,0,${m[2]},${m[5]},0,1)`;
+    return b.map((v, i) => v / A[i][i]);
   }
 
   ready(() => {
@@ -220,14 +237,19 @@
     const roomView = $('roomView');
     const roomBox = $('roomBox');
     const roomInner = $('roomInner');
-    const roomPoster = $('roomPoster');
-    const roomCtx = roomPoster.getContext('2d');
+    const roomArt = $('roomArt');
+    const roomCtx = roomArt.getContext('2d');
     const mapCanvas = $('locationCanvas');
     const stageHint = $('stageHint');
     const defaultHint = stageHint.textContent;
     let roomTimer = null;
 
-    roomPoster.style.transform = quadMatrix(POSTER_W, POSTER_H, ROOM_QUAD);
+    // Het tekenvlak ligt op het (schuine) muurvlak: bereken waar zijn vier
+    // hoeken in de foto vallen en vervorm het canvas daarnaar.
+    const wallH = solveHomography(WALL_REF.w, WALL_REF.h, WALL_REF.quad);
+    const artCorners = [[ART.x, ART.y], [ART.x + ART.w, ART.y], [ART.x + ART.w, ART.y + ART.h], [ART.x, ART.y + ART.h]]
+      .map(([x, y]) => project(wallH, x, y));
+    roomArt.style.transform = quadMatrix(ART.w, ART.h, artCorners);
 
     function layoutRoom() {
       if (roomView.hidden) return;
@@ -236,17 +258,69 @@
       roomBox.style.width = Math.round(ROOM_W * k) + 'px';
       roomBox.style.height = Math.round(ROOM_H * k) + 'px';
     }
+
+    // Echte afmeting van het gekozen formaat, in cm (uit location.js).
+    function posterCm() {
+      const s = summary();
+      if (s && s.size && s.size.cmW) return [s.size.cmW, s.size.cmH];
+      return [50, 70];
+    }
+
     function drawRoomPoster() {
-      const W = roomPoster.width, H = roomPoster.height;
-      const sw = mapCanvas.width, sh = mapCanvas.height;
-      roomCtx.clearRect(0, 0, W, H);
-      if (!sw || !sh) return;
-      // gecentreerd in de passe-partout, met een gelijkmatige witrand
-      const pad = W * 0.07;
-      const s = Math.min((W - 2 * pad) / sw, (H - 2 * pad) / sh);
-      const dw = sw * s, dh = sh * s;
-      roomCtx.imageSmoothingQuality = 'high';
-      roomCtx.drawImage(mapCanvas, (W - dw) / 2, (H - dh) / 2, dw, dh);
+      const ctx = roomCtx;
+      ctx.clearRect(0, 0, ART.w, ART.h);
+      if (!mapCanvas.width || !mapCanvas.height) return;
+
+      const [cmW, cmH] = posterCm();
+      const pw = cmW * PX_PER_CM, ph = cmH * PX_PER_CM;     // de print zelf
+      const f = FRAME_CM * PX_PER_CM;                        // lijstbreedte
+      const ow = pw + 2 * f, oh = ph + 2 * f;                // buitenmaat lijst
+      // middelpunt op de vaste ophanghoogte, maar altijd binnen de muur
+      let top = HANG_CENTER[1] - oh / 2;
+      if (top + oh > HANG_MAX_BOTTOM) top = HANG_MAX_BOTTOM - oh;
+      if (top < HANG_MIN_TOP) top = HANG_MIN_TOP;
+      const x = HANG_CENTER[0] - ow / 2 - ART.x;
+      const y = top - ART.y;
+
+      // slagschaduw op de muur (licht valt van linksboven)
+      ctx.save();
+      ctx.shadowColor = 'rgba(8, 14, 10, 0.55)';
+      ctx.shadowBlur = 34; ctx.shadowOffsetX = 14; ctx.shadowOffsetY = 20;
+      ctx.fillStyle = '#C9A87C';
+      ctx.fillRect(x, y, ow, oh);
+      ctx.restore();
+
+      // houten lijst: licht eiken, met een zachte glans en afgeschuinde binnenrand
+      const wood = ctx.createLinearGradient(x, y, x + ow, y + oh);
+      wood.addColorStop(0, '#E2C79F'); wood.addColorStop(0.5, '#C9A87C'); wood.addColorStop(1, '#A9895F');
+      ctx.fillStyle = wood;
+      ctx.fillRect(x, y, ow, oh);
+      ctx.strokeStyle = 'rgba(60, 40, 20, 0.35)'; ctx.lineWidth = 1.5;
+      ctx.strokeRect(x + 0.75, y + 0.75, ow - 1.5, oh - 1.5);
+
+      // de print
+      const ix = x + f, iy = y + f;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.drawImage(mapCanvas, ix, iy, pw, ph);
+
+      // diepte: de lijst werpt een smalle schaduw op de print
+      const depth = Math.max(6, f * 0.45);
+      const sh = (x0, y0, x1, y1) => {
+        const g = ctx.createLinearGradient(x0, y0, x1, y1);
+        g.addColorStop(0, 'rgba(0, 0, 0, 0.32)'); g.addColorStop(1, 'rgba(0, 0, 0, 0)');
+        return g;
+      };
+      ctx.fillStyle = sh(ix, iy, ix, iy + depth); ctx.fillRect(ix, iy, pw, depth);
+      ctx.fillStyle = sh(ix, iy, ix + depth, iy); ctx.fillRect(ix, iy, depth, ph);
+      ctx.strokeStyle = 'rgba(40, 26, 12, 0.5)'; ctx.lineWidth = 1;
+      ctx.strokeRect(ix - 0.5, iy - 0.5, pw + 1, ph + 1);
+
+      // glas: een heel subtiele diagonale reflectie + het licht van het raam
+      const glass = ctx.createLinearGradient(ix, iy, ix + pw, iy + ph);
+      glass.addColorStop(0, 'rgba(255, 255, 255, 0.10)');
+      glass.addColorStop(0.45, 'rgba(255, 255, 255, 0.02)');
+      glass.addColorStop(1, 'rgba(0, 0, 0, 0.10)');
+      ctx.fillStyle = glass; ctx.fillRect(ix, iy, pw, ph);
     }
     function setView(view) {
       const room = view === 'room';
@@ -257,7 +331,7 @@
       });
       roomView.hidden = !room;
       stage.classList.toggle('is-room', room);
-      stageHint.textContent = room ? 'Switch to Studio to move the map' : defaultHint;
+      stageHint.textContent = room ? 'Shown to scale · Switch to Studio to move the map' : defaultHint;
       clearInterval(roomTimer);
       if (room) {
         layoutRoom();

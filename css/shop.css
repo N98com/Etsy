@@ -112,9 +112,9 @@ button { cursor: pointer; }
 /* aan de muur */
 .room-view { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
 .room-box { position: relative; overflow: hidden; box-shadow: 0 30px 60px -30px rgba(30, 24, 16, 0.6); animation: roomIn 0.7s var(--ease) both; }
-.room-inner { position: absolute; left: 0; top: 0; width: 760px; height: 1240px; transform-origin: 0 0; }
-.room-inner img { display: block; width: 760px; height: 1240px; }
-.room-poster { position: absolute; left: 0; top: 0; width: 354px; height: 600px; transform-origin: 0 0; mix-blend-mode: multiply; }
+.room-inner { position: absolute; left: 0; top: 0; width: 1080px; height: 1300px; transform-origin: 0 0; }
+.room-inner img { display: block; width: 1080px; height: 1300px; }
+.room-art { position: absolute; left: 0; top: 0; width: 1020px; height: 1100px; transform-origin: 0 0; }
 @keyframes roomIn { from { opacity: 0; } to { opacity: 1; } }
 .is-room .location-canvas-wrap { visibility: hidden; }
 
