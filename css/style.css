@@ -50,6 +50,8 @@ header p { margin: 0; color: var(--ink-soft); font-size: 0.92rem; }
 }
 .settings-menu-item { display: block; width: 100%; text-align: left; background: transparent; border: none; padding: 8px 10px; }
 .settings-menu-item:hover { background: var(--accent-soft); }
+/* Link-items (bv. "Shop") zien er hetzelfde uit als de knop-items erboven. */
+a.settings-menu-item { color: var(--ink); text-decoration: none; font-size: 0.85rem; border-radius: 6px; box-sizing: border-box; }
 .settings-menu-toggle { display: flex; align-items: center; gap: 7px; cursor: pointer; font-size: 0.88rem; }
 .settings-menu-toggle input { accent-color: var(--accent); margin: 0; }
 
