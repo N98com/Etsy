@@ -1339,7 +1339,11 @@ window.LocationApp = (() => {
     addPinBtn.addEventListener('click', () => {
       state.addingPin = !state.addingPin;
       addPinBtn.classList.toggle('active', state.addingPin);
-      addPinBtn.textContent = state.addingPin ? 'Click the map…' : 'Add pin';
+      // Touchscreen: "Tap", muis: "Click". Na het plaatsen terug naar de
+      // oorspronkelijke tekst van de knop (die verschilt per pagina).
+      if (!addPinBtn.dataset.label) addPinBtn.dataset.label = addPinBtn.textContent;
+      const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      addPinBtn.textContent = state.addingPin ? (touch ? 'Tap the map…' : 'Click the map…') : addPinBtn.dataset.label;
     });
     clearPinsBtn.addEventListener('click', () => { state.pins = []; render(); });
     pinColorInput.addEventListener('input', () => { pinColorTouched = true; render(); });
