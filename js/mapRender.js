@@ -649,7 +649,7 @@ const MapRender = (() => {
       const pinR = Math.min(mapW, mapH) * 0.016 * pinScale; // pinScale: schuifregelaar "Pin size"
       pins.forEach(p => {
         const [x, y] = project(p.lat, p.lon);
-        drawPinIcon(painter, x, y, pinR, pinColor || '#e63946', matColor, pinIconId);
+        drawPinIcon(painter, x, y, pinR, pinColor || '#e63946', matColor, p.icon || pinIconId); // elke pin z'n eigen type
       });
     }
 
@@ -912,5 +912,5 @@ const MapRender = (() => {
     }
   }
 
-  return { render, captionLayout };
+  return { render, captionLayout, drawPinIcon };
 })();

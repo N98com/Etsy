@@ -184,7 +184,7 @@ window.LocationApp = (() => {
     showPlace: true, showRegion: false, showCountry: true, showCoords: true,
     placeFontScale: 1, regionFontScale: 1, countryFontScale: 1, coordsFontScale: 1,
     gtaStyle: false, mw2Style: false, rdr2Style: false, experimentalStyle: false, nightlightStyle: false,
-    pins: [], addingPin: false,
+    pins: [], addingPin: false, selectedPin: null,
     autoPlace: '', autoRegion: '', autoCountry: '', captionLang: null,
     streets: [], buildings: [], tier: 'street',
     fetchedBounds: null, fetchedTier: null, fetching: false,
@@ -252,6 +252,7 @@ window.LocationApp = (() => {
   const pinColorInput = el('pinColorInput');
   const pinAddressInput = el('pinAddressInput');
   const pinSizeInput = el('pinSizeInput');
+  const pinsHint = el('pinsHint');
   const pinAddressSearchBtn = el('pinAddressSearchBtn');
   const pinAddressResults = el('pinAddressResults');
   const gtaStyleCheck = el('gtaStyleCheck');
@@ -610,14 +611,65 @@ window.LocationApp = (() => {
     return dHead < r * 1.5 || dTip < r * 0.7;
   }
 
+  // Bovenste pin onder de cursor (laatst geplaatste ligt bovenop), of -1.
+  function pinAt(pt) {
+    for (let i = state.pins.length - 1; i >= 0; i--) if (pinHitTest(pt, state.pins[i])) return i;
+    return -1;
+  }
+
+  // Eén tik = één pin: na het plaatsen staat de plaatsmodus meteen weer uit
+  // en is de nieuwe pin geselecteerd (iconen-keuze en "Remove this pin"
+  // werken dan op die pin). Een tik op een bestaande pin selecteert 'm —
+  // verwijderen gaat bewust alleen via de knop, zodat een mislukte sleep-
+  // poging nooit per ongeluk een pin weghaalt.
   function handleCanvasClick(pt) {
     if (pt.y > mapAreaHeight(canvas.height)) return; // klik in de onderschrift-mat: negeren
-    const hitIdx = state.pins.findIndex(p => pinHitTest(pt, p));
-    if (hitIdx >= 0) { state.pins.splice(hitIdx, 1); render(); return; }
-    if (!state.addingPin) return;
+    const hitIdx = pinAt(pt);
+    if (hitIdx >= 0 && !state.addingPin) { selectPin(hitIdx); return; }
+    if (!state.addingPin) { if (state.selectedPin != null) selectPin(null); return; }
     const { lat, lon } = inverseProject(pt.x, pt.y);
-    state.pins.push({ lat, lon });
+    state.pins.push({ lat, lon, icon: state.pinIconId });
+    setAddingPin(false);
+    selectPin(state.pins.length - 1);
+  }
+
+  function setAddingPin(on) {
+    state.addingPin = on;
+    addPinBtn.classList.toggle('active', on);
+    // Touchscreen: "Tap", muis: "Click". Daarna terug naar de oorspronkelijke
+    // tekst van de knop (die verschilt per pagina).
+    if (!addPinBtn.dataset.label) addPinBtn.dataset.label = addPinBtn.textContent;
+    const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+    addPinBtn.textContent = on ? (touch ? 'Tap the map…' : 'Click the map…') : addPinBtn.dataset.label;
+  }
+
+  // Geselecteerde pin: het iconen-rijtje toont zijn type, een nieuw icoon
+  // kiezen past alléén die pin aan, en de verwijderknop haalt alleen hem weg.
+  function selectPin(idx) {
+    state.selectedPin = idx;
+    const pin = idx != null ? state.pins[idx] : null;
+    if (pin) {
+      state.pinIconId = pin.icon || state.pinIconId;
+      [...pinIconTabs.children].forEach(b => b.classList.toggle('active', b.dataset.pinIconId === state.pinIconId));
+    }
+    refreshPinControls();
     render();
+  }
+  function refreshPinControls() {
+    if (!clearPinsBtn.dataset.label) clearPinsBtn.dataset.label = clearPinsBtn.textContent;
+    const sel = state.selectedPin != null && state.pins[state.selectedPin];
+    clearPinsBtn.textContent = sel ? 'Remove this pin' : clearPinsBtn.dataset.label;
+    clearPinsBtn.disabled = state.pins.length === 0;
+    if (pinsHint) {
+      if (!pinsHint.dataset.text) pinsHint.dataset.text = pinsHint.textContent;
+      const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
+      const label = sel ? ((PIN_ICON_PRESETS.find(p => p.id === (sel.icon || state.pinIconId)) || {}).label || 'Pin') : '';
+      pinsHint.textContent = sel
+        ? `${label} pin — drag it to move it, or pick another icon to change it.`
+        : (state.pins.length
+          ? `${touch ? 'Tap' : 'Click'} a pin to select it, or drag it to move it.`
+          : pinsHint.dataset.text);
+    }
   }
 
   function wireCanvasInteraction() {
@@ -633,17 +685,48 @@ window.LocationApp = (() => {
     let lastTouchAt = 0;
     const isEmulatedMouse = () => Date.now() - lastTouchAt < 800;
 
+    // Begint een sleep op een pin, dan verplaatst die pin (met dezelfde
+    // afstand tussen vinger en pinpunt als bij het oppakken); anders pant de kaart.
+    function startDrag(pt) {
+      const pinIdx = state.addingPin ? -1 : pinAt(pt);
+      drag = { x: pt.x, y: pt.y, moved: false, center: { ...state.center }, pinIdx };
+      if (pinIdx >= 0) {
+        const [px, py] = forwardProject(state.pins[pinIdx].lat, state.pins[pinIdx].lon);
+        drag.offX = px - pt.x; drag.offY = py - pt.y;
+      }
+    }
+    function dragPin(pt) {
+      const nx = pt.x + drag.offX;
+      const ny = Math.min(pt.y + drag.offY, mapAreaHeight(canvas.height)); // niet in het onderschrift
+      const { lat, lon } = inverseProject(nx, ny);
+      const pin = state.pins[drag.pinIdx];
+      pin.lat = lat; pin.lon = lon;
+      if (state.selectedPin !== drag.pinIdx) { state.selectedPin = drag.pinIdx; refreshPinControls(); }
+      requestRender();
+    }
+    function endDrag(pt) {
+      const d = drag; drag = null;
+      if (!d) return;
+      if (d.pinIdx >= 0) { if (d.moved) selectPin(d.pinIdx); else handleCanvasClick(pt); return; }
+      if (!d.moved) handleCanvasClick(pt);
+    }
+
     canvas.addEventListener('mousedown', e => {
       if (isEmulatedMouse()) return;
       const pt = canvasPoint(e);
       if (pt.y > mapAreaHeight(canvas.height)) return;
-      drag = { x: pt.x, y: pt.y, moved: false, center: { ...state.center } };
+      startDrag(pt);
+    });
+    canvas.addEventListener('mousemove', e => {
+      if (drag || state.addingPin) return;
+      canvas.style.cursor = pinAt(canvasPoint(e)) >= 0 ? 'move' : '';
     });
     window.addEventListener('mousemove', e => {
       if (!drag) return;
       const pt = canvasPoint(e);
       const dx = pt.x - drag.x, dy = pt.y - drag.y;
       if (Math.abs(dx) > 2 || Math.abs(dy) > 2) drag.moved = true;
+      if (drag.pinIdx >= 0) { if (drag.moved) dragPin(pt); return; }
       if (!panLocked()) {
         const cosLat = Math.cos((drag.center.lat * Math.PI) / 180) || 0.0001;
         state.center = { lat: drag.center.lat + dy / state.scale, lon: drag.center.lon - dx / (state.scale * cosLat) };
@@ -653,10 +736,7 @@ window.LocationApp = (() => {
     });
     window.addEventListener('mouseup', e => {
       if (!drag) return;
-      const wasClick = !drag.moved;
-      const pt = canvasPoint(e);
-      drag = null;
-      if (wasClick) handleCanvasClick(pt);
+      endDrag(canvasPoint(e));
     });
     canvas.addEventListener('wheel', e => {
       e.preventDefault();
@@ -674,7 +754,7 @@ window.LocationApp = (() => {
       if (e.touches.length === 1) {
         const pt = canvasPoint(e);
         if (pt.y > mapAreaHeight(canvas.height)) return;
-        drag = { x: pt.x, y: pt.y, moved: false, center: { ...state.center } };
+        startDrag(pt);
       } else if (e.touches.length === 2) {
         drag = null;
         pinchDist = touchDist(e);
@@ -684,7 +764,8 @@ window.LocationApp = (() => {
       if (e.touches.length === 1 && drag) {
         const pt = canvasPoint(e);
         const dx = pt.x - drag.x, dy = pt.y - drag.y;
-        if (Math.abs(dx) > 2 || Math.abs(dy) > 2) drag.moved = true;
+        if (Math.abs(dx) > 4 || Math.abs(dy) > 4) drag.moved = true; // vinger: iets ruimere tik-marge
+        if (drag.pinIdx >= 0) { if (drag.moved) dragPin(pt); e.preventDefault(); return; }
         if (!panLocked()) {
           const cosLat = Math.cos((drag.center.lat * Math.PI) / 180) || 0.0001;
           state.center = { lat: drag.center.lat + dy / state.scale, lon: drag.center.lon - dx / (state.scale * cosLat) };
@@ -702,11 +783,11 @@ window.LocationApp = (() => {
     }, { passive: false });
     canvas.addEventListener('touchend', e => {
       lastTouchAt = Date.now();
-      if (drag && !drag.moved && e.changedTouches.length === 1) {
-        e.preventDefault(); // geen nagebootste muisklik na deze tik (zie lastTouchAt)
+      if (drag && e.changedTouches.length === 1) {
+        if (!drag.moved) e.preventDefault(); // geen nagebootste muisklik na deze tik (zie lastTouchAt)
         const t = e.changedTouches[0];
         const rect = canvas.getBoundingClientRect();
-        handleCanvasClick({
+        endDrag({
           x: (t.clientX - rect.left) * (canvas.width / rect.width),
           y: (t.clientY - rect.top) * (canvas.height / rect.height),
         });
@@ -834,7 +915,10 @@ window.LocationApp = (() => {
         btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
         btn.addEventListener('click', () => {
           const lat = parseFloat(r.lat), lon = parseFloat(r.lon);
-          state.pins.push({ lat, lon });
+          state.pins.push({ lat, lon, icon: state.pinIconId });
+          state.selectedPin = state.pins.length - 1;
+          setAddingPin(false);
+          refreshPinControls();
           // Het zicht blijft staan zolang de pin al in beeld valt; ligt het
           // adres erbuiten, dan schuift de kaart ernaartoe — anders lijkt het
           // alsof er niets gebeurd is.
@@ -920,8 +1004,11 @@ window.LocationApp = (() => {
     render();
   }
   function selectPinIcon(id) {
-    state.pinIconId = id;
+    state.pinIconId = id; // ook het type voor de volgende nieuwe pin
     [...pinIconTabs.children].forEach(b => b.classList.toggle('active', b.dataset.pinIconId === id));
+    const sel = state.selectedPin != null && state.pins[state.selectedPin];
+    if (sel) sel.icon = id;
+    refreshPinControls();
     render();
   }
   function selectCaptionFont(id) {
@@ -1180,7 +1267,7 @@ window.LocationApp = (() => {
         showPlace: opts.caption.showPlace, showRegion: opts.caption.showRegion,
         showCountry: opts.caption.showCountry, showCoords: opts.caption.showCoords,
       },
-      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, color: pinColorInput.value })),
+      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, color: pinColorInput.value })),
     };
   }
 
@@ -1275,8 +1362,18 @@ window.LocationApp = (() => {
     });
     PIN_ICON_PRESETS.forEach(p => {
       const btn = document.createElement('button');
-      btn.type = 'button'; btn.textContent = p.label; btn.dataset.pinIconId = p.id;
-      btn.className = p.id === state.pinIconId ? 'active' : '';
+      btn.type = 'button'; btn.dataset.pinIconId = p.id;
+      btn.className = 'pin-icon-btn' + (p.id === state.pinIconId ? ' active' : '');
+      // klein voorbeeld van het icoon zelf, vóór de naam
+      const ic = document.createElement('canvas');
+      const dpr = Math.max(2, window.devicePixelRatio || 1), sz = 22;
+      ic.width = sz * dpr; ic.height = sz * dpr;
+      ic.style.cssText = `width:${sz}px;height:${sz}px;display:inline-block;vertical-align:middle;margin-right:7px;`;
+      ic.setAttribute('aria-hidden', 'true');
+      const ictx = ic.getContext('2d');
+      ictx.scale(dpr, dpr);
+      MapRender.drawPinIcon(new CanvasPainter(ictx, sz, sz), sz / 2, sz - 1.5, (sz - 3) / 2.7, '#D94848', '#ffffff', p.id);
+      btn.append(ic, document.createTextNode(p.label));
       btn.addEventListener('click', () => selectPinIcon(p.id));
       pinIconTabs.appendChild(btn);
     });
@@ -1342,16 +1439,20 @@ window.LocationApp = (() => {
     pinSizeInput.addEventListener('input', () => { state.pinScale = parseFloat(pinSizeInput.value); render(); });
     refreshFontSizeRowVisibility();
 
-    addPinBtn.addEventListener('click', () => {
-      state.addingPin = !state.addingPin;
-      addPinBtn.classList.toggle('active', state.addingPin);
-      // Touchscreen: "Tap", muis: "Click". Na het plaatsen terug naar de
-      // oorspronkelijke tekst van de knop (die verschilt per pagina).
-      if (!addPinBtn.dataset.label) addPinBtn.dataset.label = addPinBtn.textContent;
-      const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
-      addPinBtn.textContent = state.addingPin ? (touch ? 'Tap the map…' : 'Click the map…') : addPinBtn.dataset.label;
+    addPinBtn.addEventListener('click', () => setAddingPin(!state.addingPin));
+    // Met een geselecteerde pin: alleen die weghalen (en de vorige selecteren,
+    // zodat je er rustig een voor een af kunt). Zonder selectie: alles weg.
+    clearPinsBtn.addEventListener('click', () => {
+      const i = state.selectedPin;
+      if (i != null && state.pins[i]) {
+        state.pins.splice(i, 1);
+        selectPin(state.pins.length ? Math.min(i, state.pins.length - 1) : null);
+      } else {
+        state.pins = [];
+        selectPin(null);
+      }
     });
-    clearPinsBtn.addEventListener('click', () => { state.pins = []; render(); });
+    refreshPinControls();
     pinColorInput.addEventListener('input', () => { pinColorTouched = true; render(); });
     maskColorInput.addEventListener('input', () => render());
     captionColorOverrideCheck.addEventListener('change', () => {
