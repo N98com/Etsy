@@ -129,6 +129,12 @@ window.LocationApp = (() => {
     { id: 'basic', label: 'Basic' },
     { id: 'heart', label: 'Heart' },
     { id: 'house', label: 'House' },
+    // uit de pin-collectie (nrs. 16, 1, 7, 8, 12) — zie drawPinIcon in mapRender.js
+    { id: 'heartpin', label: 'Heart pin' },
+    { id: 'rings', label: 'Rings' },
+    { id: 'paw', label: 'Paw' },
+    { id: 'tree', label: 'Tree' },
+    { id: 'star', label: 'Star' },
   ];
 
   // Vijf onderschrift-lettertypes, gekozen uit een specimen-vergelijking op

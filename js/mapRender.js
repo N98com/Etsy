@@ -369,9 +369,66 @@ const MapRender = (() => {
     ], { fill: holeColor });
   }
 
+  // ---- Extra pin-iconen (uit de pin-collectie: 1 Rings, 7 Paw, 8 Tree,
+  // 12 Star, 16 Heart pin). Ontworpen op een 48×48-raster; `iconSpace`
+  // vertaalt die ontwerp-coördinaten naar de kaart, met het midden van de
+  // onderrand (designBottom) precies op de locatie (x, y) — dezelfde
+  // conventie als het huisje. Hoogte = 2.7r, gelijk aan de Basic-pin, zodat
+  // alle iconen bij dezelfde "Pin size" even groot ogen.
+  function iconSpace(x, y, r, designTop, designBottom) {
+    const s = (2.7 * r) / (designBottom - designTop);
+    return {
+      s,
+      p: (dx, dy) => [x + (dx - 24) * s, y + (dy - designBottom) * s],
+      pts: list => list.map(([dx, dy]) => [x + (dx - 24) * s, y + (dy - designBottom) * s]),
+    };
+  }
+  function drawRings(painter, x, y, r, color) {
+    const { s, p, pts } = iconSpace(x, y, r, 8, 41.8);
+    const [ax, ay] = p(18, 30), [bx, by] = p(30, 30);
+    painter.circle(ax, ay, 10 * s, { stroke: color, strokeWidth: 3.6 * s });
+    painter.circle(bx, by, 10 * s, { stroke: color, strokeWidth: 3.6 * s });
+    painter.polygon(pts([[18, 8], [22, 12.5], [18, 17.5], [14, 12.5]]), { fill: color });
+  }
+  function drawPaw(painter, x, y, r, color) {
+    const { s, p } = iconSpace(x, y, r, 5.7, 42.5);
+    const deg = Math.PI / 180;
+    const pad = p(24, 34);
+    painter.ellipse(pad[0], pad[1], 11 * s, 8.5 * s, 0, { fill: color });
+    [[10, 21, 4.2, 5.4, -20], [18.5, 11.5, 4.4, 5.8, -8], [29.5, 11.5, 4.4, 5.8, 8], [38, 21, 4.2, 5.4, 20]].forEach(([cx, cy, rx, ry, rot]) => {
+      const c = p(cx, cy);
+      painter.ellipse(c[0], c[1], rx * s, ry * s, rot * deg, { fill: color });
+    });
+  }
+  function drawTree(painter, x, y, r, color) {
+    const { s, p, pts } = iconSpace(x, y, r, 5, 43.4);
+    [[24, 15, 10], [15, 22, 8], [33, 22, 8], [24, 25, 8]].forEach(([cx, cy, cr]) => {
+      const c = p(cx, cy);
+      painter.circle(c[0], c[1], cr * s, { fill: color });
+    });
+    painter.polygon(pts([[22, 28], [26, 28], [26, 42], [22, 42]]), { fill: color });
+    painter.polygon(pts([[14, 41], [34, 41], [34, 43.4], [14, 43.4]]), { fill: color });
+  }
+  function drawStar(painter, x, y, r, color) {
+    const { pts } = iconSpace(x, y, r, 4, 42.4);
+    painter.polygon(pts([[24, 4], [29.9, 17.6], [44.5, 18.6], [33.4, 28], [37, 42.4], [24, 34.6], [11, 42.4], [14.6, 28], [3.5, 18.6], [18.1, 17.6]]), { fill: color });
+  }
+  // Basic-pin, maar met een hartje als uitsparing i.p.v. het rondje.
+  function drawHeartPin(painter, x, y, r, color, holeColor) {
+    const { pts, centerX, centerY } = pinOutlinePoints(x, y, r);
+    painter.polygon(pts, { fill: color });
+    const hr = r * 0.36; // heartOutlinePoints: breedte ≈ 2·hr, punt onderaan
+    painter.polygon(heartOutlinePoints(centerX, centerY + hr * 0.9, hr), { fill: holeColor });
+  }
+
   function drawPinIcon(painter, x, y, r, color, holeColor, iconId) {
     if (iconId === 'heart') return drawHeart(painter, x, y, r, color);
     if (iconId === 'house') return drawHouse(painter, x, y, r, color, holeColor);
+    if (iconId === 'rings') return drawRings(painter, x, y, r, color);
+    if (iconId === 'paw') return drawPaw(painter, x, y, r, color);
+    if (iconId === 'tree') return drawTree(painter, x, y, r, color);
+    if (iconId === 'star') return drawStar(painter, x, y, r, color);
+    if (iconId === 'heartpin') return drawHeartPin(painter, x, y, r, color, holeColor);
     return drawPin(painter, x, y, r, color, holeColor);
   }
 
