@@ -656,6 +656,9 @@ window.LocationApp = (() => {
     render();
   }
   function refreshPinControls() {
+    // Laat andere onderdelen (bv. de pinnenlijst in shop.html) weten dat de
+    // pins of de selectie veranderd zijn.
+    document.dispatchEvent(new CustomEvent('mapgen:pins'));
     if (!clearPinsBtn.dataset.label) clearPinsBtn.dataset.label = clearPinsBtn.textContent;
     const sel = state.selectedPin != null && state.pins[state.selectedPin];
     clearPinsBtn.textContent = sel ? 'Remove this pin' : clearPinsBtn.dataset.label;
@@ -1439,7 +1442,13 @@ window.LocationApp = (() => {
     pinSizeInput.addEventListener('input', () => { state.pinScale = parseFloat(pinSizeInput.value); render(); });
     refreshFontSizeRowVisibility();
 
-    addPinBtn.addEventListener('click', () => setAddingPin(!state.addingPin));
+    // Nieuwe pin plaatsen = de vorige loslaten, zodat een icoon dat je nu
+    // kiest alleen voor de nieuwe pin geldt (niet de vorige verandert).
+    addPinBtn.addEventListener('click', () => {
+      const on = !state.addingPin;
+      if (on && state.selectedPin != null) selectPin(null);
+      setAddingPin(on);
+    });
     // Met een geselecteerde pin: alleen die weghalen (en de vorige selecteren,
     // zodat je er rustig een voor een af kunt). Zonder selectie: alles weg.
     clearPinsBtn.addEventListener('click', () => {
@@ -1601,5 +1610,25 @@ window.LocationApp = (() => {
   // getSummary: alleen-lezen samenvatting van het huidige ontwerp (plaats,
   // palet, formaat) — gebruikt door shop.html voor het naambordje en het
   // overzicht. Verandert niks aan de state.
-  return { onShow, getSummary: () => buildDesignSummary() };
+  // Pinnen-API voor shop.html's lijst "Your pins": alleen-lezen kopie, plus
+  // selecteren en één pin verwijderen via dezelfde paden als de knoppen.
+  function removePin(i) {
+    if (!state.pins[i]) return;
+    state.pins.splice(i, 1);
+    const sel = state.selectedPin;
+    let next = null;
+    if (state.pins.length) next = sel == null ? null : (sel === i ? Math.min(i, state.pins.length - 1) : (sel > i ? sel - 1 : sel));
+    selectPin(next);
+  }
+  return {
+    onShow,
+    getSummary: () => buildDesignSummary(),
+    getPins: () => ({
+      selected: state.selectedPin,
+      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId })),
+      labels: Object.fromEntries(PIN_ICON_PRESETS.map(p => [p.id, p.label])),
+    }),
+    selectPin: i => selectPin(i),
+    removePin,
+  };
 })();

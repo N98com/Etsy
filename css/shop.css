@@ -366,3 +366,26 @@ button.location-search-result:hover { background: var(--paper); }
 @media (min-width: 900px) {
   .shop-note { font-size: 10px; letter-spacing: 0.22em; padding: 8px 16px; }
 }
+
+/* ---------- "Your pins": geplaatste pins boven de Volgende-knop ---------- */
+.pin-list:empty { display: none; }
+.pin-list { margin-top: 6px; border-top: 1px solid var(--ink); padding-top: 14px; }
+.pin-list-head { margin: 0 0 8px; font-size: 10px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.pin-list ul { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; }
+.pin-item { display: flex; align-items: stretch; border-bottom: 1px solid var(--line); animation: panelIn 0.35s var(--ease) both; }
+.pin-item-main {
+  flex: 1 1 auto; min-width: 0; min-height: 54px; display: flex; align-items: center; gap: 14px;
+  border: 0; background: transparent; padding: 6px 4px; text-align: left;
+}
+.pin-item-icon { width: 26px; height: 26px; flex: 0 0 26px; }
+.pin-item-text { display: flex; flex-direction: column; min-width: 0; line-height: 1.25; }
+.pin-item-name { font-family: var(--serif); font-size: 19px; }
+.pin-item-coords { font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; color: var(--mute); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.pin-item.selected .pin-item-name { font-style: italic; }
+.pin-item.selected { box-shadow: inset 2px 0 0 var(--ink); }
+.pin-item.selected .pin-item-main { padding-left: 12px; }
+.pin-item-x {
+  flex: 0 0 48px; border: 0; background: transparent; color: var(--ink-2);
+  display: grid; place-items: center; transition: color 0.2s var(--ease), background 0.2s var(--ease);
+}
+.pin-item-x:hover { color: var(--ink); background: rgba(20, 20, 20, 0.05); }

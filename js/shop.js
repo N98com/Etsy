@@ -104,6 +104,56 @@
     $('locationSearchInput').placeholder = 'A city, a street, an address…';
     $('pinAddressInput').placeholder = '…or type the address';
 
+    // ---- "Your pins": geplaatste pins boven de Volgende-knop, met kruisje ----
+    const pinList = $('shopPinList');
+    function fmtCoord(lat, lon) {
+      return `${Math.abs(lat).toFixed(4)}° ${lat >= 0 ? 'N' : 'S'} · ${Math.abs(lon).toFixed(4)}° ${lon >= 0 ? 'E' : 'W'}`;
+    }
+    function pinIconCanvas(icon) {
+      const c = document.createElement('canvas');
+      const dpr = Math.max(2, window.devicePixelRatio || 1), sz = 26;
+      c.width = sz * dpr; c.height = sz * dpr;
+      c.className = 'pin-item-icon';
+      c.setAttribute('aria-hidden', 'true');
+      const ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
+      MapRender.drawPinIcon(new CanvasPainter(ctx, sz, sz), sz / 2, sz - 2, (sz - 4) / 2.7, $('pinColorInput').value || '#D94848', '#ffffff', icon);
+      return c;
+    }
+    function renderPinList() {
+      const { pins, selected, labels } = window.LocationApp.getPins();
+      pinList.innerHTML = '';
+      if (!pins.length) return;
+      const head = document.createElement('p');
+      head.className = 'pin-list-head';
+      head.textContent = pins.length === 1 ? 'Your pin' : `Your pins (${pins.length})`;
+      const ul = document.createElement('ul');
+      pins.forEach((p, i) => {
+        const name = (labels[p.icon] || 'Pin') + (labels[p.icon] && !/pin$/i.test(labels[p.icon]) ? ' pin' : '');
+        const li = document.createElement('li');
+        li.className = 'pin-item' + (i === selected ? ' selected' : '');
+        const main = document.createElement('button');
+        main.type = 'button'; main.className = 'pin-item-main';
+        main.setAttribute('aria-pressed', i === selected ? 'true' : 'false');
+        const text = document.createElement('span'); text.className = 'pin-item-text';
+        const t1 = document.createElement('span'); t1.className = 'pin-item-name'; t1.textContent = name;
+        const t2 = document.createElement('span'); t2.className = 'pin-item-coords'; t2.textContent = fmtCoord(p.lat, p.lon);
+        text.append(t1, t2);
+        main.append(pinIconCanvas(p.icon), text);
+        main.addEventListener('click', () => window.LocationApp.selectPin(i));
+        const x = document.createElement('button');
+        x.type = 'button'; x.className = 'pin-item-x';
+        x.setAttribute('aria-label', `Remove ${name}`);
+        x.innerHTML = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M1 1l10 10M11 1L1 11" stroke="currentColor" stroke-width="1.4" fill="none"/></svg>';
+        x.addEventListener('click', () => window.LocationApp.removePin(i));
+        li.append(main, x);
+        ul.appendChild(li);
+      });
+      pinList.append(head, ul);
+    }
+    document.addEventListener('mapgen:pins', () => requestAnimationFrame(renderPinList));
+    $('pinColorInput').addEventListener('input', () => requestAnimationFrame(renderPinList));
+    renderPinList();
+
     // ---- Stappen ----
     const tabs = [...document.querySelectorAll('.step-tab')];
     const panels = [...document.querySelectorAll('.step-panel')];
