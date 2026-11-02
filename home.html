@@ -1,0 +1,373 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>N°98 Maps — Bespoke map prints</title>
+  <meta name="description" content="Design a map of any city, street or coastline in your own colours and words. Printed to order and made to be framed.">
+  <link rel="icon" href="img/n98-favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Hanken+Grotesk:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400&display=swap">
+  <style>html, body { margin: 0; background: #F4F1EB; }</style>
+</head>
+<body>
+<!--
+  Landingspagina van N°98 Maps. Dezelfde opmaak wordt ook als Shopify-sectie
+  gebruikt (shopify/sections/n98-maps-home.liquid, gemaakt door
+  tools/build-shopify-home.py): alles staat daarom binnen .n98h en alle CSS is
+  daaraan gebonden, zodat het thema er niet doorheen praat. Blokken tussen
+  chrome:start / chrome:end (aankondiging, header, footer) zijn alleen voor
+  deze losse pagina — in Shopify levert het thema die zelf.
+-->
+<div class="n98h">
+<style>
+.n98h {
+  --paper: #F4F1EB; --card: #FBFAF7; --wall: #E6E0D5; --ink: #141414; --ink-2: #47433C; --mute: #5E594F;
+  --line: #DDD6CA; --line-strong: #B9B0A1; --accent: #1E3529; --pin: #D94848;
+  --serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
+  --sans: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, monospace;
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  background: var(--paper); color: var(--ink); font-family: var(--sans); font-size: 16px; font-weight: 400; line-height: 1.6;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+.n98h *, .n98h *::before, .n98h *::after { box-sizing: border-box; }
+.n98h h1, .n98h h2, .n98h h3, .n98h p, .n98h ul, .n98h figure { margin: 0; padding: 0; }
+.n98h h1, .n98h h2, .n98h h3 { font-family: var(--serif); font-weight: 300; letter-spacing: -0.01em; color: var(--ink); text-transform: none; }
+.n98h em { font-style: italic; font-weight: 400; }
+.n98h a { color: inherit; text-decoration: none; }
+.n98h img { display: block; max-width: 100%; height: auto; }
+.n98h :focus-visible { outline: 1px solid var(--ink); outline-offset: 3px; }
+.n98h .wrap { max-width: 1320px; margin: 0 auto; padding: 0 clamp(20px, 4vw, 48px); }
+.n98h .eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mute); }
+.n98h .btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 14px; min-height: 56px; padding: 0 30px;
+  font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase;
+  border: 1px solid var(--ink); transition: background 0.35s var(--ease), color 0.35s var(--ease);
+}
+.n98h .btn svg { transition: transform 0.35s var(--ease); }
+.n98h .btn:hover svg { transform: translateX(4px); }
+.n98h .btn-solid { background: var(--accent); border-color: var(--accent); color: #F4F1EB; }
+.n98h .btn-solid:hover { background: #152A1F; }
+.n98h .btn-line { background: transparent; color: var(--ink); }
+.n98h .btn-line:hover { background: var(--ink); color: var(--paper); }
+.n98h .link-line { font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 5px; }
+.n98h section { position: relative; }
+.n98h .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
+.n98h .reveal.in { opacity: 1; transform: none; }
+
+/* aankondiging + header (alleen losse pagina) */
+.n98h .note { background: var(--ink); color: #E9E3D8; text-align: center; padding: 9px 12px; font-family: var(--mono); font-size: clamp(8.5px, 2.2vw, 10.5px); letter-spacing: 0.2em; text-transform: uppercase; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.n98h .head { border-bottom: 1px solid var(--line); }
+.n98h .head .wrap { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 20px; padding-top: 22px; padding-bottom: 22px; }
+.n98h .head nav { display: flex; gap: 32px; font-size: 11px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98h .logo { display: flex; align-items: center; gap: 13px; }
+.n98h .logo img { height: 32px; width: auto; }
+.n98h .logo span { font-family: var(--mono); font-size: 11px; letter-spacing: 0.34em; padding: 3px 0 0 13px; border-left: 1px solid var(--line-strong); }
+.n98h .head-cta { justify-self: end; }
+.n98h .head-cta .btn { min-height: 44px; padding: 0 20px; }
+@media (max-width: 860px) {
+  .n98h .head nav { display: none; }
+  .n98h .head .wrap { grid-template-columns: auto 1fr; padding-top: 14px; padding-bottom: 14px; }
+  .n98h .logo img { height: 24px; }
+}
+
+/* hero */
+.n98h .hero .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: clamp(36px, 6vw, 88px); align-items: center; padding-top: clamp(40px, 7vw, 96px); padding-bottom: clamp(48px, 7vw, 96px); }
+.n98h .hero-copy { display: flex; flex-direction: column; gap: 26px; }
+.n98h .hero h1 { font-size: clamp(50px, 7vw, 100px); line-height: 0.96; letter-spacing: -0.02em; }
+.n98h .hero .lede { font-size: clamp(16px, 1.4vw, 19px); font-weight: 300; color: var(--ink-2); max-width: 44ch; }
+.n98h .hero .ctas { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px; }
+.n98h .hero figure { position: relative; }
+.n98h .hero figure img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
+.n98h .hero figcaption { position: absolute; left: 18px; bottom: 16px; background: rgba(244, 241, 235, 0.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 9px 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; }
+
+/* belofte-strook */
+.n98h .promise { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.n98h .promise .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px 28px; padding-top: 26px; padding-bottom: 26px; }
+.n98h .promise div { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--ink-2); }
+.n98h .promise svg { flex: 0 0 auto; }
+
+/* stappen */
+.n98h .steps .wrap { padding-top: clamp(72px, 10vw, 128px); padding-bottom: clamp(64px, 9vw, 112px); }
+.n98h .sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: clamp(36px, 5vw, 60px); }
+.n98h .sec-head h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; max-width: 15em; }
+.n98h .sec-head .stack { display: flex; flex-direction: column; gap: 14px; }
+.n98h .step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98h .step { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98h .step .num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98h .step h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98h .step p { color: var(--ink-2); font-weight: 300; }
+
+/* collectie */
+.n98h .collection { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.n98h .collection .wrap { padding-top: clamp(72px, 9vw, 112px); padding-bottom: clamp(72px, 9vw, 112px); }
+.n98h .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 52px 28px; }
+@media (max-width: 560px) { .n98h .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; } }
+.n98h .city { display: flex; flex-direction: column; gap: 14px; }
+.n98h .city .mat { background: var(--wall); padding: clamp(14px, 2.2vw, 30px); }
+.n98h .city img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #fff; padding: 3%; box-shadow: 0 1px 2px rgba(30, 24, 16, 0.12), 0 22px 34px -18px rgba(30, 24, 16, 0.55); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+.n98h .city:hover img { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(30, 24, 16, 0.12), 0 32px 44px -20px rgba(30, 24, 16, 0.6); }
+.n98h .city .meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
+.n98h .city .name { font-family: var(--serif); font-size: clamp(20px, 2vw, 25px); line-height: 1.1; }
+.n98h .city .pal { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--mute); text-transform: uppercase; }
+.n98h .city .price { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
+
+/* aan de muur */
+.n98h .wall .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(36px, 6vw, 88px); align-items: center; padding-top: clamp(72px, 10vw, 128px); padding-bottom: clamp(72px, 10vw, 128px); }
+.n98h .wall-copy { display: flex; flex-direction: column; gap: 22px; }
+.n98h .wall h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; }
+.n98h .wall p { color: var(--ink-2); font-weight: 300; max-width: 44ch; }
+.n98h .wall ul { list-style: none; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
+.n98h .wall li { display: flex; gap: 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
+.n98h .wall li span { font-family: var(--serif); font-style: italic; font-size: 18px; min-width: 2.2em; }
+.n98h .pins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; color: var(--pin); }
+.n98h .pins div { background: var(--card); border: 1px solid var(--line); aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+.n98h .pins svg { width: 46%; height: auto; }
+.n98h .pins b { font-family: var(--mono); font-weight: 400; font-size: 9.5px; letter-spacing: 0.16em; color: var(--mute); text-transform: uppercase; }
+
+/* cadeau */
+.n98h .gift { background: #141513; color: #EDE8DE; }
+.n98h .gift .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(40px, 7vw, 96px); align-items: center; padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
+.n98h .gift .pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: end; }
+.n98h .gift .pair img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #fff; padding: 3%; box-shadow: 0 34px 60px -26px rgba(0, 0, 0, 0.85); }
+.n98h .gift .pair img + img { margin-bottom: 64px; }
+.n98h .gift-copy { display: flex; flex-direction: column; gap: 24px; }
+.n98h .gift h2 { font-size: clamp(40px, 4.8vw, 66px); line-height: 1.02; color: #EDE8DE; }
+.n98h .gift p { color: #CFC8BA; font-weight: 300; max-width: 42ch; font-size: 17px; }
+.n98h .gift .eyebrow { color: #A9A296; }
+.n98h .gift .btn { background: #EDE8DE; border-color: #EDE8DE; color: #141513; align-self: flex-start; }
+.n98h .gift .btn:hover { background: #fff; }
+
+/* formaten */
+.n98h .sizes .wrap { padding-top: clamp(72px, 10vw, 128px); padding-bottom: clamp(64px, 9vw, 112px); }
+.n98h .ladder { display: flex; align-items: flex-end; gap: clamp(14px, 2.6vw, 38px); border-bottom: 1px solid var(--ink); overflow-x: auto; padding-bottom: 0; scrollbar-width: none; }
+.n98h .ladder::-webkit-scrollbar { display: none; }
+.n98h .rung { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; padding-bottom: 18px; }
+.n98h .rung i { display: block; border: 1px solid var(--ink); background: var(--card); }
+.n98h .rung b { font-family: var(--mono); font-weight: 400; font-size: 11px; }
+.n98h .rung small { font-size: 11.5px; color: var(--mute); margin-top: -6px; }
+
+/* faq */
+.n98h .faq { border-top: 1px solid var(--line); }
+.n98h .faq .wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 48px; padding-top: clamp(72px, 9vw, 112px); padding-bottom: clamp(72px, 9vw, 112px); }
+.n98h .faq h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; }
+.n98h details { border-top: 1px solid var(--line); padding: 22px 0; }
+.n98h details:first-of-type { border-top-color: var(--ink); }
+.n98h details:last-of-type { border-bottom: 1px solid var(--line); }
+.n98h summary { list-style: none; cursor: pointer; display: flex; justify-content: space-between; gap: 16px; font-family: var(--serif); font-size: 22px; line-height: 1.25; }
+.n98h summary::-webkit-details-marker { display: none; }
+.n98h summary::after { content: '+'; font-weight: 300; font-size: 26px; line-height: 1; transition: transform 0.35s var(--ease); }
+.n98h details[open] summary::after { transform: rotate(45deg); }
+.n98h details p { margin-top: 12px; color: var(--ink-2); font-weight: 300; max-width: 54ch; }
+
+/* nieuwsbrief + footer */
+.n98h .letter { background: var(--accent); color: #EFEAE0; }
+.n98h .letter .wrap { padding-top: clamp(72px, 9vw, 104px); padding-bottom: 40px; display: flex; flex-direction: column; gap: 64px; }
+.n98h .letter .row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 32px; align-items: end; }
+.n98h .letter h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.04; color: #EFEAE0; }
+.n98h .letter p { color: #CFD6CF; font-weight: 300; margin-top: 10px; }
+.n98h .letter form { display: flex; flex-wrap: wrap; gap: 10px; }
+.n98h .letter input[type=email] { flex: 1 1 240px; min-height: 56px; padding: 0 2px; border: 0; border-bottom: 1px solid #8FA394; background: transparent; color: #EFEAE0; font-family: var(--serif); font-size: 21px; border-radius: 0; }
+.n98h .letter input::placeholder { color: #9FB0A3; font-style: italic; }
+.n98h .letter input:focus { outline: none; border-bottom-color: #EFEAE0; }
+.n98h .letter button { min-height: 56px; padding: 0 28px; border: 0; background: #EFEAE0; color: var(--ink); font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; cursor: pointer; }
+.n98h .letter .msg { flex: 1 1 100%; font-size: 13px; color: #CFD6CF; }
+.n98h .foot { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; border-top: 1px solid #4F6656; padding-top: 30px; font-size: 13px; color: #CFD6CF; }
+.n98h .foot .logo span { border-left-color: #4F6656; color: #CFD6CF; }
+.n98h .foot nav { display: flex; flex-wrap: wrap; gap: 26px; }
+.n98h .foot nav a { color: #EFEAE0; }
+
+@media (prefers-reduced-motion: reduce) {
+  .n98h *, .n98h *::before, .n98h *::after { transition: none !important; animation: none !important; }
+  .n98h .reveal { opacity: 1; transform: none; }
+}
+</style>
+
+<!--chrome:start-->
+<div class="note">Every map is printed to order — made for one wall only</div>
+<header class="head">
+  <div class="wrap">
+    <nav aria-label="Main">
+      <a href="shop.html">Design your map</a>
+      <a href="#collection">City editions</a>
+      <a href="#gift">Gifts</a>
+    </nav>
+    <a class="logo" href="home.html" aria-label="N°98 Maps home"><img src="img/n98-logo.svg" alt="N°98" width="1840" height="656"><span>MAPS</span></a>
+    <div class="head-cta"><a class="btn btn-line" href="shop.html">Start designing</a></div>
+  </div>
+</header>
+<!--chrome:end-->
+
+<main>
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">52.3676° N / 4.9041° E</p>
+        <h1>The places that made you, <em>drawn to last.</em></h1>
+        <p class="lede">Design a map of any city, street or coastline in your own colours and words. Every print is made to order — and made to be framed.</p>
+        <div class="ctas">
+          <a class="btn btn-solid" href="shop.html">Design your map <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></a>
+          <a class="btn btn-line" href="#collection">City editions</a>
+        </div>
+      </div>
+      <figure>
+        <img src="img/home/hero.jpg" alt="Three framed N°98 map prints — Amsterdam, Venice and Copenhagen — on a dark green wall" width="1400" height="1400">
+        <figcaption>AMSTERDAM · VENICE · COPENHAGEN</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="promise" aria-label="Why N°98">
+    <div class="wrap">
+      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Any place on earth</div>
+      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><rect x="5" y="3" width="14" height="18"></rect><rect x="7.5" y="5.5" width="9" height="13"></rect></svg>White border, made to frame</div>
+      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Live preview — exactly what we print</div>
+      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><path d="M3 7h12v9H3z"></path><path d="M15 10h3.5L21 13v3h-6"></path><circle cx="7" cy="18" r="1.6"></circle><circle cx="17" cy="18" r="1.6"></circle></svg>Printed to order, sent to your door</div>
+    </div>
+  </section>
+
+  <section class="steps">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <h2>Four steps from a memory to a <em>map on the wall.</em></h2>
+        <a class="link-line" href="shop.html">Start designing</a>
+      </div>
+      <div class="step-grid">
+        <div class="step reveal"><span class="num">I</span><h3>Place</h3><p>Search any city, street or doorstep, then drag and zoom until the framing feels right.</p></div>
+        <div class="step reveal"><span class="num">II</span><h3>Style</h3><p>Choose from palettes composed to live on a wall — from midnight gold to glacier mist.</p></div>
+        <div class="step reveal"><span class="num">III</span><h3>Text</h3><p>Keep the place name or write your own: a name, a date, a line that matters.</p></div>
+        <div class="step reveal"><span class="num">IV</span><h3>Size</h3><p>Eight gallery sizes. See it hanging on a wall, to scale, before you order.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="collection" id="collection">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="stack"><p class="eyebrow">City editions</p><h2>Ready to hang, <em>ready to make yours.</em></h2></div>
+        <a class="link-line" href="shop.html">Design any city</a>
+      </div>
+      <div class="grid">
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/amsterdam.jpg" alt="Amsterdam map print in Electric Midnight Glow" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">Amsterdam</span><span class="pal">Electric Midnight Glow</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/lisbon.jpg" alt="Lisbon map print in Verdigris Dusk" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">Lisbon</span><span class="pal">Verdigris Dusk</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/new-york.jpg" alt="New York map print in Mint Etching" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">New York</span><span class="pal">Mint Etching</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/copenhagen.jpg" alt="Copenhagen map print in Bronze" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">Copenhagen</span><span class="pal">Bronze</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/stockholm.jpg" alt="Stockholm map print in Glacier Mist" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">Stockholm</span><span class="pal">Glacier Mist</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/los-angeles.jpg" alt="Los Angeles map print in Mauve" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">Los Angeles</span><span class="pal">Mauve</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/san-francisco.jpg" alt="San Francisco map print in Mono" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">San Francisco</span><span class="pal">Mono</span></div><span class="price">from €49</span></div></a>
+        <a class="city reveal" href="shop.html"><div class="mat"><img src="img/home/phoenix.jpg" alt="Phoenix map print in Coal Dune" loading="lazy" width="640" height="800"></div><div class="meta"><div><span class="name">Phoenix</span><span class="pal">Coal Dune</span></div><span class="price">from €49</span></div></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="wall">
+    <div class="wrap">
+      <div class="wall-copy reveal">
+        <p class="eyebrow">Mark the spot</p>
+        <h2>Where you met. Where you said yes. <em>Where you came home.</em></h2>
+        <p>Place a pin on the exact spot that matters — and drag it until it's right. Every pin keeps its own symbol.</p>
+        <ul>
+          <li><span>i.</span>Rings for the wedding, a paw for their favourite walk</li>
+          <li><span>ii.</span>A star, a tree, a heart — or simply a pin</li>
+          <li><span>iii.</span>Size and colour adjustable, crisp at every print size</li>
+        </ul>
+      </div>
+      <div class="pins reveal" aria-label="Pin symbols">
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 46C17 37 11 31 11 19a13 13 0 0 1 26 0c0 12-6 18-13 27z"></path><circle cx="24" cy="19" r="5" fill="#FBFAF7"></circle></svg><b>Pin</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.6"><circle cx="18" cy="30" r="10"></circle><circle cx="30" cy="30" r="10"></circle></g><path d="M18 8l4 4.5-4 5-4-5z"></path></svg><b>Rings</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 46C17 37 11 31 11 19a13 13 0 0 1 26 0c0 12-6 18-13 27z"></path><path d="M24 40C10 30 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 13-18 23z" fill="#FBFAF7" transform="translate(24 19) scale(0.36) translate(-24 -25)"></path></svg><b>Heart pin</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 40C10 30 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 13-18 23z"></path></svg><b>Heart</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><ellipse cx="24" cy="34" rx="11" ry="8.5"></ellipse><ellipse cx="10" cy="21" rx="4.2" ry="5.4" transform="rotate(-20 10 21)"></ellipse><ellipse cx="18.5" cy="11.5" rx="4.4" ry="5.8" transform="rotate(-8 18.5 11.5)"></ellipse><ellipse cx="29.5" cy="11.5" rx="4.4" ry="5.8" transform="rotate(8 29.5 11.5)"></ellipse><ellipse cx="38" cy="21" rx="4.2" ry="5.4" transform="rotate(20 38 21)"></ellipse></svg><b>Paw</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><circle cx="24" cy="15" r="10"></circle><circle cx="15" cy="22" r="8"></circle><circle cx="33" cy="22" r="8"></circle><circle cx="24" cy="25" r="8"></circle><rect x="22" y="28" width="4" height="14"></rect><rect x="14" y="41" width="20" height="2.4" rx="1.2"></rect></svg><b>Tree</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><polygon points="24,4 29.9,17.6 44.5,18.6 33.4,28 37,42.4 24,34.6 11,42.4 14.6,28 3.5,18.6 18.1,17.6"></polygon></svg><b>Star</b></div>
+        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M9 21L24 9l15 12v21H9z"></path><rect x="20.5" y="31" width="7" height="11" fill="#FBFAF7"></rect></svg><b>House</b></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="gift" id="gift">
+    <div class="wrap">
+      <div class="pair reveal">
+        <img src="img/home/venice.jpg" alt="Venice map print in Emerald Gold Noir" loading="lazy" width="640" height="800">
+        <img src="img/home/vienna.jpg" alt="Vienna map print in Claret" loading="lazy" width="640" height="800">
+      </div>
+      <div class="gift-copy reveal">
+        <p class="eyebrow">The gift</p>
+        <h2>For the place you met, the home you built, <em>the city you left.</em></h2>
+        <p>Add a name, a date or the coordinates of a doorstep. A personal map is the rare gift that is about both of you.</p>
+        <a class="btn" href="shop.html">Design a gift <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="sizes">
+    <div class="wrap">
+      <div class="sec-head reveal">
+        <div class="stack"><p class="eyebrow">Gallery sizes</p><h2>From a bedside shelf <em>to a statement wall.</em></h2></div>
+        <a class="link-line" href="shop.html">See it on your wall</a>
+      </div>
+      <div class="ladder reveal" aria-label="Available sizes">
+        <div class="rung"><i style="width:48px;height:60px"></i><b>20×25 cm</b><small>8×10 in</small></div>
+        <div class="rung"><i style="width:65px;height:84px"></i><b>27×35 cm</b><small>11×14 in</small></div>
+        <div class="rung"><i style="width:72px;height:96px"></i><b>30×40 cm</b><small>12×16 in</small></div>
+        <div class="rung"><i style="width:96px;height:120px"></i><b>40×50 cm</b><small>16×20 in</small></div>
+        <div class="rung"><i style="width:108px;height:144px"></i><b>45×60 cm</b><small>18×24 in</small></div>
+        <div class="rung"><i style="width:120px;height:168px"></i><b>50×70 cm</b><small>20×28 in</small></div>
+        <div class="rung"><i style="width:144px;height:216px"></i><b>60×90 cm</b><small>24×36 in</small></div>
+        <div class="rung"><i style="width:168px;height:240px"></i><b>70×100 cm</b><small>28×40 in</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq">
+    <div class="wrap">
+      <h2 class="reveal">Good <em>to know.</em></h2>
+      <div class="reveal">
+        <details open><summary>Will my print look like the preview?</summary><p>Yes. The preview updates live while you design and is exactly the file we send to print — white border included.</p></details>
+        <details><summary>Is it ready to frame?</summary><p>Every print has a white border, so it sits beautifully in a standard frame. [FRAME OPTIONS]</p></details>
+        <details><summary>When will it arrive?</summary><p>[DELIVERY TIMES AND LAST CHRISTMAS ORDER DATE]</p></details>
+        <details><summary>Can I return a personalised print?</summary><p>[RETURNS POLICY]</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="letter">
+    <div class="wrap">
+      <div class="row">
+        <div><h2>New city editions, <em>first.</em></h2><p>One letter when a new edition or palette is released. Nothing more.</p></div>
+        <!--newsletter:start-->
+        <form onsubmit="event.preventDefault(); this.querySelector('.msg').textContent = 'Thank you — the newsletter opens with the shop.';">
+          <label for="n98h-email" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
+          <input id="n98h-email" type="email" placeholder="Your email address" required>
+          <button type="submit">Subscribe</button>
+          <p class="msg" aria-live="polite"></p>
+        </form>
+        <!--newsletter:end-->
+      </div>
+      <!--chrome:start-->
+      <div class="foot">
+        <a class="logo" href="home.html" aria-label="N°98 Maps home"><img src="img/n98-logo-cream.svg" alt="N°98" width="1840" height="656" style="height:26px"><span>MAPS</span></a>
+        <nav aria-label="Footer"><a href="shop.html">Design your map</a><a href="#collection">City editions</a><a href="#faq">Shipping &amp; returns</a></nav>
+        <span>© 2026 N°98 Maps</span>
+      </div>
+      <!--chrome:end-->
+    </div>
+  </section>
+</main>
+
+<script>
+  // Zachte "fade-up" zodra blokken in beeld komen.
+  (function () {
+    var els = document.querySelectorAll('.n98h .reveal');
+    if (!('IntersectionObserver' in window)) { els.forEach(function (e) { e.classList.add('in'); }); return; }
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); io.unobserve(en.target); } });
+    }, { rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function (e) { io.observe(e); });
+  })();
+</script>
+</div>
+</body>
+</html>
