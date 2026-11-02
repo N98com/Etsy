@@ -1264,6 +1264,7 @@ window.LocationApp = (() => {
       palette: { id: state.mapPaletteId, name: palette.name || state.mapPaletteId },
       layoutId: state.layoutId, maskId: state.maskId, pinIconId: state.pinIconId, pinScale: state.pinScale,
       matColor: maskColorInput.value,
+      printBorder: printBorderCheck.checked,
       captionTextColor: captionColorOverrideCheck.checked ? captionColorInput.value : null,
       style: { gta: state.gtaStyle, mw2: state.mw2Style, rdr2: state.rdr2Style, experimental: state.experimentalStyle, nightlight: state.nightlightStyle },
       caption: {

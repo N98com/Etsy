@@ -99,8 +99,10 @@
     ['placeFontSizeRow', 'countryFontSizeRow', 'coordsFontSizeRow']
       .forEach(id => move(id, 'shopSlotTextSizes'));
     $('regionFontSizeRow').hidden = true;
-    const borderLabel = $('printBorderCheck') && $('printBorderCheck').closest('label');
-    if (borderLabel) $('shopSlotBorder').appendChild(borderLabel);
+    // Witte rand: altijd aan in de shop (de posters zijn bedoeld om in te
+    // lijsten). Het vinkje blijft verborgen geparkeerd; location.js leest het
+    // bij de export en in de ontwerpgegevens.
+    $('printBorderCheck').checked = true;
     $('locationSearchInput').placeholder = 'A city, a street, an address…';
     $('pinAddressInput').placeholder = '…or type the address';
 
@@ -281,6 +283,21 @@
     }));
     setInterval(updatePlacard, 1500); // plaatsnaam komt asynchroon binnen na zoeken/pannen
 
+    // ---- Witte rand in de preview ----
+    // De export zet er 3% van de kortste zijde aan wit omheen (zie
+    // PRINT_BORDER_FRACTION in mapRender.js). In de live kaart tekenen we die
+    // rand niet (dat zou slepen/pins verstoren), dus tonen we hem eromheen.
+    const PRINT_BORDER = 0.03;
+    const liveCanvas = $('locationCanvas');
+    function updateBorderRing() {
+      const r = liveCanvas.getBoundingClientRect();
+      const n = Math.max(2, Math.round(Math.min(r.width, r.height) * PRINT_BORDER / (1 - 2 * PRINT_BORDER)));
+      liveCanvas.style.setProperty('--print-border', n + 'px');
+    }
+    if (window.ResizeObserver) new ResizeObserver(updateBorderRing).observe(liveCanvas);
+    window.addEventListener('resize', updateBorderRing);
+    updateBorderRing();
+
     // ---- Studio / Aan de muur ----
     const stage = document.querySelector('.shop-stage');
     const stageFrame = document.querySelector('.stage-frame');
@@ -348,10 +365,13 @@
       ctx.strokeStyle = 'rgba(60, 40, 20, 0.35)'; ctx.lineWidth = 1.5;
       ctx.strokeRect(x + 0.75, y + 0.75, ow - 1.5, oh - 1.5);
 
-      // de print
+      // de print, met dezelfde witte rand als het printbestand
       const ix = x + f, iy = y + f;
+      const wb = Math.min(pw, ph) * 0.03;
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(ix, iy, pw, ph);
       ctx.imageSmoothingQuality = 'high';
-      ctx.drawImage(mapCanvas, ix, iy, pw, ph);
+      ctx.drawImage(mapCanvas, ix + wb, iy + wb, pw - 2 * wb, ph - 2 * wb);
 
       // diepte: de lijst werpt een smalle schaduw op de print
       const depth = Math.max(6, f * 0.45);
