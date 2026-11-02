@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "n98_maps_home": {
+      "type": "n98-maps-home",
+      "settings": {}
+    }
+  },
+  "order": [
+    "n98_maps_home"
+  ]
+}
