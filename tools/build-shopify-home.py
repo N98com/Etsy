@@ -54,7 +54,7 @@ assert n == 1, "newsletter block not found"
 
 # 4. afbeeldingen uit de thema-assets
 images = sorted(set(re.findall(r'src="img/home/([a-z0-9-]+\.jpg)"', body)))
-body = re.sub(r'src="img/home/([a-z0-9-]+\.jpg)"', r"""src="{{ 'n98-\1' | asset_url }}\"""", body)
+body = re.sub(r'src="img/home/([a-z0-9-]+\.jpg)"', lambda m: "src=\"{{ 'n98-" + m.group(1) + "' | asset_url }}\"", body)
 
 # 5. knoppen naar de configurator-productpagina
 body = body.replace('href="shop.html"', 'href="{{ n98_configurator_url }}"')
