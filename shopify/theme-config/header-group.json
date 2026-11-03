@@ -33,7 +33,9 @@
         "padding-block-end": 12
       },
       "custom_css": [
-        ".announcement-bar__text {font-family: 'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.24em; line-height: 1.5;}"
+        ".announcement-bar__slides {width: 100%; max-width: none; justify-items: center;}",
+        ".announcement-bar__slide {width: 100%; display: flex; justify-content: center; text-align: center;}",
+        ".announcement-bar__text {width: 100%; text-align: center; font-family: 'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.24em; line-height: 1.5; padding-inline-start: 0.24em;}"
       ]
     },
     "header_section": {
