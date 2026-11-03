@@ -398,8 +398,8 @@
         liveCanvas.style.setProperty('--ring-color', FRAME_RING[fr]);
         return;
       }
-      const n = Math.max(2, Math.round(Math.min(r.width, r.height) * PRINT_BORDER / (1 - 2 * PRINT_BORDER)));
-      liveCanvas.style.setProperty('--print-border', n + 'px');
+      // zonder lijst: de print is rand-tot-rand, dus geen witte rand meer
+      liveCanvas.style.setProperty('--print-border', '0px');
       liveCanvas.style.setProperty('--ring-color', '#ffffff');
     }
     if (window.ResizeObserver) new ResizeObserver(updateBorderRing).observe(liveCanvas);
@@ -486,7 +486,7 @@
 
       // de print, met dezelfde witte rand als het printbestand
       const ix = x + f, iy = y + f;
-      const wb = look ? 0 : Math.min(pw, ph) * 0.03; // ingelijst: geen witte rand (valt onder de lijst)
+      const wb = 0; // rand-tot-rand: geen witte rand meer
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(ix, iy, pw, ph);
       ctx.imageSmoothingQuality = 'high';
