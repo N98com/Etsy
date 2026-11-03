@@ -8,7 +8,7 @@
         "announcement_BxgCk9": {
           "type": "_announcement",
           "settings": {
-            "text": "Every map is printed to order — made for one wall only",
+            "text": "Every map is printed to order",
             "font": "var(--font-subheading--family)",
             "font_size": "0.625rem",
             "letter_spacing": "loose",
