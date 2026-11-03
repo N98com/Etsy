@@ -13,7 +13,7 @@
   --accent: #1E3529;
   --gold: #9C7A3C;
   --panel-w: 480px;
-  --stage-h: 44svh;
+  --stage-h: 52svh;
   --serif: 'Cormorant Garamond', 'Times New Roman', Georgia, serif;
   --sans: 'Hanken Grotesk', system-ui, -apple-system, sans-serif;
   --mono: 'IBM Plex Mono', ui-monospace, monospace;
@@ -118,6 +118,28 @@ button { cursor: pointer; }
 .room-art { position: absolute; left: 0; top: 0; width: 1020px; height: 1100px; transform-origin: 0 0; }
 @keyframes roomIn { from { opacity: 0; } to { opacity: 1; } }
 .is-room .location-canvas-wrap { visibility: hidden; }
+
+/* ---------- vergroten (mobiel): de kaart schermvullend ---------- */
+.stage-zoom {
+  position: absolute; right: 2px; top: 2px; z-index: 6;
+  display: flex; align-items: center; gap: 8px; min-width: 40px; height: 40px; padding: 0 11px; justify-content: center;
+  border: 1px solid rgba(20, 20, 20, 0.12); background: rgba(251, 250, 247, 0.9); color: var(--ink);
+  backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
+}
+.stage-zoom .ico-close, .stage-zoom .stage-zoom-label { display: none; }
+.is-full .stage-zoom .ico-open { display: none; }
+.is-full .stage-zoom .ico-close, .is-full .stage-zoom .stage-zoom-label { display: inline-block; }
+.is-room .stage-zoom { display: none; }
+.stage-sharp { position: absolute; pointer-events: none; }
+.shop-stage.is-full {
+  position: fixed; inset: 0; z-index: 60; height: 100vh; height: 100dvh;
+  padding: 12px 12px calc(14px + env(safe-area-inset-bottom));
+}
+.shop-stage.is-full .stage-hint { font-size: 12.5px; }
+html.stage-full, html.stage-full body { overflow: hidden; }
+html.stage-full .buy-bar, html.stage-full .shop-toast { visibility: hidden; }
+@media (min-width: 900px) { .stage-zoom { display: none; } }
 
 .stage-placard {
   margin: 10px 0 0; display: flex; align-items: center; justify-content: center; gap: 12px;

@@ -11,7 +11,7 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=12">
+  <link rel="stylesheet" href="css/shop.css?v=13">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
@@ -41,7 +41,13 @@
         <div class="stage-frame">
           <div class="location-canvas-wrap" id="locationCanvasWrap">
             <canvas id="locationCanvas"></canvas>
+            <canvas class="stage-sharp" id="stageSharp" aria-hidden="true" hidden></canvas>
           </div>
+          <button type="button" class="stage-zoom" id="stageZoomBtn" aria-label="Enlarge the map" aria-pressed="false">
+            <svg class="ico-open" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"></circle><path d="M15.5 15.5L21 21M10.5 7.5v6M7.5 10.5h6"></path></svg>
+            <svg class="ico-close" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"></path></svg>
+            <span class="stage-zoom-label">Done</span>
+          </button>
           <div class="room-view" id="roomView" hidden>
             <div class="room-box" id="roomBox">
               <div class="room-inner" id="roomInner">
@@ -344,7 +350,7 @@
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=57"></script>
-  <script src="js/location.js?v=73"></script>
-  <script src="js/shop.js?v=15"></script>
+  <script src="js/location.js?v=74"></script>
+  <script src="js/shop.js?v=16"></script>
 </body>
 </html>

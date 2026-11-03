@@ -611,7 +611,9 @@ window.LocationApp = (() => {
       exportPNGBtn.textContent = 'Export PNG';
     }
     MapRender.render(new CanvasPainter(ctx, canvas.width, canvas.height), canvas.width, canvas.height, buildRenderOpts());
+    renderListeners.forEach(f => { try { f(); } catch (e) { /* luisteraar mag de kaart nooit breken */ } });
   }
+  const renderListeners = [];
   function requestRender() {
     if (renderQueued) return;
     renderQueued = true;
@@ -1776,6 +1778,9 @@ window.LocationApp = (() => {
     onShow,
     getSummary: () => buildDesignSummary(),
     getDesignState: () => exportDesignState(),
+    // Zelfde kaart, op een ander (bv. scherper) formaat tekenen — voor de vergrote weergave in shop.html
+    renderInto: cnv => MapRender.render(new CanvasPainter(cnv.getContext('2d'), cnv.width, cnv.height), cnv.width, cnv.height, buildRenderOpts()),
+    onRender: f => { renderListeners.push(f); },
     setOrderExtras: x => {
       orderExtras = Object.assign({}, orderExtras, x || {});
       // Ingelijst: géén witte rand in het printbestand. De kaart loopt door tot

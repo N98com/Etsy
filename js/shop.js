@@ -406,6 +406,47 @@
     window.addEventListener('resize', updateBorderRing);
     updateBorderRing();
 
+    // ---- Vergroten: de kaart schermvullend, met een scherpe weergave ----
+    // De live kaart tekent op een vaste resolutie (900 px lange zijde). Groot
+    // op een telefoon wordt dat zacht, dus zodra je stilstaat tekent een tweede
+    // canvas dezelfde kaart op schermresolutie eroverheen (klikken gaan er
+    // dwars doorheen naar de echte kaart).
+    const zoomBtn = $('stageZoomBtn');
+    const sharp = $('stageSharp');
+    const stageEl = document.querySelector('.shop-stage');
+    let sharpTimer = null, interacting = false;
+    function hideSharp() { sharp.hidden = true; }
+    function drawSharp() {
+      if (!stageEl.classList.contains('is-full') || interacting || !window.LocationApp || !window.LocationApp.renderInto) return;
+      const r = liveCanvas.getBoundingClientRect();
+      const wrap = liveCanvas.parentElement.getBoundingClientRect();
+      const dpr = Math.min(3, window.devicePixelRatio || 1);
+      const w = Math.round(r.width * dpr), h = Math.round(r.height * dpr);
+      if (w <= liveCanvas.width * 1.15) { hideSharp(); return; } // al scherp genoeg
+      if (sharp.width !== w || sharp.height !== h) { sharp.width = w; sharp.height = h; }
+      sharp.style.left = (r.left - wrap.left) + 'px'; sharp.style.top = (r.top - wrap.top) + 'px';
+      sharp.style.width = r.width + 'px'; sharp.style.height = r.height + 'px';
+      window.LocationApp.renderInto(sharp);
+      sharp.hidden = false;
+    }
+    function scheduleSharp() { hideSharp(); clearTimeout(sharpTimer); sharpTimer = setTimeout(drawSharp, 260); }
+    if (window.LocationApp && window.LocationApp.onRender) window.LocationApp.onRender(() => { if (stageEl.classList.contains('is-full')) scheduleSharp(); });
+    liveCanvas.addEventListener('pointerdown', () => { interacting = true; hideSharp(); });
+    window.addEventListener('pointerup', () => { if (interacting) { interacting = false; scheduleSharp(); } });
+    window.addEventListener('pointercancel', () => { interacting = false; scheduleSharp(); });
+    liveCanvas.addEventListener('wheel', scheduleSharp, { passive: true });
+    function setFull(on) {
+      stageEl.classList.toggle('is-full', on);
+      document.documentElement.classList.toggle('stage-full', on);
+      zoomBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
+      zoomBtn.setAttribute('aria-label', on ? 'Close the enlarged map' : 'Enlarge the map');
+      hideSharp();
+      requestAnimationFrame(() => { updateBorderRing(); if (on) scheduleSharp(); });
+    }
+    zoomBtn.addEventListener('click', () => setFull(!stageEl.classList.contains('is-full')));
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && stageEl.classList.contains('is-full')) setFull(false); });
+    window.addEventListener('resize', () => { if (stageEl.classList.contains('is-full')) scheduleSharp(); });
+
     // ---- Studio / Aan de muur ----
     const stage = document.querySelector('.shop-stage');
     const stageFrame = document.querySelector('.stage-frame');
