@@ -413,3 +413,10 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
   .location-controls-old, .location-main { display: contents; }
   #oldPanelExport { order: 5; margin-top: 0; }
 }
+
+/* "Open order design"-venster */
+.order-dialog { border: 1px solid var(--line); border-radius: 10px; background: var(--panel); color: var(--ink); padding: 0; width: min(560px, 92vw); }
+.order-dialog::backdrop { background: rgba(0, 0, 0, 0.55); }
+.order-dialog-inner { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
+.order-dialog h2 { margin: 0; font-size: 1.05rem; }
+.order-dialog textarea { width: 100%; box-sizing: border-box; font-family: ui-monospace, monospace; font-size: 0.78rem; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 10px; resize: vertical; }

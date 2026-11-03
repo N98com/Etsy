@@ -1,0 +1,139 @@
+{%- comment -%}
+  N°98 Maps — configurator product page.
+  Shows the full step-by-step map designer (shop.html on GitHub Pages) in a
+  full-height frame. Prices and sizes come from this product's variants
+  (SKU = size id, e.g. in20x28), so the price in the tool always equals the
+  price at checkout. When the customer presses "Add to cart" the designer
+  sends the complete design here; we add the matching variant to the cart with
+  the design attached as line-item properties ("_Design JSON" is hidden from
+  the customer but visible to you in the order admin) and open the cart.
+{%- endcomment -%}
+{%- liquid
+  assign app_url = section.settings.app_url | default: 'https://n98com.github.io/Etsy/shop.html'
+  assign price_list = ''
+  for v in product.variants
+    if v.sku != blank and v.available
+      assign pair = v.sku | append: ':' | append: v.price
+      if price_list == ''
+        assign price_list = pair
+      else
+        assign price_list = price_list | append: ',' | append: pair
+      endif
+    endif
+  endfor
+-%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&prices={{ price_list | url_encode }}{%- endcapture -%}
+
+<section class="n98c" id="n98c-{{ section.id }}">
+  <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
+  <iframe
+    id="n98c-frame-{{ section.id }}"
+    class="n98c-frame"
+    src="{{ frame_src }}"
+    title="{{ product.title | escape }}"
+    allow="clipboard-write; fullscreen"
+  ></iframe>
+  <noscript><p class="n98c-note">Please enable JavaScript to design your map.</p></noscript>
+</section>
+
+<style>
+  .n98c { position: relative; width: 100%; background: #F4F1EB; }
+  .n98c-frame { display: block; width: 100%; height: 100vh; height: 100dvh; min-height: 640px; border: 0; background: #F4F1EB; }
+  .n98c-visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .n98c-note { padding: 40px 20px; text-align: center; }
+</style>
+
+<script>
+  (function () {
+    var frame = document.getElementById('n98c-frame-{{ section.id }}');
+    var APP_ORIGIN = new URL(frame.src).origin;
+    var CART_URL = {{ routes.cart_url | json }};
+    var CART_ADD_URL = {{ routes.cart_add_url | append: '.js' | json }};
+    var VARIANTS = {
+      {%- for v in product.variants -%}
+        {%- if v.sku != blank -%}{{ v.sku | json }}: { id: {{ v.id }}, available: {{ v.available | json }} }{%- unless forloop.last -%},{%- endunless -%}{%- endif -%}
+      {%- endfor -%}
+    };
+    var FALLBACK_VARIANT = {{ product.selected_or_first_available_variant.id | json }};
+
+    // Frame fills the screen below the theme header.
+    function fit() {
+      var top = frame.getBoundingClientRect().top + window.scrollY;
+      frame.style.height = Math.max(640, window.innerHeight - Math.max(0, top)) + 'px';
+    }
+    fit();
+    window.addEventListener('resize', fit);
+    window.addEventListener('load', fit);
+
+    function reply(type, message) {
+      frame.contentWindow.postMessage({ source: 'n98-shop', type: type, message: message }, APP_ORIGIN);
+    }
+
+    function joinParts(parts) {
+      return parts.filter(function (p) { return p && String(p).trim(); }).join(', ');
+    }
+
+    window.addEventListener('message', function (e) {
+      if (e.origin !== APP_ORIGIN || e.source !== frame.contentWindow) return;
+      var msg = e.data;
+      if (!msg || msg.source !== 'mapgen2' || msg.type !== 'confirm' || !msg.payload) return;
+      var d = msg.payload.design || {};
+      var size = d.size || {};
+      var variant = VARIANTS[size.id];
+      if (!variant || !variant.available) {
+        reply('error', 'This size is not available right now — please pick another size.');
+        return;
+      }
+      var loc = d.location || {};
+      var st = d.state || {};
+      var text = st.text || {};
+      var pins = d.pins || [];
+      var props = {
+        'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
+        'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
+        'Size': size.label || size.id,
+        'Palette': (d.palette && d.palette.name) || '',
+        'Title': text.place || '',
+        'Subtitle': joinParts([text.region, text.country]),
+        'Pins': pins.length ? String(pins.length) : 'None',
+        '_Design JSON': JSON.stringify(d)
+      };
+      Object.keys(props).forEach(function (k) { if (props[k] === '') delete props[k]; });
+
+      fetch(CART_ADD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variant.id || FALLBACK_VARIANT, quantity: 1, properties: props }] })
+      })
+        .then(function (r) {
+          return r.json().then(function (j) {
+            if (!r.ok) throw new Error(j && (j.description || j.message) || 'Could not add to cart');
+            return j;
+          });
+        })
+        .then(function () {
+          reply('added');
+          setTimeout(function () { window.location.href = CART_URL; }, 400);
+        })
+        .catch(function (err) {
+          reply('error', (err && err.message) || 'Could not add to cart — please try again.');
+        });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "N°98 configurator",
+  "tag": "div",
+  "class": "n98c-section",
+  "settings": [
+    {
+      "type": "url",
+      "id": "app_url",
+      "label": "Designer URL",
+      "info": "Leave empty to use https://n98com.github.io/Etsy/shop.html"
+    }
+  ]
+}
+{% endschema %}

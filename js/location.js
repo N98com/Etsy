@@ -1248,6 +1248,87 @@ window.LocationApp = (() => {
   // pagina toch niks aan heeft. Wordt zowel nu (bij bevestigen) als later
   // bij het genereren van het print-klare bestand gebruikt, dus de vorm
   // hiervan is ook de contractvorm richting de fulfillment-pipeline.
+  // ---- Ontwerpcode: het complete ontwerp, om een bestelling exact na te maken ----
+  // Alles wat het beeld bepaalt: uitsnede (middelpunt + zoom), formaat,
+  // palet, layout, vorm, kleuren, de teksten zoals ze getekend zijn,
+  // lettertype en -groottes, pins (met eigen icoon), witte rand. Met
+  // applyDesignState() tekent de werkbank precies hetzelfde beeld, waarna
+  // "Export" het printbestand op volle resolutie maakt.
+  const DESIGN_STATE_VERSION = 1;
+  function exportDesignState() {
+    const cap = buildRenderOpts().caption;
+    return {
+      v: DESIGN_STATE_VERSION,
+      center: { lat: +state.center.lat.toFixed(7), lon: +state.center.lon.toFixed(7) },
+      scale: state.scale,
+      ratioId: state.ratioId,
+      palette: state.mapPaletteId,
+      layout: state.layoutId,
+      mask: state.maskId,
+      matColor: maskColorInput.value,
+      textColor: captionColorOverrideCheck.checked ? captionColorInput.value : null,
+      font: state.captionFontId,
+      show: { place: state.showPlace, region: state.showRegion, country: state.showCountry, coords: state.showCoords },
+      text: { place: cap.place || '', region: cap.region || '', country: cap.country || '' },
+      textScale: { place: state.placeFontScale, region: state.regionFontScale, country: state.countryFontScale, coords: state.coordsFontScale },
+      pins: state.pins.map(p => ({ lat: +p.lat.toFixed(7), lon: +p.lon.toFixed(7), icon: p.icon || state.pinIconId })),
+      pinColor: pinColorInput.value,
+      pinScale: state.pinScale,
+      printBorder: printBorderCheck.checked,
+      style: state.gtaStyle ? 'gta' : state.mw2Style ? 'mw2' : state.rdr2Style ? 'rdr2' : state.experimentalStyle ? 'experimental' : state.nightlightStyle ? 'nightlight' : null,
+    };
+  }
+  function applyDesignState(d) {
+    if (!d || typeof d !== 'object') throw new Error('No design found');
+    if (d.state) d = d.state; // de hele bestel-samenvatting mag ook
+    if (d.v !== DESIGN_STATE_VERSION) throw new Error('Unknown design version');
+    // formaat eerst: dat bepaalt de canvasgrootte (en dus de uitsnede)
+    if (d.ratioId && [...ratioTabs.options].some(o => o.value === d.ratioId)) {
+      ratioTabs.value = d.ratioId;
+      selectRatio(d.ratioId);
+      showFormatHint(currentRatioPreset());
+    }
+    setGameStyle(d.style || null);
+    state.mapPaletteId = d.palette || state.mapPaletteId;
+    [...paletteGrid.children, ...solidPaletteGrid.children].forEach(c => c.classList.toggle('active', c.dataset.paletteId === state.mapPaletteId));
+    if (d.layout) selectLayout(d.layout);
+    if (d.mask) selectMask(d.mask);
+    if (d.font) selectCaptionFont(d.font);
+    if (d.matColor) maskColorInput.value = d.matColor;
+    captionColorOverrideCheck.checked = !!d.textColor;
+    captionColorInput.disabled = !d.textColor;
+    if (d.textColor) captionColorInput.value = d.textColor;
+    const show = d.show || {};
+    showPlaceCheck.checked = state.showPlace = show.place !== false;
+    showRegionCheck.checked = state.showRegion = !!show.region;
+    showCountryCheck.checked = state.showCountry = show.country !== false;
+    showCoordsCheck.checked = state.showCoords = show.coords !== false;
+    refreshFontSizeRowVisibility();
+    // de teksten precies zoals de klant ze zag (ook als die automatisch waren)
+    const t = d.text || {};
+    placeNameInput.value = t.place || '';
+    regionNameInput.value = t.region || '';
+    countryNameInput.value = t.country || '';
+    const ts = d.textScale || {};
+    state.placeFontScale = +(ts.place || 1); placeFontSizeInput.value = state.placeFontScale;
+    state.regionFontScale = +(ts.region || 1); regionFontSizeInput.value = state.regionFontScale;
+    state.countryFontScale = +(ts.country || 1); countryFontSizeInput.value = state.countryFontScale;
+    state.coordsFontScale = +(ts.coords || 1); coordsFontSizeInput.value = state.coordsFontScale;
+    state.pins = (d.pins || []).map(p => ({ lat: +p.lat, lon: +p.lon, icon: p.icon || 'basic' }));
+    state.selectedPin = null;
+    if (d.pinColor) { pinColorInput.value = d.pinColor; pinColorTouched = true; }
+    state.pinScale = +(d.pinScale || 1); pinSizeInput.value = state.pinScale;
+    printBorderCheck.checked = d.printBorder !== false;
+    // uitsnede als laatste, zodat niets hem nog verschuift
+    if (d.center) state.center = { lat: +d.center.lat, lon: +d.center.lon };
+    if (d.scale) state.scale = clampScale(+d.scale);
+    refreshPinControls();
+    updateExportSizes(currentRatioPreset());
+    invalidateFetch();
+    render();
+    scheduleFetch(0);
+  }
+
   function buildDesignSummary() {
     const preset = currentRatioPreset();
     const opts = buildRenderOpts();
@@ -1272,6 +1353,8 @@ window.LocationApp = (() => {
         showCountry: opts.caption.showCountry, showCoords: opts.caption.showCoords,
       },
       pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, color: pinColorInput.value })),
+      // het complete ontwerp — hiermee maakt de werkbank de bestelling exact na
+      state: exportDesignState(),
     };
   }
 
@@ -1624,6 +1707,8 @@ window.LocationApp = (() => {
   return {
     onShow,
     getSummary: () => buildDesignSummary(),
+    getDesignState: () => exportDesignState(),
+    applyDesign: d => applyDesignState(d),
     getPins: () => ({
       selected: state.selectedPin,
       pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId })),

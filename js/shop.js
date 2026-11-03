@@ -10,7 +10,30 @@
     in8x10: 49, in11x14: 59, in12x16: 69, in16x20: 79,
     in18x24: 89, in20x28: 99, in24x36: 129, in28x40: 149,
   };
-  const CURRENCY = '€';
+  let CURRENCY = '€';
+
+  // In Shopify (iframe op de productpagina) geeft de winkel zelf de prijzen
+  // mee: ?prices=in8x10:4900,in11x14:5900,… (centen, per SKU = formaat-id).
+  // Dan zijn de prijzen in de tool altijd gelijk aan die in de kassa, en
+  // tonen we alleen de formaten die in Shopify bestaan.
+  (function readShopPrices() {
+    const qs = new URLSearchParams(window.location.search);
+    const list = qs.get('prices');
+    if (qs.get('currency')) CURRENCY = qs.get('currency');
+    if (!list) return;
+    const fromShop = {};
+    list.split(',').forEach(pair => {
+      const [id, cents] = pair.split(':');
+      if (id && /^\d+$/.test(cents || '')) fromShop[id.trim()] = +cents / 100;
+    });
+    if (!Object.keys(fromShop).length) return;
+    Object.keys(PRICES).forEach(k => delete PRICES[k]);
+    Object.assign(PRICES, fromShop);
+  })();
+  function money(v) {
+    if (v == null) return '—';
+    return CURRENCY + (Number.isInteger(v) ? String(v) : v.toFixed(2).replace('.', ','));
+  }
   const DEFAULT_SIZE = 'in20x28'; // 50×70 cm — het populairste wandformaat
   const STEP_NAMES = ['Place', 'Style', 'Text', 'Size'];
 
@@ -219,7 +242,7 @@
         '<span class="size-meta"><span class="size-in"></span><span class="size-price"></span></span></span>';
       btn.querySelector('.size-cm').textContent = cm;
       btn.querySelector('.size-in').textContent = inch;
-      btn.querySelector('.size-price').textContent = CURRENCY + PRICES[opt.value];
+      btn.querySelector('.size-price').textContent = money(PRICES[opt.value]);
       // klein silhouet op schaal, zodat je de verhoudingen ziet
       const m = cm.match(/(\d+)×(\d+)/);
       if (m) {
@@ -245,7 +268,7 @@
         b.classList.toggle('active', on);
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      $('buyAmount').textContent = CURRENCY + (PRICES[id] ?? '—');
+      $('buyAmount').textContent = money(PRICES[id]);
       $('buySize').textContent = currentCm().toUpperCase();
       $('stageSize').textContent = currentCm();
       updateSummary();
@@ -269,7 +292,7 @@
         ['Place', placeName(s)],
         ['Palette', s && s.palette ? s.palette.name : ''],
         ['Size', currentCm()],
-        ['Price', CURRENCY + (PRICES[ratioSelect.value] ?? '—')],
+        ['Price', money(PRICES[ratioSelect.value])],
       ];
       rows.forEach(([k, v]) => {
         if (!v) return;
@@ -438,7 +461,16 @@
     const confirmBtn = $('embedConfirmBtn');
     const toastEl = $('shopToast');
     let toastTimer = null;
-    if (inIframe) buyLabel.textContent = 'Confirm design';
+    // In Shopify: deze knop legt het ontwerp meteen in het winkelmandje (de
+    // productpagina doet de eigenlijke toevoeging en stuurt een bericht terug).
+    let adding = false;
+    window.addEventListener('message', e => {
+      if (e.source !== window.parent || !e.data || e.data.source !== 'n98-shop') return;
+      adding = false;
+      buyBtn.disabled = false;
+      if (e.data.type === 'added') { buyLabel.textContent = 'Added — opening cart'; toast('Added to your cart.'); }
+      if (e.data.type === 'error') { buyLabel.textContent = 'Add to cart'; toast(e.data.message || 'Something went wrong — please try again.'); }
+    });
 
     function toast(msg) {
       toastEl.textContent = msg;
@@ -448,10 +480,15 @@
     }
     buyBtn.addEventListener('click', () => {
       if (confirmBtn.disabled) { toast('Your map is still being drawn — one moment.'); return; }
+      if (adding) return;
       confirmBtn.click(); // location.js: bouwt ontwerp-samenvatting + preview en stuurt die naar Shopify
-      toast(inIframe
-        ? 'Design confirmed — you can now add it to your cart.'
-        : 'Your design is ready. Checkout opens here once the shop is live.');
+      if (inIframe) {
+        adding = true;
+        buyBtn.disabled = true;
+        buyLabel.textContent = 'Adding…';
+      } else {
+        toast('Your design is ready. Checkout opens in the N°98 Maps shop.');
+      }
     });
 
     // location.js start op een formaat dat niet (meer) in de lijst staat —

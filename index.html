@@ -6,7 +6,7 @@
   <title>MapGen2.0</title>
   <!-- ?v=N: zelfde cache-busting reden als bij de js/-bestanden verderop —
        verhoog bij elke push die css/style.css wijzigt. -->
-  <link rel="stylesheet" href="css/style.css?v=9">
+  <link rel="stylesheet" href="css/style.css?v=10">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
        js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
@@ -48,11 +48,28 @@
           <!-- Snelkoppeling naar de klant-configurator (shop.html) — opent
                in een nieuw tabblad, zodat je werkbank open blijft. -->
           <a href="shop.html" target="_blank" rel="noopener" class="settings-menu-item">🛍️ Shop</a>
+          <button type="button" id="orderDesignMenuBtn" class="settings-menu-item">📦 Open order design</button>
         </div>
       </div>
       <button id="logoutBtn" class="ghost">Log out</button>
     </div>
   </header>
+
+  <!-- Bestelling namaken: plak de ontwerpcode (line item property "_Design JSON"
+       uit de Shopify-bestelling) — de kaart wordt exact zo opgebouwd als de
+       klant hem zag, daarna Export voor het printbestand. -->
+  <dialog id="orderDesignDialog" class="order-dialog">
+    <form method="dialog" class="order-dialog-inner">
+      <h2>Open order design</h2>
+      <p class="hint">Paste the design code from the order (the <b>_Design JSON</b> line of the item). The map is rebuilt exactly as the customer designed it — then use Export for the print file.</p>
+      <textarea id="orderDesignInput" rows="9" placeholder='{"location": …, "state": {"v": 1, …}}' spellcheck="false"></textarea>
+      <p class="hint" id="orderDesignStatus" role="status"></p>
+      <div class="row">
+        <button type="submit" value="cancel" class="ghost">Cancel</button>
+        <button type="button" id="orderDesignLoadBtn" class="primary">Load design</button>
+      </div>
+    </form>
+  </dialog>
 
   <nav class="view-tabs">
     <button type="button" class="view-tab active" id="viewTabLocation" data-view="location">MapGen2.0</button>
@@ -451,6 +468,36 @@
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=56"></script>
-  <script src="js/location.js?v=66"></script>
+  <script src="js/location.js?v=67"></script>
+  <script>
+    // "Open order design" (Instellingen-menu) — zie applyDesignState in location.js.
+    (function () {
+      var dlg = document.getElementById('orderDesignDialog');
+      var input = document.getElementById('orderDesignInput');
+      var status = document.getElementById('orderDesignStatus');
+      document.getElementById('orderDesignMenuBtn').addEventListener('click', function () {
+        document.getElementById('settingsMenu').hidden = true;
+        status.textContent = '';
+        dlg.showModal();
+        input.focus();
+      });
+      document.getElementById('orderDesignLoadBtn').addEventListener('click', function () {
+        try {
+          var text = input.value.trim();
+          // Shopify toont soms "_Design JSON: {...}" — pak alleen de JSON
+          var start = text.indexOf('{');
+          var design = JSON.parse(text.slice(start));
+          window.LocationApp.applyDesign(design);
+          var s = design.state || design;
+          status.textContent = '';
+          dlg.close();
+          document.getElementById('locationExportStatus').textContent =
+            'Order design loaded (' + (s.ratioId || '') + '). Wait until the map has loaded, then Export.';
+        } catch (e) {
+          status.textContent = 'Could not read this design: ' + e.message;
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
