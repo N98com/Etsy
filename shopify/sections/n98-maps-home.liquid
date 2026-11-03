@@ -3,7 +3,7 @@
   tools/build-shopify-home.py; pas home.html aan en draai het script opnieuw.
 {%- endcomment -%}
 {%- liquid
-  assign n98_handle = section.settings.configurator_handle | default: 'custom-map-poster-your-location-physical-print'
+  assign n98_handle = section.settings.configurator_handle | default: 'design-your-map'
   assign n98_configurator_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
 -%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -351,7 +351,7 @@
       "type": "text",
       "id": "configurator_handle",
       "label": "Configurator product (handle)",
-      "default": "custom-map-poster-your-location-physical-print",
+      "default": "design-your-map",
       "info": "All 'Design your map' buttons go to /products/<this handle>."
     }
   ],
