@@ -293,6 +293,7 @@
         ['Palette', s && s.palette ? s.palette.name : ''],
         ['Size', currentCm()],
         ['Price', money(PRICES[ratioSelect.value])],
+        ['Shipping', 'Free'],
       ];
       rows.forEach(([k, v]) => {
         if (!v) return;
