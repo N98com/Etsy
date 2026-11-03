@@ -1,0 +1,58 @@
+name: Render order print files
+
+# Started by Shopify Flow ("Order created" → Send HTTP request to the GitHub
+# repository_dispatch API, event_type "render-order"). Renders every custom
+# map in the order at full print resolution, uploads it to Cloudflare R2 and
+# emails the download links + shipping details. See tools/render-order/.
+#
+# PRIVACY: this repository is public, so its Action logs are too. The order
+# payload (customer name/address) is only handed to the script via env and is
+# never printed. Do not add steps that echo it.
+
+on:
+  repository_dispatch:
+    types: [render-order]
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: 'Test: order payload JSON (same shape Flow sends)'
+        required: true
+
+concurrency:
+  group: render-order
+  cancel-in-progress: false
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install
+        working-directory: tools/render-order
+        run: npm install --no-audit --no-fund --silent
+
+      - name: Serve the map engine locally
+        run: |
+          nohup python3 -m http.server 8080 --bind 127.0.0.1 >/dev/null 2>&1 &
+          for i in $(seq 1 30); do curl -sf http://127.0.0.1:8080/shop.html >/dev/null && break; sleep 1; done
+
+      - name: Render, upload, email
+        working-directory: tools/render-order
+        env:
+          ORDER_PAYLOAD: ${{ github.event_name == 'repository_dispatch' && toJSON(github.event.client_payload) || github.event.inputs.payload }}
+          SITE_URL: http://127.0.0.1:8080
+          R2_ACCOUNT_ID: ${{ secrets.R2_ACCOUNT_ID }}
+          R2_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
+          R2_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
+          R2_BUCKET: ${{ secrets.R2_BUCKET }}
+          R2_PUBLIC_BASE: ${{ secrets.R2_PUBLIC_BASE }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          MAIL_TO: ${{ secrets.MAIL_TO }}
+        run: node render.mjs

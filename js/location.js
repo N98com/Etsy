@@ -1108,6 +1108,19 @@ window.LocationApp = (() => {
   // rekenen, alleen de fysieke canvas waar dat op landt is klein en
   // verschoven; alles buiten die kleine canvas wordt simpelweg niet
   // getekend, precies zoals normale canvas-clipping werkt.
+  // Volautomatisch printbestand (tools/render-order): exact formaat @300dpi
+  // (eerste optie = Gelato-maat, schaal 1), altijd via de streaming-encoder
+  // zodat ook 70×100cm (~100 MP) past. Geeft { blob, w, h, sizeId } terug.
+  function renderPrintBlob() {
+    const opt = exportSizeSelect.options[0];
+    const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
+    const opts = buildRenderOpts();
+    opts.printBorder = printBorderCheck.checked;
+    const tileHeight = Math.max(64, Math.min(h, Math.floor(STREAMING_PNG_TILE_PIXEL_BUDGET / w)));
+    return Utils.encodeStreamingPNG(w, h, tileHeight, (y0, tileH) => renderPNGTile(y0, tileH, w, h, opts), () => {})
+      .then(blob => ({ blob, w, h, sizeId: opt.value }));
+  }
+
   function renderPNGTile(y0, tileH, w, h, opts) {
     const tileCanvas = document.createElement('canvas');
     tileCanvas.width = w; tileCanvas.height = tileH;
@@ -1325,6 +1338,8 @@ window.LocationApp = (() => {
     refreshPinControls();
     updateExportSizes(currentRatioPreset());
     invalidateFetch();
+    // pas weer exporteerbaar zodra de kaartdata voor dít ontwerp binnen is
+    exportSVGBtn.disabled = true; exportPNGBtn.disabled = true;
     render();
     scheduleFetch(0);
   }
@@ -1708,6 +1723,8 @@ window.LocationApp = (() => {
     onShow,
     getSummary: () => buildDesignSummary(),
     getDesignState: () => exportDesignState(),
+    isDataReady: () => !exportPNGBtn.disabled,
+    renderPrintFile: () => renderPrintBlob(),
     applyDesign: d => applyDesignState(d),
     getPins: () => ({
       selected: state.selectedPin,
