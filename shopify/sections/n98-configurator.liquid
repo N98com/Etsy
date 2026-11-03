@@ -22,7 +22,7 @@
     endif
   endfor
 -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&prices={{ price_list | url_encode }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&prices={{ price_list | url_encode }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>

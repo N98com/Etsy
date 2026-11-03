@@ -284,12 +284,16 @@
     // ---- Lijst ----
     let frameId = 'none';
     const frameGrid = $('shopFrameGrid');
-    const frameOptions = () => FRAMES.filter(f => f.id === 'none' || Object.values(FRAMED).some(m => m[f.id] != null));
+    // In Shopify alleen tonen als de productpagina lijsten ondersteunt (&frames=1),
+    // anders zou een oudere pagina de lijst-keuze negeren.
+    const framesSupported = !inIframe || new URLSearchParams(window.location.search).get('frames') === '1';
+    const frameOptions = () => framesSupported ? FRAMES.filter(f => f.id === 'none' || Object.values(FRAMED).some(m => m[f.id] != null)) : [FRAMES[0]];
     function frameDelta(f) {
       if (f.id === 'none') return 'Print only';
       const d = priceFor(ratioSelect.value, f.id) - priceFor(ratioSelect.value, 'none');
       return isFinite(d) ? '+ ' + money(d) : '—';
     }
+    if (!framesSupported) { frameGrid.hidden = true; const h = document.querySelector('.frame-head'); if (h) h.hidden = true; }
     frameOptions().forEach(f => {
       const btn = document.createElement('button');
       btn.type = 'button'; btn.className = 'frame-card' + (f.id === frameId ? ' active' : '');
