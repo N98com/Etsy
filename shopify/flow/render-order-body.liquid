@@ -1,0 +1,22 @@
+{
+  "event_type": "render-order",
+  "client_payload": {
+    "order_name": {{ order.name | json }},
+    "email": {{ order.email | json }},
+    "phone": {{ order.phone | json }},
+    "note": {{ order.note | json }},
+    "shipping_method": {{ order.shippingLine.title | json }},
+    "shipping": {
+      "name": {{ order.shippingAddress.name | json }},
+      "company": {{ order.shippingAddress.company | json }},
+      "address1": {{ order.shippingAddress.address1 | json }},
+      "address2": {{ order.shippingAddress.address2 | json }},
+      "zip": {{ order.shippingAddress.zip | json }},
+      "city": {{ order.shippingAddress.city | json }},
+      "province": {{ order.shippingAddress.province | json }},
+      "country": {{ order.shippingAddress.country | json }},
+      "phone": {{ order.shippingAddress.phone | json }}
+    },
+    "items": [{% for li in order.lineItems %}{% unless forloop.first %},{% endunless %}{"title": {{ li.title | json }}, "variant": {{ li.variantTitle | json }}, "sku": {{ li.sku | json }}, "quantity": {{ li.quantity | json }}, "attrs": [{% for a in li.customAttributes %}{% unless forloop.first %},{% endunless %}{"key": {{ a.key | json }}, "value": {{ a.value | json }}}{% endfor %}]}{% endfor %}]
+  }
+}
