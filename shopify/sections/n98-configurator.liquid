@@ -98,7 +98,7 @@
       var frameChoice = d.frame && d.frame !== 'none' ? d.frame : '';
       var variant = VARIANTS[frameChoice ? size.id + '-' + frameChoice : size.id];
       if (!variant || !variant.available) {
-        reply('error', 'This size or frame is not available right now — please pick another one.');
+        reply('error', 'This size or frame is not available right now. Please pick another one.');
         return;
       }
       var loc = d.location || {};
@@ -141,7 +141,7 @@
           reply('added', null, count);
         })
         .catch(function (err) {
-          reply('error', (err && err.message) || 'Could not add to cart — please try again.');
+          reply('error', (err && err.message) || 'Could not add to cart. Please try again.');
         });
     });
   })();

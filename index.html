@@ -61,7 +61,7 @@
   <dialog id="orderDesignDialog" class="order-dialog">
     <form method="dialog" class="order-dialog-inner">
       <h2>Open order design</h2>
-      <p class="hint">Paste the design code from the order (the <b>_Design JSON</b> line of the item). The map is rebuilt exactly as the customer designed it — then use Export for the print file.</p>
+      <p class="hint">Paste the design code from the order (the <b>_Design JSON</b> line of the item). The map is rebuilt exactly as the customer designed it, then use Export for the print file.</p>
       <textarea id="orderDesignInput" rows="9" placeholder='{"location": …, "state": {"v": 1, …}}' spellcheck="false"></textarea>
       <p class="hint" id="orderDesignStatus" role="status"></p>
       <div class="row">
@@ -132,7 +132,7 @@
 
       <div class="panel">
         <h2>Personalize by seed</h2>
-        <p class="hint">A birth date, name, or coordinates becomes the seed for a unique, reproducible design — perfect for made-to-order.</p>
+        <p class="hint">A birth date, name, or coordinates becomes the seed for a unique, reproducible design, perfect for made-to-order.</p>
         <label for="personDate">Date</label>
         <input type="date" id="personDate">
         <label for="personName">Name</label>
@@ -148,11 +148,11 @@
 
       <div class="panel">
         <h2>Triptych builder</h2>
-        <p class="hint">Three seeds from the same family side by side — sells better than individual prints.</p>
+        <p class="hint">Three seeds from the same family side by side, sells better than individual prints.</p>
         <div class="triptych-row">
-          <div class="triptych-slot" id="triptychSlot0">Slot 1 — empty</div>
-          <div class="triptych-slot" id="triptychSlot1">Slot 2 — empty</div>
-          <div class="triptych-slot" id="triptychSlot2">Slot 3 — empty</div>
+          <div class="triptych-slot" id="triptychSlot0">Slot 1: empty</div>
+          <div class="triptych-slot" id="triptychSlot1">Slot 2: empty</div>
+          <div class="triptych-slot" id="triptychSlot2">Slot 3: empty</div>
         </div>
         <label for="triptychExportSize">Export format</label>
         <select id="triptychExportSize"></select>
@@ -258,7 +258,7 @@
         <div class="location-canvas-wrap" id="locationCanvasWrap">
           <canvas id="locationCanvas"></canvas>
         </div>
-        <p class="hint">Drag to pan, scroll to zoom — this preview updates live and is exactly what gets exported.</p>
+        <p class="hint">Drag to pan, scroll to zoom. This preview updates live and is exactly what gets exported.</p>
       </section>
 
       <!-- De daadwerkelijke bedieningselementen — precies één exemplaar
@@ -364,15 +364,15 @@
         </div>
         <div id="unitEffects">
           <label class="checkbox-row"><input type="checkbox" id="gtaStyleCheck"> GTA V</label>
-          <p class="hint" id="gtaStyleHint" hidden>Color scheme disabled — GTA V uses a fixed color scheme.</p>
+          <p class="hint" id="gtaStyleHint" hidden>Color scheme disabled: GTA V uses a fixed color scheme.</p>
           <label class="checkbox-row"><input type="checkbox" id="mw2StyleCheck"> OG MW2</label>
           <p class="hint" id="mw2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
           <label class="checkbox-row"><input type="checkbox" id="rdr2StyleCheck"> RDR2</label>
           <p class="hint" id="rdr2StyleHint" hidden>Color scheme disabled and area automatically isolated.</p>
           <label class="checkbox-row"><input type="checkbox" id="experimentalStyleCheck"> Experimental</label>
-          <p class="hint" id="experimentalStyleHint" hidden>Color scheme disabled — grayscale heightmap terrain with roads.</p>
+          <p class="hint" id="experimentalStyleHint" hidden>Color scheme disabled: grayscale heightmap terrain with roads.</p>
           <label class="checkbox-row"><input type="checkbox" id="nightlightStyleCheck"> Nightlight</label>
-          <p class="hint" id="nightlightStyleHint" hidden>Color scheme disabled — looks like a city photographed from space at night.</p>
+          <p class="hint" id="nightlightStyleHint" hidden>Color scheme disabled: looks like a city photographed from space at night.</p>
         </div>
         <div id="unitExport">
           <label for="locationExportSize">Format</label>
@@ -471,7 +471,7 @@
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=57"></script>
-  <script src="js/location.js?v=72"></script>
+  <script src="js/location.js?v=73"></script>
   <script>
     // "Open order design" (Instellingen-menu) — zie applyDesignState in location.js.
     (function () {

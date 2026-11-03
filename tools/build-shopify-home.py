@@ -41,7 +41,7 @@ body = re.sub(r"\s*<!--chrome:start-->.*?<!--chrome:end-->", "", body, flags=re.
 newsletter = """{%- form 'customer', id: 'n98h-newsletter' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
           {%- if form.posted_successfully? -%}
-            <p class="msg">Thank you — you're on the list.</p>
+            <p class="msg">Thank you, you're on the list.</p>
           {%- else -%}
             <label for="n98h-email-{{ section.id }}" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Email address</label>
             <input id="n98h-email-{{ section.id }}" type="email" name="contact[email]" placeholder="Your email address" autocomplete="email" required>

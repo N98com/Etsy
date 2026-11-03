@@ -107,7 +107,7 @@ window.LocationApp = (() => {
   // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
   const LAYOUT_PRESETS = [
     { id: 'default', label: 'Frame', hint: 'The map sits above a plain mat that holds the caption.' },
-    { id: 'fade', label: 'Fade', hint: 'Full-bleed map — the caption sits directly on it, over a dark fade at the bottom.' },
+    { id: 'fade', label: 'Fade', hint: 'Full-bleed map. The caption sits directly on it, over a dark fade at the bottom.' },
     { id: 'gallery', label: 'Gallery', hint: 'Like Default, with a thin frame line and museum-label rules around the caption.' },
     { id: 'stamp', label: 'Stamp', hint: 'Full-bleed map with a small captioned label tucked in the bottom-left corner.' },
     { id: 'ledger', label: 'Ledger', hint: 'Full-bleed map with a slim, left-aligned caption strip along the bottom edge.' },
@@ -155,9 +155,9 @@ window.LocationApp = (() => {
 
   const AREA_TIER_NOTE = {
     street: '', city: '',
-    region: 'Large area selected — only main roads are shown, to keep the map fast and readable.',
-    country: 'Very large area (country level) selected — only main roads and major bodies of water are shown.',
-    continent: 'Huge area selected (a large country or continent) — only motorways, major water, and country borders are shown, at a coarser zoom, to keep it fast.',
+    region: 'Large area selected. Only main roads are shown, to keep the map fast and readable.',
+    country: 'Very large area (country level) selected. Only main roads and major bodies of water are shown.',
+    continent: 'Huge area selected (a large country or continent). Only motorways, major water and country borders are shown, at a coarser zoom, to keep it fast.',
   };
 
   const CANVAS_LONG_EDGE = 900; // preview-resolutie, niet de exportresolutie
@@ -692,8 +692,8 @@ window.LocationApp = (() => {
       const label = sel ? ((PIN_ICON_PRESETS.find(p => p.id === (sel.icon || state.pinIconId)) || {}).label || 'Pin') : '';
       pinsHint.textContent = sel
         ? (sel.icon === 'letters'
-          ? `Letters “${sel.text || ''}” — drag them to move, or type new letters below.`
-          : `${label} pin — drag it to move it, or pick another icon to change it.`)
+          ? `Letters “${sel.text || ''}”. Drag them to move, or type new letters below.`
+          : `${label} pin. Drag it to move it, or pick another icon to change it.`)
         : (state.pins.length
           ? `${touch ? 'Tap' : 'Click'} a pin to select it, or drag it to move it.`
           : pinsHint.dataset.text);
@@ -1113,7 +1113,7 @@ window.LocationApp = (() => {
         opt.value = `${exactPreset.id}@${scale}x`;
         opt.textContent = scale === 1
           ? `${cmW}×${cmH}cm @300dpi (${pxW}×${pxH})`
-          : `${cmW}×${cmH}cm @300dpi (${pxW}×${pxH}) — ${scale}× oversized (custom orders)`;
+          : `${cmW}×${cmH}cm @300dpi (${pxW}×${pxH}), ${scale}× oversized (custom orders)`;
         opt.dataset.w = pxW; opt.dataset.h = pxH;
         opt.selected = i === 0;
         exportSizeSelect.appendChild(opt);
@@ -1226,11 +1226,11 @@ window.LocationApp = (() => {
         ).then(blob => {
           pendingPNGDownload = { blob, filename };
           exportPNGBtn.textContent = 'Tap to download PNG';
-          exportStatus.textContent = 'Ready — tap "Tap to download PNG" to save it.';
+          exportStatus.textContent = 'Ready. Tap "Tap to download PNG" to save it.';
         }).catch(e => {
           console.error('Export mislukt:', e);
           exportPNGBtn.textContent = 'Export PNG';
-          exportStatus.textContent = 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
+          exportStatus.textContent = 'PNG export failed. This size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
         });
         return;
       }
@@ -1250,7 +1250,7 @@ window.LocationApp = (() => {
         () => { exportStatus.textContent = 'Saved.'; },
         (e) => {
           console.error('Export mislukt:', e);
-          exportStatus.textContent = 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
+          exportStatus.textContent = 'PNG export failed. This size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
         },
       );
     } catch (e) {
@@ -1258,7 +1258,7 @@ window.LocationApp = (() => {
       exportPNGBtn.textContent = 'Export PNG';
       exportStatus.textContent = wantSVG
         ? 'Export failed. Please try again.'
-        : 'PNG export failed — this size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
+        : 'PNG export failed. This size may be too large for your device. Try a smaller size, or export as SVG instead (works at any size).';
     }
   }
 
@@ -1432,7 +1432,7 @@ window.LocationApp = (() => {
       embedConfirmStatus.textContent = 'Design confirmed.';
     } catch (e) {
       console.error('Confirm mislukt:', e);
-      embedConfirmStatus.textContent = 'Something went wrong preparing your design — please try again.';
+      embedConfirmStatus.textContent = 'Something went wrong preparing your design. Please try again.';
     } finally {
       embedConfirmBtn.disabled = false;
     }

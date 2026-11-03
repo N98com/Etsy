@@ -55,7 +55,7 @@
     Object.assign(FRAMED, framedShop);
   })();
   function money(v) {
-    if (v == null) return '—';
+    if (v == null) return '';
     return CURRENCY + (Number.isInteger(v) ? String(v) : v.toFixed(2).replace('.', ','));
   }
   const DEFAULT_SIZE = 'in20x28'; // 50×70 cm — het populairste wandformaat
@@ -227,7 +227,7 @@
       backBtn.hidden = step === 0;
       const last = step === STEP_NAMES.length - 1;
       nextBtn.hidden = last;
-      if (!last) nextBtn.textContent = 'Next — ' + STEP_NAMES[step + 1];
+      if (!last) nextBtn.textContent = 'Next: ' + STEP_NAMES[step + 1];
       if (last) updateSummary();
       if (focusPanel) {
         // Op telefoon staat het paneel onder de (sticky) kaart: scroll terug
@@ -291,7 +291,7 @@
     function frameDelta(f) {
       if (f.id === 'none') return 'Print only';
       const d = priceFor(ratioSelect.value, f.id) - priceFor(ratioSelect.value, 'none');
-      return isFinite(d) ? '+ ' + money(d) : '—';
+      return isFinite(d) ? '+ ' + money(d) : '';
     }
     if (!framesSupported) { frameGrid.hidden = true; const h = document.querySelector('.frame-head'); if (h) h.hidden = true; }
     frameOptions().forEach(f => {
@@ -568,7 +568,7 @@
       buyBtn.disabled = false;
       buyLabel.textContent = 'Add to cart';
       if (e.data.type === 'added') openAddedSheet(e.data.itemCount);
-      if (e.data.type === 'error') toast(e.data.message || 'Something went wrong — please try again.');
+      if (e.data.type === 'error') toast(e.data.message || 'Something went wrong. Please try again.');
     });
 
     // Na toevoegen: afrekenen, of nog een kaart ontwerpen (ontwerp blijft
@@ -592,7 +592,7 @@
       closeAddedSheet();
       goTo(0, true);
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      toast('Design your next map — your first one is safe in the cart.');
+      toast('Design your next map. Your first one is safe in the cart.');
     });
     addedSheet.addEventListener('click', e => { if (e.target === addedSheet) closeAddedSheet(); });
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && !addedSheet.hidden) closeAddedSheet(); });
@@ -604,7 +604,7 @@
       toastTimer = setTimeout(() => { toastEl.hidden = true; }, 4200);
     }
     buyBtn.addEventListener('click', () => {
-      if (confirmBtn.disabled) { toast('Your map is still being drawn — one moment.'); return; }
+      if (confirmBtn.disabled) { toast('Your map is still being drawn, one moment please.'); return; }
       if (adding) return;
       confirmBtn.click(); // location.js: bouwt ontwerp-samenvatting + preview en stuurt die naar Shopify
       if (inIframe) {

@@ -555,7 +555,7 @@
       const slotEl = triptychSlotsEl[i];
       slotEl.innerHTML = '';
       if (!entry) {
-        slotEl.textContent = `Slot ${i + 1} — empty`;
+        slotEl.textContent = `Slot ${i + 1}: empty`;
         slotEl.onclick = null;
         return;
       }

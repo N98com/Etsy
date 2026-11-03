@@ -106,7 +106,7 @@ function buildEmail(results) {
     [sh.zip, sh.city].filter(Boolean).join(' '), sh.province, sh.country,
   ].filter(x => x && String(x).trim());
   const ok = results.filter(r => r.url).length;
-  const subject = `Print ${orderName} — ${ok}/${results.length} file${results.length === 1 ? '' : 's'} ready`
+  const subject = `Print ${orderName}: ${ok}/${results.length} file${results.length === 1 ? '' : 's'} ready`
     + (ok < results.length ? ' (action needed)' : '');
 
   const itemsHtml = results.map((r, i) => `
@@ -125,19 +125,19 @@ function buildEmail(results) {
     <h1 style="font:400 28px Georgia,serif;margin:8px 0 18px">Order ${esc(orderName)}</h1>
     <table style="width:100%;border-collapse:collapse">${itemsHtml}</table>
     <h2 style="font:400 18px Georgia,serif;margin:26px 0 8px">Ship to</h2>
-    <div style="font-size:14px;line-height:1.6">${addrLines.map(esc).join('<br>') || '—'}</div>
+    <div style="font-size:14px;line-height:1.6">${addrLines.map(esc).join('<br>') || 'n/a'}</div>
     <div style="font-size:13px;color:#47433C;margin-top:10px">
       ${payload.email ? 'Email: ' + esc(payload.email) + '<br>' : ''}
       ${(sh.phone || payload.phone) ? 'Phone: ' + esc(sh.phone || payload.phone) + '<br>' : ''}
       ${payload.shipping_method ? 'Shipping: ' + esc(payload.shipping_method) + '<br>' : ''}
       ${payload.note ? 'Note from customer: ' + esc(payload.note) : ''}
     </div>
-    <p style="font-size:12px;color:#47433C;margin-top:26px">Download links are private (unguessable) — don't forward them publicly.</p>
+    <p style="font-size:12px;color:#47433C;margin-top:26px">Download links are private (unguessable), so don't forward them publicly.</p>
   </div>`;
 
   const text = [
     `Order ${orderName}`, '',
-    ...results.map((r, i) => `${i + 1}. ${r.location || 'Custom map'} — ${r.size}${r.quantity > 1 ? ' x' + r.quantity : ''}\n   ${r.url ? r.url : 'Render failed: ' + r.error + '\n   Make by hand: ' + r.printLink}`),
+    ...results.map((r, i) => `${i + 1}. ${r.location || 'Custom map'}, ${r.size}${r.quantity > 1 ? ' x' + r.quantity : ''}\n   ${r.url ? r.url : 'Render failed: ' + r.error + '\n   Make by hand: ' + r.printLink}`),
     '', 'Ship to:', ...addrLines,
     payload.email ? 'Email: ' + payload.email : '', (sh.phone || payload.phone) ? 'Phone: ' + (sh.phone || payload.phone) : '',
     payload.note ? 'Note: ' + payload.note : '',
