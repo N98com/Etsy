@@ -65,9 +65,15 @@
     window.addEventListener('resize', fit);
     window.addEventListener('load', fit);
 
-    function reply(type, message) {
-      frame.contentWindow.postMessage({ source: 'n98-shop', type: type, message: message }, APP_ORIGIN);
+    function reply(type, message, itemCount) {
+      frame.contentWindow.postMessage({ source: 'n98-shop', type: type, message: message, itemCount: itemCount }, APP_ORIGIN);
     }
+
+    // Vanuit de ontwerper: "View cart & checkout"
+    window.addEventListener('message', function (e) {
+      if (e.origin !== APP_ORIGIN || e.source !== frame.contentWindow) return;
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'go-cart') window.location.href = CART_URL;
+    });
 
     // Link naar de werkbank met het ontwerp erin: één tik in de bestelling
     // opent MapGen2.0 met exact dit ontwerp, klaar voor de print-export.
@@ -122,9 +128,15 @@
             return j;
           });
         })
-        .then(function () {
-          reply('added');
-          setTimeout(function () { window.location.href = CART_URL; }, 400);
+        .then(function () { return fetch({{ routes.cart_url | append: '.js' | json }}, { headers: { 'Accept': 'application/json' } }); })
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          var count = (cart && cart.item_count) || 1;
+          // het winkelmandje-icoon in de header bijwerken (Horizon cart-icon)
+          document.querySelectorAll('cart-icon').forEach(function (el) {
+            try { if (typeof el.renderCartBubble === 'function') el.renderCartBubble(count); } catch (e) {}
+          });
+          reply('added', null, count);
         })
         .catch(function (err) {
           reply('error', (err && err.message) || 'Could not add to cart — please try again.');

@@ -469,9 +469,35 @@
       if (e.source !== window.parent || !e.data || e.data.source !== 'n98-shop') return;
       adding = false;
       buyBtn.disabled = false;
-      if (e.data.type === 'added') { buyLabel.textContent = 'Added — opening cart'; toast('Added to your cart.'); }
-      if (e.data.type === 'error') { buyLabel.textContent = 'Add to cart'; toast(e.data.message || 'Something went wrong — please try again.'); }
+      buyLabel.textContent = 'Add to cart';
+      if (e.data.type === 'added') openAddedSheet(e.data.itemCount);
+      if (e.data.type === 'error') toast(e.data.message || 'Something went wrong — please try again.');
     });
+
+    // Na toevoegen: afrekenen, of nog een kaart ontwerpen (ontwerp blijft
+    // staan als vertrekpunt — handig voor dezelfde plek in een ander formaat,
+    // of een tweede adres voor een cadeau).
+    const addedSheet = $('addedSheet');
+    function openAddedSheet(itemCount) {
+      const s = summary();
+      $('addedItem').textContent = [placeName(s), currentCm(), money(PRICES[ratioSelect.value])].filter(Boolean).join(' · ');
+      $('addedCheckoutLabel').textContent = itemCount > 1 ? `View cart (${itemCount}) & checkout` : 'View cart & checkout';
+      addedSheet.hidden = false;
+      $('addedCheckout').focus();
+    }
+    function closeAddedSheet() { addedSheet.hidden = true; }
+    $('addedCheckout').addEventListener('click', () => {
+      $('addedCheckoutLabel').textContent = 'Opening your cart…';
+      window.parent.postMessage({ source: 'n98-shop-frame', type: 'go-cart' }, '*');
+    });
+    $('addedAnother').addEventListener('click', () => {
+      closeAddedSheet();
+      goTo(0, true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+      toast('Design your next map — your first one is safe in the cart.');
+    });
+    addedSheet.addEventListener('click', e => { if (e.target === addedSheet) closeAddedSheet(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape' && !addedSheet.hidden) closeAddedSheet(); });
 
     function toast(msg) {
       toastEl.textContent = msg;

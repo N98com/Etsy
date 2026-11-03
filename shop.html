@@ -11,7 +11,7 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=8">
+  <link rel="stylesheet" href="css/shop.css?v=9">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
@@ -155,6 +155,20 @@
       </div>
     </div>
     <div class="shop-toast" id="shopToast" role="status" aria-live="polite" hidden></div>
+
+    <!-- Na "Add to cart" (in Shopify): nog een kaart ontwerpen of afrekenen -->
+    <div class="added-sheet" id="addedSheet" role="dialog" aria-modal="true" aria-labelledby="addedTitle" hidden>
+      <div class="added-card">
+        <p class="step-eyebrow">Added to your cart</p>
+        <h2 class="step-title" id="addedTitle">Beautifully <em>chosen.</em></h2>
+        <p class="added-item" id="addedItem"></p>
+        <div class="added-actions">
+          <button type="button" class="btn-buy" id="addedCheckout"><span id="addedCheckoutLabel">View cart &amp; checkout</span><svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></button>
+          <button type="button" class="btn-outline" id="addedAnother">Design another map</button>
+        </div>
+        <p class="added-note">Your design stays on screen as a starting point — change the place, words or size, and add it as a new print.</p>
+      </div>
+    </div>
   </div>
 
   <!-- ===== Geparkeerd: alles wat location.js bij ID verwacht. =====
@@ -326,6 +340,6 @@
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=56"></script>
   <script src="js/location.js?v=68"></script>
-  <script src="js/shop.js?v=8"></script>
+  <script src="js/shop.js?v=9"></script>
 </body>
 </html>

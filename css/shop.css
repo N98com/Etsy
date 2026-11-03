@@ -339,6 +339,28 @@ button.location-search-result:hover { background: var(--paper); }
   animation: panelIn 0.4s var(--ease) both;
 }
 
+/* ---------- na toevoegen aan winkelmand ---------- */
+.added-sheet {
+  position: fixed; inset: 0; z-index: 30; display: flex; align-items: flex-end; justify-content: center;
+  background: rgba(20, 20, 20, 0.42); animation: addedFade 0.35s var(--ease) both;
+}
+.added-sheet[hidden] { display: none; }
+.added-card {
+  width: 100%; max-width: 520px; background: var(--paper); padding: 30px 24px calc(24px + env(safe-area-inset-bottom));
+  animation: addedUp 0.45s var(--ease) both;
+}
+.added-card .step-title { margin: 6px 0 10px; }
+.added-item { margin: 0 0 22px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-2); }
+.added-actions { display: flex; flex-direction: column; gap: 10px; }
+.added-actions .btn-outline { min-height: 52px; font-size: 10.5px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; transition: background 0.3s var(--ease), color 0.3s var(--ease); }
+.added-note { margin: 16px 0 0; font-family: var(--serif); font-style: italic; font-size: 15px; color: var(--ink-2); }
+@keyframes addedFade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes addedUp { from { transform: translateY(24px); opacity: 0; } to { transform: none; opacity: 1; } }
+@media (min-width: 900px) {
+  .added-sheet { align-items: center; }
+  .added-card { padding: 40px 40px 34px; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
