@@ -93,7 +93,7 @@ class CanvasPainter {
   }
 
   // Tekst — nodig voor de kaart-onderschriften (plaatsnaam/land/coördinaten).
-  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity } = {}) {
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity, stroke, strokeWidth } = {}) {
     const ctx = this.ctx;
     ctx.save();
     if (opacity != null) ctx.globalAlpha = opacity;
@@ -103,6 +103,10 @@ class CanvasPainter {
     ctx.textAlign = align;
     ctx.textBaseline = baseline;
     if (letterSpacing && 'letterSpacing' in ctx) ctx.letterSpacing = `${letterSpacing}px`;
+    if (stroke && strokeWidth) { // halo: eerst de omtrek, dan de vulling eroverheen
+      ctx.lineJoin = 'round'; ctx.lineWidth = strokeWidth; ctx.strokeStyle = stroke;
+      ctx.strokeText(str, x, y);
+    }
     ctx.fillText(str, x, y);
     ctx.restore();
   }
@@ -184,13 +188,14 @@ class SVGPainter {
     this.parts.push(`<linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1">${stopEls}</linearGradient><rect x="${fmt(x)}" y="${fmt(y)}" width="${fmt(w)}" height="${fmt(h)}" fill="url(#${id})"/>`);
   }
 
-  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity } = {}) {
+  text(x, y, str, { fill, fontSize = 16, fontFamily = 'sans-serif', weight = '400', fontStyle = 'normal', align = 'center', baseline = 'alphabetic', letterSpacing, rotate, opacity, stroke, strokeWidth } = {}) {
     const anchor = align === 'center' ? 'middle' : align === 'right' ? 'end' : 'start';
     const dominant = baseline === 'middle' ? 'middle' : baseline === 'hanging' ? 'hanging' : 'auto';
     const transform = rotate ? ` transform="rotate(${fmt(rotate)} ${fmt(x)} ${fmt(y)})"` : '';
     const ls = letterSpacing ? ` letter-spacing="${fmt(letterSpacing)}"` : '';
     const op = opacity != null ? ` opacity="${opacity}"` : '';
-    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}" font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" font-style="${fontStyle}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${op}${transform}>${escapeXml(str)}</text>`);
+    const halo = stroke && strokeWidth ? ` stroke="${stroke}" stroke-width="${fmt(strokeWidth)}" stroke-linejoin="round" paint-order="stroke"` : '';
+    this.parts.push(`<text x="${fmt(x)}" y="${fmt(y)}" fill="${fill || '#000'}"${halo} font-size="${fmt(fontSize)}" font-family="${fontFamily}" font-weight="${weight}" font-style="${fontStyle}" text-anchor="${anchor}" dominant-baseline="${dominant}"${ls}${op}${transform}>${escapeXml(str)}</text>`);
   }
 
   beginClip(x, y, w, h) {

@@ -421,7 +421,39 @@ const MapRender = (() => {
     painter.polygon(heartOutlinePoints(centerX, centerY + hr * 0.9, hr), { fill: holeColor });
   }
 
-  function drawPinIcon(painter, x, y, r, color, holeColor, iconId) {
+  // Losse letters/initialen (Cinzel, Romeinse inscriptiekapitalen) i.p.v. een
+  // pin-icoon: max. 3 tekens (A–Z, 0–9, &), gecentreerd op de inkt zelf
+  // — het punt (x,y) is het midden van de letters, niet een pinpunt. Een
+  // dunne halo in de kaartkleur houdt ze leesbaar boven straten en water.
+  const LETTER_FONT = "'Cinzel', 'Trajan Pro', Georgia, serif";
+  const LETTER_CAP = 0.7; // kapitaalhoogte t.o.v. fontSize (fallback zonder meting)
+  let letterMeasureCtx = null;
+  function cleanPinText(t) {
+    return String(t || '').toUpperCase().replace(/[^A-Z0-9&]/g, '').slice(0, 3);
+  }
+  function letterMetrics(text, fontSize) {
+    if (!letterMeasureCtx && typeof document !== 'undefined') letterMeasureCtx = document.createElement('canvas').getContext('2d');
+    if (!letterMeasureCtx) return null;
+    letterMeasureCtx.font = `700 ${fontSize}px ${LETTER_FONT}`;
+    return letterMeasureCtx.measureText(text);
+  }
+  function drawLetters(painter, x, y, r, color, haloColor, text) {
+    const t = cleanPinText(text) || 'A';
+    const fontSize = r * 2.6; // kapitaalhoogte ≈ hoogte van een pinkop
+    const m = letterMetrics(t, fontSize);
+    let tx = x, ty = y + fontSize * LETTER_CAP / 2, align = 'center';
+    if (m && m.actualBoundingBoxAscent) {
+      tx = x + (m.actualBoundingBoxLeft - m.actualBoundingBoxRight) / 2; align = 'left';
+      ty = y + (m.actualBoundingBoxAscent - m.actualBoundingBoxDescent) / 2;
+    }
+    painter.text(tx, ty, t, {
+      fill: color, fontSize, fontFamily: LETTER_FONT, weight: '700', align, baseline: 'alphabetic',
+      stroke: haloColor || null, strokeWidth: haloColor ? fontSize * 0.1 : 0,
+    });
+  }
+
+  function drawPinIcon(painter, x, y, r, color, holeColor, iconId, text, haloColor) {
+    if (iconId === 'letters') return drawLetters(painter, x, y, r, color, haloColor === undefined ? holeColor : haloColor, text);
     if (iconId === 'heart') return drawHeart(painter, x, y, r, color);
     if (iconId === 'house') return drawHouse(painter, x, y, r, color, holeColor);
     if (iconId === 'rings') return drawRings(painter, x, y, r, color);
@@ -649,7 +681,7 @@ const MapRender = (() => {
       const pinR = Math.min(mapW, mapH) * 0.016 * pinScale; // pinScale: schuifregelaar "Pin size"
       pins.forEach(p => {
         const [x, y] = project(p.lat, p.lon);
-        drawPinIcon(painter, x, y, pinR, pinColor || '#e63946', matColor, p.icon || pinIconId); // elke pin z'n eigen type
+        drawPinIcon(painter, x, y, pinR, pinColor || '#e63946', matColor, p.icon || pinIconId, p.text, palette.bg || matColor); // elke pin z'n eigen type
       });
     }
 
@@ -912,5 +944,5 @@ const MapRender = (() => {
     }
   }
 
-  return { render, captionLayout, drawPinIcon };
+  return { render, captionLayout, drawPinIcon, cleanPinText };
 })();

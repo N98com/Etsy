@@ -111,7 +111,7 @@
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
         'Subtitle': joinParts([text.region, text.country]),
-        'Pins': pins.length ? String(pins.length) : 'None',
+        'Pins': pins.length ? pins.map(function (p) { return p.icon === 'letters' ? 'letters “' + (p.text || '') + '”' : (p.icon || 'pin'); }).join(', ') : 'None',
         '_Print file': printLink(st),
         '_Design JSON': JSON.stringify(st)
       };

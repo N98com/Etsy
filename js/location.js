@@ -135,6 +135,8 @@ window.LocationApp = (() => {
     { id: 'paw', label: 'Paw' },
     { id: 'tree', label: 'Tree' },
     { id: 'star', label: 'Star' },
+    // losse letters/initialen in Cinzel (max. 3 tekens) — zie drawLetters in mapRender.js
+    { id: 'letters', label: 'Letters' },
   ];
 
   // Vijf onderschrift-lettertypes, gekozen uit een specimen-vergelijking op
@@ -253,6 +255,21 @@ window.LocationApp = (() => {
   const pinAddressInput = el('pinAddressInput');
   const pinSizeInput = el('pinSizeInput');
   const pinsHint = el('pinsHint');
+  const pinTextRow = el('pinTextRow');
+  const pinTextInput = el('pinTextInput');
+  let pinText = 'A'; // tekens voor de volgende letters-pin
+  // nieuwe pin van het gekozen type (letters krijgen de ingevoerde tekens mee)
+  function newPin(lat, lon) {
+    const pin = { lat, lon, icon: state.pinIconId };
+    if (pin.icon === 'letters') pin.text = MapRender.cleanPinText(pinText) || 'A';
+    return pin;
+  }
+  function syncPinTextRow() {
+    if (!pinTextRow) return;
+    pinTextRow.hidden = state.pinIconId !== 'letters';
+    const sel = state.selectedPin != null && state.pins[state.selectedPin];
+    if (pinTextInput && sel && sel.icon === 'letters' && document.activeElement !== pinTextInput) pinTextInput.value = sel.text || '';
+  }
   const pinAddressSearchBtn = el('pinAddressSearchBtn');
   const pinAddressResults = el('pinAddressResults');
   const gtaStyleCheck = el('gtaStyleCheck');
@@ -605,6 +622,10 @@ window.LocationApp = (() => {
   function pinHitTest(pt, pin) {
     const [x, y] = forwardProject(pin.lat, pin.lon);
     const r = Math.min(canvas.width, mapAreaHeight(canvas.height)) * 0.016 * state.pinScale;
+    if (pin.icon === 'letters') { // letters staan gecentreerd op het punt
+      const n = Math.max(1, (pin.text || 'A').length);
+      return Math.abs(pt.x - x) < r * (1.2 * n + 0.6) && Math.abs(pt.y - y) < r * 1.7;
+    }
     const headCenter = { x, y: y - r * 1.7 };
     const dHead = Math.hypot(pt.x - headCenter.x, pt.y - headCenter.y);
     const dTip = Math.hypot(pt.x - x, pt.y - y);
@@ -628,7 +649,7 @@ window.LocationApp = (() => {
     if (hitIdx >= 0 && !state.addingPin) { selectPin(hitIdx); return; }
     if (!state.addingPin) { if (state.selectedPin != null) selectPin(null); return; }
     const { lat, lon } = inverseProject(pt.x, pt.y);
-    state.pins.push({ lat, lon, icon: state.pinIconId });
+    state.pins.push(newPin(lat, lon));
     setAddingPin(false);
     selectPin(state.pins.length - 1);
   }
@@ -651,6 +672,7 @@ window.LocationApp = (() => {
     if (pin) {
       state.pinIconId = pin.icon || state.pinIconId;
       [...pinIconTabs.children].forEach(b => b.classList.toggle('active', b.dataset.pinIconId === state.pinIconId));
+      if (pin.icon === 'letters' && pin.text) pinText = pin.text;
     }
     refreshPinControls();
     render();
@@ -659,6 +681,7 @@ window.LocationApp = (() => {
     // Laat andere onderdelen (bv. de pinnenlijst in shop.html) weten dat de
     // pins of de selectie veranderd zijn.
     document.dispatchEvent(new CustomEvent('mapgen:pins'));
+    syncPinTextRow();
     if (!clearPinsBtn.dataset.label) clearPinsBtn.dataset.label = clearPinsBtn.textContent;
     const sel = state.selectedPin != null && state.pins[state.selectedPin];
     clearPinsBtn.textContent = sel ? 'Remove this pin' : clearPinsBtn.dataset.label;
@@ -668,7 +691,9 @@ window.LocationApp = (() => {
       const touch = window.matchMedia && window.matchMedia('(pointer: coarse)').matches;
       const label = sel ? ((PIN_ICON_PRESETS.find(p => p.id === (sel.icon || state.pinIconId)) || {}).label || 'Pin') : '';
       pinsHint.textContent = sel
-        ? `${label} pin — drag it to move it, or pick another icon to change it.`
+        ? (sel.icon === 'letters'
+          ? `Letters “${sel.text || ''}” — drag them to move, or type new letters below.`
+          : `${label} pin — drag it to move it, or pick another icon to change it.`)
         : (state.pins.length
           ? `${touch ? 'Tap' : 'Click'} a pin to select it, or drag it to move it.`
           : pinsHint.dataset.text);
@@ -918,7 +943,7 @@ window.LocationApp = (() => {
         btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
         btn.addEventListener('click', () => {
           const lat = parseFloat(r.lat), lon = parseFloat(r.lon);
-          state.pins.push({ lat, lon, icon: state.pinIconId });
+          state.pins.push(newPin(lat, lon));
           state.selectedPin = state.pins.length - 1;
           setAddingPin(false);
           refreshPinControls();
@@ -1010,8 +1035,12 @@ window.LocationApp = (() => {
     state.pinIconId = id; // ook het type voor de volgende nieuwe pin
     [...pinIconTabs.children].forEach(b => b.classList.toggle('active', b.dataset.pinIconId === id));
     const sel = state.selectedPin != null && state.pins[state.selectedPin];
-    if (sel) sel.icon = id;
+    if (sel) {
+      sel.icon = id;
+      if (id === 'letters' && !sel.text) sel.text = MapRender.cleanPinText(pinText) || 'A';
+    }
     refreshPinControls();
+    if (id === 'letters' && pinTextInput) { pinTextInput.value = (sel && sel.text) || pinText; }
     render();
   }
   function selectCaptionFont(id) {
@@ -1284,7 +1313,7 @@ window.LocationApp = (() => {
       show: { place: state.showPlace, region: state.showRegion, country: state.showCountry, coords: state.showCoords },
       text: { place: cap.place || '', region: cap.region || '', country: cap.country || '' },
       textScale: { place: state.placeFontScale, region: state.regionFontScale, country: state.countryFontScale, coords: state.coordsFontScale },
-      pins: state.pins.map(p => ({ lat: +p.lat.toFixed(7), lon: +p.lon.toFixed(7), icon: p.icon || state.pinIconId })),
+      pins: state.pins.map(p => Object.assign({ lat: +p.lat.toFixed(7), lon: +p.lon.toFixed(7), icon: p.icon || state.pinIconId }, p.icon === 'letters' ? { text: p.text || 'A' } : {})),
       pinColor: pinColorInput.value,
       pinScale: state.pinScale,
       printBorder: printBorderCheck.checked,
@@ -1327,7 +1356,7 @@ window.LocationApp = (() => {
     state.regionFontScale = +(ts.region || 1); regionFontSizeInput.value = state.regionFontScale;
     state.countryFontScale = +(ts.country || 1); countryFontSizeInput.value = state.countryFontScale;
     state.coordsFontScale = +(ts.coords || 1); coordsFontSizeInput.value = state.coordsFontScale;
-    state.pins = (d.pins || []).map(p => ({ lat: +p.lat, lon: +p.lon, icon: p.icon || 'basic' }));
+    state.pins = (d.pins || []).map(p => Object.assign({ lat: +p.lat, lon: +p.lon, icon: p.icon || 'basic' }, p.icon === 'letters' ? { text: MapRender.cleanPinText(p.text) || 'A' } : {}));
     state.selectedPin = null;
     if (d.pinColor) { pinColorInput.value = d.pinColor; pinColorTouched = true; }
     state.pinScale = +(d.pinScale || 1); pinSizeInput.value = state.pinScale;
@@ -1367,7 +1396,7 @@ window.LocationApp = (() => {
         showPlace: opts.caption.showPlace, showRegion: opts.caption.showRegion,
         showCountry: opts.caption.showCountry, showCoords: opts.caption.showCoords,
       },
-      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, color: pinColorInput.value })),
+      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, text: p.icon === 'letters' ? (p.text || 'A') : undefined, color: pinColorInput.value })),
       // het complete ontwerp — hiermee maakt de werkbank de bestelling exact na
       state: exportDesignState(),
     };
@@ -1474,7 +1503,8 @@ window.LocationApp = (() => {
       ic.setAttribute('aria-hidden', 'true');
       const ictx = ic.getContext('2d');
       ictx.scale(dpr, dpr);
-      MapRender.drawPinIcon(new CanvasPainter(ictx, sz, sz), sz / 2, sz - 1.5, (sz - 3) / 2.7, '#D94848', '#ffffff', p.id);
+      if (p.id === 'letters') MapRender.drawPinIcon(new CanvasPainter(ictx, sz, sz), sz / 2, sz / 2, sz / 3.2, '#D94848', null, 'letters', 'A', null);
+      else MapRender.drawPinIcon(new CanvasPainter(ictx, sz, sz), sz / 2, sz - 1.5, (sz - 3) / 2.7, '#D94848', '#ffffff', p.id);
       btn.append(ic, document.createTextNode(p.label));
       btn.addEventListener('click', () => selectPinIcon(p.id));
       pinIconTabs.appendChild(btn);
@@ -1562,6 +1592,26 @@ window.LocationApp = (() => {
     });
     refreshPinControls();
     pinColorInput.addEventListener('input', () => { pinColorTouched = true; render(); });
+    if (pinTextInput) {
+      pinTextInput.addEventListener('input', () => {
+        const clean = MapRender.cleanPinText(pinTextInput.value);
+        if (pinTextInput.value !== clean) pinTextInput.value = clean;
+        if (clean) pinText = clean;
+        const sel = state.selectedPin != null && state.pins[state.selectedPin];
+        if (sel && sel.icon === 'letters' && clean) { sel.text = clean; document.dispatchEvent(new CustomEvent('mapgen:pins')); render(); }
+      });
+    }
+    // Cinzel (letters) laadt asynchroon — daarna opnieuw tekenen
+    if (document.fonts && document.fonts.load) document.fonts.load("700 40px 'Cinzel'").then(() => {
+      render();
+      const chip = pinIconTabs.querySelector('[data-pin-icon-id="letters"] canvas');
+      if (chip) {
+        const c2 = chip.getContext('2d'), sz = 22;
+        c2.clearRect(0, 0, sz, sz);
+        MapRender.drawPinIcon(new CanvasPainter(c2, sz, sz), sz / 2, sz / 2, sz / 3.2, '#D94848', null, 'letters', 'A', null);
+      }
+      document.dispatchEvent(new CustomEvent('mapgen:pins'));
+    }).catch(() => {});
     maskColorInput.addEventListener('input', () => render());
     captionColorOverrideCheck.addEventListener('change', () => {
       captionColorInput.disabled = !captionColorOverrideCheck.checked;
@@ -1728,7 +1778,7 @@ window.LocationApp = (() => {
     applyDesign: d => applyDesignState(d),
     getPins: () => ({
       selected: state.selectedPin,
-      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId })),
+      pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, text: p.text })),
       labels: Object.fromEntries(PIN_ICON_PRESETS.map(p => [p.id, p.label])),
     }),
     selectPin: i => selectPin(i),

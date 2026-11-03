@@ -16,7 +16,7 @@
        vijf opties daadwerkelijk gebruiken worden geladen. -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=EB+Garamond:ital,wght@1,400&family=Playfair+Display:wght@700&family=Space+Mono:wght@400;700&family=Kalam:wght@700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Cinzel:wght@700&family=EB+Garamond:ital,wght@1,400&family=Playfair+Display:wght@700&family=Space+Mono:wght@400;700&family=Kalam:wght@700&display=swap">
 </head>
 <body>
   <div class="login-gate" id="loginGate" hidden>
@@ -348,6 +348,9 @@
           </div>
           <label class="hint" style="margin-top:8px; display:block;">Pin icon</label>
           <div class="ratio-tabs" id="pinIconTabs"></div>
+          <div class="row" id="pinTextRow" hidden style="margin-top:6px;">
+            <input type="text" id="pinTextInput" maxlength="3" placeholder="Letters, e.g. B&amp;M" aria-label="Letters (up to 3)" autocapitalize="characters" autocomplete="off" spellcheck="false">
+          </div>
           <div id="pinSizeRow" style="margin-top:8px;">
             <label for="pinSizeInput" class="hint" style="display:block;">Pin size</label>
             <input type="range" id="pinSizeInput" min="0.6" max="3" step="0.05" value="1">
@@ -449,7 +452,7 @@
   <script src="js/rng.js?v=50"></script>
   <script src="js/palettes.js?v=50"></script>
   <script src="js/geom.js?v=50"></script>
-  <script src="js/painters.js?v=50"></script>
+  <script src="js/painters.js?v=51"></script>
   <script src="js/algorithms.js?v=50"></script>
   <script src="js/export.js?v=50"></script>
   <script src="js/main.js?v=50"></script>
@@ -467,8 +470,8 @@
   <script src="js/protomapsAdapter.js?v=50"></script>
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
-  <script src="js/mapRender.js?v=56"></script>
-  <script src="js/location.js?v=68"></script>
+  <script src="js/mapRender.js?v=57"></script>
+  <script src="js/location.js?v=69"></script>
   <script>
     // "Open order design" (Instellingen-menu) — zie applyDesignState in location.js.
     (function () {

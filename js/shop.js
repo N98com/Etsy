@@ -134,14 +134,16 @@
     function fmtCoord(lat, lon) {
       return `${Math.abs(lat).toFixed(4)}° ${lat >= 0 ? 'N' : 'S'} · ${Math.abs(lon).toFixed(4)}° ${lon >= 0 ? 'E' : 'W'}`;
     }
-    function pinIconCanvas(icon) {
+    function pinIconCanvas(icon, text) {
       const c = document.createElement('canvas');
       const dpr = Math.max(2, window.devicePixelRatio || 1), sz = 26;
       c.width = sz * dpr; c.height = sz * dpr;
       c.className = 'pin-item-icon';
       c.setAttribute('aria-hidden', 'true');
       const ctx = c.getContext('2d'); ctx.scale(dpr, dpr);
-      MapRender.drawPinIcon(new CanvasPainter(ctx, sz, sz), sz / 2, sz - 2, (sz - 4) / 2.7, $('pinColorInput').value || '#D94848', '#ffffff', icon);
+      const color = $('pinColorInput').value || '#D94848';
+      if (icon === 'letters') MapRender.drawPinIcon(new CanvasPainter(ctx, sz, sz), sz / 2, sz / 2, sz / (3.4 + 1.6 * Math.max(0, (text || 'A').length - 1)), color, null, 'letters', text || 'A', null);
+      else MapRender.drawPinIcon(new CanvasPainter(ctx, sz, sz), sz / 2, sz - 2, (sz - 4) / 2.7, color, '#ffffff', icon);
       return c;
     }
     function renderPinList() {
@@ -153,7 +155,8 @@
       head.textContent = pins.length === 1 ? 'Your pin' : `Your pins (${pins.length})`;
       const ul = document.createElement('ul');
       pins.forEach((p, i) => {
-        const name = (labels[p.icon] || 'Pin') + (labels[p.icon] && !/pin$/i.test(labels[p.icon]) ? ' pin' : '');
+        const name = p.icon === 'letters' ? `Letters “${p.text || ''}”`
+          : (labels[p.icon] || 'Pin') + (labels[p.icon] && !/pin$/i.test(labels[p.icon]) ? ' pin' : '');
         const li = document.createElement('li');
         li.className = 'pin-item' + (i === selected ? ' selected' : '');
         const main = document.createElement('button');
@@ -163,7 +166,7 @@
         const t1 = document.createElement('span'); t1.className = 'pin-item-name'; t1.textContent = name;
         const t2 = document.createElement('span'); t2.className = 'pin-item-coords'; t2.textContent = fmtCoord(p.lat, p.lon);
         text.append(t1, t2);
-        main.append(pinIconCanvas(p.icon), text);
+        main.append(pinIconCanvas(p.icon, p.text), text);
         main.addEventListener('click', () => window.LocationApp.selectPin(i));
         const x = document.createElement('button');
         x.type = 'button'; x.className = 'pin-item-x';
