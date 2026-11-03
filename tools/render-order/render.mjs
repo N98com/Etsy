@@ -161,7 +161,7 @@ async function main() {
     browser = await chromium.launch({ channel: env.CHROME_PATH ? undefined : 'chrome', executablePath: env.CHROME_PATH || undefined, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
     for (const [i, { it, a }] of items.entries()) {
       const base = {
-        location: a.Location, size: a.Size || it.variant || it.variantTitle || it.sku, palette: a.Palette,
+        location: a.Location, size: [a.Size || it.variant || it.variantTitle || it.sku, a.Frame && a.Frame !== 'No frame' ? 'Frame: ' + a.Frame : ''].filter(Boolean).join(' · '), palette: a.Palette,
         title: a.Title, pins: a.Pins, quantity: it.quantity || 1, printLink: a['_Print file'] || '',
       };
       try {

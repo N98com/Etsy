@@ -6,10 +6,29 @@
 (() => {
   // ---- Prijzen per formaat (PLACEHOLDERS — zet hier je eigen prijzen) ----
   // Sleutels = de preset-id's uit GELATO_SIZES in location.js.
-  const PRICES = {
-    in8x10: 49, in11x14: 59, in12x16: 69, in16x20: 79,
-    in18x24: 89, in20x28: 99, in24x36: 129, in28x40: 149,
+  const PRICES = { // zonder lijst
+    in8x10: 39, in11x14: 49, in12x16: 55, in16x20: 65,
+    in18x24: 75, in20x28: 85, in24x36: 109, in28x40: 129,
   };
+  // Met lijst (Gelato "Wooden framed poster", ready-to-hang): per formaat,
+  // per lijstkleur. SKU in Shopify = "<formaat>-<lijst>", bv. in20x28-black.
+  const FRAMES = [
+    { id: 'none', label: 'No frame', swatch: null },
+    { id: 'black', label: 'Black', swatch: '#1E1D1B' },
+    { id: 'white', label: 'White', swatch: '#F4F2EE' },
+    { id: 'natural', label: 'Natural oak', swatch: '#C9A87C' },
+    { id: 'darkwood', label: 'Dark wood', swatch: '#5B3F2C' },
+  ];
+  const FRAMED_DEFAULT = {
+    in8x10: 89, in11x14: 109, in12x16: 119, in16x20: 149,
+    in18x24: 169, in20x28: 199, in24x36: 269, in28x40: 299,
+  };
+  const FRAMED = {}; // FRAMED[size][frame] = prijs
+  Object.keys(FRAMED_DEFAULT).forEach(s => { FRAMED[s] = {}; FRAMES.slice(1).forEach(f => { FRAMED[s][f.id] = FRAMED_DEFAULT[s]; }); });
+  function priceFor(size, frame) {
+    if (!frame || frame === 'none') return PRICES[size];
+    return FRAMED[size] ? FRAMED[size][frame] : undefined;
+  }
   let CURRENCY = '€';
 
   // In Shopify (iframe op de productpagina) geeft de winkel zelf de prijzen
@@ -21,14 +40,19 @@
     const list = qs.get('prices');
     if (qs.get('currency')) CURRENCY = qs.get('currency');
     if (!list) return;
-    const fromShop = {};
+    const fromShop = {}, framedShop = {};
     list.split(',').forEach(pair => {
       const [id, cents] = pair.split(':');
-      if (id && /^\d+$/.test(cents || '')) fromShop[id.trim()] = +cents / 100;
+      if (!id || !/^\d+$/.test(cents || '')) return;
+      const [size, frame] = id.trim().split('-');
+      if (frame) (framedShop[size] = framedShop[size] || {})[frame] = +cents / 100;
+      else fromShop[size] = +cents / 100;
     });
     if (!Object.keys(fromShop).length) return;
     Object.keys(PRICES).forEach(k => delete PRICES[k]);
     Object.assign(PRICES, fromShop);
+    Object.keys(FRAMED).forEach(k => delete FRAMED[k]);
+    Object.assign(FRAMED, framedShop);
   })();
   function money(v) {
     if (v == null) return '—';
@@ -257,6 +281,46 @@
       sizeGrid.appendChild(btn);
     });
 
+    // ---- Lijst ----
+    let frameId = 'none';
+    const frameGrid = $('shopFrameGrid');
+    const frameOptions = () => FRAMES.filter(f => f.id === 'none' || Object.values(FRAMED).some(m => m[f.id] != null));
+    function frameDelta(f) {
+      if (f.id === 'none') return 'Print only';
+      const d = priceFor(ratioSelect.value, f.id) - priceFor(ratioSelect.value, 'none');
+      return isFinite(d) ? '+ ' + money(d) : '—';
+    }
+    frameOptions().forEach(f => {
+      const btn = document.createElement('button');
+      btn.type = 'button'; btn.className = 'frame-card' + (f.id === frameId ? ' active' : '');
+      btn.dataset.frameId = f.id; btn.setAttribute('aria-pressed', f.id === frameId ? 'true' : 'false');
+      btn.innerHTML = '<span class="frame-swatch" aria-hidden="true"></span><span class="frame-text"><span class="frame-name"></span><span class="frame-price"></span></span>';
+      const sw = btn.querySelector('.frame-swatch');
+      if (f.swatch) sw.style.setProperty('--sw', f.swatch); else sw.classList.add('is-none');
+      btn.querySelector('.frame-name').textContent = f.label;
+      btn.addEventListener('click', () => selectFrame(f.id));
+      frameGrid.appendChild(btn);
+    });
+    function refreshPrices() {
+      [...sizeGrid.children].forEach(b => { b.querySelector('.size-price').textContent = money(priceFor(b.dataset.sizeId, frameId)); });
+      [...frameGrid.children].forEach(b => { b.querySelector('.frame-price').textContent = frameDelta(FRAMES.find(f => f.id === b.dataset.frameId)); });
+      $('buyAmount').textContent = money(priceFor(ratioSelect.value, frameId));
+    }
+    function selectFrame(id) {
+      frameId = id;
+      [...frameGrid.children].forEach(b => {
+        const on = b.dataset.frameId === id;
+        b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      const f = FRAMES.find(x => x.id === id);
+      if (window.LocationApp && window.LocationApp.setOrderExtras) window.LocationApp.setOrderExtras({ frame: id, frameLabel: f ? f.label : id });
+      $('buySize').textContent = (currentCm() + (id !== 'none' ? ' · framed' : '')).toUpperCase();
+      refreshPrices();
+      updateSummary();
+      if (typeof drawRoomPoster === 'function') requestAnimationFrame(drawRoomPoster);
+    }
+    window.N98Frame = () => FRAMES.find(f => f.id === frameId) || FRAMES[0];
+
     function currentCm() {
       const opt = sizeOptions.find(o => o.value === ratioSelect.value);
       return opt ? sizeLabels(opt).cm : '';
@@ -271,8 +335,8 @@
         b.classList.toggle('active', on);
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      $('buyAmount').textContent = money(PRICES[id]);
-      $('buySize').textContent = currentCm().toUpperCase();
+      $('buySize').textContent = (currentCm() + (frameId !== 'none' ? ' · framed' : '')).toUpperCase();
+      refreshPrices();
       $('stageSize').textContent = currentCm();
       updateSummary();
       requestAnimationFrame(layoutRoom);
@@ -295,7 +359,8 @@
         ['Place', placeName(s)],
         ['Palette', s && s.palette ? s.palette.name : ''],
         ['Size', currentCm()],
-        ['Price', money(PRICES[ratioSelect.value])],
+        ['Frame', (FRAMES.find(f => f.id === frameId) || FRAMES[0]).label],
+        ['Price', money(priceFor(ratioSelect.value, frameId))],
         ['Shipping', 'Free'],
       ];
       rows.forEach(([k, v]) => {
@@ -367,7 +432,15 @@
 
       const [cmW, cmH] = posterCm();
       const pw = cmW * PX_PER_CM, ph = cmH * PX_PER_CM;     // de print zelf
-      const f = FRAME_CM * PX_PER_CM;                        // lijstbreedte
+      const frame = window.N98Frame ? window.N98Frame().id : 'natural';
+      const FRAME_LOOK = {
+        natural: ['#E2C79F', '#C9A87C', '#A9895F', '#C9A87C'],
+        darkwood: ['#7A5640', '#5B3F2C', '#3E2A1D', '#5B3F2C'],
+        black: ['#3A3835', '#1E1D1B', '#0E0E0D', '#1E1D1B'],
+        white: ['#FFFFFF', '#F1EFEA', '#DCD8D0', '#F1EFEA'],
+      };
+      const look = FRAME_LOOK[frame];
+      const f = look ? FRAME_CM * PX_PER_CM : 0;             // lijstbreedte (0 = losse print)
       const ow = pw + 2 * f, oh = ph + 2 * f;                // buitenmaat lijst
       // middelpunt op de vaste ophanghoogte, maar altijd binnen de muur
       let top = HANG_CENTER[1] - oh / 2;
@@ -380,17 +453,20 @@
       ctx.save();
       ctx.shadowColor = 'rgba(8, 14, 10, 0.55)';
       ctx.shadowBlur = 34; ctx.shadowOffsetX = 14; ctx.shadowOffsetY = 20;
-      ctx.fillStyle = '#C9A87C';
+      if (!look) { ctx.shadowBlur = 16; ctx.shadowOffsetX = 6; ctx.shadowOffsetY = 9; ctx.shadowColor = 'rgba(8, 14, 10, 0.35)'; }
+      ctx.fillStyle = look ? look[3] : '#ffffff';
       ctx.fillRect(x, y, ow, oh);
       ctx.restore();
 
-      // houten lijst: licht eiken, met een zachte glans en afgeschuinde binnenrand
-      const wood = ctx.createLinearGradient(x, y, x + ow, y + oh);
-      wood.addColorStop(0, '#E2C79F'); wood.addColorStop(0.5, '#C9A87C'); wood.addColorStop(1, '#A9895F');
-      ctx.fillStyle = wood;
-      ctx.fillRect(x, y, ow, oh);
-      ctx.strokeStyle = 'rgba(60, 40, 20, 0.35)'; ctx.lineWidth = 1.5;
-      ctx.strokeRect(x + 0.75, y + 0.75, ow - 1.5, oh - 1.5);
+      // lijst in de gekozen kleur, met een zachte glans en afgeschuinde binnenrand
+      if (look) {
+        const wood = ctx.createLinearGradient(x, y, x + ow, y + oh);
+        wood.addColorStop(0, look[0]); wood.addColorStop(0.5, look[1]); wood.addColorStop(1, look[2]);
+        ctx.fillStyle = wood;
+        ctx.fillRect(x, y, ow, oh);
+        ctx.strokeStyle = 'rgba(40, 30, 20, 0.35)'; ctx.lineWidth = 1.5;
+        ctx.strokeRect(x + 0.75, y + 0.75, ow - 1.5, oh - 1.5);
+      }
 
       // de print, met dezelfde witte rand als het printbestand
       const ix = x + f, iy = y + f;
@@ -400,6 +476,8 @@
       ctx.imageSmoothingQuality = 'high';
       ctx.drawImage(mapCanvas, ix + wb, iy + wb, pw - 2 * wb, ph - 2 * wb);
 
+      // zonder lijst: alleen de print op de muur, geen glas of lijstschaduw
+      if (!look) return;
       // diepte: de lijst werpt een smalle schaduw op de print
       const depth = Math.max(6, f * 0.45);
       const sh = (x0, y0, x1, y1) => {
@@ -483,7 +561,8 @@
     const addedSheet = $('addedSheet');
     function openAddedSheet(itemCount) {
       const s = summary();
-      $('addedItem').textContent = [placeName(s), currentCm(), money(PRICES[ratioSelect.value])].filter(Boolean).join(' · ');
+      const fr = FRAMES.find(f => f.id === frameId);
+      $('addedItem').textContent = [placeName(s), currentCm(), frameId !== 'none' && fr ? fr.label + ' frame' : '', money(priceFor(ratioSelect.value, frameId))].filter(Boolean).join(' · ');
       $('addedCheckoutLabel').textContent = itemCount > 1 ? `View cart (${itemCount}) & checkout` : 'View cart & checkout';
       addedSheet.hidden = false;
       $('addedCheckout').focus();
@@ -524,6 +603,7 @@
     // location.js start op een formaat dat niet (meer) in de lijst staat —
     // daarom altijd expliciet het standaardformaat kiezen.
     selectSize(PRICES[DEFAULT_SIZE] ? DEFAULT_SIZE : sizeOptions[0].value);
+    selectFrame(frameId);
     updatePlacard();
     goTo(0, false);
   });

@@ -95,9 +95,10 @@
       if (!msg || msg.source !== 'mapgen2' || msg.type !== 'confirm' || !msg.payload) return;
       var d = msg.payload.design || {};
       var size = d.size || {};
-      var variant = VARIANTS[size.id];
+      var frameChoice = d.frame && d.frame !== 'none' ? d.frame : '';
+      var variant = VARIANTS[frameChoice ? size.id + '-' + frameChoice : size.id];
       if (!variant || !variant.available) {
-        reply('error', 'This size is not available right now — please pick another size.');
+        reply('error', 'This size or frame is not available right now — please pick another one.');
         return;
       }
       var loc = d.location || {};
@@ -108,6 +109,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
         'Subtitle': joinParts([text.region, text.country]),

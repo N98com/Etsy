@@ -1373,6 +1373,8 @@ window.LocationApp = (() => {
     scheduleFetch(0);
   }
 
+  // Bestelopties buiten de kaart zelf (bv. lijst) — gezet door shop.js
+  let orderExtras = { frame: 'none', frameLabel: 'No frame' };
   function buildDesignSummary() {
     const preset = currentRatioPreset();
     const opts = buildRenderOpts();
@@ -1397,6 +1399,7 @@ window.LocationApp = (() => {
         showCountry: opts.caption.showCountry, showCoords: opts.caption.showCoords,
       },
       pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, text: p.icon === 'letters' ? (p.text || 'A') : undefined, color: pinColorInput.value })),
+      frame: orderExtras.frame, frameLabel: orderExtras.frameLabel,
       // het complete ontwerp — hiermee maakt de werkbank de bestelling exact na
       state: exportDesignState(),
     };
@@ -1773,6 +1776,7 @@ window.LocationApp = (() => {
     onShow,
     getSummary: () => buildDesignSummary(),
     getDesignState: () => exportDesignState(),
+    setOrderExtras: x => { orderExtras = Object.assign({}, orderExtras, x || {}); },
     isDataReady: () => !exportPNGBtn.disabled,
     renderPrintFile: () => renderPrintBlob(),
     applyDesign: d => applyDesignState(d),

@@ -11,7 +11,7 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=9">
+  <link rel="stylesheet" href="css/shop.css?v=11">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
@@ -111,8 +111,10 @@
         <div class="step-panel" data-panel="3" role="tabpanel" hidden>
           <p class="step-eyebrow">Step IV of IV</p>
           <h2 class="step-title">Choose your <em>size</em></h2>
-          <p class="step-lede">Printed to order in eight gallery sizes, with free shipping worldwide. The preview takes the exact shape of the size you choose.</p>
+          <p class="step-lede">Printed to order in eight gallery sizes — as a print, or framed and ready to hang. Free shipping worldwide. The preview takes the exact shape of the size you choose.</p>
           <div class="size-grid" id="shopSizeGrid"></div>
+          <h3 class="step-sub frame-head">Frame <span class="optional">wooden, ready to hang</span></h3>
+          <div class="frame-grid" id="shopFrameGrid" role="group" aria-label="Frame"></div>
           <dl class="summary" id="shopSummary"></dl>
           <details class="step-more">
             <summary>Paper &amp; print</summary>
@@ -122,7 +124,7 @@
               <dt>Thickness</dt><dd>0.26 mm</dd>
               <dt>Sustainability</dt><dd>FSC-certified or equivalent paper</dd>
               <dt>Border</dt><dd>White border, made to frame</dd>
-              <dt>Frame</dt><dd>Not included</dd>
+              <dt>Frame</dt><dd>Optional — solid wood, ready to hang</dd>
             </dl>
           </details>
           <details class="step-more">
@@ -342,7 +344,7 @@
   <script src="js/protomapsFetch.js?v=50"></script>
   <script src="js/mapGeo.js?v=50"></script>
   <script src="js/mapRender.js?v=57"></script>
-  <script src="js/location.js?v=69"></script>
-  <script src="js/shop.js?v=10"></script>
+  <script src="js/location.js?v=70"></script>
+  <script src="js/shop.js?v=11"></script>
 </body>
 </html>
