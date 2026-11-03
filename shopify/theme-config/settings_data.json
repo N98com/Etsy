@@ -1,7 +1,7 @@
 {
   "current": {
     "logo_height": 30,
-    "logo_height_mobile": 22,
+    "logo_height_mobile": 24,
     "page_background_color": "{{ settings.color_palette.background }}",
     "page_width": "narrow",
     "page_text_color": "{{ settings.color_palette.foreground }}",
@@ -99,7 +99,7 @@
       "color1": "#47433C",
       "color2": "#DDD6CA"
     },
-    "logo": "shopify://shop_images/n98-maps-logo.png"
+    "logo": "shopify://shop_images/n98-maps-wordmark.png"
   },
   "presets": {
     "Horizon": {

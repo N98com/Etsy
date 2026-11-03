@@ -10,9 +10,11 @@
           "settings": {
             "text": "Every map is printed to order — made for one wall only",
             "font": "var(--font-subheading--family)",
-            "font_size": "0.75rem",
-            "letter_spacing": "normal",
-            "case": "none"
+            "font_size": "0.625rem",
+            "letter_spacing": "loose",
+            "case": "uppercase",
+            "weight": "400",
+            "text_color": "#F4F1EB"
           },
           "blocks": {}
         }
@@ -23,13 +25,16 @@
       "name": "t:names.announcement_bar",
       "settings": {
         "speed": 5,
-        "section_width": "page-width",
-        "background_color": "{{ settings.color_palette.background }}",
-        "divider_width": 1,
+        "section_width": "full-width",
+        "background_color": "#141414",
+        "divider_width": 0,
         "divider_color": "{{ settings.color_palette.color2 }}",
-        "padding-block-start": 11,
-        "padding-block-end": 11
-      }
+        "padding-block-start": 12,
+        "padding-block-end": 12
+      },
+      "custom_css": [
+        ".announcement-bar__text {font-family: 'IBM Plex Mono', 'SF Mono', ui-monospace, Menlo, Consolas, monospace; letter-spacing: 0.24em; line-height: 1.5;}"
+      ]
     },
     "header_section": {
       "type": "header",
