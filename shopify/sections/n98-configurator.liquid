@@ -69,6 +69,16 @@
       frame.contentWindow.postMessage({ source: 'n98-shop', type: type, message: message }, APP_ORIGIN);
     }
 
+    // Link naar de werkbank met het ontwerp erin: één tik in de bestelling
+    // opent MapGen2.0 met exact dit ontwerp, klaar voor de print-export.
+    var WORKBENCH_URL = {{ section.settings.workbench_url | default: 'https://n98com.github.io/Etsy/index.html' | json }};
+    function printLink(state) {
+      var bytes = new TextEncoder().encode(JSON.stringify(state));
+      var bin = '';
+      for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return WORKBENCH_URL + '#order=' + btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
     function joinParts(parts) {
       return parts.filter(function (p) { return p && String(p).trim(); }).join(', ');
     }
@@ -96,7 +106,8 @@
         'Title': text.place || '',
         'Subtitle': joinParts([text.region, text.country]),
         'Pins': pins.length ? String(pins.length) : 'None',
-        '_Design JSON': JSON.stringify(d)
+        '_Print file': printLink(st),
+        '_Design JSON': JSON.stringify(st)
       };
       Object.keys(props).forEach(function (k) { if (props[k] === '') delete props[k]; });
 
@@ -133,6 +144,12 @@
       "id": "app_url",
       "label": "Designer URL",
       "info": "Leave empty to use https://n98com.github.io/Etsy/shop.html"
+    },
+    {
+      "type": "url",
+      "id": "workbench_url",
+      "label": "Workbench URL (print-file link in orders)",
+      "info": "Leave empty to use https://n98com.github.io/Etsy/index.html"
     }
   ]
 }

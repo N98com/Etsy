@@ -481,22 +481,52 @@
         dlg.showModal();
         input.focus();
       });
+      // Ontwerp uit een bestel-link (…/index.html#order=<base64url>) of uit
+      // geplakte JSON ("_Design JSON: {...}").
+      function decodeOrderLink(text) {
+        var m = /#order=([A-Za-z0-9_-]+)/.exec(text);
+        if (!m) return null;
+        var b64 = m[1].replace(/-/g, '+').replace(/_/g, '/');
+        while (b64.length % 4) b64 += '=';
+        var bin = atob(b64), bytes = new Uint8Array(bin.length);
+        for (var i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
+        return JSON.parse(new TextDecoder().decode(bytes));
+      }
+      function loadDesign(design) {
+        window.LocationApp.applyDesign(design);
+        var s = design.state || design;
+        document.getElementById('locationExportStatus').textContent =
+          'Order design loaded (' + (s.ratioId || '') + '). As soon as the map has loaded, tap Export PNG for the print file.';
+        var btn = document.getElementById('locationExportPNGBtn');
+        if (btn && btn.scrollIntoView) setTimeout(function () { btn.scrollIntoView({ block: 'center', behavior: 'smooth' }); }, 400);
+      }
       document.getElementById('orderDesignLoadBtn').addEventListener('click', function () {
         try {
           var text = input.value.trim();
-          // Shopify toont soms "_Design JSON: {...}" — pak alleen de JSON
-          var start = text.indexOf('{');
-          var design = JSON.parse(text.slice(start));
-          window.LocationApp.applyDesign(design);
-          var s = design.state || design;
+          var design = decodeOrderLink(text) || JSON.parse(text.slice(text.indexOf('{')));
+          loadDesign(design);
           status.textContent = '';
           dlg.close();
-          document.getElementById('locationExportStatus').textContent =
-            'Order design loaded (' + (s.ratioId || '') + '). Wait until the map has loaded, then Export.';
         } catch (e) {
           status.textContent = 'Could not read this design: ' + e.message;
         }
       });
+
+      // Geopend via de link in een Shopify-bestelling: na inloggen meteen laden.
+      var fromLink = null;
+      try { fromLink = decodeOrderLink(window.location.hash); } catch (e) { fromLink = null; }
+      if (fromLink) {
+        var gate = document.getElementById('loginGate');
+        var tries = 0;
+        (function waitForApp() {
+          var ready = window.LocationApp && gate && gate.hidden && document.getElementById('locationExportPNGBtn');
+          if (!ready) { if (tries++ < 2400) setTimeout(waitForApp, 250); return; }
+          setTimeout(function () {
+            try { loadDesign(fromLink); }
+            catch (e) { document.getElementById('locationExportStatus').textContent = 'Could not load the order design: ' + e.message; }
+          }, 400);
+        })();
+      }
     })();
   </script>
 </body>
