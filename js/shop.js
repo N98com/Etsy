@@ -322,6 +322,7 @@
       refreshPrices();
       updateSummary();
       if (typeof drawRoomPoster === 'function') requestAnimationFrame(drawRoomPoster);
+      if (typeof updateBorderRing === 'function') requestAnimationFrame(updateBorderRing);
     }
     window.N98Frame = () => FRAMES.find(f => f.id === frameId) || FRAMES[0];
 
@@ -385,10 +386,21 @@
     // rand niet (dat zou slepen/pins verstoren), dus tonen we hem eromheen.
     const PRINT_BORDER = 0.03;
     const liveCanvas = $('locationCanvas');
+    const FRAME_RING = { black: '#1E1D1B', white: '#F1EFEA', natural: '#C9A87C', darkwood: '#5B3F2C' };
     function updateBorderRing() {
       const r = liveCanvas.getBoundingClientRect();
+      const fr = window.N98Frame ? window.N98Frame().id : 'none';
+      if (FRAME_RING[fr]) {
+        // ingelijst: de kaart loopt door tot onder de lijst — geen witte rand
+        const [cmW, cmH] = (currentCm().match(/(\d+)×(\d+)/) || [0, 50, 70]).slice(1).map(Number);
+        const n = Math.max(3, Math.round(Math.min(r.width, r.height) * 2.2 / Math.min(cmW, cmH)));
+        liveCanvas.style.setProperty('--print-border', n + 'px');
+        liveCanvas.style.setProperty('--ring-color', FRAME_RING[fr]);
+        return;
+      }
       const n = Math.max(2, Math.round(Math.min(r.width, r.height) * PRINT_BORDER / (1 - 2 * PRINT_BORDER)));
       liveCanvas.style.setProperty('--print-border', n + 'px');
+      liveCanvas.style.setProperty('--ring-color', '#ffffff');
     }
     if (window.ResizeObserver) new ResizeObserver(updateBorderRing).observe(liveCanvas);
     window.addEventListener('resize', updateBorderRing);
@@ -474,7 +486,7 @@
 
       // de print, met dezelfde witte rand als het printbestand
       const ix = x + f, iy = y + f;
-      const wb = Math.min(pw, ph) * 0.03;
+      const wb = look ? 0 : Math.min(pw, ph) * 0.03; // ingelijst: geen witte rand (valt onder de lijst)
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(ix, iy, pw, ph);
       ctx.imageSmoothingQuality = 'high';

@@ -1776,7 +1776,13 @@ window.LocationApp = (() => {
     onShow,
     getSummary: () => buildDesignSummary(),
     getDesignState: () => exportDesignState(),
-    setOrderExtras: x => { orderExtras = Object.assign({}, orderExtras, x || {}); },
+    setOrderExtras: x => {
+      orderExtras = Object.assign({}, orderExtras, x || {});
+      // Ingelijst: géén witte rand in het printbestand. De kaart loopt door tot
+      // de rand en Gelato's lijst valt ~4–5 mm over de rand heen — zo is er nooit
+      // een wit randje tussen lijst en kaart. Zonder lijst: witte rand aan.
+      printBorderCheck.checked = !(orderExtras.frame && orderExtras.frame !== 'none');
+    },
     isDataReady: () => !exportPNGBtn.disabled,
     renderPrintFile: () => renderPrintBlob(),
     applyDesign: d => applyDesignState(d),
