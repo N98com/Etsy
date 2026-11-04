@@ -122,19 +122,20 @@
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-  .n98-slip { width: 831px; max-width: 100%; margin: auto; padding: 4em; background: #F4F1EB; }
+  @page { margin: 0; }
+  .n98-slip { width: 100%; max-width: 794px; margin: auto; padding: 36px 44px 28px; background: #F4F1EB; }
 
   /* Header: wordmark and order meta */
   .n98-top {
     display: flex; justify-content: space-between; align-items: flex-start;
-    padding-bottom: 22px; border-bottom: 1px solid #141414;
+    padding-bottom: 16px; border-bottom: 1px solid #141414;
   }
   .n98-mark { display: flex; align-items: center; gap: 14px; }
-  .n98-mark__no { font-size: 32px; font-weight: 500; letter-spacing: 0.01em; line-height: 1; }
-  .n98-mark__rule { width: 1px; height: 28px; background: #141414; }
+  .n98-mark__no { font-size: 28px; font-weight: 500; letter-spacing: 0.01em; line-height: 1; }
+  .n98-mark__rule { width: 1px; height: 24px; background: #141414; }
   .n98-mark__maps { font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 12px; letter-spacing: 0.42em; }
   .n98-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; }
-  .n98-meta__no { font-size: 20px; }
+  .n98-meta__no { font-size: 18px; }
   .n98-meta__sub { font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.08em; color: #47433C; }
 
   .n98-eyebrow {
@@ -143,50 +144,50 @@
     font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
   }
 
-  .n98-title { margin: 36px 0 4px; font-weight: 400; font-size: 38px; line-height: 1.1; }
-  .n98-lede { margin: 0 0 30px; font-style: italic; font-size: 17px; color: #47433C; }
+  .n98-title { margin: 22px 0 2px; font-weight: 400; font-size: 28px; line-height: 1.1; }
+  .n98-lede { margin: 0 0 18px; font-style: italic; font-size: 15px; color: #47433C; }
 
   /* Addresses */
   .n98-addr {
     display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 32px;
-    padding: 22px 0 26px; border-top: 1px solid #DDD6CA; word-break: break-word;
+    padding: 14px 0 16px; border-top: 1px solid #DDD6CA; word-break: break-word;
   }
-  .n98-addr__body { margin: 0; font-size: 16px; line-height: 1.5; }
+  .n98-addr__body { margin: 0; font-size: 14px; line-height: 1.4; }
 
   /* Items */
   .n98-items { width: 100%; border-collapse: collapse; border-spacing: 0; }
   .n98-items th {
-    padding: 11px 0; text-align: left; font-weight: 400;
+    padding: 8px 0; text-align: left; font-weight: 400;
     font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
     font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
     border-top: 1px solid #141414; border-bottom: 1px solid #DDD6CA;
   }
-  .n98-items td { padding: 18px 0; vertical-align: top; border-bottom: 1px solid #DDD6CA; page-break-inside: avoid; }
+  .n98-items td { padding: 10px 0; vertical-align: top; border-bottom: 1px solid #DDD6CA; page-break-inside: avoid; }
   .n98-col-qty {
     width: 130px; text-align: right !important; white-space: nowrap;
     font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 12px;
   }
-  .n98-item__title { display: block; font-size: 19px; line-height: 1.2; }
+  .n98-item__title { display: block; font-size: 16px; line-height: 1.2; }
   .n98-item__variant {
-    display: block; margin-top: 5px;
+    display: block; margin-top: 3px;
     font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.06em; color: #47433C;
   }
-  .n98-item__prop { display: block; margin-top: 3px; font-style: italic; font-size: 15px; color: #47433C; }
+  .n98-item__prop { display: block; margin-top: 2px; font-style: italic; font-size: 13px; color: #47433C; }
 
   .n98-missing { margin: 16px 0 0; font-style: italic; font-size: 15px; color: #47433C; }
 
   /* Notes and care */
-  .n98-block { margin-top: 32px; padding-top: 18px; border-top: 1px solid #DDD6CA; }
-  .n98-note { margin: 0; font-style: italic; font-size: 16px; }
-  .n98-care { margin-top: 36px; padding: 20px 24px; border: 1px solid #DDD6CA; }
-  .n98-care p { margin: 0; font-size: 15px; line-height: 1.55; color: #47433C; }
+  .n98-block { margin-top: 18px; padding-top: 12px; border-top: 1px solid #DDD6CA; }
+  .n98-note { margin: 0; font-style: italic; font-size: 14px; }
+  .n98-care { margin-top: 22px; padding: 12px 16px; border: 1px solid #DDD6CA; page-break-inside: avoid; }
+  .n98-care p { margin: 0; font-size: 13px; line-height: 1.45; color: #47433C; }
 
   /* Footer */
-  .n98-foot { margin-top: 44px; padding-top: 20px; border-top: 1px solid #141414; text-align: center; }
-  .n98-foot__thanks { margin: 0 0 10px; font-size: 22px; font-style: italic; }
+  .n98-foot { margin-top: 22px; padding-top: 12px; page-break-inside: avoid; border-top: 1px solid #141414; text-align: center; }
+  .n98-foot__thanks { margin: 0 0 6px; font-size: 18px; font-style: italic; }
   .n98-foot__line {
     margin: 0 0 6px;
     font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
   }
-  .n98-foot__contact { margin: 0; font-style: italic; font-size: 14px; color: #47433C; }
+  .n98-foot__contact { margin: 0; font-style: italic; font-size: 13px; color: #47433C; }
 </style>
