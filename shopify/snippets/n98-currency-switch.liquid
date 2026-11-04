@@ -9,11 +9,30 @@
     assign n98_eur_country = localization.country.iso_code
   endif
 -%}
+{%- if variant == 'inline' -%}
+  {%- case n98_cur -%}
+    {%- when 'USD' -%}{%- assign n98_cur_label = '$ USD' -%}
+    {%- when 'GBP' -%}{%- assign n98_cur_label = '£ GBP' -%}
+    {%- else -%}{%- assign n98_cur_label = '€ EUR' -%}
+  {%- endcase -%}
+  <details class="n98-curdrop">
+    <summary class="n98-curdrop__toggle" aria-label="Currency: {{ n98_cur_label }}">
+      <span>{{ n98_cur_label }}</span>
+      <svg class="n98-curdrop__caret" width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
+    </summary>
+    <div class="n98-curdrop__menu" role="group" aria-label="Currency">
+      <button type="button" class="n98-curdrop__opt" data-n98-country="{{ n98_eur_country }}" aria-pressed="{% if n98_cur == 'EUR' %}true{% else %}false{% endif %}">€ EUR</button>
+      <button type="button" class="n98-curdrop__opt" data-n98-country="US" aria-pressed="{% if n98_cur == 'USD' %}true{% else %}false{% endif %}">$ USD</button>
+      <button type="button" class="n98-curdrop__opt" data-n98-country="GB" aria-pressed="{% if n98_cur == 'GBP' %}true{% else %}false{% endif %}">£ GBP</button>
+    </div>
+  </details>
+{%- else -%}
 <div class="n98-currency n98-currency--{{ variant | default: 'drawer' }}">
-  {%- if variant != 'inline' -%}<span class="n98-currency__label">Currency</span>{%- endif -%}
+  <span class="n98-currency__label">Currency</span>
   <div class="n98-currency__options" role="group" aria-label="Currency">
     <button type="button" class="n98-currency__btn" data-n98-country="{{ n98_eur_country }}" aria-pressed="{% if n98_cur == 'EUR' %}true{% else %}false{% endif %}">€ EUR</button>
     <button type="button" class="n98-currency__btn" data-n98-country="US" aria-pressed="{% if n98_cur == 'USD' %}true{% else %}false{% endif %}">$ USD</button>
     <button type="button" class="n98-currency__btn" data-n98-country="GB" aria-pressed="{% if n98_cur == 'GBP' %}true{% else %}false{% endif %}">£ GBP</button>
   </div>
 </div>
+{%- endif -%}

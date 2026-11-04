@@ -11,13 +11,21 @@
     if (window.__n98CurrencyBound) return;
     window.__n98CurrencyBound = true;
     document.addEventListener('click', function (e) {
+      document.querySelectorAll('details.n98-curdrop[open]').forEach(function (d) {
+        if (!d.contains(e.target)) d.removeAttribute('open');
+      });
       var b = e.target.closest && e.target.closest('[data-n98-country]');
-      if (!b || b.getAttribute('aria-pressed') === 'true') return;
+      if (!b) return;
+      if (b.getAttribute('aria-pressed') === 'true') { var dd = b.closest('details'); if (dd) dd.removeAttribute('open'); return; }
       var form = document.getElementById('n98-currency-form');
       if (!form) return;
       e.preventDefault();
       form.querySelector('[name=country_code]').value = b.getAttribute('data-n98-country');
       form.submit();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      document.querySelectorAll('details.n98-curdrop[open]').forEach(function (d) { d.removeAttribute('open'); });
     });
   })();
 </script>
