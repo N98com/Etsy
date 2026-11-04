@@ -1,0 +1,260 @@
+<div class="n98-inv">
+
+  <header class="n98-top">
+    <div class="n98-mark">
+      <span class="n98-mark__no">N°98</span>
+      <span class="n98-mark__rule"></span>
+      <span class="n98-mark__maps">MAPS</span>
+    </div>
+    <div class="n98-meta">
+      <span class="n98-eyebrow">Invoice</span>
+      <span class="n98-meta__no">Order {{ order.order_name }}</span>
+      {% if order.po_number %}<span class="n98-meta__sub">PO {{ order.po_number }}</span>{% endif %}
+      <span class="n98-meta__sub">{{ order.created_at | date: "%e %B %Y" }}</span>
+    </div>
+  </header>
+
+  <h1 class="n98-title">Thank you for your order</h1>
+  <p class="n98-lede">Your map is printed to order and carefully packed for its journey to you.</p>
+
+  <section class="n98-addr">
+    <div>
+      <span class="n98-eyebrow">From</span>
+      <div class="n98-addr__body">
+        {{ shop.name }}<br/>
+        {{ shop_address | format_address }}
+        {% if shop.phone %}{{ shop.phone }}{% endif %}
+      </div>
+    </div>
+    {% if billing_address %}
+    <div>
+      <span class="n98-eyebrow">Billed to</span>
+      <div class="n98-addr__body">{{ billing_address | format_address }}</div>
+    </div>
+    {% endif %}
+    {% if shipping_address %}
+    <div>
+      <span class="n98-eyebrow">Shipped to</span>
+      <div class="n98-addr__body">
+        {{ shipping_address | format_address }}
+        {% if shipping_address.phone %}{{ shipping_address.phone }}{% endif %}
+      </div>
+    </div>
+    {% endif %}
+  </section>
+
+  <table class="n98-items">
+    <thead>
+      <tr>
+        <th class="n98-col-item">Item</th>
+        <th class="n98-col-qty">Qty</th>
+        <th class="n98-col-price">Price</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line_item in order.line_items %}
+      <tr>
+        <td class="n98-col-item">
+          <span class="n98-item__title">{{ line_item.product.title | default: line_item.title }}</span>
+          {% if line_item.variant_title != blank %}<span class="n98-item__variant">{{ line_item.variant_title }}</span>{% endif %}
+          {% for p in line_item.properties %}
+            {% assign p_name = p.first | default: p.name %}
+            {% assign p_value = p.last | default: p.value %}
+            {% assign p_lead = p_name | slice: 0 %}
+            {% if p_name == 'Location' or p_name == 'Title' %}
+              {% if p_value != blank and p_lead != '_' %}<span class="n98-item__prop">{{ p_value }}</span>{% endif %}
+            {% endif %}
+          {% endfor %}
+          {% if line_item.line_level_discount_allocations.size > 0 %}
+            {% for discount_allocation in line_item.line_level_discount_allocations %}
+            <span class="n98-item__discount">{{ discount_allocation.discount_application.title }}, minus {{ discount_allocation.amount | money }}</span>
+            {% endfor %}
+          {% endif %}
+        </td>
+        <td class="n98-col-qty">{{ line_item.quantity }}</td>
+        <td class="n98-col-price">
+          {% if line_item.original_price != line_item.final_price %}
+          <s class="n98-muted">{{ line_item.original_price | money }}</s><br/>
+          {% endif %}
+          {{ line_item.final_price | money }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <table class="n98-totals">
+    <tr>
+      <td>Subtotal</td>
+      <td>{{ order.line_items_subtotal_price | money }}</td>
+    </tr>
+    {% assign shipping_discount_total = order.shipping_price | minus: order.shipping_price %}
+    {% for discount_application in order.discount_applications %}
+      {% if discount_application.target_type == 'shipping_line' %}
+        {% assign shipping_discount_total = shipping_discount_total | plus: discount_application.total_allocated_amount %}
+      {% endif %}
+      {% if discount_application.target_selection == 'all' and discount_application.target_type != 'shipping_line' %}
+      <tr>
+        <td>Discount{% if discount_application.title %} <span class="n98-muted">({{ discount_application.title }})</span>{% endif %}</td>
+        <td>&minus;{{ discount_application.total_allocated_amount | money }}</td>
+      </tr>
+      {% endif %}
+    {% endfor %}
+    {% assign discounted_shipping_price = order.shipping_price | minus: shipping_discount_total %}
+    {% if order.shipping_address %}
+    {% assign discounted_shipping_price_abs = discounted_shipping_price | abs %}
+    <tr>
+      <td>Shipping</td>
+      <td>{% if discounted_shipping_price_abs < 1 %}Free{% else %}{{ discounted_shipping_price | money }}{% endif %}</td>
+    </tr>
+    {% endif %}
+    <tr>
+      <td>VAT <span class="n98-muted">(included)</span></td>
+      <td>{{ order.tax_price | money }}</td>
+    </tr>
+    <tr class="n98-totals__grand">
+      <td>Total</td>
+      <td>{{ order.total_price | money }}</td>
+    </tr>
+    {% if order.net_payment != order.total_net_amount %}
+    <tr>
+      <td>Total paid</td>
+      <td>{{ order.net_payment | money }}</td>
+    </tr>
+    {% endif %}
+    {% if order.total_refunded_amount > 0 %}
+    <tr>
+      <td>Total refunded</td>
+      <td>&minus;{{ order.total_refunded_amount | money }}</td>
+    </tr>
+    {% endif %}
+    {% if order.net_payment != order.total_net_amount %}
+    <tr class="n98-totals__grand">
+      <td>Outstanding</td>
+      <td>{{ order.total_net_amount | minus: order.net_payment | money }}</td>
+    </tr>
+    {% endif %}
+  </table>
+
+  {% if transactions.size > 1 %}
+  <section class="n98-block">
+    <span class="n98-eyebrow">Payments</span>
+    <table class="n98-tx">
+      {% for transaction in transactions %}
+      <tr>
+        <td>{{ transaction.gateway_display_name }}</td>
+        <td>{{ transaction.kind | capitalize }}</td>
+        <td>{{ transaction.status | capitalize }}</td>
+        <td class="n98-col-price">{{ transaction.amount | money }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </section>
+  {% endif %}
+
+  {% if order.note %}
+  <section class="n98-block">
+    <span class="n98-eyebrow">Note</span>
+    <p class="n98-note">{{ order.note }}</p>
+  </section>
+  {% endif %}
+
+  <footer class="n98-foot">
+    <p class="n98-foot__line">Printed to order &middot; Free shipping worldwide</p>
+    <p class="n98-foot__contact">Questions? Write to us at {{ shop.email }} &middot; n98maps.com</p>
+  </footer>
+
+</div>
+
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  :root {
+    --paper: #F4F1EB;
+    --ink: #141414;
+    --soft: #47433C;
+    --muted: #8A8378;
+    --line: #DDD6CA;
+    --green: #1E3529;
+    --serif: 'Cormorant Garamond', 'Cormorant', Garamond, Georgia, serif;
+    --mono: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+  }
+  html, body { margin: 0; padding: 0; background: var(--paper); }
+  body {
+    color: var(--ink);
+    font-family: var(--serif);
+    font-size: 13px;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .n98-inv { padding: 44px 48px 36px; background: var(--paper); }
+
+  /* Header: wordmark and order meta */
+  .n98-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 22px; border-bottom: 1px solid var(--ink);
+  }
+  .n98-mark { display: flex; align-items: center; gap: 14px; }
+  .n98-mark__no { font-family: var(--serif); font-size: 30px; font-weight: 500; letter-spacing: 0.01em; line-height: 1; }
+  .n98-mark__rule { width: 1px; height: 26px; background: var(--ink); }
+  .n98-mark__maps { font-family: var(--mono); font-size: 12px; letter-spacing: 0.42em; }
+  .n98-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; }
+  .n98-meta__no { font-family: var(--serif); font-size: 18px; }
+  .n98-meta__sub { font-family: var(--mono); font-size: 10px; letter-spacing: 0.08em; color: var(--soft); }
+
+  .n98-eyebrow {
+    display: block; margin-bottom: 8px;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft);
+  }
+
+  .n98-title { margin: 34px 0 4px; font-family: var(--serif); font-weight: 400; font-size: 34px; line-height: 1.1; }
+  .n98-lede { margin: 0 0 30px; font-style: italic; font-size: 15px; color: var(--soft); }
+
+  /* Addresses */
+  .n98-addr {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 28px;
+    padding: 20px 0 24px; border-top: 1px solid var(--line); word-break: break-word;
+  }
+  .n98-addr__body { font-size: 14px; line-height: 1.5; }
+  .n98-addr__body p { margin: 0; }
+
+  /* Items */
+  table { border-collapse: collapse; border-spacing: 0; width: 100%; }
+  .n98-items th {
+    padding: 10px 0; text-align: left; font-weight: 400;
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; color: var(--soft);
+    border-top: 1px solid var(--ink); border-bottom: 1px solid var(--line);
+  }
+  .n98-items td { padding: 16px 0; vertical-align: top; border-bottom: 1px solid var(--line); }
+  .n98-col-qty { width: 60px; text-align: center !important; font-family: var(--mono); font-size: 11px; }
+  .n98-col-price { width: 120px; text-align: right !important; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+  .n98-item__title { display: block; font-size: 17px; line-height: 1.2; }
+  .n98-item__variant { display: block; margin-top: 4px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.06em; color: var(--soft); }
+  .n98-item__prop { display: block; margin-top: 3px; font-style: italic; font-size: 13px; color: var(--soft); }
+  .n98-item__discount { display: block; margin-top: 3px; font-family: var(--mono); font-size: 10px; color: var(--green); }
+  .n98-muted { color: var(--muted); }
+
+  /* Totals */
+  .n98-totals { width: 46%; margin: 18px 0 0 auto; }
+  .n98-totals td { padding: 6px 0; font-size: 14px; }
+  .n98-totals td:last-child { text-align: right; font-family: var(--mono); font-size: 11px; white-space: nowrap; }
+  .n98-totals__grand td { padding-top: 12px; border-top: 1px solid var(--ink); font-size: 18px; }
+  .n98-totals__grand td:last-child { font-size: 13px; font-weight: 500; }
+
+  /* Payments and note */
+  .n98-block { margin-top: 34px; padding-top: 18px; border-top: 1px solid var(--line); }
+  .n98-tx td { padding: 5px 0; font-family: var(--mono); font-size: 10px; color: var(--soft); }
+  .n98-note { margin: 0; font-style: italic; font-size: 14px; }
+
+  /* Footer */
+  .n98-foot { margin-top: 48px; padding-top: 18px; border-top: 1px solid var(--ink); text-align: center; }
+  .n98-foot__line { margin: 0 0 6px; font-family: var(--mono); font-size: 9px; letter-spacing: 0.3em; text-transform: uppercase; }
+  .n98-foot__contact { margin: 0; font-style: italic; font-size: 13px; color: var(--soft); }
+
+  {% if document_page_size == "4_x_6" %}
+    .n98-inv { padding: 0.35in; }
+    .n98-addr { grid-auto-flow: row; gap: 14px; }
+    .n98-totals { width: 100%; }
+  {% endif %}
+</style>
