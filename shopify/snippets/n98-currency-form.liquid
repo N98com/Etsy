@@ -1,0 +1,23 @@
+{%- comment -%}
+  N°98 Maps: hidden localization form + one delegated click handler for every
+  currency switch on the page (also after the theme re-renders the header).
+{%- endcomment -%}
+{%- form 'localization', id: 'n98-currency-form', style: 'display:none' -%}
+  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+  <input type="hidden" name="return_to" value="{{ request.path }}">
+{%- endform -%}
+<script>
+  (function () {
+    if (window.__n98CurrencyBound) return;
+    window.__n98CurrencyBound = true;
+    document.addEventListener('click', function (e) {
+      var b = e.target.closest && e.target.closest('[data-n98-country]');
+      if (!b || b.getAttribute('aria-pressed') === 'true') return;
+      var form = document.getElementById('n98-currency-form');
+      if (!form) return;
+      e.preventDefault();
+      form.querySelector('[name=country_code]').value = b.getAttribute('data-n98-country');
+      form.submit();
+    });
+  })();
+</script>

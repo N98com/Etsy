@@ -63,6 +63,7 @@
   {% endif %}
   {{- block.shopify_attributes -}}
 >
+  <div class="n98-currency-desktop">{% render 'n98-currency-switch', variant: 'inline' %}</div>
   {% if shop.customer_accounts_enabled %}
     <div class="account-button header-actions__action{% if display_style == 'text' %} account-button--text{% endif %}">
       <a
@@ -113,7 +114,7 @@
   fetchpriority="low"
 ></script>
 
-{% render 'n98-currency-switch' %}
+{% render 'n98-currency-form' %}
 
 {% stylesheet %}
   .account-button {
