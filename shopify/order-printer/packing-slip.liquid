@@ -1,0 +1,192 @@
+<div class="n98-slip">
+
+  <header class="n98-top">
+    <div class="n98-mark">
+      <span class="n98-mark__no">N°98</span>
+      <span class="n98-mark__rule"></span>
+      <span class="n98-mark__maps">MAPS</span>
+    </div>
+    <div class="n98-meta">
+      <span class="n98-eyebrow">Packing slip</span>
+      <span class="n98-meta__no">Order {{ order.name }}</span>
+      {% if order.po_number != blank %}<span class="n98-meta__sub">PO {{ order.po_number }}</span>{% endif %}
+      <span class="n98-meta__sub">{{ order.created_at | date: format: "date" }}</span>
+    </div>
+  </header>
+
+  <h1 class="n98-title">Your map has arrived</h1>
+  <p class="n98-lede">Printed to order, packed by hand, made to be lived with.</p>
+
+  <section class="n98-addr">
+    {% unless delivery_method.type == "pick-up" %}
+    <div>
+      <span class="n98-eyebrow">{% if delivery_method.instructions != blank %}Delivered to{% else %}Shipped to{% endif %}</span>
+      <p class="n98-addr__body">
+        {% if shipping_address != blank %}
+          {{ shipping_address.name }}
+          {% if shipping_address.company != blank %}<br>{{ shipping_address.company }}{% endif %}
+          <br>{{ shipping_address.address1 }}
+          {% if shipping_address.address2 != blank %}<br>{{ shipping_address.address2 }}{% endif %}
+          {% if shipping_address.city_province_zip != blank %}<br>{{ shipping_address.city_province_zip }}{% endif %}
+          <br>{{ shipping_address.country }}
+          {% if shipping_address.phone != blank %}<br>{{ shipping_address.phone }}{% endif %}
+        {% else %}
+          No shipping address
+        {% endif %}
+      </p>
+    </div>
+    {% endunless %}
+    <div>
+      <span class="n98-eyebrow">Billed to</span>
+      <p class="n98-addr__body">
+        {% if billing_address != blank %}
+          {{ billing_address.name }}
+          {% if billing_address.company != blank %}<br>{{ billing_address.company }}{% endif %}
+          <br>{{ billing_address.address1 }}
+          {% if billing_address.address2 != blank %}<br>{{ billing_address.address2 }}{% endif %}
+          {% if billing_address.city_province_zip != blank %}<br>{{ billing_address.city_province_zip }}{% endif %}
+          <br>{{ billing_address.country }}
+        {% else %}
+          No billing address
+        {% endif %}
+      </p>
+    </div>
+  </section>
+
+  <table class="n98-items">
+    <thead>
+      <tr>
+        <th>Item</th>
+        <th class="n98-col-qty">Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for line_item in line_items_in_shipment %}
+      <tr>
+        <td>
+          <span class="n98-item__title">{{ line_item.title }}</span>
+          {% if line_item.variant_title != blank %}<span class="n98-item__variant">{{ line_item.variant_title }}</span>{% endif %}
+          {% for group in line_item.groups %}
+            <span class="n98-item__prop">{% if group.deliverable? %}For: {% else %}Part of: {% endif %}{{ group.title }}</span>
+          {% endfor %}
+        </td>
+        <td class="n98-col-qty">{{ line_item.shipping_quantity }} of {{ line_item.quantity }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  {% unless includes_all_line_items_in_order %}
+    {% unless delivery_method.type == "pick-up" %}
+      <p class="n98-missing">Other items from your order travel in a separate shipment.</p>
+    {% endunless %}
+  {% endunless %}
+
+  {% if order.note != blank %}
+  <section class="n98-block">
+    <span class="n98-eyebrow">Note</span>
+    <p class="n98-note">{{ order.note }}</p>
+  </section>
+  {% endif %}
+
+  {% if delivery_method.instructions != blank %}
+  <section class="n98-block">
+    <span class="n98-eyebrow">Delivery instructions</span>
+    <p class="n98-note">{{ delivery_method.instructions }}</p>
+  </section>
+  {% endif %}
+
+  <section class="n98-care">
+    <span class="n98-eyebrow">Caring for your print</span>
+    <p>Keep your map out of direct sunlight and away from damp walls. Dust the frame with a soft, dry cloth. Unframed prints are best handled with clean, dry hands and framed behind glass or acrylic.</p>
+  </section>
+
+  <footer class="n98-foot">
+    <p class="n98-foot__thanks">Thank you for choosing N°98 Maps.</p>
+    <p class="n98-foot__line">Printed to order &middot; Free shipping worldwide</p>
+    <p class="n98-foot__contact">{{ shop.email }} &middot; n98maps.com</p>
+  </footer>
+
+</div>
+
+<style type="text/css">
+  @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap');
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: #F4F1EB; }
+  body {
+    color: #141414;
+    font-family: 'Cormorant Garamond', 'Cormorant', Garamond, Georgia, serif;
+    font-size: 15px;
+    line-height: 1.45;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  .n98-slip { width: 831px; max-width: 100%; margin: auto; padding: 4em; background: #F4F1EB; }
+
+  /* Header: wordmark and order meta */
+  .n98-top {
+    display: flex; justify-content: space-between; align-items: flex-start;
+    padding-bottom: 22px; border-bottom: 1px solid #141414;
+  }
+  .n98-mark { display: flex; align-items: center; gap: 14px; }
+  .n98-mark__no { font-size: 32px; font-weight: 500; letter-spacing: 0.01em; line-height: 1; }
+  .n98-mark__rule { width: 1px; height: 28px; background: #141414; }
+  .n98-mark__maps { font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 12px; letter-spacing: 0.42em; }
+  .n98-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; text-align: right; }
+  .n98-meta__no { font-size: 20px; }
+  .n98-meta__sub { font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.08em; color: #47433C; }
+
+  .n98-eyebrow {
+    display: block; margin-bottom: 8px;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
+  }
+
+  .n98-title { margin: 36px 0 4px; font-weight: 400; font-size: 38px; line-height: 1.1; }
+  .n98-lede { margin: 0 0 30px; font-style: italic; font-size: 17px; color: #47433C; }
+
+  /* Addresses */
+  .n98-addr {
+    display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 32px;
+    padding: 22px 0 26px; border-top: 1px solid #DDD6CA; word-break: break-word;
+  }
+  .n98-addr__body { margin: 0; font-size: 16px; line-height: 1.5; }
+
+  /* Items */
+  .n98-items { width: 100%; border-collapse: collapse; border-spacing: 0; }
+  .n98-items th {
+    padding: 11px 0; text-align: left; font-weight: 400;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
+    border-top: 1px solid #141414; border-bottom: 1px solid #DDD6CA;
+  }
+  .n98-items td { padding: 18px 0; vertical-align: top; border-bottom: 1px solid #DDD6CA; page-break-inside: avoid; }
+  .n98-col-qty {
+    width: 130px; text-align: right !important; white-space: nowrap;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 12px;
+  }
+  .n98-item__title { display: block; font-size: 19px; line-height: 1.2; }
+  .n98-item__variant {
+    display: block; margin-top: 5px;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 11px; letter-spacing: 0.06em; color: #47433C;
+  }
+  .n98-item__prop { display: block; margin-top: 3px; font-style: italic; font-size: 15px; color: #47433C; }
+
+  .n98-missing { margin: 16px 0 0; font-style: italic; font-size: 15px; color: #47433C; }
+
+  /* Notes and care */
+  .n98-block { margin-top: 32px; padding-top: 18px; border-top: 1px solid #DDD6CA; }
+  .n98-note { margin: 0; font-style: italic; font-size: 16px; }
+  .n98-care { margin-top: 36px; padding: 20px 24px; border: 1px solid #DDD6CA; }
+  .n98-care p { margin: 0; font-size: 15px; line-height: 1.55; color: #47433C; }
+
+  /* Footer */
+  .n98-foot { margin-top: 44px; padding-top: 20px; border-top: 1px solid #141414; text-align: center; }
+  .n98-foot__thanks { margin: 0 0 10px; font-size: 22px; font-style: italic; }
+  .n98-foot__line {
+    margin: 0 0 6px;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, Consolas, monospace; font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase;
+  }
+  .n98-foot__contact { margin: 0; font-style: italic; font-size: 14px; color: #47433C; }
+</style>
