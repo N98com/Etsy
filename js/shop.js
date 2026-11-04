@@ -428,6 +428,7 @@
     let sharpTimer = null, interacting = false;
     function hideSharp() { sharp.hidden = true; }
     function drawSharp() {
+      if (stageEl.classList.contains('is-room')) { hideSharp(); return; }
       if (!stageEl.classList.contains('is-full') || interacting || !window.LocationApp || !window.LocationApp.renderInto) return;
       const r = liveCanvas.getBoundingClientRect();
       const wrap = liveCanvas.parentElement.getBoundingClientRect();
@@ -452,7 +453,11 @@
       zoomBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       zoomBtn.setAttribute('aria-label', on ? 'Close the enlarged map' : 'Enlarge the map');
       hideSharp();
-      requestAnimationFrame(() => { updateBorderRing(); if (on) scheduleSharp(); });
+      requestAnimationFrame(() => {
+        updateBorderRing();
+        if (stageEl.classList.contains('is-room')) { layoutRoom(); drawRoomPoster(); }
+        if (on) scheduleSharp();
+      });
     }
     zoomBtn.addEventListener('click', () => setFull(!stageEl.classList.contains('is-full')));
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && stageEl.classList.contains('is-full')) setFull(false); });
@@ -573,6 +578,7 @@
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
       roomView.hidden = !room;
+      if (room) sharp.hidden = true; else if (stageEl.classList.contains('is-full')) scheduleSharp();
       stage.classList.toggle('is-room', room);
       stageHint.textContent = room ? 'Shown to scale · Switch to Studio to move the map' : defaultHint;
       clearInterval(roomTimer);

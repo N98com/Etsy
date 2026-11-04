@@ -130,7 +130,6 @@ button { cursor: pointer; }
 .stage-zoom .ico-close, .stage-zoom .stage-zoom-label { display: none; }
 .is-full .stage-zoom .ico-open { display: none; }
 .is-full .stage-zoom .ico-close, .is-full .stage-zoom .stage-zoom-label { display: inline-block; }
-.is-room .stage-zoom { display: none; }
 .stage-sharp { position: absolute; pointer-events: none; }
 .shop-stage.is-full {
   position: fixed; inset: 0; z-index: 60; height: 100vh; height: 100dvh;
