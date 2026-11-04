@@ -99,7 +99,8 @@
       "color1": "#47433C",
       "color2": "#DDD6CA"
     },
-    "logo": "shopify://shop_images/n98-maps-wordmark.png"
+    "logo": "shopify://shop_images/n98-maps-wordmark.png",
+    "favicon": "shopify://shop_images/n98-favicon.png"
   },
   "presets": {
     "Horizon": {
