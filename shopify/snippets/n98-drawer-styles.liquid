@@ -1,0 +1,72 @@
+{%- comment -%}
+  N°98 Maps: luxury styling for the mobile menu drawer and the localization
+  (currency) selector. Rendered in layout/theme.liquid <head>.
+{%- endcomment -%}
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400&display=swap">
+<style>
+  /* Drawer: narrower panel, cream paper, quiet backdrop */
+  .menu-drawer {
+    width: min(84vw, 340px) !important;
+    max-width: 340px !important;
+    background-color: #F4F1EB !important;
+    border-right: 1px solid #DDD6CA !important;
+    box-shadow: 30px 0 60px -30px rgba(20, 20, 20, 0.35);
+  }
+  .menu-drawer__backdrop { backdrop-filter: none !important; background: rgba(20, 20, 20, 0.32); }
+
+  /* Eyebrow above the links */
+  .menu-drawer__navigation::before {
+    content: 'N°98 Maps';
+    display: block;
+    padding: 6px var(--drawer-padding, 24px) 18px;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
+  }
+
+  /* Main links: serif, calm size, hairline dividers */
+  .menu-drawer__menu.has-submenu > li {
+    border-bottom: 1px solid #DDD6CA;
+  }
+  .menu-drawer__menu.has-submenu > li:first-child { border-top: 1px solid #DDD6CA; }
+  .menu-drawer__menu-item--mainlist {
+    padding-block: 16px !important;
+    min-height: 0 !important;
+  }
+  .menu-drawer__menu-item--mainlist .menu-drawer__menu-item-text {
+    font-family: 'Cormorant Garamond', Georgia, serif !important;
+    font-weight: 400 !important;
+    font-size: 27px !important;
+    line-height: 1.1 !important;
+    letter-spacing: 0.005em !important;
+    text-transform: none !important;
+    color: #141414 !important;
+  }
+  .menu-drawer__menu-item--mainlist:hover .menu-drawer__menu-item-text { font-style: italic; }
+  .menu-drawer__close-button { color: #141414; }
+
+  /* Bottom: currency / region selector */
+  .menu-drawer__utility-links {
+    margin-inline: var(--drawer-padding, 24px) !important;
+    padding-top: 18px !important;
+    border-top: 1px solid #DDD6CA;
+  }
+  .menu-drawer__utility-links::before {
+    content: 'Currency';
+    display: block; margin-bottom: 6px;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+    font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
+  }
+  .drawer-localization__button,
+  .drawer-localization__button--label,
+  .menu-drawer .localization-form,
+  .menu-drawer .localization-form * {
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace !important;
+    letter-spacing: 0.12em;
+    font-size: 12px !important;
+    text-transform: uppercase;
+    color: #141414;
+  }
+  .menu-drawer .menu-drawer__title { font-family: 'Cormorant Garamond', Georgia, serif !important; font-size: 24px !important; }
+</style>

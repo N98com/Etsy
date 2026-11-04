@@ -54,8 +54,19 @@
     Object.keys(FRAMED).forEach(k => delete FRAMED[k]);
     Object.assign(FRAMED, framedShop);
   })();
+  // Valuta: in Shopify komt de valuta van de klant mee (?iso=USD, GBP, EUR …),
+  // de prijzen zijn dan al door Shopify omgerekend.
+  const ISO = (new URLSearchParams(window.location.search).get('iso') || '').toUpperCase();
   function money(v) {
     if (v == null) return '';
+    if (/^[A-Z]{3}$/.test(ISO)) {
+      try {
+        return new Intl.NumberFormat(ISO === 'EUR' ? 'nl-NL' : 'en-' + (ISO === 'GBP' ? 'GB' : 'US'), {
+          style: 'currency', currency: ISO,
+          minimumFractionDigits: Number.isInteger(v) ? 0 : 2, maximumFractionDigits: 2,
+        }).format(v).replace(/\s/g, '');
+      } catch (e) { /* valt terug op het symbool hieronder */ }
+    }
     return CURRENCY + (Number.isInteger(v) ? String(v) : v.toFixed(2).replace('.', ','));
   }
   const DEFAULT_SIZE = 'in20x28'; // 50×70 cm — het populairste wandformaat
