@@ -59,5 +59,12 @@
     font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: 0.12em;
   }
   .n98-currency__btn[aria-pressed="true"] { background: #141414; border-color: #141414; color: #F4F1EB; }
+
+  /* Header (mobile): search stays left next to the menu. Horizon moves it to the
+     right when there is no <shopify-account>; our account link replaced that. */
+  @media screen and (max-width: 749px) {
+    #header-component .header__columns .search-action { grid-area: leftB !important; }
+  }
+  #header-component[data-menu-style='drawer'] .header__columns .search-action { grid-area: leftB !important; }
 </style>
 
