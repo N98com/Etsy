@@ -46,27 +46,18 @@
   .menu-drawer__menu-item--mainlist:hover .menu-drawer__menu-item-text { font-style: italic; }
   .menu-drawer__close-button { color: #141414; }
 
-  /* Bottom: currency / region selector */
-  .menu-drawer__utility-links {
-    margin-inline: var(--drawer-padding, 24px) !important;
-    padding-top: 18px !important;
-    border-top: 1px solid #DDD6CA;
-  }
-  .menu-drawer__utility-links::before {
-    content: 'Currency';
-    display: block; margin-bottom: 6px;
+  /* Bottom: our own currency switch (EUR / USD / GBP) */
+  .n98-currency { margin: auto var(--drawer-padding, 24px) 18px; padding-top: 18px; border-top: 1px solid #DDD6CA; }
+  .n98-currency__label {
+    display: block; margin-bottom: 10px;
     font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace;
     font-size: 10px; letter-spacing: 0.3em; text-transform: uppercase; color: #47433C;
   }
-  .drawer-localization__button,
-  .drawer-localization__button--label,
-  .menu-drawer .localization-form,
-  .menu-drawer .localization-form * {
-    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace !important;
-    letter-spacing: 0.12em;
-    font-size: 12px !important;
-    text-transform: uppercase;
-    color: #141414;
+  .n98-currency__options { display: flex; gap: 8px; }
+  .n98-currency__btn {
+    flex: 1 1 0; min-height: 44px; border: 1px solid #DDD6CA; background: transparent; color: #141414; cursor: pointer;
+    font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 12px; letter-spacing: 0.12em;
   }
-  .menu-drawer .menu-drawer__title { font-family: 'Cormorant Garamond', Georgia, serif !important; font-size: 24px !important; }
+  .n98-currency__btn[aria-pressed="true"] { background: #141414; border-color: #141414; color: #F4F1EB; }
 </style>
+

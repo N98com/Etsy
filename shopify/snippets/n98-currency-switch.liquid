@@ -1,0 +1,45 @@
+{%- comment -%}
+  N°98 Maps: currency switch (EUR / USD / GBP) for the menu drawer.
+  Rendered from header-actions.liquid (in <body>).
+{%- endcomment -%}
+{%- liquid
+  assign n98_cur = localization.country.currency.iso_code
+  assign n98_eur_country = 'NL'
+  if n98_cur == 'EUR'
+    assign n98_eur_country = localization.country.iso_code
+  endif
+-%}
+<template id="n98-currency-tpl">
+  <div class="n98-currency">
+    <span class="n98-currency__label">Currency</span>
+    <div class="n98-currency__options" role="group" aria-label="Currency">
+      <button type="button" class="n98-currency__btn" data-country="{{ n98_eur_country }}" aria-pressed="{% if n98_cur == 'EUR' %}true{% else %}false{% endif %}">€ EUR</button>
+      <button type="button" class="n98-currency__btn" data-country="US" aria-pressed="{% if n98_cur == 'USD' %}true{% else %}false{% endif %}">$ USD</button>
+      <button type="button" class="n98-currency__btn" data-country="GB" aria-pressed="{% if n98_cur == 'GBP' %}true{% else %}false{% endif %}">£ GBP</button>
+    </div>
+  </div>
+</template>
+{%- form 'localization', id: 'n98-currency-form', style: 'display:none' -%}
+  <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+  <input type="hidden" name="return_to" value="{{ request.path }}">
+{%- endform -%}
+<script>
+  (function () {
+    function mount() {
+      var tpl = document.getElementById('n98-currency-tpl');
+      var nav = document.querySelector('.menu-drawer__navigation');
+      if (!tpl || !nav || document.querySelector('.menu-drawer .n98-currency')) return;
+      var box = tpl.content.firstElementChild.cloneNode(true);
+      var host = document.querySelector('.menu-drawer__utility-links') || nav.parentElement;
+      host.appendChild(box);
+      box.addEventListener('click', function (e) {
+        var b = e.target.closest('.n98-currency__btn');
+        if (!b || b.getAttribute('aria-pressed') === 'true') return;
+        var form = document.getElementById('n98-currency-form');
+        form.querySelector('[name=country_code]').value = b.dataset.country;
+        form.submit();
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', mount); else mount();
+  })();
+</script>
