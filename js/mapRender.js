@@ -41,7 +41,7 @@ const MapRender = (() => {
   }
   // Arabisch/RTL-onderschriften gebruiken altijd Amiri (het enige geladen
   // lettertype met Arabische glyphs) — de gekozen Latijnse font-optie wordt
-  // dan genegeerd, ongeacht welke van de vijf is aangevinkt.
+  // dan genegeerd, ongeacht welke optie is aangevinkt.
   function resolveCaptionFont(rtl, fontId) {
     if (rtl) return { family: "'Amiri', Georgia, serif", style: 'normal', placeWeight: '600', otherWeight: '400' };
     return CAPTION_FONT_PRESETS[fontId] || CAPTION_FONT_PRESETS.default;
