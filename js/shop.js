@@ -695,6 +695,7 @@
         a.href = url; a.download = name;
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 60000);
+        window.dispatchEvent(new CustomEvent('n98:exported', { detail: { w: r.w, h: r.h, dpi: r.dpi, name } }));
         toast('Exported ' + r.w + ' × ' + r.h + ' px at ' + (r.dpi || PRINT_DPI) + ' dpi (' + (r.blob.size / 1e6).toFixed(1) + ' MB).');
       } catch (e) {
         toast('Export failed: ' + ((e && e.message) || e));
