@@ -1142,14 +1142,19 @@ window.LocationApp = (() => {
   // Volautomatisch printbestand (tools/render-order): exact formaat @300dpi
   // (eerste optie = Gelato-maat, schaal 1), altijd via de streaming-encoder
   // zodat ook 70×100cm (~100 MP) past. Geeft { blob, w, h, sizeId } terug.
-  function renderPrintBlob() {
-    const opt = exportSizeSelect.options[0];
+  // scale 2 = 600 dpi (zelfde ontwerp, dubbele resolutie in beide richtingen):
+  // de standaard voor zowel de Studio-export als de automatische orders.
+  const PRINT_SCALE_DEFAULT = 2;
+  function renderPrintBlob(scale) {
+    const want = scale || PRINT_SCALE_DEFAULT;
+    const opt = [...exportSizeSelect.options].find(o => o.value.endsWith('@' + want + 'x')) || exportSizeSelect.options[0];
+    const usedScale = parseFloat((/@([\d.]+)x$/.exec(opt.value) || [0, 1])[1]) || 1;
     const w = parseInt(opt.dataset.w, 10), h = parseInt(opt.dataset.h, 10);
     const opts = buildRenderOpts();
     opts.printBorder = printBorderCheck.checked;
     const tileHeight = Math.max(64, Math.min(h, Math.floor(STREAMING_PNG_TILE_PIXEL_BUDGET / w)));
     return Utils.encodeStreamingPNG(w, h, tileHeight, (y0, tileH) => renderPNGTile(y0, tileH, w, h, opts), () => {})
-      .then(blob => ({ blob, w, h, sizeId: opt.value }));
+      .then(blob => ({ blob, w, h, sizeId: opt.value, dpi: Math.round(300 * usedScale) }));
   }
 
   function renderPNGTile(y0, tileH, w, h, opts) {
@@ -1789,7 +1794,7 @@ window.LocationApp = (() => {
       printBorderCheck.checked = false; // geen witte rand meer: altijd rand-tot-rand (lijst of eigen lijst valt ~5 mm over de rand)
     },
     isDataReady: () => !exportPNGBtn.disabled,
-    renderPrintFile: () => renderPrintBlob(),
+    renderPrintFile: scale => renderPrintBlob(scale),
     applyDesign: d => applyDesignState(d),
     getPins: () => ({
       selected: state.selectedPin,

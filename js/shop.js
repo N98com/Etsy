@@ -94,9 +94,10 @@
   if (inIframe) document.documentElement.classList.add('is-embedded');
   // Studio (n98com.github.io/Etsy/ → shop.html?studio=1, achter de login van
   // js/studio.js): exact dezelfde tool, maar stap IV exporteert het
-  // printbestand (300 dpi, exact Gelato-formaat) in plaats van "Add to cart".
+  // printbestand (600 dpi, exact Gelato-formaat) in plaats van "Add to cart".
   const STUDIO = !inIframe && new URLSearchParams(window.location.search).get('studio') === '1';
   if (STUDIO) document.documentElement.classList.add('is-studio');
+  const PRINT_DPI = 600; // printbestand: 600 dpi (zie renderPrintBlob in location.js)
 
   function move(unitId, slotId) {
     const unit = $(unitId), slot = $(slotId);
@@ -329,7 +330,7 @@
     function printPx() {
       const m = /(\d+)\s*[×x]\s*(\d+)\s*cm/i.exec(currentCm() || '');
       if (!m) return '';
-      const px = cm => Math.round(cm / 2.54 * 300);
+      const px = cm => Math.round(cm / 2.54 * PRINT_DPI);
       return px(+m[1]) + ' × ' + px(+m[2]) + ' px';
     }
     function selectFrame(id) {
@@ -340,7 +341,7 @@
       });
       const f = FRAMES.find(x => x.id === id);
       if (window.LocationApp && window.LocationApp.setOrderExtras) window.LocationApp.setOrderExtras({ frame: id, frameLabel: f ? f.label : id });
-      $('buySize').textContent = STUDIO ? (currentCm() + ' · 300 dpi').toUpperCase() : (currentCm() + (id !== 'none' ? ' · framed' : '')).toUpperCase();
+      $('buySize').textContent = STUDIO ? (currentCm() + ' · ' + PRINT_DPI + ' dpi').toUpperCase() : (currentCm() + (id !== 'none' ? ' · framed' : '')).toUpperCase();
       refreshPrices();
       updateSummary();
       if (typeof drawRoomPoster === 'function') requestAnimationFrame(drawRoomPoster);
@@ -362,7 +363,7 @@
         b.classList.toggle('active', on);
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      $('buySize').textContent = STUDIO ? (currentCm() + ' · 300 dpi').toUpperCase() : (currentCm() + (frameId !== 'none' ? ' · framed' : '')).toUpperCase();
+      $('buySize').textContent = STUDIO ? (currentCm() + ' · ' + PRINT_DPI + ' dpi').toUpperCase() : (currentCm() + (frameId !== 'none' ? ' · framed' : '')).toUpperCase();
       refreshPrices();
       $('stageSize').textContent = currentCm();
       updateSummary();
@@ -387,7 +388,7 @@
         ['Palette', s && s.palette ? s.palette.name : ''],
         ['Size', currentCm()],
         ['Frame', (FRAMES.find(f => f.id === frameId) || FRAMES[0]).label],
-        STUDIO ? ['Print file', printPx() + ' · 300 dpi · PNG'] : ['Price', money(priceFor(ratioSelect.value, frameId))],
+        STUDIO ? ['Print file', printPx() + ' · ' + PRINT_DPI + ' dpi · PNG'] : ['Price', money(priceFor(ratioSelect.value, frameId))],
         ['Shipping', STUDIO ? '' : 'Free'],
       ];
       rows.forEach(([k, v]) => {
@@ -685,16 +686,16 @@
       }
       exporting = true;
       buyBtn.disabled = true;
-      buyLabel.textContent = 'Rendering print file…';
+      buyLabel.textContent = 'Rendering print file… (can take a minute)';
       try {
         const r = await window.LocationApp.renderPrintFile();
-        const name = 'N98-' + slugify(placeName(summary())) + '-' + slugify(currentCm().replace(/\s*×\s*/g, 'x')).toLowerCase() + '-300dpi.png';
+        const name = 'N98-' + slugify(placeName(summary())) + '-' + slugify(currentCm().replace(/\s*×\s*/g, 'x')).toLowerCase() + '-' + PRINT_DPI + 'dpi.png';
         const url = URL.createObjectURL(r.blob);
         const a = document.createElement('a');
         a.href = url; a.download = name;
         document.body.appendChild(a); a.click(); a.remove();
         setTimeout(() => URL.revokeObjectURL(url), 60000);
-        toast('Exported ' + r.w + ' × ' + r.h + ' px (' + (r.blob.size / 1e6).toFixed(1) + ' MB).');
+        toast('Exported ' + r.w + ' × ' + r.h + ' px at ' + (r.dpi || PRINT_DPI) + ' dpi (' + (r.blob.size / 1e6).toFixed(1) + ' MB).');
       } catch (e) {
         toast('Export failed: ' + ((e && e.message) || e));
       } finally {
@@ -706,7 +707,7 @@
     if (STUDIO) {
       buyLabel.textContent = 'Export print file';
       const note = document.querySelector('.buy-note');
-      if (note) note.textContent = 'Studio · Print file at 300 dpi, edge to edge';
+      if (note) note.textContent = 'Studio · Print file at ' + PRINT_DPI + ' dpi, edge to edge';
     }
 
     buyBtn.addEventListener('click', () => {

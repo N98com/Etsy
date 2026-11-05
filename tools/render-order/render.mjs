@@ -4,7 +4,7 @@
 // Flow reports a new paid order. For every map in the order it:
 //   1. opens the shop's own map engine (shop.html) in headless Chrome,
 //   2. loads the customer's exact design (the "_Design JSON" property),
-//   3. renders the print file at the exact Gelato size @300dpi (PNG),
+//   3. renders the print file at the exact Gelato size @600dpi (PNG),
 //   4. uploads it to Cloudflare R2 under an unguessable path,
 // and then emails one message with the download link(s) and the shipping
 // details. If a render fails, the email still goes out — with the one-tap
@@ -65,7 +65,7 @@ async function renderOne(browser, design) {
     page.waitForEvent('download', { timeout: 900000 }),
     page.evaluate(async () => {
       const r = await window.LocationApp.renderPrintFile();
-      window.__printInfo = { w: r.w, h: r.h, sizeId: r.sizeId };
+      window.__printInfo = { w: r.w, h: r.h, sizeId: r.sizeId, dpi: r.dpi || 300 };
       const url = URL.createObjectURL(r.blob);
       const a = document.createElement('a');
       a.href = url; a.download = 'print.png';
@@ -115,7 +115,7 @@ function buildEmail(results) {
       <div style="color:#47433C;font-size:13px;margin:4px 0 10px">${esc(r.size)}${r.palette ? ' · ' + esc(r.palette) : ''}${r.title ? ' · “' + esc(r.title) + '”' : ''}${r.pins ? ' · pins: ' + esc(r.pins) : ''}</div>
       ${r.url
         ? `<a href="${esc(r.url)}" style="display:inline-block;background:#1F3A2B;color:#F4F1EB;padding:10px 16px;text-decoration:none;font-size:13px;letter-spacing:.08em">DOWNLOAD PRINT FILE</a>
-           <div style="color:#47433C;font-size:12px;margin-top:6px">${r.w}×${r.h}px @300dpi · ${fmtBytes(r.bytes)} · PNG</div>`
+           <div style="color:#47433C;font-size:12px;margin-top:6px">${r.w}×${r.h}px @${r.dpi || 300}dpi · ${fmtBytes(r.bytes)} · PNG</div>`
         : `<div style="color:#9A2E1F;font-size:13px">Automatic render failed (${esc(r.error)}). Make it by hand:
            <a href="${esc(r.printLink)}">open this design in MapGen2.0</a> → Export PNG.</div>`}
     </td></tr>`).join('');
@@ -172,7 +172,7 @@ async function main() {
         const key = `orders/${safeOrder}-${crypto.randomBytes(12).toString('hex')}/N98-${safeOrder}-${i + 1}-${slug(a.Location || a.Title)}-${r.sizeId.replace(/@.*/, '')}.png`;
         const url = await upload(r.file, key);
         console.log(`  map ${i + 1}: ${r.w}x${r.h}px, ${fmtBytes(bytes)}, ${((Date.now() - t0) / 1000).toFixed(0)}s — uploaded`);
-        results.push({ ...base, url, w: r.w, h: r.h, bytes });
+        results.push({ ...base, url, w: r.w, h: r.h, dpi: r.dpi, bytes });
       } catch (e) {
         console.log(`  map ${i + 1}: FAILED — ${e.message.split('\n')[0]}`);
         results.push({ ...base, error: e.message.split('\n')[0].slice(0, 160) });
