@@ -593,6 +593,7 @@
         class="menu-drawer__utility-links menu-drawer__animated-element"
         style="--menu-drawer-animation-index: {{ linklist.links.size }};"
       >
+        {% render 'n98-drawer-links' %}
         {% render 'n98-currency-switch', variant: 'drawer' %}
         {% liquid
           assign show_language = section.settings.show_language

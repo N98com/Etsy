@@ -54,6 +54,7 @@
 .n98h .n98-btn-line:hover { background: var(--ink); color: var(--paper); }
 .n98h .n98-link-line { font-size: 11px; font-weight: 500; letter-spacing: 0.24em; text-transform: uppercase; border-bottom: 1px solid var(--ink); padding-bottom: 5px; }
 .n98h section { position: relative; }
+.n98h section[id] { scroll-margin-top: 96px; }
 .n98h .n98-reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.9s var(--ease), transform 0.9s var(--ease); }
 .n98h .n98-reveal.n98-in { opacity: 1; transform: none; }
 
@@ -228,7 +229,7 @@
     </div>
   </section>
 
-  <section class="n98-steps">
+  <section class="n98-steps" id="how-it-works">
     <div class="n98-wrap">
       <div class="n98-sec-head n98-reveal">
         <h2>Four steps from a memory to a <em>map on the wall.</em></h2>
