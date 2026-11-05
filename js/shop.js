@@ -92,6 +92,11 @@
   const $ = id => document.getElementById(id);
   const inIframe = window.parent !== window;
   if (inIframe) document.documentElement.classList.add('is-embedded');
+  // Studio (n98com.github.io/Etsy/ → shop.html?studio=1, achter de login van
+  // js/studio.js): exact dezelfde tool, maar stap IV exporteert het
+  // printbestand (300 dpi, exact Gelato-formaat) in plaats van "Add to cart".
+  const STUDIO = !inIframe && new URLSearchParams(window.location.search).get('studio') === '1';
+  if (STUDIO) document.documentElement.classList.add('is-studio');
 
   function move(unitId, slotId) {
     const unit = $(unitId), slot = $(slotId);
@@ -319,7 +324,13 @@
     function refreshPrices() {
       [...sizeGrid.children].forEach(b => { b.querySelector('.size-price').textContent = money(priceFor(b.dataset.sizeId, frameId)); });
       [...frameGrid.children].forEach(b => { b.querySelector('.frame-price').textContent = frameDelta(FRAMES.find(f => f.id === b.dataset.frameId)); });
-      $('buyAmount').textContent = money(priceFor(ratioSelect.value, frameId));
+      $('buyAmount').textContent = STUDIO ? printPx() : money(priceFor(ratioSelect.value, frameId));
+    }
+    function printPx() {
+      const m = /(\d+)\s*[×x]\s*(\d+)\s*cm/i.exec(currentCm() || '');
+      if (!m) return '';
+      const px = cm => Math.round(cm / 2.54 * 300);
+      return px(+m[1]) + ' × ' + px(+m[2]) + ' px';
     }
     function selectFrame(id) {
       frameId = id;
@@ -329,7 +340,7 @@
       });
       const f = FRAMES.find(x => x.id === id);
       if (window.LocationApp && window.LocationApp.setOrderExtras) window.LocationApp.setOrderExtras({ frame: id, frameLabel: f ? f.label : id });
-      $('buySize').textContent = (currentCm() + (id !== 'none' ? ' · framed' : '')).toUpperCase();
+      $('buySize').textContent = STUDIO ? (currentCm() + ' · 300 dpi').toUpperCase() : (currentCm() + (id !== 'none' ? ' · framed' : '')).toUpperCase();
       refreshPrices();
       updateSummary();
       if (typeof drawRoomPoster === 'function') requestAnimationFrame(drawRoomPoster);
@@ -351,7 +362,7 @@
         b.classList.toggle('active', on);
         b.setAttribute('aria-pressed', on ? 'true' : 'false');
       });
-      $('buySize').textContent = (currentCm() + (frameId !== 'none' ? ' · framed' : '')).toUpperCase();
+      $('buySize').textContent = STUDIO ? (currentCm() + ' · 300 dpi').toUpperCase() : (currentCm() + (frameId !== 'none' ? ' · framed' : '')).toUpperCase();
       refreshPrices();
       $('stageSize').textContent = currentCm();
       updateSummary();
@@ -376,8 +387,8 @@
         ['Palette', s && s.palette ? s.palette.name : ''],
         ['Size', currentCm()],
         ['Frame', (FRAMES.find(f => f.id === frameId) || FRAMES[0]).label],
-        ['Price', money(priceFor(ratioSelect.value, frameId))],
-        ['Shipping', 'Free'],
+        STUDIO ? ['Print file', printPx() + ' · 300 dpi · PNG'] : ['Price', money(priceFor(ratioSelect.value, frameId))],
+        ['Shipping', STUDIO ? '' : 'Free'],
       ];
       rows.forEach(([k, v]) => {
         if (!v) return;
@@ -661,7 +672,45 @@
       clearTimeout(toastTimer);
       toastTimer = setTimeout(() => { toastEl.hidden = true; }, 4200);
     }
+    // Studio: printbestand exporteren (zelfde render als de automatische
+    // orderverwerking: exact formaat, 300 dpi, rand tot rand).
+    let exporting = false;
+    function slugify(t) {
+      return String(t || 'map').normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^A-Za-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'map';
+    }
+    async function exportPrint() {
+      if (exporting) return;
+      if (!window.LocationApp || !window.LocationApp.isDataReady || !window.LocationApp.isDataReady()) {
+        toast('Your map is still being drawn, one moment please.'); return;
+      }
+      exporting = true;
+      buyBtn.disabled = true;
+      buyLabel.textContent = 'Rendering print file…';
+      try {
+        const r = await window.LocationApp.renderPrintFile();
+        const name = 'N98-' + slugify(placeName(summary())) + '-' + slugify(currentCm().replace(/\s*×\s*/g, 'x')).toLowerCase() + '-300dpi.png';
+        const url = URL.createObjectURL(r.blob);
+        const a = document.createElement('a');
+        a.href = url; a.download = name;
+        document.body.appendChild(a); a.click(); a.remove();
+        setTimeout(() => URL.revokeObjectURL(url), 60000);
+        toast('Exported ' + r.w + ' × ' + r.h + ' px (' + (r.blob.size / 1e6).toFixed(1) + ' MB).');
+      } catch (e) {
+        toast('Export failed: ' + ((e && e.message) || e));
+      } finally {
+        exporting = false;
+        buyBtn.disabled = false;
+        buyLabel.textContent = 'Export print file';
+      }
+    }
+    if (STUDIO) {
+      buyLabel.textContent = 'Export print file';
+      const note = document.querySelector('.buy-note');
+      if (note) note.textContent = 'Studio · Print file at 300 dpi, edge to edge';
+    }
+
     buyBtn.addEventListener('click', () => {
+      if (STUDIO) { exportPrint(); return; }
       if (confirmBtn.disabled) { toast('Your map is still being drawn, one moment please.'); return; }
       if (adding) return;
       confirmBtn.click(); // location.js: bouwt ontwerp-samenvatting + preview en stuurt die naar Shopify
@@ -680,5 +729,7 @@
     selectFrame(frameId);
     updatePlacard();
     goTo(0, false);
+    // voor js/studio.js (ontwerp uit een bestel-link laden)
+    window.N98Shop = { selectSize, selectFrame, goTo, updatePlacard, updateSummary, toast };
   });
 })();
