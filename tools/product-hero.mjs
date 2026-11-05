@@ -13,6 +13,8 @@ const fonts=`
 @font-face{font-family:CG;src:url(${fontDir}/cormorant-garamond/files/cormorant-garamond-latin-400-normal.woff2)}
 @font-face{font-family:CG;font-style:italic;src:url(${fontDir}/cormorant-garamond/files/cormorant-garamond-latin-400-italic.woff2)}
 @font-face{font-family:CG;font-weight:500;src:url(${fontDir}/cormorant-garamond/files/cormorant-garamond-latin-500-normal.woff2)}
+@font-face{font-family:CG;font-weight:600;src:url(${fontDir}/cormorant-garamond/files/cormorant-garamond-latin-600-normal.woff2)}
+@font-face{font-family:CG;font-weight:600;font-style:italic;src:url(${fontDir}/cormorant-garamond/files/cormorant-garamond-latin-600-italic.woff2)}
 @font-face{font-family:PM;src:url(${fontDir}/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2)}
 *{margin:0;padding:0;box-sizing:border-box}body{width:${W}px;height:${H}px;overflow:hidden}
 .eb{font-family:PM;font-size:24px;letter-spacing:.32em;text-transform:uppercase}
@@ -41,9 +43,9 @@ function dotSvg(w,h,color,step=17,r=5.2){
 }
 const pages={
 E:`<body style="background:#1E3529;color:#F4F1EB">
- <div style="position:absolute;left:120px;top:120px;color:#C9A96E" class="eb">N°98 Maps</div>
- <div style="position:absolute;left:112px;top:230px" class="t">Custom<br>Map <span class="it">Print</span></div>
- <div style="position:absolute;left:0;top:860px;width:1600px;display:flex;justify-content:center">${mapSvg(1460,720,{landFill:'#2A4838',stroke:'#E9DFC9',sw:0.7,grat:'#2C4A3A',outline:'#C9A96E',bg:'#1E3529'})}</div>
+ <div style="position:absolute;left:0;width:1600px;text-align:center;top:120px;color:#C9A96E" class="eb">N°98 Maps</div>
+ <div style="position:absolute;left:0;width:1600px;text-align:center;top:200px;font-family:CG;font-weight:600;font-size:250px;line-height:.9;letter-spacing:-.005em">Custom Map<br><span class="it">Print</span></div>
+ <div style="position:absolute;left:0;top:900px;width:1600px;display:flex;justify-content:center">${mapSvg(1460,720,{landFill:'#2A4838',stroke:'#E9DFC9',sw:0.7,grat:'#2C4A3A',outline:'#C9A96E',bg:'#1E3529'})}</div>
  <div style="position:absolute;left:120px;right:120px;bottom:120px;display:flex;justify-content:space-between;border-top:1px solid #C9A96E;padding-top:28px;color:#C9A96E" class="eb"><span>Any place on earth</span><span>Printed to order</span></div>
 </body>`,
 F:`<body style="background:#F4F1EB;color:#141414">
