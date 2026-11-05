@@ -3,6 +3,12 @@
   Cream paper, ink, Cormorant style serif with Georgia fallback, mono labels.
 {%- endcomment -%}
 {%- capture email_title -%}Thank you for your order{%- endcapture -%}
+{%- assign total_order_discount_amount = 0 -%}
+{%- for discount_application in discount_applications -%}
+  {%- if discount_application.target_selection == 'all' and discount_application.target_type == 'line_item' -%}
+    {%- assign total_order_discount_amount = total_order_discount_amount | plus: discount_application.total_allocated_amount -%}
+  {%- endif -%}
+{%- endfor -%}
 {%- assign first_name = customer.first_name | default: shipping_address.first_name | default: billing_address.first_name -%}
 <!DOCTYPE html>
 <html lang="en">
