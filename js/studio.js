@@ -188,29 +188,35 @@
       listEl.innerHTML = `<p class="studio-empty">${view === 'open' ? 'Nothing to print right now.' : 'No paid orders yet.'}</p>`;
       return;
     }
-    listEl.innerHTML = orders.map((o, oi) => `
+    const row = (k, v) => v ? `<div class="studio-row"><dt>${k}</dt><dd>${esc(v)}</dd></div>` : '';
+    listEl.innerHTML = orders.map((o, i) => `
       <article class="studio-order${o.ready ? ' is-ready' : ''}">
-        <header><b>${esc(o.name)}</b><span>${esc(fmtDate(o.createdAt))}</span></header>
-        <p class="studio-ship">${esc(o.shipTo)}${o.ready ? ' · <em>print file made</em>' : ''}</p>
-        ${o.items.map((it, ii) => `
-          <div class="studio-item">
-            <div class="studio-item__txt">
-              <strong>${esc(it.text || it.location || 'Custom map')}</strong>
-              <span>${esc([it.size, it.frame, it.palette].filter(Boolean).join(' · ') || it.variant || '')}</span>
-              ${it.pins && it.pins !== 'None' ? `<span>Pins: ${esc(it.pins)}</span>` : ''}
-              ${it.quantity > 1 ? `<span>Quantity: ${it.quantity}</span>` : ''}
-            </div>
-            ${it.design ? `<button type="button" data-o="${oi}" data-i="${ii}">Load</button>` : '<span class="studio-nodesign">No design attached</span>'}
-          </div>`).join('')}
+        <header><b>${esc(o.label)}</b><span>${esc(fmtDate(o.createdAt))}</span></header>
+        ${o.ready ? '<p class="studio-ship"><em>Print file made</em></p>' : ''}
+        <dl class="studio-facts">
+          ${row('Map', [o.text || o.location || 'Custom map', o.subtitle].filter(Boolean).join(', '))}
+          ${row('Size', o.size)}
+          ${row('Frame', o.frame && o.frame !== 'No frame' ? o.frame + ' frame' : 'No frame')}
+          ${row('Palette', o.palette)}
+          ${o.pins && o.pins !== 'None' ? row('Pins', o.pins) : ''}
+        </dl>
+        <div class="studio-addr">
+          <span class="studio-eyebrow">Ship to</span>
+          <p>${(o.address || []).map(esc).join('<br>') || '<i>No address</i>'}${o.phone ? '<br>' + esc(o.phone) : ''}</p>
+          ${o.addressHidden ? '<p class="studio-warn">Full address hidden: allow protected customer data (name, address, phone) for the app in the Shopify Dev Dashboard.</p>' : ''}
+        </div>
+        <div class="studio-actions">
+          ${o.design ? `<button type="button" data-i="${i}">Load design</button>` : '<span class="studio-nodesign">No design attached</span>'}
+        </div>
       </article>`).join('');
   }
   listEl.addEventListener('click', e => {
-    const b = e.target.closest('button[data-o]');
+    const b = e.target.closest('button[data-i]');
     if (!b) return;
-    const o = orders[+b.dataset.o], it = o.items[+b.dataset.i];
-    current = { orderId: o.id, name: o.name };
+    const o = orders[+b.dataset.i];
+    current = { orderId: o.id, part: o.part, total: o.total, label: o.label };
     ordersPanel.hidden = true;
-    loadDesign(it.design, it.frame, o.name + ' loaded' + (it.frame && it.frame !== 'No frame' ? ' (' + it.frame.replace(/\s*\(.*\)$/, '') + ' frame in Gelato)' : '') + '. Export as soon as the map has finished drawing.');
+    loadDesign(o.design, o.frame, o.label + ' loaded' + (o.frame && o.frame !== 'No frame' ? ' (' + o.frame + ' frame in Gelato)' : '') + '. Export as soon as the map has finished drawing.');
   });
   async function refreshOrders(showLoading) {
     if (!sbClient || !authed) return;
@@ -227,8 +233,8 @@
     if (!current) return;
     const c = current;
     try {
-      await api('', { method: 'POST', body: JSON.stringify({ action: 'mark', id: c.orderId }) });
-      const o = orders.find(x => x.id === c.orderId); if (o) o.ready = true;
+      await api('', { method: 'POST', body: JSON.stringify({ action: 'mark', id: c.orderId, part: c.part, total: c.total }) });
+      const o = orders.find(x => x.id === c.orderId && x.part === c.part); if (o) o.ready = true;
       render(); setBadge();
     } catch (e) { /* tag is optional (needs write_orders) */ }
   });
@@ -262,5 +268,15 @@
     .studio-item__txt span { font-size: 13px; color: #47433C; }
     .studio-item button { flex: none; border: 0; background: #1E3529; color: #F4F1EB; font: 500 10px system-ui, sans-serif; letter-spacing: .22em; text-transform: uppercase; padding: 11px 14px; cursor: pointer; }
     .studio-item button:disabled { opacity: .4; cursor: default; }
+    .studio-facts { margin: 10px 0 0; display: grid; gap: 4px; }
+    .studio-row { display: grid; grid-template-columns: 70px 1fr; gap: 10px; }
+    .studio-row dt { font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; color: #8A8378; padding-top: 3px; }
+    .studio-row dd { margin: 0; font-size: 14px; color: #141414; }
+    .studio-addr { margin-top: 12px; padding: 10px 12px; background: #FBFAF7; border: 1px solid #DDD6CA; }
+    .studio-addr .studio-eyebrow { display: block; font-size: 9.5px; margin-bottom: 6px; }
+    .studio-addr p { margin: 0; font-size: 14px; line-height: 1.5; color: #141414; user-select: text; }
+    .studio-addr .studio-warn { margin-top: 8px; font-size: 12px; color: #9A2E1F; }
+    .studio-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
+    .studio-actions button { border: 0; background: #1E3529; color: #F4F1EB; font: 500 10px system-ui, sans-serif; letter-spacing: .22em; text-transform: uppercase; padding: 12px 16px; cursor: pointer; }
     .studio-nodesign { flex: none; max-width: 110px; text-align: right; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; color: #9A2E1F; }`;
 })();

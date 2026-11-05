@@ -56,11 +56,13 @@ async function gql(query: string, variables: Record<string, unknown> = {}) {
   return j.data;
 }
 
-const ORDERS_Q = `query($q: String) {
+const ADDR_FULL = "shippingAddress { name company address1 address2 zip city province country countryCodeV2 phone }";
+const ADDR_MIN = "shippingAddress { city countryCodeV2 }";
+const ordersQuery = (addr: string) => `query($q: String) {
   orders(first: 50, reverse: true, sortKey: CREATED_AT, query: $q) {
     nodes {
       id name createdAt tags displayFinancialStatus displayFulfillmentStatus
-      shippingAddress { firstName city countryCodeV2 }
+      ${addr}
       lineItems(first: 25) { nodes { title variantTitle quantity sku customAttributes { key value } } }
     }
   }
@@ -79,10 +81,21 @@ Deno.serve(async (req) => {
     if (req.method === "POST") {
       const b = await req.json().catch(() => ({}));
       if (b.action === "mark" && typeof b.id === "string" && b.id.startsWith("gid://shopify/Order/")) {
-        const d = await gql(`mutation($id: ID!, $tags: [String!]!) { tagsAdd(id: $id, tags: $tags) { userErrors { message } } }`, { id: b.id, tags: [READY_TAG] });
+        // Per kaart een label "print-file-1", "print-file-2", … en zodra alle
+        // kaarten van de bestelling klaar zijn ook "print-file-ready".
+        const part = Math.max(1, Math.min(99, parseInt(b.part, 10) || 1));
+        const total = Math.max(part, Math.min(99, parseInt(b.total, 10) || 1));
+        const cur = await gql(`query($id: ID!) { order(id: $id) { tags } }`, { id: b.id });
+        const tags = new Set<string>((cur.order && cur.order.tags) || []);
+        tags.add(`print-file-${part}`);
+        const add = [`print-file-${part}`];
+        let done = true;
+        for (let i = 1; i <= total; i++) if (!tags.has(`print-file-${i}`)) done = false;
+        if (done) add.push(READY_TAG);
+        const d = await gql(`mutation($id: ID!, $tags: [String!]!) { tagsAdd(id: $id, tags: $tags) { userErrors { message } } }`, { id: b.id, tags: add });
         const errs = d.tagsAdd.userErrors;
         if (errs.length) return json(req, { error: errs[0].message }, 400);
-        return json(req, { ok: true });
+        return json(req, { ok: true, ready: done });
       }
       return json(req, { error: "Unknown action." }, 400);
     }
@@ -90,32 +103,49 @@ Deno.serve(async (req) => {
     const view = new URL(req.url).searchParams.get("view") || "open";
     // Alle betaalde orders ophalen en zelf filteren: "unfulfilled" in de
     // zoekfilter mist orders met status IN_PROGRESS / ON_HOLD e.d.
-    const d = await gql(ORDERS_Q, { q: "financial_status:paid" });
+    // Volledig adres vraagt "protected customer data" op de app; zonder die
+    // toestemming vallen we terug op stad + land.
+    let d: any, addressHidden = false;
+    try { d = await gql(ordersQuery(ADDR_FULL), { q: "financial_status:paid" }); }
+    catch (_e) { addressHidden = true; d = await gql(ordersQuery(ADDR_MIN), { q: "financial_status:paid" }); }
     const nodes = d.orders.nodes.filter((o: any) => view === "all" || !["FULFILLED", "RESTOCKED"].includes(o.displayFulfillmentStatus));
-    const orders = nodes.map((o: any) => ({
-      id: o.id,
-      name: o.name,
-      createdAt: o.createdAt,
-      ready: (o.tags || []).includes(READY_TAG),
-      fulfillment: o.displayFulfillmentStatus,
-      shipTo: o.shippingAddress ? [o.shippingAddress.firstName, o.shippingAddress.city, o.shippingAddress.countryCodeV2].filter(Boolean).join(", ") : "",
-      items: o.lineItems.nodes
-        .map((li: any) => {
-          const a: Record<string, string> = {};
-          for (const c of li.customAttributes || []) a[c.key] = c.value;
-          let design = null;
-          try { design = a["_Design JSON"] ? JSON.parse(a["_Design JSON"]) : null; } catch { design = null; }
-          return {
-            title: li.title, variant: li.variantTitle, quantity: li.quantity, sku: li.sku,
-            location: a["Location"] || "", size: a["Size"] || "", frame: a["Frame"] || "",
-            palette: a["Palette"] || "", text: a["Title"] || "", pins: a["Pins"] || "",
-            printLink: a["_Print file"] || "", design,
-          };
-        })
-        // ook regels zonder ontwerp tonen (bv. een handmatig aangemaakte
-        // order): die krijgen in de Studio "No design attached".
-        .filter((it: any) => it.design || it.printLink || /map/i.test(it.title || "")),
-    })).filter((o: any) => o.items.length);
+    const orders: any[] = [];
+    for (const o of nodes) {
+      const sa = o.shippingAddress || {};
+      const address = [
+        sa.name, sa.company, sa.address1, sa.address2,
+        [sa.zip, sa.city].filter(Boolean).join(" "), sa.province, sa.country || sa.countryCodeV2,
+      ].filter((x: any) => x && String(x).trim());
+      const tags = new Set<string>(o.tags || []);
+      // Elke kaart apart: een regel met aantal 2 wordt (1) en (2).
+      const maps: any[] = [];
+      for (const li of o.lineItems.nodes) {
+        const a: Record<string, string> = {};
+        for (const c of li.customAttributes || []) a[c.key] = c.value;
+        let design = null;
+        try { design = a["_Design JSON"] ? JSON.parse(a["_Design JSON"]) : null; } catch { design = null; }
+        if (!(design || a["_Print file"] || /map/i.test(li.title || ""))) continue;
+        const [vSize, vFrame] = String(li.variantTitle || "").split(" / ");
+        for (let q = 0; q < (li.quantity || 1); q++) {
+          maps.push({
+            location: a["Location"] || "", coordinates: a["Coordinates"] || "",
+            size: a["Size"] || vSize || "", frame: (a["Frame"] || vFrame || "No frame").replace(/\s*\(.*\)$/, ""),
+            palette: a["Palette"] || "", text: a["Title"] || "", subtitle: a["Subtitle"] || "", pins: a["Pins"] || "",
+            design,
+          });
+        }
+      }
+      maps.forEach((m, i) => {
+        orders.push({
+          id: o.id, name: o.name, part: i + 1, total: maps.length,
+          label: maps.length > 1 ? `${o.name} (${i + 1})` : o.name,
+          createdAt: o.createdAt, fulfillment: o.displayFulfillmentStatus,
+          ready: tags.has(READY_TAG) || tags.has(`print-file-${i + 1}`),
+          address, phone: sa.phone || "", addressHidden,
+          ...m,
+        });
+      });
+    }
     return json(req, { orders });
   } catch (e) {
     return json(req, { error: (e as Error).message }, 500);
