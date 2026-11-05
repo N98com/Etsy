@@ -9,7 +9,14 @@
   const SUPABASE_URL = 'https://tzhzyprycgpnhxkmexkh.supabase.co';
   const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InR6aHp5cHJ5Y2dwbmh4a21leGtoIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODg0NjU4MzEsImV4cCI6MjEwNDA0MTgzMX0.mSwdD5jAq87upgzMMvCmaf194yClDkStuNNlGe0Vm6E';
 
-  document.title = 'Studio · N°98 Maps';
+  document.title = 'Workbench · N°98 Maps';
+  function brand() {
+    const sub = document.querySelector('.shop-logo-sub');
+    if (sub) sub.textContent = 'WORKBENCH';
+    const logo = document.querySelector('.shop-logo');
+    if (logo) logo.setAttribute('aria-label', 'N°98 Workbench');
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', brand); else brand();
   let authed = false;
 
   // ---- login-scherm ----
@@ -18,7 +25,7 @@
   gate.innerHTML = `
     <form class="studio-card" autocomplete="on">
       <p class="studio-eyebrow">N°98 Maps</p>
-      <h1>Studio</h1>
+      <h1>Workbench</h1>
       <p class="studio-hint">Log in to design and export print files.</p>
       <label>Email<input type="email" name="email" required autocomplete="username"></label>
       <label>Password<input type="password" name="password" required autocomplete="current-password"></label>
