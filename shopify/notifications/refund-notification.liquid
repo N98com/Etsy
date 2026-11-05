@@ -1,0 +1,158 @@
+{%- comment -%}
+  N°98 Maps: refund notification email (Settings → Notifications → Refund notification).
+  Cream paper, ink, Cormorant style serif with Georgia fallback, mono labels.
+{%- endcomment -%}
+{%- if refund_line_items.size == item_count -%}
+  {%- assign refund_kind = 'full' -%}{%- capture email_title -%}Your order has been refunded{%- endcapture -%}
+{%- elsif refund_line_items.size == 0 -%}
+  {%- assign refund_kind = 'amount' -%}{%- capture email_title -%}You have received a refund{%- endcapture -%}
+{%- else -%}
+  {%- assign refund_kind = 'partial' -%}{%- capture email_title -%}Some items in your order have been refunded{%- endcapture -%}
+{%- endif -%}
+{%- assign first_name = customer.first_name | default: billing_address.first_name | default: shipping_address.first_name -%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light only">
+  <meta name="supported-color-schemes" content="light only">
+  <title>{{ email_title }}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    body { margin: 0; padding: 0; background: #E6E0D5; -webkit-text-size-adjust: 100%; }
+    table { border-collapse: collapse; }
+    img { border: 0; display: block; }
+    a { color: #141414; }
+    .serif { font-family: 'Cormorant Garamond', Garamond, Georgia, 'Times New Roman', serif; }
+    .mono { font-family: 'IBM Plex Mono', 'SFMono-Regular', Menlo, Consolas, 'Courier New', monospace; }
+    .sans { font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Arial, sans-serif; }
+    @media (max-width: 620px) {
+      .wrap { width: 100% !important; }
+      .pad { padding-left: 24px !important; padding-right: 24px !important; }
+      .h1 { font-size: 34px !important; }
+      .col { display: block !important; width: 100% !important; padding: 0 0 18px !important; }
+    }
+  </style>
+</head>
+<body style="margin:0;padding:0;background:#E6E0D5;">
+  <div style="display:none;max-height:0;overflow:hidden;">{{ amount | money_with_currency }} has been refunded for order {{ order_name }}.</div>
+  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#E6E0D5;">
+    <tr><td align="center" style="padding:32px 12px;">
+      <table role="presentation" class="wrap" width="600" cellpadding="0" cellspacing="0" style="width:600px;background:#F4F1EB;">
+
+        <!-- Header -->
+        <tr><td class="pad" style="padding:36px 48px 22px;border-bottom:1px solid #141414;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0"><tr>
+            <td valign="middle">
+              {%- if shop.email_logo_url -%}
+                <a href="{{ shop.url }}" style="text-decoration:none;"><img src="{{ shop.email_logo_url }}" alt="{{ shop.name }}" width="{{ shop.email_logo_width | default: 150 }}" style="height:auto;"></a>
+              {%- else -%}
+                <a href="{{ shop.url }}" style="text-decoration:none;color:#141414;"><span class="serif" style="font-size:30px;font-weight:500;color:#141414;">N°98</span><span style="display:inline-block;width:1px;height:22px;background:#141414;margin:0 12px;vertical-align:-3px;"></span><span class="mono" style="font-size:11px;letter-spacing:5px;color:#141414;">MAPS</span></a>
+              {%- endif -%}
+            </td>
+            <td valign="middle" align="right" class="mono" style="font-size:10px;letter-spacing:3px;color:#5E594F;text-transform:uppercase;">Order {{ order_name }}</td>
+          </tr></table>
+        </td></tr>
+
+        <!-- Intro -->
+        <tr><td class="pad" style="padding:38px 48px 8px;">
+          <p class="mono" style="margin:0 0 14px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#5E594F;">Refund</p>
+          <h1 class="serif h1" style="margin:0;font-size:40px;line-height:1.08;font-weight:400;color:#141414;">
+            {%- if first_name != blank -%}{{ first_name }}, your refund<br>{%- else -%}Your refund<br>{%- endif -%}<em style="font-style:italic;">is on its way.</em>
+          </h1>
+          <p class="sans" style="margin:20px 0 0;font-size:15px;line-height:1.65;color:#47433C;">
+            {%- case refund_kind -%}
+              {%- when 'full' -%}We have refunded your order {{ order_name }} in full.
+              {%- when 'partial' -%}We have refunded part of your order {{ order_name }}. The refunded items are marked below.
+              {%- else -%}We have sent you a refund for order {{ order_name }}.
+            {%- endcase %} Depending on your bank, it can take up to 10 working days before it shows on your statement.
+          </p>
+        </td></tr>
+
+        <!-- Amount -->
+        <tr><td class="pad" style="padding:22px 48px 6px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #DDD6CA;background:#FBFAF7;"><tr>
+            <td style="padding:18px 20px;">
+              <p class="mono" style="margin:0 0 4px;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:#5E594F;">Amount refunded</p>
+              <p class="serif" style="margin:0;font-size:32px;line-height:1.1;color:#1E3529;">{{ amount | money_with_currency }}</p>
+            </td>
+          </tr></table>
+        </td></tr>
+
+        <!-- Items -->
+        <tr><td class="pad" style="padding:38px 48px 0;">
+          <p class="mono" style="margin:0 0 10px;font-size:10px;letter-spacing:3px;text-transform:uppercase;color:#5E594F;">Order summary</p>
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #141414;">
+            {%- if line_items_including_zero_quantity == empty -%}{%- assign refund_lines = subtotal_line_items -%}{%- else -%}{%- assign refund_lines = line_items_including_zero_quantity -%}{%- endif -%}
+            {%- for line in refund_lines -%}
+            <tr>
+              <td valign="top" width="76" style="padding:18px 16px 18px 0;border-bottom:1px solid #DDD6CA;">
+                {%- if line.image -%}<img src="{{ line | img_url: 'compact_cropped' }}" width="60" height="60" alt="" style="width:60px;height:60px;border:1px solid #DDD6CA;">{%- endif -%}
+              </td>
+              <td valign="top" style="padding:18px 0;border-bottom:1px solid #DDD6CA;">
+                <p class="serif" style="margin:0;font-size:21px;line-height:1.2;color:#141414;">{{ line.product.title | default: line.title }}{% if line.quantity > 1 %} <span class="mono" style="font-size:12px;color:#5E594F;">&times; {{ line.quantity }}</span>{% endif %}</p>
+                {%- if line.variant.title != blank and line.variant.title != 'Default Title' -%}
+                  <p class="mono" style="margin:5px 0 0;font-size:11px;letter-spacing:1px;color:#5E594F;">{{ line.variant.title }}</p>
+                {%- endif -%}
+                {%- for property in line.properties -%}
+                  {%- assign p_first = property.first | slice: 0 -%}
+                  {%- if property.last != blank and p_first != '_' and property.first != 'Size' and property.first != 'Frame' and property.first != 'Coordinates' and property.last != 'None' -%}
+                    <p class="sans" style="margin:4px 0 0;font-size:13px;line-height:1.45;color:#47433C;"><span style="color:#8A8378;">{{ property.first }}:</span> {{ property.last }}</p>
+                  {%- endif -%}
+                {%- endfor -%}
+                {%- if line.refunded_quantity > 0 -%}
+                  <p class="mono" style="margin:6px 0 0;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#1E3529;">Refunded{% if line.refunded_quantity < line.quantity %} ({{ line.refunded_quantity }} of {{ line.quantity }}){% endif %}</p>
+                {%- endif -%}
+                {%- for discount_allocation in line.discount_allocations -%}
+                  {%- if discount_allocation.discount_application.target_selection != 'all' -%}
+                    <p class="mono" style="margin:6px 0 0;font-size:11px;color:#1E3529;">{{ discount_allocation.discount_application.title | upcase }} (&minus;{{ discount_allocation.amount | money }})</p>
+                  {%- endif -%}
+                {%- endfor -%}
+              </td>
+              <td valign="top" align="right" class="mono" style="padding:20px 0 18px 12px;border-bottom:1px solid #DDD6CA;font-size:13px;color:#141414;white-space:nowrap;">
+                {%- if line.original_line_price != line.final_line_price -%}<del style="color:#8A8378;">{{ line.original_line_price | money }}</del><br>{%- endif -%}
+                {%- if line.final_line_price > 0 -%}{{ line.final_line_price | money }}{%- else -%}Free{%- endif -%}
+              </td>
+            </tr>
+            {%- endfor -%}
+          </table>
+        </td></tr>
+
+        <!-- Totals -->
+        <tr><td class="pad" style="padding:16px 48px 0;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" class="sans" style="font-size:14px;color:#47433C;">
+            <tr>
+              <td class="serif" style="padding:10px 0 4px;font-size:22px;color:#141414;">Order total</td>
+              <td align="right" class="mono" style="padding:10px 0 4px;font-size:15px;font-weight:500;color:#141414;">{{ total_price | money_with_currency }}</td>
+            </tr>
+            <tr>
+              <td style="padding:8px 0 0;border-top:1px solid #DDD6CA;color:#141414;"><strong>Refunded now</strong></td>
+              <td align="right" class="mono" style="padding:8px 0 0;border-top:1px solid #DDD6CA;font-size:14px;font-weight:500;color:#1E3529;">{{ amount | money_with_currency }}</td>
+            </tr>
+          </table>
+        </td></tr>
+
+        <!-- Personal note -->
+        <tr><td class="pad" style="padding:40px 48px 0;">
+          <p class="serif" style="margin:0;font-size:20px;line-height:1.45;font-style:italic;color:#141414;">Whenever you are ready for a new place on your wall, we will be here to draw it.</p>
+        </td></tr>
+
+        <!-- Footer -->
+        <tr><td class="pad" style="padding:40px 48px 36px;">
+          <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border-top:1px solid #141414;"><tr>
+            <td align="center" style="padding-top:22px;">
+              <p class="mono" style="margin:0 0 10px;font-size:9.5px;letter-spacing:3px;text-transform:uppercase;color:#141414;">Printed to order &middot; Free shipping worldwide</p>
+              <p class="sans" style="margin:0;font-size:13px;line-height:1.7;color:#5E594F;">
+                Questions? Reply to this email or write to <a href="mailto:{{ shop.email }}" style="color:#141414;">{{ shop.email }}</a><br>
+                <a href="https://wa.me/31613168888" style="color:#141414;">WhatsApp</a> &nbsp;&middot;&nbsp; <a href="https://www.instagram.com/n98.maps/" style="color:#141414;">Instagram</a> &nbsp;&middot;&nbsp; <a href="{{ shop.url }}" style="color:#141414;">n98maps.com</a>
+              </p>
+            </td>
+          </tr></table>
+        </td></tr>
+
+      </table>
+    </td></tr>
+  </table>
+</body>
+</html>
