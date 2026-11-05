@@ -25,7 +25,20 @@ const MapRender = (() => {
     'playfair-bold': { family: "'Playfair Display', Georgia, serif", style: 'normal', placeWeight: '700', otherWeight: '700' },
     'space-mono': { family: "'Space Mono', monospace", style: 'normal', placeWeight: '700', otherWeight: '400' },
     'kalam-bold': { family: "'Kalam', cursive", style: 'normal', placeWeight: '700', otherWeight: '700' },
+    'archivo-black': { family: "'Archivo Black', 'Arial Black', sans-serif", style: 'normal', placeWeight: '400', otherWeight: '400' },
+    'bebas-neue': { family: "'Bebas Neue', 'Oswald', sans-serif", style: 'normal', placeWeight: '400', otherWeight: '400' },
+    // Scripts: plaatsnaam niet in hoofdletters en zonder extra letterafstand
+    // (een script in kapitalen met spatiëring is onleesbaar).
+    'lobster-two': { family: "'Lobster Two', cursive", style: 'normal', placeWeight: '700', otherWeight: '700', caps: false, spacing: 0 },
+    'kaushan-script': { family: "'Kaushan Script', cursive", style: 'normal', placeWeight: '400', otherWeight: '400', caps: false, spacing: 0 },
   };
+  function placeText(t, font) {
+    const s = String(t || '');
+    return font && font.caps === false ? s : s.toUpperCase();
+  }
+  function placeSpacing(v, font) {
+    return v * (font && typeof font.spacing === 'number' ? font.spacing : 1);
+  }
   // Arabisch/RTL-onderschriften gebruiken altijd Amiri (het enige geladen
   // lettertype met Arabische glyphs) — de gekozen Latijnse font-optie wordt
   // dan genegeerd, ongeacht welke van de vijf is aangevinkt.
@@ -758,9 +771,9 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.75;
       const placeFontSize = layout.cityH * 0.62 * placeScale;
-      const extra = drawPlaceName(painter, w / 2, y, (caption.place || '').toUpperCase(), {
+      const extra = drawPlaceName(painter, w / 2, y, placeText(caption.place, font), {
         fill: ink.ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
-        align: 'center', letterSpacing: rtl ? 0 : layout.cityH * 0.06, maxWidth: w * 0.88,
+        align: 'center', letterSpacing: rtl ? 0 : placeSpacing(layout.cityH * 0.06, font), maxWidth: w * 0.88,
       });
       y += layout.cityH * 0.25 + extra;
     }
@@ -836,9 +849,9 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.68;
       const placeFontSize = layout.cityH * 0.48 * placeScale;
-      const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
+      const extra = drawPlaceName(painter, textX, y, placeText(caption.place, font), {
         fill: ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
-        align, letterSpacing: rtl ? 0 : layout.cityH * 0.03, maxWidth: plateW * 0.82,
+        align, letterSpacing: rtl ? 0 : placeSpacing(layout.cityH * 0.03, font), maxWidth: plateW * 0.82,
       });
       y += layout.cityH * 0.2 + extra;
     }
@@ -891,9 +904,9 @@ const MapRender = (() => {
     if (caption.showPlace) {
       y += layout.cityH * 0.55;
       const placeFontSize = layout.cityH * 0.5 * placeScale;
-      const extra = drawPlaceName(painter, textX, y, (caption.place || '').toUpperCase(), {
+      const extra = drawPlaceName(painter, textX, y, placeText(caption.place, font), {
         fill: ink, fontSize: placeFontSize, fontFamily: font.family, weight: font.placeWeight, fontStyle: font.style,
-        align, letterSpacing: rtl ? 0 : layout.cityH * 0.05, maxWidth: w * 0.89,
+        align, letterSpacing: rtl ? 0 : placeSpacing(layout.cityH * 0.05, font), maxWidth: w * 0.89,
       });
       y += layout.cityH * 0.14 + extra;
     }

@@ -151,6 +151,10 @@ window.LocationApp = (() => {
     { id: 'playfair-bold', label: 'Playfair Display', previewFamily: "'Playfair Display', Georgia, serif", previewWeight: '700', previewStyle: 'normal' },
     { id: 'space-mono', label: 'Space Mono', previewFamily: "'Space Mono', monospace", previewWeight: '700', previewStyle: 'normal' },
     { id: 'kalam-bold', label: 'Kalam', previewFamily: "'Kalam', cursive", previewWeight: '700', previewStyle: 'normal' },
+    { id: 'archivo-black', label: 'Archivo Black', previewFamily: "'Archivo Black', sans-serif", previewWeight: '400', previewStyle: 'normal' },
+    { id: 'bebas-neue', label: 'Bebas Neue', previewFamily: "'Bebas Neue', sans-serif", previewWeight: '400', previewStyle: 'normal' },
+    { id: 'lobster-two', label: 'Lobster Two', previewFamily: "'Lobster Two', cursive", previewWeight: '700', previewStyle: 'normal' },
+    { id: 'kaushan-script', label: 'Kaushan Script', previewFamily: "'Kaushan Script', cursive", previewWeight: '400', previewStyle: 'normal' },
   ];
 
   const AREA_TIER_NOTE = {
@@ -1049,6 +1053,14 @@ window.LocationApp = (() => {
     state.captionFontId = id;
     [...fontTabs.children].forEach(b => b.classList.toggle('active', b.dataset.fontId === id));
     render();
+    // webfont nog niet binnen? Dan zodra hij geladen is opnieuw tekenen,
+    // anders blijft het eerste beeld in het reservelettertype staan.
+    const p = CAPTION_FONT_PRESETS.find(f => f.id === id);
+    if (p && document.fonts && document.fonts.load) {
+      document.fonts.load(`${p.previewStyle || 'normal'} ${p.previewWeight || '400'} 40px ${p.previewFamily}`).then(() => {
+        if (state.captionFontId === id) render();
+      }).catch(() => {});
+    }
   }
 
   function setGameStyle(style) {
