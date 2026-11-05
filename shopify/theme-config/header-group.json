@@ -55,7 +55,7 @@
           "type": "_header-menu",
           "static": true,
           "settings": {
-            "menu": "n98-maps-main",
+            "menu": "n98-maps-main-v3",
             "type_font_primary_size": "0.875rem",
             "menu_font_style": "inverse",
             "type_font_primary_link": "body",
