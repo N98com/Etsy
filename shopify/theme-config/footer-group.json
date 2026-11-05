@@ -2,6 +2,14 @@
   "type": "footer",
   "name": "t:names.footer",
   "sections": {
+    "n98_social": {
+      "type": "n98-footer-social",
+      "settings": {
+        "whatsapp": "31613168888",
+        "instagram": "https://www.instagram.com/n98.maps/",
+        "facebook": ""
+      }
+    },
     "footer_utilities_jLGE8U": {
       "type": "footer-utilities",
       "blocks": {
@@ -40,6 +48,7 @@
     }
   },
   "order": [
+    "n98_social",
     "footer_utilities_jLGE8U"
   ]
 }

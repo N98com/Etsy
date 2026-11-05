@@ -170,6 +170,9 @@
 .n98h .n98-letter .n98-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 32px; align-items: end; }
 .n98h .n98-letter h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.04; color: #EFEAE0; }
 .n98h .n98-letter p { color: #CFD6CF; font-weight: 300; margin-top: 10px; }
+.n98h .n98-social { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.n98h .n98-social a, .n98h .n98-social span { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgba(239, 234, 224, 0.35); border-radius: 50%; color: #EFEAE0; transition: background .3s, color .3s; }
+.n98h .n98-social a:hover { background: #EFEAE0; color: #1E3529; }
 .n98h .n98-letter form { display: flex; flex-wrap: wrap; gap: 10px; }
 .n98h .n98-letter input[type=email] { flex: 1 1 240px; min-height: 56px; padding: 0 2px; border: 0; border-bottom: 1px solid #8FA394; background: transparent; color: #EFEAE0; font-family: var(--serif); font-size: 21px; border-radius: 0; }
 .n98h .n98-letter input::placeholder { color: #9FB0A3; font-style: italic; }
@@ -354,6 +357,7 @@
       <div class="n98-foot">
         <a class="n98-logo" href="home.html" aria-label="N°98 Maps home"><img src="img/n98-logo-cream.svg" alt="N°98" width="1840" height="656" style="height:26px"><span>MAPS</span></a>
         <nav aria-label="Footer"><a href="shop.html">Design your map</a><a href="#faq">Shipping &amp; returns</a></nav>
+        <ul class="n98-social" role="list"><li><a href="https://wa.me/31613168888" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 3.4a8.6 8.6 0 0 0-7.43 12.93L3.4 20.6l4.37-1.15A8.6 8.6 0 1 0 12 3.4Z"/><path d="M9.05 7.9c.25-.45.5-.5.8-.5h.55c.2 0 .4.05.57.47l.68 1.62c.07.18.06.36-.05.52l-.45.58c-.12.15-.15.3-.04.5.5.86 1.25 1.62 2.13 2.13.2.11.35.08.5-.04l.58-.45c.16-.11.34-.12.52-.05l1.6.75c.28.13.4.3.4.5 0 .78-.6 1.55-1.4 1.73-.93.2-2.6-.1-4.35-1.75C9.4 12.2 8.62 10.6 8.7 9.42c.03-.55.15-1.12.35-1.52Z"/></svg></a></li><li><a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener" aria-label="N°98 Maps on Instagram"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="4.8"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.05" cy="6.95" r=".7" fill="currentColor" stroke="none"/></svg></a></li><li><span aria-hidden="true"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 20.4v-7.1h2.35l.38-2.75H13.6V8.8c0-.8.23-1.33 1.37-1.33h1.45V5.02a19 19 0 0 0-2.1-.11c-2.08 0-3.5 1.27-3.5 3.6v2.04H8.47v2.75h2.35v7.1"/></svg></span></li></ul>
         <span>© 2026 N°98 Maps</span>
       </div>
       <!--chrome:end-->

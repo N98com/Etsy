@@ -1,0 +1,13 @@
+{%- comment -%}
+  N°98 Maps: minimal line icons (WhatsApp, Instagram, Facebook).
+  Params: whatsapp (digits only), instagram (url), facebook (url, may be blank).
+  A blank link still shows the icon, without a link, until it is filled in.
+{%- endcomment -%}
+{%- capture wa_icon -%}<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round" aria-hidden="true"><path d="M12 3.4a8.6 8.6 0 0 0-7.43 12.93L3.4 20.6l4.37-1.15A8.6 8.6 0 1 0 12 3.4Z"/><path d="M9.05 7.9c.25-.45.5-.5.8-.5h.55c.2 0 .4.05.57.47l.68 1.62c.07.18.06.36-.05.52l-.45.58c-.12.15-.15.3-.04.5.5.86 1.25 1.62 2.13 2.13.2.11.35.08.5-.04l.58-.45c.16-.11.34-.12.52-.05l1.6.75c.28.13.4.3.4.5 0 .78-.6 1.55-1.4 1.73-.93.2-2.6-.1-4.35-1.75C9.4 12.2 8.62 10.6 8.7 9.42c.03-.55.15-1.12.35-1.52Z"/></svg>{%- endcapture -%}
+{%- capture ig_icon -%}<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true"><rect x="3.6" y="3.6" width="16.8" height="16.8" rx="4.8"/><circle cx="12" cy="12" r="3.9"/><circle cx="17.05" cy="6.95" r=".7" fill="currentColor" stroke="none"/></svg>{%- endcapture -%}
+{%- capture fb_icon -%}<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.25" stroke-linejoin="round" aria-hidden="true"><path d="M13.6 20.4v-7.1h2.35l.38-2.75H13.6V8.8c0-.8.23-1.33 1.37-1.33h1.45V5.02a19 19 0 0 0-2.1-.11c-2.08 0-3.5 1.27-3.5 3.6v2.04H8.47v2.75h2.35v7.1"/></svg>{%- endcapture -%}
+<ul class="n98-social" role="list">
+  <li>{%- if whatsapp != blank -%}<a href="https://wa.me/{{ whatsapp | remove: '+' | remove: ' ' }}" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp">{{ wa_icon }}</a>{%- else -%}<span aria-hidden="true">{{ wa_icon }}</span>{%- endif -%}</li>
+  <li>{%- if instagram != blank -%}<a href="{{ instagram }}" target="_blank" rel="noopener" aria-label="N°98 Maps on Instagram">{{ ig_icon }}</a>{%- else -%}<span aria-hidden="true">{{ ig_icon }}</span>{%- endif -%}</li>
+  <li>{%- if facebook != blank -%}<a href="{{ facebook }}" target="_blank" rel="noopener" aria-label="N°98 Maps on Facebook">{{ fb_icon }}</a>{%- else -%}<span aria-hidden="true">{{ fb_icon }}</span>{%- endif -%}</li>
+</ul>

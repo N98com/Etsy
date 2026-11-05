@@ -159,6 +159,9 @@
 .n98h .n98-letter .n98-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr)); gap: 32px; align-items: end; }
 .n98h .n98-letter h2 { font-size: clamp(36px, 4vw, 52px); line-height: 1.04; color: #EFEAE0; }
 .n98h .n98-letter p { color: #CFD6CF; font-weight: 300; margin-top: 10px; }
+.n98h .n98-social { display: flex; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.n98h .n98-social a, .n98h .n98-social span { display: grid; place-items: center; width: 40px; height: 40px; border: 1px solid rgba(239, 234, 224, 0.35); border-radius: 50%; color: #EFEAE0; transition: background .3s, color .3s; }
+.n98h .n98-social a:hover { background: #EFEAE0; color: #1E3529; }
 .n98h .n98-letter form { display: flex; flex-wrap: wrap; gap: 10px; }
 .n98h .n98-letter input[type=email] { flex: 1 1 240px; min-height: 56px; padding: 0 2px; border: 0; border-bottom: 1px solid #8FA394; background: transparent; color: #EFEAE0; font-family: var(--serif); font-size: 21px; border-radius: 0; }
 .n98h .n98-letter input::placeholder { color: #9FB0A3; font-style: italic; }
