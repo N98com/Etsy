@@ -196,11 +196,11 @@
           <div class="studio-item">
             <div class="studio-item__txt">
               <strong>${esc(it.text || it.location || 'Custom map')}</strong>
-              <span>${esc([it.size, it.frame, it.palette].filter(Boolean).join(' · '))}</span>
+              <span>${esc([it.size, it.frame, it.palette].filter(Boolean).join(' · ') || it.variant || '')}</span>
               ${it.pins && it.pins !== 'None' ? `<span>Pins: ${esc(it.pins)}</span>` : ''}
               ${it.quantity > 1 ? `<span>Quantity: ${it.quantity}</span>` : ''}
             </div>
-            <button type="button" data-o="${oi}" data-i="${ii}"${it.design ? '' : ' disabled'}>Load</button>
+            ${it.design ? `<button type="button" data-o="${oi}" data-i="${ii}">Load</button>` : '<span class="studio-nodesign">No design attached</span>'}
           </div>`).join('')}
       </article>`).join('');
   }
@@ -261,5 +261,6 @@
     .studio-item__txt strong { font: 400 17px 'Cormorant Garamond', Georgia, serif; color: #141414; }
     .studio-item__txt span { font-size: 13px; color: #47433C; }
     .studio-item button { flex: none; border: 0; background: #1E3529; color: #F4F1EB; font: 500 10px system-ui, sans-serif; letter-spacing: .22em; text-transform: uppercase; padding: 11px 14px; cursor: pointer; }
-    .studio-item button:disabled { opacity: .4; cursor: default; }`;
+    .studio-item button:disabled { opacity: .4; cursor: default; }
+    .studio-nodesign { flex: none; max-width: 110px; text-align: right; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; color: #9A2E1F; }`;
 })();

@@ -88,9 +88,11 @@ Deno.serve(async (req) => {
     }
 
     const view = new URL(req.url).searchParams.get("view") || "open";
-    const q = view === "all" ? "financial_status:paid" : "financial_status:paid AND fulfillment_status:unfulfilled";
-    const d = await gql(ORDERS_Q, { q });
-    const orders = d.orders.nodes.map((o: any) => ({
+    // Alle betaalde orders ophalen en zelf filteren: "unfulfilled" in de
+    // zoekfilter mist orders met status IN_PROGRESS / ON_HOLD e.d.
+    const d = await gql(ORDERS_Q, { q: "financial_status:paid" });
+    const nodes = d.orders.nodes.filter((o: any) => view === "all" || !["FULFILLED", "RESTOCKED"].includes(o.displayFulfillmentStatus));
+    const orders = nodes.map((o: any) => ({
       id: o.id,
       name: o.name,
       createdAt: o.createdAt,
@@ -110,7 +112,9 @@ Deno.serve(async (req) => {
             printLink: a["_Print file"] || "", design,
           };
         })
-        .filter((it: any) => it.design || it.printLink),
+        // ook regels zonder ontwerp tonen (bv. een handmatig aangemaakte
+        // order): die krijgen in de Studio "No design attached".
+        .filter((it: any) => it.design || it.printLink || /map/i.test(it.title || "")),
     })).filter((o: any) => o.items.length);
     return json(req, { orders });
   } catch (e) {
