@@ -692,7 +692,7 @@
       buyLabel.textContent = 'Rendering print file… (can take a minute)';
       try {
         const r = await window.LocationApp.renderPrintFile();
-        const name = 'N98-' + slugify(placeName(summary())) + '-' + slugify(currentCm().replace(/\s*×\s*/g, 'x')).toLowerCase() + '-300dpi-plus50.png';
+        const name = (window.N98StudioFileName && window.N98StudioFileName()) || 'N98-' + slugify(placeName(summary())) + '-' + slugify(currentCm().replace(/\s*×\s*/g, 'x')).toLowerCase() + '-300dpi-plus50.png';
         const url = URL.createObjectURL(r.blob);
         const a = document.createElement('a');
         a.href = url; a.download = name;

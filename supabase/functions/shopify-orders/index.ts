@@ -57,7 +57,7 @@ async function gql(query: string, variables: Record<string, unknown> = {}) {
   return j.data;
 }
 
-const ADDR_FULL = "shippingAddress { name company address1 address2 zip city province country countryCodeV2 phone }";
+const ADDR_FULL = "shippingAddress { name firstName lastName company address1 address2 zip city province country countryCodeV2 phone }";
 const ADDR_MIN = "shippingAddress { city countryCodeV2 }";
 const ordersQuery = (addr: string) => `query($q: String, $after: String) {
   orders(first: 40, after: $after, reverse: true, sortKey: CREATED_AT, query: $q) {
@@ -160,6 +160,7 @@ Deno.serve(async (req) => {
           loadable: Date.parse(o.createdAt) >= cutoff,
           ready: tags.has(READY_TAG) || tags.has(`print-file-${i + 1}`),
           address, phone: sa.phone || "", addressHidden,
+          lastName: sa.lastName || String(sa.name || "").trim().split(/\s+/).slice(1).join(" ") || "", country: sa.country || sa.countryCodeV2 || "",
           ...m,
           hasDesign: !!m.design,
           design: Date.parse(o.createdAt) >= cutoff ? m.design : null,

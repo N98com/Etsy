@@ -230,7 +230,7 @@
     const b = e.target.closest('button[data-i]');
     if (!b) return;
     const o = orders[+b.dataset.i];
-    current = { orderId: o.id, part: o.part, total: o.total, label: o.label };
+    current = { orderId: o.id, part: o.part, total: o.total, label: o.label, fileName: printFileName(o) };
     ordersPanel.hidden = true;
     loadDesign(o.design, o.frame, o.label + ' loaded' + (o.frame && o.frame !== 'No frame' ? ' (' + o.frame + ' frame in Gelato)' : '') + '. Export as soon as the map has finished drawing.');
   });
@@ -245,6 +245,14 @@
       listEl.innerHTML = `<p class="studio-empty">Could not load orders: ${esc(e.message)}</p>`;
     }
   }
+  // Bestandsnaam van de export: ordernummer_achternaam_land.png
+  // (meerdere kaarten in één order: 1001-1_Jansen_Netherlands.png).
+  function printFileName(o) {
+    const clean = t => String(t || '').normalize('NFC').replace(/[\\/:*?"<>|#]+/g, '').trim().replace(/\s+/g, '-');
+    const no = clean(o.name) + (o.total > 1 ? '-' + o.part : '');
+    return [no, clean(o.lastName), clean(o.country)].filter(Boolean).join('_') + '.png';
+  }
+  window.N98StudioFileName = () => (current && current.fileName) || null;
   async function loadMore(btn) {
     btn.disabled = true; btn.textContent = 'Loading…';
     try {
