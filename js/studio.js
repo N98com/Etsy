@@ -57,8 +57,8 @@
   const errEl = gate.querySelector('.studio-error');
   const submit = gate.querySelector('button');
 
-  function showApp() { authed = true; gate.hidden = true; maybeLoadOrder(); ordersBtn.hidden = false; refreshOrders(false); }
-  function showGate() { authed = false; gate.hidden = false; ordersBtn.hidden = true; ordersPanel.hidden = true; mount(); }
+  function showApp() { authed = true; gate.hidden = true; maybeLoadOrder(); ordersBtn.hidden = false; ordersInline.hidden = false; refreshOrders(false); }
+  function showGate() { authed = false; gate.hidden = false; ordersBtn.hidden = true; ordersInline.hidden = true; ordersPanel.hidden = true; mount(); }
 
   const sbScript = document.createElement('script');
   sbScript.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
@@ -78,6 +78,7 @@
     const out = document.createElement('button');
     out.type = 'button'; out.className = 'studio-logout'; out.textContent = 'Log out';
     out.addEventListener('click', () => sb.auth.signOut());
+    ordersPanel.querySelector('.studio-signout').addEventListener('click', () => { ordersPanel.hidden = true; sb.auth.signOut(); });
     (document.body ? Promise.resolve() : new Promise(r => document.addEventListener('DOMContentLoaded', r))).then(() => document.body.appendChild(out));
     sb.auth.onAuthStateChange((_e, session) => { session ? showApp() : showGate(); });
     sb.auth.getSession().then(({ data }) => { (data && data.session) ? showApp() : showGate(); });
@@ -135,6 +136,10 @@
   const ordersBtn = document.createElement('button');
   ordersBtn.type = 'button'; ordersBtn.className = 'studio-orders-btn'; ordersBtn.hidden = true;
   ordersBtn.innerHTML = 'Orders <span class="studio-badge" hidden></span>';
+  // Mobiel: dezelfde knop, maar tussen de kaart en de vier stappen.
+  const ordersInline = document.createElement('button');
+  ordersInline.type = 'button'; ordersInline.className = 'studio-orders-inline'; ordersInline.hidden = true;
+  ordersInline.innerHTML = '<span class="studio-orders-inline__ico" aria-hidden="true"></span>Orders <span class="studio-badge" hidden></span><span class="studio-orders-inline__chev" aria-hidden="true">&#8250;</span>';
   const ordersPanel = document.createElement('aside');
   ordersPanel.className = 'studio-orders'; ordersPanel.hidden = true;
   ordersPanel.setAttribute('aria-label', 'Orders');
@@ -148,11 +153,18 @@
       <button type="button" data-view="all" aria-pressed="false">All paid</button>
       <button type="button" class="studio-refresh">Refresh</button>
     </div>
-    <div class="studio-orders__list" aria-live="polite"></div>`;
+    <div class="studio-orders__list" aria-live="polite"></div>
+    <div class="studio-orders__foot"><button type="button" class="studio-signout">Log out</button></div>`;
   let view = 'open';
-  function mountOrders() { document.body.append(ordersBtn, ordersPanel); }
+  function mountOrders() {
+    document.body.append(ordersBtn, ordersPanel);
+    const hint = document.getElementById('stageHint');
+    if (hint) hint.insertAdjacentElement('afterend', ordersInline); else document.body.append(ordersInline);
+  }
   if (document.body) mountOrders(); else document.addEventListener('DOMContentLoaded', mountOrders);
-  ordersBtn.addEventListener('click', () => { ordersPanel.hidden = !ordersPanel.hidden; if (!ordersPanel.hidden) refreshOrders(true); });
+  const togglePanel = () => { ordersPanel.hidden = !ordersPanel.hidden; if (!ordersPanel.hidden) refreshOrders(true); };
+  ordersBtn.addEventListener('click', togglePanel);
+  ordersInline.addEventListener('click', togglePanel);
   ordersPanel.querySelector('.studio-x').addEventListener('click', () => { ordersPanel.hidden = true; });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') ordersPanel.hidden = true; });
   ordersPanel.querySelectorAll('[data-view]').forEach(b => b.addEventListener('click', () => {
@@ -180,8 +192,7 @@
   }
   function setBadge() {
     const n = orders.filter(o => !o.ready).length;
-    const b = ordersBtn.querySelector('.studio-badge');
-    b.hidden = !(view === 'open' && n); b.textContent = n;
+    [ordersBtn, ordersInline].forEach(btn => { const b = btn.querySelector('.studio-badge'); b.hidden = !(view === 'open' && n); b.textContent = n; });
   }
   function render() {
     if (!orders.length) {
@@ -253,7 +264,7 @@
     .studio-orders__tabs button { border: 1px solid #DDD6CA; background: transparent; color: #47433C; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; padding: 8px 10px; cursor: pointer; }
     .studio-orders__tabs button[aria-pressed="true"] { background: #141414; border-color: #141414; color: #F4F1EB; }
     .studio-orders__tabs .studio-refresh { margin-left: auto; }
-    .studio-orders__list { overflow-y: auto; padding: 8px 22px 30px; }
+    .studio-orders__list { flex: 1 1 auto; min-height: 0; overflow-y: auto; padding: 8px 22px 30px; }
     .studio-empty { color: #5E594F; font-size: 15px; padding: 18px 0; }
     .studio-order { padding: 16px 0; border-bottom: 1px solid #DDD6CA; }
     .studio-order header { display: flex; justify-content: space-between; align-items: baseline; }
@@ -278,5 +289,17 @@
     .studio-addr .studio-warn { margin-top: 8px; font-size: 12px; color: #9A2E1F; }
     .studio-actions { margin-top: 12px; display: flex; justify-content: flex-end; }
     .studio-actions button { border: 0; background: #1E3529; color: #F4F1EB; font: 500 10px system-ui, sans-serif; letter-spacing: .22em; text-transform: uppercase; padding: 12px 16px; cursor: pointer; }
+    .studio-orders__foot { margin-top: auto; padding: 12px 22px calc(14px + env(safe-area-inset-bottom)); border-top: 1px solid #DDD6CA; }
+    .studio-signout { border: 0; background: none; padding: 6px 0; color: #5E594F; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; text-decoration: underline; text-underline-offset: 3px; }
+    .studio-orders-inline { display: none; }
+    @media (max-width: 899px) {
+      .studio-logout, .studio-orders-btn { display: none !important; }
+      .studio-orders-inline { display: flex; align-items: center; gap: 10px; width: calc(100% - 32px); max-width: 420px; margin: 12px auto 2px; padding: 12px 16px; border: 1px solid #141414; background: #141414; color: #F4F1EB; font: 400 11px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .22em; text-transform: uppercase; cursor: pointer; }
+      .studio-orders-inline[hidden] { display: none; }
+      .studio-orders-inline__ico { width: 14px; height: 10px; border-top: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; position: relative; }
+      .studio-orders-inline__ico::after { content: ''; position: absolute; left: 0; right: 0; top: 50%; border-top: 1.5px solid currentColor; transform: translateY(-50%); }
+      .studio-orders-inline__chev { margin-left: auto; font-size: 18px; line-height: 1; letter-spacing: 0; }
+      .studio-orders { width: 100vw; border-right: 0; box-shadow: none; }
+    }
     .studio-nodesign { flex: none; max-width: 110px; text-align: right; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; color: #9A2E1F; }`;
 })();
