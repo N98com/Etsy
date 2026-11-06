@@ -6,7 +6,7 @@
 // Secrets: SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET (Dev Dashboard app,
 // client credentials grant), optional SHOPIFY_SHOP and ORDERS_ALLOWED_EMAILS.
 //
-// GET  ?view=open|all        -> { orders: [...] }
+// GET  ?view=open|history[&after=cursor] -> { orders: [...], next }
 // POST { action: "mark", id } -> adds tag "print-file-ready" (needs write_orders)
 import { createClient } from "jsr:@supabase/supabase-js@2";
 
@@ -16,6 +16,7 @@ const ALLOWED = (Deno.env.get("ORDERS_ALLOWED_EMAILS") || "bramengbers@hotmail.n
   .split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
 const ORIGINS = ["https://n98com.github.io", "http://127.0.0.1:8765", "http://localhost:8765"];
 const READY_TAG = "print-file-ready";
+const LOAD_DAYS = 30; // ontwerpen van klanten blijven 30 dagen inlaadbaar
 
 function cors(req: Request) {
   const o = req.headers.get("Origin") || "";
@@ -58,10 +59,11 @@ async function gql(query: string, variables: Record<string, unknown> = {}) {
 
 const ADDR_FULL = "shippingAddress { name company address1 address2 zip city province country countryCodeV2 phone }";
 const ADDR_MIN = "shippingAddress { city countryCodeV2 }";
-const ordersQuery = (addr: string) => `query($q: String) {
-  orders(first: 50, reverse: true, sortKey: CREATED_AT, query: $q) {
+const ordersQuery = (addr: string) => `query($q: String, $after: String) {
+  orders(first: 40, after: $after, reverse: true, sortKey: CREATED_AT, query: $q) {
+    pageInfo { hasNextPage endCursor }
     nodes {
-      id name createdAt tags displayFinancialStatus displayFulfillmentStatus
+      id name createdAt cancelledAt tags displayFinancialStatus displayFulfillmentStatus
       ${addr}
       lineItems(first: 25) { nodes { title variantTitle quantity sku customAttributes { key value } } }
     }
@@ -100,15 +102,29 @@ Deno.serve(async (req) => {
       return json(req, { error: "Unknown action." }, 400);
     }
 
-    const view = new URL(req.url).searchParams.get("view") || "open";
+    const params = new URL(req.url).searchParams;
+    const view = params.get("view") === "history" || params.get("view") === "all" ? "history" : "open";
+    const after = params.get("after") || null;
+    const q = view === "history" ? "status:any" : "financial_status:paid";
     // Alle betaalde orders ophalen en zelf filteren: "unfulfilled" in de
     // zoekfilter mist orders met status IN_PROGRESS / ON_HOLD e.d.
     // Volledig adres vraagt "protected customer data" op de app; zonder die
     // toestemming vallen we terug op stad + land.
-    let d: any, addressHidden = false;
-    try { d = await gql(ordersQuery(ADDR_FULL), { q: "financial_status:paid" }); }
-    catch (_e) { addressHidden = true; d = await gql(ordersQuery(ADDR_MIN), { q: "financial_status:paid" }); }
-    const nodes = d.orders.nodes.filter((o: any) => view === "all" || !["FULFILLED", "RESTOCKED"].includes(o.displayFulfillmentStatus));
+    let addressHidden = false;
+    async function page(cursor: string | null) {
+      if (!addressHidden) {
+        try { return (await gql(ordersQuery(ADDR_FULL), { q, after: cursor })).orders; }
+        catch (_e) { addressHidden = true; }
+      }
+      return (await gql(ordersQuery(ADDR_MIN), { q, after: cursor })).orders;
+    }
+    // History: één pagina per keer (knop "Load older"). To print: tot 4
+    // pagina's doorlopen zodat open orders achter verzonden orders niet wegvallen.
+    let pg = await page(after);
+    let all: any[] = pg.nodes;
+    for (let n = 1; view === "open" && pg.pageInfo.hasNextPage && n < 4; n++) { pg = await page(pg.pageInfo.endCursor); all = all.concat(pg.nodes); }
+    const nodes = all.filter((o: any) => view === "history" || (!o.cancelledAt && !["FULFILLED", "RESTOCKED"].includes(o.displayFulfillmentStatus)));
+    const cutoff = Date.now() - LOAD_DAYS * 864e5;
     const orders: any[] = [];
     for (const o of nodes) {
       const sa = o.shippingAddress || {};
@@ -140,13 +156,18 @@ Deno.serve(async (req) => {
           id: o.id, name: o.name, part: i + 1, total: maps.length,
           label: maps.length > 1 ? `${o.name} (${i + 1})` : o.name,
           createdAt: o.createdAt, fulfillment: o.displayFulfillmentStatus,
+          financial: o.displayFinancialStatus, cancelled: !!o.cancelledAt,
+          loadable: Date.parse(o.createdAt) >= cutoff,
           ready: tags.has(READY_TAG) || tags.has(`print-file-${i + 1}`),
           address, phone: sa.phone || "", addressHidden,
           ...m,
+          hasDesign: !!m.design,
+          design: Date.parse(o.createdAt) >= cutoff ? m.design : null,
         });
       });
     }
-    return json(req, { orders });
+    const next = view === "history" && pg.pageInfo.hasNextPage ? pg.pageInfo.endCursor : null;
+    return json(req, { orders, next, loadDays: LOAD_DAYS });
   } catch (e) {
     return json(req, { error: (e as Error).message }, 500);
   }

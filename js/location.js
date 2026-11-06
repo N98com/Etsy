@@ -1156,7 +1156,7 @@ window.LocationApp = (() => {
   // zodat ook 70×100cm (~100 MP) past. Geeft { blob, w, h, sizeId } terug.
   // scale 2 = 600 dpi (zelfde ontwerp, dubbele resolutie in beide richtingen):
   // de standaard voor zowel de Studio-export als de automatische orders.
-  const PRINT_SCALE_DEFAULT = 2;
+  const PRINT_SCALE_DEFAULT = 1.5; // 300 dpi met 50% extra pixels per zijde
   function renderPrintBlob(scale) {
     const want = scale || PRINT_SCALE_DEFAULT;
     const opt = [...exportSizeSelect.options].find(o => o.value.endsWith('@' + want + 'x')) || exportSizeSelect.options[0];

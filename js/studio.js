@@ -133,6 +133,10 @@
   const FN_URL = SUPABASE_URL + '/functions/v1/shopify-orders';
   let current = null; // { orderId, name } van het geladen ontwerp
   let orders = [];
+  let nextCursor = null;
+  const STATUS = { PAID: 'Paid', PENDING: 'Payment pending', AUTHORIZED: 'Authorized', PARTIALLY_PAID: 'Partly paid', REFUNDED: 'Refunded', PARTIALLY_REFUNDED: 'Partly refunded', VOIDED: 'Voided', EXPIRED: 'Expired',
+    FULFILLED: 'Shipped', UNFULFILLED: 'Not shipped', PARTIALLY_FULFILLED: 'Partly shipped', IN_PROGRESS: 'In progress', ON_HOLD: 'On hold', SCHEDULED: 'Scheduled', RESTOCKED: 'Restocked', PENDING_FULFILLMENT: 'Not shipped' };
+  const nice = v => STATUS[v] || (v ? String(v).charAt(0) + String(v).slice(1).toLowerCase().replace(/_/g, ' ') : '');
   const ordersBtn = document.createElement('button');
   ordersBtn.type = 'button'; ordersBtn.className = 'studio-orders-btn'; ordersBtn.hidden = true;
   ordersBtn.innerHTML = 'Orders <span class="studio-badge" hidden></span>';
@@ -150,7 +154,7 @@
     </div>
     <div class="studio-orders__tabs" role="tablist">
       <button type="button" data-view="open" aria-pressed="true">To print</button>
-      <button type="button" data-view="all" aria-pressed="false">All paid</button>
+      <button type="button" data-view="history" aria-pressed="false">History</button>
       <button type="button" class="studio-refresh">Refresh</button>
     </div>
     <div class="studio-orders__list" aria-live="polite"></div>
@@ -196,14 +200,14 @@
   }
   function render() {
     if (!orders.length) {
-      listEl.innerHTML = `<p class="studio-empty">${view === 'open' ? 'Nothing to print right now.' : 'No paid orders yet.'}</p>`;
+      listEl.innerHTML = `<p class="studio-empty">${view === 'open' ? 'Nothing to print right now.' : 'No orders yet.'}</p>`;
       return;
     }
     const row = (k, v) => v ? `<div class="studio-row"><dt>${k}</dt><dd>${esc(v)}</dd></div>` : '';
     listEl.innerHTML = orders.map((o, i) => `
       <article class="studio-order${o.ready ? ' is-ready' : ''}">
         <header><b>${esc(o.label)}</b><span>${esc(fmtDate(o.createdAt))}</span></header>
-        ${o.ready ? '<p class="studio-ship"><em>Print file made</em></p>' : ''}
+        <p class="studio-ship">${o.cancelled ? '<em class="is-off">Cancelled</em> · ' : ''}${esc([nice(o.financial), nice(o.fulfillment)].filter(Boolean).join(' · '))}${o.ready ? ' · <em>Print file made</em>' : ''}</p>
         <dl class="studio-facts">
           ${row('Map', [o.text || o.location || 'Custom map', o.subtitle].filter(Boolean).join(', '))}
           ${row('Size', o.size)}
@@ -217,11 +221,12 @@
           ${o.addressHidden ? '<p class="studio-warn">Full address hidden: allow protected customer data (name, address, phone) for the app in the Shopify Dev Dashboard.</p>' : ''}
         </div>
         <div class="studio-actions">
-          ${o.design ? `<button type="button" data-i="${i}">Load design</button>` : '<span class="studio-nodesign">No design attached</span>'}
+          ${o.design ? `<button type="button" data-i="${i}">Load design</button>` : o.hasDesign && o.loadable === false ? '<span class="studio-nodesign is-old">Older than 30 days</span>' : '<span class="studio-nodesign">No design attached</span>'}
         </div>
-      </article>`).join('');
+      </article>`).join('') + (view === 'history' && nextCursor ? '<button type="button" class="studio-more">Load older orders</button>' : '');
   }
   listEl.addEventListener('click', e => {
+    if (e.target.closest('.studio-more')) { loadMore(e.target.closest('.studio-more')); return; }
     const b = e.target.closest('button[data-i]');
     if (!b) return;
     const o = orders[+b.dataset.i];
@@ -234,11 +239,19 @@
     if (showLoading) listEl.innerHTML = '<p class="studio-empty">Loading orders…</p>';
     try {
       const j = await api('?view=' + view);
-      orders = j.orders || [];
+      orders = j.orders || []; nextCursor = j.next || null;
       render(); setBadge();
     } catch (e) {
       listEl.innerHTML = `<p class="studio-empty">Could not load orders: ${esc(e.message)}</p>`;
     }
+  }
+  async function loadMore(btn) {
+    btn.disabled = true; btn.textContent = 'Loading…';
+    try {
+      const j = await api('?view=history&after=' + encodeURIComponent(nextCursor));
+      orders = orders.concat(j.orders || []); nextCursor = j.next || null;
+      const top = listEl.scrollTop; render(); listEl.scrollTop = top;
+    } catch (e) { btn.disabled = false; btn.textContent = 'Could not load, try again'; }
   }
   window.addEventListener('n98:exported', async () => {
     if (!current) return;
@@ -301,5 +314,9 @@
       .studio-orders-inline__chev { margin-left: auto; font-size: 18px; line-height: 1; letter-spacing: 0; }
       .studio-orders { width: 100vw; border-right: 0; box-shadow: none; }
     }
+    .studio-ship .is-off { color: #9A2E1F; }
+    .studio-more { display: block; width: 100%; margin: 18px 0 0; padding: 13px; border: 1px solid #141414; background: transparent; color: #141414; font: 400 10.5px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
+    .studio-more:disabled { opacity: .5; }
+    .studio-nodesign.is-old { color: #8A8378; }
     .studio-nodesign { flex: none; max-width: 110px; text-align: right; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; color: #9A2E1F; }`;
 })();

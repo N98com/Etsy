@@ -4,7 +4,7 @@
 // Flow reports a new paid order. For every map in the order it:
 //   1. opens the shop's own map engine (shop.html) in headless Chrome,
 //   2. loads the customer's exact design (the "_Design JSON" property),
-//   3. renders the print file at the exact Gelato size @600dpi (PNG),
+//   3. renders the print file at the exact Gelato size at 300 dpi +50% pixels (PNG),
 //   4. uploads it to Cloudflare R2 under an unguessable path,
 // and then emails one message with the download link(s) and the shipping
 // details. If a render fails, the email still goes out — with the one-tap
