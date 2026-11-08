@@ -257,7 +257,7 @@
         // desktop: het stappenpaneel scrolt zelf (zie css), dus dát terug naar boven
         if (window.innerWidth >= 900) { panel.scrollTo({ top: 0, behavior: 'smooth' }); return; }
         const top = panel.getBoundingClientRect().top + window.scrollY - stageOffset();
-        if (window.scrollY > top) window.scrollTo({ top, behavior: 'smooth' });
+        if (window.scrollY > top) { if (window.N98Compact) window.N98Compact.ignore(900); window.scrollTo({ top, behavior: 'smooth' }); }
       }
     }
     function stageOffset() {
@@ -475,6 +475,34 @@
       });
     }
     zoomBtn.addEventListener('click', () => setFull(!stageEl.classList.contains('is-full')));
+
+    // ---- mobiel: kaart krimpt mee tijdens het invullen (zie css) ----
+    const compactMq = window.matchMedia('(max-width: 899px)');
+    let compactIgnoreUntil = 0, compactTimer = null;
+    function setCompact(on) {
+      if (on && !compactMq.matches) on = false;
+      const root = document.documentElement;
+      if (root.classList.contains('stage-compact') === on) return;
+      root.classList.toggle('stage-compact', on);
+      // na de animatie: lijstrand, muurweergave e.d. opnieuw uitlijnen
+      clearTimeout(compactTimer);
+      compactTimer = setTimeout(() => window.dispatchEvent(new Event('resize')), 420);
+    }
+    window.addEventListener('scroll', () => {
+      if (Date.now() < compactIgnoreUntil || stageEl.classList.contains('is-full')) return;
+      const y = window.scrollY;
+      if (y > 48) setCompact(true);
+      else if (y <= 4) setCompact(false);
+    }, { passive: true });
+    const panelEl = document.querySelector('.shop-panel');
+    panelEl.addEventListener('focusin', e => { if (e.target.matches('input, textarea, select')) setCompact(true); });
+    $('stageExpandBtn').addEventListener('click', () => {
+      compactIgnoreUntil = Date.now() + 900;
+      setCompact(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    compactMq.addEventListener && compactMq.addEventListener('change', () => { if (!compactMq.matches) setCompact(false); });
+    window.N98Compact = { ignore: ms => { compactIgnoreUntil = Date.now() + (ms || 900); } };
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && stageEl.classList.contains('is-full')) setFull(false); });
     window.addEventListener('resize', () => { if (stageEl.classList.contains('is-full')) scheduleSharp(); });
 

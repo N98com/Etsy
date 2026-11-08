@@ -109,6 +109,9 @@ button { cursor: pointer; }
   font-family: var(--mono); font-size: 9.5px; letter-spacing: 0.18em; text-transform: uppercase;
 }
 .view-btn.active { background: var(--ink); color: var(--paper); }
+.view-btn { display: inline-flex; align-items: center; justify-content: center; }
+.view-ico { display: none; }
+.stage-expand { display: none; }
 
 /* aan de muur */
 .room-view { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; overflow: hidden; }
@@ -457,3 +460,38 @@ button.location-search-result:hover { background: var(--paper); }
 .spec-list dt { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); padding-top: 3px; }
 .spec-list dd { margin: 0; color: var(--ink-2); text-align: right; }
 .spec-list a { color: inherit; }
+
+/* ---------- mobiel: kaart krimpt mee tijdens het invullen ----------
+   Zodra de klant naar de stappen scrolt of in een veld tikt, wordt de kaart
+   een kleine live preview bovenaan (html.stage-compact, zie shop.js) en
+   krijgen de stappen de ruimte. Terug naar boven scrollen of "Show larger"
+   maakt hem weer groot. Studio / On the wall staan als icoontjes onder het
+   vergrootglas. */
+@media (max-width: 899px) {
+  .shop-note { display: none; }
+  html.stage-compact { --stage-h: 30svh; }
+  .shop-stage { transition: height 0.38s var(--ease); }
+  .steps { transition: top 0.38s var(--ease); }
+  .shop-panel { min-height: 100svh; }
+
+  .stage-views {
+    position: absolute; right: 18px; top: 64px; margin: 0; z-index: 6;
+    flex-direction: column; gap: 0;
+  }
+  .view-btn { width: 40px; height: 40px; min-height: 40px; padding: 0; }
+  .view-btn + .view-btn { border-top: 1px solid rgba(20, 20, 20, 0.08); }
+  .view-ico { display: block; }
+  .view-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .shop-stage.is-full .stage-views { top: 64px; right: 14px; }
+
+  .stage-hint, .stage-placard, .stage-views, .stage-expand { transition: opacity 0.25s var(--ease); }
+  html.stage-compact .shop-stage:not(.is-full) .stage-hint,
+  html.stage-compact .shop-stage:not(.is-full) .stage-views { display: none; }
+  html.stage-compact .shop-stage:not(.is-full) .stage-placard { margin-top: 6px; font-size: 9px; }
+  html.stage-compact .shop-stage:not(.is-full) .studio-orders-inline { display: none !important; }
+  html.stage-compact .shop-stage:not(.is-full) .stage-expand {
+    display: inline-flex; align-self: center; align-items: center; gap: 6px;
+    margin: 2px 0 0; padding: 4px 10px; border: 0; background: none; color: var(--mute);
+    font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase;
+  }
+}
