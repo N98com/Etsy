@@ -173,7 +173,7 @@
       [...grid.children]
         .sort((a, b) => ((catOf[a.dataset.paletteId] || { order: 9999 }).order) - ((catOf[b.dataset.paletteId] || { order: 9999 }).order))
         .forEach(el => grid.appendChild(el));
-      const groups = [{ id: 'all', label: 'All' }].concat(cats, [{ id: 'solid', label: 'Solid' }]);
+      const groups = [{ id: 'all', label: 'All' }].concat(cats, [{ id: 'solid', label: 'Solid colours' }]);
       bar.innerHTML = groups.map(g => `<button type="button" class="palette-cat" data-cat="${g.id}" aria-pressed="${g.id === 'all'}">${g.label}</button>`).join('');
       function show(cat) {
         bar.querySelectorAll('.palette-cat').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === cat ? 'true' : 'false'));
