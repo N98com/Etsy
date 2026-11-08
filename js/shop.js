@@ -517,6 +517,8 @@
       const root = document.documentElement;
       if (root.classList.contains('stage-compact') === on) return;
       root.classList.toggle('stage-compact', on);
+      // Shopify: de winkel-header (menu, logo, mandje) schuift mee weg
+      if (inIframe) window.parent.postMessage({ source: 'n98-shop-frame', type: 'compact', on }, '*');
       // na de animatie: lijstrand, muurweergave e.d. opnieuw uitlijnen
       clearTimeout(compactTimer);
       compactTimer = setTimeout(() => window.dispatchEvent(new Event('resize')), 420);

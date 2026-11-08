@@ -66,6 +66,20 @@
     }
     fit();
     window.addEventListener('resize', fit);
+
+    // Tijdens het invullen (kaart klein, zie shop.js) schuift de header met
+    // menu, logo en mandje weg; terug naar boven scrollen haalt hem terug.
+    var headerGroup = document.getElementById('header-group');
+    var fitTimer = null;
+    function setHeaderHidden(on) {
+      if (!headerGroup || window.innerWidth >= 900) on = false;
+      if (!headerGroup) return;
+      headerGroup.style.transition = 'margin-top .38s cubic-bezier(.22,.61,.36,1)';
+      headerGroup.style.marginTop = on ? (-headerGroup.offsetHeight) + 'px' : '0px';
+      if (on) frame.style.height = Math.max(640, window.innerHeight) + 'px';
+      clearTimeout(fitTimer);
+      fitTimer = setTimeout(fit, 420);
+    }
     window.addEventListener('load', fit);
 
     function reply(type, message, itemCount) {
@@ -76,6 +90,7 @@
     window.addEventListener('message', function (e) {
       if (e.origin !== APP_ORIGIN || e.source !== frame.contentWindow) return;
       if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'go-cart') window.location.href = CART_URL;
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'compact') setHeaderHidden(!!e.data.on);
     });
 
     // Link naar de werkbank met het ontwerp erin: één tik in de bestelling
