@@ -278,21 +278,21 @@ button.location-search-result:hover { background: var(--paper); }
 .color-row label { margin: 0; flex: 1 1 auto; }
 
 /* paletten: gestapelde stalen als kleine kunstwerken */
-.map-palette-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 18px 12px; }
+.map-palette-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px 10px; }
 .map-palette-grid.disabled { opacity: 0.35; pointer-events: none; }
 .map-palette-card {
   border: 0; background: transparent; padding: 0; text-align: left;
-  display: flex; flex-direction: column; gap: 8px; min-height: 44px;
+  display: flex; flex-direction: column; gap: 6px; min-height: 44px;
 }
 .map-palette-card .swatch-strip {
-  display: flex; aspect-ratio: 4 / 3; overflow: hidden;
+  display: flex; aspect-ratio: 16 / 9; overflow: hidden;
   outline: 1px solid rgba(20, 20, 20, 0.08); outline-offset: -1px;
   transition: transform 0.35s var(--ease), box-shadow 0.35s var(--ease);
 }
 .map-palette-card .swatch-strip span { flex: 1; }
 .map-palette-card .swatch-strip span:first-child { flex: 3; }
 .map-palette-card:hover .swatch-strip { transform: translateY(-2px); box-shadow: 0 10px 18px -12px rgba(30, 24, 16, 0.5); }
-.map-palette-card .map-palette-name { font-family: var(--serif); font-size: 15px; line-height: 1.15; color: var(--ink-2); }
+.map-palette-card .map-palette-name { font-family: var(--serif); font-size: 13.5px; line-height: 1.12; color: var(--ink-2); }
 .map-palette-card.active .swatch-strip { box-shadow: 0 0 0 1px var(--paper), 0 0 0 2px var(--ink); }
 .map-palette-card.active .map-palette-name { color: var(--ink); font-style: italic; }
 
