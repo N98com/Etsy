@@ -59,50 +59,57 @@
     };
     var FALLBACK_VARIANT = {{ product.selected_or_first_available_variant.id | json }};
 
-    // Frame fills the screen below the theme header.
+    // Desktop: the frame fills the screen below the theme header.
     function fit() {
       var top = frame.getBoundingClientRect().top + window.scrollY;
       frame.style.height = Math.max(640, window.innerHeight - Math.max(0, top)) + 'px';
     }
-    fit();
-    window.addEventListener('resize', fit);
 
-    // Tijdens het invullen (kaart klein, zie shop.js) schuift de header met
-    // menu, logo en mandje weg; terug naar boven scrollen haalt hem terug.
+    // Mobile: the frame fills the whole screen and the theme header (menu,
+    // logo, cart) lies over its top edge. While the customer scrolls inside
+    // the designer, the frame reports how far, and the header slides up by
+    // exactly that many pixels, in step with the map shrinking below it.
     var headerGroup = document.getElementById('header-group');
-    var fitTimer = null, hideTimer = null, headerHidden = false;
-    // Het thema kan #header-group als "display: contents" of met een sticky
-    // header opbouwen; daarom de kinderen zelf wegschuiven en daarna verbergen.
+    var hostTop = 0, overlay = false;
     function headerParts() { return headerGroup ? Array.prototype.slice.call(headerGroup.children) : []; }
-    function setHeaderHidden(on) {
-      if (!headerGroup) return;
-      if (window.innerWidth >= 900) on = false;
-      if (on === headerHidden) return;
-      headerHidden = on;
-      clearTimeout(hideTimer); clearTimeout(fitTimer);
-      var parts = headerParts();
-      if (on) {
-        parts.forEach(function (el) {
-          el.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1), opacity .3s';
-          el.style.transform = 'translateY(-100%)';
-          el.style.opacity = '0';
-        });
-        hideTimer = setTimeout(function () {
-          parts.forEach(function (el) { el.dataset.n98Display = el.style.display || ''; el.style.display = 'none'; });
-          frame.style.height = Math.max(640, window.innerHeight) + 'px';
-          fit();
-        }, 300);
-      } else {
-        parts.forEach(function (el) {
-          el.style.display = el.dataset.n98Display || '';
-          void el.offsetHeight;
-          el.style.transform = '';
-          el.style.opacity = '';
-        });
-        fitTimer = setTimeout(fit, 320);
-      }
+    function sendHost() {
+      if (frame.contentWindow) frame.contentWindow.postMessage({ source: 'n98-shop', type: 'host', top: hostTop }, APP_ORIGIN);
     }
-    window.addEventListener('load', fit);
+    function layout() {
+      var parts = headerParts();
+      overlay = !!headerGroup && window.innerWidth < 900;
+      frame.style.marginTop = '';
+      if (overlay) {
+        hostTop = Math.max(0, Math.round(frame.getBoundingClientRect().top + window.scrollY));
+        parts.forEach(function (el) { el.style.position = 'relative'; el.style.zIndex = '30'; el.style.willChange = 'transform'; });
+        frame.style.marginTop = (-hostTop) + 'px';
+        frame.style.minHeight = '0';
+        frame.style.height = window.innerHeight + 'px';
+      } else {
+        hostTop = 0;
+        parts.forEach(function (el) { el.style.position = ''; el.style.zIndex = ''; el.style.willChange = ''; el.style.transform = ''; });
+        frame.style.minHeight = '';
+        fit();
+      }
+      sendHost();
+    }
+    function setHeaderY(y) {
+      if (!overlay) return;
+      y = Math.max(0, Math.min(hostTop, +y || 0));
+      var t = y ? 'translate3d(0,' + (-y) + 'px,0)' : '';
+      headerParts().forEach(function (el) { el.style.transform = t; });
+    }
+    var lastW = 0, lastH = 0;
+    function onResize() {
+      // ignore the small height changes of a phone's address bar
+      if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 140 && overlay) { frame.style.height = window.innerHeight + 'px'; return; }
+      lastW = window.innerWidth; lastH = window.innerHeight;
+      layout();
+    }
+    onResize();
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', function () { lastW = 0; onResize(); });
+    frame.addEventListener('load', sendHost);
 
     function reply(type, message, itemCount) {
       frame.contentWindow.postMessage({ source: 'n98-shop', type: type, message: message, itemCount: itemCount }, APP_ORIGIN);
@@ -112,7 +119,8 @@
     window.addEventListener('message', function (e) {
       if (e.origin !== APP_ORIGIN || e.source !== frame.contentWindow) return;
       if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'go-cart') window.location.href = CART_URL;
-      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'compact') setHeaderHidden(!!e.data.on);
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'host-scroll') setHeaderY(e.data.y);
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'hello') sendHost();
     });
 
     // Link naar de werkbank met het ontwerp erin: één tik in de bestelling

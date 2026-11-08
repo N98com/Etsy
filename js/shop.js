@@ -294,7 +294,8 @@
       }
     }
     function stageOffset() {
-      return window.innerWidth < 900 ? document.querySelector('.shop-stage').offsetHeight : 0;
+      const m = window.N98Compact && window.N98Compact.metrics();
+      return window.innerWidth < 900 ? (m ? m.min : document.querySelector('.shop-stage').offsetHeight) : 0;
     }
     tabs.forEach((t, k) => t.addEventListener('click', () => goTo(k, true)));
     nextBtn.addEventListener('click', () => goTo(step + 1, true));
@@ -497,6 +498,8 @@
     liveCanvas.addEventListener('wheel', scheduleSharp, { passive: true });
     function setFull(on) {
       stageEl.classList.toggle('is-full', on);
+      if (inIframe) window.parent.postMessage({ source: 'n98-shop-frame', type: 'host-scroll', y: on ? 99999 : Math.max(0, window.scrollY) }, '*');
+      if (!on && window.N98Compact) requestAnimationFrame(() => window.dispatchEvent(new Event('scroll')));
       document.documentElement.classList.toggle('stage-full', on);
       zoomBtn.setAttribute('aria-pressed', on ? 'true' : 'false');
       zoomBtn.setAttribute('aria-label', on ? 'Close the enlarged map' : 'Enlarge the map');
@@ -509,35 +512,82 @@
     }
     zoomBtn.addEventListener('click', () => setFull(!stageEl.classList.contains('is-full')));
 
-    // ---- mobiel: kaart krimpt mee tijdens het invullen (zie css) ----
+    // ---- mobiel: kaart klapt vloeiend in tijdens het scrollen (zie css) ----
+    // De kaart staat vast bovenin; de stappen beginnen eronder. Elke pixel die
+    // de klant scrolt, wordt de kaart een pixel lager tot hij klein is, dus
+    // de onderrand van de kaart en de stappen bewegen precies met de vinger
+    // mee. In Shopify schuift de winkel-header (menu, logo, mandje) op dezelfde
+    // manier mee weg: die ligt over de bovenkant van dit frame (hostPad).
     const compactMq = window.matchMedia('(max-width: 899px)');
-    let compactIgnoreUntil = 0, compactTimer = null;
-    function setCompact(on) {
-      if (on && !compactMq.matches) on = false;
-      const root = document.documentElement;
-      if (root.classList.contains('stage-compact') === on) return;
-      root.classList.toggle('stage-compact', on);
-      // Shopify: de winkel-header (menu, logo, mandje) schuift mee weg
-      if (inIframe) window.parent.postMessage({ source: 'n98-shop-frame', type: 'compact', on }, '*');
-      // na de animatie: lijstrand, muurweergave e.d. opnieuw uitlijnen
-      clearTimeout(compactTimer);
-      compactTimer = setTimeout(() => window.dispatchEvent(new Event('resize')), 420);
-    }
-    window.addEventListener('scroll', () => {
-      if (Date.now() < compactIgnoreUntil || stageEl.classList.contains('is-full')) return;
-      const y = window.scrollY;
-      if (y > 48) setCompact(true);
-      else if (y <= 4) setCompact(false);
-    }, { passive: true });
+    const root = document.documentElement;
+    const layoutEl = document.querySelector('.shop-layout');
     const panelEl = document.querySelector('.shop-panel');
-    panelEl.addEventListener('focusin', e => { if (e.target.matches('input, textarea, select')) setCompact(true); });
-    $('stageExpandBtn').addEventListener('click', () => {
-      compactIgnoreUntil = Date.now() + 900;
-      setCompact(false);
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    const hintEl = $('stageHint');
+    const viewsEl = document.querySelector('.stage-views');
+    const hostSpacer = document.createElement('div');
+    hostSpacer.className = 'host-spacer'; hostSpacer.setAttribute('aria-hidden', 'true');
+    layoutEl.parentNode.insertBefore(hostSpacer, layoutEl);
+    let hostPad = 0, M = null, lastHostY = -1, lastVh = 0, lastVw = 0;
+    function measure(force) {
+      const vh = window.innerHeight, vw = window.innerWidth;
+      // adresbalk van de telefoon die in- en uitschuift: niet opnieuw meten
+      if (!force && M && vw === lastVw && Math.abs(vh - lastVh) < 140) return;
+      lastVh = vh; lastVw = vw;
+      if (!compactMq.matches) {
+        M = null;
+        hostSpacer.style.height = '0px';
+        root.style.removeProperty('--stage-full'); root.style.removeProperty('--stage-min');
+        stageEl.style.transform = ''; stageEl.style.height = '';
+        root.classList.remove('stage-compact');
+        return;
+      }
+      hostSpacer.style.height = hostPad + 'px';
+      const full = Math.round(vh * 0.52), min = Math.round(vh * 0.3);
+      root.style.setProperty('--stage-full', full + 'px');
+      root.style.setProperty('--stage-min', min + 'px');
+      M = { full, min, host: Math.round(hostSpacer.getBoundingClientRect().bottom + window.scrollY) };
+    }
+    function update() {
+      if (!M || stageEl.classList.contains('is-full')) return;
+      const y = Math.max(0, window.scrollY);
+      const top = Math.max(0, M.host - y);
+      const range = M.full - M.min;
+      const shrink = Math.min(range, Math.max(0, y - M.host));
+      const p = range > 0 ? shrink / range : 0;
+      stageEl.style.transform = top ? 'translate3d(0,' + top + 'px,0)' : 'none';
+      stageEl.style.height = (M.full - shrink) + 'px';
+      hintEl.style.opacity = String(Math.max(0, 1 - p * 1.6));
+      if (viewsEl) { viewsEl.style.opacity = String(Math.max(0, 1 - p * 2)); viewsEl.style.pointerEvents = p > 0.5 ? 'none' : ''; }
+      const compact = p > 0.96;
+      if (root.classList.contains('stage-compact') !== compact) root.classList.toggle('stage-compact', compact);
+      if (inIframe && hostPad) {
+        const hy = Math.min(y, hostPad);
+        if (hy !== lastHostY) { lastHostY = hy; window.parent.postMessage({ source: 'n98-shop-frame', type: 'host-scroll', y: hy }, '*'); }
+      }
+    }
+    function relayout(force) { measure(force); update(); }
+    window.addEventListener('scroll', update, { passive: true });
+    window.addEventListener('resize', () => relayout(false));
+    compactMq.addEventListener && compactMq.addEventListener('change', () => relayout(true));
+    // de muurweergave en de lijstrand volgen de krimpende kaart
+    if (window.ResizeObserver) {
+      let roRaf = 0;
+      new ResizeObserver(() => {
+        cancelAnimationFrame(roRaf);
+        roRaf = requestAnimationFrame(() => { if (stageEl.classList.contains('is-room') && window.N98LayoutRoom) window.N98LayoutRoom(); });
+      }).observe(document.querySelector('.stage-frame'));
+    }
+    // Shopify vertelt hoe hoog zijn header is (die ligt over ons heen)
+    window.addEventListener('message', e => {
+      if (e.source !== window.parent || !e.data || e.data.source !== 'n98-shop' || e.data.type !== 'host') return;
+      hostPad = Math.max(0, Math.round(+e.data.top || 0));
+      lastHostY = -1;
+      relayout(true);
     });
-    compactMq.addEventListener && compactMq.addEventListener('change', () => { if (!compactMq.matches) setCompact(false); });
-    window.N98Compact = { ignore: ms => { compactIgnoreUntil = Date.now() + (ms || 900); } };
+    if (inIframe) window.parent.postMessage({ source: 'n98-shop-frame', type: 'hello' }, '*');
+    $('stageExpandBtn').addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+    window.N98Compact = { ignore: () => {}, metrics: () => M };
+    relayout(true);
     document.addEventListener('keydown', e => { if (e.key === 'Escape' && stageEl.classList.contains('is-full')) setFull(false); });
     window.addEventListener('resize', () => { if (stageEl.classList.contains('is-full')) scheduleSharp(); });
 
@@ -668,6 +718,7 @@
     }
     document.querySelectorAll('.view-btn').forEach(b => b.addEventListener('click', () => setView(b.dataset.view)));
     window.addEventListener('resize', layoutRoom);
+    window.N98LayoutRoom = layoutRoom;
 
     // ---- Laadstatus: vriendelijke tekst i.p.v. technische meldingen ----
     const statusEl = $('locationStatus');
