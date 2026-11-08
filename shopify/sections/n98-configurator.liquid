@@ -70,15 +70,37 @@
     // Tijdens het invullen (kaart klein, zie shop.js) schuift de header met
     // menu, logo en mandje weg; terug naar boven scrollen haalt hem terug.
     var headerGroup = document.getElementById('header-group');
-    var fitTimer = null;
+    var fitTimer = null, hideTimer = null, headerHidden = false;
+    // Het thema kan #header-group als "display: contents" of met een sticky
+    // header opbouwen; daarom de kinderen zelf wegschuiven en daarna verbergen.
+    function headerParts() { return headerGroup ? Array.prototype.slice.call(headerGroup.children) : []; }
     function setHeaderHidden(on) {
-      if (!headerGroup || window.innerWidth >= 900) on = false;
       if (!headerGroup) return;
-      headerGroup.style.transition = 'margin-top .38s cubic-bezier(.22,.61,.36,1)';
-      headerGroup.style.marginTop = on ? (-headerGroup.offsetHeight) + 'px' : '0px';
-      if (on) frame.style.height = Math.max(640, window.innerHeight) + 'px';
-      clearTimeout(fitTimer);
-      fitTimer = setTimeout(fit, 420);
+      if (window.innerWidth >= 900) on = false;
+      if (on === headerHidden) return;
+      headerHidden = on;
+      clearTimeout(hideTimer); clearTimeout(fitTimer);
+      var parts = headerParts();
+      if (on) {
+        parts.forEach(function (el) {
+          el.style.transition = 'transform .3s cubic-bezier(.22,.61,.36,1), opacity .3s';
+          el.style.transform = 'translateY(-100%)';
+          el.style.opacity = '0';
+        });
+        hideTimer = setTimeout(function () {
+          parts.forEach(function (el) { el.dataset.n98Display = el.style.display || ''; el.style.display = 'none'; });
+          frame.style.height = Math.max(640, window.innerHeight) + 'px';
+          fit();
+        }, 300);
+      } else {
+        parts.forEach(function (el) {
+          el.style.display = el.dataset.n98Display || '';
+          void el.offsetHeight;
+          el.style.transform = '';
+          el.style.opacity = '';
+        });
+        fitTimer = setTimeout(fit, 320);
+      }
     }
     window.addEventListener('load', fit);
 
