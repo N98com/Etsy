@@ -158,6 +158,39 @@
     move('unitPins', 'shopSlotPins');
     move('mapPaletteGrid', 'shopSlotPalettes');
     move('solidPaletteGrid', 'shopSlotSolid');
+
+    // ---- Paletten in sfeergroepen (knopjes boven de paletten) ----
+    (function paletteCategories() {
+      const bar = $('paletteCats');
+      const grid = $('mapPaletteGrid');
+      const solidGrid = $('solidPaletteGrid');
+      const solidHead = $('paletteSolidHead');
+      const cats = (typeof PALETTE_CATEGORIES !== 'undefined' ? PALETTE_CATEGORIES : []);
+      if (!bar || !grid || !cats.length) { if (bar) bar.hidden = true; return; }
+      const catOf = {};
+      cats.forEach((c, i) => c.ids.forEach((id, j) => { catOf[id] = { cat: c.id, order: i * 100 + j }; }));
+      // "All" toont de paletten per groep gesorteerd
+      [...grid.children]
+        .sort((a, b) => ((catOf[a.dataset.paletteId] || { order: 9999 }).order) - ((catOf[b.dataset.paletteId] || { order: 9999 }).order))
+        .forEach(el => grid.appendChild(el));
+      const groups = [{ id: 'all', label: 'All' }].concat(cats, [{ id: 'solid', label: 'Solid' }]);
+      bar.innerHTML = groups.map(g => `<button type="button" class="palette-cat" data-cat="${g.id}" aria-pressed="${g.id === 'all'}">${g.label}</button>`).join('');
+      function show(cat) {
+        bar.querySelectorAll('.palette-cat').forEach(b => b.setAttribute('aria-pressed', b.dataset.cat === cat ? 'true' : 'false'));
+        grid.hidden = cat === 'solid';
+        [...grid.children].forEach(el => { el.hidden = !(cat === 'all' || (catOf[el.dataset.paletteId] || {}).cat === cat); });
+        const showSolid = cat === 'all' || cat === 'solid';
+        if (solidGrid) solidGrid.hidden = !showSolid;
+        if (solidHead) solidHead.hidden = cat !== 'all';
+      }
+      bar.addEventListener('click', e => {
+        const b = e.target.closest('.palette-cat');
+        if (!b) return;
+        show(b.dataset.cat);
+        b.scrollIntoView({ block: 'nearest', inline: 'nearest', behavior: 'smooth' });
+      });
+      show('all');
+    })();
     move('unitLayout', 'shopSlotLayout');
     move('unitMask', 'shopSlotMask');
     move('unitCaption', 'shopSlotCaption');

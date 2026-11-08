@@ -192,3 +192,13 @@ const NIGHTLIGHT_STYLE_PALETTE = {
   id: 'nightlight', name: 'Nightlight',
   bg: '#060504', water: '#020202', park: '#060504', road: '#ffb454', roadMinor: '#8f5322', text: '#ffe8c9',
 };
+
+// Indeling in sfeergroepen voor de ontwerper (stap II): knopjes boven de
+// paletten filteren hierop. Elk palet uit MAP_PALETTES staat in precies één groep.
+const PALETTE_CATEGORIES = [
+  { id: 'light', label: 'Light', ids: ['mono', 'chalk-line', 'chalk-harbor', 'mint-etching', 'glacier-mist', 'rosewater-bloom', 'parchment-sepia', 'seafoam', 'cherry-blossom'] },
+  { id: 'earth', label: 'Earth', ids: ['earth', 'sandstone-lagoon', 'terracotta-sun', 'clay-pot', 'verdigris-dusk', 'lagoon', 'deep-teal', 'emerald-city'] },
+  { id: 'colourful', label: 'Colourful', ids: ['coral', 'flamingo', 'tangerine-dream', 'mauve', 'ash-rose', 'plum-velvet', 'mint-chocolate'] },
+  { id: 'dark-gold', label: 'Dark & Gold', ids: ['emerald-gold-noir', 'bordeaux-gold', 'forest-brass', 'graphite-gold', 'royal-velvet', 'midnight-copper', 'burnt-sienna-noir', 'coal-dune', 'sepia-noir', 'old-navy'] },
+  { id: 'night', label: 'Night', ids: ['graphite-line', 'graphite-harbor', 'obsidian-harbor', 'electric-midnight-glow', 'neon-tokyo'] },
+];

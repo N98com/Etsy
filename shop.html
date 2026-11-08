@@ -11,7 +11,7 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=16">
+  <link rel="stylesheet" href="css/shop.css?v=17">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
@@ -88,11 +88,10 @@
           <p class="step-eyebrow">Step II of IV</p>
           <h2 class="step-title">Choose your <em>palette</em></h2>
           <p class="step-lede">Each palette is composed to live on a wall. Your map changes the moment you choose.</p>
+          <div class="palette-cats" id="paletteCats" role="group" aria-label="Palette groups"></div>
           <div class="step-slot" id="shopSlotPalettes"></div>
-          <details class="step-more">
-            <summary>Solid colours</summary>
-            <div class="step-slot" id="shopSlotSolid"></div>
-          </details>
+          <h3 class="step-sub palette-solid-head" id="paletteSolidHead">Solid colours</h3>
+          <div class="step-slot" id="shopSlotSolid"></div>
           <details class="step-more">
             <summary>Layout &amp; shape</summary>
             <h3 class="step-sub">Layout</h3>
@@ -343,7 +342,7 @@
   <script src="js/geom.js?v=50"></script>
   <script src="js/painters.js?v=51"></script>
   <script src="js/export.js?v=50"></script>
-  <script src="js/mapPalettes.js?v=51"></script>
+  <script src="js/mapPalettes.js?v=52"></script>
   <script src="https://cdn.jsdelivr.net/npm/pmtiles@3/dist/pmtiles.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/pbf@3/dist/pbf.js"></script>
   <script src="js/vendor/vector-tile.js?v=22"></script>
@@ -353,6 +352,6 @@
   <script src="js/mapRender.js?v=58"></script>
   <script src="js/location.js?v=77"></script>
   <script src="js/studio.js?v=9"></script>
-  <script src="js/shop.js?v=26"></script>
+  <script src="js/shop.js?v=27"></script>
 </body>
 </html>
