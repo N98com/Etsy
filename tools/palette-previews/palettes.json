@@ -1,0 +1,502 @@
+[
+ {
+  "id": "s01-ivory-ink",
+  "name": "Ivory Ink",
+  "bg": "#f3eee3",
+  "water": "#c9d6d3",
+  "park": "#e7e3d4",
+  "road": "#1e1e1e",
+  "roadMinor": "#8b877c",
+  "text": "#1e1e1e"
+ },
+ {
+  "id": "s02-parchment-sepia",
+  "name": "Parchment Sepia",
+  "bg": "#efe4cf",
+  "water": "#d8c6a3",
+  "park": "#e6d9bd",
+  "road": "#5a3e26",
+  "roadMinor": "#a88b68",
+  "text": "#4a321e"
+ },
+ {
+  "id": "s03-terracotta-sun",
+  "name": "Terracotta Sun",
+  "bg": "#c8673f",
+  "water": "#a24f2d",
+  "park": "#d07a54",
+  "road": "#f6e7d4",
+  "roadMinor": "#e1a988",
+  "text": "#fbefe1"
+ },
+ {
+  "id": "s04-olive-grove",
+  "name": "Olive Grove",
+  "bg": "#5d6340",
+  "water": "#474c30",
+  "park": "#6c7249",
+  "road": "#e9e2c6",
+  "roadMinor": "#a3a37f",
+  "text": "#efe9cf"
+ },
+ {
+  "id": "s05-deep-teal",
+  "name": "Deep Teal",
+  "bg": "#0f3b3e",
+  "water": "#0a2b2d",
+  "park": "#164a4d",
+  "road": "#e8d9b0",
+  "roadMinor": "#4f7a74",
+  "text": "#f0e6c8"
+ },
+ {
+  "id": "s06-bordeaux-gold",
+  "name": "Bordeaux Gold",
+  "bg": "#3a0f18",
+  "water": "#280a10",
+  "park": "#4a1620",
+  "road": "#d4af6a",
+  "roadMinor": "#7d4a3d",
+  "text": "#e6c98a"
+ },
+ {
+  "id": "s07-nordic-frost",
+  "name": "Nordic Frost",
+  "bg": "#e7ecef",
+  "water": "#b9cbd6",
+  "park": "#dbe3e6",
+  "road": "#2c3e50",
+  "roadMinor": "#8da0ae",
+  "text": "#2c3e50"
+ },
+ {
+  "id": "s08-desert-rose",
+  "name": "Desert Rose",
+  "bg": "#e8c4b0",
+  "water": "#c99a86",
+  "park": "#efd3c3",
+  "road": "#6e3b2e",
+  "roadMinor": "#b58572",
+  "text": "#5a2f25"
+ },
+ {
+  "id": "s09-sage-linen",
+  "name": "Sage Linen",
+  "bg": "#dfe3d3",
+  "water": "#b2c0a8",
+  "park": "#d2d9c3",
+  "road": "#3e4a3a",
+  "roadMinor": "#8b977f",
+  "text": "#2f382c"
+ },
+ {
+  "id": "s10-midnight-copper",
+  "name": "Midnight Copper",
+  "bg": "#12161c",
+  "water": "#1c242e",
+  "park": "#181d24",
+  "road": "#c27a45",
+  "roadMinor": "#6b4a33",
+  "text": "#d98d55"
+ },
+ {
+  "id": "s11-blush-charcoal",
+  "name": "Blush Charcoal",
+  "bg": "#f4e3df",
+  "water": "#e5c3bd",
+  "park": "#efd8d3",
+  "road": "#2d2a2a",
+  "roadMinor": "#a08e8a",
+  "text": "#2d2a2a"
+ },
+ {
+  "id": "s12-ocean-ink",
+  "name": "Ocean Ink",
+  "bg": "#0b2545",
+  "water": "#13315c",
+  "park": "#0f2c50",
+  "road": "#eef4ed",
+  "roadMinor": "#8da9c4",
+  "text": "#eef4ed"
+ },
+ {
+  "id": "s13-lavender-haze",
+  "name": "Lavender Haze",
+  "bg": "#e6e0ee",
+  "water": "#c7bcdb",
+  "park": "#ddd5e8",
+  "road": "#4b3f63",
+  "roadMinor": "#9b8fb3",
+  "text": "#3d3352"
+ },
+ {
+  "id": "s14-forest-brass",
+  "name": "Forest Brass",
+  "bg": "#1d2b22",
+  "water": "#14201a",
+  "park": "#24362a",
+  "road": "#c8a35a",
+  "roadMinor": "#5d6b4c",
+  "text": "#d8b670"
+ },
+ {
+  "id": "s15-paprika",
+  "name": "Paprika",
+  "bg": "#9c2f1f",
+  "water": "#7a2316",
+  "park": "#a8402d",
+  "road": "#f3e3c8",
+  "roadMinor": "#d08a6e",
+  "text": "#f8ead2"
+ },
+ {
+  "id": "s16-sandstone-ink",
+  "name": "Sandstone Ink",
+  "bg": "#e9dcc3",
+  "water": "#9fb5b3",
+  "park": "#dfd1b4",
+  "road": "#2a2622",
+  "roadMinor": "#8f8270",
+  "text": "#2a2622"
+ },
+ {
+  "id": "s17-arctic-night",
+  "name": "Arctic Night",
+  "bg": "#1b2633",
+  "water": "#0f1822",
+  "park": "#223040",
+  "road": "#dbe8f0",
+  "roadMinor": "#5e7487",
+  "text": "#dbe8f0"
+ },
+ {
+  "id": "s18-matcha",
+  "name": "Matcha",
+  "bg": "#c7d3a5",
+  "water": "#9cae7a",
+  "park": "#bccb93",
+  "road": "#34401f",
+  "roadMinor": "#7f8f5a",
+  "text": "#2b3518"
+ },
+ {
+  "id": "s19-tangerine-dream",
+  "name": "Tangerine Dream",
+  "bg": "#f4a259",
+  "water": "#e07a3a",
+  "park": "#f6b273",
+  "road": "#2b2d42",
+  "roadMinor": "#b8723b",
+  "text": "#2b2d42"
+ },
+ {
+  "id": "s20-plum-velvet",
+  "name": "Plum Velvet",
+  "bg": "#3d1e3d",
+  "water": "#2c142c",
+  "park": "#4a274a",
+  "road": "#e9c7d9",
+  "roadMinor": "#7e5579",
+  "text": "#f1d8e6"
+ },
+ {
+  "id": "s21-concrete",
+  "name": "Concrete",
+  "bg": "#c9c7c2",
+  "water": "#9fa3a6",
+  "park": "#bdbbb5",
+  "road": "#1f1f1f",
+  "roadMinor": "#6f6e6a",
+  "text": "#1f1f1f"
+ },
+ {
+  "id": "s22-seafoam",
+  "name": "Seafoam",
+  "bg": "#dcefe7",
+  "water": "#9fd3c7",
+  "park": "#cbe6da",
+  "road": "#1f5c57",
+  "roadMinor": "#7fb3a8",
+  "text": "#1f4e4a"
+ },
+ {
+  "id": "s23-burnt-sienna-noir",
+  "name": "Burnt Sienna Noir",
+  "bg": "#1a1410",
+  "water": "#2a1d15",
+  "park": "#201812",
+  "road": "#d2693c",
+  "roadMinor": "#7a4026",
+  "text": "#e4824f"
+ },
+ {
+  "id": "s24-butter-cream",
+  "name": "Butter Cream",
+  "bg": "#f7efcf",
+  "water": "#e3d49c",
+  "park": "#f1e6bd",
+  "road": "#4a3f2a",
+  "roadMinor": "#b0a07a",
+  "text": "#3b3220"
+ },
+ {
+  "id": "s25-indigo-dye",
+  "name": "Indigo Dye",
+  "bg": "#273469",
+  "water": "#1b2550",
+  "park": "#2f3d78",
+  "road": "#f1ead8",
+  "roadMinor": "#6e78a8",
+  "text": "#f1ead8"
+ },
+ {
+  "id": "s26-moss-stone",
+  "name": "Moss Stone",
+  "bg": "#8a8f7a",
+  "water": "#6c7160",
+  "park": "#959a84",
+  "road": "#f2efe4",
+  "roadMinor": "#c2c3b2",
+  "text": "#f5f2e8"
+ },
+ {
+  "id": "s27-rust-belt",
+  "name": "Rust Belt",
+  "bg": "#4b2e22",
+  "water": "#382218",
+  "park": "#563529",
+  "road": "#e3a46b",
+  "roadMinor": "#8a5a3e",
+  "text": "#edc095"
+ },
+ {
+  "id": "s28-cherry-blossom",
+  "name": "Cherry Blossom",
+  "bg": "#fbe9ec",
+  "water": "#f2c4cc",
+  "park": "#f7dbe0",
+  "road": "#8c2f45",
+  "roadMinor": "#d58a9c",
+  "text": "#6e2236"
+ },
+ {
+  "id": "s29-antique-map",
+  "name": "Antique Map",
+  "bg": "#e6d3a7",
+  "water": "#a9bfae",
+  "park": "#dcc898",
+  "road": "#5c3d1e",
+  "roadMinor": "#9d7b4f",
+  "text": "#4a2f14"
+ },
+ {
+  "id": "s30-steel-blue",
+  "name": "Steel Blue",
+  "bg": "#4a6274",
+  "water": "#384c5b",
+  "park": "#546d80",
+  "road": "#f3f1ea",
+  "roadMinor": "#9fb0bc",
+  "text": "#f3f1ea"
+ },
+ {
+  "id": "s31-sepia-noir",
+  "name": "Sepia Noir",
+  "bg": "#2a231d",
+  "water": "#1e1915",
+  "park": "#312922",
+  "road": "#e8d6b4",
+  "roadMinor": "#8c7a60",
+  "text": "#efe0c2"
+ },
+ {
+  "id": "s32-flamingo",
+  "name": "Flamingo",
+  "bg": "#f28d8c",
+  "water": "#e06b6e",
+  "park": "#f4a3a2",
+  "road": "#fff4ef",
+  "roadMinor": "#f9cfc9",
+  "text": "#fff4ef"
+ },
+ {
+  "id": "s33-lagoon",
+  "name": "Lagoon",
+  "bg": "#0e6e6e",
+  "water": "#0a5050",
+  "park": "#138080",
+  "road": "#f6f0d6",
+  "roadMinor": "#6fb3a8",
+  "text": "#f6f0d6"
+ },
+ {
+  "id": "s34-saffron",
+  "name": "Saffron",
+  "bg": "#e3a72f",
+  "water": "#c98a1a",
+  "park": "#e8b54f",
+  "road": "#3a2a12",
+  "roadMinor": "#a37422",
+  "text": "#2e210d"
+ },
+ {
+  "id": "s35-eucalyptus",
+  "name": "Eucalyptus",
+  "bg": "#a7b9a8",
+  "water": "#869b8a",
+  "park": "#b4c4b4",
+  "road": "#24332a",
+  "roadMinor": "#6d8273",
+  "text": "#1e2b23"
+ },
+ {
+  "id": "s36-dusty-blue",
+  "name": "Dusty Blue",
+  "bg": "#c4d2dc",
+  "water": "#9eb4c4",
+  "park": "#cfdae2",
+  "road": "#2e4459",
+  "roadMinor": "#7e95a8",
+  "text": "#24384b"
+ },
+ {
+  "id": "s37-merlot-blush",
+  "name": "Merlot Blush",
+  "bg": "#f3dfdc",
+  "water": "#d9a7a3",
+  "park": "#eed3cf",
+  "road": "#6b1f2b",
+  "roadMinor": "#b77a80",
+  "text": "#5a1824"
+ },
+ {
+  "id": "s38-graphite-gold",
+  "name": "Graphite Gold",
+  "bg": "#2b2b2b",
+  "water": "#1f1f1f",
+  "park": "#333333",
+  "road": "#d9b56c",
+  "roadMinor": "#6e6250",
+  "text": "#e3c27e"
+ },
+ {
+  "id": "s39-mint-chocolate",
+  "name": "Mint Chocolate",
+  "bg": "#3a2a22",
+  "water": "#2a1e18",
+  "park": "#44322a",
+  "road": "#b9e3d0",
+  "roadMinor": "#6d8f80",
+  "text": "#c9eedd"
+ },
+ {
+  "id": "s40-peach-fuzz",
+  "name": "Peach Fuzz",
+  "bg": "#ffd6b8",
+  "water": "#f2b28f",
+  "park": "#ffe0c9",
+  "road": "#5b3a2e",
+  "roadMinor": "#c48f75",
+  "text": "#4a2e24"
+ },
+ {
+  "id": "s41-royal-velvet",
+  "name": "Royal Velvet",
+  "bg": "#1f1446",
+  "water": "#150d33",
+  "park": "#281a56",
+  "road": "#e2c66d",
+  "roadMinor": "#5c4f8a",
+  "text": "#ecd58c"
+ },
+ {
+  "id": "s42-linen-navy",
+  "name": "Linen Navy",
+  "bg": "#f1ece2",
+  "water": "#c8d2dc",
+  "park": "#e8e2d5",
+  "road": "#1f2f4a",
+  "roadMinor": "#8a94a3",
+  "text": "#1f2f4a"
+ },
+ {
+  "id": "s43-clay-pot",
+  "name": "Clay Pot",
+  "bg": "#b8735a",
+  "water": "#9b5c46",
+  "park": "#c4846c",
+  "road": "#fbeee2",
+  "roadMinor": "#ddb3a0",
+  "text": "#fdf3ea"
+ },
+ {
+  "id": "s44-pine-snow",
+  "name": "Pine Snow",
+  "bg": "#f2f4f1",
+  "water": "#d3dfd8",
+  "park": "#e4ebe5",
+  "road": "#2d4a3e",
+  "roadMinor": "#8aa395",
+  "text": "#2d4a3e"
+ },
+ {
+  "id": "s45-emerald-city",
+  "name": "Emerald City",
+  "bg": "#0f4c3a",
+  "water": "#0a3a2c",
+  "park": "#145a45",
+  "road": "#f2e8cf",
+  "roadMinor": "#5f9178",
+  "text": "#f2e8cf"
+ },
+ {
+  "id": "s46-ash-rose",
+  "name": "Ash Rose",
+  "bg": "#6b5257",
+  "water": "#574145",
+  "park": "#765d62",
+  "road": "#f1dfe0",
+  "roadMinor": "#a88a8f",
+  "text": "#f6e8e8"
+ },
+ {
+  "id": "s47-cobalt-cream",
+  "name": "Cobalt Cream",
+  "bg": "#f4efe4",
+  "water": "#9db4d9",
+  "park": "#ece5d6",
+  "road": "#1d3f8f",
+  "roadMinor": "#7d93c4",
+  "text": "#1d3f8f"
+ },
+ {
+  "id": "s48-smoked-oak",
+  "name": "Smoked Oak",
+  "bg": "#5a4636",
+  "water": "#46362a",
+  "park": "#654f3e",
+  "road": "#eadcc6",
+  "roadMinor": "#9c8569",
+  "text": "#f0e4d0"
+ },
+ {
+  "id": "s49-neon-tokyo",
+  "name": "Neon Tokyo",
+  "bg": "#14101f",
+  "water": "#251a3d",
+  "park": "#1b1529",
+  "road": "#ff4fa3",
+  "roadMinor": "#6a3cc9",
+  "text": "#ff7ac0"
+ },
+ {
+  "id": "s50-golden-hour",
+  "name": "Golden Hour",
+  "bg": "#f6dcae",
+  "water": "#e8b98a",
+  "park": "#f3d29f",
+  "road": "#7a3b1e",
+  "roadMinor": "#c98b5b",
+  "text": "#5e2c14"
+ }
+]
