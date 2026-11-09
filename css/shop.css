@@ -507,14 +507,20 @@ button.location-search-result:hover { background: var(--paper); }
   .view-ico { display: block; }
   .view-txt { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
   .shop-stage.is-full .stage-views { top: 64px; right: 14px; opacity: 1 !important; pointer-events: auto !important; }
-  .shop-stage.is-full .stage-hint { opacity: 1 !important; }
+  .shop-stage.is-full .stage-hint, .shop-stage.is-full .stage-placard { opacity: 1 !important; height: auto !important; overflow: visible !important; }
+  .shop-stage.is-full .stage-placard { margin-top: 10px !important; }
+  .shop-stage.is-full .stage-hint { margin-top: 3px !important; }
 
+  /* "Show larger" verschijnt op de plek van de weergaveknopjes, onder het vergrootglas */
   .stage-expand {
-    display: inline-flex; position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%);
-    align-items: center; gap: 6px; padding: 6px 12px; border: 0; background: none; color: var(--mute);
-    font-family: var(--mono); font-size: 9px; letter-spacing: 0.18em; text-transform: uppercase; white-space: nowrap;
+    display: flex; position: absolute; right: 18px; top: 64px; z-index: 6;
+    width: 40px; height: 40px; align-items: center; justify-content: center; padding: 0;
+    border: 1px solid rgba(20, 20, 20, 0.12); background: rgba(251, 250, 247, 0.9); color: var(--ink);
+    backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
     opacity: 0; pointer-events: none; transition: opacity 0.2s var(--ease);
   }
+  .stage-expand span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .stage-expand svg { width: 14px; height: 14px; }
   html.stage-compact .shop-stage:not(.is-full) .stage-expand { opacity: 1; pointer-events: auto; }
   .studio-orders-inline { transition: opacity 0.2s var(--ease); }
   html.stage-compact .shop-stage:not(.is-full) .studio-orders-inline { opacity: 0; pointer-events: none; }

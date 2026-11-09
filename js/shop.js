@@ -524,6 +524,9 @@
     const panelEl = document.querySelector('.shop-panel');
     const hintEl = $('stageHint');
     const viewsEl = document.querySelector('.stage-views');
+    const placardEl = document.querySelector('.stage-placard');
+    // plaatje-onderschrift en hint klappen mee in, zodat de kaart de ruimte krijgt
+    const folds = [placardEl, hintEl].filter(Boolean).map(el => ({ el, h: 0, m: 0 }));
     const hostSpacer = document.createElement('div');
     hostSpacer.className = 'host-spacer'; hostSpacer.setAttribute('aria-hidden', 'true');
     layoutEl.parentNode.insertBefore(hostSpacer, layoutEl);
@@ -538,10 +541,15 @@
         hostSpacer.style.height = '0px';
         root.style.removeProperty('--stage-full'); root.style.removeProperty('--stage-min');
         stageEl.style.transform = ''; stageEl.style.height = '';
+        folds.forEach(f => { f.el.style.height = ''; f.el.style.marginTop = ''; f.el.style.overflow = ''; f.el.style.opacity = ''; });
         root.classList.remove('stage-compact');
         return;
       }
       hostSpacer.style.height = hostPad + 'px';
+      folds.forEach(f => {
+        f.el.style.height = ''; f.el.style.marginTop = ''; f.el.style.overflow = '';
+        f.h = f.el.offsetHeight; f.m = parseFloat(getComputedStyle(f.el).marginTop) || 0;
+      });
       const full = Math.round(vh * 0.52), min = Math.round(vh * 0.3);
       root.style.setProperty('--stage-full', full + 'px');
       root.style.setProperty('--stage-min', min + 'px');
@@ -556,7 +564,13 @@
       const p = range > 0 ? shrink / range : 0;
       stageEl.style.transform = top ? 'translate3d(0,' + top + 'px,0)' : 'none';
       stageEl.style.height = (M.full - shrink) + 'px';
-      hintEl.style.opacity = String(Math.max(0, 1 - p * 1.6));
+      const k = 1 - p;
+      folds.forEach(f => {
+        f.el.style.overflow = 'hidden';
+        f.el.style.height = (f.h * k).toFixed(2) + 'px';
+        f.el.style.marginTop = (f.m * k).toFixed(2) + 'px';
+        f.el.style.opacity = String(Math.max(0, 1 - p * 1.8));
+      });
       if (viewsEl) { viewsEl.style.opacity = String(Math.max(0, 1 - p * 2)); viewsEl.style.pointerEvents = p > 0.5 ? 'none' : ''; }
       const compact = p > 0.96;
       if (root.classList.contains('stage-compact') !== compact) root.classList.toggle('stage-compact', compact);
