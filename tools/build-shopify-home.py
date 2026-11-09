@@ -58,7 +58,11 @@ body = re.sub(r'src="img/home/([a-z0-9-]+\.jpg)"', lambda m: "src=\"{{ 'n98-" + 
 
 # 5. knoppen naar de configurator-productpagina
 body = body.replace('href="shop.html"', 'href="{{ n98_configurator_url }}"')
-assert "shop.html" not in body and "img/" not in body, "unconverted links left"
+body = body.replace('data-shop-url="shop.html"', 'data-shop-url="{{ n98_configurator_url }}"')
+# hero: de kaartmotor op GitHub Pages in hero-modus (tekent steden, zoekt plekken)
+body = body.replace('data-src="shop.html?hero=1"', 'data-src="{{ n98_app_url }}?hero=1&v={{ \'now\' | date: \'%Y%m%d%H\' }}"')
+left = re.findall(r".{50}(?:shop\.html|img/).{30}", body)
+assert not left, "unconverted links left: " + repr(left)
 
 schema = {
     "name": "N°98 Maps home",
@@ -71,6 +75,13 @@ schema = {
             "label": "Configurator product (handle)",
             "default": DEFAULT_HANDLE,
             "info": "All 'Design your map' buttons go to /products/<this handle>.",
+        },
+        {
+            "type": "text",
+            "id": "app_url",
+            "label": "Map designer address (hero)",
+            "default": "https://n98com.github.io/Etsy/shop.html",
+            "info": "The homepage hero draws maps with the designer on this address.",
         }
     ],
     "presets": [{"name": "N°98 Maps home"}],
@@ -83,6 +94,7 @@ section = f"""{{%- comment -%}}
 {{%- liquid
   assign n98_handle = section.settings.configurator_handle | default: '{DEFAULT_HANDLE}'
   assign n98_configurator_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
+  assign n98_app_url = section.settings.app_url | default: 'https://n98com.github.io/Etsy/shop.html'
 -%}}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

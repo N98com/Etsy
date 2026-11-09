@@ -51,6 +51,8 @@
     });
     window.LocationApp.applyDesign(d);
     await waitReady();
+    // kaartdata niet binnen: de homepage laat dan gewoon de vaste afbeelding staan
+    if (!window.LocationApp.isDataReady()) { busy = false; post({ type: 'stalled' }); return; }
     draw();
     post({ type: 'city', place: c.place, country: c.country, lat: c.lat, lon: c.lon, palette: c.palette, design: window.LocationApp.getDesignState() });
     busy = false;

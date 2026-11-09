@@ -5,6 +5,7 @@
 {%- liquid
   assign n98_handle = section.settings.configurator_handle | default: 'design-your-map'
   assign n98_configurator_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
+  assign n98_app_url = section.settings.app_url | default: 'https://n98com.github.io/Etsy/shop.html'
 -%}
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -63,22 +64,6 @@
   .n98h .n98-logo img { height: 24px; }
 }
 
-/* hero */
-.n98h .n98-hero .n98-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 460px), 1fr)); gap: clamp(36px, 6vw, 88px); align-items: center; padding-top: clamp(40px, 7vw, 96px); padding-bottom: clamp(48px, 7vw, 96px); }
-.n98h .n98-hero-copy { display: flex; flex-direction: column; gap: 26px; }
-.n98h .n98-hero h1 { font-size: clamp(50px, 7vw, 100px); line-height: 0.96; letter-spacing: -0.02em; }
-.n98h .n98-hero .n98-lede { font-size: clamp(16px, 1.4vw, 19px); font-weight: 300; color: var(--ink-2); max-width: 44ch; }
-.n98h .n98-hero .n98-ctas { display: flex; flex-wrap: wrap; gap: 12px; padding-top: 6px; }
-.n98h .n98-hero figure { position: relative; }
-.n98h .n98-hero figure img { width: 100%; aspect-ratio: 1 / 1; object-fit: cover; }
-.n98h .n98-hero figcaption { position: absolute; left: 18px; bottom: 16px; background: rgba(244, 241, 235, 0.92); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); padding: 9px 14px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; }
-
-/* belofte-strook */
-.n98h .n98-promise { border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.n98h .n98-promise .n98-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 18px 28px; padding-top: 26px; padding-bottom: 26px; }
-.n98h .n98-promise div { display: flex; align-items: center; gap: 14px; font-size: 14px; color: var(--ink-2); }
-.n98h .n98-promise svg { flex: 0 0 auto; }
-
 /* stappen */
 .n98h .n98-steps .n98-wrap { padding-top: clamp(72px, 10vw, 128px); padding-bottom: clamp(64px, 9vw, 112px); }
 .n98h .n98-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: clamp(36px, 5vw, 60px); }
@@ -89,33 +74,6 @@
 .n98h .n98-step .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
 .n98h .n98-step h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
 .n98h .n98-step p { color: var(--ink-2); font-weight: 300; }
-
-/* collectie */
-.n98h .n98-collection { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
-.n98h .n98-collection .n98-wrap { padding-top: clamp(72px, 9vw, 112px); padding-bottom: clamp(72px, 9vw, 112px); }
-.n98h .n98-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 52px 28px; }
-@media (max-width: 560px) { .n98h .n98-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 14px; } }
-.n98h .n98-city { display: flex; flex-direction: column; gap: 14px; }
-.n98h .n98-city .n98-mat { background: var(--wall); padding: clamp(14px, 2.2vw, 30px); }
-.n98h .n98-city img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: #fff; padding: 3%; box-shadow: 0 1px 2px rgba(30, 24, 16, 0.12), 0 22px 34px -18px rgba(30, 24, 16, 0.55); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
-.n98h .n98-city:hover img { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(30, 24, 16, 0.12), 0 32px 44px -20px rgba(30, 24, 16, 0.6); }
-.n98h .n98-city .n98-meta { display: flex; justify-content: space-between; align-items: baseline; gap: 10px; }
-.n98h .n98-city .n98-name { font-family: var(--serif); font-size: clamp(20px, 2vw, 25px); line-height: 1.1; }
-.n98h .n98-city .n98-pal { display: block; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--mute); text-transform: uppercase; }
-.n98h .n98-city .n98-price { font-size: 13px; color: var(--ink-2); white-space: nowrap; }
-
-/* aan de muur */
-.n98h .n98-wall .n98-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(36px, 6vw, 88px); align-items: center; padding-top: clamp(72px, 10vw, 128px); padding-bottom: clamp(72px, 10vw, 128px); }
-.n98h .n98-wall-copy { display: flex; flex-direction: column; gap: 22px; }
-.n98h .n98-wall h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; }
-.n98h .n98-wall p { color: var(--ink-2); font-weight: 300; max-width: 44ch; }
-.n98h .n98-wall ul { list-style: none; display: flex; flex-direction: column; border-top: 1px solid var(--line); }
-.n98h .n98-wall li { display: flex; gap: 14px; align-items: baseline; padding: 13px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
-.n98h .n98-wall li span { font-family: var(--serif); font-style: italic; font-size: 18px; min-width: 2.2em; }
-.n98h .n98-pins { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; color: var(--pin); }
-.n98h .n98-pins div { background: var(--card); border: 1px solid var(--line); aspect-ratio: 1 / 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
-.n98h .n98-pins svg { width: 46%; height: auto; }
-.n98h .n98-pins b { font-family: var(--mono); font-weight: 400; font-size: 9.5px; letter-spacing: 0.16em; color: var(--mute); text-transform: uppercase; }
 
 /* cadeau */
 .n98h .n98-gift { background: #141513; color: #EDE8DE; }
@@ -129,15 +87,6 @@
 .n98h .n98-gift .n98-eyebrow { color: #A9A296; }
 .n98h .n98-gift .n98-btn { background: #EDE8DE; border-color: #EDE8DE; color: #141513; align-self: flex-start; }
 .n98h .n98-gift .n98-btn:hover { background: #fff; }
-
-/* formaten */
-.n98h .n98-sizes .n98-wrap { padding-top: clamp(72px, 10vw, 128px); padding-bottom: clamp(64px, 9vw, 112px); }
-.n98h .n98-ladder { display: flex; align-items: flex-end; gap: clamp(14px, 2.6vw, 38px); border-bottom: 1px solid var(--ink); overflow-x: auto; padding-bottom: 0; scrollbar-width: none; }
-.n98h .n98-ladder::-webkit-scrollbar { display: none; }
-.n98h .n98-rung { flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; gap: 10px; padding-bottom: 18px; }
-.n98h .n98-rung i { display: block; border: 1px solid var(--ink); background: var(--card); }
-.n98h .n98-rung b { font-family: var(--mono); font-weight: 400; font-size: 11px; }
-.n98h .n98-rung small { font-size: 11.5px; color: var(--mute); margin-top: -6px; }
 
 /* faq */
 .n98h .n98-faq { border-top: 1px solid var(--line); }
@@ -177,36 +126,258 @@
   .n98h *, .n98h *::before, .n98h *::after { transition: none !important; animation: none !important; }
   .n98h .n98-reveal { opacity: 1; transform: none; }
 }
+
+/* ================= v2: hero met tekenende kaart ================= */
+.n98h .n98-hero2 {
+  --hero-bg: #142019; --hero-ink: #EDE8DE; --hero-soft: #B9C2B8;
+  background:
+    radial-gradient(120% 90% at 72% 38%, rgba(239, 226, 196, 0.10), transparent 60%),
+    radial-gradient(80% 70% at 10% 100%, rgba(0, 0, 0, 0.35), transparent 70%),
+    var(--hero-bg);
+  color: var(--hero-ink); overflow: hidden;
+}
+.n98h .n98-hero2::after {
+  /* papierkorrel over de hele hero */
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.18; mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .55 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.n98h .n98-hero2 .n98-wrap {
+  position: relative; z-index: 1;
+  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); grid-template-areas: "copy art" "find art";
+  column-gap: clamp(40px, 6vw, 96px); align-items: center;
+  min-height: min(calc(100svh - 80px), 940px); padding-top: clamp(48px, 7vw, 96px); padding-bottom: clamp(48px, 7vw, 96px);
+}
+.n98h .n98-hero2-copy { grid-area: copy; align-self: end; display: flex; flex-direction: column; gap: 26px; }
+.n98h .n98-hero2-find { grid-area: find; align-self: start; padding-top: 34px; display: flex; flex-direction: column; gap: 16px; }
+.n98h .n98-hero2-art { grid-area: art; display: flex; flex-direction: column; align-items: center; gap: 18px; }
+.n98h .n98-hero2 .n98-eyebrow { color: var(--hero-soft); font-variant-numeric: tabular-nums; min-height: 1.6em; }
+.n98h .n98-hero2 h1 { color: var(--hero-ink); font-size: clamp(48px, 6.6vw, 104px); line-height: 0.95; letter-spacing: -0.025em; }
+.n98h .n98-hero2 h1 .w { display: inline-block; opacity: 0; transform: translateY(0.35em); filter: blur(6px); animation-name: n98-word; animation-duration: 1.1s; animation-timing-function: cubic-bezier(.22, .61, .36, 1); animation-fill-mode: forwards; animation-delay: calc(0.12s + var(--i) * 0.09s); }
+@keyframes n98-word { to { opacity: 1; transform: none; filter: none; } }
+.n98h .n98-hero2 .n98-lede { color: var(--hero-soft); font-size: clamp(16px, 1.35vw, 19px); font-weight: 300; max-width: 42ch; }
+
+/* zoek een plek */
+.n98h .n98-find-label { font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--hero-soft); }
+.n98h .n98-find { display: flex; align-items: stretch; max-width: 540px; border-bottom: 1px solid rgba(237, 232, 222, 0.45); transition: border-color 0.3s var(--ease); }
+.n98h .n98-find:focus-within { border-bottom-color: var(--hero-ink); }
+.n98h .n98-find input {
+  flex: 1 1 auto; min-width: 0; min-height: 60px; padding: 0 4px; border: 0; background: transparent; color: var(--hero-ink);
+  font-family: var(--serif); font-style: italic; font-size: clamp(22px, 2.2vw, 28px); border-radius: 0;
+}
+.n98h .n98-find input::placeholder { color: rgba(237, 232, 222, 0.42); }
+.n98h .n98-find input:focus { outline: none; }
+.n98h .n98-find button {
+  flex: 0 0 auto; display: inline-flex; align-items: center; gap: 12px; padding: 0 4px 0 18px; border: 0; background: none; cursor: pointer;
+  color: var(--hero-ink); font-family: var(--sans); font-size: 11px; font-weight: 500; letter-spacing: 0.26em; text-transform: uppercase;
+}
+.n98h .n98-find button svg { transition: transform 0.35s var(--ease); }
+.n98h .n98-find button:hover svg { transform: translateX(4px); }
+.n98h .n98-find-status { min-height: 1.5em; font-size: 14px; color: var(--hero-soft); font-weight: 300; }
+.n98h .n98-hero2 .n98-ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; padding-top: 8px; }
+.n98h .n98-hero2 .n98-btn-solid { background: var(--hero-ink); border-color: var(--hero-ink); color: #141513; }
+.n98h .n98-hero2 .n98-btn-solid:hover { background: #fff; }
+.n98h .n98-hero2 .n98-assure { font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: rgba(237, 232, 222, 0.6); }
+
+/* de lijst met de tekenende kaart */
+.n98h .n98-frame {
+  --fw: clamp(10px, 1.1vw, 16px); --mat: clamp(16px, 2.4vw, 34px);
+  position: relative; width: min(100%, calc(min(62svh, 660px) * 5 / 7 + var(--fw) * 2 + var(--mat) * 2));
+  padding: var(--fw); background: linear-gradient(145deg, #2a2a28, #0d0d0c 55%, #1d1d1b);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5), 0 40px 70px -30px rgba(0, 0, 0, 0.9), 0 90px 120px -60px rgba(0, 0, 0, 0.7);
+}
+.n98h .n98-frame-mat { padding: var(--mat); background: #F6F3EC; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), inset 0 2px 8px rgba(0, 0, 0, 0.12); }
+.n98h .n98-frame-art { position: relative; aspect-ratio: 5 / 7; background: #ECE7DD; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.n98h .n98-frame-art img, .n98h .n98-frame-art iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.n98h .n98-frame-art img { object-fit: cover; transition: opacity 0.8s var(--ease); }
+.n98h .n98-frame-art iframe { opacity: 0; transition: opacity 0.8s var(--ease); background: transparent; }
+.n98h .n98-frame.is-live .n98-frame-art iframe { opacity: 1; }
+.n98h .n98-frame.is-live .n98-frame-art img { opacity: 0; }
+.n98h .n98-frame::before {
+  /* zacht licht over het glas */
+  content: ''; position: absolute; inset: var(--fw); z-index: 2; pointer-events: none;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.10), transparent 38%, transparent 70%, rgba(255, 255, 255, 0.05));
+}
+.n98h .n98-now { font-family: var(--mono); font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase; color: var(--hero-soft); text-align: center; font-variant-numeric: tabular-nums; }
+.n98h .n98-now b { font-weight: 400; color: var(--hero-ink); }
+
+@media (max-width: 899px) {
+  .n98h .n98-hero2 .n98-wrap { grid-template-columns: minmax(0, 1fr); grid-template-areas: "copy" "art" "find"; row-gap: 34px; min-height: 0; }
+  .n98h .n98-hero2-copy { gap: 18px; }
+  .n98h .n98-hero2-find { padding-top: 0; }
+  .n98h .n98-frame { width: min(100%, 360px); }
+  .n98h .n98-find input { font-size: 21px; }
+  .n98h .n98-step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 18px; }
+  .n98h .n98-step p { font-size: 14px; }
+}
+
+/* ================= v2: lopende band met beloftes ================= */
+.n98h .n98-ticker { border-bottom: 1px solid var(--line); overflow: hidden; background: var(--paper); }
+.n98h .n98-ticker-track { display: flex; width: max-content; animation: n98-tick 48s linear infinite; }
+.n98h .n98-ticker:hover .n98-ticker-track { animation-play-state: paused; }
+.n98h .n98-ticker ul { display: flex; list-style: none; margin: 0; padding: 0; }
+.n98h .n98-ticker li { display: flex; align-items: center; gap: 22px; padding: 20px 0 20px 22px; white-space: nowrap; font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--ink-2); }
+.n98h .n98-ticker li::after { content: '✦'; font-size: 9px; color: var(--line-strong); }
+@keyframes n98-tick { to { transform: translateX(-50%); } }
+
+/* ================= v2: galeriewand ================= */
+.n98h .n98-salon { background: var(--wall); }
+.n98h .n98-salon .n98-wrap { padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
+.n98h .n98-salon-grid {
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: clamp(28px, 3.4vw, 56px) clamp(20px, 2.6vw, 44px);
+  grid-template-areas: "a a b c" "a a d e" "f g h i"; align-items: start;
+}
+.n98h .n98-print { display: flex; flex-direction: column; gap: 14px; will-change: transform; }
+.n98h .n98-print:nth-child(1) { grid-area: a; } .n98h .n98-print:nth-child(2) { grid-area: b; } .n98h .n98-print:nth-child(3) { grid-area: c; }
+.n98h .n98-print:nth-child(4) { grid-area: d; } .n98h .n98-print:nth-child(5) { grid-area: e; } .n98h .n98-print:nth-child(6) { grid-area: f; }
+.n98h .n98-print:nth-child(7) { grid-area: g; } .n98h .n98-print:nth-child(8) { grid-area: h; } .n98h .n98-print:nth-child(9) { grid-area: i; }
+.n98h .n98-pframe { position: relative; padding: clamp(6px, 0.7vw, 10px); background: #141414; box-shadow: 0 1px 2px rgba(30, 24, 16, 0.25), 0 26px 40px -22px rgba(30, 24, 16, 0.65); transition: transform 0.6s var(--ease), box-shadow 0.6s var(--ease); }
+.n98h .n98-pframe.oak { background: linear-gradient(135deg, #C7A27A, #A9825B 45%, #C29D74); }
+.n98h .n98-pframe.white { background: #F7F5F0; box-shadow: 0 0 0 1px rgba(30, 24, 16, 0.08), 0 26px 40px -22px rgba(30, 24, 16, 0.5); }
+.n98h .n98-pframe.walnut { background: linear-gradient(135deg, #5A3F2B, #3E2A1C 50%, #573C29); }
+.n98h .n98-pmat { padding: 8%; background: #F8F6F1; box-shadow: inset 0 1px 4px rgba(0, 0, 0, 0.12); }
+.n98h .n98-pimg { position: relative; aspect-ratio: 5 / 7; overflow: hidden; background: #E9E4DA; cursor: zoom-in; }
+.n98h .n98-pimg img { width: 100%; height: 100%; object-fit: cover; }
+.n98h .n98-loupe {
+  position: absolute; width: 190px; height: 190px; border-radius: 50%; pointer-events: none; opacity: 0; transform: scale(0.85);
+  transition: opacity 0.25s var(--ease), transform 0.25s var(--ease); background-repeat: no-repeat;
+  box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.7), 0 0 0 5px rgba(20, 20, 20, 0.12), 0 18px 34px rgba(0, 0, 0, 0.35); z-index: 3;
+}
+.n98h .n98-pimg:hover .n98-loupe { opacity: 1; transform: scale(1); }
+.n98h .n98-print:hover .n98-pframe { transform: translateY(-4px); box-shadow: 0 1px 2px rgba(30, 24, 16, 0.25), 0 36px 50px -24px rgba(30, 24, 16, 0.7); }
+.n98h .n98-pcap { display: flex; justify-content: space-between; align-items: baseline; gap: 12px; }
+.n98h .n98-pcap .n98-name { font-family: var(--serif); font-size: clamp(19px, 1.7vw, 24px); line-height: 1.1; }
+.n98h .n98-print:nth-child(1) .n98-pcap .n98-name { font-size: clamp(24px, 2.4vw, 34px); }
+.n98h .n98-pcap .n98-pal { display: block; margin-top: 4px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.14em; color: var(--mute); text-transform: uppercase; }
+.n98h .n98-pcap .n98-open { flex: 0 0 auto; font-size: 10.5px; font-weight: 500; letter-spacing: 0.2em; text-transform: uppercase; border-bottom: 1px solid currentColor; padding-bottom: 3px; opacity: 0; transform: translateX(-6px); transition: opacity 0.35s var(--ease), transform 0.35s var(--ease); }
+.n98h .n98-print:hover .n98-open, .n98h .n98-print:focus-visible .n98-open { opacity: 1; transform: none; }
+.n98h .n98-salon-note { margin-top: clamp(36px, 4vw, 56px); font-size: 14px; color: var(--mute); }
+@media (max-width: 899px) {
+  .n98h .n98-salon-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); grid-template-areas: "a a" "b c" "d e" "f g" "h i"; }
+  .n98h .n98-pcap .n98-open { display: none; }
+  .n98h .n98-loupe { display: none; }
+}
+
+/* ================= v2: vakmanschap ================= */
+.n98h .n98-craft .n98-wrap { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: clamp(40px, 6vw, 96px); align-items: center; padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
+.n98h .n98-macro { position: relative; overflow: hidden; background: #E9E1CF; }
+.n98h .n98-macro img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transform: scale(1.08); transition: transform 1.6s var(--ease); }
+.n98h .n98-macro.n98-in img { transform: scale(1); }
+.n98h .n98-macro::after {
+  content: ''; position: absolute; inset: 0; pointer-events: none; opacity: 0.5; mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='p'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.75' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .55 0 0 0 0 .5 0 0 0 0 .42 0 0 0 .22 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+}
+.n98h .n98-macro figcaption { position: absolute; left: 16px; bottom: 14px; z-index: 1; padding: 8px 12px; background: rgba(244, 241, 235, 0.92); font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; }
+.n98h .n98-craft-copy { display: flex; flex-direction: column; gap: 24px; }
+.n98h .n98-craft h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; }
+.n98h .n98-specs { display: grid; grid-template-columns: auto minmax(0, 1fr); margin: 0; border-top: 1px solid var(--ink); }
+.n98h .n98-specs dt, .n98h .n98-specs dd { margin: 0; padding: 15px 0; border-bottom: 1px solid var(--line); }
+.n98h .n98-specs dt { padding-right: 26px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--mute); padding-top: 18px; }
+.n98h .n98-specs dd { font-size: 15.5px; color: var(--ink-2); font-weight: 300; }
+@media (max-width: 899px) { .n98h .n98-craft .n98-wrap { grid-template-columns: minmax(0, 1fr); } }
+
+/* ================= v2: markeer de plek ================= */
+.n98h .n98-spot { background: var(--card); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.n98h .n98-spot .n98-wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: clamp(40px, 7vw, 110px); align-items: center; padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
+.n98h .n98-spot-art { position: relative; max-width: 460px; justify-self: center; width: 100%; }
+.n98h .n98-spot-art .n98-pframe { transform: rotate(-1.2deg); }
+.n98h .n98-note-card {
+  position: absolute; right: -8%; bottom: -6%; width: min(62%, 250px); padding: 18px 20px 16px; background: #FFFDF8; transform: rotate(2.4deg);
+  box-shadow: 0 1px 2px rgba(30, 24, 16, 0.15), 0 22px 30px -18px rgba(30, 24, 16, 0.5);
+  font-family: var(--serif); font-style: italic; font-size: clamp(18px, 1.7vw, 22px); line-height: 1.3; color: var(--ink);
+}
+.n98h .n98-note-card small { display: block; margin-top: 10px; font-family: var(--mono); font-style: normal; font-size: 9.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+.n98h .n98-spot-copy { display: flex; flex-direction: column; gap: 22px; }
+.n98h .n98-spot h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; }
+.n98h .n98-spot p { color: var(--ink-2); font-weight: 300; max-width: 44ch; }
+.n98h .n98-symbols { display: flex; flex-wrap: wrap; gap: 10px 22px; margin: 0; padding: 18px 0 0; list-style: none; border-top: 1px solid var(--line); }
+.n98h .n98-symbols li { display: flex; align-items: center; gap: 9px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--mute); }
+.n98h .n98-symbols svg { width: 18px; height: 18px; color: var(--pin); }
+@media (max-width: 899px) {
+  .n98h .n98-spot .n98-wrap { grid-template-columns: minmax(0, 1fr); }
+  .n98h .n98-spot-art { max-width: 340px; }
+  .n98h .n98-note-card { right: -4%; }
+}
+
+/* ================= v2: formaten op schaal ================= */
+.n98h .n98-scale .n98-wrap { padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(72px, 9vw, 120px); }
+.n98h .n98-room {
+  --pxcm: 2.8px; --floor: 12%; position: relative; aspect-ratio: 16 / 9.5; min-height: 280px; overflow: hidden;
+  background: radial-gradient(70% 60% at 50% 30%, rgba(255, 255, 255, 0.35), transparent 70%), linear-gradient(180deg, #E9E3D7 0%, #E2DACB 88%, #CFC4B1 88.2%, #D8CEBC 100%);
+}
+.n98h .n98-room-art {
+  position: absolute; left: 50%; bottom: calc(var(--floor) + 110 * var(--pxcm)); transform: translateX(-50%);
+  width: calc(var(--w) * var(--pxcm)); height: calc(var(--h) * var(--pxcm));
+  padding: calc(2.2 * var(--pxcm)); background: #141414; box-sizing: content-box;
+  box-shadow: 0 1px 2px rgba(30, 24, 16, 0.25), 0 18px 30px -16px rgba(30, 24, 16, 0.6);
+  transition: width 0.8s var(--ease), height 0.8s var(--ease);
+}
+.n98h .n98-room-art img { width: 100%; height: 100%; object-fit: cover; }
+.n98h .n98-room svg.n98-sofa { position: absolute; left: 50%; transform: translateX(-50%); width: calc(220 * var(--pxcm)); height: auto; overflow: visible; bottom: var(--floor); }
+.n98h .n98-room svg.n98-plant { position: absolute; left: calc(50% + 128 * var(--pxcm)); bottom: var(--floor); width: calc(52 * var(--pxcm)); height: auto; }
+.n98h .n98-room-tag { position: absolute; left: 18px; top: 16px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); }
+.n98h .n98-sizebar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.n98h .n98-sizebar button {
+  min-height: 44px; padding: 0 16px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer;
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.n98h .n98-sizebar button:hover { border-color: var(--ink); color: var(--ink); }
+.n98h .n98-sizebar button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+@media (max-width: 899px) {
+  .n98h .n98-room { aspect-ratio: 4 / 3.4; --pxcm: 1.15px; }
+  .n98h .n98-sizebar { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin-right: calc(-1 * clamp(20px, 4vw, 48px)); }
+  .n98h .n98-sizebar::-webkit-scrollbar { display: none; }
+  .n98h .n98-sizebar button { flex: 0 0 auto; }
+}
+@media (max-width: 420px) { .n98h .n98-room { --pxcm: 1.05px; } }
+
+@media (prefers-reduced-motion: reduce) {
+  .n98h .n98-hero2 h1 .w { opacity: 1; transform: none; filter: none; }
+  .n98h .n98-ticker-track { animation: none; }
+}
 </style>
 
 <main>
-  <section class="n98-hero">
-    <div class="n98-wrap">
-      <div class="n98-hero-copy">
-        <p class="n98-eyebrow">52.3676° N / 4.9041° E</p>
-        <h1>The places that made you, <em>drawn to last.</em></h1>
-        <p class="n98-lede">Design a map of any city, street or coastline in your own colours and words. Every print is made to order, and made to be framed.</p>
-        <div class="n98-ctas">
-          <a class="n98-btn n98-btn-solid" href="{{ n98_configurator_url }}">Design your map <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></a>
+<section class="n98-hero2" data-shop-url="{{ n98_configurator_url }}">
+  <div class="n98-wrap">
+    <div class="n98-hero2-copy">
+      <p class="n98-eyebrow" id="n98h-coords">52.3702° N / 4.8952° E</p>
+      <h1 aria-label="The places that made you, drawn to last."><span class="w" style="--i:0">The</span> <span class="w" style="--i:1">places</span> <span class="w" style="--i:2">that</span> <span class="w" style="--i:3">made</span> <span class="w" style="--i:4">you,</span> <em><span class="w" style="--i:5">drawn</span> <span class="w" style="--i:6">to</span> <span class="w" style="--i:7">last.</span></em></h1>
+      <p class="n98-lede">Any city, street or coastline, drawn in your own colours and words. Printed to order on museum-grade paper and made to be framed.</p>
+    </div>
+    <div class="n98-hero2-art">
+      <div class="n98-frame" id="n98h-frame">
+        <div class="n98-frame-mat">
+          <div class="n98-frame-art">
+            <img src="{{ 'n98-g-amsterdam.jpg' | asset_url }}" alt="Amsterdam map print in Midnight Copper" width="1200" height="1680" fetchpriority="high">
+            <iframe id="n98h-hero-frame" title="A map being drawn" data-src="{{ n98_app_url }}?hero=1&v={{ 'now' | date: '%Y%m%d%H' }}" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+          </div>
         </div>
       </div>
-      <figure>
-        <img src="{{ 'n98-hero.jpg' | asset_url }}" alt="Three framed N°98 map prints of Amsterdam, Venice and Copenhagen on a dark green wall" width="1400" height="1400">
-        <figcaption>AMSTERDAM · VENICE · COPENHAGEN</figcaption>
-      </figure>
+      <p class="n98-now" id="n98h-now" aria-live="polite">Now drawing · <b>Amsterdam</b></p>
     </div>
-  </section>
-
-  <section class="n98-promise" aria-label="Why N°98">
-    <div class="n98-wrap">
-      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21z"></path><circle cx="12" cy="9.5" r="2.5"></circle></svg>Any place on earth</div>
-      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><rect x="5" y="3" width="14" height="18"></rect><rect x="7.5" y="5.5" width="9" height="13"></rect></svg>Made to standard frame sizes</div>
-      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><circle cx="12" cy="12" r="8.5"></circle><path d="M12 7.5V12l3 2"></path></svg>Live preview, exactly what we print</div>
-      <div><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#141414" stroke-width="1.2" aria-hidden="true"><path d="M3 7h12v9H3z"></path><path d="M15 10h3.5L21 13v3h-6"></path><circle cx="7" cy="18" r="1.6"></circle><circle cx="17" cy="18" r="1.6"></circle></svg>Printed to order, free shipping worldwide</div>
+    <div class="n98-hero2-find">
+      <label class="n98-find-label" for="n98h-place">Type a place that matters</label>
+      <form class="n98-find" id="n98h-find" role="search">
+        <input id="n98h-place" type="text" placeholder="Where you met…" autocomplete="off" enterkeyhint="go" maxlength="120">
+        <button type="submit">Draw it <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></button>
+      </form>
+      <p class="n98-find-status" id="n98h-status" aria-live="polite"></p>
+      <div class="n98-ctas">
+        <a class="n98-btn n98-btn-solid" id="n98h-cta" href="{{ n98_configurator_url }}">Design your map <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></a>
+        <span class="n98-assure">Free shipping worldwide</span>
+      </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="n98-steps" id="how-it-works">
+<div class="n98-ticker" aria-label="Why N°98">
+  <div class="n98-ticker-track">
+    <ul><li>Any place on earth</li><li>Museum-grade matte paper, 200 gsm</li><li>Solid wood frames</li><li>Live preview, exactly what we print</li><li>Printed close to you</li><li>Free shipping worldwide</li></ul>
+    <ul aria-hidden="true"><li>Any place on earth</li><li>Museum-grade matte paper, 200 gsm</li><li>Solid wood frames</li><li>Live preview, exactly what we print</li><li>Printed close to you</li><li>Free shipping worldwide</li></ul>
+  </div>
+</div>
+
+<section class="n98-steps" id="how-it-works">
     <div class="n98-wrap">
       <div class="n98-sec-head n98-reveal">
         <h2>Four steps from a memory to a <em>map on the wall.</em></h2>
@@ -221,51 +392,72 @@
     </div>
   </section>
 
-  <section class="n98-collection" id="collection">
-    <div class="n98-wrap">
-      <div class="n98-sec-head n98-reveal">
-        <div class="n98-stack"><p class="n98-eyebrow">Inspiration</p><h2>Any place, <em>in your own colours.</em></h2></div>
-        <a class="n98-link-line" href="{{ n98_configurator_url }}">Design yours</a>
-      </div>
-      <div class="n98-grid">
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-amsterdam.jpg' | asset_url }}" alt="Amsterdam map print in Electric Midnight Glow" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">Amsterdam</span><span class="n98-pal">Electric Midnight Glow</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-lisbon.jpg' | asset_url }}" alt="Lisbon map print in Verdigris Dusk" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">Lisbon</span><span class="n98-pal">Verdigris Dusk</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-new-york.jpg' | asset_url }}" alt="New York map print in Mint Etching" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">New York</span><span class="n98-pal">Mint Etching</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-copenhagen.jpg' | asset_url }}" alt="Copenhagen map print in Bronze" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">Copenhagen</span><span class="n98-pal">Bronze</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-stockholm.jpg' | asset_url }}" alt="Stockholm map print in Glacier Mist" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">Stockholm</span><span class="n98-pal">Glacier Mist</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-los-angeles.jpg' | asset_url }}" alt="Los Angeles map print in Mauve" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">Los Angeles</span><span class="n98-pal">Mauve</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-san-francisco.jpg' | asset_url }}" alt="San Francisco map print in Mono" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">San Francisco</span><span class="n98-pal">Mono</span></div></div></a>
-        <a class="n98-city n98-reveal" href="{{ n98_configurator_url }}"><div class="n98-mat"><img src="{{ 'n98-phoenix.jpg' | asset_url }}" alt="Phoenix map print in Coal Dune" loading="lazy" width="640" height="800"></div><div class="n98-meta"><div><span class="n98-name">Phoenix</span><span class="n98-pal">Coal Dune</span></div></div></a>
-      </div>
+<section class="n98-salon" id="collection">
+  <div class="n98-wrap">
+    <div class="n98-sec-head n98-reveal">
+      <div class="n98-stack"><p class="n98-eyebrow">The gallery</p><h2>Any place, <em>in your own colours.</em></h2></div>
+      <a class="n98-link-line" href="{{ n98_configurator_url }}">Design yours</a>
     </div>
-  </section>
-
-  <section class="n98-wall">
-    <div class="n98-wrap">
-      <div class="n98-wall-copy n98-reveal">
-        <p class="n98-eyebrow">Mark the spot</p>
-        <h2>Where you met. Where you said yes. <em>Where you came home.</em></h2>
-        <p>Place a pin on the exact spot that matters, and drag it until it's right. Every pin keeps its own symbol.</p>
-        <ul>
-          <li><span>i.</span>Rings for the wedding, a paw for their favourite walk</li>
-          <li><span>ii.</span>Your initials, a star, a tree, a heart, or simply a pin</li>
-          <li><span>iii.</span>Size and colour adjustable, crisp at every print size</li>
-        </ul>
-      </div>
-      <div class="n98-pins n98-reveal" aria-label="Pin symbols">
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 46C17 37 11 31 11 19a13 13 0 0 1 26 0c0 12-6 18-13 27z"></path><circle cx="24" cy="19" r="5" fill="#FBFAF7"></circle></svg><b>Pin</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.6"><circle cx="18" cy="30" r="10"></circle><circle cx="30" cy="30" r="10"></circle></g><path d="M18 8l4 4.5-4 5-4-5z"></path></svg><b>Rings</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 46C17 37 11 31 11 19a13 13 0 0 1 26 0c0 12-6 18-13 27z"></path><path d="M24 40C10 30 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 13-18 23z" fill="#FBFAF7" transform="translate(24 19) scale(0.36) translate(-24 -25)"></path></svg><b>Heart pin</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 40C10 30 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 13-18 23z"></path></svg><b>Heart</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><ellipse cx="24" cy="34" rx="11" ry="8.5"></ellipse><ellipse cx="10" cy="21" rx="4.2" ry="5.4" transform="rotate(-20 10 21)"></ellipse><ellipse cx="18.5" cy="11.5" rx="4.4" ry="5.8" transform="rotate(-8 18.5 11.5)"></ellipse><ellipse cx="29.5" cy="11.5" rx="4.4" ry="5.8" transform="rotate(8 29.5 11.5)"></ellipse><ellipse cx="38" cy="21" rx="4.2" ry="5.4" transform="rotate(20 38 21)"></ellipse></svg><b>Paw</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><circle cx="24" cy="15" r="10"></circle><circle cx="15" cy="22" r="8"></circle><circle cx="33" cy="22" r="8"></circle><circle cx="24" cy="25" r="8"></circle><rect x="22" y="28" width="4" height="14"></rect><rect x="14" y="41" width="20" height="2.4" rx="1.2"></rect></svg><b>Tree</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><polygon points="24,4 29.9,17.6 44.5,18.6 33.4,28 37,42.4 24,34.6 11,42.4 14.6,28 3.5,18.6 18.1,17.6"></polygon></svg><b>Star</b></div>
-        <div><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M9 21L24 9l15 12v21H9z"></path><rect x="20.5" y="31" width="7" height="11" fill="#FBFAF7"></rect></svg><b>House</b></div>
-      </div>
+    <div class="n98-salon-grid" id="n98h-salon">
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-amsterdam" data-depth="0.04"><div class="n98-pframe walnut"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-amsterdam.jpg' | asset_url }}" alt="Amsterdam map print in Midnight Copper" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Amsterdam</span><span class="n98-pal">Midnight Copper</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-lisbon" data-depth="0.08"><div class="n98-pframe oak"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-lisbon.jpg' | asset_url }}" alt="Lisbon map print in Verdigris Dusk" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Lisbon</span><span class="n98-pal">Verdigris Dusk</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-new-york" data-depth="0.02"><div class="n98-pframe"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-new-york.jpg' | asset_url }}" alt="New York map print in Bordeaux Gold" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">New York</span><span class="n98-pal">Bordeaux Gold</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-copenhagen" data-depth="0.06"><div class="n98-pframe white"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-copenhagen.jpg' | asset_url }}" alt="Copenhagen map print in Deep Teal" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Copenhagen</span><span class="n98-pal">Deep Teal</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-paris" data-depth="0.1"><div class="n98-pframe oak"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-paris.jpg' | asset_url }}" alt="Paris map print in Parchment Sepia" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Paris</span><span class="n98-pal">Parchment Sepia</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-tokyo" data-depth="0.05"><div class="n98-pframe"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-tokyo.jpg' | asset_url }}" alt="Tokyo map print in Neon Tokyo" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Tokyo</span><span class="n98-pal">Neon Tokyo</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-san-francisco" data-depth="0.09"><div class="n98-pframe white"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-san-francisco.jpg' | asset_url }}" alt="San Francisco map print in Mono" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">San Francisco</span><span class="n98-pal">Mono</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-rome" data-depth="0.03"><div class="n98-pframe walnut"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-rome.jpg' | asset_url }}" alt="Rome map print in Terracotta Sun" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Rome</span><span class="n98-pal">Terracotta Sun</span></div><span class="n98-open">Design this</span></div></a>
+      <a class="n98-print n98-reveal" href="{{ n98_configurator_url }}" data-design="g-barcelona" data-depth="0.07"><div class="n98-pframe"><div class="n98-pmat"><div class="n98-pimg"><img src="{{ 'n98-g-barcelona.jpg' | asset_url }}" alt="Barcelona map print in Lagoon" loading="lazy" width="1200" height="1680"><span class="n98-loupe"></span></div></div></div><div class="n98-pcap"><div><span class="n98-name">Barcelona</span><span class="n98-pal">Lagoon</span></div><span class="n98-open">Design this</span></div></a>
     </div>
-  </section>
+    <p class="n98-salon-note n98-reveal">Hover a print to look closer. Choose one and it opens in the designer, ready to make your own.</p>
+  </div>
+</section>
 
-  <section class="n98-gift" id="gift">
+<section class="n98-craft">
+  <div class="n98-wrap">
+    <figure class="n98-macro n98-reveal">
+      <img src="{{ 'n98-c-detail.jpg' | asset_url }}" alt="Close-up of the canals of Venice on a printed map, every street drawn as a fine line" loading="lazy" width="1400" height="1050">
+      <figcaption>Venice · actual print detail</figcaption>
+    </figure>
+    <div class="n98-craft-copy n98-reveal">
+      <p class="n98-eyebrow">The making</p>
+      <h2>Made like a print, <em>not a poster.</em></h2>
+      <dl class="n98-specs">
+        <dt>Paper</dt><dd>Premium matte, 200 gsm. Smooth and non-reflective, FSC-certified or equivalent.</dd>
+        <dt>Line</dt><dd>Every street is drawn as its own line, crisp from a bedside 20×25 to a 70×100 statement piece.</dd>
+        <dt>Frame</dt><dd>Solid wood in black, white, natural oak or dark wood. Arrives ready to hang.</dd>
+        <dt>Print</dt><dd>Printed fresh after you order, at a print studio close to you.</dd>
+        <dt>Promise</dt><dd>If it arrives damaged or doesn't match your design, we send a new one.</dd>
+      </dl>
+    </div>
+  </div>
+</section>
+
+<section class="n98-spot">
+  <div class="n98-wrap">
+    <div class="n98-spot-art n98-reveal">
+      <div class="n98-pframe oak"><div class="n98-pmat"><div class="n98-pimg" style="cursor:default"><img src="{{ 'n98-m-said-yes.jpg' | asset_url }}" alt="Map of the Amsterdam canal ring titled Where we said yes, with a rings symbol on the Westerkerk" loading="lazy" width="1200" height="1680"></div></div></div>
+      <p class="n98-note-card">“By the Westerkerk, just after the bells.”<small>Rings symbol · 21 June 2025</small></p>
+    </div>
+    <div class="n98-spot-copy n98-reveal">
+      <p class="n98-eyebrow">Mark the spot</p>
+      <h2>Where you met. Where you said yes. <em>Where you came home.</em></h2>
+      <p>Place a symbol on the exact corner that matters and write the words that go with it. The street, the date, the moment, all on one print.</p>
+      <ul class="n98-symbols" aria-label="Symbols">
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 46C17 37 11 31 11 19a13 13 0 0 1 26 0c0 12-6 18-13 27z"></path><circle cx="24" cy="19" r="5" fill="#FBFAF7"></circle></svg>Pin</li>
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="3.6"><circle cx="18" cy="30" r="10"></circle><circle cx="30" cy="30" r="10"></circle></g><path d="M18 8l4 4.5-4 5-4-5z"></path></svg>Rings</li>
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M24 40C10 30 6 24 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 7-4 13-18 23z"></path></svg>Heart</li>
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><path d="M9 21L24 9l15 12v21H9z"></path><rect x="20.5" y="31" width="7" height="11" fill="#FBFAF7"></rect></svg>Home</li>
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><polygon points="24,4 29.9,17.6 44.5,18.6 33.4,28 37,42.4 24,34.6 11,42.4 14.6,28 3.5,18.6 18.1,17.6"></polygon></svg>Star</li>
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><ellipse cx="24" cy="34" rx="11" ry="8.5"></ellipse><ellipse cx="10" cy="21" rx="4.2" ry="5.4" transform="rotate(-20 10 21)"></ellipse><ellipse cx="18.5" cy="11.5" rx="4.4" ry="5.8" transform="rotate(-8 18.5 11.5)"></ellipse><ellipse cx="29.5" cy="11.5" rx="4.4" ry="5.8" transform="rotate(8 29.5 11.5)"></ellipse><ellipse cx="38" cy="21" rx="4.2" ry="5.4" transform="rotate(20 38 21)"></ellipse></svg>Paw</li>
+        <li><svg viewBox="0 0 48 48" fill="currentColor" aria-hidden="true"><text x="24" y="36" text-anchor="middle" font-family="Georgia, serif" font-size="30" font-style="italic">A</text></svg>Initials</li>
+      </ul>
+      <a class="n98-link-line" href="{{ n98_configurator_url }}" style="align-self:flex-start">Mark your spot</a>
+    </div>
+  </div>
+</section>
+
+<section class="n98-gift" id="gift">
     <div class="n98-wrap">
       <div class="n98-pair n98-reveal">
         <img src="{{ 'n98-gift-barcelona.jpg' | asset_url }}" alt="Barcelona map print, Where we met, in a black frame" loading="lazy" width="1000" height="1390">
@@ -280,26 +472,32 @@
     </div>
   </section>
 
-  <section class="n98-sizes">
-    <div class="n98-wrap">
-      <div class="n98-sec-head n98-reveal">
-        <div class="n98-stack"><p class="n98-eyebrow">Gallery sizes</p><h2>From a bedside shelf <em>to a statement wall.</em></h2></div>
-        <a class="n98-link-line" href="{{ n98_configurator_url }}">See it on your wall</a>
-      </div>
-      <div class="n98-ladder n98-reveal" aria-label="Available sizes">
-        <div class="n98-rung"><i style="width:48px;height:60px"></i><b>20×25 cm</b><small>8×10 in</small></div>
-        <div class="n98-rung"><i style="width:65px;height:84px"></i><b>27×35 cm</b><small>11×14 in</small></div>
-        <div class="n98-rung"><i style="width:72px;height:96px"></i><b>30×40 cm</b><small>12×16 in</small></div>
-        <div class="n98-rung"><i style="width:96px;height:120px"></i><b>40×50 cm</b><small>16×20 in</small></div>
-        <div class="n98-rung"><i style="width:108px;height:144px"></i><b>45×60 cm</b><small>18×24 in</small></div>
-        <div class="n98-rung"><i style="width:120px;height:168px"></i><b>50×70 cm</b><small>20×28 in</small></div>
-        <div class="n98-rung"><i style="width:144px;height:216px"></i><b>60×90 cm</b><small>24×36 in</small></div>
-        <div class="n98-rung"><i style="width:168px;height:240px"></i><b>70×100 cm</b><small>28×40 in</small></div>
-      </div>
+<section class="n98-scale">
+  <div class="n98-wrap">
+    <div class="n98-sec-head n98-reveal">
+      <div class="n98-stack"><p class="n98-eyebrow">Gallery sizes, to scale</p><h2>From a bedside shelf <em>to a statement wall.</em></h2></div>
+      <a class="n98-link-line" href="{{ n98_configurator_url }}">See it on your wall</a>
     </div>
-  </section>
+    <div class="n98-room n98-reveal" id="n98h-room" style="--w:50;--h:70">
+      <span class="n98-room-tag" id="n98h-room-tag">50×70 cm above a 220 cm sofa</span>
+      <div class="n98-room-art"><img src="{{ 'n98-g-copenhagen.jpg' | asset_url }}" alt="" loading="lazy" width="1200" height="1680"></div>
+      <svg class="n98-plant" viewBox="0 0 52 120" aria-hidden="true"><path d="M26 74C20 52 6 46 4 30c10 4 18 14 22 30-2-22 2-40 12-52 4 16-2 34-8 46 6-12 16-18 22-18-4 14-14 24-22 38z" fill="#5E6B52"/><path d="M12 74h28l-4 46H16z" fill="#C9B79C"/></svg>
+      <svg class="n98-sofa" viewBox="0 0 220 85" aria-hidden="true"><rect x="6" y="20" width="208" height="40" rx="6" fill="#8E8576"/><rect x="0" y="34" width="26" height="44" rx="6" fill="#7E7567"/><rect x="194" y="34" width="26" height="44" rx="6" fill="#7E7567"/><rect x="22" y="48" width="176" height="26" rx="4" fill="#9A9182"/><rect x="14" y="78" width="6" height="7" fill="#3E3A33"/><rect x="200" y="78" width="6" height="7" fill="#3E3A33"/><rect x="40" y="26" width="34" height="24" rx="5" fill="#B9AF9C"/><rect x="146" y="26" width="34" height="24" rx="5" fill="#B5AB98"/></svg>
+    </div>
+    <div class="n98-sizebar" role="group" aria-label="Choose a size" id="n98h-sizes">
+      <button type="button" data-w="20" data-h="25" aria-pressed="false">20×25</button>
+      <button type="button" data-w="27" data-h="35" aria-pressed="false">27×35</button>
+      <button type="button" data-w="30" data-h="40" aria-pressed="false">30×40</button>
+      <button type="button" data-w="40" data-h="50" aria-pressed="false">40×50</button>
+      <button type="button" data-w="45" data-h="60" aria-pressed="false">45×60</button>
+      <button type="button" data-w="50" data-h="70" aria-pressed="true">50×70</button>
+      <button type="button" data-w="60" data-h="90" aria-pressed="false">60×90</button>
+      <button type="button" data-w="70" data-h="100" aria-pressed="false">70×100</button>
+    </div>
+  </div>
+</section>
 
-  <section class="n98-faq" id="faq">
+<section class="n98-faq" id="faq">
     <div class="n98-wrap">
       <h2 class="n98-reveal">Good <em>to know.</em></h2>
       <div class="n98-reveal">
@@ -314,7 +512,7 @@
     </div>
   </section>
 
-  <section class="n98-letter">
+<section class="n98-letter">
     <div class="n98-wrap">
       <div class="n98-row">
         <div><h2>New palettes and pins, <em>first.</em></h2><p>One letter when something new arrives in the studio. Nothing more.</p></div>
@@ -333,7 +531,7 @@
     </div>
   </section>
 </main>
-
+<script type="application/json" id="n98h-designs">{"g-amsterdam":{"v":1,"center":{"lat":52.3702,"lon":4.8952},"scale":18000,"ratioId":"in20x28","palette":"midnight-copper","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Amsterdam","region":"North Holland","country":"Netherlands"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-lisbon":{"v":1,"center":{"lat":38.7139,"lon":-9.1394},"scale":18000,"ratioId":"in20x28","palette":"verdigris-dusk","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Lisbon","region":"","country":"Portugal"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-new-york":{"v":1,"center":{"lat":40.7484,"lon":-73.9857},"scale":18000,"ratioId":"in20x28","palette":"bordeaux-gold","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"New York","region":"New York","country":"United States"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-copenhagen":{"v":1,"center":{"lat":55.6786,"lon":12.5753},"scale":18000,"ratioId":"in20x28","palette":"deep-teal","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Copenhagen","region":"Capital Region of Denmark","country":"Denmark"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-paris":{"v":1,"center":{"lat":48.8576,"lon":2.3448},"scale":18000,"ratioId":"in20x28","palette":"parchment-sepia","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Paris","region":"Ile-de-France","country":"France"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-tokyo":{"v":1,"center":{"lat":35.6812,"lon":139.7671},"scale":18000,"ratioId":"in20x28","palette":"neon-tokyo","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Tokyo","region":"","country":"Japan"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-san-francisco":{"v":1,"center":{"lat":37.7793,"lon":-122.4193},"scale":18000,"ratioId":"in20x28","palette":"mono","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"San Francisco","region":"California","country":"United States"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-rome":{"v":1,"center":{"lat":41.8986,"lon":12.4769},"scale":18000,"ratioId":"in20x28","palette":"terracotta-sun","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Rome","region":"Lazio","country":"Italy"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null},"g-barcelona":{"v":1,"center":{"lat":41.3874,"lon":2.1686},"scale":18000,"ratioId":"in20x28","palette":"lagoon","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"Barcelona","region":"Catalonia","country":"Spain"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null}}</script>
 <script>
   // Zachte "fade-up" zodra blokken in beeld komen.
   (function () {
@@ -344,6 +542,142 @@
     }, { rootMargin: '0px 0px -8% 0px' });
     els.forEach(function (e) { io.observe(e); });
   })();
+
+// ---------- v2: hero, galerie, formaten, beweging ----------
+(function () {
+  var root = document.querySelector('.n98h');
+  if (!root) return;
+  var hero = root.querySelector('.n98-hero2');
+  var SHOP = (hero && hero.getAttribute('data-shop-url')) || 'shop.html';
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // ontwerp -> link naar de ontwerper met precies die kaart
+  function designUrl(design) {
+    try {
+      var json = JSON.stringify(design);
+      var b64 = btoa(unescape(encodeURIComponent(json))).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+      return SHOP + '#design=' + b64;
+    } catch (e) { return SHOP; }
+  }
+  function fmt(lat, lon) {
+    return Math.abs(lat).toFixed(4) + '° ' + (lat >= 0 ? 'N' : 'S') + ' / ' + Math.abs(lon).toFixed(4) + '° ' + (lon >= 0 ? 'E' : 'W');
+  }
+
+  // --- hero: de lijst laadt de kaartmotor pas na de eerste weergave ---
+  var frame = document.getElementById('n98h-frame');
+  var iframe = document.getElementById('n98h-hero-frame');
+  var coordsEl = document.getElementById('n98h-coords');
+  var nowEl = document.getElementById('n98h-now');
+  var form = document.getElementById('n98h-find');
+  var input = document.getElementById('n98h-place');
+  var status = document.getElementById('n98h-status');
+  var cta = document.getElementById('n98h-cta');
+  var ctaHtml = cta ? cta.innerHTML : '';
+  var heroOrigin = '*';
+  var tween = null;
+  function countTo(lat, lon) {
+    if (!coordsEl) return;
+    var m = /([\d.]+)° ([NS]) \/ ([\d.]+)° ([EW])/.exec(coordsEl.textContent);
+    var fromLat = m ? (+m[1]) * (m[2] === 'S' ? -1 : 1) : lat, fromLon = m ? (+m[3]) * (m[4] === 'W' ? -1 : 1) : lon;
+    if (reduce) { coordsEl.textContent = fmt(lat, lon); return; }
+    var t0 = performance.now(), dur = 1400;
+    cancelAnimationFrame(tween);
+    (function step(t) {
+      var k = Math.min(1, (t - t0) / dur); k = 1 - Math.pow(1 - k, 3);
+      coordsEl.textContent = fmt(fromLat + (lat - fromLat) * k, fromLon + (lon - fromLon) * k);
+      if (k < 1) tween = requestAnimationFrame(step);
+    })(t0);
+  }
+  if (iframe) {
+    var src = iframe.getAttribute('data-src');
+    try { heroOrigin = new URL(src, location.href).origin; } catch (e) {}
+    var boot = function () { if (!iframe.src) iframe.src = src; };
+    if (document.readyState === 'complete') setTimeout(boot, 300);
+    else window.addEventListener('load', function () { setTimeout(boot, 300); });
+  }
+  window.addEventListener('message', function (e) {
+    var d = e.data;
+    if (!d || d.source !== 'n98-hero' || !iframe || e.source !== iframe.contentWindow) return;
+    if (d.type === 'city' || d.type === 'found') {
+      frame.classList.add('is-live');
+      countTo(d.lat, d.lon);
+      nowEl.innerHTML = (d.type === 'found' ? 'Drawn for you · ' : 'Now drawing · ') + '<b></b>';
+      nowEl.querySelector('b').textContent = d.place;
+    }
+    if (d.type === 'searching') { status.textContent = 'Drawing ' + d.q + '…'; }
+    if (d.type === 'found') {
+      status.textContent = 'This is ' + d.place + (d.country ? ', ' + d.country : '') + '. Make it yours in the designer.';
+      cta.href = designUrl(d.design);
+      cta.innerHTML = ctaHtml.replace('Design your map', 'Continue with this map');
+    }
+    if (d.type === 'notfound') { status.textContent = 'We couldn’t find “' + d.q + '”. Try a city, a street or an address.'; }
+  });
+  if (form) form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var q = input.value.trim();
+    if (!q) { input.focus(); return; }
+    if (!iframe || !iframe.src) { window.location.href = SHOP; return; }
+    status.textContent = 'Drawing ' + q + '…';
+    iframe.contentWindow.postMessage({ source: 'n98-home', type: 'search', q: q }, heroOrigin);
+    if (window.innerWidth < 900) frame.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+  });
+
+  // --- galerie: elke print opent in de ontwerper, loep bij hover ---
+  var designs = {};
+  try { designs = JSON.parse((document.getElementById('n98h-designs') || {}).textContent || '{}'); } catch (e) {}
+  root.querySelectorAll('[data-design]').forEach(function (a) {
+    var d = designs[a.getAttribute('data-design')];
+    if (d) a.href = designUrl(d);
+  });
+  root.querySelectorAll('.n98-salon .n98-pimg').forEach(function (box) {
+    var img = box.querySelector('img'), lens = box.querySelector('.n98-loupe');
+    if (!img || !lens) return;
+    var ZOOM = 3;
+    box.addEventListener('pointermove', function (e) {
+      if (e.pointerType === 'touch') return;
+      var r = box.getBoundingClientRect(), x = e.clientX - r.left, y = e.clientY - r.top;
+      var lw = lens.offsetWidth / 2;
+      lens.style.left = (x - lw) + 'px'; lens.style.top = (y - lw) + 'px';
+      lens.style.backgroundImage = 'url("' + (img.currentSrc || img.src) + '")';
+      lens.style.backgroundSize = (r.width * ZOOM) + 'px ' + (r.height * ZOOM) + 'px';
+      lens.style.backgroundPosition = (lw - x * ZOOM) + 'px ' + (lw - y * ZOOM) + 'px';
+    });
+  });
+
+  // --- zachte diepte: prints schuiven heel licht mee met scrollen ---
+  var depthEls = [].slice.call(root.querySelectorAll('[data-depth]'));
+  var macro = root.querySelector('.n98-macro');
+  if (!reduce && depthEls.length && window.innerWidth >= 900) {
+    var ticking = false;
+    var onScroll = function () {
+      if (ticking) return; ticking = true;
+      requestAnimationFrame(function () {
+        ticking = false;
+        var vh = window.innerHeight;
+        depthEls.forEach(function (el) {
+          var r = el.getBoundingClientRect();
+          if (r.bottom < -200 || r.top > vh + 200) return;
+          var off = (r.top + r.height / 2 - vh / 2) * parseFloat(el.getAttribute('data-depth'));
+          el.style.transform = 'translate3d(0,' + off.toFixed(1) + 'px,0)';
+        });
+      });
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  // --- formaten op schaal ---
+  var room = document.getElementById('n98h-room'), tag = document.getElementById('n98h-room-tag');
+  var sizes = document.getElementById('n98h-sizes');
+  if (room && sizes) sizes.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-w]');
+    if (!b) return;
+    sizes.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    room.style.setProperty('--w', b.getAttribute('data-w'));
+    room.style.setProperty('--h', b.getAttribute('data-h'));
+    tag.textContent = b.getAttribute('data-w') + '×' + b.getAttribute('data-h') + ' cm above a 220 cm sofa';
+  });
+})();
 </script>
 </div>
 
@@ -359,6 +693,13 @@
       "label": "Configurator product (handle)",
       "default": "design-your-map",
       "info": "All 'Design your map' buttons go to /products/<this handle>."
+    },
+    {
+      "type": "text",
+      "id": "app_url",
+      "label": "Map designer address (hero)",
+      "default": "https://n98com.github.io/Etsy/shop.html",
+      "info": "The homepage hero draws maps with the designer on this address."
     }
   ],
   "presets": [

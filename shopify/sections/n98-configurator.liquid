@@ -49,6 +49,11 @@
 <script>
   (function () {
     var frame = document.getElementById('n98c-frame-{{ section.id }}');
+    // Homepage handoff: /products/...#design=... opens the designer with that map
+    if (/^#design=[A-Za-z0-9_-]+$/.test(window.location.hash)) {
+      frame.src = frame.src.split('#')[0] + window.location.hash;
+      try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+    }
     var APP_ORIGIN = new URL(frame.src).origin;
     var CART_URL = {{ routes.cart_url | json }};
     var CART_ADD_URL = {{ routes.cart_add_url | append: '.js' | json }};
