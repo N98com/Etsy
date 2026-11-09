@@ -1,0 +1,13 @@
+[
+ {"id":"g-amsterdam","place":"Amsterdam","country":"Netherlands","lat":52.3702,"lon":4.8952,"palette":"midnight-copper","w":1200,"h":1680},
+ {"id":"g-lisbon","place":"Lisbon","country":"Portugal","lat":38.7139,"lon":-9.1394,"palette":"verdigris-dusk","w":1200,"h":1680},
+ {"id":"g-new-york","place":"New York","country":"United States","lat":40.7484,"lon":-73.9857,"palette":"bordeaux-gold","w":1200,"h":1680},
+ {"id":"g-copenhagen","place":"Copenhagen","country":"Denmark","lat":55.6786,"lon":12.5753,"palette":"deep-teal","w":1200,"h":1680},
+ {"id":"g-paris","place":"Paris","country":"France","lat":48.8576,"lon":2.3448,"palette":"parchment-sepia","w":1200,"h":1680},
+ {"id":"g-tokyo","place":"Tokyo","country":"Japan","lat":35.6812,"lon":139.7671,"palette":"neon-tokyo","w":1200,"h":1680},
+ {"id":"g-san-francisco","place":"San Francisco","country":"United States","lat":37.7793,"lon":-122.4193,"palette":"mono","w":1200,"h":1680},
+ {"id":"g-rome","place":"Rome","country":"Italy","lat":41.8986,"lon":12.4769,"palette":"terracotta-sun","w":1200,"h":1680},
+ {"id":"g-barcelona","place":"Barcelona","country":"Spain","lat":41.3874,"lon":2.1686,"palette":"lagoon","w":1200,"h":1680},
+ {"id":"m-said-yes","place":"Where we said yes","country":"Amsterdam · 21.06.2025","lat":52.3726,"lon":4.8850,"zoom":2.4,"palette":"chalk-harbor","pins":[{"lat":52.37455,"lon":4.88385,"icon":"rings"}],"pinColor":"#b3262e","pinScale":1.6,"w":1200,"h":1680},
+ {"id":"c-detail","place":"Venice","country":"Italy","lat":45.4371,"lon":12.3326,"palette":"parchment-sepia","w":3000,"h":4200,"crop":[800,1300,1400,1050]}
+]

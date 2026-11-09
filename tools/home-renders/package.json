@@ -1,0 +1,6 @@
+{
+  "name": "n98-home-renders",
+  "private": true,
+  "type": "module",
+  "dependencies": { "playwright-core": "1.48.2" }
+}
