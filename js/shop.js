@@ -289,7 +289,12 @@
       const add = (i, ...els) => els.filter(Boolean).forEach(e => panels[i].appendChild(e));
       const sub = (txt, cls) => { const h = document.createElement('h3'); h.className = 'step-sub' + (cls ? ' ' + cls : ''); h.innerHTML = txt; return h; };
       // 1 Place: zoeken + meteen de tekst
-      add(0, $('shopSlotSearch'), sub('Your map will say'), $('shopSlotCaption'));
+      const sayHead = sub('Your map will say', 'ux-say');
+      const captionSlot = $('shopSlotCaption');
+      add(0, $('shopSlotSearch'), sayHead, captionSlot);
+      // pas tonen zodra de klant een plek heeft gekozen (of een ontwerp is geladen)
+      sayHead.hidden = true; captionSlot.hidden = true;
+      document.addEventListener('mapgen:place', () => { sayHead.hidden = false; captionSlot.hidden = false; });
       // 2 Colours
       add(1, $('paletteCats'), $('shopSlotPalettes'), $('paletteSolidHead'), $('shopSlotSolid'));
       // 3 Shape & layout

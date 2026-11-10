@@ -859,6 +859,7 @@ window.LocationApp = (() => {
     placeNameInput.value = ''; regionNameInput.value = ''; countryNameInput.value = '';
     render();
     invalidateFetch();
+    document.dispatchEvent(new CustomEvent('mapgen:place')); // klant heeft een plek gekozen
   }
 
   async function runSearch() {
@@ -1354,6 +1355,7 @@ window.LocationApp = (() => {
     };
   }
   function applyDesignState(d) {
+    setTimeout(() => document.dispatchEvent(new CustomEvent('mapgen:place')), 0);
     if (!d || typeof d !== 'object') throw new Error('No design found');
     if (d.state) d = d.state; // de hele bestel-samenvatting mag ook
     if (d.v !== DESIGN_STATE_VERSION) throw new Error('Unknown design version');
