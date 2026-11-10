@@ -170,5 +170,71 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680
+ },
+ {
+  "id": "h-prague",
+  "place": "Prague",
+  "country": "Czech Republic",
+  "lat": 50.0865,
+  "lon": 14.4185,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-utrecht",
+  "place": "Utrecht",
+  "country": "Netherlands",
+  "lat": 52.0905,
+  "lon": 5.12,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-antwerp",
+  "place": "Antwerp",
+  "country": "Belgium",
+  "lat": 51.219,
+  "lon": 4.403,
+  "palette": "obsidian-harbor",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-vienna",
+  "place": "Vienna",
+  "country": "Austria",
+  "lat": 48.207,
+  "lon": 16.369,
+  "palette": "emerald-gold-noir",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-barcelona",
+  "place": "Barcelona",
+  "country": "Spain",
+  "lat": 41.391,
+  "lon": 2.17,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-venice",
+  "place": "Venice",
+  "country": "Italy",
+  "lat": 45.438,
+  "lon": 12.334,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
  }
 ]
