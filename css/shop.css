@@ -371,6 +371,7 @@ button.location-search-result:hover { background: var(--paper); }
 .frame-included li { position: relative; padding-left: 20px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
 .frame-included li::before { content: ''; position: absolute; left: 2px; top: 0.55em; width: 8px; height: 4px; border-left: 1.4px solid var(--accent); border-bottom: 1.4px solid var(--accent); transform: rotate(-45deg); }
 .frame-included li[hidden] { display: none; }
+.frame-included li b { font-weight: 600; color: var(--ink); }
 .promises { margin: 18px 0 0; padding: 16px 0 0; list-style: none; display: grid; gap: 12px; border-top: 1px solid var(--line); }
 .promises li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
 .promises svg { flex: 0 0 auto; margin-top: 1px; color: var(--ink); }

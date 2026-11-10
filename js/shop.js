@@ -16,12 +16,12 @@
     { id: 'none', label: 'No frame', swatch: null },
     { id: 'black', label: 'Black', swatch: '#1E1D1B' },
     { id: 'white', label: 'White', swatch: '#F4F2EE' },
-    { id: 'natural', label: 'Natural oak', swatch: '#C9A87C' },
+    { id: 'natural', label: 'Natural wood', swatch: '#C9A87C' },
     { id: 'darkwood', label: 'Dark wood', swatch: '#5B3F2C' },
   ];
   const FRAMED_DEFAULT = {
-    in8x10: 69, in11x14: 89, in12x16: 95, in16x20: 119,
-    in18x24: 135, in20x28: 159, in24x36: 215, in28x40: 239,
+    in8x10: 65, in11x14: 79, in12x16: 89, in16x20: 115,
+    in18x24: 129, in20x28: 149, in24x36: 199, in28x40: 225,
   };
   const FRAMED = {}; // FRAMED[size][frame] = prijs
   Object.keys(FRAMED_DEFAULT).forEach(s => { FRAMED[s] = {}; FRAMES.slice(1).forEach(f => { FRAMED[s][f.id] = FRAMED_DEFAULT[s]; }); });

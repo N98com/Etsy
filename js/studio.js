@@ -95,7 +95,7 @@
     for (let i = 0; i < bin.length; i++) bytes[i] = bin.charCodeAt(i);
     return JSON.parse(new TextDecoder().decode(bytes));
   }
-  const FRAME_IDS = { 'black': 'black', 'white': 'white', 'natural oak': 'natural', 'dark wood': 'darkwood' };
+  const FRAME_IDS = { 'black': 'black', 'white': 'white', 'natural oak': 'natural', 'natural wood': 'natural', 'dark wood': 'darkwood' };
   function whenShopReady(fn) {
     let tries = 0;
     (function wait() {
