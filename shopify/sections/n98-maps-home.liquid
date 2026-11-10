@@ -191,6 +191,7 @@
 .n98h .n98-frame-art img { object-fit: cover; transition: opacity 0.8s var(--ease); }
 .n98h .n98-frame.is-drawing .n98-frame-art img { opacity: 0; transition-duration: 0.5s; }
 .n98h .n98-frame.is-final .n98-frame-art img { opacity: 1; transition-duration: 1.4s; }
+.n98h .n98-frame[data-pencil="off"].is-final .n98-frame-art img { transition-duration: 2.2s; }
 /* het potlood: de punt ligt precies op het beginpunt van de svg */
 .n98h .n98-pencil {
   position: absolute; left: 0; top: 0; z-index: 4; width: clamp(150px, 15vw, 220px); margin-top: calc(clamp(150px, 15vw, 220px) * -0.05);
@@ -353,7 +354,7 @@
       <p class="n98-lede">Any city, street or coastline, drawn in your own colours and words. Printed to order on museum-grade paper and made to be framed.</p>
     </div>
     <div class="n98-hero2-art">
-      <div class="n98-frame" id="n98h-frame" data-trace-base="{{ n98_app_url | split: 'shop.html' | first }}img/home/ https://cdn.jsdelivr.net/gh/N98com/Etsy@978e93b225ed1f88a11bef7d8a00139960d7d4c0/img/home/ https://raw.githubusercontent.com/N98com/Etsy/978e93b225ed1f88a11bef7d8a00139960d7d4c0/img/home/">
+      <div class="n98-frame" id="n98h-frame" data-trace-base="{{ n98_app_url | split: 'shop.html' | first }}img/home/ https://cdn.jsdelivr.net/gh/N98com/Etsy@978e93b225ed1f88a11bef7d8a00139960d7d4c0/img/home/ https://raw.githubusercontent.com/N98com/Etsy/978e93b225ed1f88a11bef7d8a00139960d7d4c0/img/home/" data-pencil="off">
         <div class="n98-frame-mat">
           <div class="n98-frame-art">
             <canvas id="n98h-draw" aria-hidden="true"></canvas>
@@ -708,6 +709,9 @@
     return { id: im.getAttribute('data-id'), place: im.getAttribute('data-place'), lat: +im.getAttribute('data-lat'), lon: +im.getAttribute('data-lon'), img: im };
   });
   if (!cities.length) return;
+  // data-pencil="off": geen potlood in beeld, de lijnen verschijnen vanzelf en rustiger
+  var NO_PENCIL = frame.getAttribute('data-pencil') === 'off';
+  if (NO_PENCIL) pencil.style.display = 'none';
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var nowEl = document.getElementById('n98h-now');
   var coordsEl = document.getElementById('n98h-coords');
@@ -782,7 +786,13 @@
       if (ce) ce.lines.push(l);
     });
     cells.forEach(function (ce) { ce.cx = (ce.x + 0.5) * CELL; ce.cy = (ce.y + 0.5) * CELL; });
-    return { t: t, majors: order, cells: cells.filter(function (ce) { return ce.lines.length; }) };
+    // zonder potlood: de kleine straatjes als een golf van het midden naar buiten
+    var cx = t.w / 2, cy = t.h * 0.46;
+    var wave = lines.filter(function (l) { return !majorSet.has(l); }).map(function (l) {
+      var m = l.pts[Math.floor(l.pts.length / 2)];
+      return { l: l, d: Math.hypot(m[0] - cx, m[1] - cy) + Math.random() * t.w * 0.06 };
+    }).sort(function (a, b) { return a.d - b.d; }).map(function (x) { return x.l; });
+    return { t: t, majors: order, cells: cells.filter(function (ce) { return ce.lines.length; }), wave: wave };
   }
 
   function size() {
@@ -831,7 +841,8 @@
     frame.classList.add('is-drawing');
     var SPEED = 1500 / 1000 * (t.w / 1200);      // grote wegen: px per ms in kaartmaat
     var majorTotal = tr.majors.reduce(function (s, l) { return s + l.len; }, 0);
-    var MAJOR_MS = Math.min(8500, Math.max(4200, majorTotal / SPEED));
+    var MAJOR_MS = NO_PENCIL ? Math.min(12000, Math.max(9000, majorTotal / SPEED * 1.8)) : Math.min(8500, Math.max(4200, majorTotal / SPEED));
+    var WAVE_MS = 14000, wi = 0;
     var CELL_MS = 5600 / Math.max(1, tr.cells.length);
     var mi = 0, mDone = 0, ci = 0, cellT = 0, phase = 'major', last = performance.now(), areaA = 0, t0 = last;
     var speed = majorTotal / MAJOR_MS;
@@ -845,8 +856,14 @@
           if (budget >= rest) { strokeLine(lctx, L, k); budget -= rest; mi++; mDone = 0; tip = L.pts[L.pts.length - 1]; prev = L.pts[Math.max(0, L.pts.length - 2)]; }
           else { mDone += budget; budget = 0; tip = strokeLine(lctx, L, k, mDone); var si = 1; while (si < L.seg.length - 1 && L.seg[si] < mDone) si++; prev = L.pts[si - 1]; }
         }
-        if (tip) pencilAt(tip[0] * k, tip[1] * k, tip[0] - prev[0], tip[1] - prev[1]);
+        if (tip && !NO_PENCIL) pencilAt(tip[0] * k, tip[1] * k, tip[0] - prev[0], tip[1] - prev[1]);
         if (mi >= tr.majors.length) { phase = 'minor'; lctx.globalCompositeOperation = 'destination-over'; }
+      } else if (phase === 'minor' && NO_PENCIL) {
+        cellT += dt;
+        var f = Math.min(1, cellT / WAVE_MS); f = f < 0.5 ? 2 * f * f : 1 - Math.pow(-2 * f + 2, 2) / 2;
+        var upto = Math.floor(tr.wave.length * f);
+        while (wi < upto) strokeLine(lctx, tr.wave[wi++], k);
+        if (wi >= tr.wave.length) { phase = 'wash'; lctx.globalCompositeOperation = 'source-over'; t0 = now; }
       } else if (phase === 'minor') {
         cellT += dt;
         while (cellT >= CELL_MS && ci < tr.cells.length) {
@@ -859,7 +876,7 @@
           pencilAt((prevC.cx + (ce.cx - prevC.cx) * f) * k + wob, (prevC.cy + (ce.cy - prevC.cy) * f) * k + Math.cos(now / 51) * 10 * k, ce.cx - prevC.cx, ce.cy - prevC.cy);
         } else { phase = 'wash'; lctx.globalCompositeOperation = 'source-over'; t0 = now; frame.classList.add('is-lifting'); }
       } else if (phase === 'wash') {
-        areaA = Math.min(1, (now - t0) / 1200);
+        areaA = Math.min(1, (now - t0) / (NO_PENCIL ? 1600 : 1200));
         if (areaA >= 1) { phase = 'done'; }
       }
       ctx.clearRect(0, 0, W, H);
@@ -869,7 +886,7 @@
       if (phase !== 'done') { raf = requestAnimationFrame(frameStep); return; }
       // over naar de echte poster met tekst
       finalImg.src = c.img.currentSrc || c.img.src;
-      var show = function () { frame.classList.add('is-final'); frame.classList.remove('is-drawing', 'is-lifting'); setTimeout(next, 5200); };
+      var show = function () { frame.classList.add('is-final'); frame.classList.remove('is-drawing', 'is-lifting'); setTimeout(next, NO_PENCIL ? 6500 : 5200); };
       if (finalImg.complete && finalImg.naturalWidth) setTimeout(show, 60); else finalImg.onload = show;
     }
     raf = requestAnimationFrame(frameStep);
