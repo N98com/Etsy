@@ -732,7 +732,8 @@
   var pencil = document.getElementById('n98h-pencil');
   if (!frame || !stage || !finalImg || !pencil) return;
   var root = document.querySelector('.n98h');
-  var TRACE_BASE = frame.getAttribute('data-trace-base') || 'img/home/';
+  // meerdere adressen: als het eerste (nog) niet werkt, probeert hij het volgende
+  var TRACE_BASES = (frame.getAttribute('data-trace-base') || 'img/home/').split(/\s+/).filter(Boolean);
   var cities = [].slice.call(document.querySelectorAll('#n98h-cities img')).map(function (im) {
     return { id: im.getAttribute('data-id'), place: im.getAttribute('data-place'), lat: +im.getAttribute('data-lat'), lon: +im.getAttribute('data-lon'), img: im };
   });
@@ -760,7 +761,12 @@
   }
   function load(c) {
     if (traces[c.id]) return Promise.resolve(traces[c.id]);
-    return fetch(TRACE_BASE + c.id + '.trace.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (t) { traces[c.id] = prepare(t); return traces[c.id]; });
+    var i = 0;
+    function attempt() {
+      return fetch(TRACE_BASES[i] + c.id + '.trace.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); })
+        .catch(function (e) { if (++i < TRACE_BASES.length) return attempt(); throw e; });
+    }
+    return attempt().then(function (t) { if (!t || !t.lines || !t.lines.length) throw new Error('empty'); traces[c.id] = prepare(t); return traces[c.id]; });
   }
 
   // lijnen klaarzetten: grote wegen (op volgorde van een reizend potlood) en
@@ -815,7 +821,8 @@
     H = stage.height = lineCv.height = areaCv.height = Math.round(r.height * d);
   }
   function strokeLine(c2, l, k, until) {
-    c2.globalAlpha = l.a; c2.strokeStyle = l.c; c2.lineWidth = Math.max(0.6, l.w * k); c2.lineCap = 'round'; c2.lineJoin = 'round';
+    // grafiet: hoe dikker de weg, hoe donkerder en steviger de lijn
+    c2.globalAlpha = Math.min(0.92, 0.42 + l.w * 0.12) * l.a; c2.strokeStyle = '#2B2A27'; c2.lineWidth = Math.max(0.55, Math.min(3.2, l.w * 0.8) * k); c2.lineCap = 'round'; c2.lineJoin = 'round';
     c2.beginPath(); c2.moveTo(l.pts[0][0] * k, l.pts[0][1] * k);
     var tip = l.pts[0];
     for (var i = 1; i < l.pts.length; i++) {

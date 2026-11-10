@@ -18,7 +18,7 @@ Verschillen met de losse pagina:
     "newsletter"), zodat inschrijvingen echt in Shopify binnenkomen.
 """
 import json
-import re
+import os, re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -60,10 +60,16 @@ body = re.sub(r'src="img/home/([a-z0-9-]+\.jpg)"', lambda m: "src=\"{{ 'n98-" + 
 body = body.replace('href="shop.html"', 'href="{{ n98_configurator_url }}"')
 body = body.replace('data-shop-url="shop.html"', 'data-shop-url="{{ n98_configurator_url }}"')
 # potlood-hero: de opgenomen lijnen staan op GitHub Pages (Shopify-assets kennen geen .json)
-body = body.replace('data-trace-base="img/home/"', 'data-trace-base="{{ n98_app_url | split: \'shop.html\' | first }}img/home/"')
+import subprocess
+_trace_commit = subprocess.run(['git', 'log', '-1', '--format=%H', '--', 'img/home'], capture_output=True, text=True, cwd=os.path.dirname(os.path.abspath(__file__)) + '/..').stdout.strip()
+_trace_bases = '{{ n98_app_url | split: \'shop.html\' | first }}img/home/'
+if _trace_commit:
+    _trace_bases += ' https://cdn.jsdelivr.net/gh/N98com/Etsy@%s/img/home/ https://raw.githubusercontent.com/N98com/Etsy/%s/img/home/' % (_trace_commit, _trace_commit)
+body = body.replace('data-trace-base="img/home/"', 'data-trace-base="' + _trace_bases + '"')
 # hero: de kaartmotor op GitHub Pages in hero-modus (tekent steden, zoekt plekken)
 body = body.replace('data-src="shop.html?hero=1"', 'data-src="{{ n98_app_url }}?hero=1&v={{ \'now\' | date: \'%Y%m%d%H\' }}"')
-left = re.findall(r".{50}(?:shop\.html|img/).{30}", body)
+_check = re.sub(r'data-trace-base="[^"]*"', "", body).replace("|| 'img/home/'", "")
+left = re.findall(r".{50}(?:shop\.html|img/).{30}", _check)
 assert not left, "unconverted links left: " + repr(left)
 
 schema = {
