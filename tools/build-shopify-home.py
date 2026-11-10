@@ -59,6 +59,8 @@ body = re.sub(r'src="img/home/([a-z0-9-]+\.jpg)"', lambda m: "src=\"{{ 'n98-" + 
 # 5. knoppen naar de configurator-productpagina
 body = body.replace('href="shop.html"', 'href="{{ n98_configurator_url }}"')
 body = body.replace('data-shop-url="shop.html"', 'data-shop-url="{{ n98_configurator_url }}"')
+# potlood-hero: de opgenomen lijnen staan op GitHub Pages (Shopify-assets kennen geen .json)
+body = body.replace('data-trace-base="img/home/"', 'data-trace-base="{{ n98_app_url | split: \'shop.html\' | first }}img/home/"')
 # hero: de kaartmotor op GitHub Pages in hero-modus (tekent steden, zoekt plekken)
 body = body.replace('data-src="shop.html?hero=1"', 'data-src="{{ n98_app_url }}?hero=1&v={{ \'now\' | date: \'%Y%m%d%H\' }}"')
 left = re.findall(r".{50}(?:shop\.html|img/).{30}", body)

@@ -197,11 +197,19 @@
 }
 .n98h .n98-frame-mat { padding: var(--mat); background: #F6F3EC; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), inset 0 2px 8px rgba(0, 0, 0, 0.12); }
 .n98h .n98-frame-art { position: relative; aspect-ratio: 5 / 7; background: #ECE7DD; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
-.n98h .n98-frame-art img, .n98h .n98-frame-art iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
+.n98h .n98-frame-art img, .n98h .n98-frame-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .n98h .n98-frame-art img { object-fit: cover; transition: opacity 0.8s var(--ease); }
-.n98h .n98-frame-art iframe { opacity: 0; transition: opacity 0.8s var(--ease); background: transparent; }
-.n98h .n98-frame.is-live .n98-frame-art iframe { opacity: 1; }
-.n98h .n98-frame.is-live .n98-frame-art img { opacity: 0; }
+.n98h .n98-frame.is-drawing .n98-frame-art img { opacity: 0; transition-duration: 0.5s; }
+.n98h .n98-frame.is-final .n98-frame-art img { opacity: 1; transition-duration: 1.4s; }
+/* het potlood: de punt ligt precies op het beginpunt van de svg */
+.n98h .n98-pencil {
+  position: absolute; left: 0; top: 0; z-index: 4; width: clamp(150px, 15vw, 220px); margin-top: calc(clamp(150px, 15vw, 220px) * -0.05);
+  transform-origin: 0 50%; pointer-events: none; opacity: 0; transition: opacity 0.6s var(--ease), margin 0.6s var(--ease);
+  filter: drop-shadow(10px 16px 10px rgba(0, 0, 0, 0.45));
+}
+.n98h .n98-pencil svg { display: block; width: 100%; height: auto; }
+.n98h .n98-frame.is-drawing .n98-pencil { opacity: 1; }
+.n98h .n98-frame.is-lifting .n98-pencil { opacity: 0; margin-top: -60px; }
 .n98h .n98-frame::before {
   /* zacht licht over het glas */
   content: ''; position: absolute; inset: var(--fw); z-index: 2; pointer-events: none;
@@ -370,13 +378,19 @@
       <p class="n98-lede">Any city, street or coastline, drawn in your own colours and words. Printed to order on museum-grade paper and made to be framed.</p>
     </div>
     <div class="n98-hero2-art">
-      <div class="n98-frame" id="n98h-frame">
+      <div class="n98-frame" id="n98h-frame" data-trace-base="img/home/">
         <div class="n98-frame-mat">
           <div class="n98-frame-art">
-            <img src="img/home/g-amsterdam.jpg" alt="Amsterdam map print in Midnight Copper" width="1200" height="1680" fetchpriority="high">
-            <iframe id="n98h-hero-frame" title="A map being drawn" data-src="shop.html?hero=1" tabindex="-1" aria-hidden="true" loading="eager"></iframe>
+            <canvas id="n98h-draw" aria-hidden="true"></canvas>
+            <img id="n98h-final" src="img/home/g-amsterdam.jpg" alt="A map print being drawn by hand, city by city" width="1200" height="1680" fetchpriority="high">
           </div>
         </div>
+        <div class="n98-pencil" id="n98h-pencil" aria-hidden="true"><svg viewBox="0 0 220 22" width="220" height="22"><defs><linearGradient id="n98pb" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a3a38"/><stop offset=".35" stop-color="#1a1a19"/><stop offset="1" stop-color="#050505"/></linearGradient><linearGradient id="n98pf" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#E7C98F"/><stop offset=".5" stop-color="#B8915A"/><stop offset="1" stop-color="#7E6038"/></linearGradient><linearGradient id="n98pw" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#F1DDBF"/><stop offset="1" stop-color="#C9A57A"/></linearGradient></defs><path d="M0 11 L9 8.6 L9 13.4 Z" fill="#2b2b2b"/><path d="M9 8.6 L34 2 L34 20 L9 13.4 Z" fill="url(#n98pw)"/><rect x="34" y="2" width="146" height="18" fill="url(#n98pb)"/><rect x="34" y="3.2" width="146" height="1.6" fill="#fff" opacity=".12"/><rect x="180" y="1.5" width="18" height="19" fill="url(#n98pf)"/><rect x="184" y="1.5" width="1.4" height="19" fill="#6c5231" opacity=".6"/><rect x="192" y="1.5" width="1.4" height="19" fill="#6c5231" opacity=".6"/><path d="M198 2.5 h14 a6 6 0 0 1 6 6 v5 a6 6 0 0 1 -6 6 h-14 Z" fill="#D8C2A6"/><text x="110" y="14.5" font-family="Georgia, serif" font-size="8" letter-spacing="2" fill="#C9A86A" text-anchor="middle">N°98 MAPS</text></svg></div>
+      </div>
+      <div id="n98h-cities" hidden>
+        <img data-id="g-amsterdam" data-place="Amsterdam" data-lat="52.3702" data-lon="4.8952" src="img/home/g-amsterdam.jpg" alt="" width="1200" height="1680">
+        <img data-id="g-paris" data-place="Paris" data-lat="48.8576" data-lon="2.3448" src="img/home/g-paris.jpg" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="g-new-york" data-place="New York" data-lat="40.7484" data-lon="-73.9857" src="img/home/g-new-york.jpg" alt="" width="1200" height="1680" loading="lazy">
       </div>
       <p class="n98-now" id="n98h-now" aria-live="polite">Now drawing · <b>Amsterdam</b></p>
     </div>
@@ -701,6 +715,200 @@
     room.style.setProperty('--h', b.getAttribute('data-h'));
     tag.textContent = b.getAttribute('data-w') + '×' + b.getAttribute('data-h') + ' cm above a 220 cm sofa';
   });
+})();
+
+// ---------- v3: het potlood tekent de kaart ----------
+// De lijnen komen uit tools/home-renders (de echte kaartmotor heeft elke straat
+// opgeschreven). Hier tekent een potlood ze na, versneld: eerst de grote wegen
+// één voor één, daarna arceert hij de kleine straatjes vak voor vak. Dan komen
+// water en parken erbij en gaat het over in de afgedrukte poster met tekst.
+(function () {
+  var frame = document.getElementById('n98h-frame');
+  var stage = document.getElementById('n98h-draw');
+  var finalImg = document.getElementById('n98h-final');
+  var pencil = document.getElementById('n98h-pencil');
+  if (!frame || !stage || !finalImg || !pencil) return;
+  var root = document.querySelector('.n98h');
+  var TRACE_BASE = frame.getAttribute('data-trace-base') || 'img/home/';
+  var cities = [].slice.call(document.querySelectorAll('#n98h-cities img')).map(function (im) {
+    return { id: im.getAttribute('data-id'), place: im.getAttribute('data-place'), lat: +im.getAttribute('data-lat'), lon: +im.getAttribute('data-lon'), img: im };
+  });
+  if (!cities.length) return;
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var nowEl = document.getElementById('n98h-now');
+  var coordsEl = document.getElementById('n98h-coords');
+  var traces = {};
+  var ctx = stage.getContext('2d');
+  var lineCv = document.createElement('canvas'), lctx = lineCv.getContext('2d');
+  var areaCv = document.createElement('canvas'), actx = areaCv.getContext('2d');
+  var W = 0, H = 0, raf = 0, idx = 0, visible = true;
+
+  function fmt(lat, lon) { return Math.abs(lat).toFixed(4) + '° ' + (lat >= 0 ? 'N' : 'S') + ' / ' + Math.abs(lon).toFixed(4) + '° ' + (lon >= 0 ? 'E' : 'W'); }
+  function countTo(lat, lon) {
+    if (!coordsEl) return;
+    var m = /([\d.]+)° ([NS]) \/ ([\d.]+)° ([EW])/.exec(coordsEl.textContent);
+    var a = m ? (+m[1]) * (m[2] === 'S' ? -1 : 1) : lat, b = m ? (+m[3]) * (m[4] === 'W' ? -1 : 1) : lon, t0 = performance.now();
+    (function step(t) { var k = Math.min(1, (t - t0) / 1400); k = 1 - Math.pow(1 - k, 3); coordsEl.textContent = fmt(a + (lat - a) * k, b + (lon - b) * k); if (k < 1) requestAnimationFrame(step); })(t0);
+  }
+  function label(c) {
+    if (!nowEl) return;
+    nowEl.innerHTML = 'Now drawing · <b></b>'; nowEl.querySelector('b').textContent = c.place;
+    countTo(c.lat, c.lon);
+  }
+  function load(c) {
+    if (traces[c.id]) return Promise.resolve(traces[c.id]);
+    return fetch(TRACE_BASE + c.id + '.trace.json').then(function (r) { if (!r.ok) throw new Error(r.status); return r.json(); }).then(function (t) { traces[c.id] = prepare(t); return traces[c.id]; });
+  }
+
+  // lijnen klaarzetten: grote wegen (op volgorde van een reizend potlood) en
+  // kleine straatjes per vak van het raster (heen en weer, zoals arceren)
+  function prepare(t) {
+    var q = t.q || 1;
+    var lines = t.lines.map(function (l) {
+      var f = l[1], pts = [], len = 0, seg = [0];
+      for (var i = 0; i < f.length; i += 2) {
+        var x = f[i] / q, y = f[i + 1] / q;
+        if (pts.length) { var p = pts[pts.length - 1]; len += Math.hypot(x - p[0], y - p[1]); seg.push(len); }
+        pts.push([x, y]);
+      }
+      var st = t.styles[l[0]];
+      return { c: st[0], w: st[1], a: st[2], pts: pts, len: len, seg: seg };
+    });
+    var widths = lines.map(function (l) { return l.w; }).sort(function (a, b) { return b - a; });
+    var cut = widths[Math.min(widths.length - 1, Math.floor(widths.length * 0.12))];
+    var majors = lines.filter(function (l) { return l.w >= cut && l.w > 0; }).sort(function (a, b) { return b.len - a.len; }).slice(0, 420);
+    var majorSet = new Set(majors);
+    // potlood reist steeds naar de dichtstbijzijnde volgende weg
+    var order = [], left = majors.slice(), cur = [t.w / 2, t.h / 2];
+    while (left.length) {
+      var bi = 0, bd = Infinity, flip = false;
+      for (var i = 0; i < left.length; i++) {
+        var a = left[i].pts[0], b = left[i].pts[left[i].pts.length - 1];
+        var da = (a[0] - cur[0]) * (a[0] - cur[0]) + (a[1] - cur[1]) * (a[1] - cur[1]);
+        var db = (b[0] - cur[0]) * (b[0] - cur[0]) + (b[1] - cur[1]) * (b[1] - cur[1]);
+        if (da < bd) { bd = da; bi = i; flip = false; }
+        if (db < bd) { bd = db; bi = i; flip = true; }
+      }
+      var L = left.splice(bi, 1)[0];
+      if (flip) { L.pts = L.pts.slice().reverse(); var s = [0], acc = 0; for (var k = 1; k < L.pts.length; k++) { acc += Math.hypot(L.pts[k][0] - L.pts[k - 1][0], L.pts[k][1] - L.pts[k - 1][1]); s.push(acc); } L.seg = s; }
+      order.push(L); cur = L.pts[L.pts.length - 1];
+    }
+    var CELL = Math.max(t.w, t.h) / 9, cols = Math.ceil(t.w / CELL), rows = Math.ceil(t.h / CELL), cells = [];
+    for (var r = 0; r < rows; r++) for (var cc = 0; cc < cols; cc++) cells.push({ x: (r % 2 ? cols - 1 - cc : cc), y: r, lines: [] });
+    var byKey = {}; cells.forEach(function (ce) { byKey[ce.x + ',' + ce.y] = ce; });
+    lines.forEach(function (l) {
+      if (majorSet.has(l)) return;
+      var m = l.pts[Math.floor(l.pts.length / 2)];
+      var ce = byKey[Math.min(cols - 1, Math.max(0, Math.floor(m[0] / CELL))) + ',' + Math.min(rows - 1, Math.max(0, Math.floor(m[1] / CELL)))];
+      if (ce) ce.lines.push(l);
+    });
+    cells.forEach(function (ce) { ce.cx = (ce.x + 0.5) * CELL; ce.cy = (ce.y + 0.5) * CELL; });
+    return { t: t, majors: order, cells: cells.filter(function (ce) { return ce.lines.length; }) };
+  }
+
+  function size() {
+    var r = stage.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
+    W = stage.width = lineCv.width = areaCv.width = Math.round(r.width * d);
+    H = stage.height = lineCv.height = areaCv.height = Math.round(r.height * d);
+  }
+  function strokeLine(c2, l, k, until) {
+    c2.globalAlpha = l.a; c2.strokeStyle = l.c; c2.lineWidth = Math.max(0.6, l.w * k); c2.lineCap = 'round'; c2.lineJoin = 'round';
+    c2.beginPath(); c2.moveTo(l.pts[0][0] * k, l.pts[0][1] * k);
+    var tip = l.pts[0];
+    for (var i = 1; i < l.pts.length; i++) {
+      if (until != null && l.seg[i] > until) {
+        var f = (until - l.seg[i - 1]) / ((l.seg[i] - l.seg[i - 1]) || 1);
+        tip = [l.pts[i - 1][0] + (l.pts[i][0] - l.pts[i - 1][0]) * f, l.pts[i - 1][1] + (l.pts[i][1] - l.pts[i - 1][1]) * f];
+        c2.lineTo(tip[0] * k, tip[1] * k); break;
+      }
+      tip = l.pts[i]; c2.lineTo(tip[0] * k, tip[1] * k);
+    }
+    c2.stroke(); c2.globalAlpha = 1;
+    return tip;
+  }
+  // potlood: punt precies op de lijn, met een klein beetje beweging in de hand
+  var pAngle = -38;
+  function pencilAt(x, y, dx, dy, lift) {
+    var r = stage.getBoundingClientRect(), fr = frame.getBoundingClientRect();
+    var px = r.left - fr.left + x / W * r.width, py = r.top - fr.top + y / H * r.height;
+    if (dx || dy) { var want = -38 + Math.max(-9, Math.min(9, Math.atan2(dy, dx) * 180 / Math.PI / 12)); pAngle += (want - pAngle) * 0.15; }
+    pencil.style.transform = 'translate3d(' + px.toFixed(1) + 'px,' + (py - (lift || 0)).toFixed(1) + 'px,0) rotate(' + pAngle.toFixed(1) + 'deg)';
+  }
+
+  function play(c, tr) {
+    cancelAnimationFrame(raf);
+    size();
+    var t = tr.t, k = W / t.w;
+    lctx.clearRect(0, 0, W, H);
+    actx.clearRect(0, 0, W, H);
+    t.areas.forEach(function (ar) {
+      actx.fillStyle = ar[0]; actx.beginPath();
+      ar[1].forEach(function (ring) { for (var i = 0; i < ring.length; i += 2) { var x = ring[i] / t.q * k, y = ring[i + 1] / t.q * k; if (i) actx.lineTo(x, y); else actx.moveTo(x, y); } actx.closePath(); });
+      actx.fill('evenodd');
+    });
+    label(c);
+    frame.classList.remove('is-final');
+    frame.classList.add('is-drawing');
+    var SPEED = 2400 / 1000 * (t.w / 1200);      // grote wegen: px per ms in kaartmaat
+    var majorTotal = tr.majors.reduce(function (s, l) { return s + l.len; }, 0);
+    var MAJOR_MS = Math.min(5200, Math.max(2600, majorTotal / SPEED));
+    var CELL_MS = 3400 / Math.max(1, tr.cells.length);
+    var mi = 0, mDone = 0, ci = 0, cellT = 0, phase = 'major', last = performance.now(), areaA = 0, t0 = last;
+    var speed = majorTotal / MAJOR_MS;
+    function frameStep(now) {
+      var dt = Math.min(50, now - last); last = now;
+      if (!visible) { raf = requestAnimationFrame(frameStep); return; }
+      if (phase === 'major') {
+        var budget = speed * dt, tip = null, prev = null;
+        while (budget > 0 && mi < tr.majors.length) {
+          var L = tr.majors[mi], rest = L.len - mDone;
+          if (budget >= rest) { strokeLine(lctx, L, k); budget -= rest; mi++; mDone = 0; tip = L.pts[L.pts.length - 1]; prev = L.pts[Math.max(0, L.pts.length - 2)]; }
+          else { mDone += budget; budget = 0; tip = strokeLine(lctx, L, k, mDone); var si = 1; while (si < L.seg.length - 1 && L.seg[si] < mDone) si++; prev = L.pts[si - 1]; }
+        }
+        if (tip) pencilAt(tip[0] * k, tip[1] * k, tip[0] - prev[0], tip[1] - prev[1]);
+        if (mi >= tr.majors.length) { phase = 'minor'; lctx.globalCompositeOperation = 'destination-over'; }
+      } else if (phase === 'minor') {
+        cellT += dt;
+        while (cellT >= CELL_MS && ci < tr.cells.length) {
+          tr.cells[ci].lines.forEach(function (l) { strokeLine(lctx, l, k); });
+          ci++; cellT -= CELL_MS;
+        }
+        if (ci < tr.cells.length) {
+          var ce = tr.cells[ci], f = cellT / CELL_MS, wob = Math.sin(now / 38) * 14 * k * (t.w / 1200);
+          var prevC = tr.cells[Math.max(0, ci - 1)];
+          pencilAt((prevC.cx + (ce.cx - prevC.cx) * f) * k + wob, (prevC.cy + (ce.cy - prevC.cy) * f) * k + Math.cos(now / 51) * 10 * k, ce.cx - prevC.cx, ce.cy - prevC.cy);
+        } else { phase = 'wash'; lctx.globalCompositeOperation = 'source-over'; t0 = now; frame.classList.add('is-lifting'); }
+      } else if (phase === 'wash') {
+        areaA = Math.min(1, (now - t0) / 900);
+        if (areaA >= 1) { phase = 'done'; }
+      }
+      ctx.clearRect(0, 0, W, H);
+      ctx.fillStyle = t.bg || '#F4F1EB'; ctx.fillRect(0, 0, W, H);
+      if (areaA > 0) { ctx.globalAlpha = areaA; ctx.drawImage(areaCv, 0, 0); ctx.globalAlpha = 1; }
+      ctx.drawImage(lineCv, 0, 0);
+      if (phase !== 'done') { raf = requestAnimationFrame(frameStep); return; }
+      // over naar de echte poster met tekst
+      finalImg.src = c.img.currentSrc || c.img.src;
+      var show = function () { frame.classList.add('is-final'); frame.classList.remove('is-drawing', 'is-lifting'); setTimeout(next, 5200); };
+      if (finalImg.complete && finalImg.naturalWidth) setTimeout(show, 60); else finalImg.onload = show;
+    }
+    raf = requestAnimationFrame(frameStep);
+  }
+  function next() {
+    idx = (idx + 1) % cities.length;
+    start(cities[idx]);
+  }
+  function start(c) {
+    load(c).then(function (tr) { play(c, tr); }).catch(function () { finalImg.src = c.img.src; frame.classList.add('is-final'); setTimeout(next, 6000); });
+    var n = cities[(cities.indexOf(c) + 1) % cities.length];
+    load(n).catch(function () {});
+    if (n.img.loading === 'lazy') n.img.loading = 'eager';
+  }
+  if (reduce) { frame.classList.add('is-final'); return; }
+  if ('IntersectionObserver' in window) new IntersectionObserver(function (es) { visible = es[0].isIntersecting; }).observe(frame);
+  window.addEventListener('resize', function () { /* volgende stad pakt de nieuwe maat */ });
+  var boot = function () { start(cities[0]); };
+  if (document.readyState === 'complete') setTimeout(boot, 250); else window.addEventListener('load', function () { setTimeout(boot, 250); });
 })();
 </script>
 </div>
