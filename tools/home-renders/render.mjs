@@ -51,6 +51,63 @@ for (const d of designs) {
     return out.toDataURL('image/jpeg', 0.86).split(',')[1];
   }, { w: d.w, h: d.h, crop: d.crop || null });
   fs.writeFileSync(path.join(OUT, d.id + '.jpg'), Buffer.from(b64, 'base64'));
+  if (d.trace) {
+    // Potloodversie voor de homepagina: neem elke lijn en elk vlak op dat de
+    // kaartmotor tekent (vereenvoudigd en afgerond), zodat de homepagina de
+    // kaart zonder kaartmotor lijntje voor lijntje kan natekenen.
+    const trace = await page.evaluate(({ w, h }) => {
+      const P = CanvasPainter.prototype, origLine = P.polyline, origPoly = P.multiPolygon;
+      const lines = [], areas = [];
+      let bg = null;
+      const origBg = P.setBackground;
+      P.setBackground = function (c) { if (!bg) bg = c; return origBg.apply(this, arguments); };
+      P.polyline = function (pts, o) {
+        o = o || {};
+        if (o.stroke && (!o.fill || o.fill === 'none') && pts.length >= 2) lines.push({ c: o.stroke, w: o.strokeWidth || 1, a: o.opacity == null ? 1 : o.opacity, p: pts });
+        return origLine.apply(this, arguments);
+      };
+      P.multiPolygon = function (rings, o) {
+        o = o || {};
+        if (o.fill && o.fill !== 'none') areas.push({ c: o.fill, r: rings });
+        return origPoly.apply(this, arguments);
+      };
+      const c = document.createElement('canvas'); c.width = w; c.height = h;
+      try { window.LocationApp.renderInto(c); } finally { P.polyline = origLine; P.multiPolygon = origPoly; P.setBackground = origBg; }
+      function rdp(pts, eps) {
+        if (pts.length < 3) return pts;
+        const keep = new Uint8Array(pts.length); keep[0] = keep[pts.length - 1] = 1;
+        const st = [[0, pts.length - 1]];
+        while (st.length) {
+          const [i, j] = st.pop(); let dm = 0, k = -1;
+          const [x1, y1] = pts[i], [x2, y2] = pts[j], dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy) || 1;
+          for (let m = i + 1; m < j; m++) { const d = Math.abs(dy * pts[m][0] - dx * pts[m][1] + x2 * y1 - y2 * x1) / L; if (d > dm) { dm = d; k = m; } }
+          if (dm > eps && k > 0) { keep[k] = 1; st.push([i, k], [k, j]); }
+        }
+        return pts.filter((_, m) => keep[m]);
+      }
+      const inView = p => p[0] > -20 && p[0] < w + 20 && p[1] > -20 && p[1] < h + 20;
+      const styles = [], sKey = {};
+      const sid = (c, w, a) => { const k = c + '|' + w.toFixed(2) + '|' + a; if (!(k in sKey)) { sKey[k] = styles.length; styles.push([c, +w.toFixed(2), a]); } return sKey[k]; };
+      const outLines = [];
+      for (const l of lines) {
+        const pts = rdp(l.p, 0.7);
+        if (!pts.some(inView)) continue;
+        let len = 0; for (let m = 1; m < pts.length; m++) len += Math.hypot(pts[m][0] - pts[m - 1][0], pts[m][1] - pts[m - 1][1]);
+        if (len < 3) continue;
+        const flat = []; pts.forEach(q => flat.push(Math.round(q[0] * 2), Math.round(q[1] * 2)));
+        outLines.push([sid(l.c, l.w, l.a), flat]);
+      }
+      const outAreas = [];
+      for (const ar of areas) {
+        const rings = ar.r.map(r => rdp(r, 1.2)).filter(r => r.length >= 3 && r.some(inView));
+        if (!rings.length) continue;
+        outAreas.push([ar.c, rings.map(r => { const f = []; r.forEach(q => f.push(Math.round(q[0] * 2), Math.round(q[1] * 2))); return f; })]);
+      }
+      return JSON.stringify({ w, h, q: 2, bg, styles, lines: outLines, areas: outAreas });
+    }, { w: d.w, h: d.h });
+    fs.writeFileSync(path.join(OUT, d.id + '.trace.json'), trace);
+    console.log('traced', d.id, (trace.length / 1024).toFixed(0) + ' KB');
+  }
   states[d.id] = await page.evaluate(() => window.LocationApp.getDesignState());
   console.log('rendered', d.id);
 }
