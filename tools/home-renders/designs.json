@@ -160,5 +160,15 @@
   "w": 1200,
   "h": 1680,
   "trace": true
+ },
+ {
+  "id": "g-madrid",
+  "place": "Madrid",
+  "country": "Spain",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
  }
 ]
