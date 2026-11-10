@@ -28,8 +28,7 @@
   "lon": -73.9857,
   "palette": "bordeaux-gold",
   "w": 1200,
-  "h": 1680,
-  "trace": true
+  "h": 1680
  },
  {
   "id": "g-copenhagen",
@@ -80,7 +79,8 @@
   "lon": 12.4769,
   "palette": "terracotta-sun",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "trace": true
  },
  {
   "id": "g-barcelona",
@@ -127,5 +127,38 @@
    1400,
    1050
   ]
+ },
+ {
+  "id": "h-rotterdam",
+  "place": "Rotterdam",
+  "country": "Netherlands",
+  "lat": 51.918,
+  "lon": 4.483,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-london",
+  "place": "London",
+  "country": "United Kingdom",
+  "lat": 51.509,
+  "lon": -0.11,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-berlin",
+  "place": "Berlin",
+  "country": "Germany",
+  "lat": 52.517,
+  "lon": 13.395,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
  }
 ]
