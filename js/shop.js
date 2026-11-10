@@ -890,10 +890,9 @@
     if (UX2) (function uxTwo() {
       document.documentElement.classList.add('ux2');
       const panelOf = i => document.querySelector('.step-panel[data-panel="' + i + '"]');
-      function peek() {
-        if (!compactMq.matches || !M) return;
-        if (window.scrollY > M.host + 4) window.scrollTo({ top: M.host, behavior: 'smooth' });
-      }
+      // (de kaart klapt niet meer automatisch open bij een keuze: dat
+      // voelde onrustig)
+      function peek() {}
       function segs(i, defs) {
         const panel = panelOf(i);
         const after = panel.querySelector('.step-lede') || panel.querySelector('.step-title');
