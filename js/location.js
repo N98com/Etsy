@@ -953,6 +953,16 @@ window.LocationApp = (() => {
         btn.type = 'button'; btn.className = 'location-search-result'; btn.textContent = r.display_name;
         btn.addEventListener('click', () => {
           const lat = parseFloat(r.lat), lon = parseFloat(r.lon);
+          // Vaste kaart (shop, stap Pins): nooit het zicht verplaatsen. Valt
+          // het adres buiten de kaart, dan geen onzichtbare pin maar uitleg.
+          if (window.N98MapLocked === true) {
+            const [qx, qy] = forwardProject(lat, lon);
+            const fits = qx >= 0 && qx <= canvas.width && qy >= 0 && qy <= mapAreaHeight(canvas.height);
+            if (!fits) {
+              pinAddressResults.innerHTML = '<div class="location-search-result">This address is outside your map. Go back to step 1 and move the map to include it.</div>';
+              return;
+            }
+          }
           state.pins.push(newPin(lat, lon));
           state.selectedPin = state.pins.length - 1;
           setAddingPin(false);
@@ -962,7 +972,7 @@ window.LocationApp = (() => {
           // alsof er niets gebeurd is.
           const [px, py] = forwardProject(lat, lon);
           const inView = px >= 0 && px <= canvas.width && py >= 0 && py <= mapAreaHeight(canvas.height);
-          if (!inView && !(isolating() && hasRealBoundary())) {
+          if (!inView && window.N98MapLocked !== true && !(isolating() && hasRealBoundary())) {
             state.center = { lat, lon };
             scheduleFetch(0);
           }

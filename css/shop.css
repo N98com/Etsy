@@ -567,13 +567,20 @@ html.is-hero #locationCanvas.hero-draw {
 }
 
 /* ---- TEST (?ux=2): zeven stappen, één keuze per scherm ---- */
-.ux2 .steps { grid-template-columns: repeat(7, minmax(0, 1fr)); }
-.ux2 .step-tab { min-height: 56px; padding: 0 2px; }
-.ux2 .step-tab-num { font-size: 19px; font-style: normal; }
-.ux2 .step-tab-label { font-size: 8.5px; letter-spacing: 0.12em; white-space: nowrap; opacity: 0; transition: opacity 0.3s var(--ease); }
-.ux2 .step-tab.active .step-tab-label { opacity: 1; }
-.ux2 .step-indicator { width: calc(100% / 7); }
-@media (min-width: 900px) { .ux2 .step-tab-label { opacity: 1; font-size: 9px; } }
+.ux2 .steps { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+.ux2 .step-tab { min-height: 52px; padding: 0 2px; }
+.ux2 .step-tab-label { font-size: 9.5px; letter-spacing: 0.14em; white-space: nowrap; }
+.ux2 .step-tab.done:not(.active) { color: var(--ink-2); }
+.ux2 .step-indicator { width: calc(100% / 6); height: 2px; bottom: -1px; }
+.ux2 .step-nav[hidden] { display: none; }
+/* terug-knop onderin links */
+.ux2 .ux-back {
+  flex: 0 0 auto; align-self: stretch; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 4px;
+  min-width: 52px; padding: 0 8px; border: 1px solid var(--line-strong); background: transparent; color: var(--ink); cursor: pointer;
+  font-family: var(--mono); font-size: 9px; letter-spacing: 0.16em; text-transform: uppercase;
+}
+.ux2 .ux-back[hidden] { display: none; }
+.ux2 .buy-row:has(.ux-back:not([hidden])) { gap: 12px; }
 .ux2 .step-panel > .step-sub { margin-top: 10px; }
 .map-locked .stage-frame canvas#locationCanvas { cursor: default; }
 .map-scrolls .stage-frame canvas#locationCanvas { touch-action: pan-y; }
@@ -591,5 +598,4 @@ html.is-hero #locationCanvas.hero-draw {
 .ux2 .ux-presets button:nth-child(3) { font-size: 24px; }
 .ux2 .ux-presets button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 /* lijst: grote kaarten, in een eigen stap */
-.ux2 .step-panel[data-panel="6"] .frame-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-.ux2 .step-panel[data-panel="6"] .frame-card { min-height: 72px; }
+

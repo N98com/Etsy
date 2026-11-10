@@ -267,7 +267,7 @@
     // Pins, Size en Frame staat hij vast (pins plaatsen en slepen kan wel).
     if (UX2) (function uxTwoEarly() {
       document.documentElement.classList.add('ux2');
-      STEP_NAMES.splice(0, STEP_NAMES.length, 'Place', 'Colours', 'Shape', 'Text', 'Pins', 'Size', 'Frame');
+      STEP_NAMES.splice(0, STEP_NAMES.length, 'Place', 'Colours', 'Shape', 'Text', 'Pins', 'Size');
       const old = [0, 1, 2, 3].map(i => document.querySelector('.step-panel[data-panel="' + i + '"]'));
       const host = old[0].parentNode;
       const TITLES = [
@@ -276,15 +276,14 @@
         ['Shape &amp; <em>layout</em>', 'Give your map a shape and a layout. Drag the map so nothing important falls away.'],
         ['Make the words <em>yours</em>', 'Choose a typeface, a text size and, if you like, your own colour.'],
         ['Mark where it <em>happened</em>', 'Optional. Choose an icon, then tap the spot on the map. You can drag it afterwards.'],
-        ['Choose your <em>size</em>', 'Eight gallery sizes. The preview takes the exact shape of the size you choose.'],
-        ['Choose your <em>frame</em>', 'Solid pine, ready to hang. Or the print on its own, to frame yourself.']
+        ['Size &amp; <em>frame</em>', 'Eight gallery sizes, as a print or in a solid pine frame that arrives ready to hang.']
       ];
       const panels = TITLES.map(([t, l], i) => {
         const el = document.createElement('div');
         el.className = 'step-panel' + (i === 0 ? ' active' : '');
         el.dataset.panel = String(i); el.setAttribute('role', 'tabpanel');
         if (i) el.hidden = true;
-        el.innerHTML = '<p class="step-eyebrow">Step ' + (i + 1) + ' of 7</p><h2 class="step-title">' + t + '</h2><p class="step-lede">' + l + '</p>';
+        el.innerHTML = '<p class="step-eyebrow">Step ' + (i + 1) + ' of ' + TITLES.length + '</p><h2 class="step-title">' + t + '</h2><p class="step-lede">' + l + '</p>';
         return el;
       });
       const add = (i, ...els) => els.filter(Boolean).forEach(e => panels[i].appendChild(e));
@@ -299,14 +298,21 @@
       add(3, sub('Typeface'), $('shopSlotFont'), sub('Text size'), $('shopSlotTextSizes'));
       // 5 Pins
       add(4, $('shopSlotPins'), $('shopPinList'));
-      // 6 Size
-      add(5, $('shopSizeGrid'));
-      // 7 Frame: alles wat er nog in de oude stap IV stond
-      const fh = old[3].querySelector('.frame-head'); if (fh) fh.remove();
-      [...old[3].children].forEach(c => { if (!c.matches('.step-eyebrow, .step-title, .step-lede, #shopSizeGrid')) panels[6].appendChild(c); });
+      // 6 Size & frame: formaten, dan de lijst en de rest van de oude stap IV
+      add(5, sub('Size'), $('shopSizeGrid'));
+      const fhd = old[3].querySelector('.frame-head'); if (fhd) fhd.innerHTML = 'Frame <span class="optional">solid pine, ready to hang</span>';
+      [...old[3].children].forEach(c => { if (!c.matches('.step-eyebrow, .step-title, .step-lede, #shopSizeGrid')) panels[5].appendChild(c); });
       old.forEach(o => o.remove());
-      panels.forEach(pn => host.appendChild(pn));
-      // 7 tabjes (cijfers; alleen de actieve stap toont zijn naam)
+      const navEl = host.querySelector('.step-nav');
+      panels.forEach(pn => host.insertBefore(pn, navEl));
+      if (navEl) navEl.hidden = true;
+      // terug-knop onderin, links naast de prijs en "Next"
+      const back = document.createElement('button');
+      back.type = 'button'; back.className = 'ux-back'; back.id = 'uxBackBtn'; back.hidden = true;
+      back.setAttribute('aria-label', 'Back');
+      back.innerHTML = '<svg width="20" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M22 5H2M6 1L2 5l4 4"></path></svg><span>Back</span>';
+      document.querySelector('.buy-row').insertBefore(back, document.querySelector('.buy-row').firstChild);
+      // tabjes met alleen de naam van elke stap
       const bar = document.querySelector('.steps');
       bar.querySelectorAll('.step-tab').forEach(t => t.remove());
       const ind = bar.querySelector('.step-indicator');
@@ -315,7 +321,7 @@
         b.type = 'button'; b.className = 'step-tab' + (i === 0 ? ' active' : '');
         b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === 0 ? 'true' : 'false'); b.dataset.step = String(i);
         b.setAttribute('aria-label', 'Step ' + (i + 1) + ': ' + n);
-        b.innerHTML = '<span class="step-tab-num">' + (i + 1) + '</span><span class="step-tab-label">' + n + '</span>';
+        b.innerHTML = '<span class="step-tab-label">' + n + '</span>';
         bar.insertBefore(b, ind);
       });
     })();
@@ -1019,8 +1025,11 @@
       // kaart vast in Pins, Size en Frame (pins blijven te verslepen)
       const hintEl2 = $('stageHint');
       const freeHint = hintEl2 ? hintEl2.textContent : '';
+      const bbtn = $('uxBackBtn');
+      if (bbtn) bbtn.addEventListener('click', () => goTo(step - 1, true));
       window.N98OnStep = st => {
         const locked = st >= 4;
+        const bb = $('uxBackBtn'); if (bb) bb.hidden = st === 0;
         window.N98MapLocked = locked;
         document.documentElement.classList.toggle('map-locked', locked);
         document.documentElement.classList.toggle('map-scrolls', st >= 5);
