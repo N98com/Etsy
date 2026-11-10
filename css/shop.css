@@ -529,7 +529,7 @@ button.location-search-result:hover { background: var(--paper); }
 /* ---------- hero mode (shop.html?hero=1, see js/hero.js) ----------
    Only the poster, filling a small transparent frame on the homepage. Each
    new city appears as if the ink spreads over the paper from the middle. */
-@property --ink { syntax: '<percentage>'; inherits: false; initial-value: 0%; }
+@property --hero-ink-r { syntax: '<percentage>'; inherits: false; initial-value: 0%; }
 html.is-hero, html.is-hero body { background: transparent !important; overflow: hidden !important; height: 100%; }
 html.is-hero body * { visibility: hidden; }
 html.is-hero .shop-stage, html.is-hero .stage-frame, html.is-hero #locationCanvas { visibility: visible; }
@@ -544,11 +544,11 @@ html.is-hero #locationCanvas {
 }
 html.is-hero #locationCanvas.hero-hide { opacity: 0; filter: blur(6px); transition: opacity 0.4s ease, filter 0.4s ease; }
 html.is-hero #locationCanvas.hero-draw {
-  -webkit-mask-image: radial-gradient(circle at 50% 46%, #000 calc(var(--ink) - 18%), transparent var(--ink));
-          mask-image: radial-gradient(circle at 50% 46%, #000 calc(var(--ink) - 18%), transparent var(--ink));
+  -webkit-mask-image: radial-gradient(circle at 50% 46%, #000 calc(var(--hero-ink-r) - 18%), transparent var(--hero-ink-r));
+          mask-image: radial-gradient(circle at 50% 46%, #000 calc(var(--hero-ink-r) - 18%), transparent var(--hero-ink-r));
   animation: n98-ink 2.8s cubic-bezier(0.33, 0, 0.2, 1) forwards, n98-ink-focus 2.8s ease-out forwards;
 }
-@keyframes n98-ink { from { --ink: 0%; } to { --ink: 150%; } }
+@keyframes n98-ink { from { --hero-ink-r: 0%; } to { --hero-ink-r: 150%; } }
 @keyframes n98-ink-focus { from { filter: blur(3px) saturate(0.6); } to { filter: none; } }
 @media (prefers-reduced-motion: reduce) {
   html.is-hero #locationCanvas.hero-draw { animation: none; -webkit-mask-image: none; mask-image: none; }
