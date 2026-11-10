@@ -261,6 +261,65 @@
     $('pinColorInput').addEventListener('input', () => requestAnimationFrame(renderPinList));
     renderPinList();
 
+    // ---- TEST (?ux=2): zeven stappen, één keuze per scherm ----
+    // Place (+ tekst controleren) · Colours · Shape & layout · Text · Pins ·
+    // Size · Frame. De kaart is te verslepen in stap 1 tot en met 4; bij
+    // Pins, Size en Frame staat hij vast (pins plaatsen en slepen kan wel).
+    if (UX2) (function uxTwoEarly() {
+      document.documentElement.classList.add('ux2');
+      STEP_NAMES.splice(0, STEP_NAMES.length, 'Place', 'Colours', 'Shape', 'Text', 'Pins', 'Size', 'Frame');
+      const old = [0, 1, 2, 3].map(i => document.querySelector('.step-panel[data-panel="' + i + '"]'));
+      const host = old[0].parentNode;
+      const TITLES = [
+        ['Where shall we <em>draw?</em>', 'Search a city, a street or an address, then drag and zoom until the framing feels right. Check the words below: you can change them right here.'],
+        ['Choose your <em>colours</em>', 'Each palette is composed to live on a wall. You can still drag the map.'],
+        ['Shape &amp; <em>layout</em>', 'Give your map a shape and a layout. Drag the map so nothing important falls away.'],
+        ['Make the words <em>yours</em>', 'Choose a typeface, a text size and, if you like, your own colour.'],
+        ['Mark where it <em>happened</em>', 'Optional. Choose an icon, then tap the spot on the map. You can drag it afterwards.'],
+        ['Choose your <em>size</em>', 'Eight gallery sizes. The preview takes the exact shape of the size you choose.'],
+        ['Choose your <em>frame</em>', 'Solid pine, ready to hang. Or the print on its own, to frame yourself.']
+      ];
+      const panels = TITLES.map(([t, l], i) => {
+        const el = document.createElement('div');
+        el.className = 'step-panel' + (i === 0 ? ' active' : '');
+        el.dataset.panel = String(i); el.setAttribute('role', 'tabpanel');
+        if (i) el.hidden = true;
+        el.innerHTML = '<p class="step-eyebrow">Step ' + (i + 1) + ' of 7</p><h2 class="step-title">' + t + '</h2><p class="step-lede">' + l + '</p>';
+        return el;
+      });
+      const add = (i, ...els) => els.filter(Boolean).forEach(e => panels[i].appendChild(e));
+      const sub = (txt, cls) => { const h = document.createElement('h3'); h.className = 'step-sub' + (cls ? ' ' + cls : ''); h.innerHTML = txt; return h; };
+      // 1 Place: zoeken + meteen de tekst
+      add(0, $('shopSlotSearch'), sub('Your map will say'), $('shopSlotCaption'));
+      // 2 Colours
+      add(1, $('paletteCats'), $('shopSlotPalettes'), $('paletteSolidHead'), $('shopSlotSolid'));
+      // 3 Shape & layout
+      add(2, sub('Shape'), $('shopSlotMask'), sub('Layout'), $('shopSlotLayout'));
+      // 4 Text
+      add(3, sub('Typeface'), $('shopSlotFont'), sub('Text size'), $('shopSlotTextSizes'));
+      // 5 Pins
+      add(4, $('shopSlotPins'), $('shopPinList'));
+      // 6 Size
+      add(5, $('shopSizeGrid'));
+      // 7 Frame: alles wat er nog in de oude stap IV stond
+      const fh = old[3].querySelector('.frame-head'); if (fh) fh.remove();
+      [...old[3].children].forEach(c => { if (!c.matches('.step-eyebrow, .step-title, .step-lede, #shopSizeGrid')) panels[6].appendChild(c); });
+      old.forEach(o => o.remove());
+      panels.forEach(pn => host.appendChild(pn));
+      // 7 tabjes (cijfers; alleen de actieve stap toont zijn naam)
+      const bar = document.querySelector('.steps');
+      bar.querySelectorAll('.step-tab').forEach(t => t.remove());
+      const ind = bar.querySelector('.step-indicator');
+      STEP_NAMES.forEach((n, i) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.className = 'step-tab' + (i === 0 ? ' active' : '');
+        b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === 0 ? 'true' : 'false'); b.dataset.step = String(i);
+        b.setAttribute('aria-label', 'Step ' + (i + 1) + ': ' + n);
+        b.innerHTML = '<span class="step-tab-num">' + (i + 1) + '</span><span class="step-tab-label">' + n + '</span>';
+        bar.insertBefore(b, ind);
+      });
+    })();
+
     // ---- Stappen ----
     const tabs = [...document.querySelectorAll('.step-tab')];
     const panels = [...document.querySelectorAll('.step-panel')];
@@ -285,6 +344,7 @@
       if (!last) nextBtn.textContent = 'Next: ' + STEP_NAMES[step + 1];
       if (last) updateSummary();
       if (window.N98SyncBuyBtn) window.N98SyncBuyBtn();
+      if (window.N98OnStep) window.N98OnStep(step);
       if (focusPanel) {
         // Op telefoon staat het paneel onder de (sticky) kaart: scroll terug
         // naar het begin van de stappen, zodat je niet halverwege een lijst
@@ -855,7 +915,12 @@
     function syncBuyBtn() {
       if (STUDIO || adding) return;
       const last = onLastStep();
-      buyLabel.textContent = last ? 'Add to cart' : 'Next: ' + STEP_NAMES[step + 1];
+      let label = last ? 'Add to cart' : 'Next: ' + STEP_NAMES[step + 1];
+      if (UX2 && STEP_NAMES[step] === 'Pins') {
+        const pp = window.LocationApp && window.LocationApp.getPins ? window.LocationApp.getPins() : null;
+        if (!pp || !pp.pins || !pp.pins.length) label = 'Skip, no pins';
+      }
+      buyLabel.textContent = label;
       buyBtn.classList.toggle('is-next', !last);
       nextBtn.hidden = true; // de knop onderin neemt het over
     }
@@ -882,61 +947,7 @@
       }
     });
 
-    // ---- TEST (?ux=2): opties naar voren ----
-    // Elke stap krijgt bovenin een keuzebalk (bv. Colours · Shape · Layout),
-    // zodat vorm, tekstgrootte, pins en lijst niet meer onderin verstopt
-    // zitten. Bij een keuze klapt de kaart op mobiel even open, zodat je
-    // het effect ziet. Alleen actief met ?ux=2 (of in een frame met &ux=2).
-    if (UX2) (function uxTwo() {
-      document.documentElement.classList.add('ux2');
-      const panelOf = i => document.querySelector('.step-panel[data-panel="' + i + '"]');
-      // (de kaart klapt niet meer automatisch open bij een keuze: dat
-      // voelde onrustig)
-      function peek() {}
-      function segs(i, defs) {
-        const panel = panelOf(i);
-        const after = panel.querySelector('.step-lede') || panel.querySelector('.step-title');
-        const bar = document.createElement('div');
-        bar.className = 'ux-seg'; bar.setAttribute('role', 'group');
-        const panes = defs.map(d => {
-          const pane = document.createElement('div');
-          pane.className = 'ux-pane';
-          d.els.filter(Boolean).forEach(el => pane.appendChild(el));
-          return pane;
-        });
-        let ref = after;
-        panes.forEach(pane => { ref.after(pane); ref = pane; });
-        after.after(bar);
-        const btns = defs.map((d, k) => {
-          const b = document.createElement('button');
-          b.type = 'button'; b.textContent = d.label;
-          b.addEventListener('click', () => show(k, true));
-          bar.appendChild(b);
-          return b;
-        });
-        function show(k, user) {
-          btns.forEach((b, j) => b.setAttribute('aria-pressed', j === k ? 'true' : 'false'));
-          panes.forEach((p, j) => { p.hidden = j !== k; });
-          if (user && defs[k].peek) peek();
-        }
-        show(0, false);
-        return show;
-      }
-      const slot = id => $(id);
-      const headFor = id => { const el = slot(id); const h = el && el.previousElementSibling; return h && h.matches('h3') ? h : null; };
-
-      // Stap II: Colours · Shape · Layout
-      const p1 = panelOf(1);
-      p1.querySelector('.step-title').innerHTML = 'Choose your <em>style</em>';
-      p1.querySelector('.step-lede').textContent = 'Colours, a shape and a layout. Your map changes the moment you choose.';
-      const maskSlot = slot('shopSlotMask'), layoutSlot = slot('shopSlotLayout');
-      const more1 = maskSlot.closest('details');
-      segs(1, [
-        { label: 'Colours', els: [$('paletteCats'), slot('shopSlotPalettes'), $('paletteSolidHead'), slot('shopSlotSolid')] },
-        { label: 'Shape', els: [maskSlot], peek: true },
-        { label: 'Layout', els: [layoutSlot], peek: true }
-      ]);
-      if (more1) more1.remove();
+    function uxTwoLate() {
       // vormen als tegels met een icoontje
       const ICONS = {
         none: '<rect x="5" y="3" width="14" height="18" rx="0.5"/>',
@@ -953,21 +964,16 @@
         b.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">' + ICONS[key] + '</svg><span></span>';
         b.querySelector('span').textContent = label;
       });
-      $('maskTabs').addEventListener('click', e => { if (e.target.closest('button')) peek(); });
-      $('layoutTabs').addEventListener('click', e => { if (e.target.closest('button')) peek(); });
 
-      // Stap III: Words · Typeface · Size
-      const p2 = panelOf(2);
-      const fontHead = headFor('shopSlotFont');
-      const sizeSlot = slot('shopSlotTextSizes');
-      const more2 = sizeSlot.closest('details');
+      // tekstgrootte: Small · Medium · Large, fijnafstelling eronder
+      const sizeSlot = $('shopSlotTextSizes');
       const presets = document.createElement('div');
       presets.className = 'ux-presets';
       const ranges = ['placeFontSizeInput', 'countryFontSizeInput', 'coordsFontSizeInput'].map(id => $(id)).filter(Boolean);
       const base = ranges.map(r => parseFloat(r.value) || 1);
       [['Small', 0.85], ['Medium', 1], ['Large', 1.2]].forEach(([label, f]) => {
         const b = document.createElement('button');
-        b.type = 'button'; b.textContent = label; b.dataset.f = f;
+        b.type = 'button'; b.textContent = label;
         b.setAttribute('aria-pressed', f === 1 ? 'true' : 'false');
         b.addEventListener('click', () => {
           ranges.forEach((r, j) => {
@@ -977,51 +983,28 @@
             r.dispatchEvent(new Event('change', { bubbles: true }));
           });
           [...presets.children].forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
-          peek();
         });
         presets.appendChild(b);
       });
       const fine = document.createElement('details');
       fine.className = 'step-more ux-fine';
       fine.innerHTML = '<summary>Fine-tune each line</summary>';
+      sizeSlot.before(presets);
+      presets.after(fine);
       fine.appendChild(sizeSlot);
       ranges.forEach(r => r.addEventListener('input', e => { if (e.isTrusted) [...presets.children].forEach(x => x.setAttribute('aria-pressed', 'false')); }));
-      segs(2, [
-        { label: 'Words', els: [slot('shopSlotCaption')] },
-        { label: 'Typeface', els: [fontHead, slot('shopSlotFont')], peek: true },
-        { label: 'Size', els: [presets, fine], peek: true }
-      ]);
-      if (more2) more2.remove();
-      if (fontHead) fontHead.hidden = true;
 
-      // Stap IV: lijst bovenaan als rij kleurstalen, formaten eronder
-      const p3 = panelOf(3);
-      p3.querySelector('.step-title').innerHTML = 'Size &amp; <em>frame</em>';
-      p3.querySelector('.step-lede').textContent = 'Pick a frame and a size. The preview takes the exact shape of the size you choose.';
-      const fHead = p3.querySelector('.frame-head');
-      if (!frameGrid.hidden) {
-        p3.querySelector('.step-lede').after(fHead, frameGrid);
-        fHead.innerHTML = 'Frame <span class="optional">solid pine, ready to hang</span>';
-        const sHead = document.createElement('h3');
-        sHead.className = 'step-sub ux-size-head'; sHead.textContent = 'Size';
-        frameGrid.after(sHead);
-        sHead.after(sizeGrid);
-        frameGrid.classList.add('ux-frame-row');
-        let wasNone = frameId === 'none';
-        frameGrid.addEventListener('click', e => {
-          if (!e.target.closest('.frame-card')) return;
-          const none = frameId === 'none';
-          if (wasNone && !none && !STUDIO) setView('room');
-          if (none) setView('studio');
-          wasNone = none;
-          peek();
-        });
-      }
+      // lijst gekozen: meteen aan de muur laten zien
+      let wasNone = frameId === 'none';
+      frameGrid.addEventListener('click', e => {
+        if (!e.target.closest('.frame-card')) return;
+        const none = frameId === 'none';
+        if (wasNone && !none) setView('room');
+        if (none && !wasNone) setView('studio');
+        wasNone = none;
+      });
 
-      // Stap I: iconen eerst; een icoon kiezen = meteen een pin plaatsen
-      const p0 = panelOf(0);
-      const pinHead = p0.querySelector('.step-block .step-sub');
-      if (pinHead) pinHead.innerHTML = 'Mark where it happened <span class="optional">optional</span>';
+      // pins: iconen eerst; een icoon kiezen = meteen een pin plaatsen
       const unitPins = $('unitPins'), iconRow = $('pinIconTabs'), addBtn = $('addPinBtn');
       if (unitPins && iconRow) unitPins.insertBefore(iconRow, unitPins.firstChild);
       if (iconRow && addBtn) iconRow.addEventListener('click', e => {
@@ -1029,11 +1012,27 @@
         const pp = window.LocationApp && window.LocationApp.getPins ? window.LocationApp.getPins() : null;
         const hasSelected = pp && pp.selected != null && pp.selected >= 0;
         if (!addBtn.classList.contains('active') && !hasSelected) addBtn.click();
-        peek();
       });
       const hint = $('pinsHint');
-      if (hint) hint.textContent = 'Choose an icon, then tap the spot on the map. You can drag it afterwards.';
-    })();
+      if (hint) { hint.textContent = 'Choose an icon, then tap the spot on the map. You can drag it afterwards.'; hint.dataset.text = hint.textContent; }
+
+      // kaart vast in Pins, Size en Frame (pins blijven te verslepen)
+      const hintEl2 = $('stageHint');
+      const freeHint = hintEl2 ? hintEl2.textContent : '';
+      window.N98OnStep = st => {
+        const locked = st >= 4;
+        window.N98MapLocked = locked;
+        document.documentElement.classList.toggle('map-locked', locked);
+        document.documentElement.classList.toggle('map-scrolls', st >= 5);
+        if (hintEl2 && !stageEl.classList.contains('is-room')) {
+          hintEl2.textContent = st === 4 ? 'Map fixed · Tap the map to place a pin' : locked ? 'Map fixed · Go back to step 1 to move it' : freeHint;
+        }
+        if (window.N98SyncBuyBtn) window.N98SyncBuyBtn();
+      };
+      document.addEventListener('mapgen:pins', () => { if (window.N98SyncBuyBtn) window.N98SyncBuyBtn(); });
+      window.N98OnStep(step);
+    }
+    if (UX2) uxTwoLate();
 
     // location.js start op een formaat dat niet (meer) in de lijst staat —
     // daarom altijd expliciet het standaardformaat kiezen.

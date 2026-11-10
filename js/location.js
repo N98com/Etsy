@@ -710,7 +710,7 @@ window.LocationApp = (() => {
     // Pannen/zoomen is zinloos zolang isoleren een vaste, opgezochte grens
     // toont (dat is geen navigeerbaar venster) — klikken (voor pins) blijft
     // dan wel gewoon werken.
-    const panLocked = () => isolating() && hasRealBoundary();
+    const panLocked = () => (isolating() && hasRealBoundary()) || window.N98MapLocked === true;
 
     // Na een tik op een touchscreen stuurt de browser er nog een nagebootste
     // mousedown/mouseup achteraan. Zonder deze rem werd een tik dus twee keer
@@ -773,6 +773,7 @@ window.LocationApp = (() => {
       endDrag(canvasPoint(e));
     });
     canvas.addEventListener('wheel', e => {
+      if (window.N98MapLocked === true) return; // vaste kaart: gewoon de pagina laten scrollen
       e.preventDefault();
       if (panLocked()) return;
       state.scale = clampScale(state.scale * Math.exp(-e.deltaY * 0.0016));
@@ -800,12 +801,15 @@ window.LocationApp = (() => {
         const dx = pt.x - drag.x, dy = pt.y - drag.y;
         if (Math.abs(dx) > 4 || Math.abs(dy) > 4) drag.moved = true; // vinger: iets ruimere tik-marge
         if (drag.pinIdx >= 0) { if (drag.moved) dragPin(pt); e.preventDefault(); return; }
+        if (window.N98MapLocked === true) return; // vaste kaart: de vinger scrolt de pagina
         if (!panLocked()) {
           const cosLat = Math.cos((drag.center.lat * Math.PI) / 180) || 0.0001;
           state.center = { lat: drag.center.lat + dy / state.scale, lon: drag.center.lon - dx / (state.scale * cosLat) };
           requestRender();
           scheduleFetch();
         }
+      } else if (e.touches.length === 2 && window.N98MapLocked === true) {
+        return;
       } else if (e.touches.length === 2 && pinchDist != null && !panLocked()) {
         const d = touchDist(e);
         state.scale = clampScale(state.scale * (d / pinchDist));
