@@ -96,6 +96,8 @@
   // js/studio.js): exact dezelfde tool, maar stap IV exporteert het
   // printbestand (300 dpi +50% pixels, exact Gelato-formaat) in plaats van "Add to cart".
   const STUDIO = !inIframe && new URLSearchParams(window.location.search).get('studio') === '1';
+  // TEST: nieuwe indeling van de stappen (zie uxTwo onderaan)
+  const UX2 = /[?&]ux=2\b/.test(window.location.search) || /[#&]ux=2\b/.test(window.location.hash);
   if (STUDIO) document.documentElement.classList.add('is-studio');
   // Printbestand: basis 300 dpi, met 50% meer pixels per zijde (1,5×, dus
   // effectief 450 pixels per inch). Zie PRINT_SCALE_DEFAULT in location.js.
@@ -879,6 +881,160 @@
         toast('Your design is ready. Checkout opens in the N°98 Maps shop.');
       }
     });
+
+    // ---- TEST (?ux=2): opties naar voren ----
+    // Elke stap krijgt bovenin een keuzebalk (bv. Colours · Shape · Layout),
+    // zodat vorm, tekstgrootte, pins en lijst niet meer onderin verstopt
+    // zitten. Bij een keuze klapt de kaart op mobiel even open, zodat je
+    // het effect ziet. Alleen actief met ?ux=2 (of in een frame met &ux=2).
+    if (UX2) (function uxTwo() {
+      document.documentElement.classList.add('ux2');
+      const panelOf = i => document.querySelector('.step-panel[data-panel="' + i + '"]');
+      function peek() {
+        if (!compactMq.matches || !M) return;
+        if (window.scrollY > M.host + 4) window.scrollTo({ top: M.host, behavior: 'smooth' });
+      }
+      function segs(i, defs) {
+        const panel = panelOf(i);
+        const after = panel.querySelector('.step-lede') || panel.querySelector('.step-title');
+        const bar = document.createElement('div');
+        bar.className = 'ux-seg'; bar.setAttribute('role', 'group');
+        const panes = defs.map(d => {
+          const pane = document.createElement('div');
+          pane.className = 'ux-pane';
+          d.els.filter(Boolean).forEach(el => pane.appendChild(el));
+          return pane;
+        });
+        let ref = after;
+        panes.forEach(pane => { ref.after(pane); ref = pane; });
+        after.after(bar);
+        const btns = defs.map((d, k) => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.textContent = d.label;
+          b.addEventListener('click', () => show(k, true));
+          bar.appendChild(b);
+          return b;
+        });
+        function show(k, user) {
+          btns.forEach((b, j) => b.setAttribute('aria-pressed', j === k ? 'true' : 'false'));
+          panes.forEach((p, j) => { p.hidden = j !== k; });
+          if (user && defs[k].peek) peek();
+        }
+        show(0, false);
+        return show;
+      }
+      const slot = id => $(id);
+      const headFor = id => { const el = slot(id); const h = el && el.previousElementSibling; return h && h.matches('h3') ? h : null; };
+
+      // Stap II: Colours · Shape · Layout
+      const p1 = panelOf(1);
+      p1.querySelector('.step-title').innerHTML = 'Choose your <em>style</em>';
+      p1.querySelector('.step-lede').textContent = 'Colours, a shape and a layout. Your map changes the moment you choose.';
+      const maskSlot = slot('shopSlotMask'), layoutSlot = slot('shopSlotLayout');
+      const more1 = maskSlot.closest('details');
+      segs(1, [
+        { label: 'Colours', els: [$('paletteCats'), slot('shopSlotPalettes'), $('paletteSolidHead'), slot('shopSlotSolid')] },
+        { label: 'Shape', els: [maskSlot], peek: true },
+        { label: 'Layout', els: [layoutSlot], peek: true }
+      ]);
+      if (more1) more1.remove();
+      // vormen als tegels met een icoontje
+      const ICONS = {
+        none: '<rect x="5" y="3" width="14" height="18" rx="0.5"/>',
+        circle: '<circle cx="12" cy="12" r="8.5"/>',
+        heart: '<path d="M12 20s-7.5-4.6-7.5-10A4.2 4.2 0 0 1 12 7.6 4.2 4.2 0 0 1 19.5 10c0 5.4-7.5 10-7.5 10z"/>',
+        diamond: '<path d="M12 3l8.5 9-8.5 9-8.5-9z"/>',
+        hexagon: '<path d="M12 3l7.8 4.5v9L12 21l-7.8-4.5v-9z"/>'
+      };
+      [...$('maskTabs').children].forEach(b => {
+        const k = (b.dataset.maskId || b.textContent).toLowerCase();
+        const key = Object.keys(ICONS).find(n => k.includes(n)) || 'none';
+        if (b.querySelector('svg')) return;
+        const label = b.textContent;
+        b.innerHTML = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true">' + ICONS[key] + '</svg><span></span>';
+        b.querySelector('span').textContent = label;
+      });
+      $('maskTabs').addEventListener('click', e => { if (e.target.closest('button')) peek(); });
+      $('layoutTabs').addEventListener('click', e => { if (e.target.closest('button')) peek(); });
+
+      // Stap III: Words · Typeface · Size
+      const p2 = panelOf(2);
+      const fontHead = headFor('shopSlotFont');
+      const sizeSlot = slot('shopSlotTextSizes');
+      const more2 = sizeSlot.closest('details');
+      const presets = document.createElement('div');
+      presets.className = 'ux-presets';
+      const ranges = ['placeFontSizeInput', 'countryFontSizeInput', 'coordsFontSizeInput'].map(id => $(id)).filter(Boolean);
+      const base = ranges.map(r => parseFloat(r.value) || 1);
+      [['Small', 0.85], ['Medium', 1], ['Large', 1.2]].forEach(([label, f]) => {
+        const b = document.createElement('button');
+        b.type = 'button'; b.textContent = label; b.dataset.f = f;
+        b.setAttribute('aria-pressed', f === 1 ? 'true' : 'false');
+        b.addEventListener('click', () => {
+          ranges.forEach((r, j) => {
+            const v = Math.min(+r.max, Math.max(+r.min, base[j] * f));
+            r.value = String(Math.round(v * 20) / 20);
+            r.dispatchEvent(new Event('input', { bubbles: true }));
+            r.dispatchEvent(new Event('change', { bubbles: true }));
+          });
+          [...presets.children].forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+          peek();
+        });
+        presets.appendChild(b);
+      });
+      const fine = document.createElement('details');
+      fine.className = 'step-more ux-fine';
+      fine.innerHTML = '<summary>Fine-tune each line</summary>';
+      fine.appendChild(sizeSlot);
+      ranges.forEach(r => r.addEventListener('input', e => { if (e.isTrusted) [...presets.children].forEach(x => x.setAttribute('aria-pressed', 'false')); }));
+      segs(2, [
+        { label: 'Words', els: [slot('shopSlotCaption')] },
+        { label: 'Typeface', els: [fontHead, slot('shopSlotFont')], peek: true },
+        { label: 'Size', els: [presets, fine], peek: true }
+      ]);
+      if (more2) more2.remove();
+      if (fontHead) fontHead.hidden = true;
+
+      // Stap IV: lijst bovenaan als rij kleurstalen, formaten eronder
+      const p3 = panelOf(3);
+      p3.querySelector('.step-title').innerHTML = 'Size &amp; <em>frame</em>';
+      p3.querySelector('.step-lede').textContent = 'Pick a frame and a size. The preview takes the exact shape of the size you choose.';
+      const fHead = p3.querySelector('.frame-head');
+      if (!frameGrid.hidden) {
+        p3.querySelector('.step-lede').after(fHead, frameGrid);
+        fHead.innerHTML = 'Frame <span class="optional">solid pine, ready to hang</span>';
+        const sHead = document.createElement('h3');
+        sHead.className = 'step-sub ux-size-head'; sHead.textContent = 'Size';
+        frameGrid.after(sHead);
+        sHead.after(sizeGrid);
+        frameGrid.classList.add('ux-frame-row');
+        let wasNone = frameId === 'none';
+        frameGrid.addEventListener('click', e => {
+          if (!e.target.closest('.frame-card')) return;
+          const none = frameId === 'none';
+          if (wasNone && !none && !STUDIO) setView('room');
+          if (none) setView('studio');
+          wasNone = none;
+          peek();
+        });
+      }
+
+      // Stap I: iconen eerst; een icoon kiezen = meteen een pin plaatsen
+      const p0 = panelOf(0);
+      const pinHead = p0.querySelector('.step-block .step-sub');
+      if (pinHead) pinHead.innerHTML = 'Mark where it happened <span class="optional">optional</span>';
+      const unitPins = $('unitPins'), iconRow = $('pinIconTabs'), addBtn = $('addPinBtn');
+      if (unitPins && iconRow) unitPins.insertBefore(iconRow, unitPins.firstChild);
+      if (iconRow && addBtn) iconRow.addEventListener('click', e => {
+        if (!e.target.closest('button')) return;
+        const pp = window.LocationApp && window.LocationApp.getPins ? window.LocationApp.getPins() : null;
+        const hasSelected = pp && pp.selected != null && pp.selected >= 0;
+        if (!addBtn.classList.contains('active') && !hasSelected) addBtn.click();
+        peek();
+      });
+      const hint = $('pinsHint');
+      if (hint) hint.textContent = 'Choose an icon, then tap the spot on the map. You can drag it afterwards.';
+    })();
 
     // location.js start op een formaat dat niet (meer) in de lijst staat —
     // daarom altijd expliciet het standaardformaat kiezen.

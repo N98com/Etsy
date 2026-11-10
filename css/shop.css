@@ -565,3 +565,40 @@ html.is-hero #locationCanvas.hero-draw {
 @media (prefers-reduced-motion: reduce) {
   html.is-hero #locationCanvas.hero-draw { animation: none; -webkit-mask-image: none; mask-image: none; }
 }
+
+/* ---- TEST (?ux=2): keuzebalk per stap, opties naar voren ---- */
+.ux2 .ux-seg { display: flex; margin: 18px 0 22px; border: 1px solid var(--line-strong); }
+.ux2 .ux-seg button {
+  flex: 1 1 0; min-height: 44px; padding: 0 6px; border: 0; border-left: 1px solid var(--line-strong); background: transparent; color: var(--ink-2);
+  font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; cursor: pointer;
+  transition: background 0.2s var(--ease), color 0.2s var(--ease);
+}
+.ux2 .ux-seg button:first-child { border-left: 0; }
+.ux2 .ux-seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.ux2 .ux-pane[hidden] { display: none; }
+/* vormen: grote tegels */
+.ux2 #maskTabs { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px; }
+.ux2 #maskTabs button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; min-height: 84px; padding: 10px 4px; font-size: 12px; }
+.ux2 #maskTabs button svg { display: block; }
+.ux2 #layoutTabs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+.ux2 #layoutTabs button { min-height: 52px; }
+/* tekstgrootte: drie knoppen */
+.ux2 .ux-presets { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; margin-bottom: 18px; }
+.ux2 .ux-presets button {
+  min-height: 56px; border: 1px solid var(--line-strong); background: transparent; color: var(--ink); font-family: var(--serif); cursor: pointer;
+}
+.ux2 .ux-presets button:nth-child(1) { font-size: 15px; }
+.ux2 .ux-presets button:nth-child(2) { font-size: 19px; }
+.ux2 .ux-presets button:nth-child(3) { font-size: 24px; }
+.ux2 .ux-presets button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
+/* lijst: één rij kleurstalen bovenaan stap IV */
+.ux2 .step-panel[data-panel="3"] .frame-head { margin-top: 18px; }
+.ux2 .ux-frame-row { grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 6px; }
+.ux2 .ux-frame-row .frame-card {
+  grid-column: auto; display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 0; padding: 12px 4px 10px; text-align: center;
+}
+.ux2 .ux-frame-row .frame-swatch { width: 30px; height: 38px; border-width: 6px; }
+.ux2 .ux-frame-row .frame-text, .ux2 .ux-frame-row .frame-card:first-child .frame-text { flex-direction: column; align-items: center; justify-content: flex-start; }
+.ux2 .ux-frame-row .frame-name { font-size: 14px; line-height: 1.15; white-space: normal; }
+.ux2 .ux-frame-row .frame-price { font-size: 11px; }
+.ux2 .ux-size-head { margin-top: 24px; }
