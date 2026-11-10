@@ -186,23 +186,25 @@
   "id": "h-utrecht",
   "place": "Utrecht",
   "country": "Netherlands",
-  "lat": 52.0905,
-  "lon": 5.12,
+  "lat": 52.0907,
+  "lon": 5.1214,
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "zoom": 1.5
  },
  {
   "id": "h-antwerp",
   "place": "Antwerp",
   "country": "Belgium",
-  "lat": 51.219,
-  "lon": 4.403,
-  "palette": "obsidian-harbor",
+  "lat": 51.2205,
+  "lon": 4.4005,
+  "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "zoom": 1.3
  },
  {
   "id": "h-vienna",
@@ -230,11 +232,12 @@
   "id": "h-venice",
   "place": "Venice",
   "country": "Italy",
-  "lat": 45.438,
-  "lon": 12.334,
+  "lat": 45.4372,
+  "lon": 12.333,
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "zoom": 1.35
  }
 ]
