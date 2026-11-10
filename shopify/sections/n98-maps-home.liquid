@@ -819,10 +819,10 @@
     label(c);
     frame.classList.remove('is-final');
     frame.classList.add('is-drawing');
-    var SPEED = 2400 / 1000 * (t.w / 1200);      // grote wegen: px per ms in kaartmaat
+    var SPEED = 1500 / 1000 * (t.w / 1200);      // grote wegen: px per ms in kaartmaat
     var majorTotal = tr.majors.reduce(function (s, l) { return s + l.len; }, 0);
-    var MAJOR_MS = Math.min(5200, Math.max(2600, majorTotal / SPEED));
-    var CELL_MS = 3400 / Math.max(1, tr.cells.length);
+    var MAJOR_MS = Math.min(8500, Math.max(4200, majorTotal / SPEED));
+    var CELL_MS = 5600 / Math.max(1, tr.cells.length);
     var mi = 0, mDone = 0, ci = 0, cellT = 0, phase = 'major', last = performance.now(), areaA = 0, t0 = last;
     var speed = majorTotal / MAJOR_MS;
     function frameStep(now) {
@@ -849,7 +849,7 @@
           pencilAt((prevC.cx + (ce.cx - prevC.cx) * f) * k + wob, (prevC.cy + (ce.cy - prevC.cy) * f) * k + Math.cos(now / 51) * 10 * k, ce.cx - prevC.cx, ce.cy - prevC.cy);
         } else { phase = 'wash'; lctx.globalCompositeOperation = 'source-over'; t0 = now; frame.classList.add('is-lifting'); }
       } else if (phase === 'wash') {
-        areaA = Math.min(1, (now - t0) / 900);
+        areaA = Math.min(1, (now - t0) / 1200);
         if (areaA >= 1) { phase = 'done'; }
       }
       ctx.clearRect(0, 0, W, H);
