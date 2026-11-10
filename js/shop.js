@@ -282,6 +282,7 @@
       nextBtn.hidden = last;
       if (!last) nextBtn.textContent = 'Next: ' + STEP_NAMES[step + 1];
       if (last) updateSummary();
+      if (window.N98SyncBuyBtn) window.N98SyncBuyBtn();
       if (focusPanel) {
         // Op telefoon staat het paneel onder de (sticky) kaart: scroll terug
         // naar het begin van de stappen, zodat je niet halverwege een lijst
@@ -776,7 +777,7 @@
       if (e.source !== window.parent || !e.data || e.data.source !== 'n98-shop') return;
       adding = false;
       buyBtn.disabled = false;
-      buyLabel.textContent = 'Add to cart';
+      syncBuyBtn();
       if (e.data.type === 'added') openAddedSheet(e.data.itemCount);
       if (e.data.type === 'error') toast(e.data.message || 'Something went wrong. Please try again.');
     });
@@ -845,6 +846,19 @@
         buyLabel.textContent = 'Export print file';
       }
     }
+    // Webshop: in stap I tot III leidt de knop onderin naar de volgende stap,
+    // zodat niemand een half gepersonaliseerde kaart of het verkeerde formaat
+    // in het mandje legt. Pas in stap IV wordt het 'Add to cart'.
+    function onLastStep() { return step === STEP_NAMES.length - 1; }
+    function syncBuyBtn() {
+      if (STUDIO || adding) return;
+      const last = onLastStep();
+      buyLabel.textContent = last ? 'Add to cart' : 'Next: ' + STEP_NAMES[step + 1];
+      buyBtn.classList.toggle('is-next', !last);
+      nextBtn.hidden = true; // de knop onderin neemt het over
+    }
+    window.N98SyncBuyBtn = syncBuyBtn;
+    syncBuyBtn();
     if (STUDIO) {
       buyLabel.textContent = 'Export print file';
       const note = document.querySelector('.buy-note');
@@ -853,6 +867,7 @@
 
     buyBtn.addEventListener('click', () => {
       if (STUDIO) { exportPrint(); return; }
+      if (!onLastStep()) { goTo(step + 1, true); return; }
       if (confirmBtn.disabled) { toast('Your map is still being drawn, one moment please.'); return; }
       if (adding) return;
       confirmBtn.click(); // location.js: bouwt ontwerp-samenvatting + preview en stuurt die naar Shopify
