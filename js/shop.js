@@ -417,6 +417,15 @@
       $('placardPlace').textContent = placeName(s);
     }
     function updateSummary() {
+      // "In the box": alleen bij een lijst; tot 50×70 zit er ook een standaard op de achterkant
+      if (STUDIO) { const pr = document.querySelector('.promises'); if (pr) pr.remove(); }
+      const inc = $('frameIncluded');
+      if (inc) {
+        inc.hidden = STUDIO || frameId === 'none';
+        const big = /^in(24x36|28x40)$/.test(ratioSelect.value);
+        $('frameIncludedStand').hidden = big;
+        $('frameIncludedHang').textContent = big ? 'Hook attached on the back, ready for the wall' : 'Hanging kit included, for portrait or landscape';
+      }
       const s = summary();
       const box = $('shopSummary');
       box.innerHTML = '';

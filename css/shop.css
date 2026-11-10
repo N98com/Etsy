@@ -364,6 +364,17 @@ button.location-search-result:hover { background: var(--paper); }
 .frame-card:first-child .frame-text { flex-direction: row; justify-content: space-between; align-items: baseline; }
 
 /* overzicht als een bon */
+.frame-included { margin: 12px 0 4px; padding: 16px 18px; background: var(--card, #FBFAF7); border: 1px solid var(--line); }
+.frame-included[hidden] { display: none; }
+.frame-included-head { margin: 0 0 8px; font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); }
+.frame-included ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.frame-included li { position: relative; padding-left: 20px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.frame-included li::before { content: ''; position: absolute; left: 2px; top: 0.55em; width: 8px; height: 4px; border-left: 1.4px solid var(--accent); border-bottom: 1.4px solid var(--accent); transform: rotate(-45deg); }
+.frame-included li[hidden] { display: none; }
+.promises { margin: 18px 0 0; padding: 16px 0 0; list-style: none; display: grid; gap: 12px; border-top: 1px solid var(--line); }
+.promises li { display: flex; align-items: flex-start; gap: 12px; font-size: 14px; line-height: 1.45; color: var(--ink-2); }
+.promises svg { flex: 0 0 auto; margin-top: 1px; color: var(--ink); }
+.promises b { font-weight: 500; color: var(--ink); }
 .summary { margin: 10px 0 0; padding: 18px 0 0; border-top: 1px solid var(--ink); display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 10px 16px; }
 .summary:empty { display: none; }
 .summary dt { font-size: 10px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); padding-top: 4px; }

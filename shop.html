@@ -11,7 +11,7 @@
        embed/klant-modus), geen export-knoppen, geen Game Styles.
        ?v=N: cache-busting, verhoog bij elke push die css/shop.css of
        js/shop.js wijzigt. -->
-  <link rel="stylesheet" href="css/shop.css?v=22">
+  <link rel="stylesheet" href="css/shop.css?v=23">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Eerste regel: de shop-huisstijl. Tweede regel: de onderschrift-fonts
@@ -117,11 +117,25 @@
         <div class="step-panel" data-panel="3" role="tabpanel" hidden>
           <p class="step-eyebrow">Step IV of IV</p>
           <h2 class="step-title">Choose your <em>size</em></h2>
-          <p class="step-lede">Printed to order in eight gallery sizes, as a print or framed and ready to hang. Free shipping worldwide. The preview takes the exact shape of the size you choose.</p>
+          <p class="step-lede">Printed to order in eight gallery sizes, as a print or in a solid wood frame that arrives ready to hang. The preview takes the exact shape of the size you choose.</p>
           <div class="size-grid" id="shopSizeGrid"></div>
           <h3 class="step-sub frame-head">Frame <span class="optional">wooden, ready to hang</span></h3>
           <div class="frame-grid" id="shopFrameGrid" role="group" aria-label="Frame"></div>
+          <div class="frame-included" id="frameIncluded" hidden>
+            <p class="frame-included-head">In the box</p>
+            <ul>
+              <li>Your print, mounted in a solid wood frame</li>
+              <li id="frameIncludedHang">Hanging kit included, for portrait or landscape</li>
+              <li id="frameIncludedStand">A stand on the back, so it can also sit on a shelf</li>
+              <li>Arrives ready to hang, no framer needed</li>
+            </ul>
+          </div>
           <dl class="summary" id="shopSummary"></dl>
+          <ul class="promises" aria-label="Our promise">
+            <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7z"/><circle cx="7" cy="17.5" r="1.6"/><circle cx="17" cy="17.5" r="1.6"/></svg><span><b>Free shipping</b> worldwide</span></li>
+            <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M12 3l7 3v5c0 4.5-3 8-7 10-4-2-7-5.5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg><span><b>A new print</b> if it arrives damaged or wrong</span></li>
+            <li><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><rect x="4" y="9" width="16" height="11"/><path d="M4 13h16M12 9v11M12 9c-2-3-6-4-6-1.5S10 9 12 9zm0 0c2-3 6-4 6-1.5S14 9 12 9z"/></svg><span><b>Made to give.</b> A gift they keep for decades, not a season</span></li>
+          </ul>
           <details class="step-more">
             <summary>Paper &amp; print</summary>
             <dl class="spec-list">
@@ -352,7 +366,7 @@
   <script src="js/mapRender.js?v=58"></script>
   <script src="js/location.js?v=77"></script>
   <script src="js/studio.js?v=9"></script>
-  <script src="js/shop.js?v=32"></script>
+  <script src="js/shop.js?v=33"></script>
   <script src="js/hero.js?v=2"></script>
 </body>
 </html>
