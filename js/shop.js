@@ -1081,6 +1081,8 @@
         const card = document.querySelector('.map-palette-card[data-palette-id="' + occ.palette + '"]');
         if (card) card.click();
         if (LA && LA.selectMask) LA.selectMask(occ.mask);
+        // vorm: rustige mat eronder, anders loopt de vervaging door de vorm
+        if (occ.mask !== 'none') { const lb = document.querySelector('#layoutTabs [data-layout-id="default"]'); if (lb) lb.click(); }
         // stap I: zeggen waar je naar zoekt
         const p0 = document.querySelector('.step-panel[data-panel="0"]');
         if (p0) {
