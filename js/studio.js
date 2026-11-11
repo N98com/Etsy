@@ -112,7 +112,7 @@
         const fl = String(frameLabel || '').replace(/\s*\(.*\)$/, '').trim().toLowerCase();
         window.N98Shop.selectFrame(FRAME_IDS[fl] || 'none');
         window.N98Shop.updatePlacard();
-        window.N98Shop.goTo(3, false);
+        window.N98Shop.goTo(window.N98Shop.lastStep ? window.N98Shop.lastStep() : 3, false);
         window.N98Shop.toast(note || 'Order design loaded. Export the print file as soon as the map has finished drawing.');
       } catch (e) {
         window.N98Shop.toast('Could not load the order design: ' + e.message);

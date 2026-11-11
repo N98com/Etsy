@@ -96,10 +96,9 @@
   // js/studio.js): exact dezelfde tool, maar stap IV exporteert het
   // printbestand (300 dpi +50% pixels, exact Gelato-formaat) in plaats van "Add to cart".
   const STUDIO = !inIframe && new URLSearchParams(window.location.search).get('studio') === '1';
-  // Zes stappen, één keuze per scherm (uxTwoEarly/uxTwoLate). Standaard in
-  // de webshop; de Studio houdt de oude vier stappen (studio.js springt naar
-  // stap IV). ?ux=1 toont de oude indeling nog, voor vergelijking.
-  const UX2 = !STUDIO && !/[?&]ux=1\b/.test(window.location.search);
+  // Zes stappen, één keuze per scherm (uxTwoEarly/uxTwoLate), in de webshop
+  // én de Studio. ?ux=1 toont de oude vier stappen nog, voor vergelijking.
+  const UX2 = !/[?&]ux=1\b/.test(window.location.search);
   if (STUDIO) document.documentElement.classList.add('is-studio');
   // Printbestand: basis 300 dpi, met 50% meer pixels per zijde (1,5×, dus
   // effectief 450 pixels per inch). Zie PRINT_SCALE_DEFAULT in location.js.
@@ -1058,6 +1057,6 @@
     updatePlacard();
     goTo(0, false);
     // voor js/studio.js (ontwerp uit een bestel-link laden)
-    window.N98Shop = { selectSize, selectFrame, goTo, updatePlacard, updateSummary, toast };
+    window.N98Shop = { selectSize, selectFrame, goTo, updatePlacard, updateSummary, toast, lastStep: () => STEP_NAMES.length - 1 };
   });
 })();

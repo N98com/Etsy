@@ -626,3 +626,6 @@ html.is-hero #locationCanvas.hero-draw {
 .ux2 .ux-presets button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 /* lijst: grote kaarten, in een eigen stap */
 
+/* Studio: de prijsplek toont pixels, dus een smallere terug-knop */
+.is-studio.ux2 .ux-back { min-width: 44px; padding: 0 6px; }
+.is-studio.ux2 .ux-back span { display: none; }
