@@ -244,9 +244,9 @@
   "id": "o-wedding",
   "place": "Florence",
   "country": "Where we said yes · 21.06.2025",
-  "lat": 43.7696,
-  "lon": 11.2558,
-  "zoom": 1.8,
+  "lat": 43.77,
+  "lon": 11.254,
+  "zoom": 1.3,
   "palette": "rosewater-bloom",
   "pins": [
    {
@@ -299,7 +299,8 @@
   "pinColor": "#d4af6a",
   "pinScale": 1.5,
   "w": 900,
-  "h": 1260
+  "h": 1260,
+  "layout": "default"
  },
  {
   "id": "o-new-baby",
@@ -340,7 +341,8 @@
   "pinColor": "#b3262e",
   "pinScale": 1.6,
   "w": 900,
-  "h": 1260
+  "h": 1260,
+  "layout": "default"
  },
  {
   "id": "o-memorial",
@@ -361,6 +363,7 @@
   "pinColor": "#9c7a3c",
   "pinScale": 1.5,
   "w": 900,
-  "h": 1260
+  "h": 1260,
+  "layout": "default"
  }
 ]
