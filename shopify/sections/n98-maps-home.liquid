@@ -69,7 +69,7 @@
 .n98h .n98-sec-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: flex-end; gap: 24px; margin-bottom: clamp(36px, 5vw, 60px); }
 .n98h .n98-sec-head h2 { font-size: clamp(38px, 4.6vw, 62px); line-height: 1.02; max-width: 15em; }
 .n98h .n98-sec-head .n98-stack { display: flex; flex-direction: column; gap: 14px; }
-.n98h .n98-step-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98h .n98-step-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 40px; }
 .n98h .n98-step { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
 .n98h .n98-step .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
 .n98h .n98-step h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
@@ -398,14 +398,16 @@
 <section class="n98-steps" id="how-it-works">
     <div class="n98-wrap">
       <div class="n98-sec-head n98-reveal">
-        <h2>Four steps from a memory to a <em>map on the wall.</em></h2>
+        <h2>Six steps from a memory to a <em>map on the wall.</em></h2>
         <a class="n98-link-line" href="{{ n98_configurator_url }}">Start designing</a>
       </div>
       <div class="n98-step-grid">
-        <div class="n98-step n98-reveal"><span class="n98-num">I</span><h3>Place</h3><p>Search any city, street or doorstep, then drag and zoom until the framing feels right.</p></div>
-        <div class="n98-step n98-reveal"><span class="n98-num">II</span><h3>Style</h3><p>Choose from palettes composed to live on a wall, from midnight gold to glacier mist.</p></div>
-        <div class="n98-step n98-reveal"><span class="n98-num">III</span><h3>Text</h3><p>Keep the place name or write your own: a name, a date, a line that matters.</p></div>
-        <div class="n98-step n98-reveal"><span class="n98-num">IV</span><h3>Size &amp; frame</h3><p>Eight gallery sizes, with an optional solid wood frame, ready to hang. See it on a wall, to scale, before you order.</p></div>
+        <div class="n98-step n98-reveal"><span class="n98-num">I</span><h3>Place</h3><p>Search any city, street or doorstep, drag and zoom until the framing feels right, then check the words on your map.</p></div>
+        <div class="n98-step n98-reveal"><span class="n98-num">II</span><h3>Colours</h3><p>Choose from palettes composed to live on a wall, from midnight gold to glacier mist.</p></div>
+        <div class="n98-step n98-reveal"><span class="n98-num">III</span><h3>Shape</h3><p>A classic rectangle, a circle or a heart, with a layout that frames your place just right.</p></div>
+        <div class="n98-step n98-reveal"><span class="n98-num">IV</span><h3>Text</h3><p>Pick a typeface, a size and a colour for your words: a name, a date, a line that matters.</p></div>
+        <div class="n98-step n98-reveal"><span class="n98-num">V</span><h3>Pins</h3><p>Mark where it happened with a heart, a house, two rings or your own initials. Optional, and easy to skip.</p></div>
+        <div class="n98-step n98-reveal"><span class="n98-num">VI</span><h3>Size &amp; frame</h3><p>Eight gallery sizes, as a print or in a solid pine frame, ready to hang. See it on a wall, to scale, before you order.</p></div>
       </div>
     </div>
   </section>
