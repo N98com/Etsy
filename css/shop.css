@@ -567,7 +567,7 @@ html.is-hero #locationCanvas.hero-draw {
 }
 
 /* ---- TEST (?ux=2): zeven stappen, één keuze per scherm ---- */
-.ux2 .steps { grid-template-columns: repeat(6, minmax(0, 1fr)); padding: 14px 0 12px; row-gap: 12px; }
+.ux2 .steps { grid-template-columns: repeat(6, minmax(0, 1fr)); padding: 14px 0 12px; }
 .ux2 .step-indicator { display: none; }
 .ux2 .step-panel > .step-eyebrow { display: none; }
 /* stappenbalk: bolletjes verbonden door een lijn die meegroeit */
@@ -590,7 +590,7 @@ html.is-hero #locationCanvas.hero-draw {
   border: 1px solid var(--line-strong); background: var(--card); color: var(--mute);
   transition: background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.45s var(--ease);
 }
-.ux-num { font-family: var(--mono); font-size: 10px; line-height: 1; }
+.ux-num { font-family: var(--serif); font-style: italic; font-size: 13px; line-height: 1; }
 .ux-check { position: absolute; width: 14px; height: 14px; fill: none; stroke: var(--paper); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; opacity: 0; }
 .ux2 .step-tab.active .ux-dot { border-color: var(--ink); background: var(--ink); color: var(--paper); box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--gold); }
 .ux2 .step-tab.past .ux-dot { border-color: var(--accent); background: var(--accent); }

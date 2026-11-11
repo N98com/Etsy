@@ -321,17 +321,12 @@
       const bar = document.querySelector('.steps');
       bar.querySelectorAll('.step-tab').forEach(t => t.remove());
       const ind = bar.querySelector('.step-indicator');
-      // kop boven de stappen: een zinnetje per stap en de teller
-      const head = document.createElement('div');
-      head.className = 'ux-stepper-head';
-      head.innerHTML = '<span class="ux-msg" id="uxMsg"></span><span class="ux-count" id="uxCount"></span>';
-      bar.insertBefore(head, bar.firstChild);
       STEP_NAMES.forEach((n, i) => {
         const b = document.createElement('button');
         b.type = 'button'; b.className = 'step-tab' + (i === 0 ? ' active' : '');
         b.setAttribute('role', 'tab'); b.setAttribute('aria-selected', i === 0 ? 'true' : 'false'); b.dataset.step = String(i);
         b.setAttribute('aria-label', 'Step ' + (i + 1) + ': ' + n);
-        b.innerHTML = '<span class="ux-dot"><svg class="ux-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4"/></svg><span class="ux-num">' + (i + 1) + '</span></span><span class="step-tab-label">' + n + '</span>';
+        b.innerHTML = '<span class="ux-dot"><svg class="ux-check" viewBox="0 0 16 16" aria-hidden="true"><path d="M4 8.4l2.6 2.6L12 5.4"/></svg><span class="ux-num">' + ['I', 'II', 'III', 'IV', 'V', 'VI', 'VII'][i] + '</span></span><span class="step-tab-label">' + n + '</span>';
         bar.insertBefore(b, ind);
       });
     })();
@@ -1040,10 +1035,6 @@
       window.N98OnStep = st => {
         const locked = st >= 4;
         const bb = $('uxBackBtn'); if (bb) bb.hidden = st === 0;
-        const MSG = ['Where it all begins', 'Finding its colours', 'Giving it shape', 'In your own words', 'Marking the moments', 'Ready for the wall'];
-        const msg = $('uxMsg'), cnt = $('uxCount');
-        if (msg) { msg.textContent = MSG[st] || ''; msg.classList.remove('is-in'); void msg.offsetWidth; msg.classList.add('is-in'); }
-        if (cnt) cnt.innerHTML = '<b>' + String(st + 1).padStart(2, '0') + '</b> / ' + String(STEP_NAMES.length).padStart(2, '0');
         tabs.forEach((t, k) => t.classList.toggle('past', k < st));
         window.N98MapLocked = locked;
         document.documentElement.classList.toggle('map-locked', locked);
