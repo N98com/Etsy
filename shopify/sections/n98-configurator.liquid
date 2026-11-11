@@ -22,7 +22,7 @@
     endif
   endfor
 -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -52,8 +52,9 @@
 <script>
   (function () {
     var frame = document.getElementById('n98c-frame-{{ section.id }}');
-    // Homepage handoff: /products/...#design=... opens the designer with that map
-    if (/^#design=[A-Za-z0-9_-]+$/.test(window.location.hash)) {
+    // Homepage handoff: /products/...#design=... (een kaart uit de galerij) of
+    // #occasion=... (een cadeau-sjabloon) opent de designer daarmee
+    if (/^#(design=[A-Za-z0-9_-]+|occasion=[a-z-]+)$/.test(window.location.hash)) {
       frame.src = frame.src.split('#')[0] + window.location.hash;
       try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
     }

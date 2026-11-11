@@ -86,6 +86,23 @@
 .n98h .n98-step p { color: var(--ink-2); font-weight: 300; }
 
 /* cadeau */
+.n98h .n98-occasions { background: var(--paper, #F4F1EB); }
+.n98h .n98-occasions .n98-wrap { padding-top: clamp(72px, 9vw, 120px); padding-bottom: clamp(40px, 5vw, 64px); }
+.n98h .n98-occ-lede { max-width: 26em; margin: 0; color: #5E594F; font-size: 16px; line-height: 1.6; }
+.n98h .n98-occ-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.n98h .n98-occ { display: flex; flex-direction: column; gap: 10px; color: inherit; text-decoration: none; }
+.n98h .n98-occ-img { background: #E6E0D5; padding: 9%; margin-bottom: 8px; transition: background 0.4s ease; }
+.n98h .n98-occ-img img { display: block; width: 100%; height: auto; box-shadow: 0 1px 1px rgba(30,24,16,.1), 0 22px 36px -18px rgba(30,24,16,.55); transition: transform 0.6s cubic-bezier(.22,.61,.36,1); }
+.n98h .n98-occ:hover .n98-occ-img img { transform: translateY(-6px); }
+.n98h .n98-occ h3 { margin: 0; font-family: 'Cormorant Garamond', Georgia, serif; font-style: italic; font-weight: 400; font-size: clamp(22px, 2.2vw, 28px); line-height: 1.1; }
+.n98h .n98-occ-go { display: inline-flex; align-items: center; gap: 10px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.2em; text-transform: uppercase; color: #141414; }
+.n98h .n98-occ:hover .n98-occ-go svg { transform: translateX(4px); }
+.n98h .n98-occ-go svg { transition: transform 0.3s ease; }
+@media (max-width: 899px) {
+  .n98h .n98-occ-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+  .n98h .n98-occ h3 { font-size: 21px; }
+  .n98h .n98-occ-go { font-size: 9.5px; letter-spacing: 0.14em; }
+}
 .n98h .n98-gift { background: #141513; color: #EDE8DE; }
 .n98h .n98-gift .n98-wrap { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 420px), 1fr)); gap: clamp(40px, 7vw, 96px); align-items: center; padding-top: clamp(80px, 10vw, 136px); padding-bottom: clamp(80px, 10vw, 136px); }
 .n98h .n98-gift .n98-pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; align-items: end; }
@@ -420,6 +437,23 @@
   </div>
 </div>
 
+<section class="n98-occasions" id="gifts">
+    <div class="n98-wrap">
+      <div class="n98-sec-head n98-reveal">
+        <div class="n98-stack"><p class="n98-eyebrow">Gifts for every moment</p><h2>Who is it <em>for?</em></h2></div>
+        <p class="n98-occ-lede">Pick the moment. We set the words, a pin and a palette for you; you only add the place.</p>
+      </div>
+      <div class="n98-occ-grid">
+        <a class="n98-occ n98-reveal" href="shop.html" data-occasion="wedding"><div class="n98-occ-img"><img src="img/home/o-wedding.jpg" alt="Florence map print with two rings, Where we said yes" loading="lazy" width="900" height="1260"></div><p class="n98-eyebrow">A wedding</p><h3>Where we said yes</h3><span class="n98-occ-go">Design this gift <svg width="18" height="8" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></span></a>
+        <a class="n98-occ n98-reveal" href="shop.html" data-occasion="new-home"><div class="n98-occ-img"><img src="img/home/o-new-home.jpg" alt="Haarlem map print with a house pin, Our first home" loading="lazy" width="900" height="1260"></div><p class="n98-eyebrow">A new home</p><h3>Our first home</h3><span class="n98-occ-go">Design this gift <svg width="18" height="8" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></span></a>
+        <a class="n98-occ n98-reveal" href="shop.html" data-occasion="anniversary"><div class="n98-occ-img"><img src="img/home/o-anniversary.jpg" alt="Paris map print in a heart shape, Where it all began" loading="lazy" width="900" height="1260"></div><p class="n98-eyebrow">An anniversary</p><h3>Where it all began</h3><span class="n98-occ-go">Design this gift <svg width="18" height="8" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></span></a>
+        <a class="n98-occ n98-reveal" href="shop.html" data-occasion="new-baby"><div class="n98-occ-img"><img src="img/home/o-new-baby.jpg" alt="Utrecht map print with a star, Where you were born" loading="lazy" width="900" height="1260"></div><p class="n98-eyebrow">A new baby</p><h3>Where you were born</h3><span class="n98-occ-go">Design this gift <svg width="18" height="8" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></span></a>
+        <a class="n98-occ n98-reveal" href="shop.html" data-occasion="valentine"><div class="n98-occ-img"><img src="img/home/o-valentine.jpg" alt="Venice map print in a heart shape, Where we met" loading="lazy" width="900" height="1260"></div><p class="n98-eyebrow">Valentine's Day</p><h3>Where we met</h3><span class="n98-occ-go">Design this gift <svg width="18" height="8" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></span></a>
+        <a class="n98-occ n98-reveal" href="shop.html" data-occasion="memorial"><div class="n98-occ-img"><img src="img/home/o-memorial.jpg" alt="Lisbon map print in a circle, Forever in our hearts" loading="lazy" width="900" height="1260"></div><p class="n98-eyebrow">In memory</p><h3>Forever in our hearts</h3><span class="n98-occ-go">Design this gift <svg width="18" height="8" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"></path></svg></span></a>
+      </div>
+    </div>
+  </section>
+
 <section class="n98-steps" id="how-it-works">
     <div class="n98-wrap">
       <div class="n98-sec-head n98-reveal">
@@ -675,6 +709,9 @@
   // --- galerie: elke print opent in de ontwerper, loep bij hover ---
   var designs = {};
   try { designs = JSON.parse((document.getElementById('n98h-designs') || {}).textContent || '{}'); } catch (e) {}
+  root.querySelectorAll('[data-occasion]').forEach(function (a) {
+    a.href = a.getAttribute('href').split('#')[0] + '#occasion=' + a.getAttribute('data-occasion');
+  });
   root.querySelectorAll('[data-design]').forEach(function (a) {
     var d = designs[a.getAttribute('data-design')];
     if (d) a.href = designUrl(d);
