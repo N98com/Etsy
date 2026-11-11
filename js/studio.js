@@ -326,5 +326,52 @@
     .studio-more { display: block; width: 100%; margin: 18px 0 0; padding: 13px; border: 1px solid #141414; background: transparent; color: #141414; font: 400 10.5px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .2em; text-transform: uppercase; cursor: pointer; }
     .studio-more:disabled { opacity: .5; }
     .studio-nodesign.is-old { color: #8A8378; }
-    .studio-nodesign { flex: none; max-width: 110px; text-align: right; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; color: #9A2E1F; }`;
+    .studio-nodesign { flex: none; max-width: 110px; text-align: right; font: 400 10px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .08em; color: #9A2E1F; }
+    /* ---- Workbench in het donkergroen van de homepage-hero, zodat je hem
+       nooit verwart met de winkel ---- */
+    html.is-studio {
+      --paper: #142019; --card: #1A2A21; --wall: #0F1913;
+      --ink: #EDE8DE; --ink-2: #CFC9BC; --mute: #A3AC9F;
+      --line: #2E3E34; --line-strong: #4D5E52;
+      --accent: #C9A96E; --gold: #C9A96E;
+      color-scheme: dark;
+    }
+    html.is-studio, html.is-studio body { background: #142019; color: #EDE8DE; }
+    html.is-studio .shop-stage { background: radial-gradient(120% 70% at 50% -10%, rgba(239, 226, 196, 0.10), rgba(239, 226, 196, 0) 60%), var(--wall); }
+    html.is-studio .stage-views, html.is-studio .stage-zoom, html.is-studio .stage-expand, html.is-studio .stage-loader {
+      background: rgba(26, 42, 33, 0.9); border-color: rgba(237, 232, 222, 0.14); color: #EDE8DE;
+    }
+    html.is-studio .view-btn + .view-btn { border-top-color: rgba(237, 232, 222, 0.12); }
+    html.is-studio .buy-bar { background: rgba(20, 32, 25, 0.95); }
+    html.is-studio .btn-buy { background: #C9A96E; color: #142019; }
+    html.is-studio .btn-buy:hover { background: #D8BC86; }
+    html.is-studio .shop-panel input[type=text]::placeholder { color: #7F897D; }
+    html.is-studio .ux2 .step-tab.past .ux-dot, html.is-studio.ux2 .step-tab.past .ux-dot { border-color: #C9A96E; background: #C9A96E; }
+    html.is-studio.ux2 .ux-check { stroke: #142019; }
+    html.is-studio.ux2 .step-tab.active .ux-dot { box-shadow: 0 0 0 4px var(--card), 0 0 0 5px #C9A96E; }
+    html.is-studio .size-card.active .size-in { color: #4D5E52; }
+    html.is-studio .shop-logo-mark { filter: invert(1) sepia(0.18) brightness(0.93); }
+    html.is-studio .shop-note { background: #0F1913; color: #A3AC9F; border-bottom: 1px solid #2E3E34; }
+    /* inloggen */
+    .studio-gate { background: #142019; }
+    .studio-eyebrow, .studio-card label { color: #A3AC9F; }
+    .studio-card h1 { color: #EDE8DE; }
+    .studio-hint { color: #CFC9BC; }
+    .studio-card input { background: #1A2A21; border-color: #4D5E52; color: #EDE8DE; }
+    .studio-card input:focus { outline-color: #C9A96E; }
+    .studio-card button, .studio-item button, .studio-actions button { background: #C9A96E; color: #142019; }
+    .studio-error, .studio-addr .studio-warn, .studio-ship .is-off, .studio-nodesign { color: #E59A86; }
+    /* orders */
+    .studio-orders { background: #142019; border-right-color: #2E3E34; }
+    .studio-orders__head, .studio-orders__tabs, .studio-order, .studio-orders__foot { border-color: #2E3E34; }
+    .studio-orders__head h2, .studio-x, .studio-order header b, .studio-item__txt strong, .studio-row dd, .studio-addr p { color: #EDE8DE; }
+    .studio-order header span, .studio-ship, .studio-empty, .studio-signout, .studio-order.is-ready header b, .studio-row dt, .studio-nodesign.is-old { color: #A3AC9F; }
+    .studio-item__txt span { color: #CFC9BC; }
+    .studio-ship em { color: #C9A96E; }
+    .studio-orders__tabs button { border-color: #2E3E34; color: #CFC9BC; }
+    .studio-orders__tabs button[aria-pressed="true"] { background: #EDE8DE; border-color: #EDE8DE; color: #142019; }
+    .studio-addr { background: #1A2A21; border-color: #2E3E34; }
+    .studio-more { border-color: #EDE8DE; color: #EDE8DE; }
+    .studio-orders-btn, .studio-orders-inline { background: #EDE8DE !important; border-color: #EDE8DE !important; color: #142019 !important; }
+    .studio-logout { background: #142019; border-color: #2E3E34; color: #CFC9BC; }`;
 })();
