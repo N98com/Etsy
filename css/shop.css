@@ -567,11 +567,38 @@ html.is-hero #locationCanvas.hero-draw {
 }
 
 /* ---- TEST (?ux=2): zeven stappen, één keuze per scherm ---- */
-.ux2 .steps { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-.ux2 .step-tab { min-height: 52px; padding: 0 2px; }
-.ux2 .step-tab-label { font-size: 9.5px; letter-spacing: 0.14em; white-space: nowrap; }
-.ux2 .step-tab.done:not(.active) { color: var(--ink-2); }
-.ux2 .step-indicator { width: calc(100% / 6); height: 2px; bottom: -1px; }
+.ux2 .steps { grid-template-columns: repeat(6, minmax(0, 1fr)); padding: 14px 0 12px; row-gap: 12px; }
+.ux2 .step-indicator { display: none; }
+.ux2 .step-panel > .step-eyebrow { display: none; }
+/* stappenbalk: bolletjes verbonden door een lijn die meegroeit */
+.ux-stepper-head { grid-column: 1 / -1; display: flex; align-items: baseline; justify-content: space-between; padding: 0 22px; }
+.ux-msg { font-family: var(--serif); font-style: italic; font-size: 20px; line-height: 1; color: var(--ink); }
+.ux-msg.is-in { animation: uxMsgIn 0.6s var(--ease) both; }
+@keyframes uxMsgIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: none; } }
+.ux-count { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; color: var(--mute); }
+.ux-count b { font-weight: 500; color: var(--gold); }
+.ux2 .step-tab { min-height: 0; padding: 0 2px; justify-content: flex-start; gap: 8px; color: var(--mute); }
+.ux2 .step-tab::before {
+  content: ''; position: absolute; top: 13px; right: 50%; width: 100%; height: 1px; z-index: 0;
+  background: linear-gradient(var(--ink), var(--ink)) no-repeat left center / 0% 100%, var(--line-strong);
+  transition: background-size 0.55s var(--ease);
+}
+.ux2 .step-tab:first-of-type::before { display: none; }
+.ux2 .step-tab.past::before, .ux2 .step-tab.active::before { background-size: 100% 100%; }
+.ux-dot {
+  position: relative; z-index: 1; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  border: 1px solid var(--line-strong); background: var(--card); color: var(--mute);
+  transition: background 0.35s var(--ease), border-color 0.35s var(--ease), color 0.35s var(--ease), box-shadow 0.45s var(--ease);
+}
+.ux-num { font-family: var(--mono); font-size: 10px; line-height: 1; }
+.ux-check { position: absolute; width: 14px; height: 14px; fill: none; stroke: var(--paper); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; stroke-dasharray: 14; stroke-dashoffset: 14; opacity: 0; }
+.ux2 .step-tab.active .ux-dot { border-color: var(--ink); background: var(--ink); color: var(--paper); box-shadow: 0 0 0 4px var(--card), 0 0 0 5px var(--gold); }
+.ux2 .step-tab.past .ux-dot { border-color: var(--accent); background: var(--accent); }
+.ux2 .step-tab.past .ux-num { opacity: 0; }
+.ux2 .step-tab.past .ux-check { opacity: 1; stroke-dashoffset: 0; transition: stroke-dashoffset 0.45s 0.15s var(--ease), opacity 0.1s 0.15s; }
+.ux2 .step-tab-label { font-size: 9px; letter-spacing: 0.14em; white-space: nowrap; }
+.ux2 .step-tab.active .step-tab-label { color: var(--ink); }
+.ux2 .step-tab.past .step-tab-label { color: var(--ink-2); }
 .ux2 .step-nav[hidden] { display: none; }
 /* terug-knop onderin links */
 .ux2 .ux-back {
