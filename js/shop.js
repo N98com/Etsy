@@ -96,8 +96,10 @@
   // js/studio.js): exact dezelfde tool, maar stap IV exporteert het
   // printbestand (300 dpi +50% pixels, exact Gelato-formaat) in plaats van "Add to cart".
   const STUDIO = !inIframe && new URLSearchParams(window.location.search).get('studio') === '1';
-  // TEST: nieuwe indeling van de stappen (zie uxTwo onderaan)
-  const UX2 = /[?&]ux=2\b/.test(window.location.search) || /[#&]ux=2\b/.test(window.location.hash);
+  // Zes stappen, één keuze per scherm (uxTwoEarly/uxTwoLate). Standaard in
+  // de webshop; de Studio houdt de oude vier stappen (studio.js springt naar
+  // stap IV). ?ux=1 toont de oude indeling nog, voor vergelijking.
+  const UX2 = !STUDIO && !/[?&]ux=1\b/.test(window.location.search);
   if (STUDIO) document.documentElement.classList.add('is-studio');
   // Printbestand: basis 300 dpi, met 50% meer pixels per zijde (1,5×, dus
   // effectief 450 pixels per inch). Zie PRINT_SCALE_DEFAULT in location.js.
@@ -261,7 +263,7 @@
     $('pinColorInput').addEventListener('input', () => requestAnimationFrame(renderPinList));
     renderPinList();
 
-    // ---- TEST (?ux=2): zeven stappen, één keuze per scherm ----
+    // ---- Zes stappen, één keuze per scherm ----
     // Place (+ tekst controleren) · Colours · Shape & layout · Text · Pins ·
     // Size · Frame. De kaart is te verslepen in stap 1 tot en met 4; bij
     // Pins, Size en Frame staat hij vast (pins plaatsen en slepen kan wel).
