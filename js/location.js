@@ -1831,5 +1831,13 @@ window.LocationApp = (() => {
     }),
     selectPin: i => selectPin(i),
     removePin,
+    selectMask: id => selectMask(id),
+    // Pin op een vaste plek, met een gekozen icoon (bv. cadeau-sjablonen)
+    addPinAt: (lat, lon, icon) => {
+      if (state.selectedPin != null) selectPin(null);
+      if (icon) selectPinIcon(icon);
+      state.pins.push(newPin(lat, lon));
+      selectPin(state.pins.length - 1);
+    },
   };
 })();

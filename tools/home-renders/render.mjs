@@ -33,6 +33,8 @@ for (const d of designs) {
     pins: d.pins || [],
   });
   if (d.pinColor) state.pinColor = d.pinColor;
+  if (d.mask) state.mask = d.mask;
+  if (d.layout) state.layout = d.layout;
   if (d.pinScale) state.pinScale = d.pinScale;
   await page.evaluate(s => window.LocationApp.applyDesign(s), state);
   await page.waitForTimeout(400);

@@ -239,5 +239,128 @@
   "h": 1680,
   "trace": true,
   "zoom": 1.35
+ },
+ {
+  "id": "o-wedding",
+  "place": "Florence",
+  "country": "Where we said yes · 21.06.2025",
+  "lat": 43.7696,
+  "lon": 11.2558,
+  "zoom": 1.8,
+  "palette": "rosewater-bloom",
+  "pins": [
+   {
+    "lat": 43.7731,
+    "lon": 11.256,
+    "icon": "rings"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-new-home",
+  "place": "Haarlem",
+  "country": "Our first home",
+  "lat": 52.3812,
+  "lon": 4.6368,
+  "zoom": 2.2,
+  "palette": "parchment-sepia",
+  "pins": [
+   {
+    "lat": 52.3826,
+    "lon": 4.639,
+    "icon": "house"
+   }
+  ],
+  "pinColor": "#7a3b1c",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-anniversary",
+  "place": "Paris",
+  "country": "Where it all began · 2016",
+  "lat": 48.8566,
+  "lon": 2.3422,
+  "zoom": 1.2,
+  "palette": "bordeaux-gold",
+  "mask": "heart",
+  "pins": [
+   {
+    "lat": 48.853,
+    "lon": 2.3499,
+    "icon": "heartpin"
+   }
+  ],
+  "pinColor": "#d4af6a",
+  "pinScale": 1.5,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-new-baby",
+  "place": "Utrecht",
+  "country": "Where you were born · 03.02.2026",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "zoom": 1.6,
+  "palette": "glacier-mist",
+  "pins": [
+   {
+    "lat": 52.088,
+    "lon": 5.119,
+    "icon": "star"
+   }
+  ],
+  "pinColor": "#c79a3b",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-valentine",
+  "place": "Venice",
+  "country": "Where we met",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "zoom": 1.3,
+  "palette": "cherry-blossom",
+  "mask": "heart",
+  "pins": [
+   {
+    "lat": 45.438,
+    "lon": 12.3358,
+    "icon": "heart"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-memorial",
+  "place": "Lisbon",
+  "country": "Forever in our hearts",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "zoom": 1.3,
+  "palette": "mono",
+  "mask": "circle",
+  "pins": [
+   {
+    "lat": 38.7139,
+    "lon": -9.1394,
+    "icon": "star"
+   }
+  ],
+  "pinColor": "#9c7a3c",
+  "pinScale": 1.5,
+  "w": 900,
+  "h": 1260
  }
 ]

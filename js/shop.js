@@ -1049,6 +1049,97 @@
       window.N98OnStep(step);
     }
     if (UX2) uxTwoLate();
+    // ---- Cadeaus (test): gelegenheden + tekstsuggesties ----
+    // #occasion=wedding (vanaf de homepage) zet woorden, pin, palet en vorm
+    // klaar; zodra de klant een plek kiest, komen de woorden en de pin erop.
+    // De suggesties onder "Your map will say" alleen met gifts=1 of een
+    // gelegenheid, zodat de live winkel ongewijzigd blijft tot we live gaan.
+    (function gifts() {
+      const OCCASIONS = {
+        'wedding':     { line: 'Where we said yes', pin: 'rings', palette: 'rosewater-bloom', mask: 'none', label: 'A wedding gift', lede: 'Search the place where you said yes. We have set the words and a pin for you.' },
+        'new-home':    { line: 'Our first home', pin: 'house', palette: 'parchment-sepia', mask: 'none', label: 'A new home', lede: 'Search the address of the new home. We have set the words and a pin for you.' },
+        'anniversary': { line: 'Where it all began', pin: 'heartpin', palette: 'bordeaux-gold', mask: 'heart', label: 'An anniversary', lede: 'Search the place where your story began. We have set the words, a heart and a pin for you.' },
+        'new-baby':    { line: 'Where you were born', pin: 'star', palette: 'glacier-mist', mask: 'none', label: 'A new baby', lede: 'Search the place where your little one was born. We have set the words and a pin for you.' },
+        'valentine':   { line: 'Where we met', pin: 'heart', palette: 'cherry-blossom', mask: 'heart', label: "Valentine's Day", lede: 'Search the place where you met. We have set the words, a heart and a pin for you.' },
+        'memorial':    { line: 'Forever in our hearts', pin: 'star', palette: 'mono', mask: 'circle', label: 'In memory', lede: 'Search a place that holds their memory. We have set the words and a pin for you.' }
+      };
+      const loc = window.location;
+      const m = /(?:^|[#&?])occasion=([a-z-]+)/.exec(loc.hash + '&' + loc.search);
+      const occ = m && OCCASIONS[m[1]];
+      const giftsOn = !!occ || /(?:^|[#&?])gifts=1\b/.test(loc.hash + '&' + loc.search);
+      const LA = window.LocationApp;
+      const subInput = $('countryNameInput');
+      const setLine = txt => {
+        if (!subInput) return;
+        subInput.value = txt;
+        subInput.dispatchEvent(new Event('input', { bubbles: true }));
+        subInput.dispatchEvent(new Event('change', { bubbles: true }));
+      };
+
+      if (occ && !STUDIO) {
+        // palet en vorm meteen
+        const card = document.querySelector('.map-palette-card[data-palette-id="' + occ.palette + '"]');
+        if (card) card.click();
+        if (LA && LA.selectMask) LA.selectMask(occ.mask);
+        // stap I: zeggen waar je naar zoekt
+        const p0 = document.querySelector('.step-panel[data-panel="0"]');
+        if (p0) {
+          const lede = p0.querySelector('.step-lede');
+          if (lede) lede.textContent = occ.lede;
+          const tag = document.createElement('p');
+          tag.className = 'gift-tag';
+          tag.textContent = occ.label;
+          p0.querySelector('.step-title').before(tag);
+        }
+        let ownPin = false;
+        document.addEventListener('mapgen:place', () => {
+          setLine(occ.line);
+          if (!LA || !LA.addPinAt) return;
+          const pins = LA.getPins().pins;
+          const replace = ownPin && pins.length === 1;
+          if (replace) LA.removePin(0);
+          if (!pins.length || replace) {
+            const c = LA.getDesignState().center;
+            LA.addPinAt(c.lat, c.lon, occ.pin);
+            if (LA.selectPin) LA.selectPin(null);
+            ownPin = true;
+          }
+        });
+        document.addEventListener('mapgen:pins', () => { if (ownPin && LA.getPins().pins.length !== 1) ownPin = false; });
+      }
+
+      if (giftsOn) {
+        // woorden kiezen met één tik, plus een datum
+        const slot = $('shopSlotCaption');
+        if (!slot) return;
+        const box = document.createElement('div');
+        box.className = 'gift-words';
+        box.innerHTML = '<p class="gift-words-head">Need words? <span>Tap one, then change it if you like.</span></p><div class="gift-chips"></div>' +
+          '<label class="gift-date"><span>Add a date</span><input type="date" aria-label="Add a date to the second line"></label>';
+        const chips = box.querySelector('.gift-chips');
+        ['Where we met', 'Where we said yes', 'Our first home', 'Where it all began', 'Where you were born', 'Home is wherever you are', 'Forever in our hearts']
+          .forEach(t => {
+            const b = document.createElement('button');
+            b.type = 'button'; b.textContent = t;
+            b.addEventListener('click', () => {
+              const date = (subInput.value.match(/ · \d{2}\.\d{2}\.\d{4}$/) || [''])[0];
+              setLine(t + date);
+            });
+            chips.appendChild(b);
+          });
+        const dateIn = box.querySelector('input[type=date]');
+        dateIn.addEventListener('change', () => {
+          if (!dateIn.value) return;
+          const [y, mo, d] = dateIn.value.split('-');
+          const base = (subInput.value || '').replace(/ · \d{2}\.\d{2}\.\d{4}$/, '') || (subInput.placeholder && !/automatic/i.test(subInput.placeholder) ? subInput.placeholder : '');
+          setLine((base ? base + ' · ' : '') + d + '.' + mo + '.' + y);
+        });
+        slot.appendChild(box);
+        const showCountry = $('showCountryCheck');
+        box.addEventListener('click', () => { if (showCountry && !showCountry.checked) { showCountry.checked = true; showCountry.dispatchEvent(new Event('change', { bubbles: true })); } });
+      }
+    })();
+
 
     // location.js start op een formaat dat niet (meer) in de lijst staat —
     // daarom altijd expliciet het standaardformaat kiezen.
