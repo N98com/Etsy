@@ -1,0 +1,11 @@
+{
+  "sections": {
+    "main": {
+      "type": "n98-occasion",
+      "settings": {}
+    }
+  },
+  "order": [
+    "main"
+  ]
+}
