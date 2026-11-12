@@ -1,0 +1,152 @@
+{%- comment -%}
+  N°98 Maps: pagina per stad (template page.city), en een overzicht van alle
+  steden als de pagina geen stad heeft (de hub /pages/city-map-prints).
+  De stad staat in de metafield n98.city (json: name, country, lat, lon,
+  palette, scale, img). De knop opent de ontwerper met precies die kaart
+  (#design=..., zoals de galerij op de homepage).
+{%- endcomment -%}
+{%- liquid
+  assign city = page.metafields.n98.city.value
+  assign lede = page.metafields.n98.lede.value
+  assign designer = all_products['design-your-map']
+  assign designer_url = '/products/design-your-map'
+  if designer
+    assign designer_url = designer.url
+  endif
+  assign slugs = 'amsterdam|rotterdam|utrecht|antwerp|paris|london|berlin|vienna|prague|rome|venice|barcelona|madrid|lisbon|copenhagen' | split: '|'
+  assign names = 'Amsterdam|Rotterdam|Utrecht|Antwerp|Paris|London|Berlin|Vienna|Prague|Rome|Venice|Barcelona|Madrid|Lisbon|Copenhagen' | split: '|'
+  assign imgs = 'g-amsterdam|h-rotterdam|h-utrecht|h-antwerp|g-paris|h-london|h-berlin|h-vienna|h-prague|g-rome|h-venice|h-barcelona|g-madrid|g-lisbon|g-copenhagen' | split: '|'
+  if city
+    capture design_json
+      echo '{"v":1,"center":{"lat":'
+      echo city.lat
+      echo ',"lon":'
+      echo city.lon
+      echo '},"scale":'
+      echo city.scale
+      echo ',"ratioId":"in20x28","palette":"'
+      echo city.palette
+      echo '","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"'
+      echo city.name
+      echo '","region":"","country":"'
+      echo city.country
+      echo '"},"textScale":{"place":1,"region":1,"country":1,"coords":1},"pins":[],"pinColor":"#e63946","pinScale":1,"printBorder":false,"style":null}'
+    endcapture
+    assign design_hash = design_json | strip | base64_url_safe_encode | remove: '='
+    assign design_link = designer_url | append: '#design=' | append: design_hash
+    assign img = 'n98-' | append: city.img | append: '.jpg'
+  endif
+-%}
+
+<div class="n98o">
+  {%- if city -%}
+    <section class="n98o-hero">
+      <div class="n98o-wrap n98o-hero__grid">
+        <div class="n98o-hero__text">
+          <p class="n98o-eyebrow">City map prints · {{ city.country | escape }}</p>
+          <h1>{{ page.title | escape }}</h1>
+          {%- if lede != blank -%}<p class="n98o-lede">{{ lede | escape }}</p>{%- endif -%}
+          <a class="n98o-cta" href="{{ design_link }}">Design your {{ city.name | escape }} map
+            <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg></a>
+          <ul class="n98o-trust">
+            <li>From {{ designer.price_min | default: 3900 | money_without_trailing_zeros }}</li>
+            <li>Free shipping in Europe, the UK and the US</li>
+            <li>Framed and ready to hang, if you like</li>
+          </ul>
+        </div>
+        <div class="n98o-hero__art">
+          <img src="{{ img | asset_url }}" alt="{{ city.name | escape }} map print by N°98 Maps" width="1200" height="1680" fetchpriority="high">
+        </div>
+      </div>
+    </section>
+
+    <section class="n98o-body">
+      <div class="n98o-wrap n98o-rte">
+        {{ page.content }}
+        <h3>Made to order</h3>
+        <p>Your map is printed on 200 gsm matte paper, FSC certified, by our production partner nearest to you. Choose one of eight sizes from 20×25 to 70×100 cm, unframed or in a solid pine frame with shatterproof plexiglass, ready to hang. Free shipping within Europe, the UK and the US.</p>
+        <p class="n98o-cta-row"><a class="n98o-cta" href="{{ design_link }}">Start with {{ city.name | escape }}
+          <svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg></a></p>
+        <p class="n98o-small">Not your city? <a href="{{ designer_url }}">Search any place on earth</a> in the designer.</p>
+      </div>
+    </section>
+  {%- else -%}
+    <section class="n98o-hero n98o-hero--hub">
+      <div class="n98o-wrap">
+        <p class="n98o-eyebrow">City map prints</p>
+        <h1>{{ page.title | escape }}</h1>
+        {%- if lede != blank -%}<p class="n98o-lede">{{ lede | escape }}</p>{%- endif -%}
+        {%- if page.content != blank -%}<div class="n98o-rte">{{ page.content }}</div>{%- endif -%}
+      </div>
+    </section>
+  {%- endif -%}
+
+  <section class="n98o-more">
+    <div class="n98o-wrap">
+      <p class="n98o-eyebrow">{% if city %}More cities{% else %}Choose a city{% endif %}</p>
+      <div class="n98o-more__grid">
+        {%- for s in slugs -%}
+          {%- assign i = forloop.index0 -%}
+          {%- unless city and names[i] == city.name -%}
+            <a class="n98o-tile" href="/pages/{{ s }}-map-print">
+              <img src="{{ 'n98-' | append: imgs[i] | append: '.jpg' | asset_url }}" alt="{{ names[i] }} map print" loading="lazy" width="1200" height="1680">
+              <span class="n98o-tile__line">{{ names[i] }}</span>
+            </a>
+          {%- endunless -%}
+        {%- endfor -%}
+      </div>
+      <p class="n98o-small n98o-more__note">Your city is not here? Every place on earth works: <a href="{{ designer_url }}">open the designer</a> and search for it.</p>
+    </div>
+  </section>
+</div>
+
+<style>
+  .n98o { background: #F4F1EB; color: #141414; }
+  .n98o-wrap { max-width: 1180px; margin: 0 auto; padding: 0 22px; }
+  .n98o-eyebrow { margin: 0 0 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
+  .n98o-hero { padding: clamp(40px, 7vw, 96px) 0 clamp(48px, 7vw, 96px); }
+  .n98o-hero--hub .n98o-lede { max-width: 38em; }
+  .n98o-hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+  .n98o h1 { margin: 0 0 20px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(40px, 5.4vw, 68px); line-height: 1.02; letter-spacing: -0.005em; }
+  .n98o-lede { margin: 0 0 30px; max-width: 32em; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 18px; line-height: 1.6; color: #4A463F; }
+  .n98o-cta { display: inline-flex; align-items: center; gap: 14px; min-height: 56px; padding: 0 28px; background: #1E3529; color: #F4F1EB; text-decoration: none; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; transition: background 0.25s ease; }
+  .n98o-cta:hover { background: #142019; }
+  .n98o-cta svg { transition: transform 0.3s ease; }
+  .n98o-cta:hover svg { transform: translateX(4px); }
+  .n98o-trust { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B665C; }
+  .n98o-hero__art { background: #E6E0D5; padding: 9%; }
+  .n98o-hero__art img { display: block; width: 100%; height: auto; box-shadow: 0 1px 1px rgba(30,24,16,.1), 0 30px 48px -22px rgba(30,24,16,.55); }
+  .n98o-body { padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid #DDD6C9; }
+  .n98o-rte { max-width: 760px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 17px; line-height: 1.7; color: #4A463F; }
+  .n98o-rte h2 { margin: 48px 0 14px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(30px, 3.6vw, 42px); line-height: 1.08; color: #141414; }
+  .n98o-rte h2:first-child { margin-top: 0; }
+  .n98o-rte h3 { margin: 28px 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #141414; }
+  .n98o-rte p { margin: 0 0 16px; }
+  .n98o-rte ul { margin: 0 0 16px; padding-left: 1.2em; }
+  .n98o-rte li { margin-bottom: 6px; }
+  .n98o-rte em { font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-size: 1.2em; color: #141414; }
+  .n98o-rte a, .n98o-small a { color: #141414; text-underline-offset: 3px; }
+  .n98o-cta-row { margin-top: 40px !important; }
+  .n98o-small { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 14px; color: #6B665C; }
+  .n98o-more { padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 8vw, 112px); background: #ECE7DE; }
+  .n98o-more__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px) clamp(14px, 2vw, 28px); }
+  .n98o-more__note { margin: clamp(28px, 4vw, 44px) 0 0; }
+  .n98o-tile { display: flex; flex-direction: column; gap: 6px; color: #141414; text-decoration: none; }
+  .n98o-tile img { display: block; width: 100%; height: auto; margin-bottom: 8px; box-shadow: 0 18px 30px -18px rgba(30,24,16,.5); transition: transform 0.5s ease; }
+  .n98o-tile:hover img { transform: translateY(-4px); }
+  .n98o-tile__line { font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-style: italic; font-size: 21px; line-height: 1.15; }
+  @media (max-width: 899px) {
+    .n98o-hero__grid { grid-template-columns: 1fr; }
+    .n98o-hero__art { order: -1; padding: 10% 16%; }
+    .n98o-more__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 28px 16px; }
+    .n98o-cta { width: 100%; justify-content: center; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "N°98 city page",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}
