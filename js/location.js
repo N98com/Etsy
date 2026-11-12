@@ -108,7 +108,7 @@ window.LocationApp = (() => {
   const LAYOUT_PRESETS = [
     { id: 'default', label: 'Frame', hint: 'The map sits above a plain mat that holds the caption.' },
     { id: 'fade', label: 'Fade', hint: 'Full-bleed map. The caption sits directly on it, over a dark fade at the bottom.' },
-    { id: 'gallery', label: 'Gallery', hint: 'Like Default, with a thin frame line and museum-label rules around the caption.' },
+    { id: 'gallery', label: 'Gallery', hint: 'Like Frame, with a thin frame line and museum-label rules around the caption.' },
     { id: 'stamp', label: 'Stamp', hint: 'Full-bleed map with a small captioned label tucked in the bottom-left corner.' },
     { id: 'ledger', label: 'Ledger', hint: 'Full-bleed map with a slim, left-aligned caption strip along the bottom edge.' },
   ];
@@ -1516,7 +1516,10 @@ window.LocationApp = (() => {
 
     LAYOUT_PRESETS.forEach(l => {
       const btn = document.createElement('button');
-      btn.type = 'button'; btn.textContent = l.label; btn.dataset.layoutId = l.id;
+      btn.type = 'button'; btn.dataset.layoutId = l.id;
+      // own key, so the layout 'Frame' is not translated as the wooden frame
+      const lt = window.N98T ? window.N98T('Layout: ' + l.label) : l.label;
+      btn.textContent = /^Layout: /.test(lt) ? l.label : lt;
       btn.className = l.id === state.layoutId ? 'active' : '';
       btn.addEventListener('click', () => selectLayout(l.id));
       layoutTabs.appendChild(btn);
