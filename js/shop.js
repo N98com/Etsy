@@ -1100,59 +1100,120 @@
       }
 
       if (giftsOn) {
-        // woorden kiezen met één tik, plus een datum
+        // Eenvoudig voor iedereen: één groot voorbeeld van de woorden, en pas
+        // na "Change the words" de knoppen, de datum en de velden.
         const slot = $('shopSlotCaption');
         if (!slot) return;
-        const box = document.createElement('div');
-        box.className = 'gift-words';
-        box.innerHTML = '<p class="gift-words-head">Need words? <span>Tap one, then change it if you like.</span></p><div class="gift-chips"></div>' +
-          '<label class="gift-date"><span>Add a date</span><input type="date" aria-label="Add a date to the second line"></label>';
-        const chips = box.querySelector('.gift-chips');
-        // datum: Europees (21.06.2025), Amerikaans (06.21.2025) of uitgeschreven (June 21, 2025)
+        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Z][a-z]+ \d{1,2}, \d{4}|\d{1,2} [A-Z][a-z]+ \d{4})$/;
         const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Z][a-z]+ \d{1,2}, \d{4})$/;
-        const usDefault = /[?&]iso=USD\b/.test(loc.search) || /^en-US$/i.test(navigator.language || '');
-        let fmt = usDefault ? 'us' : 'eu';
-        const fmtDate = (y, mo, d) => fmt === 'us' ? mo + '.' + d + '.' + y : fmt === 'long' ? MONTHS[+mo - 1] + ' ' + (+d) + ', ' + y : d + '.' + mo + '.' + y;
-        ['Where we met', 'Where we said yes', 'Our first home', 'Where it all began', 'Where you were born', 'Home is wherever you are', 'Forever in our hearts']
-          .forEach(t => {
-            const b = document.createElement('button');
-            b.type = 'button'; b.textContent = t;
-            b.addEventListener('click', () => {
-              const date = (subInput.value.match(DATE_RE) || [''])[0];
-              setLine(t + date);
-            });
-            chips.appendChild(b);
-          });
-        const fmts = document.createElement('div');
-        fmts.className = 'gift-fmt'; fmts.setAttribute('role', 'group'); fmts.setAttribute('aria-label', 'Date style');
-        [['eu', '21.06.2025'], ['us', '06.21.2025'], ['long', 'June 21, 2025']].forEach(([id, label]) => {
+        const isUS = /[?&]iso=USD\b/.test(loc.search) || /^en-US$/i.test(navigator.language || '');
+        let fmt = isUS ? 'long-us' : 'long';
+        const fmtDate = (y, mo, d, f) => {
+          f = f || fmt;
+          if (f === 'us') return mo + '.' + d + '.' + y;
+          if (f === 'eu') return d + '.' + mo + '.' + y;
+          if (f === 'long-us') return MONTHS[+mo - 1] + ' ' + (+d) + ', ' + y;
+          return (+d) + ' ' + MONTHS[+mo - 1] + ' ' + y;
+        };
+        const baseOf = v => (v || '').replace(DATE_RE, '');
+        const dateOf = v => (v.match(DATE_RE) || [''])[0];
+
+        const wrap = document.createElement('div');
+        wrap.className = 'gift-say';
+        wrap.hidden = true;
+        wrap.innerHTML =
+          '<div class="gift-preview" aria-live="polite"><span class="gift-pv-title"></span><span class="gift-pv-sub"></span></div>' +
+          '<button type="button" class="gift-toggle" aria-expanded="false"><span>Change the words</span><svg width="12" height="8" viewBox="0 0 12 8" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true"><path d="M1 1.5l5 5 5-5"/></svg></button>' +
+          '<div class="gift-edit" hidden>' +
+            '<p class="gift-words-head">Tap the words you like</p>' +
+            '<div class="gift-chips"></div>' +
+            '<button type="button" class="gift-more">More words</button>' +
+            '<p class="gift-words-head">A date</p>' +
+            '<div class="gift-date-row"><label class="gift-date-btn"><span class="gift-date-label">+ Add a date</span><input type="date" aria-label="Add a date"></label><button type="button" class="gift-date-x" hidden aria-label="Remove the date">&times;</button></div>' +
+            '<button type="button" class="gift-fmt-link" hidden>Date style</button>' +
+            '<div class="gift-fmt" hidden role="group" aria-label="Date style"></div>' +
+            '<p class="gift-words-head gift-own">Or type your own</p>' +
+          '</div>';
+        const sayHead = document.querySelector('.ux-say');
+        (sayHead || slot).before(wrap);
+        if (sayHead) wrap.prepend(sayHead);
+        const edit = wrap.querySelector('.gift-edit');
+        edit.appendChild(slot);
+        const toggle = wrap.querySelector('.gift-toggle');
+        toggle.addEventListener('click', () => {
+          const open = edit.hidden;
+          edit.hidden = !open;
+          toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+          toggle.querySelector('span').textContent = open ? 'Done' : 'Change the words';
+        });
+        document.addEventListener('mapgen:place', () => { wrap.hidden = false; slot.hidden = false; refresh(); });
+
+        // het voorbeeld: precies wat er op de kaart komt
+        const pvT = wrap.querySelector('.gift-pv-title'), pvS = wrap.querySelector('.gift-pv-sub');
+        const chips = wrap.querySelector('.gift-chips');
+        function refresh() {
+          const d = LA.getDesignState();
+          pvT.textContent = d.show.place ? d.text.place : '';
+          pvS.textContent = d.show.country ? d.text.country : '';
+          const base = baseOf(subInput.value);
+          [...chips.children].forEach(b => b.setAttribute('aria-pressed', b.textContent === base ? 'true' : 'false'));
+        }
+        if (LA.onRender) LA.onRender(() => { if (!wrap.hidden) refresh(); });
+        ['input', 'change'].forEach(ev => slot.addEventListener(ev, refresh));
+
+        const showCountry = $('showCountryCheck');
+        const ensureLine = () => { if (showCountry && !showCountry.checked) { showCountry.checked = true; showCountry.dispatchEvent(new Event('change', { bubbles: true })); } };
+        const WORDS = ['Where we met', 'Where we said yes', 'Our first home', 'Where you were born', 'Where it all began', 'Home is wherever you are', 'Forever in our hearts'];
+        WORDS.forEach((t, k) => {
           const b = document.createElement('button');
-          b.type = 'button'; b.textContent = label; b.dataset.fmt = id;
-          b.setAttribute('aria-pressed', id === fmt ? 'true' : 'false');
+          b.type = 'button'; b.textContent = t;
+          if (k >= 4) b.hidden = true;
           b.addEventListener('click', () => {
-            fmt = id;
-            [...fmts.children].forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
-            if (dateIn.value) applyDate();
+            ensureLine();
+            const on = b.getAttribute('aria-pressed') === 'true';
+            // nog een tik: woorden weg (terug naar het land), datum blijft
+            const date = dateOf(subInput.value);
+            setLine(on ? (date ? date.replace(/^ · /, '') : '') : t + date);
+            refresh();
           });
+          chips.appendChild(b);
+        });
+        const more = wrap.querySelector('.gift-more');
+        more.addEventListener('click', () => { [...chips.children].forEach(b => { b.hidden = false; }); more.remove(); });
+
+        // datum: één grote knop die de kalender van de telefoon opent
+        const dateIn = wrap.querySelector('.gift-date-btn input');
+        const dateLabel = wrap.querySelector('.gift-date-label');
+        const dateX = wrap.querySelector('.gift-date-x');
+        const fmtLink = wrap.querySelector('.gift-fmt-link');
+        const fmts = wrap.querySelector('.gift-fmt');
+        const STYLES = isUS ? ['long-us', 'us', 'long', 'eu'] : ['long', 'eu', 'long-us', 'us'];
+        STYLES.forEach(id => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.dataset.fmt = id;
+          b.addEventListener('click', () => { fmt = id; applyDate(); });
           fmts.appendChild(b);
         });
-        const dateIn = box.querySelector('input[type=date]');
         function applyDate() {
           if (!dateIn.value) return;
           const [y, mo, d] = dateIn.value.split('-');
-          // de knopjes tonen de gekozen datum in elke stijl
-          const keep = fmt;
-          [...fmts.children].forEach(x => { fmt = x.dataset.fmt; x.textContent = fmtDate(y, mo, d); });
-          fmt = keep;
-          const base = (subInput.value || '').replace(DATE_RE, '');
+          ensureLine();
+          const base = baseOf(subInput.value);
           setLine((base ? base + ' · ' : '') + fmtDate(y, mo, d));
+          dateLabel.textContent = fmtDate(y, mo, d);
+          dateX.hidden = false; fmtLink.hidden = false;
+          [...fmts.children].forEach(b => { b.textContent = fmtDate(y, mo, d, b.dataset.fmt); b.setAttribute('aria-pressed', b.dataset.fmt === fmt ? 'true' : 'false'); });
+          refresh();
         }
         dateIn.addEventListener('change', applyDate);
-        box.appendChild(fmts);
-        slot.appendChild(box);
-        const showCountry = $('showCountryCheck');
-        box.addEventListener('click', () => { if (showCountry && !showCountry.checked) { showCountry.checked = true; showCountry.dispatchEvent(new Event('change', { bubbles: true })); } });
+        dateX.addEventListener('click', () => {
+          dateIn.value = '';
+          setLine(baseOf(subInput.value));
+          dateLabel.textContent = '+ Add a date';
+          dateX.hidden = true; fmtLink.hidden = true; fmts.hidden = true;
+          refresh();
+        });
+        fmtLink.addEventListener('click', () => { fmts.hidden = !fmts.hidden; });
       }
     })();
 
