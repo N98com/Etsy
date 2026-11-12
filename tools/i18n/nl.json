@@ -48,18 +48,18 @@
     "Who is it": "Voor wie",
     "for?": "is het?",
     "Pick the moment. We set the words and a palette for you; you add the place and mark the spot.": "Kies het moment. Wij zetten de woorden en een palet voor je klaar; jij voegt de plek toe en markeert het punt.",
-    "Florence map print with two rings, Where we said yes": "Kaartprint van Florence met twee ringen, Where we said yes",
+    "Florence map print with two rings, Where we said yes": "Kaartprint van Florence met twee ringen, Waar we ja zeiden",
     "A wedding": "Een bruiloft",
     "Design this gift": "Ontwerp dit cadeau",
-    "Haarlem map print with a house pin, Our first home": "Kaartprint van Haarlem met een huisje, Our first home",
+    "Haarlem map print with a house pin, Our first home": "Kaartprint van Haarlem met een huisje, Ons eerste huis",
     "A new home": "Een nieuw huis",
-    "Paris map print in a heart shape, Where it all began": "Kaartprint van Parijs in de vorm van een hart, Where it all began",
+    "Paris map print in a heart shape, Where it all began": "Kaartprint van Parijs in de vorm van een hart, Waar het allemaal begon",
     "An anniversary": "Een jubileum",
-    "Utrecht map print with a star, Where you were born": "Kaartprint van Utrecht met een ster, Where you were born",
+    "Utrecht map print with a star, Where you were born": "Kaartprint van Utrecht met een ster, Waar je geboren bent",
     "A new baby": "Een geboorte",
-    "Venice map print in a heart shape, Where we met": "Kaartprint van Venetië in de vorm van een hart, Where we met",
+    "Venice map print in a heart shape, Where we met": "Kaartprint van Venetië in de vorm van een hart, Waar we elkaar ontmoetten",
     "Valentine's Day": "Valentijnsdag",
-    "Lisbon map print in a circle, Forever in our hearts": "Kaartprint van Lissabon in een cirkel, Forever in our hearts",
+    "Lisbon map print in a circle, Forever in our hearts": "Kaartprint van Lissabon in een cirkel, Voor altijd in ons hart",
     "In memory": "Ter nagedachtenis",
     "Gift guides:": "Cadeaugidsen:",
     "Wedding": "Bruiloft",
@@ -125,7 +125,7 @@
     "Printed fresh after you order, at a print studio close to you.": "Vers gedrukt na je bestelling, bij een drukkerij dichtbij jou.",
     "Promise": "Belofte",
     "If it arrives damaged or doesn't match your design, we send a new one.": "Komt hij beschadigd aan of klopt hij niet met je ontwerp, dan sturen we een nieuwe.",
-    "Map of the Amsterdam canal ring titled Where we said yes, with a rings symbol on the Westerkerk": "Kaart van de Amsterdamse grachtengordel met de titel Where we said yes, met een ringensymbool op de Westerkerk",
+    "Map of the Amsterdam canal ring titled Where we said yes, with a rings symbol on the Westerkerk": "Kaart van de Amsterdamse grachtengordel met de titel Waar we ja zeiden, met een ringensymbool op de Westerkerk",
     "“By the Westerkerk, just after the bells.”": "“Bij de Westerkerk, net nadat de klokken luidden.”",
     "Rings symbol · 21 June 2025": "Ringensymbool · 21 juni 2025",
     "Mark the spot": "Markeer de plek",
@@ -141,8 +141,8 @@
     "Paw": "Pootje",
     "Initials": "Initialen",
     "Mark your spot": "Markeer jouw plek",
-    "Barcelona map print, Where we met, in a black frame": "Kaartprint van Barcelona, Where we met, in een zwarte lijst",
-    "Paris map print, Where we fell in love, in a black frame": "Kaartprint van Parijs, Where we fell in love, in een zwarte lijst",
+    "Barcelona map print, Where we met, in a black frame": "Kaartprint van Barcelona, Waar we elkaar ontmoetten, in een zwarte lijst",
+    "Paris map print, Where we fell in love, in a black frame": "Kaartprint van Parijs, Waar we verliefd werden, in een zwarte lijst",
     "The gift": "Het cadeau",
     "For the place you met, the home you built,": "Voor de plek waar jullie elkaar ontmoetten, het huis dat jullie bouwden,",
     "the city you left.": "de stad die je achterliet.",
@@ -259,7 +259,14 @@
     "Black": "Zwart",
     "White": "Wit",
     "Natural wood": "Naturel hout",
-    "Dark wood": "Donker hout"
+    "Dark wood": "Donker hout",
+    "Where we said yes": "Waar we ja zeiden",
+    "Our first home": "Ons eerste huis",
+    "Where it all began": "Waar het allemaal begon",
+    "Where you were born": "Waar je geboren bent",
+    "Where we met": "Waar we elkaar ontmoetten",
+    "Forever in our hearts": "Voor altijd in ons hart",
+    "Den Bosch": "Den Bosch"
   },
   "raw": {
     "n98-maps-home.liquid": [
@@ -286,6 +293,10 @@
       [
         "'Now drawing · <b></b>'",
         "'Nu aan het tekenen · <b></b>'"
+      ],
+      [
+        "'Drawing ' +",
+        "'We tekenen ' +"
       ]
     ]
   }

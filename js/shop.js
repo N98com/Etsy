@@ -1105,7 +1105,7 @@
         // na "Change the words" de knoppen, de datum en de velden.
         const slot = $('shopSlotCaption');
         if (!slot) return;
-        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Za-z]+ \d{1,2}, \d{4}|\d{1,2} [A-Za-z]+ \d{4})$/;
+        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Za-zÀ-ÿ]+ \d{1,2}, \d{4}|\d{1,2}\.? [A-Za-zÀ-ÿ]+ \d{4})$/;
         const MONTHS = window.N98Months || ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const isUS = (window.N98_LANG || 'en') === 'en' && (/[?&]iso=USD\b/.test(loc.search) || /^en-US$/i.test(navigator.language || ''));
         let fmt = isUS ? 'long-us' : 'long';
@@ -1114,7 +1114,7 @@
           if (f === 'us') return mo + '.' + d + '.' + y;
           if (f === 'eu') return d + '.' + mo + '.' + y;
           if (f === 'long-us') return MONTHS[+mo - 1] + ' ' + (+d) + ', ' + y;
-          return (+d) + ' ' + MONTHS[+mo - 1] + ' ' + y;
+          return (+d) + (window.N98_LANG === 'de' ? '. ' : ' ') + MONTHS[+mo - 1] + ' ' + y;
         };
         const baseOf = v => (v || '').replace(DATE_RE, '');
         const dateOf = v => (v.match(DATE_RE) || [''])[0];

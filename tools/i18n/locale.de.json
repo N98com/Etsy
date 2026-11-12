@@ -1,0 +1,51 @@
+{
+  "city": {
+    "eyebrow": "Stadtkarten",
+    "design_your": "Gestalte deine Karte von {{ city }}",
+    "from": "Ab {{ price }}",
+    "free_shipping": "Kostenloser Versand in Europa, nach Großbritannien und in die USA",
+    "framed": "Gerahmt und fertig zum Aufhängen, wenn du möchtest",
+    "img_alt": "Kartendruck von {{ city }} von N°98 Maps",
+    "made_title": "Auf Bestellung gefertigt",
+    "made_body": "Deine Karte wird auf mattem Papier mit 200 gsm gedruckt, FSC zertifiziert, von unserem Produktionspartner in deiner Nähe. Wähle aus acht Größen von 20×25 bis 70×100 cm, ohne Rahmen oder in einem Rahmen aus massiver Kiefer mit bruchsicherem Plexiglas, fertig zum Aufhängen. Kostenloser Versand innerhalb Europas, nach Großbritannien und in die USA.",
+    "start_with": "Mit {{ city }} beginnen",
+    "not_your_city_html": "Nicht deine Stadt? <a href=\"{{ url }}\">Suche jeden Ort der Welt</a> im Designer.",
+    "not_here_html": "Deine Stadt ist nicht dabei? Jeder Ort der Welt funktioniert: <a href=\"{{ url }}\">öffne den Designer</a> und suche ihn.",
+    "other_countries": "Andere Länder:",
+    "all_cities": "Alle Städte",
+    "group_nl": "Niederlande",
+    "group_be": "Belgien",
+    "group_de": "Deutschland",
+    "group_fr": "Frankreich",
+    "group_eu": "Mehr Europa",
+    "group_us": "Vereinigte Staaten",
+    "more_nl": "Weitere Städte in den Niederlanden",
+    "more_be": "Weitere Städte in Belgien",
+    "more_de": "Weitere Städte in Deutschland",
+    "more_fr": "Weitere Städte in Frankreich",
+    "more_eu": "Weitere Städte in Europa",
+    "more_us": "Weitere Städte in den Vereinigten Staaten"
+  },
+  "country": {
+    "netherlands": "Niederlande",
+    "belgium": "Belgien",
+    "germany": "Deutschland",
+    "france": "Frankreich",
+    "united_states": "Vereinigte Staaten",
+    "united_kingdom": "Vereinigtes Königreich",
+    "austria": "Österreich",
+    "czech_republic": "Tschechien",
+    "italy": "Italien",
+    "spain": "Spanien",
+    "portugal": "Portugal",
+    "denmark": "Dänemark"
+  },
+  "header": {
+    "currency": "Währung",
+    "language": "Sprache",
+    "settings": "Sprache und Währung",
+    "eur": "Euro",
+    "usd": "US-Dollar",
+    "gbp": "Britisches Pfund"
+  }
+}

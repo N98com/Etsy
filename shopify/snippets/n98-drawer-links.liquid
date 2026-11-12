@@ -3,6 +3,36 @@
   Edit them in Shopify admin: Content, Menus, "N°98 Maps small links".
 {%- endcomment -%}
 {%- case request.locale.iso_code -%}
+{%- when 'de' -%}
+{%- assign n98_small = linklists['n98-maps-small-links'] -%}
+<nav class="n98-small-links" aria-label="Mehr">
+  {%- if n98_small.links.size > 0 -%}
+    {%- for link in n98_small.links -%}
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="/de/#how-it-works">So funktioniert es</a>
+    <a href="/de/#faq">FAQ</a>
+    <a href="/de/#faq">Versand &amp; Rückgabe</a>
+    <a href="/de/pages/contact">Kontakt</a>
+    <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+  {%- endif -%}
+</nav>
+{%- when 'fr' -%}
+{%- assign n98_small = linklists['n98-maps-small-links'] -%}
+<nav class="n98-small-links" aria-label="Plus">
+  {%- if n98_small.links.size > 0 -%}
+    {%- for link in n98_small.links -%}
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="/fr/#how-it-works">Comment ça marche</a>
+    <a href="/fr/#faq">FAQ</a>
+    <a href="/fr/#faq">Livraison &amp; retours</a>
+    <a href="/fr/pages/contact">Contact</a>
+    <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+  {%- endif -%}
+</nav>
 {%- when 'nl' -%}
 {%- assign n98_small = linklists['n98-maps-small-links'] -%}
 <nav class="n98-small-links" aria-label="Meer">

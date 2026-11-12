@@ -26,6 +26,10 @@
     if page_title == blank or page_title == shop.name
       if request.locale.iso_code == 'nl'
         assign page_title = 'Gepersonaliseerde kaartposters van de plekken waar je van houdt'
+      elsif request.locale.iso_code == 'de'
+        assign page_title = 'Personalisierte Kartenposter der Orte, die du liebst'
+      elsif request.locale.iso_code == 'fr'
+        assign page_title = 'Affiches de cartes personnalisées des lieux que vous aimez'
       else
         assign page_title = 'Custom Map Prints of the Places You Love'
       endif
@@ -33,6 +37,10 @@
     if page_description == blank
       if request.locale.iso_code == 'nl'
         assign page_description = 'Maak van de plek die ertoe doet een kaartprint van kunstkwaliteit: je stad, je straat of de plek waar jullie elkaar ontmoetten. Meer dan 50 paletten, met of zonder lijst, gratis verzending in Europa, het VK en de VS.'
+      elsif request.locale.iso_code == 'de'
+        assign page_description = 'Mach aus dem Ort, der zählt, einen Kartendruck in Kunstqualität: deine Stadt, deine Straße oder der Ort, an dem ihr euch kennengelernt habt. Über 50 Paletten, mit oder ohne Rahmen, kostenloser Versand in Europa, nach Großbritannien und in die USA.'
+      elsif request.locale.iso_code == 'fr'
+        assign page_description = 'Transformez le lieu qui compte en affiche de carte d’art : votre ville, votre rue ou l’endroit de votre rencontre. Plus de 50 palettes, avec ou sans cadre, livraison gratuite en Europe, au Royaume-Uni et aux États-Unis.'
       else
         assign page_description = 'Turn the place that matters into a fine-art map print: your city, your street or the spot where you met. 50+ palettes, framed or unframed, free shipping in Europe, the UK and the US.'
       endif

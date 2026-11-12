@@ -6,6 +6,144 @@
   assign n98_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
 -%}
 {%- case request.locale.iso_code -%}
+{%- when 'de' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+.n98p .n98p-prose h2 { margin: 14px 0 0; }
+.n98p .n98p-prose .n98p-text p { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.75; font-weight: 300; color: var(--ink-2); }
+.n98p .n98p-prose .n98p-text p + p { margin-top: 1.2em; }
+.n98p .n98p-quote { padding: clamp(64px, 10vw, 128px) 0; text-align: center; border-bottom: 1px solid var(--line); }
+.n98p .n98p-quote blockquote { margin: 0 auto; max-width: 18em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.12; }
+.n98p .n98p-coords { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--mute); }
+.n98p .n98p-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98p .n98p-value { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98p .n98p-value .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98p .n98p-value h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98p .n98p-value p { color: var(--ink-2); font-weight: 300; }
+@media (max-width: 760px) { .n98p .n98p-prose { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Unsere Geschichte</p>
+      <h1>Manche Orte <em>bleiben bei dir.</em></h1>
+      <p class="n98p-lede">Die Straße, in der du aufgewachsen bist. Die Stadt, in der ihr euch kennengelernt habt. Die Küste, zu der du immer wieder zurückkehrst. N°98 Maps macht aus diesen Orten ruhige, durchdachte Drucke, jeder einzelne nur für dich gemacht.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap n98p-prose">
+      <div>
+        <p class="n98-eyebrow">Warum N°98</p>
+        <h2>Eine Karte ist eine Erinnerung, <em>die du aufhängen kannst.</em></h2>
+      </div>
+      <div class="n98p-text">
+        <p>N°98 begann mit einem einfachen Ärgernis: Die meisten Kartenposter sehen gleich aus. Dieselben Schriften, dieselben Farben, dieselbe Handvoll Städte. Die Orte, die Menschen am meisten bedeuten, waren selten dabei.</p>
+        <p>Also haben wir unser eigenes Kartenstudio gebaut. Jede Straße, jeder Fluss und jede Küste wird von unserer eigenen Software gezeichnet, und jede Palette ist von Hand für die Wand komponiert, von Midnight Gold bis Glacier Mist. Du wählst den Ort, die Farben und die Worte. Wir sorgen dafür, dass sie wunderschön gedruckt wird.</p>
+        <p>N°98 ist ein kleines Studio aus den Niederlanden. Wir drucken auf Bestellung, in deiner Nähe, damit nichts hergestellt wird, das niemand wollte, und deine Karte einen möglichst kurzen Weg hat.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-quote">
+    <div class="n98-wrap">
+      <blockquote>&bdquo;Keine Stadt von einer Liste. Dein Ort, in deinen Worten.&ldquo;</blockquote>
+      <p class="n98p-coords">52.3676° N · 4.9041° E</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Was uns wichtig ist</p>
+      <h2>Mit Sorgfalt gemacht, <em>kostenlos verschickt.</em></h2>
+      <div class="n98p-values">
+        <div class="n98p-value"><span class="n98-num">I</span><h3>Design zuerst</h3><p>Jede Palette, Schrift und Linienstärke ist so gewählt, dass sie ruhig und zeitlos wirkt, nicht laut.</p></div>
+        <div class="n98p-value"><span class="n98-num">II</span><h3>Genau so, wie du sie gesehen hast</h3><p>Die Vorschau, die du bestätigst, ist genau die Datei, die wir in den Druck schicken. Keine Überraschungen.</p></div>
+        <div class="n98p-value"><span class="n98-num">III</span><h3>Auf Bestellung gefertigt</h3><p>Nichts liegt im Lager. Jede Karte wird frisch gedruckt, nach deiner Bestellung.</p></div>
+        <div class="n98p-value"><span class="n98-num">IV</span><h3>Kostenloser Versand</h3><p>Auf jede Bestellung nach Europa, Großbritannien und in die USA. Der Preis, den du siehst, ist der Preis, den du zahlst.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Du bist dran</p>
+      <h2>Welcher Ort <em>bleibt bei dir?</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Gestalte deine Karte <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+{%- when 'fr' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+.n98p .n98p-prose h2 { margin: 14px 0 0; }
+.n98p .n98p-prose .n98p-text p { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.75; font-weight: 300; color: var(--ink-2); }
+.n98p .n98p-prose .n98p-text p + p { margin-top: 1.2em; }
+.n98p .n98p-quote { padding: clamp(64px, 10vw, 128px) 0; text-align: center; border-bottom: 1px solid var(--line); }
+.n98p .n98p-quote blockquote { margin: 0 auto; max-width: 18em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.12; }
+.n98p .n98p-coords { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--mute); }
+.n98p .n98p-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98p .n98p-value { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98p .n98p-value .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98p .n98p-value h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98p .n98p-value p { color: var(--ink-2); font-weight: 300; }
+@media (max-width: 760px) { .n98p .n98p-prose { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Notre histoire</p>
+      <h1>Certains lieux <em>restent avec vous.</em></h1>
+      <p class="n98p-lede">La rue où vous avez grandi. La ville où vous vous êtes rencontrés. La côte où vous revenez toujours. N°98 Maps transforme ces lieux en affiches calmes et soignées, chacune faite rien que pour vous.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap n98p-prose">
+      <div>
+        <p class="n98-eyebrow">Pourquoi N°98</p>
+        <h2>Une carte est un souvenir <em>que l’on peut accrocher.</em></h2>
+      </div>
+      <div class="n98p-text">
+        <p>N°98 est né d’une simple frustration : la plupart des affiches de cartes se ressemblent. Les mêmes polices, les mêmes couleurs, la même poignée de villes. Les lieux qui comptent le plus pour les gens y figuraient rarement.</p>
+        <p>Alors nous avons créé notre propre atelier de cartes. Chaque rue, rivière et côte est dessinée par notre propre logiciel, et chaque palette est composée à la main pour le mur, de Midnight Gold à Glacier Mist. Vous choisissez le lieu, les couleurs et les mots. Nous veillons à ce qu’elle soit magnifiquement imprimée.</p>
+        <p>N°98 est un petit atelier des Pays-Bas. Nous imprimons à la demande, près de chez vous, pour que rien ne soit fabriqué inutilement et que votre carte voyage le moins possible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-quote">
+    <div class="n98-wrap">
+      <blockquote>&laquo;&nbsp;Pas une ville sur une liste. Votre lieu, avec vos mots.&nbsp;&raquo;</blockquote>
+      <p class="n98p-coords">52.3676° N · 4.9041° E</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Ce qui compte pour nous</p>
+      <h2>Faite avec soin, <em>livrée gratuitement.</em></h2>
+      <div class="n98p-values">
+        <div class="n98p-value"><span class="n98-num">I</span><h3>Le design d’abord</h3><p>Chaque palette, police et épaisseur de trait est choisie pour paraître calme et intemporelle, jamais criarde.</p></div>
+        <div class="n98p-value"><span class="n98-num">II</span><h3>Exactement comme vous l’avez vue</h3><p>L’aperçu que vous validez est le fichier même que nous envoyons à l’impression. Aucune surprise.</p></div>
+        <div class="n98p-value"><span class="n98-num">III</span><h3>Faite à la commande</h3><p>Rien ne dort en entrepôt. Chaque carte est imprimée après votre commande.</p></div>
+        <div class="n98p-value"><span class="n98-num">IV</span><h3>Livraison gratuite</h3><p>Sur chaque commande en Europe, au Royaume-Uni et aux États-Unis. Le prix affiché est le prix que vous payez.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">À vous</p>
+      <h2>Quel lieu <em>reste avec vous ?</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Créez votre carte <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
 {%- when 'nl' -%}
 {% render 'n98-page-styles' %}
 <div class="n98h n98p">

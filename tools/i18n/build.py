@@ -26,6 +26,23 @@ LANGS = [p.stem for p in sorted(I18N.glob('??.json'))]
 ATTRS = ('alt', 'aria-label', 'placeholder', 'title')
 SPLIT = re.compile(r'(<script\b.*?</script>|<style\b.*?</style>|\{%-?\s*(?:schema|comment)\s*-?%\}.*?\{%-?\s*end(?:schema|comment)\s*-?%\}|\{%.*?%\}|\{\{.*?\}\}|<[^>]+>)', re.S)
 ATTR_RE = re.compile(r'\b(' + '|'.join(ATTRS) + r')="([^"]*)"')
+# place, region and country names per language (also used for the prints)
+PLACES = json.loads((I18N / 'places.json').read_text(encoding='utf-8'))
+TEXT_RE = re.compile(r'"text":\{"place":"([^"]*)","region":"([^"]*)","country":"([^"]*)"\}')
+
+
+def place(name, lang):
+    return ' · '.join(PLACES.get(p, {}).get(lang, p) for p in name.split(' · '))
+
+
+def localise(src, lang):
+    """Names in data attributes and saved designs, and the print images with
+    the words in this language (n98-<id>--<lang>.jpg, see tools/home-renders)."""
+    src = re.sub(r'data-place="([^"]*)"', lambda m: 'data-place="%s"' % place(m.group(1), lang), src)
+    src = TEXT_RE.sub(lambda m: '"text":{"place":"%s","region":"%s","country":"%s"}' % tuple(place(g, lang) for g in m.groups()), src)
+    src = re.sub(r"'n98-((?!c-detail)[a-z]-[a-z0-9-]+)\.jpg'", r"'n98-\1--%s.jpg'" % lang, src)
+    src = src.replace("| append: '.jpg' | asset_url", "| append: '--%s.jpg' | asset_url" % lang)
+    return src
 
 
 def norm(t):
@@ -55,6 +72,7 @@ def translate(src, d, raw, lang):
         if old not in src:
             raise SystemExit('raw replacement not found: %r' % old[:80])
         src = src.replace(old, new)
+    src = localise(src, lang)
     out = []
     for part in SPLIT.split(src):
         if not part:
@@ -69,6 +87,8 @@ def translate(src, d, raw, lang):
             part = part.replace('href="/%s/"' % lang, 'href="/%s"' % lang)
         elif not part.startswith(('<', '{%', '{{')):
             k = norm(part)
+            if k not in d and k in PLACES:
+                d = dict(d, **{k: PLACES[k][lang]})
             if k in d:
                 lead = part[:len(part) - len(part.lstrip())]
                 trail = part[len(part.rstrip()):]
