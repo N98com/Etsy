@@ -21,7 +21,7 @@
     "Sizes and prices": "Formaten en prijzen",
     "All prices include VAT and free shipping within Europe, the UK and the US.": "Alle prijzen zijn inclusief btw en gratis verzending binnen Europa, het Verenigd Koninkrijk en de VS.",
     "Paper and frame": "Papier en lijst",
-    "Premium matte paper of 200 gsm, FSC certified, with a smooth surface and no glare. The frames are solid pine in black, white, natural wood or dark wood, with shatterproof plexiglass in front and a hanging kit included. Every map arrives ready to hang.": "Premium mat papier van 200 grams, FSC gecertificeerd, met een glad oppervlak zonder glans. De lijsten zijn van massief grenen in Black, White, Natural wood of Dark wood, met onbreekbaar plexiglas ervoor en een ophangset erbij. Elke kaart komt klaar om op te hangen.",
+    "Premium matte paper of 200 gsm, FSC certified, with a smooth surface and no glare. The frames are solid pine in black, white, natural wood or dark wood, with shatterproof plexiglass in front and a hanging kit included. Every map arrives ready to hang.": "Premium mat papier van 200 grams, FSC gecertificeerd, met een glad oppervlak zonder glans. De lijsten zijn van massief grenen in zwart, wit, naturel hout of donker hout, met onbreekbaar plexiglas ervoor en een ophangset erbij. Elke kaart komt klaar om op te hangen.",
     "Printed close to you": "Dichtbij jou gedrukt",
     "Your map is printed to order by our production partner nearest to you, so it travels a short way and arrives in good condition: usually within 3 to 7 working days in Europe and 5 to 10 in the US. If it ever arrives damaged or wrong, we send a new print.": "Je kaart wordt op bestelling gedrukt door onze productiepartner die het dichtst bij jou zit, zodat hij een korte reis maakt en heel aankomt: meestal binnen 3 tot 7 werkdagen in Europa en 5 tot 10 in de VS. Komt hij ooit beschadigd of verkeerd aan, dan sturen we een nieuwe.",
     "Questions": "Vragen",
@@ -120,7 +120,7 @@
     "Line": "Lijn",
     "Every street is drawn as its own line, crisp from a bedside 20×25 to a 70×100 statement piece.": "Elke straat is een eigen lijn, haarscherp van een 20×25 op het nachtkastje tot een 70×100 blikvanger.",
     "Frame": "Lijst",
-    "Solid pine in black, white, natural wood or dark wood, behind shatterproof plexiglass. Arrives ready to hang, hanging kit included.": "Massief grenen in Black, White, Natural wood of Dark wood, achter onbreekbaar plexiglas. Komt klaar om op te hangen, ophangset inbegrepen.",
+    "Solid pine in black, white, natural wood or dark wood, behind shatterproof plexiglass. Arrives ready to hang, hanging kit included.": "Massief grenen in zwart, wit, naturel hout of donker hout, achter onbreekbaar plexiglas. Komt klaar om op te hangen, ophangset inbegrepen.",
     "Print": "Druk",
     "Printed fresh after you order, at a print studio close to you.": "Vers gedrukt na je bestelling, bij een drukkerij dichtbij jou.",
     "Promise": "Belofte",
@@ -161,7 +161,7 @@
     "What paper do we print on?": "Op welk papier drukken we?",
     "Premium matte paper of 200 gsm (80 lb, 0.22 mm): a smooth, non-reflective surface that lets every street read crisply. The paper is FSC-certified or equivalent.": "Premium mat papier van 200 grams (0,22 mm): een glad oppervlak zonder glans, zodat elke straat haarscherp te lezen is. Het papier is FSC gecertificeerd of gelijkwaardig.",
     "Can I order it framed?": "Kan ik hem ingelijst bestellen?",
-    "Yes. Choose a solid pine frame in black, white, natural wood or dark wood. Your map arrives behind shatterproof plexiglass, with the hanging kit included, ready for the wall. Prefer your own frame? Every print is made to a standard frame size, so it fits a ready-made frame of the same size.": "Ja. Kies een lijst van massief grenen in Black, White, Natural wood of Dark wood. Je kaart komt achter onbreekbaar plexiglas, met ophangset, klaar voor de muur. Liever je eigen lijst? Elke print heeft een standaard lijstformaat, dus hij past in een kant en klare lijst van dezelfde maat.",
+    "Yes. Choose a solid pine frame in black, white, natural wood or dark wood. Your map arrives behind shatterproof plexiglass, with the hanging kit included, ready for the wall. Prefer your own frame? Every print is made to a standard frame size, so it fits a ready-made frame of the same size.": "Ja. Kies een lijst van massief grenen in zwart, wit, naturel hout of donker hout. Je kaart komt achter onbreekbaar plexiglas, met ophangset, klaar voor de muur. Liever je eigen lijst? Elke print heeft een standaard lijstformaat, dus hij past in een kant en klare lijst van dezelfde maat.",
     "What does shipping cost?": "Wat kost verzending?",
     "Nothing. We ship to the Netherlands, the rest of the EU, the UK and the US, and shipping is always free. The price you see is the price you pay.": "Niets. We versturen naar Nederland, de rest van de EU, het VK en de VS, en verzending is altijd gratis. De prijs die je ziet, is de prijs die je betaalt.",
     "When will it arrive?": "Wanneer komt hij aan?",
@@ -255,7 +255,11 @@
     "FAQ": "Vragen",
     "Shipping &amp; returns": "Verzending &amp; retour",
     "· framed": "· met lijst",
-    "&ldquo;Not a city on a list. Your place, in your words.&rdquo;": "&ldquo;Geen stad van een lijstje. Jouw plek, in jouw woorden.&rdquo;"
+    "&ldquo;Not a city on a list. Your place, in your words.&rdquo;": "&ldquo;Geen stad van een lijstje. Jouw plek, in jouw woorden.&rdquo;",
+    "Black": "Zwart",
+    "White": "Wit",
+    "Natural wood": "Naturel hout",
+    "Dark wood": "Donker hout"
   },
   "raw": {
     "n98-maps-home.liquid": [
