@@ -1,0 +1,11 @@
+{%- comment -%}
+  N°98 Maps: small flag for the language switch. code: nl, en, de, fr.
+{%- endcomment -%}
+<span class="n98-flag" aria-hidden="true">
+{%- case code -%}
+  {%- when 'nl' -%}<svg viewBox="0 0 9 6" preserveAspectRatio="none"><rect width="9" height="2" fill="#AE1C28"/><rect y="2" width="9" height="2" fill="#FFFFFF"/><rect y="4" width="9" height="2" fill="#21468B"/></svg>
+  {%- when 'de' -%}<svg viewBox="0 0 5 3" preserveAspectRatio="none"><rect width="5" height="1" fill="#000000"/><rect y="1" width="5" height="1" fill="#DD0000"/><rect y="2" width="5" height="1" fill="#FFCE00"/></svg>
+  {%- when 'fr' -%}<svg viewBox="0 0 3 2" preserveAspectRatio="none"><rect width="1" height="2" fill="#002395"/><rect x="1" width="1" height="2" fill="#FFFFFF"/><rect x="2" width="1" height="2" fill="#ED2939"/></svg>
+  {%- else -%}<svg viewBox="0 0 60 30" preserveAspectRatio="none"><clipPath id="n98uk-t"><path d="M30,15h30v15zv15h-30zh-30v-15zv-15h30z"/></clipPath><rect width="60" height="30" fill="#012169"/><path d="M0,0L60,30M60,0L0,30" stroke="#FFFFFF" stroke-width="6"/><path d="M0,0L60,30M60,0L0,30" clip-path="url(#n98uk-t)" stroke="#C8102E" stroke-width="4"/><path d="M30,0v30M0,15h60" stroke="#FFFFFF" stroke-width="10"/><path d="M30,0v30M0,15h60" stroke="#C8102E" stroke-width="6"/></svg>
+{%- endcase -%}
+</span>

@@ -9,12 +9,12 @@
   {%- if variant == 'inline' -%}
     <details class="n98-curdrop n98-langdrop">
       <summary class="n98-curdrop__toggle" aria-label="{{ 'n98.header.language' | t }}: {{ localization.language.endonym_name | escape }}">
-        <span>{{ n98_lang | upcase }}</span>
+        {% render 'n98-flag', code: n98_lang %}<span>{{ n98_lang | upcase }}</span>
         <svg class="n98-curdrop__caret" width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
       </summary>
       <div class="n98-curdrop__menu" role="group" aria-label="{{ 'n98.header.language' | t }}">
         {%- for l in localization.available_languages -%}
-          <button type="button" class="n98-curdrop__opt" data-n98-lang="{{ l.iso_code }}" lang="{{ l.iso_code }}" aria-pressed="{% if l.iso_code == n98_lang %}true{% else %}false{% endif %}">{{ l.endonym_name | capitalize | escape }}</button>
+          <button type="button" class="n98-curdrop__opt" data-n98-lang="{{ l.iso_code }}" lang="{{ l.iso_code }}" aria-pressed="{% if l.iso_code == n98_lang %}true{% else %}false{% endif %}">{% render 'n98-flag', code: l.iso_code %}<span>{{ l.endonym_name | capitalize | escape }}</span></button>
         {%- endfor -%}
       </div>
     </details>
@@ -23,7 +23,7 @@
       <span class="n98-currency__label">{{ 'n98.header.language' | t }}</span>
       <div class="n98-currency__options" role="group" aria-label="{{ 'n98.header.language' | t }}">
         {%- for l in localization.available_languages -%}
-          <button type="button" class="n98-currency__btn" data-n98-lang="{{ l.iso_code }}" lang="{{ l.iso_code }}" aria-pressed="{% if l.iso_code == n98_lang %}true{% else %}false{% endif %}">{{ l.iso_code | upcase }}</button>
+          <button type="button" class="n98-currency__btn" data-n98-lang="{{ l.iso_code }}" lang="{{ l.iso_code }}" aria-pressed="{% if l.iso_code == n98_lang %}true{% else %}false{% endif %}">{% render 'n98-flag', code: l.iso_code %}<span>{{ l.endonym_name | capitalize | escape }}</span></button>
         {%- endfor -%}
       </div>
     </div>
