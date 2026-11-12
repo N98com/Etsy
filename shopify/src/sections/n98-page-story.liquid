@@ -1,0 +1,84 @@
+{%- comment -%}
+  N°98 Maps: Our story page.
+{%- endcomment -%}
+{%- liquid
+  assign n98_handle = section.settings.configurator_handle | default: 'design-your-map'
+  assign n98_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
+-%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+.n98p .n98p-prose h2 { margin: 14px 0 0; }
+.n98p .n98p-prose .n98p-text p { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.75; font-weight: 300; color: var(--ink-2); }
+.n98p .n98p-prose .n98p-text p + p { margin-top: 1.2em; }
+.n98p .n98p-quote { padding: clamp(64px, 10vw, 128px) 0; text-align: center; border-bottom: 1px solid var(--line); }
+.n98p .n98p-quote blockquote { margin: 0 auto; max-width: 18em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.12; }
+.n98p .n98p-coords { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--mute); }
+.n98p .n98p-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98p .n98p-value { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98p .n98p-value .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98p .n98p-value h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98p .n98p-value p { color: var(--ink-2); font-weight: 300; }
+@media (max-width: 760px) { .n98p .n98p-prose { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Our story</p>
+      <h1>Some places <em>stay with you.</em></h1>
+      <p class="n98p-lede">The street where you grew up. The city where you met. The coastline you keep returning to. N°98 Maps turns those places into quiet, considered prints, each one made just for you.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap n98p-prose">
+      <div>
+        <p class="n98-eyebrow">Why N°98</p>
+        <h2>A map is a memory <em>you can hang.</em></h2>
+      </div>
+      <div class="n98p-text">
+        <p>N°98 started with a simple frustration: most map posters look the same. The same fonts, the same colours, the same handful of cities. The places that matter most to people rarely made the list.</p>
+        <p>So we built our own map studio. Every street, river and coastline is drawn by our own software, and every palette is composed by hand to live on a wall, from midnight gold to glacier mist. You choose the place, the colours and the words. We make sure it prints beautifully.</p>
+        <p>N°98 is a small studio from the Netherlands. We print on demand, close to wherever you are, so nothing is made that nobody wanted and your map travels as short a distance as possible.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-quote">
+    <div class="n98-wrap">
+      <blockquote>&ldquo;Not a city on a list. Your place, in your words.&rdquo;</blockquote>
+      <p class="n98p-coords">52.3676° N · 4.9041° E</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">What we care about</p>
+      <h2>Made slowly, <em>shipped freely.</em></h2>
+      <div class="n98p-values">
+        <div class="n98p-value"><span class="n98-num">I</span><h3>Design first</h3><p>Every palette, typeface and line weight is chosen to look calm and timeless, not loud.</p></div>
+        <div class="n98p-value"><span class="n98-num">II</span><h3>Exactly as you saw it</h3><p>The preview you approve is the very file we send to print. No surprises.</p></div>
+        <div class="n98p-value"><span class="n98-num">III</span><h3>Made to order</h3><p>Nothing sits in a warehouse. Each map is printed fresh, after you order.</p></div>
+        <div class="n98p-value"><span class="n98-num">IV</span><h3>Free shipping</h3><p>On every order to Europe, the UK and the US. The price you see is the price you pay.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Your turn</p>
+      <h2>Which place <em>stays with you?</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Design your map <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "N°98 our story",
+  "settings": [
+    { "type": "text", "id": "configurator_handle", "label": "Configurator product handle", "default": "design-your-map" }
+  ]
+}
+{% endschema %}

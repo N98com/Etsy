@@ -869,7 +869,7 @@ window.LocationApp = (() => {
     // terug (anders bepaalt de taal van de browser dit, meestal niet
     // Arabisch) — zie ARABIC_RE hierboven. state.captionLang wordt pas in
     // selectSearchResult gezet (per gekozen resultaat, niet per zoekactie).
-    const lang = isArabicText(q) ? 'ar' : null;
+    const lang = isArabicText(q) ? 'ar' : (window.N98_LANG && window.N98_LANG !== 'en' ? window.N98_LANG : null);
     searchResults.hidden = false;
     searchResults.innerHTML = '<div class="location-search-result">Searching…</div>';
     try {

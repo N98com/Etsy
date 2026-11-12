@@ -1,0 +1,133 @@
+{%- comment -%}
+  N°98 Maps: Sizes & frames page. Prices come live from the product's
+  variants (SKU = size id, or size-frame), so they follow the shop currency.
+{%- endcomment -%}
+{%- liquid
+  assign n98_handle = section.settings.configurator_handle | default: 'design-your-map'
+  assign n98_product = all_products[n98_handle]
+  assign n98_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
+  assign n98_sizes = "in8x10|20×25 cm|8×10 in|48|60,in11x14|27×35 cm|11×14 in|65|84,in12x16|30×40 cm|12×16 in|72|96,in16x20|40×50 cm|16×20 in|96|120,in18x24|45×60 cm|18×24 in|108|144,in20x28|50×70 cm|20×28 in|120|168,in24x36|60×90 cm|24×36 in|144|216,in28x40|70×100 cm|28×40 in|168|240" | split: ','
+-%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.n98p .n98p-table th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mute); padding: 0 0 14px; border-bottom: 1px solid var(--ink); }
+.n98p .n98p-table td { padding: 18px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.n98p .n98p-table th:nth-child(n+3), .n98p .n98p-table td:nth-child(n+3) { text-align: right; }
+.n98p .n98p-size { display: flex; align-items: center; gap: 18px; }
+.n98p .n98p-size i { flex: none; display: block; width: var(--w); height: var(--h); border: 1px solid var(--ink); background: var(--card); }
+.n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
+.n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
+.n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
+.n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
+.n98p .n98p-frame .n98p-swatch { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--wall); }
+.n98p .n98p-frame .n98p-swatch span { width: 58%; aspect-ratio: 5 / 7; background: var(--paper) var(--map) center / cover no-repeat; box-shadow: inset 0 2px 5px rgba(0,0,0,.28), inset 0 0 0 1px rgba(0,0,0,.12), 0 18px 30px -18px rgba(20,20,20,.45); }
+.n98p .n98p-frame h3 { font-size: 26px; line-height: 1.1; }
+.n98p .n98p-frame p { font-size: 14.5px; color: var(--ink-2); font-weight: 300; }
+.n98p .n98p-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+.n98p .n98p-spec { border-top: 1px solid var(--ink); padding-top: 18px; }
+.n98p .n98p-spec .n98-eyebrow { display: block; margin-bottom: 10px; }
+.n98p .n98p-spec p { font-family: var(--serif); font-size: 24px; line-height: 1.25; }
+.n98p .n98p-spec small { display: block; margin-top: 8px; font-size: 14px; color: var(--mute); font-weight: 300; }
+@media (max-width: 640px) {
+  .n98p .n98p-table th:nth-child(2), .n98p .n98p-table td:nth-child(2) { display: none; }
+  .n98p .n98p-size { gap: 12px; }
+  .n98p .n98p-size i { width: calc(var(--w) * 0.55); height: calc(var(--h) * 0.55); }
+  .n98p .n98p-table td { padding: 14px 0; }
+  .n98p .n98p-size b { font-size: 19px; }
+  .n98p .n98p-price { font-size: 12px; }
+}
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Sizes &amp; frames</p>
+      <h1>Every size, <em>every frame.</em></h1>
+      <p class="n98p-lede">Eight gallery sizes, from a bedside shelf to a statement wall. Each one is printed on premium matte paper and can arrive unframed or in a solid wood frame, ready to hang. Shipping is free, everywhere.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="sizes">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Sizes and prices</p>
+      <h2>Choose the size, <em>we do the rest.</em></h2>
+      <table class="n98p-table">
+        <thead><tr><th>Size</th><th>Inches</th><th>Unframed</th><th>Framed</th></tr></thead>
+        <tbody>
+          {%- for row in n98_sizes -%}
+            {%- assign f = row | split: '|' -%}
+            {%- assign framed_sku = f[0] | append: '-black' -%}
+            {%- assign p_plain = nil -%}{%- assign p_framed = nil -%}
+            {%- if n98_product -%}
+              {%- for v in n98_product.variants -%}
+                {%- if v.sku == f[0] -%}{%- assign p_plain = v.price -%}{%- endif -%}
+                {%- if v.sku == framed_sku -%}{%- assign p_framed = v.price -%}{%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
+            <tr>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td class="n98p-in">{{ f[2] }}</td>
+              <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
+              <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <p class="n98p-note">All prices include VAT and free shipping within Europe, the UK and the US. Framed prices are the same for every frame colour.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="frames">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Frames</p>
+      <h2>Solid wood, <em>ready to hang.</em></h2>
+      <div class="n98p-frames">
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #1E1D1B;--map:url('{{ 'n98-frame-black.jpg' | asset_url }}')"></span></div><h3>Black</h3><p>Deep and graphic. Lets light palettes glow.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #F4F2EE;--map:url('{{ 'n98-frame-white.jpg' | asset_url }}');box-shadow:inset 0 2px 5px rgba(0,0,0,.2),0 0 0 15px #D9D3C8,0 18px 30px -18px rgba(20,20,20,.45)"></span></div><h3>White</h3><p>Quiet and gallery like, for bright rooms.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #C9A87C;--map:url('{{ 'n98-frame-natural.jpg' | asset_url }}')"></span></div><h3>Natural wood</h3><p>Warm and light, at home in Scandinavian interiors.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #5B3F2C;--map:url('{{ 'n98-frame-darkwood.jpg' | asset_url }}')"></span></div><h3>Dark wood</h3><p>Rich and classic, made for darker palettes.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="--map:url('{{ 'n98-frame-none.jpg' | asset_url }}');box-shadow:0 18px 30px -18px rgba(20,20,20,.45),0 2px 4px rgba(20,20,20,.12)"></span></div><h3>No frame</h3><p>Every size fits a standard ready made frame, so you can use your own.</p></div>
+      </div>
+      <div class="n98p-specs" style="margin-top:48px">
+        <div class="n98p-spec"><span class="n98-eyebrow">Frame</span><p>Solid pine</p><small>2 to 2.5 cm deep, 1 to 1.4 cm wide. Light, sturdy and made to last.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Glazing</span><p>Shatterproof plexiglass</p><small>Crystal clear and far lighter than glass, so it is safe in the post and on any wall.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Hanging</span><p>Ready to hang</p><small>Hanging kit included for portrait or landscape. From 60×90 the hook comes fixed to the back.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Value</span><p>No framer needed</p><small>One price for print, frame and delivery, often less than custom framing alone.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="paper">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Paper &amp; print</p>
+      <h2>Printed to last, <em>made to order.</em></h2>
+      <div class="n98p-specs">
+        <div class="n98p-spec"><span class="n98-eyebrow">Paper</span><p>Premium matte, 200 gsm</p><small>80 lb, 0.22 mm. Smooth and non reflective, so every street reads crisply.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Sourcing</span><p>FSC certified paper</p><small>Or an equivalent certification, depending on the print studio.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Production</span><p>Printed close to you</p><small>Every map is printed fresh after you order, at a studio near the delivery address.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Delivery</span><p>Free, always</p><small>To Europe, the UK and the US. Usually 3 to 7 working days in Europe, 5 to 10 in the US.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">N°98 Maps</p>
+      <h2>Found your size? <em>Find your place.</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Design your map <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+
+{% schema %}
+{
+  "name": "N°98 sizes & frames",
+  "settings": [
+    { "type": "text", "id": "configurator_handle", "label": "Configurator product handle", "default": "design-your-map" }
+  ]
+}
+{% endschema %}

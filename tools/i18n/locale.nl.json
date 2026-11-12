@@ -1,0 +1,47 @@
+{
+  "city": {
+    "eyebrow": "Stadskaarten",
+    "design_your": "Ontwerp je kaart van {{ city }}",
+    "from": "Vanaf {{ price }}",
+    "free_shipping": "Gratis verzending in Europa, het VK en de VS",
+    "framed": "Ingelijst en klaar om op te hangen, als je wilt",
+    "img_alt": "Kaartprint van {{ city }} door N°98 Maps",
+    "made_title": "Op bestelling gemaakt",
+    "made_body": "Je kaart wordt gedrukt op mat papier van 200 grams, FSC gecertificeerd, door onze productiepartner die het dichtst bij jou zit. Kies uit acht formaten van 20×25 tot 70×100 cm, zonder lijst of in een lijst van massief grenen met onbreekbaar plexiglas, klaar om op te hangen. Gratis verzending binnen Europa, het VK en de VS.",
+    "start_with": "Begin met {{ city }}",
+    "not_your_city_html": "Niet jouw stad? <a href=\"{{ url }}\">Zoek elke plek op aarde</a> in de ontwerper.",
+    "not_here_html": "Staat jouw stad er niet tussen? Elke plek op aarde werkt: <a href=\"{{ url }}\">open de ontwerper</a> en zoek hem op.",
+    "other_countries": "Andere landen:",
+    "all_cities": "Alle steden",
+    "group_nl": "Nederland",
+    "group_be": "België",
+    "group_de": "Duitsland",
+    "group_fr": "Frankrijk",
+    "group_eu": "Meer Europa",
+    "group_us": "Verenigde Staten",
+    "more_nl": "Meer steden in Nederland",
+    "more_be": "Meer steden in België",
+    "more_de": "Meer steden in Duitsland",
+    "more_fr": "Meer steden in Frankrijk",
+    "more_eu": "Meer steden in Europa",
+    "more_us": "Meer steden in de Verenigde Staten"
+  },
+  "country": {
+    "netherlands": "Nederland",
+    "belgium": "België",
+    "germany": "Duitsland",
+    "france": "Frankrijk",
+    "united_states": "Verenigde Staten",
+    "united_kingdom": "Verenigd Koninkrijk",
+    "austria": "Oostenrijk",
+    "czech_republic": "Tsjechië",
+    "italy": "Italië",
+    "spain": "Spanje",
+    "portugal": "Portugal",
+    "denmark": "Denemarken"
+  },
+  "header": {
+    "currency": "Valuta",
+    "language": "Taal"
+  }
+}

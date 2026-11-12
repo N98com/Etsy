@@ -1056,6 +1056,7 @@
     // De suggesties onder "Your map will say" alleen met gifts=1 of een
     // gelegenheid, zodat de live winkel ongewijzigd blijft tot we live gaan.
     (function gifts() {
+      const T = window.N98T || (x => x);
       const OCCASIONS = {
         'wedding':     { line: 'Where we said yes', pin: 'rings', palette: 'rosewater-bloom', mask: 'none', label: 'A wedding gift', lede: 'Search the place where you said yes. We have set the words for you.' },
         'new-home':    { line: 'Our first home', pin: 'house', palette: 'parchment-sepia', mask: 'none', label: 'A new home', lede: 'Search the address of the new home. We have set the words for you.' },
@@ -1096,7 +1097,7 @@
         }
         // alleen de woorden; de pin zet de klant zelf (het icoon staat wel klaar)
         if (LA && LA.selectPinIcon) LA.selectPinIcon(occ.pin);
-        document.addEventListener('mapgen:place', () => setLine(occ.line));
+        document.addEventListener('mapgen:place', () => setLine(T(occ.line)));
       }
 
       if (giftsOn) {
@@ -1104,9 +1105,9 @@
         // na "Change the words" de knoppen, de datum en de velden.
         const slot = $('shopSlotCaption');
         if (!slot) return;
-        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Z][a-z]+ \d{1,2}, \d{4}|\d{1,2} [A-Z][a-z]+ \d{4})$/;
-        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-        const isUS = /[?&]iso=USD\b/.test(loc.search) || /^en-US$/i.test(navigator.language || '');
+        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Za-z]+ \d{1,2}, \d{4}|\d{1,2} [A-Za-z]+ \d{4})$/;
+        const MONTHS = window.N98Months || ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const isUS = (window.N98_LANG || 'en') === 'en' && (/[?&]iso=USD\b/.test(loc.search) || /^en-US$/i.test(navigator.language || ''));
         let fmt = isUS ? 'long-us' : 'long';
         const fmtDate = (y, mo, d, f) => {
           f = f || fmt;
@@ -1163,7 +1164,7 @@
 
         const showCountry = $('showCountryCheck');
         const ensureLine = () => { if (showCountry && !showCountry.checked) { showCountry.checked = true; showCountry.dispatchEvent(new Event('change', { bubbles: true })); } };
-        const WORDS = ['Where we met', 'Where we said yes', 'Our first home', 'Where you were born', 'Where it all began', 'Home is wherever you are', 'Forever in our hearts'];
+        const WORDS = ['Where we met', 'Where we said yes', 'Our first home', 'Where you were born', 'Where it all began', 'Home is wherever you are', 'Forever in our hearts'].map(T);
         WORDS.forEach((t, k) => {
           const b = document.createElement('button');
           b.type = 'button'; b.textContent = t;

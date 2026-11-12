@@ -5,6 +5,77 @@
   assign n98_handle = section.settings.configurator_handle | default: 'design-your-map'
   assign n98_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
 -%}
+{%- case request.locale.iso_code -%}
+{%- when 'nl' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+.n98p .n98p-prose h2 { margin: 14px 0 0; }
+.n98p .n98p-prose .n98p-text p { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.75; font-weight: 300; color: var(--ink-2); }
+.n98p .n98p-prose .n98p-text p + p { margin-top: 1.2em; }
+.n98p .n98p-quote { padding: clamp(64px, 10vw, 128px) 0; text-align: center; border-bottom: 1px solid var(--line); }
+.n98p .n98p-quote blockquote { margin: 0 auto; max-width: 18em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.12; }
+.n98p .n98p-coords { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--mute); }
+.n98p .n98p-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98p .n98p-value { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98p .n98p-value .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98p .n98p-value h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98p .n98p-value p { color: var(--ink-2); font-weight: 300; }
+@media (max-width: 760px) { .n98p .n98p-prose { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Ons verhaal</p>
+      <h1>Sommige plekken <em>blijven bij je.</em></h1>
+      <p class="n98p-lede">De straat waar je opgroeide. De stad waar jullie elkaar ontmoetten. De kust waar je steeds naar terugkeert. N°98 Maps maakt van die plekken rustige, doordachte prints, elk speciaal voor jou gemaakt.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap n98p-prose">
+      <div>
+        <p class="n98-eyebrow">Waarom N°98</p>
+        <h2>Een kaart is een herinnering <em>die je kunt ophangen.</em></h2>
+      </div>
+      <div class="n98p-text">
+        <p>N°98 begon met een simpele ergernis: de meeste kaartposters lijken op elkaar. Dezelfde letters, dezelfde kleuren, hetzelfde handjevol steden. De plekken die voor mensen het meest betekenen, stonden er zelden tussen.</p>
+        <p>Dus bouwden we onze eigen kaartstudio. Elke straat, rivier en kustlijn wordt getekend door onze eigen software, en elk palet is met de hand samengesteld om aan de muur te hangen, van middernachtgoud tot gletsjermist. Jij kiest de plek, de kleuren en de woorden. Wij zorgen dat hij prachtig gedrukt wordt.</p>
+        <p>N°98 is een kleine studio uit Nederland. We drukken op bestelling, dichtbij waar jij bent, zodat er niets gemaakt wordt dat niemand wilde en je kaart zo kort mogelijk onderweg is.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-quote">
+    <div class="n98-wrap">
+      <blockquote>&ldquo;Geen stad van een lijstje. Jouw plek, in jouw woorden.&rdquo;</blockquote>
+      <p class="n98p-coords">52.3676° N · 4.9041° E</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Waar we om geven</p>
+      <h2>Met aandacht gemaakt, <em>gratis verstuurd.</em></h2>
+      <div class="n98p-values">
+        <div class="n98p-value"><span class="n98-num">I</span><h3>Ontwerp voorop</h3><p>Elk palet, lettertype en elke lijndikte is gekozen om rustig en tijdloos te ogen, niet schreeuwerig.</p></div>
+        <div class="n98p-value"><span class="n98-num">II</span><h3>Precies zoals je hem zag</h3><p>De preview die je goedkeurt, is precies het bestand dat we naar de drukker sturen. Geen verrassingen.</p></div>
+        <div class="n98p-value"><span class="n98-num">III</span><h3>Op bestelling gemaakt</h3><p>Niets ligt op de plank. Elke kaart wordt vers gedrukt, na je bestelling.</p></div>
+        <div class="n98p-value"><span class="n98-num">IV</span><h3>Gratis verzending</h3><p>Op elke bestelling naar Europa, het VK en de VS. De prijs die je ziet, is de prijs die je betaalt.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Jouw beurt</p>
+      <h2>Welke plek <em>blijft bij jou?</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Ontwerp je kaart <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+{%- else -%}
 {% render 'n98-page-styles' %}
 <div class="n98h n98p">
 <style>
@@ -73,6 +144,7 @@
     </div>
   </section>
 </div>
+{%- endcase -%}
 
 {% schema %}
 {

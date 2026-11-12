@@ -1,0 +1,47 @@
+{
+  "city": {
+    "eyebrow": "City map prints",
+    "design_your": "Design your {{ city }} map",
+    "from": "From {{ price }}",
+    "free_shipping": "Free shipping in Europe, the UK and the US",
+    "framed": "Framed and ready to hang, if you like",
+    "img_alt": "{{ city }} map print by N°98 Maps",
+    "made_title": "Made to order",
+    "made_body": "Your map is printed on 200 gsm matte paper, FSC certified, by our production partner nearest to you. Choose one of eight sizes from 20×25 to 70×100 cm, unframed or in a solid pine frame with shatterproof plexiglass, ready to hang. Free shipping within Europe, the UK and the US.",
+    "start_with": "Start with {{ city }}",
+    "not_your_city_html": "Not your city? <a href=\"{{ url }}\">Search any place on earth</a> in the designer.",
+    "not_here_html": "Your city is not here? Every place on earth works: <a href=\"{{ url }}\">open the designer</a> and search for it.",
+    "other_countries": "Other countries:",
+    "all_cities": "All cities",
+    "group_nl": "The Netherlands",
+    "group_be": "Belgium",
+    "group_de": "Germany",
+    "group_fr": "France",
+    "group_eu": "More of Europe",
+    "group_us": "United States",
+    "more_nl": "More cities in the Netherlands",
+    "more_be": "More cities in Belgium",
+    "more_de": "More cities in Germany",
+    "more_fr": "More cities in France",
+    "more_eu": "More cities in Europe",
+    "more_us": "More cities in the United States"
+  },
+  "country": {
+    "netherlands": "Netherlands",
+    "belgium": "Belgium",
+    "germany": "Germany",
+    "france": "France",
+    "united_states": "United States",
+    "united_kingdom": "United Kingdom",
+    "austria": "Austria",
+    "czech_republic": "Czech Republic",
+    "italy": "Italy",
+    "spain": "Spain",
+    "portugal": "Portugal",
+    "denmark": "Denmark"
+  },
+  "header": {
+    "currency": "Currency",
+    "language": "Language"
+  }
+}

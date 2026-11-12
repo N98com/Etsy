@@ -1,9 +1,10 @@
 {%- comment -%}
   N°98 Maps: hidden localization form + one delegated click handler for every
-  currency switch on the page (also after the theme re-renders the header).
+  currency and language switch on the page (also after the theme re-renders the header).
 {%- endcomment -%}
 {%- form 'localization', id: 'n98-currency-form', style: 'display:none' -%}
   <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+  <input type="hidden" name="language_code" value="{{ localization.language.iso_code }}">
   <input type="hidden" name="return_to" value="{{ request.path }}">
 {%- endform -%}
 <script>
@@ -14,13 +15,14 @@
       document.querySelectorAll('details.n98-curdrop[open]').forEach(function (d) {
         if (!d.contains(e.target)) d.removeAttribute('open');
       });
-      var b = e.target.closest && e.target.closest('[data-n98-country]');
+      var b = e.target.closest && e.target.closest('[data-n98-country], [data-n98-lang]');
       if (!b) return;
       if (b.getAttribute('aria-pressed') === 'true') { var dd = b.closest('details'); if (dd) dd.removeAttribute('open'); return; }
       var form = document.getElementById('n98-currency-form');
       if (!form) return;
       e.preventDefault();
-      form.querySelector('[name=country_code]').value = b.getAttribute('data-n98-country');
+      if (b.hasAttribute('data-n98-country')) form.querySelector('[name=country_code]').value = b.getAttribute('data-n98-country');
+      if (b.hasAttribute('data-n98-lang')) form.querySelector('[name=language_code]').value = b.getAttribute('data-n98-lang');
       form.submit();
     });
     document.addEventListener('keydown', function (e) {

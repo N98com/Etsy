@@ -8,6 +8,123 @@
   assign n98_url = routes.root_url | append: '/products/' | append: n98_handle | replace: '//', '/'
   assign n98_sizes = "in8x10|20×25 cm|8×10 in|48|60,in11x14|27×35 cm|11×14 in|65|84,in12x16|30×40 cm|12×16 in|72|96,in16x20|40×50 cm|16×20 in|96|120,in18x24|45×60 cm|18×24 in|108|144,in20x28|50×70 cm|20×28 in|120|168,in24x36|60×90 cm|24×36 in|144|216,in28x40|70×100 cm|28×40 in|168|240" | split: ','
 -%}
+{%- case request.locale.iso_code -%}
+{%- when 'nl' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.n98p .n98p-table th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mute); padding: 0 0 14px; border-bottom: 1px solid var(--ink); }
+.n98p .n98p-table td { padding: 18px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.n98p .n98p-table th:nth-child(n+3), .n98p .n98p-table td:nth-child(n+3) { text-align: right; }
+.n98p .n98p-size { display: flex; align-items: center; gap: 18px; }
+.n98p .n98p-size i { flex: none; display: block; width: var(--w); height: var(--h); border: 1px solid var(--ink); background: var(--card); }
+.n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
+.n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
+.n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
+.n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
+.n98p .n98p-frame .n98p-swatch { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--wall); }
+.n98p .n98p-frame .n98p-swatch span { width: 58%; aspect-ratio: 5 / 7; background: var(--paper) var(--map) center / cover no-repeat; box-shadow: inset 0 2px 5px rgba(0,0,0,.28), inset 0 0 0 1px rgba(0,0,0,.12), 0 18px 30px -18px rgba(20,20,20,.45); }
+.n98p .n98p-frame h3 { font-size: 26px; line-height: 1.1; }
+.n98p .n98p-frame p { font-size: 14.5px; color: var(--ink-2); font-weight: 300; }
+.n98p .n98p-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+.n98p .n98p-spec { border-top: 1px solid var(--ink); padding-top: 18px; }
+.n98p .n98p-spec .n98-eyebrow { display: block; margin-bottom: 10px; }
+.n98p .n98p-spec p { font-family: var(--serif); font-size: 24px; line-height: 1.25; }
+.n98p .n98p-spec small { display: block; margin-top: 8px; font-size: 14px; color: var(--mute); font-weight: 300; }
+@media (max-width: 640px) {
+  .n98p .n98p-table th:nth-child(2), .n98p .n98p-table td:nth-child(2) { display: none; }
+  .n98p .n98p-size { gap: 12px; }
+  .n98p .n98p-size i { width: calc(var(--w) * 0.55); height: calc(var(--h) * 0.55); }
+  .n98p .n98p-table td { padding: 14px 0; }
+  .n98p .n98p-size b { font-size: 19px; }
+  .n98p .n98p-price { font-size: 12px; }
+}
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Formaten &amp; lijsten</p>
+      <h1>Elk formaat, <em>elke lijst.</em></h1>
+      <p class="n98p-lede">Acht galerieformaten, van het nachtkastje tot de grote muur. Elke print komt op premium mat papier en kan zonder lijst komen of in een lijst van massief hout, klaar om op te hangen. Verzending is overal gratis.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="sizes">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Formaten en prijzen</p>
+      <h2>Kies het formaat, <em>wij doen de rest.</em></h2>
+      <table class="n98p-table">
+        <thead><tr><th>Formaat</th><th>Inch</th><th>Zonder lijst</th><th>Met lijst</th></tr></thead>
+        <tbody>
+          {%- for row in n98_sizes -%}
+            {%- assign f = row | split: '|' -%}
+            {%- assign framed_sku = f[0] | append: '-black' -%}
+            {%- assign p_plain = nil -%}{%- assign p_framed = nil -%}
+            {%- if n98_product -%}
+              {%- for v in n98_product.variants -%}
+                {%- if v.sku == f[0] -%}{%- assign p_plain = v.price -%}{%- endif -%}
+                {%- if v.sku == framed_sku -%}{%- assign p_framed = v.price -%}{%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
+            <tr>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td class="n98p-in">{{ f[2] }}</td>
+              <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
+              <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <p class="n98p-note">Alle prijzen zijn inclusief btw en gratis verzending binnen Europa, het VK en de VS. De prijs met lijst is voor elke lijstkleur gelijk.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="frames">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Lijsten</p>
+      <h2>Massief hout, <em>klaar om op te hangen.</em></h2>
+      <div class="n98p-frames">
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #1E1D1B;--map:url('{{ 'n98-frame-black.jpg' | asset_url }}')"></span></div><h3>Zwart</h3><p>Diep en grafisch. Laat lichte paletten stralen.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #F4F2EE;--map:url('{{ 'n98-frame-white.jpg' | asset_url }}');box-shadow:inset 0 2px 5px rgba(0,0,0,.2),0 0 0 15px #D9D3C8,0 18px 30px -18px rgba(20,20,20,.45)"></span></div><h3>Wit</h3><p>Rustig en als in een galerie, voor lichte kamers.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #C9A87C;--map:url('{{ 'n98-frame-natural.jpg' | asset_url }}')"></span></div><h3>Naturel hout</h3><p>Warm en licht, thuis in een Scandinavisch interieur.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #5B3F2C;--map:url('{{ 'n98-frame-darkwood.jpg' | asset_url }}')"></span></div><h3>Donker hout</h3><p>Rijk en klassiek, gemaakt voor donkere paletten.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="--map:url('{{ 'n98-frame-none.jpg' | asset_url }}');box-shadow:0 18px 30px -18px rgba(20,20,20,.45),0 2px 4px rgba(20,20,20,.12)"></span></div><h3>Zonder lijst</h3><p>Elk formaat past in een standaard lijst uit de winkel, dus je kunt ook je eigen lijst gebruiken.</p></div>
+      </div>
+      <div class="n98p-specs" style="margin-top:48px">
+        <div class="n98p-spec"><span class="n98-eyebrow">Lijst</span><p>Massief grenen</p><small>2 tot 2,5 cm diep, 1 tot 1,4 cm breed. Licht, stevig en gemaakt om lang mee te gaan.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Beglazing</span><p>Onbreekbaar plexiglas</p><small>Kristalhelder en veel lichter dan glas, dus veilig onderweg en aan elke muur.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Ophangen</span><p>Klaar om op te hangen</p><small>Ophangset inbegrepen, staand of liggend. Vanaf 60×90 zit het haakje al aan de achterkant.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Waarde</span><p>Geen lijstenmaker nodig</p><small>Eén prijs voor print, lijst en levering, vaak minder dan alleen het inlijsten op maat.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="paper">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Papier &amp; druk</p>
+      <h2>Gedrukt om te blijven, <em>op bestelling gemaakt.</em></h2>
+      <div class="n98p-specs">
+        <div class="n98p-spec"><span class="n98-eyebrow">Papier</span><p>Premium mat, 200 grams</p><small>0,22 mm dik. Glad en zonder glans, zodat elke straat haarscherp te lezen is.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Herkomst</span><p>FSC gecertificeerd papier</p><small>Of een gelijkwaardig keurmerk, afhankelijk van de drukkerij.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Productie</span><p>Dichtbij jou gedrukt</p><small>Elke kaart wordt vers gedrukt na je bestelling, bij een drukkerij dicht bij het afleveradres.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Levering</span><p>Altijd gratis</p><small>Naar Europa, het VK en de VS. Meestal 3 tot 7 werkdagen in Europa, 5 tot 10 in de VS.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">N°98 Maps</p>
+      <h2>Formaat gevonden? <em>Vind je plek.</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Ontwerp je kaart <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+{%- else -%}
 {% render 'n98-page-styles' %}
 <div class="n98h n98p">
 <style>
@@ -122,6 +239,7 @@
     </div>
   </section>
 </div>
+{%- endcase -%}
 
 {% schema %}
 {

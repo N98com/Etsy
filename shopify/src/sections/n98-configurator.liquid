@@ -1,0 +1,313 @@
+{%- comment -%}
+  N°98 Maps — configurator product page.
+  Shows the full step-by-step map designer (shop.html on GitHub Pages) in a
+  full-height frame. Prices and sizes come from this product's variants
+  (SKU = size id, e.g. in20x28), so the price in the tool always equals the
+  price at checkout. When the customer presses "Add to cart" the designer
+  sends the complete design here; we add the matching variant to the cart with
+  the design attached as line-item properties ("_Design JSON" is hidden from
+  the customer but visible to you in the order admin) and open the cart.
+{%- endcomment -%}
+{%- liquid
+  assign app_url = section.settings.app_url | default: 'https://n98com.github.io/Etsy/shop.html'
+  assign price_list = ''
+  for v in product.variants
+    if v.sku != blank and v.available
+      assign pair = v.sku | append: ':' | append: v.price
+      if price_list == ''
+        assign price_list = pair
+      else
+        assign price_list = price_list | append: ',' | append: pair
+      endif
+    endif
+  endfor
+-%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+
+<section class="n98c" id="n98c-{{ section.id }}">
+  <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
+  <iframe
+    id="n98c-frame-{{ section.id }}"
+    class="n98c-frame"
+    src="{{ frame_src }}"
+    title="{{ product.title | escape }}"
+    allow="clipboard-write; fullscreen"
+  ></iframe>
+  <noscript><p class="n98c-note">Please enable JavaScript to design your map.</p></noscript>
+</section>
+
+{%- comment -%}
+  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
+  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
+  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
+{%- endcomment -%}
+<section class="n98c-about" aria-labelledby="n98c-about-title">
+  <div class="n98c-about__wrap">
+    <p class="n98c-eyebrow">About your map print</p>
+    <h2 id="n98c-about-title">A map of the place <em>that matters</em></h2>
+    <p class="n98c-lede">Every N°98 map is drawn from real map data, for any place on earth: a city, a village, a single street or the doorstep of your first home. You choose the colours, the shape and the words. We print it to order on heavyweight matte paper and send it to you, or straight to the person it is for.</p>
+
+    <div class="n98c-cols">
+      <div>
+        <h3>How it works</h3>
+        <ol class="n98c-steps">
+          <li><b>Place.</b> Search an address, a street or a city and frame it just right.</li>
+          <li><b>Colours.</b> Choose from more than fifty palettes made to live on a wall.</li>
+          <li><b>Shape.</b> A classic rectangle, a circle or a heart.</li>
+          <li><b>Text.</b> Keep the place name or add your own words and a date.</li>
+          <li><b>Pins.</b> Mark the spot with a heart, a house, two rings or your initials.</li>
+          <li><b>Size &amp; frame.</b> Eight sizes, unframed or framed and ready to hang.</li>
+        </ol>
+      </div>
+      <div>
+        <h3>Sizes and prices</h3>
+        <ul class="n98c-sizes">
+          {%- for v in product.variants -%}
+            {%- if v.option2 == 'No frame' -%}
+              {%- assign framed = nil -%}
+              {%- for f in product.variants -%}
+                {%- if f.option1 == v.option1 and f.option2 != 'No frame' and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
+              {%- endfor -%}
+              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · framed {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
+            {%- endif -%}
+          {%- endfor -%}
+        </ul>
+        <p class="n98c-small">All prices include VAT and free shipping within Europe, the UK and the US.</p>
+      </div>
+    </div>
+
+    <div class="n98c-cols">
+      <div>
+        <h3>Paper and frame</h3>
+        <p>Premium matte paper of 200 gsm, FSC certified, with a smooth surface and no glare. The frames are solid pine in black, white, natural wood or dark wood, with shatterproof plexiglass in front and a hanging kit included. Every map arrives ready to hang.</p>
+      </div>
+      <div>
+        <h3>Printed close to you</h3>
+        <p>Your map is printed to order by our production partner nearest to you, so it travels a short way and arrives in good condition: usually within 3 to 7 working days in Europe and 5 to 10 in the US. If it ever arrives damaged or wrong, we send a new print.</p>
+      </div>
+    </div>
+
+    <h3>Questions</h3>
+    <dl class="n98c-faq">
+      <dt>Can I make a map of any address?</dt>
+      <dd>Yes. Any place with streets on the map works, from a world city to a small village or a single house.</dd>
+      <dt>Can I send it as a gift?</dt>
+      <dd>Of course. Enter the address of the person it is for at checkout and we send it straight to them.</dd>
+      <dt>Which size should I choose?</dt>
+      <dd>For a gift that fits any room, 30×40 or 40×50 cm. For a statement above a sofa or bed, 50×70 cm or larger. The preview shows your map on a wall, to scale, before you order.</dd>
+    </dl>
+  </div>
+</section>
+
+<script type="application/ld+json">{{ product | structured_data }}</script>
+
+<style>
+  .n98c { position: relative; width: 100%; background: #F4F1EB; }
+  .n98c-frame { display: block; width: 100%; height: 100vh; height: 100dvh; min-height: 640px; border: 0; background: #F4F1EB; }
+  .n98c-visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .n98c-note { padding: 40px 20px; text-align: center; }
+  /* Ontwerppagina: de zwarte aankondigingsbalk ("Printed to order") weg,
+     zodat de ontwerper meer ruimte krijgt. Alleen op deze pagina. */
+  [id$="__header_announcements_9jGBFp"] { display: none !important; }
+  /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
+     hele scherm, er schuift niets meer onder de knop onderin omhoog. */
+  .page-wrapper > footer { display: none !important; }
+  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
+  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
+  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
+  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
+  .n98c-about h2 em { font-style: italic; }
+  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
+  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
+  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
+  .n98c-cols p { margin: 0; }
+  .n98c-steps { margin: 0; padding-left: 1.2em; }
+  .n98c-steps li { margin-bottom: 6px; }
+  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
+  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
+  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
+  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
+  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
+  .n98c-faq { margin: 0; }
+  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
+  .n98c-faq dd { margin: 4px 0 0; }
+  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  (function () {
+    var frame = document.getElementById('n98c-frame-{{ section.id }}');
+    // Homepage handoff: /products/...#design=... (een kaart uit de galerij) of
+    // #occasion=... (een cadeau-sjabloon) opent de designer daarmee
+    if (/^#(design=[A-Za-z0-9_-]+|occasion=[a-z-]+)$/.test(window.location.hash)) {
+      frame.src = frame.src.split('#')[0] + window.location.hash;
+      try { history.replaceState(null, '', window.location.pathname + window.location.search); } catch (e) {}
+    }
+    var APP_ORIGIN = new URL(frame.src).origin;
+    var CART_URL = {{ routes.cart_url | json }};
+    var CART_ADD_URL = {{ routes.cart_add_url | append: '.js' | json }};
+    var VARIANTS = {
+      {%- for v in product.variants -%}
+        {%- if v.sku != blank -%}{{ v.sku | json }}: { id: {{ v.id }}, available: {{ v.available | json }} }{%- unless forloop.last -%},{%- endunless -%}{%- endif -%}
+      {%- endfor -%}
+    };
+    var FALLBACK_VARIANT = {{ product.selected_or_first_available_variant.id | json }};
+
+    // Desktop: the frame fills the screen below the theme header.
+    function fit() {
+      var top = frame.getBoundingClientRect().top + window.scrollY;
+      frame.style.height = Math.max(640, window.innerHeight - Math.max(0, top)) + 'px';
+    }
+
+    // Mobile: the frame fills the whole screen and the theme header (menu,
+    // logo, cart) lies over its top edge. While the customer scrolls inside
+    // the designer, the frame reports how far, and the header slides up by
+    // exactly that many pixels, in step with the map shrinking below it.
+    var headerGroup = document.getElementById('header-group');
+    var hostTop = 0, overlay = false;
+    function headerParts() { return headerGroup ? Array.prototype.slice.call(headerGroup.children) : []; }
+    function sendHost() {
+      if (frame.contentWindow) frame.contentWindow.postMessage({ source: 'n98-shop', type: 'host', top: hostTop }, APP_ORIGIN);
+    }
+    function layout() {
+      var parts = headerParts();
+      overlay = !!headerGroup && window.innerWidth < 900;
+      frame.style.marginTop = '';
+      if (overlay) {
+        hostTop = Math.max(0, Math.round(frame.getBoundingClientRect().top + window.scrollY));
+        parts.forEach(function (el) { el.style.position = 'relative'; el.style.zIndex = '30'; el.style.willChange = 'transform'; });
+        frame.style.marginTop = (-hostTop) + 'px';
+        frame.style.minHeight = '0';
+        frame.style.height = window.innerHeight + 'px';
+      } else {
+        hostTop = 0;
+        parts.forEach(function (el) { el.style.position = ''; el.style.zIndex = ''; el.style.willChange = ''; el.style.transform = ''; });
+        frame.style.minHeight = '';
+        fit();
+      }
+      sendHost();
+    }
+    function setHeaderY(y) {
+      if (!overlay) return;
+      y = Math.max(0, Math.min(hostTop, +y || 0));
+      var t = y ? 'translate3d(0,' + (-y) + 'px,0)' : '';
+      headerParts().forEach(function (el) { el.style.transform = t; });
+    }
+    var lastW = 0, lastH = 0;
+    function onResize() {
+      // ignore the small height changes of a phone's address bar
+      if (window.innerWidth === lastW && Math.abs(window.innerHeight - lastH) < 140 && overlay) { frame.style.height = window.innerHeight + 'px'; return; }
+      lastW = window.innerWidth; lastH = window.innerHeight;
+      layout();
+    }
+    onResize();
+    window.addEventListener('resize', onResize);
+    window.addEventListener('load', function () { lastW = 0; onResize(); });
+    frame.addEventListener('load', sendHost);
+
+    function reply(type, message, itemCount) {
+      frame.contentWindow.postMessage({ source: 'n98-shop', type: type, message: message, itemCount: itemCount }, APP_ORIGIN);
+    }
+
+    // Vanuit de ontwerper: "View cart & checkout"
+    window.addEventListener('message', function (e) {
+      if (e.origin !== APP_ORIGIN || e.source !== frame.contentWindow) return;
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'go-cart') window.location.href = CART_URL;
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'host-scroll') setHeaderY(e.data.y);
+      if (e.data && e.data.source === 'n98-shop-frame' && e.data.type === 'hello') sendHost();
+    });
+
+    // Link naar de werkbank met het ontwerp erin: één tik in de bestelling
+    // opent MapGen2.0 met exact dit ontwerp, klaar voor de print-export.
+    var WORKBENCH_URL = {{ section.settings.workbench_url | default: 'https://n98com.github.io/Etsy/index.html' | json }};
+    function printLink(state) {
+      var bytes = new TextEncoder().encode(JSON.stringify(state));
+      var bin = '';
+      for (var i = 0; i < bytes.length; i++) bin += String.fromCharCode(bytes[i]);
+      return WORKBENCH_URL + '#order=' + btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+    }
+
+    function joinParts(parts) {
+      return parts.filter(function (p) { return p && String(p).trim(); }).join(', ');
+    }
+
+    window.addEventListener('message', function (e) {
+      if (e.origin !== APP_ORIGIN || e.source !== frame.contentWindow) return;
+      var msg = e.data;
+      if (!msg || msg.source !== 'mapgen2' || msg.type !== 'confirm' || !msg.payload) return;
+      var d = msg.payload.design || {};
+      var size = d.size || {};
+      var frameChoice = d.frame && d.frame !== 'none' ? d.frame : '';
+      var variant = VARIANTS[frameChoice ? size.id + '-' + frameChoice : size.id];
+      if (!variant || !variant.available) {
+        reply('error', 'This size or frame is not available right now. Please pick another one.');
+        return;
+      }
+      var loc = d.location || {};
+      var st = d.state || {};
+      var text = st.text || {};
+      var pins = d.pins || [];
+      var props = {
+        'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
+        'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
+        'Size': size.label || size.id,
+        'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
+        'Palette': (d.palette && d.palette.name) || '',
+        'Title': text.place || '',
+        'Subtitle': joinParts([text.region, text.country]),
+        'Pins': pins.length ? pins.map(function (p) { return p.icon === 'letters' ? 'letters “' + (p.text || '') + '”' : (p.icon || 'pin'); }).join(', ') : 'None',
+        '_Print file': printLink(st),
+        '_Design JSON': JSON.stringify(st)
+      };
+      Object.keys(props).forEach(function (k) { if (props[k] === '') delete props[k]; });
+
+      fetch(CART_ADD_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ items: [{ id: variant.id || FALLBACK_VARIANT, quantity: 1, properties: props }] })
+      })
+        .then(function (r) {
+          return r.json().then(function (j) {
+            if (!r.ok) throw new Error(j && (j.description || j.message) || 'Could not add to cart');
+            return j;
+          });
+        })
+        .then(function () { return fetch({{ routes.cart_url | append: '.js' | json }}, { headers: { 'Accept': 'application/json' } }); })
+        .then(function (r) { return r.json(); })
+        .then(function (cart) {
+          var count = (cart && cart.item_count) || 1;
+          // het winkelmandje-icoon in de header bijwerken (Horizon cart-icon)
+          document.querySelectorAll('cart-icon').forEach(function (el) {
+            try { if (typeof el.renderCartBubble === 'function') el.renderCartBubble(count); } catch (e) {}
+          });
+          reply('added', null, count);
+        })
+        .catch(function (err) {
+          reply('error', (err && err.message) || 'Could not add to cart. Please try again.');
+        });
+    });
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "N°98 configurator",
+  "tag": "div",
+  "class": "n98c-section",
+  "settings": [
+    {
+      "type": "url",
+      "id": "app_url",
+      "label": "Designer URL",
+      "info": "Leave empty to use https://n98com.github.io/Etsy/shop.html"
+    },
+    {
+      "type": "url",
+      "id": "workbench_url",
+      "label": "Workbench URL (print-file link in orders)",
+      "info": "Leave empty to use https://n98com.github.io/Etsy/index.html"
+    }
+  ]
+}
+{% endschema %}

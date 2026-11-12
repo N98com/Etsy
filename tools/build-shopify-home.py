@@ -23,7 +23,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "home.html"
-OUT_SECTION = ROOT / "shopify" / "sections" / "n98-maps-home.liquid"
+OUT_SECTION = ROOT / "shopify" / "src" / "sections" / "n98-maps-home.liquid"
 OUT_TEMPLATE = ROOT / "shopify" / "templates" / "index.json"
 DEFAULT_HANDLE = "design-your-map"
 
