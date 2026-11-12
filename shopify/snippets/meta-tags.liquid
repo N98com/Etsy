@@ -24,10 +24,18 @@
   # Online Store > Preferences leeg zijn.
   if request.page_type == 'index'
     if page_title == blank or page_title == shop.name
-      assign page_title = 'Custom Map Prints of the Places You Love'
+      if request.locale.iso_code == 'nl'
+        assign page_title = 'Gepersonaliseerde kaartposters van de plekken waar je van houdt'
+      else
+        assign page_title = 'Custom Map Prints of the Places You Love'
+      endif
     endif
     if page_description == blank
-      assign page_description = 'Turn the place that matters into a fine-art map print: your city, your street or the spot where you met. 50+ palettes, framed or unframed, free shipping in Europe, the UK and the US.'
+      if request.locale.iso_code == 'nl'
+        assign page_description = 'Maak van de plek die ertoe doet een kaartprint van kunstkwaliteit: je stad, je straat of de plek waar jullie elkaar ontmoetten. Meer dan 50 paletten, met of zonder lijst, gratis verzending in Europa, het VK en de VS.'
+      else
+        assign page_description = 'Turn the place that matters into a fine-art map print: your city, your street or the spot where you met. 50+ palettes, framed or unframed, free shipping in Europe, the UK and the US.'
+      endif
     endif
   endif
 

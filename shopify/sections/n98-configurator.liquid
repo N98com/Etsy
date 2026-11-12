@@ -64,11 +64,12 @@
       <div>
         <h3>Formaten en prijzen</h3>
         <ul class="n98c-sizes">
+          {%- assign noframe = product.options_with_values[1].values.first -%}
           {%- for v in product.variants -%}
-            {%- if v.option2 == 'No frame' -%}
+            {%- if v.option2 == noframe -%}
               {%- assign framed = nil -%}
               {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != 'No frame' and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
+                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
               {%- endfor -%}
               <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · met lijst {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
             {%- endif -%}
@@ -332,11 +333,12 @@
       <div>
         <h3>Sizes and prices</h3>
         <ul class="n98c-sizes">
+          {%- assign noframe = product.options_with_values[1].values.first -%}
           {%- for v in product.variants -%}
-            {%- if v.option2 == 'No frame' -%}
+            {%- if v.option2 == noframe -%}
               {%- assign framed = nil -%}
               {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != 'No frame' and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
+                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
               {%- endfor -%}
               <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · framed {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
             {%- endif -%}
