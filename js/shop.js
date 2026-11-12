@@ -1119,23 +1119,48 @@
         box.innerHTML = '<p class="gift-words-head">Need words? <span>Tap one, then change it if you like.</span></p><div class="gift-chips"></div>' +
           '<label class="gift-date"><span>Add a date</span><input type="date" aria-label="Add a date to the second line"></label>';
         const chips = box.querySelector('.gift-chips');
+        // datum: Europees (21.06.2025), Amerikaans (06.21.2025) of uitgeschreven (June 21, 2025)
+        const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+        const DATE_RE = / · (\d{2}\.\d{2}\.\d{4}|[A-Z][a-z]+ \d{1,2}, \d{4})$/;
+        const usDefault = /[?&]iso=USD\b/.test(loc.search) || /^en-US$/i.test(navigator.language || '');
+        let fmt = usDefault ? 'us' : 'eu';
+        const fmtDate = (y, mo, d) => fmt === 'us' ? mo + '.' + d + '.' + y : fmt === 'long' ? MONTHS[+mo - 1] + ' ' + (+d) + ', ' + y : d + '.' + mo + '.' + y;
         ['Where we met', 'Where we said yes', 'Our first home', 'Where it all began', 'Where you were born', 'Home is wherever you are', 'Forever in our hearts']
           .forEach(t => {
             const b = document.createElement('button');
             b.type = 'button'; b.textContent = t;
             b.addEventListener('click', () => {
-              const date = (subInput.value.match(/ · \d{2}\.\d{2}\.\d{4}$/) || [''])[0];
+              const date = (subInput.value.match(DATE_RE) || [''])[0];
               setLine(t + date);
             });
             chips.appendChild(b);
           });
+        const fmts = document.createElement('div');
+        fmts.className = 'gift-fmt'; fmts.setAttribute('role', 'group'); fmts.setAttribute('aria-label', 'Date style');
+        [['eu', '21.06.2025'], ['us', '06.21.2025'], ['long', 'June 21, 2025']].forEach(([id, label]) => {
+          const b = document.createElement('button');
+          b.type = 'button'; b.textContent = label; b.dataset.fmt = id;
+          b.setAttribute('aria-pressed', id === fmt ? 'true' : 'false');
+          b.addEventListener('click', () => {
+            fmt = id;
+            [...fmts.children].forEach(x => x.setAttribute('aria-pressed', x === b ? 'true' : 'false'));
+            if (dateIn.value) applyDate();
+          });
+          fmts.appendChild(b);
+        });
         const dateIn = box.querySelector('input[type=date]');
-        dateIn.addEventListener('change', () => {
+        function applyDate() {
           if (!dateIn.value) return;
           const [y, mo, d] = dateIn.value.split('-');
-          const base = (subInput.value || '').replace(/ · \d{2}\.\d{2}\.\d{4}$/, '') || (subInput.placeholder && !/automatic/i.test(subInput.placeholder) ? subInput.placeholder : '');
-          setLine((base ? base + ' · ' : '') + d + '.' + mo + '.' + y);
-        });
+          // de knopjes tonen de gekozen datum in elke stijl
+          const keep = fmt;
+          [...fmts.children].forEach(x => { fmt = x.dataset.fmt; x.textContent = fmtDate(y, mo, d); });
+          fmt = keep;
+          const base = (subInput.value || '').replace(DATE_RE, '');
+          setLine((base ? base + ' · ' : '') + fmtDate(y, mo, d));
+        }
+        dateIn.addEventListener('change', applyDate);
+        box.appendChild(fmts);
         slot.appendChild(box);
         const showCountry = $('showCountryCheck');
         box.addEventListener('click', () => { if (showCountry && !showCountry.checked) { showCountry.checked = true; showCountry.dispatchEvent(new Event('change', { bubbles: true })); } });

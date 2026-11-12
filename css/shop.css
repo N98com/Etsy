@@ -647,3 +647,9 @@ html.is-hero #locationCanvas.hero-draw {
 .gift-chips button:active { background: var(--ink); color: var(--paper); }
 .gift-date { display: flex; align-items: center; gap: 12px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-2); }
 .gift-date input { flex: 1 1 auto; min-height: 44px; padding: 0 12px; border: 1px solid var(--line-strong); background: var(--card); color: var(--ink); font-family: var(--sans); font-size: 16px; letter-spacing: 0; text-transform: none; border-radius: 0; }
+.gift-fmt { display: flex; flex-wrap: wrap; gap: 6px; margin-top: -2px; }
+.gift-fmt button {
+  min-height: 34px; padding: 0 10px; border: 1px solid var(--line); background: transparent; color: var(--ink-2);
+  font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; cursor: pointer;
+}
+.gift-fmt button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); background: var(--card); }
