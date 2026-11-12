@@ -72,8 +72,7 @@
       'Basic': 'Pin', 'House': 'Huisje', 'Heart pin': 'Hartpin', 'Rings': 'Ringen', 'Paw': 'Pootje', 'Tree': 'Boom', 'Star': 'Ster', 'Letters': 'Letters',
       'This address is outside your map. Go back to step 1 and move the map to include it.': 'Dit adres valt buiten je kaart. Ga terug naar stap 1 en verschuif de kaart zodat het erop past.',
       // size & frame
-      'Sizes': 'Formaten', 'Print only': 'Alleen print', 'No frame': 'Zonder lijst', 'Black': 'Zwart', 'White': 'Wit',
-      'Natural wood': 'Naturel hout', 'Dark wood': 'Donker hout', 'wooden, ready to hang': 'hout, klaar om op te hangen',
+      'Sizes': 'Formaten', 'Print only': 'Alleen print', 'No frame': 'Zonder lijst',       'wooden, ready to hang': 'hout, klaar om op te hangen',
       'solid pine, ready to hang': 'massief grenen, klaar om op te hangen',
       'In the box': 'In de doos', 'Solid pine frame': 'Lijst van massief grenen', ', 2 cm deep, built to last': ', 2 cm diep, gemaakt om lang mee te gaan',
       'Shatterproof plexiglass': 'Onbreekbaar plexiglas', 'in front: clear, light and safe on any wall': 'ervoor: helder, licht en veilig aan elke muur',
@@ -114,8 +113,7 @@
       'Search the place where you met. We have set the words and a heart for you.': 'Zoek de plek waar jullie elkaar ontmoetten. De woorden en een hart hebben we al voor je klaargezet.',
       'Search a place that holds their memory. We have set the words for you.': 'Zoek een plek die de herinnering vasthoudt. De woorden hebben we al voor je klaargezet.',
       // more
-      'A city, a street, an address…': 'Een stad, een straat, een adres…', 'All': 'Alle', 'Light': 'Licht', 'Colourful': 'Kleurrijk',
-      'Dark & Gold': 'Donker & goud', 'Night': 'Nacht', 'Palette': 'Palet', 'Paper & print': 'Papier & druk', 'Free': 'Gratis', 'Shipping': 'Verzending',
+      'A city, a street, an address…': 'Een stad, een straat, een adres…',       'Palette': 'Palet', 'Paper & print': 'Papier & druk', 'Free': 'Gratis', 'Shipping': 'Verzending',
       'Bespoke map prints': 'Kaartprints op maat', 'Netherlands · Est. 2026': 'Nederland · Sinds 2026',
       'The map sits above a plain mat that holds the caption.': 'De kaart staat boven een effen passe-partout met de tekst.',
       'Full-bleed map. The caption sits directly on it, over a dark fade at the bottom.': 'Kaart tot aan de rand. De tekst staat er direct op, boven een donkere vervaging onderaan.',
