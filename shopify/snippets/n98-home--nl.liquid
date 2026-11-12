@@ -390,7 +390,7 @@
         <img data-id="h-barcelona" data-place="Barcelona" data-lat="41.3910" data-lon="2.1700" src="{{ 'n98-h-barcelona.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
         <img data-id="h-venice" data-place="Venice" data-lat="45.4372" data-lon="12.3330" src="{{ 'n98-h-venice.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
       </div>
-      <p class="n98-now" id="n98h-now" aria-live="polite">Nu getekend · <b>Amsterdam</b></p>
+      <p class="n98-now" id="n98h-now" aria-live="polite">Nu aan het tekenen · <b>Amsterdam</b></p>
     </div>
     <div class="n98-hero2-find">
       <div class="n98-ctas">
@@ -403,8 +403,8 @@
 
 <div class="n98-ticker" aria-label="Waarom N°98">
   <div class="n98-ticker-track">
-    <ul><li>Elke plek op aarde</li><li>Mat papier van museumkwaliteit, 200 grams</li><li>Lijsten van massief grenen</li><li>Onbreekbaar plexiglas</li><li>Live preview, precies wat we drukken</li><li>Dichtbij jou gedrukt</li><li>Gratis verzending in Europa, VK en VS</li></ul>
-    <ul aria-hidden="true"><li>Elke plek op aarde</li><li>Mat papier van museumkwaliteit, 200 grams</li><li>Lijsten van massief grenen</li><li>Onbreekbaar plexiglas</li><li>Live preview, precies wat we drukken</li><li>Dichtbij jou gedrukt</li><li>Gratis verzending in Europa, VK en VS</li></ul>
+    <ul><li>Elke plek op aarde</li><li>Mat papier van museumkwaliteit, 200 gsm</li><li>Lijsten van massief grenen</li><li>Onbreekbaar plexiglas</li><li>Live preview, precies wat we drukken</li><li>Dichtbij jou gedrukt</li><li>Gratis verzending in Europa, VK en VS</li></ul>
+    <ul aria-hidden="true"><li>Elke plek op aarde</li><li>Mat papier van museumkwaliteit, 200 gsm</li><li>Lijsten van massief grenen</li><li>Onbreekbaar plexiglas</li><li>Live preview, precies wat we drukken</li><li>Dichtbij jou gedrukt</li><li>Gratis verzending in Europa, VK en VS</li></ul>
   </div>
 </div>
 
@@ -654,7 +654,7 @@
     if (d.type === 'city' || d.type === 'found') {
       frame.classList.add('is-live');
       countTo(d.lat, d.lon);
-      nowEl.innerHTML = (d.type === 'found' ? 'Voor jou getekend · ' : 'Nu getekend · ') + '<b></b>';
+      nowEl.innerHTML = (d.type === 'found' ? 'Voor jou getekend · ' : 'Nu aan het tekenen · ') + '<b></b>';
       nowEl.querySelector('b').textContent = d.place;
     }
     if (d.type === 'searching') { status.textContent = 'Drawing ' + d.q + '…'; }
@@ -776,7 +776,7 @@
   }
   function label(c) {
     if (!nowEl) return;
-    nowEl.innerHTML = 'Nu getekend · <b></b>'; nowEl.querySelector('b').textContent = c.place;
+    nowEl.innerHTML = 'Nu aan het tekenen · <b></b>'; nowEl.querySelector('b').textContent = c.place;
     countTo(c.lat, c.lon);
   }
   function load(c) {

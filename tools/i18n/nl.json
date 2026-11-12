@@ -34,12 +34,12 @@
     "Say hello": "Zeg hallo",
     "Any city, street or coastline, drawn in your own colours and words. Printed to order on museum-grade paper and made to be framed.": "Elke stad, straat of kustlijn, getekend in je eigen kleuren en woorden. Op bestelling gedrukt op museumkwaliteit papier en gemaakt om in te lijsten.",
     "A map print being drawn by hand, city by city": "Een kaartprint die met de hand wordt getekend, stad na stad",
-    "Now drawing ·": "Nu getekend ·",
+    "Now drawing ·": "Nu aan het tekenen ·",
     "Design your map": "Ontwerp je kaart",
     "Free shipping in Europe, the UK and the US": "Gratis verzending in Europa, het VK en de VS",
     "Why N°98": "Waarom N°98",
     "Any place on earth": "Elke plek op aarde",
-    "Museum-grade matte paper, 200 gsm": "Mat papier van museumkwaliteit, 200 grams",
+    "Museum-grade matte paper, 200 gsm": "Mat papier van museumkwaliteit, 200 gsm",
     "Solid pine frames": "Lijsten van massief grenen",
     "Shatterproof plexiglass": "Onbreekbaar plexiglas",
     "Live preview, exactly what we print": "Live preview, precies wat we drukken",
@@ -265,7 +265,7 @@
       ],
       [
         "'Drawn for you · ' : 'Now drawing · '",
-        "'Voor jou getekend · ' : 'Nu getekend · '"
+        "'Voor jou getekend · ' : 'Nu aan het tekenen · '"
       ],
       [
         "'This is ' + d.place + (d.country ? ', ' + d.country : '') + '. Make it yours in the designer.'",
@@ -281,7 +281,7 @@
       ],
       [
         "'Now drawing · <b></b>'",
-        "'Nu getekend · <b></b>'"
+        "'Nu aan het tekenen · <b></b>'"
       ]
     ]
   }
