@@ -676,3 +676,4 @@ html.is-hero #locationCanvas.hero-draw {
 .gift-fmt button[aria-pressed="true"] { border-color: var(--ink); color: var(--ink); background: var(--card); }
 .shop-panel .gift-date-btn { display: flex; flex-direction: row; align-items: center; justify-content: center; margin: 0; font-family: var(--serif); font-size: 20px; font-weight: 400; letter-spacing: 0; text-transform: none; color: var(--ink); }
 .shop-panel .gift-date-btn .gift-date-label { font: inherit; letter-spacing: 0; text-transform: none; }
+.is-embedded, .is-embedded body { overscroll-behavior-y: contain; }
