@@ -1832,6 +1832,7 @@ window.LocationApp = (() => {
     selectPin: i => selectPin(i),
     removePin,
     selectMask: id => selectMask(id),
+    selectPinIcon: id => selectPinIcon(id),
     // Pin op een vaste plek, met een gekozen icoon (bv. cadeau-sjablonen)
     addPinAt: (lat, lon, icon) => {
       if (state.selectedPin != null) selectPin(null);

@@ -1051,17 +1051,18 @@
     if (UX2) uxTwoLate();
     // ---- Cadeaus (test): gelegenheden + tekstsuggesties ----
     // #occasion=wedding (vanaf de homepage) zet woorden, pin, palet en vorm
-    // klaar; zodra de klant een plek kiest, komen de woorden en de pin erop.
+    // klaar; zodra de klant een plek kiest, komen de woorden erop. De pin
+    // plaatst de klant zelf in stap V (het icoon staat al klaar).
     // De suggesties onder "Your map will say" alleen met gifts=1 of een
     // gelegenheid, zodat de live winkel ongewijzigd blijft tot we live gaan.
     (function gifts() {
       const OCCASIONS = {
-        'wedding':     { line: 'Where we said yes', pin: 'rings', palette: 'rosewater-bloom', mask: 'none', label: 'A wedding gift', lede: 'Search the place where you said yes. We have set the words and a pin for you.' },
-        'new-home':    { line: 'Our first home', pin: 'house', palette: 'parchment-sepia', mask: 'none', label: 'A new home', lede: 'Search the address of the new home. We have set the words and a pin for you.' },
-        'anniversary': { line: 'Where it all began', pin: 'heartpin', palette: 'bordeaux-gold', mask: 'heart', label: 'An anniversary', lede: 'Search the place where your story began. We have set the words, a heart and a pin for you.' },
-        'new-baby':    { line: 'Where you were born', pin: 'star', palette: 'glacier-mist', mask: 'none', label: 'A new baby', lede: 'Search the place where your little one was born. We have set the words and a pin for you.' },
-        'valentine':   { line: 'Where we met', pin: 'heart', palette: 'cherry-blossom', mask: 'heart', label: "Valentine's Day", lede: 'Search the place where you met. We have set the words, a heart and a pin for you.' },
-        'memorial':    { line: 'Forever in our hearts', pin: 'star', palette: 'mono', mask: 'circle', label: 'In memory', lede: 'Search a place that holds their memory. We have set the words and a pin for you.' }
+        'wedding':     { line: 'Where we said yes', pin: 'rings', palette: 'rosewater-bloom', mask: 'none', label: 'A wedding gift', lede: 'Search the place where you said yes. We have set the words for you.' },
+        'new-home':    { line: 'Our first home', pin: 'house', palette: 'parchment-sepia', mask: 'none', label: 'A new home', lede: 'Search the address of the new home. We have set the words for you.' },
+        'anniversary': { line: 'Where it all began', pin: 'heartpin', palette: 'bordeaux-gold', mask: 'heart', label: 'An anniversary', lede: 'Search the place where your story began. We have set the words and a heart for you.' },
+        'new-baby':    { line: 'Where you were born', pin: 'star', palette: 'glacier-mist', mask: 'none', label: 'A new baby', lede: 'Search the place where your little one was born. We have set the words for you.' },
+        'valentine':   { line: 'Where we met', pin: 'heart', palette: 'cherry-blossom', mask: 'heart', label: "Valentine's Day", lede: 'Search the place where you met. We have set the words and a heart for you.' },
+        'memorial':    { line: 'Forever in our hearts', pin: 'star', palette: 'mono', mask: 'circle', label: 'In memory', lede: 'Search a place that holds their memory. We have set the words for you.' }
       };
       const loc = window.location;
       const m = /(?:^|[#&?])occasion=([a-z-]+)/.exec(loc.hash + '&' + loc.search);
@@ -1093,21 +1094,9 @@
           tag.textContent = occ.label;
           p0.querySelector('.step-title').before(tag);
         }
-        let ownPin = false;
-        document.addEventListener('mapgen:place', () => {
-          setLine(occ.line);
-          if (!LA || !LA.addPinAt) return;
-          const pins = LA.getPins().pins;
-          const replace = ownPin && pins.length === 1;
-          if (replace) LA.removePin(0);
-          if (!pins.length || replace) {
-            const c = LA.getDesignState().center;
-            LA.addPinAt(c.lat, c.lon, occ.pin);
-            if (LA.selectPin) LA.selectPin(null);
-            ownPin = true;
-          }
-        });
-        document.addEventListener('mapgen:pins', () => { if (ownPin && LA.getPins().pins.length !== 1) ownPin = false; });
+        // alleen de woorden; de pin zet de klant zelf (het icoon staat wel klaar)
+        if (LA && LA.selectPinIcon) LA.selectPinIcon(occ.pin);
+        document.addEventListener('mapgen:place', () => setLine(occ.line));
       }
 
       if (giftsOn) {
