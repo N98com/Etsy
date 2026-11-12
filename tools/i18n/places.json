@@ -1,0 +1,332 @@
+{
+ "Netherlands": {
+  "nl": "Nederland",
+  "de": "Niederlande",
+  "fr": "Pays-Bas"
+ },
+ "Portugal": {
+  "nl": "Portugal",
+  "de": "Portugal",
+  "fr": "Portugal"
+ },
+ "United States": {
+  "nl": "Verenigde Staten",
+  "de": "Vereinigte Staaten",
+  "fr": "États-Unis"
+ },
+ "Denmark": {
+  "nl": "Denemarken",
+  "de": "Dänemark",
+  "fr": "Danemark"
+ },
+ "France": {
+  "nl": "Frankrijk",
+  "de": "Frankreich",
+  "fr": "France"
+ },
+ "Japan": {
+  "nl": "Japan",
+  "de": "Japan",
+  "fr": "Japon"
+ },
+ "Italy": {
+  "nl": "Italië",
+  "de": "Italien",
+  "fr": "Italie"
+ },
+ "Spain": {
+  "nl": "Spanje",
+  "de": "Spanien",
+  "fr": "Espagne"
+ },
+ "United Kingdom": {
+  "nl": "Verenigd Koninkrijk",
+  "de": "Vereinigtes Königreich",
+  "fr": "Royaume-Uni"
+ },
+ "Germany": {
+  "nl": "Duitsland",
+  "de": "Deutschland",
+  "fr": "Allemagne"
+ },
+ "Czech Republic": {
+  "nl": "Tsjechië",
+  "de": "Tschechien",
+  "fr": "Tchéquie"
+ },
+ "Belgium": {
+  "nl": "België",
+  "de": "Belgien",
+  "fr": "Belgique"
+ },
+ "Austria": {
+  "nl": "Oostenrijk",
+  "de": "Österreich",
+  "fr": "Autriche"
+ },
+ "North Holland": {
+  "nl": "Noord-Holland",
+  "de": "Nordholland",
+  "fr": "Hollande-Septentrionale"
+ },
+ "Catalonia": {
+  "nl": "Catalonië",
+  "de": "Katalonien",
+  "fr": "Catalogne"
+ },
+ "Capital Region of Denmark": {
+  "nl": "Hovedstaden",
+  "de": "Hovedstaden",
+  "fr": "Hovedstaden"
+ },
+ "Community of Madrid": {
+  "nl": "Madrid",
+  "de": "Madrid",
+  "fr": "Communauté de Madrid"
+ },
+ "Ile-de-France": {
+  "nl": "Île-de-France",
+  "de": "Île-de-France",
+  "fr": "Île-de-France"
+ },
+ "Lazio": {
+  "nl": "Lazio",
+  "de": "Latium",
+  "fr": "Latium"
+ },
+ "California": {
+  "nl": "Californië",
+  "de": "Kalifornien",
+  "fr": "Californie"
+ },
+ "Lisbon": {
+  "nl": "Lissabon",
+  "de": "Lissabon",
+  "fr": "Lisbonne"
+ },
+ "Copenhagen": {
+  "nl": "Kopenhagen",
+  "de": "Kopenhagen",
+  "fr": "Copenhague"
+ },
+ "Tokyo": {
+  "nl": "Tokio",
+  "de": "Tokio",
+  "fr": "Tokyo"
+ },
+ "Rome": {
+  "nl": "Rome",
+  "de": "Rom",
+  "fr": "Rome"
+ },
+ "Barcelona": {
+  "nl": "Barcelona",
+  "de": "Barcelona",
+  "fr": "Barcelone"
+ },
+ "Venice": {
+  "nl": "Venetië",
+  "de": "Venedig",
+  "fr": "Venise"
+ },
+ "London": {
+  "nl": "Londen",
+  "de": "London",
+  "fr": "Londres"
+ },
+ "Berlin": {
+  "nl": "Berlijn",
+  "de": "Berlin",
+  "fr": "Berlin"
+ },
+ "Prague": {
+  "nl": "Praag",
+  "de": "Prag",
+  "fr": "Prague"
+ },
+ "Antwerp": {
+  "nl": "Antwerpen",
+  "de": "Antwerpen",
+  "fr": "Anvers"
+ },
+ "Vienna": {
+  "nl": "Wenen",
+  "de": "Wien",
+  "fr": "Vienne"
+ },
+ "Florence": {
+  "nl": "Florence",
+  "de": "Florenz",
+  "fr": "Florence"
+ },
+ "Paris": {
+  "nl": "Parijs",
+  "de": "Paris",
+  "fr": "Paris"
+ },
+ "The Hague": {
+  "nl": "Den Haag",
+  "de": "Den Haag",
+  "fr": "La Haye"
+ },
+ "Den Bosch": {
+  "nl": "Den Bosch",
+  "de": "Den Bosch",
+  "fr": "Bois-le-Duc"
+ },
+ "Munich": {
+  "nl": "München",
+  "de": "München",
+  "fr": "Munich"
+ },
+ "Cologne": {
+  "nl": "Keulen",
+  "de": "Köln",
+  "fr": "Cologne"
+ },
+ "Frankfurt": {
+  "nl": "Frankfurt",
+  "de": "Frankfurt",
+  "fr": "Francfort"
+ },
+ "Hanover": {
+  "nl": "Hannover",
+  "de": "Hannover",
+  "fr": "Hanovre"
+ },
+ "Nuremberg": {
+  "nl": "Neurenberg",
+  "de": "Nürnberg",
+  "fr": "Nuremberg"
+ },
+ "Dresden": {
+  "nl": "Dresden",
+  "de": "Dresden",
+  "fr": "Dresde"
+ },
+ "Hamburg": {
+  "nl": "Hamburg",
+  "de": "Hamburg",
+  "fr": "Hambourg"
+ },
+ "Bremen": {
+  "nl": "Bremen",
+  "de": "Bremen",
+  "fr": "Brême"
+ },
+ "Ghent": {
+  "nl": "Gent",
+  "de": "Gent",
+  "fr": "Gand"
+ },
+ "Liège": {
+  "nl": "Luik",
+  "de": "Lüttich",
+  "fr": "Liège"
+ },
+ "Brussels": {
+  "nl": "Brussel",
+  "de": "Brüssel",
+  "fr": "Bruxelles"
+ },
+ "Bruges": {
+  "nl": "Brugge",
+  "de": "Brügge",
+  "fr": "Bruges"
+ },
+ "Namur": {
+  "nl": "Namen",
+  "de": "Namur",
+  "fr": "Namur"
+ },
+ "Leuven": {
+  "nl": "Leuven",
+  "de": "Löwen",
+  "fr": "Louvain"
+ },
+ "Mons": {
+  "nl": "Bergen",
+  "de": "Mons",
+  "fr": "Mons"
+ },
+ "Mechelen": {
+  "nl": "Mechelen",
+  "de": "Mecheln",
+  "fr": "Malines"
+ },
+ "Kortrijk": {
+  "nl": "Kortrijk",
+  "de": "Kortrijk",
+  "fr": "Courtrai"
+ },
+ "Ostend": {
+  "nl": "Oostende",
+  "de": "Ostende",
+  "fr": "Ostende"
+ },
+ "Tournai": {
+  "nl": "Doornik",
+  "de": "Tournai",
+  "fr": "Tournai"
+ },
+ "Aalst": {
+  "nl": "Aalst",
+  "de": "Aalst",
+  "fr": "Alost"
+ },
+ "Sint-Niklaas": {
+  "nl": "Sint-Niklaas",
+  "de": "Sint-Niklaas",
+  "fr": "Saint-Nicolas"
+ },
+ "Roeselare": {
+  "nl": "Roeselare",
+  "de": "Roeselare",
+  "fr": "Roulers"
+ },
+ "Strasbourg": {
+  "nl": "Straatsburg",
+  "de": "Straßburg",
+  "fr": "Strasbourg"
+ },
+ "Nice": {
+  "nl": "Nice",
+  "de": "Nizza",
+  "fr": "Nice"
+ },
+ "Where we said yes": {
+  "nl": "Waar we ja zeiden",
+  "de": "Wo wir Ja sagten",
+  "fr": "Là où nous avons dit oui"
+ },
+ "Our first home": {
+  "nl": "Ons eerste huis",
+  "de": "Unser erstes Zuhause",
+  "fr": "Notre premier chez-nous"
+ },
+ "Where it all began": {
+  "nl": "Waar het allemaal begon",
+  "de": "Wo alles begann",
+  "fr": "Là où tout a commencé"
+ },
+ "Where you were born": {
+  "nl": "Waar je geboren bent",
+  "de": "Wo du geboren bist",
+  "fr": "Là où tu es né"
+ },
+ "Where we met": {
+  "nl": "Waar we elkaar ontmoetten",
+  "de": "Wo wir uns trafen",
+  "fr": "Là où nous nous sommes rencontrés"
+ },
+ "Forever in our hearts": {
+  "nl": "Voor altijd in ons hart",
+  "de": "Für immer in unseren Herzen",
+  "fr": "À jamais dans nos cœurs"
+ },
+ "Where we fell in love": {
+  "nl": "Waar we verliefd werden",
+  "de": "Wo wir uns verliebten",
+  "fr": "Là où nous sommes tombés amoureux"
+ }
+}
