@@ -64,6 +64,7 @@
   {{- block.shopify_attributes -}}
 >
   <div class="n98-currency-desktop">{% render 'n98-language-switch', variant: 'inline' %}{% render 'n98-currency-switch', variant: 'inline' %}</div>
+  <div class="header-actions__action n98-loc-wrap">{% render 'n98-locale-menu' %}</div>
   {% if shop.customer_accounts_enabled %}
     <div class="account-button header-actions__action{% if display_style == 'text' %} account-button--text{% endif %}">
       <a

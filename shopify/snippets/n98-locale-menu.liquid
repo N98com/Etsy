@@ -1,0 +1,37 @@
+{%- comment -%}
+  N°98 Maps: one globe icon in the header (phone and desktop) that opens a small
+  panel with the language and the currency. Uses the hidden form and the click
+  handler of n98-currency-form (data-n98-lang / data-n98-country).
+{%- endcomment -%}
+{%- liquid
+  assign n98_lang = localization.language.iso_code
+  assign n98_cur = localization.country.currency.iso_code
+  assign n98_eur_country = 'NL'
+  if n98_cur == 'EUR'
+    assign n98_eur_country = localization.country.iso_code
+  endif
+  assign n98_check = '<svg class="n98-loc__check" width="14" height="10" viewBox="0 0 14 10" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M1 5l4 4 8-8"/></svg>'
+-%}
+<details class="n98-curdrop n98-loc">
+  <summary class="n98-loc__toggle" aria-label="{{ 'n98.header.settings' | t }}">
+    <svg width="22" height="22" viewBox="0 0 22 22" fill="none" stroke="currentColor" stroke-width="var(--icon-stroke-width, 1)" aria-hidden="true"><circle cx="11" cy="11" r="9.5"/><ellipse cx="11" cy="11" rx="4.2" ry="9.5"/><path d="M1.5 11h19M3 6h16M3 16h16"/></svg>
+  </summary>
+  <div class="n98-loc__panel">
+    {%- if localization.available_languages.size > 1 -%}
+      <p class="n98-loc__label">{{ 'n98.header.language' | t }}</p>
+      <div class="n98-loc__list" role="group" aria-label="{{ 'n98.header.language' | t }}">
+        {%- for l in localization.available_languages -%}
+          <button type="button" class="n98-loc__opt" data-n98-lang="{{ l.iso_code }}" lang="{{ l.iso_code }}" aria-pressed="{% if l.iso_code == n98_lang %}true{% else %}false{% endif %}">
+            {% render 'n98-flag', code: l.iso_code %}<span class="n98-loc__name">{{ l.endonym_name | capitalize | escape }}</span>{{ n98_check }}
+          </button>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+    <p class="n98-loc__label">{{ 'n98.header.currency' | t }}</p>
+    <div class="n98-loc__list" role="group" aria-label="{{ 'n98.header.currency' | t }}">
+      <button type="button" class="n98-loc__opt" data-n98-country="{{ n98_eur_country }}" aria-pressed="{% if n98_cur == 'EUR' %}true{% else %}false{% endif %}"><span class="n98-loc__sym">€</span><span class="n98-loc__name">{{ 'n98.header.eur' | t }}</span><span class="n98-loc__code">EUR</span>{{ n98_check }}</button>
+      <button type="button" class="n98-loc__opt" data-n98-country="US" aria-pressed="{% if n98_cur == 'USD' %}true{% else %}false{% endif %}"><span class="n98-loc__sym">$</span><span class="n98-loc__name">{{ 'n98.header.usd' | t }}</span><span class="n98-loc__code">USD</span>{{ n98_check }}</button>
+      <button type="button" class="n98-loc__opt" data-n98-country="GB" aria-pressed="{% if n98_cur == 'GBP' %}true{% else %}false{% endif %}"><span class="n98-loc__sym">£</span><span class="n98-loc__name">{{ 'n98.header.gbp' | t }}</span><span class="n98-loc__code">GBP</span>{{ n98_check }}</button>
+    </div>
+  </div>
+</details>

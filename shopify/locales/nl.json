@@ -397,7 +397,11 @@
     },
     "header": {
       "currency": "Valuta",
-      "language": "Taal"
+      "language": "Taal",
+      "settings": "Taal en valuta",
+      "eur": "Euro",
+      "usd": "Amerikaanse dollar",
+      "gbp": "Britse pond"
     }
   }
 }

@@ -42,6 +42,10 @@
   },
   "header": {
     "currency": "Currency",
-    "language": "Language"
+    "language": "Language",
+    "settings": "Language and currency",
+    "eur": "Euro",
+    "usd": "US dollar",
+    "gbp": "British pound"
   }
 }
