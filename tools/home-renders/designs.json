@@ -370,11 +370,12 @@
   "id": "n-the-hague",
   "place": "The Hague",
   "country": "Netherlands",
-  "lat": 52.085,
-  "lon": 4.299,
-  "palette": "royal-velvet",
+  "lat": 52.094,
+  "lon": 4.295,
+  "palette": "verdigris-dusk",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "zoom": 0.85
  },
  {
   "id": "n-eindhoven",
@@ -445,9 +446,9 @@
   "id": "n-apeldoorn",
   "place": "Apeldoorn",
   "country": "Netherlands",
-  "lat": 52.211,
-  "lon": 5.969,
-  "palette": "forest-brass",
+  "lat": 52.214,
+  "lon": 5.965,
+  "palette": "earth",
   "w": 1200,
   "h": 1680,
   "zoom": 1.2
@@ -566,11 +567,11 @@
   "place": "Dordrecht",
   "country": "Netherlands",
   "lat": 51.813,
-  "lon": 4.668,
-  "palette": "obsidian-harbor",
+  "lon": 4.67,
+  "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.5
+  "zoom": 1.3
  },
  {
   "id": "n-delft",
