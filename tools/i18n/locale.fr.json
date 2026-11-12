@@ -1,11 +1,11 @@
 {
   "city": {
     "eyebrow": "Cartes de villes",
-    "design_your": "Créez votre carte de {{ city }}",
+    "design_your": "Créez votre carte : {{ city }}",
     "from": "À partir de {{ price }}",
     "free_shipping": "Livraison gratuite en Europe, au Royaume-Uni et aux États-Unis",
     "framed": "Encadrée et prête à accrocher, si vous le souhaitez",
-    "img_alt": "Affiche de carte de {{ city }} par N°98 Maps",
+    "img_alt": "{{ city }}, affiche de carte par N°98 Maps",
     "made_title": "Faite à la commande",
     "made_body": "Votre carte est imprimée sur papier mat de 200 gsm, certifié FSC, par notre partenaire de production le plus proche de chez vous. Choisissez parmi huit formats de 20×25 à 70×100 cm, sans cadre ou dans un cadre en pin massif avec plexiglas incassable, prête à accrocher. Livraison gratuite en Europe, au Royaume-Uni et aux États-Unis.",
     "start_with": "Commencer avec {{ city }}",

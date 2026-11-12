@@ -328,5 +328,40 @@
   "nl": "Waar we verliefd werden",
   "de": "Wo wir uns verliebten",
   "fr": "Là où nous sommes tombés amoureux"
+ },
+ "Duisburg": {
+  "nl": "Duisburg",
+  "de": "Duisburg",
+  "fr": "Duisbourg"
+ },
+ "Groningen": {
+  "nl": "Groningen",
+  "de": "Groningen",
+  "fr": "Groningue"
+ },
+ "Nijmegen": {
+  "nl": "Nijmegen",
+  "de": "Nimwegen",
+  "fr": "Nimègue"
+ },
+ "Leiden": {
+  "nl": "Leiden",
+  "de": "Leiden",
+  "fr": "Leyde"
+ },
+ "Arnhem": {
+  "nl": "Arnhem",
+  "de": "Arnheim",
+  "fr": "Arnhem"
+ },
+ "Philadelphia": {
+  "nl": "Philadelphia",
+  "de": "Philadelphia",
+  "fr": "Philadelphie"
+ },
+ "San Jose": {
+  "nl": "San Jose",
+  "de": "San José",
+  "fr": "San José"
  }
 }

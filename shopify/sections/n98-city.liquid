@@ -11,6 +11,11 @@
   assign lede = page.metafields.n98.lede.value
   assign cities = shop.metafields.n98.cities.value
   assign lang = request.locale.iso_code
+  # prints with the words in the language of the visitor (tools/home-renders/variants.py)
+  assign img_sfx = '.jpg'
+  if lang == 'nl' or lang == 'de' or lang == 'fr'
+    assign img_sfx = '--' | append: lang | append: '.jpg'
+  endif
   assign pfx = routes.root_url
   if pfx == '/'
     assign pfx = ''
@@ -18,7 +23,13 @@
   assign designer = all_products['design-your-map']
   assign designer_url = pfx | append: '/products/design-your-map'
   assign hub_url = pfx | append: '/pages/city-map-prints'
+  # own country first
   assign groups = 'nl,be,de,fr,eu,us' | split: ','
+  if lang == 'de'
+    assign groups = 'de,nl,be,fr,eu,us' | split: ','
+  elsif lang == 'fr'
+    assign groups = 'fr,be,nl,de,eu,us' | split: ','
+  endif
   assign slug = page.handle | remove: '-map-print'
   assign group = ''
   if city
@@ -51,7 +62,7 @@
     endcapture
     assign design_hash = design_json | strip | base64_url_safe_encode | remove: '='
     assign design_link = designer_url | append: '#design=' | append: design_hash
-    assign img = 'n98-' | append: city.img | append: '.jpg'
+    assign img = 'n98-' | append: city.img | append: img_sfx
   endif
   assign from_price = designer.price_min | default: 3900 | money_without_trailing_zeros
   assign arrow = '<svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg>'
@@ -110,7 +121,7 @@
               {%- if e.c != g or e.s == slug -%}{%- continue -%}{%- endif -%}
               {%- assign en = e[lang] | default: e.n -%}
               <a class="n98o-tile" href="{{ pfx }}/pages/{{ e.s }}-map-print">
-                <img src="{{ 'n98-' | append: e.i | append: '.jpg' | asset_url }}" alt="{{ 'n98.city.img_alt' | t: city: en | escape }}" loading="lazy" width="1200" height="1680">
+                <img src="{{ 'n98-' | append: e.i | append: img_sfx | asset_url }}" alt="{{ 'n98.city.img_alt' | t: city: en | escape }}" loading="lazy" width="1200" height="1680">
                 <span class="n98o-tile__line">{{ en }}</span>
               </a>
             {%- endfor -%}
