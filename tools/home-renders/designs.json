@@ -365,5 +365,222 @@
   "w": 900,
   "h": 1260,
   "layout": "default"
+ },
+ {
+  "id": "n-the-hague",
+  "place": "The Hague",
+  "country": "Netherlands",
+  "lat": 52.085,
+  "lon": 4.299,
+  "palette": "royal-velvet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-eindhoven",
+  "place": "Eindhoven",
+  "country": "Netherlands",
+  "lat": 51.44,
+  "lon": 5.478,
+  "palette": "electric-midnight-glow",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-groningen",
+  "place": "Groningen",
+  "country": "Netherlands",
+  "lat": 53.219,
+  "lon": 6.568,
+  "palette": "plum-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-tilburg",
+  "place": "Tilburg",
+  "country": "Netherlands",
+  "lat": 51.558,
+  "lon": 5.085,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-almere",
+  "place": "Almere",
+  "country": "Netherlands",
+  "lat": 52.371,
+  "lon": 5.22,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-breda",
+  "place": "Breda",
+  "country": "Netherlands",
+  "lat": 51.589,
+  "lon": 4.776,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-nijmegen",
+  "place": "Nijmegen",
+  "country": "Netherlands",
+  "lat": 51.845,
+  "lon": 5.864,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "n-apeldoorn",
+  "place": "Apeldoorn",
+  "country": "Netherlands",
+  "lat": 52.211,
+  "lon": 5.969,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-arnhem",
+  "place": "Arnhem",
+  "country": "Netherlands",
+  "lat": 51.983,
+  "lon": 5.911,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-haarlem",
+  "place": "Haarlem",
+  "country": "Netherlands",
+  "lat": 52.381,
+  "lon": 4.637,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-enschede",
+  "place": "Enschede",
+  "country": "Netherlands",
+  "lat": 52.221,
+  "lon": 6.894,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-amersfoort",
+  "place": "Amersfoort",
+  "country": "Netherlands",
+  "lat": 52.156,
+  "lon": 5.388,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-den-bosch",
+  "place": "Den Bosch",
+  "country": "Netherlands",
+  "lat": 51.689,
+  "lon": 5.304,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-zwolle",
+  "place": "Zwolle",
+  "country": "Netherlands",
+  "lat": 52.512,
+  "lon": 6.094,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-leiden",
+  "place": "Leiden",
+  "country": "Netherlands",
+  "lat": 52.159,
+  "lon": 4.49,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-zoetermeer",
+  "place": "Zoetermeer",
+  "country": "Netherlands",
+  "lat": 52.06,
+  "lon": 4.494,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-leeuwarden",
+  "place": "Leeuwarden",
+  "country": "Netherlands",
+  "lat": 53.201,
+  "lon": 5.799,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-maastricht",
+  "place": "Maastricht",
+  "country": "Netherlands",
+  "lat": 50.851,
+  "lon": 5.691,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-dordrecht",
+  "place": "Dordrecht",
+  "country": "Netherlands",
+  "lat": 51.813,
+  "lon": 4.668,
+  "palette": "obsidian-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-delft",
+  "place": "Delft",
+  "country": "Netherlands",
+  "lat": 52.0115,
+  "lon": 4.359,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.7
  }
 ]
