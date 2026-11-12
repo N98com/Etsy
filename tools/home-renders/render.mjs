@@ -21,8 +21,22 @@ await page.evaluate(() => document.fonts && document.fonts.ready);
 await page.waitForTimeout(1500);
 const base = await page.evaluate(() => window.LocationApp.getDesignState());
 const states = {};
+// Incremental: the workflow restores the previous home-renders branch into out/.
+// A design whose settings did not change and whose files exist is not rendered again.
+const MANIFEST = path.join(OUT, 'manifest.json');
+let manifest = {}, prevStates = {};
+try { manifest = JSON.parse(fs.readFileSync(MANIFEST, 'utf8')); } catch (e) {}
+try { prevStates = JSON.parse(fs.readFileSync(path.join(OUT, 'designs.json'), 'utf8')); } catch (e) {}
+const newManifest = {};
 
 for (const d of designs) {
+  const key = JSON.stringify(d);
+  newManifest[d.id] = key;
+  const have = fs.existsSync(path.join(OUT, d.id + '.jpg')) && (!d.trace || fs.existsSync(path.join(OUT, d.id + '.trace.json')));
+  if (process.env.FULL !== '1' && manifest[d.id] === key && have && prevStates[d.id]) {
+    states[d.id] = prevStates[d.id];
+    continue;
+  }
   const state = Object.assign({}, base, {
     center: { lat: d.lat, lon: d.lon },
     scale: base.scale * (d.zoom || 1),
@@ -114,4 +128,5 @@ for (const d of designs) {
   console.log('rendered', d.id);
 }
 fs.writeFileSync(path.join(OUT, 'designs.json'), JSON.stringify(states));
+fs.writeFileSync(MANIFEST, JSON.stringify(newManifest));
 await browser.close();

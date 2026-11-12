@@ -18,7 +18,7 @@ permissions:
 jobs:
   render:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
+    timeout-minutes: 240
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -31,6 +31,12 @@ jobs:
         run: |
           nohup python3 -m http.server 8080 --bind 127.0.0.1 >/dev/null 2>&1 &
           for i in $(seq 1 30); do curl -sf http://127.0.0.1:8080/shop.html >/dev/null && break; sleep 1; done
+      - name: Restore previous renders
+        run: |
+          mkdir -p tools/home-renders/out
+          if git fetch -q --depth 1 origin home-renders; then
+            git archive FETCH_HEAD | tar -x -C tools/home-renders/out
+          fi
       - name: Render
         working-directory: tools/home-renders
         run: node render.mjs
