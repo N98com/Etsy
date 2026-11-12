@@ -13,9 +13,16 @@
   if designer
     assign designer_url = designer.url
   endif
-  assign slugs = 'amsterdam|rotterdam|utrecht|antwerp|paris|london|berlin|vienna|prague|rome|venice|barcelona|madrid|lisbon|copenhagen' | split: '|'
-  assign names = 'Amsterdam|Rotterdam|Utrecht|Antwerp|Paris|London|Berlin|Vienna|Prague|Rome|Venice|Barcelona|Madrid|Lisbon|Copenhagen' | split: '|'
-  assign imgs = 'g-amsterdam|h-rotterdam|h-utrecht|h-antwerp|g-paris|h-london|h-berlin|h-vienna|h-prague|g-rome|h-venice|h-barcelona|g-madrid|g-lisbon|g-copenhagen' | split: '|'
+  assign nl_slugs = 'amsterdam|rotterdam|the-hague|utrecht|eindhoven|groningen|tilburg|almere|breda|nijmegen|apeldoorn|arnhem|haarlem|enschede|amersfoort|den-bosch|zwolle|leiden|zoetermeer|leeuwarden|maastricht|dordrecht|delft' | split: '|'
+  assign nl_names = 'Amsterdam|Rotterdam|The Hague|Utrecht|Eindhoven|Groningen|Tilburg|Almere|Breda|Nijmegen|Apeldoorn|Arnhem|Haarlem|Enschede|Amersfoort|Den Bosch|Zwolle|Leiden|Zoetermeer|Leeuwarden|Maastricht|Dordrecht|Delft' | split: '|'
+  assign nl_imgs = 'g-amsterdam|h-rotterdam|n-the-hague|h-utrecht|n-eindhoven|n-groningen|n-tilburg|n-almere|n-breda|n-nijmegen|n-apeldoorn|n-arnhem|n-haarlem|n-enschede|n-amersfoort|n-den-bosch|n-zwolle|n-leiden|n-zoetermeer|n-leeuwarden|n-maastricht|n-dordrecht|n-delft' | split: '|'
+  assign eu_slugs = 'paris|london|berlin|vienna|prague|rome|venice|barcelona|madrid|lisbon|copenhagen|antwerp' | split: '|'
+  assign eu_names = 'Paris|London|Berlin|Vienna|Prague|Rome|Venice|Barcelona|Madrid|Lisbon|Copenhagen|Antwerp' | split: '|'
+  assign eu_imgs = 'g-paris|h-london|h-berlin|h-vienna|h-prague|g-rome|h-venice|h-barcelona|g-madrid|g-lisbon|g-copenhagen|h-antwerp' | split: '|'
+  assign is_nl = false
+  if city and city.country == 'Netherlands'
+    assign is_nl = true
+  endif
   if city
     capture design_json
       echo '{"v":1,"center":{"lat":'
@@ -83,18 +90,42 @@
 
   <section class="n98o-more">
     <div class="n98o-wrap">
-      <p class="n98o-eyebrow">{% if city %}More cities{% else %}Choose a city{% endif %}</p>
-      <div class="n98o-more__grid">
-        {%- for s in slugs -%}
-          {%- assign i = forloop.index0 -%}
-          {%- unless city and names[i] == city.name -%}
-            <a class="n98o-tile" href="/pages/{{ s }}-map-print">
-              <img src="{{ 'n98-' | append: imgs[i] | append: '.jpg' | asset_url }}" alt="{{ names[i] }} map print" loading="lazy" width="1200" height="1680">
-              <span class="n98o-tile__line">{{ names[i] }}</span>
-            </a>
-          {%- endunless -%}
-        {%- endfor -%}
-      </div>
+      {%- if city == blank or is_nl -%}
+        <p class="n98o-eyebrow">{% if city %}More cities in the Netherlands{% else %}The Netherlands{% endif %}</p>
+        <div class="n98o-more__grid">
+          {%- for s in nl_slugs -%}
+            {%- assign i = forloop.index0 -%}
+            {%- unless city and nl_names[i] == city.name -%}
+              <a class="n98o-tile" href="/pages/{{ s }}-map-print">
+                <img src="{{ 'n98-' | append: nl_imgs[i] | append: '.jpg' | asset_url }}" alt="{{ nl_names[i] }} map print" loading="lazy" width="1200" height="1680">
+                <span class="n98o-tile__line">{{ nl_names[i] }}</span>
+              </a>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if city == blank or is_nl == false -%}
+        <p class="n98o-eyebrow{% if city == blank %} n98o-more__group{% endif %}">{% if city %}More cities in Europe{% else %}Europe{% endif %}</p>
+        <div class="n98o-more__grid">
+          {%- for s in eu_slugs -%}
+            {%- assign i = forloop.index0 -%}
+            {%- unless city and eu_names[i] == city.name -%}
+              <a class="n98o-tile" href="/pages/{{ s }}-map-print">
+                <img src="{{ 'n98-' | append: eu_imgs[i] | append: '.jpg' | asset_url }}" alt="{{ eu_names[i] }} map print" loading="lazy" width="1200" height="1680">
+                <span class="n98o-tile__line">{{ eu_names[i] }}</span>
+              </a>
+            {%- endunless -%}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+      {%- if city -%}
+        {%- if is_nl -%}
+          {%- assign o_slugs = eu_slugs -%}{%- assign o_names = eu_names -%}{%- assign o_label = 'Elsewhere in Europe:' -%}
+        {%- else -%}
+          {%- assign o_slugs = nl_slugs -%}{%- assign o_names = nl_names -%}{%- assign o_label = 'In the Netherlands:' -%}
+        {%- endif -%}
+        <p class="n98o-small n98o-more__note">{{ o_label }} {% for s in o_slugs %}<a href="/pages/{{ s }}-map-print">{{ o_names[forloop.index0] }}</a> · {% endfor %}<a href="/pages/city-map-prints">All cities</a></p>
+      {%- endif -%}
       <p class="n98o-small n98o-more__note">Your city is not here? Every place on earth works: <a href="{{ designer_url }}">open the designer</a> and search for it.</p>
     </div>
   </section>
@@ -130,7 +161,9 @@
   .n98o-small { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 14px; color: #6B665C; }
   .n98o-more { padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 8vw, 112px); background: #ECE7DE; }
   .n98o-more__grid { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: clamp(18px, 2.4vw, 32px) clamp(14px, 2vw, 28px); }
-  .n98o-more__note { margin: clamp(28px, 4vw, 44px) 0 0; }
+  .n98o-more__note { margin: clamp(28px, 4vw, 44px) 0 0; line-height: 1.9; }
+  .n98o-more__note + .n98o-more__note { margin-top: 12px; }
+  .n98o-more__group { margin-top: clamp(56px, 7vw, 88px); }
   .n98o-tile { display: flex; flex-direction: column; gap: 6px; color: #141414; text-decoration: none; }
   .n98o-tile img { display: block; width: 100%; height: auto; margin-bottom: 8px; box-shadow: 0 18px 30px -18px rgba(30,24,16,.5); transition: transform 0.5s ease; }
   .n98o-tile:hover img { transform: translateY(-4px); }
