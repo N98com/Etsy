@@ -1,0 +1,36 @@
+{
+ "blogId": "gid://shopify/Blog/128120783231",
+ "title": "What size poster above the sofa?",
+ "handle": "poster-size-above-sofa",
+ "body": "<h2>The two thirds rule</h2>\n<p>The most common mistake above a sofa is art that is too small. A single 30×40 cm print above a three seater looks like a stamp on an envelope. The rule interior designers use is simple: <strong>the art should cover about two thirds of the width of the sofa</strong>. Between half and three quarters still looks good. Less than half looks lost, more than three quarters starts to feel cramped.</p>\n<p>Measure your sofa from armrest to armrest and multiply by 0.66. That is the width to aim for, frame included. With two or three prints, count the gaps between them as well.</p>\n<h2>Sizes per sofa width</h2>\n<table>\n<thead><tr><th>Sofa width</th><th>Aim for</th><th>One print</th><th>Two prints</th><th>Three prints</th></tr></thead>\n<tbody>\n<tr><td>140 to 160 cm</td><td>about 100 cm</td><td>70×100 cm</td><td>2 × 45×60 cm</td><td>3 × 27×35 cm</td></tr>\n<tr><td>180 to 200 cm</td><td>about 125 cm</td><td>70×100 cm as a centrepiece</td><td>2 × 50×70 cm</td><td>3 × 30×40 cm</td></tr>\n<tr><td>220 to 240 cm</td><td>about 150 cm</td><td>too small alone</td><td>2 × 60×90 cm</td><td>3 × 40×50 cm</td></tr>\n<tr><td>260 cm and more</td><td>about 175 cm</td><td>too small alone</td><td>2 × 70×100 cm</td><td>3 × 50×70 cm</td></tr>\n</tbody>\n</table>\n<p>All our prints are portrait, so for a wide sofa a pair or a row of three is often the most beautiful answer. A single 70×100 cm print still works on a large sofa if the rest of the wall is calm, but it will read as a centrepiece rather than filling the width.</p>\n<h2>How high to hang it</h2>\n<p>Leave <strong>20 to 25 cm</strong> between the top of the sofa back and the bottom of the frame. Lower and heads will touch it, higher and the art floats away from the sofa and the two no longer belong together. In a room with high ceilings you can go up to 30 cm, but rarely more.</p>\n<h2>One, two or three prints</h2>\n<ul>\n<li><strong>One large print</strong> gives calm and focus. Best for a two seater or a minimal room.</li>\n<li><strong>Two prints</strong> side by side feel balanced and work for almost every sofa. Keep 6 to 8 cm between the frames.</li>\n<li><strong>Three prints</strong> in a row fill a long sofa or a corner sofa elegantly. Use the same size and the same frame, with equal gaps.</li>\n</ul>\n<h2>A series that belongs together</h2>\n<p>Two or three maps work best when they share something: the same palette, the same frame and a connection in the story. A few ideas:</p>\n<ul>\n<li>The city where you met, the city where you live and the city where you married</li>\n<li>Three neighbourhoods of the same city at the same zoom</li>\n<li>Where each of you grew up, with your home in the middle</li>\n</ul>\n<h2>Test it before you order</h2>\n<p>Cut sheets of newspaper or brown paper to the size you have in mind and tape them to the wall. Live with it for a day. It is the quickest way to see whether 50×70 cm or 70×100 cm is right. Our <a href=\"/pages/sizes-and-frames\">guide to sizes and frames</a> shows every size and frame colour to scale.</p>",
+ "summary": "<p>Too small and it looks lost, too big and it swallows the room. A simple rule of thumb for the size and height of art above your sofa, with a table for every sofa width.</p>",
+ "tags": [
+  "Interior",
+  "Sizes"
+ ],
+ "isPublished": true,
+ "templateSuffix": "journal",
+ "author": {
+  "name": "N°98 Maps"
+ },
+ "metafields": [
+  {
+   "namespace": "n98",
+   "key": "img",
+   "type": "single_line_text_field",
+   "value": "g-copenhagen"
+  },
+  {
+   "namespace": "global",
+   "key": "title_tag",
+   "type": "single_line_text_field",
+   "value": "What Size Poster Above the Sofa? Size and Height Guide | N°98 Maps"
+  },
+  {
+   "namespace": "global",
+   "key": "description_tag",
+   "type": "multi_line_text_field",
+   "value": "How big should a poster above the sofa be, and how high should you hang it? The two thirds rule, a size table per sofa width, and when to choose one print, two or three."
+  }
+ ]
+}
