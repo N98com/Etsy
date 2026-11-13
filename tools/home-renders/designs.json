@@ -6499,14 +6499,14 @@
   "id": "w-oslo--fr",
   "place": "Oslo",
   "country": "Norvège",
-  "lat": 59.9127,
+  "lat": 59.91271,
   "lon": 10.7461,
   "palette": "deep-teal",
   "w": 1200,
   "h": 1680
  },
  {
-  "id": "w-oslo-x",
+  "id": "w-oslo",
   "place": "Oslo",
   "country": "Norway",
   "lat": 59.9127,
