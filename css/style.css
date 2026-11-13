@@ -420,3 +420,17 @@ footer { text-align: center; padding: 20px; color: var(--ink-soft); font-size: 0
 .order-dialog-inner { padding: 20px; display: flex; flex-direction: column; gap: 10px; }
 .order-dialog h2 { margin: 0; font-size: 1.05rem; }
 .order-dialog textarea { width: 100%; box-sizing: border-box; font-family: ui-monospace, monospace; font-size: 0.78rem; background: var(--bg); color: var(--ink); border: 1px solid var(--line); border-radius: 6px; padding: 10px; resize: vertical; }
+
+/* Roadmap (workbench) */
+.roadmap-dialog { width: min(560px, calc(100vw - 32px)); }
+.roadmap-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.roadmap-head h2 { margin: 0; }
+.roadmap-list { list-style: none; margin: 8px 0 14px; padding: 0; max-height: 60vh; overflow-y: auto; }
+.roadmap-list li { display: flex; align-items: flex-start; gap: 10px; padding: 9px 2px; border-bottom: 1px solid var(--line); }
+.roadmap-list label { flex: 1; display: flex; align-items: flex-start; gap: 10px; cursor: pointer; line-height: 1.4; }
+.roadmap-list input[type=checkbox] { width: 18px; height: 18px; margin-top: 1px; flex: none; accent-color: #d4a73a; }
+.roadmap-list li.done .roadmap-title { text-decoration: line-through; opacity: .55; }
+.roadmap-list .roadmap-del { background: none; border: 0; padding: 2px 6px; opacity: .35; cursor: pointer; font-size: 1rem; }
+.roadmap-list .roadmap-del:hover { opacity: .9; }
+.roadmap-add { display: flex; gap: 8px; }
+.roadmap-add input { flex: 1; }

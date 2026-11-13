@@ -6,7 +6,7 @@
   <title>MapGen2.0</title>
   <!-- ?v=N: zelfde cache-busting reden als bij de js/-bestanden verderop —
        verhoog bij elke push die css/style.css wijzigt. -->
-  <link rel="stylesheet" href="css/style.css?v=10">
+  <link rel="stylesheet" href="css/style.css?v=11">
   <!-- Amiri: klassiek Arabisch schrift (Naskh-stijl) voor onderschriften
        zodra een plaatsnaam/land in het Arabisch is opgezocht — zie
        js/mapRender.js' isRTLText/rtl-afhandeling in de caption-tekencode.
@@ -38,6 +38,7 @@
       <h1>MapGen2.0</h1>
     </div>
     <div class="header-actions">
+      <button id="roadmapBtn" class="icon-btn" title="Roadmap" aria-label="Roadmap">☑</button>
       <div class="icon-menu">
         <button id="settingsBtn" class="icon-btn" title="Settings" aria-label="Settings">⚙</button>
         <div id="settingsMenu" class="settings-menu" hidden>
@@ -54,6 +55,24 @@
       <button id="logoutBtn" class="ghost">Log out</button>
     </div>
   </header>
+
+  <!-- Roadmap: de takenlijst van N°98 Maps, opgeslagen in Supabase (tabel
+       roadmap_items), zodat hij op elk apparaat hetzelfde is. Zie js/roadmap.js. -->
+  <dialog id="roadmapDialog" class="order-dialog roadmap-dialog">
+    <div class="order-dialog-inner">
+      <div class="roadmap-head">
+        <h2>Roadmap</h2>
+        <button type="button" id="roadmapClose" class="icon-btn" aria-label="Close">✕</button>
+      </div>
+      <p class="hint" id="roadmapCount"></p>
+      <ul id="roadmapList" class="roadmap-list"></ul>
+      <form id="roadmapAddForm" class="roadmap-add">
+        <input type="text" id="roadmapAddInput" placeholder="Nieuwe taak…" autocomplete="off">
+        <button type="submit" class="primary">Toevoegen</button>
+      </form>
+      <p class="hint" id="roadmapStatus" role="status"></p>
+    </div>
+  </dialog>
 
   <!-- Bestelling namaken: plak de ontwerpcode (line item property "_Design JSON"
        uit de Shopify-bestelling) — de kaart wordt exact zo opgebouwd als de
@@ -447,7 +466,8 @@
        een gepushte fix kan anders bij bezoekers onopgemerkt niet doorkomen.
        Verhoog dit nummer bij elke push die JS-bestanden wijzigt. -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-  <script src="js/auth.js?v=51"></script>
+  <script src="js/auth.js?v=52"></script>
+  <script src="js/roadmap.js?v=1"></script>
   <script src="js/utils.js?v=50"></script>
   <script src="js/rng.js?v=50"></script>
   <script src="js/palettes.js?v=50"></script>
