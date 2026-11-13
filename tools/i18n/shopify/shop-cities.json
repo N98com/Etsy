@@ -1,1 +1,895 @@
-[{"s":"amsterdam","n":"Amsterdam","c":"nl","i":"g-amsterdam"},{"s":"rotterdam","n":"Rotterdam","c":"nl","i":"h-rotterdam"},{"s":"the-hague","n":"The Hague","c":"nl","i":"n-the-hague","nl":"Den Haag","de":"Den Haag","fr":"La Haye"},{"s":"utrecht","n":"Utrecht","c":"nl","i":"h-utrecht"},{"s":"eindhoven","n":"Eindhoven","c":"nl","i":"n-eindhoven"},{"s":"groningen","n":"Groningen","c":"nl","i":"n-groningen","fr":"Groningue"},{"s":"tilburg","n":"Tilburg","c":"nl","i":"n-tilburg"},{"s":"almere","n":"Almere","c":"nl","i":"n-almere"},{"s":"breda","n":"Breda","c":"nl","i":"n-breda"},{"s":"nijmegen","n":"Nijmegen","c":"nl","i":"n-nijmegen","de":"Nimwegen","fr":"Nimègue"},{"s":"apeldoorn","n":"Apeldoorn","c":"nl","i":"n-apeldoorn"},{"s":"arnhem","n":"Arnhem","c":"nl","i":"n-arnhem","de":"Arnheim"},{"s":"haarlem","n":"Haarlem","c":"nl","i":"n-haarlem"},{"s":"enschede","n":"Enschede","c":"nl","i":"n-enschede"},{"s":"amersfoort","n":"Amersfoort","c":"nl","i":"n-amersfoort"},{"s":"den-bosch","n":"Den Bosch","c":"nl","i":"n-den-bosch","fr":"Bois-le-Duc"},{"s":"zwolle","n":"Zwolle","c":"nl","i":"n-zwolle"},{"s":"leiden","n":"Leiden","c":"nl","i":"n-leiden","fr":"Leyde"},{"s":"zoetermeer","n":"Zoetermeer","c":"nl","i":"n-zoetermeer"},{"s":"leeuwarden","n":"Leeuwarden","c":"nl","i":"n-leeuwarden"},{"s":"maastricht","n":"Maastricht","c":"nl","i":"n-maastricht"},{"s":"dordrecht","n":"Dordrecht","c":"nl","i":"n-dordrecht"},{"s":"delft","n":"Delft","c":"nl","i":"n-delft"},{"s":"antwerp","n":"Antwerp","c":"be","i":"h-antwerp","nl":"Antwerpen","de":"Antwerpen","fr":"Anvers"},{"s":"ghent","n":"Ghent","c":"be","i":"w-ghent","nl":"Gent","de":"Gent","fr":"Gand"},{"s":"charleroi","n":"Charleroi","c":"be","i":"w-charleroi"},{"s":"liege","n":"Liège","c":"be","i":"w-liege","nl":"Luik","de":"Lüttich"},{"s":"brussels","n":"Brussels","c":"be","i":"w-brussels","nl":"Brussel","de":"Brüssel","fr":"Bruxelles"},{"s":"bruges","n":"Bruges","c":"be","i":"w-bruges","nl":"Brugge","de":"Brügge"},{"s":"namur","n":"Namur","c":"be","i":"w-namur","nl":"Namen"},{"s":"leuven","n":"Leuven","c":"be","i":"w-leuven","de":"Löwen","fr":"Louvain"},{"s":"mons","n":"Mons","c":"be","i":"w-mons","nl":"Bergen"},{"s":"aalst","n":"Aalst","c":"be","i":"w-aalst","fr":"Alost"},{"s":"mechelen","n":"Mechelen","c":"be","i":"w-mechelen","de":"Mecheln","fr":"Malines"},{"s":"la-louviere","n":"La Louvière","c":"be","i":"w-la-louviere"},{"s":"hasselt","n":"Hasselt","c":"be","i":"w-hasselt"},{"s":"kortrijk","n":"Kortrijk","c":"be","i":"w-kortrijk","fr":"Courtrai"},{"s":"sint-niklaas","n":"Sint-Niklaas","c":"be","i":"w-sint-niklaas","fr":"Saint-Nicolas"},{"s":"ostend","n":"Ostend","c":"be","i":"w-ostend","nl":"Oostende","de":"Ostende","fr":"Ostende"},{"s":"tournai","n":"Tournai","c":"be","i":"w-tournai","nl":"Doornik"},{"s":"genk","n":"Genk","c":"be","i":"w-genk"},{"s":"seraing","n":"Seraing","c":"be","i":"w-seraing"},{"s":"roeselare","n":"Roeselare","c":"be","i":"w-roeselare","fr":"Roulers"},{"s":"berlin","n":"Berlin","c":"de","i":"h-berlin","nl":"Berlijn"},{"s":"hamburg","n":"Hamburg","c":"de","i":"w-hamburg","fr":"Hambourg"},{"s":"munich","n":"Munich","c":"de","i":"w-munich","nl":"München","de":"München"},{"s":"cologne","n":"Cologne","c":"de","i":"w-cologne","nl":"Keulen","de":"Köln"},{"s":"frankfurt","n":"Frankfurt","c":"de","i":"w-frankfurt","fr":"Francfort"},{"s":"stuttgart","n":"Stuttgart","c":"de","i":"w-stuttgart"},{"s":"dusseldorf","n":"Düsseldorf","c":"de","i":"w-dusseldorf"},{"s":"leipzig","n":"Leipzig","c":"de","i":"w-leipzig"},{"s":"dortmund","n":"Dortmund","c":"de","i":"w-dortmund"},{"s":"essen","n":"Essen","c":"de","i":"w-essen"},{"s":"bremen","n":"Bremen","c":"de","i":"w-bremen","fr":"Brême"},{"s":"dresden","n":"Dresden","c":"de","i":"w-dresden","fr":"Dresde"},{"s":"hanover","n":"Hanover","c":"de","i":"w-hanover","nl":"Hannover","de":"Hannover","fr":"Hanovre"},{"s":"nuremberg","n":"Nuremberg","c":"de","i":"w-nuremberg","nl":"Neurenberg","de":"Nürnberg"},{"s":"duisburg","n":"Duisburg","c":"de","i":"w-duisburg","fr":"Duisbourg"},{"s":"bochum","n":"Bochum","c":"de","i":"w-bochum"},{"s":"wuppertal","n":"Wuppertal","c":"de","i":"w-wuppertal"},{"s":"bielefeld","n":"Bielefeld","c":"de","i":"w-bielefeld"},{"s":"bonn","n":"Bonn","c":"de","i":"w-bonn"},{"s":"munster","n":"Münster","c":"de","i":"w-munster"},{"s":"paris","n":"Paris","c":"fr","i":"g-paris","nl":"Parijs"},{"s":"marseille","n":"Marseille","c":"fr","i":"w-marseille"},{"s":"lyon","n":"Lyon","c":"fr","i":"w-lyon"},{"s":"toulouse","n":"Toulouse","c":"fr","i":"w-toulouse"},{"s":"nice","n":"Nice","c":"fr","i":"w-nice","de":"Nizza"},{"s":"nantes","n":"Nantes","c":"fr","i":"w-nantes"},{"s":"montpellier","n":"Montpellier","c":"fr","i":"w-montpellier"},{"s":"strasbourg","n":"Strasbourg","c":"fr","i":"w-strasbourg","nl":"Straatsburg","de":"Straßburg"},{"s":"bordeaux","n":"Bordeaux","c":"fr","i":"w-bordeaux"},{"s":"lille","n":"Lille","c":"fr","i":"w-lille"},{"s":"rennes","n":"Rennes","c":"fr","i":"w-rennes"},{"s":"toulon","n":"Toulon","c":"fr","i":"w-toulon"},{"s":"reims","n":"Reims","c":"fr","i":"w-reims"},{"s":"saint-etienne","n":"Saint-Étienne","c":"fr","i":"w-saint-etienne"},{"s":"le-havre","n":"Le Havre","c":"fr","i":"w-le-havre"},{"s":"dijon","n":"Dijon","c":"fr","i":"w-dijon"},{"s":"grenoble","n":"Grenoble","c":"fr","i":"w-grenoble"},{"s":"angers","n":"Angers","c":"fr","i":"w-angers"},{"s":"nimes","n":"Nîmes","c":"fr","i":"w-nimes"},{"s":"clermont-ferrand","n":"Clermont-Ferrand","c":"fr","i":"w-clermont-ferrand"},{"s":"london","n":"London","c":"eu","i":"h-london","nl":"Londen","fr":"Londres"},{"s":"vienna","n":"Vienna","c":"eu","i":"h-vienna","nl":"Wenen","de":"Wien","fr":"Vienne"},{"s":"prague","n":"Prague","c":"eu","i":"h-prague","nl":"Praag","de":"Prag"},{"s":"rome","n":"Rome","c":"eu","i":"g-rome","de":"Rom"},{"s":"venice","n":"Venice","c":"eu","i":"h-venice","nl":"Venetië","de":"Venedig","fr":"Venise"},{"s":"barcelona","n":"Barcelona","c":"eu","i":"h-barcelona","fr":"Barcelone"},{"s":"madrid","n":"Madrid","c":"eu","i":"g-madrid"},{"s":"lisbon","n":"Lisbon","c":"eu","i":"g-lisbon","nl":"Lissabon","de":"Lissabon","fr":"Lisbonne"},{"s":"copenhagen","n":"Copenhagen","c":"eu","i":"g-copenhagen","nl":"Kopenhagen","de":"Kopenhagen","fr":"Copenhague"},{"s":"new-york","n":"New York","c":"us","i":"g-new-york"},{"s":"los-angeles","n":"Los Angeles","c":"us","i":"w-los-angeles"},{"s":"chicago","n":"Chicago","c":"us","i":"w-chicago"},{"s":"houston","n":"Houston","c":"us","i":"w-houston"},{"s":"phoenix","n":"Phoenix","c":"us","i":"w-phoenix"},{"s":"philadelphia","n":"Philadelphia","c":"us","i":"w-philadelphia","fr":"Philadelphie"},{"s":"san-antonio","n":"San Antonio","c":"us","i":"w-san-antonio"},{"s":"san-diego","n":"San Diego","c":"us","i":"w-san-diego"},{"s":"dallas","n":"Dallas","c":"us","i":"w-dallas"},{"s":"jacksonville","n":"Jacksonville","c":"us","i":"w-jacksonville"},{"s":"austin","n":"Austin","c":"us","i":"w-austin"},{"s":"fort-worth","n":"Fort Worth","c":"us","i":"w-fort-worth"},{"s":"san-jose","n":"San Jose","c":"us","i":"w-san-jose","de":"San José","fr":"San José"},{"s":"columbus","n":"Columbus","c":"us","i":"w-columbus"},{"s":"charlotte","n":"Charlotte","c":"us","i":"w-charlotte"},{"s":"indianapolis","n":"Indianapolis","c":"us","i":"w-indianapolis"},{"s":"san-francisco","n":"San Francisco","c":"us","i":"g-san-francisco"},{"s":"seattle","n":"Seattle","c":"us","i":"w-seattle"},{"s":"denver","n":"Denver","c":"us","i":"w-denver"},{"s":"oklahoma-city","n":"Oklahoma City","c":"us","i":"w-oklahoma-city"},{"s":"nashville","n":"Nashville","c":"us","i":"w-nashville"},{"s":"washington-dc","n":"Washington","c":"us","i":"w-washington-dc"},{"s":"el-paso","n":"El Paso","c":"us","i":"w-el-paso"},{"s":"las-vegas","n":"Las Vegas","c":"us","i":"w-las-vegas"},{"s":"boston","n":"Boston","c":"us","i":"w-boston"}]
+[
+ {
+  "s": "amsterdam",
+  "n": "Amsterdam",
+  "c": "nl",
+  "i": "g-amsterdam"
+ },
+ {
+  "s": "rotterdam",
+  "n": "Rotterdam",
+  "c": "nl",
+  "i": "h-rotterdam"
+ },
+ {
+  "s": "the-hague",
+  "n": "The Hague",
+  "c": "nl",
+  "i": "n-the-hague",
+  "nl": "Den Haag",
+  "de": "Den Haag",
+  "fr": "La Haye"
+ },
+ {
+  "s": "utrecht",
+  "n": "Utrecht",
+  "c": "nl",
+  "i": "h-utrecht"
+ },
+ {
+  "s": "eindhoven",
+  "n": "Eindhoven",
+  "c": "nl",
+  "i": "n-eindhoven"
+ },
+ {
+  "s": "groningen",
+  "n": "Groningen",
+  "c": "nl",
+  "i": "n-groningen",
+  "fr": "Groningue"
+ },
+ {
+  "s": "tilburg",
+  "n": "Tilburg",
+  "c": "nl",
+  "i": "n-tilburg"
+ },
+ {
+  "s": "almere",
+  "n": "Almere",
+  "c": "nl",
+  "i": "n-almere"
+ },
+ {
+  "s": "breda",
+  "n": "Breda",
+  "c": "nl",
+  "i": "n-breda"
+ },
+ {
+  "s": "nijmegen",
+  "n": "Nijmegen",
+  "c": "nl",
+  "i": "n-nijmegen",
+  "de": "Nimwegen",
+  "fr": "Nimègue"
+ },
+ {
+  "s": "apeldoorn",
+  "n": "Apeldoorn",
+  "c": "nl",
+  "i": "n-apeldoorn"
+ },
+ {
+  "s": "arnhem",
+  "n": "Arnhem",
+  "c": "nl",
+  "i": "n-arnhem",
+  "de": "Arnheim"
+ },
+ {
+  "s": "haarlem",
+  "n": "Haarlem",
+  "c": "nl",
+  "i": "n-haarlem"
+ },
+ {
+  "s": "enschede",
+  "n": "Enschede",
+  "c": "nl",
+  "i": "n-enschede"
+ },
+ {
+  "s": "amersfoort",
+  "n": "Amersfoort",
+  "c": "nl",
+  "i": "n-amersfoort"
+ },
+ {
+  "s": "den-bosch",
+  "n": "Den Bosch",
+  "c": "nl",
+  "i": "n-den-bosch",
+  "fr": "Bois-le-Duc"
+ },
+ {
+  "s": "zwolle",
+  "n": "Zwolle",
+  "c": "nl",
+  "i": "n-zwolle"
+ },
+ {
+  "s": "leiden",
+  "n": "Leiden",
+  "c": "nl",
+  "i": "n-leiden",
+  "fr": "Leyde"
+ },
+ {
+  "s": "zoetermeer",
+  "n": "Zoetermeer",
+  "c": "nl",
+  "i": "n-zoetermeer"
+ },
+ {
+  "s": "leeuwarden",
+  "n": "Leeuwarden",
+  "c": "nl",
+  "i": "n-leeuwarden"
+ },
+ {
+  "s": "maastricht",
+  "n": "Maastricht",
+  "c": "nl",
+  "i": "n-maastricht"
+ },
+ {
+  "s": "dordrecht",
+  "n": "Dordrecht",
+  "c": "nl",
+  "i": "n-dordrecht"
+ },
+ {
+  "s": "delft",
+  "n": "Delft",
+  "c": "nl",
+  "i": "n-delft"
+ },
+ {
+  "s": "antwerp",
+  "n": "Antwerp",
+  "c": "be",
+  "i": "h-antwerp",
+  "nl": "Antwerpen",
+  "de": "Antwerpen",
+  "fr": "Anvers"
+ },
+ {
+  "s": "ghent",
+  "n": "Ghent",
+  "c": "be",
+  "i": "w-ghent",
+  "nl": "Gent",
+  "de": "Gent",
+  "fr": "Gand"
+ },
+ {
+  "s": "charleroi",
+  "n": "Charleroi",
+  "c": "be",
+  "i": "w-charleroi"
+ },
+ {
+  "s": "liege",
+  "n": "Liège",
+  "c": "be",
+  "i": "w-liege",
+  "nl": "Luik",
+  "de": "Lüttich"
+ },
+ {
+  "s": "brussels",
+  "n": "Brussels",
+  "c": "be",
+  "i": "w-brussels",
+  "nl": "Brussel",
+  "de": "Brüssel",
+  "fr": "Bruxelles"
+ },
+ {
+  "s": "bruges",
+  "n": "Bruges",
+  "c": "be",
+  "i": "w-bruges",
+  "nl": "Brugge",
+  "de": "Brügge"
+ },
+ {
+  "s": "namur",
+  "n": "Namur",
+  "c": "be",
+  "i": "w-namur",
+  "nl": "Namen"
+ },
+ {
+  "s": "leuven",
+  "n": "Leuven",
+  "c": "be",
+  "i": "w-leuven",
+  "de": "Löwen",
+  "fr": "Louvain"
+ },
+ {
+  "s": "mons",
+  "n": "Mons",
+  "c": "be",
+  "i": "w-mons",
+  "nl": "Bergen"
+ },
+ {
+  "s": "aalst",
+  "n": "Aalst",
+  "c": "be",
+  "i": "w-aalst",
+  "fr": "Alost"
+ },
+ {
+  "s": "mechelen",
+  "n": "Mechelen",
+  "c": "be",
+  "i": "w-mechelen",
+  "de": "Mecheln",
+  "fr": "Malines"
+ },
+ {
+  "s": "la-louviere",
+  "n": "La Louvière",
+  "c": "be",
+  "i": "w-la-louviere"
+ },
+ {
+  "s": "hasselt",
+  "n": "Hasselt",
+  "c": "be",
+  "i": "w-hasselt"
+ },
+ {
+  "s": "kortrijk",
+  "n": "Kortrijk",
+  "c": "be",
+  "i": "w-kortrijk",
+  "fr": "Courtrai"
+ },
+ {
+  "s": "sint-niklaas",
+  "n": "Sint-Niklaas",
+  "c": "be",
+  "i": "w-sint-niklaas",
+  "fr": "Saint-Nicolas"
+ },
+ {
+  "s": "ostend",
+  "n": "Ostend",
+  "c": "be",
+  "i": "w-ostend",
+  "nl": "Oostende",
+  "de": "Ostende",
+  "fr": "Ostende"
+ },
+ {
+  "s": "tournai",
+  "n": "Tournai",
+  "c": "be",
+  "i": "w-tournai",
+  "nl": "Doornik"
+ },
+ {
+  "s": "genk",
+  "n": "Genk",
+  "c": "be",
+  "i": "w-genk"
+ },
+ {
+  "s": "seraing",
+  "n": "Seraing",
+  "c": "be",
+  "i": "w-seraing"
+ },
+ {
+  "s": "roeselare",
+  "n": "Roeselare",
+  "c": "be",
+  "i": "w-roeselare",
+  "fr": "Roulers"
+ },
+ {
+  "s": "berlin",
+  "n": "Berlin",
+  "c": "de",
+  "i": "h-berlin",
+  "nl": "Berlijn"
+ },
+ {
+  "s": "hamburg",
+  "n": "Hamburg",
+  "c": "de",
+  "i": "w-hamburg",
+  "fr": "Hambourg"
+ },
+ {
+  "s": "munich",
+  "n": "Munich",
+  "c": "de",
+  "i": "w-munich",
+  "nl": "München",
+  "de": "München"
+ },
+ {
+  "s": "cologne",
+  "n": "Cologne",
+  "c": "de",
+  "i": "w-cologne",
+  "nl": "Keulen",
+  "de": "Köln"
+ },
+ {
+  "s": "frankfurt",
+  "n": "Frankfurt",
+  "c": "de",
+  "i": "w-frankfurt",
+  "fr": "Francfort"
+ },
+ {
+  "s": "stuttgart",
+  "n": "Stuttgart",
+  "c": "de",
+  "i": "w-stuttgart"
+ },
+ {
+  "s": "dusseldorf",
+  "n": "Düsseldorf",
+  "c": "de",
+  "i": "w-dusseldorf"
+ },
+ {
+  "s": "leipzig",
+  "n": "Leipzig",
+  "c": "de",
+  "i": "w-leipzig"
+ },
+ {
+  "s": "dortmund",
+  "n": "Dortmund",
+  "c": "de",
+  "i": "w-dortmund"
+ },
+ {
+  "s": "essen",
+  "n": "Essen",
+  "c": "de",
+  "i": "w-essen"
+ },
+ {
+  "s": "bremen",
+  "n": "Bremen",
+  "c": "de",
+  "i": "w-bremen",
+  "fr": "Brême"
+ },
+ {
+  "s": "dresden",
+  "n": "Dresden",
+  "c": "de",
+  "i": "w-dresden",
+  "fr": "Dresde"
+ },
+ {
+  "s": "hanover",
+  "n": "Hanover",
+  "c": "de",
+  "i": "w-hanover",
+  "nl": "Hannover",
+  "de": "Hannover",
+  "fr": "Hanovre"
+ },
+ {
+  "s": "nuremberg",
+  "n": "Nuremberg",
+  "c": "de",
+  "i": "w-nuremberg",
+  "nl": "Neurenberg",
+  "de": "Nürnberg"
+ },
+ {
+  "s": "duisburg",
+  "n": "Duisburg",
+  "c": "de",
+  "i": "w-duisburg",
+  "fr": "Duisbourg"
+ },
+ {
+  "s": "bochum",
+  "n": "Bochum",
+  "c": "de",
+  "i": "w-bochum"
+ },
+ {
+  "s": "wuppertal",
+  "n": "Wuppertal",
+  "c": "de",
+  "i": "w-wuppertal"
+ },
+ {
+  "s": "bielefeld",
+  "n": "Bielefeld",
+  "c": "de",
+  "i": "w-bielefeld"
+ },
+ {
+  "s": "bonn",
+  "n": "Bonn",
+  "c": "de",
+  "i": "w-bonn"
+ },
+ {
+  "s": "munster",
+  "n": "Münster",
+  "c": "de",
+  "i": "w-munster"
+ },
+ {
+  "s": "paris",
+  "n": "Paris",
+  "c": "fr",
+  "i": "g-paris",
+  "nl": "Parijs"
+ },
+ {
+  "s": "marseille",
+  "n": "Marseille",
+  "c": "fr",
+  "i": "w-marseille"
+ },
+ {
+  "s": "lyon",
+  "n": "Lyon",
+  "c": "fr",
+  "i": "w-lyon"
+ },
+ {
+  "s": "toulouse",
+  "n": "Toulouse",
+  "c": "fr",
+  "i": "w-toulouse"
+ },
+ {
+  "s": "nice",
+  "n": "Nice",
+  "c": "fr",
+  "i": "w-nice",
+  "de": "Nizza"
+ },
+ {
+  "s": "nantes",
+  "n": "Nantes",
+  "c": "fr",
+  "i": "w-nantes"
+ },
+ {
+  "s": "montpellier",
+  "n": "Montpellier",
+  "c": "fr",
+  "i": "w-montpellier"
+ },
+ {
+  "s": "strasbourg",
+  "n": "Strasbourg",
+  "c": "fr",
+  "i": "w-strasbourg",
+  "nl": "Straatsburg",
+  "de": "Straßburg"
+ },
+ {
+  "s": "bordeaux",
+  "n": "Bordeaux",
+  "c": "fr",
+  "i": "w-bordeaux"
+ },
+ {
+  "s": "lille",
+  "n": "Lille",
+  "c": "fr",
+  "i": "w-lille"
+ },
+ {
+  "s": "rennes",
+  "n": "Rennes",
+  "c": "fr",
+  "i": "w-rennes"
+ },
+ {
+  "s": "toulon",
+  "n": "Toulon",
+  "c": "fr",
+  "i": "w-toulon"
+ },
+ {
+  "s": "reims",
+  "n": "Reims",
+  "c": "fr",
+  "i": "w-reims"
+ },
+ {
+  "s": "saint-etienne",
+  "n": "Saint-Étienne",
+  "c": "fr",
+  "i": "w-saint-etienne"
+ },
+ {
+  "s": "le-havre",
+  "n": "Le Havre",
+  "c": "fr",
+  "i": "w-le-havre"
+ },
+ {
+  "s": "dijon",
+  "n": "Dijon",
+  "c": "fr",
+  "i": "w-dijon"
+ },
+ {
+  "s": "grenoble",
+  "n": "Grenoble",
+  "c": "fr",
+  "i": "w-grenoble"
+ },
+ {
+  "s": "angers",
+  "n": "Angers",
+  "c": "fr",
+  "i": "w-angers"
+ },
+ {
+  "s": "nimes",
+  "n": "Nîmes",
+  "c": "fr",
+  "i": "w-nimes"
+ },
+ {
+  "s": "clermont-ferrand",
+  "n": "Clermont-Ferrand",
+  "c": "fr",
+  "i": "w-clermont-ferrand"
+ },
+ {
+  "s": "london",
+  "n": "London",
+  "c": "uk",
+  "i": "h-london",
+  "nl": "Londen",
+  "fr": "Londres"
+ },
+ {
+  "s": "vienna",
+  "n": "Vienna",
+  "c": "eu",
+  "i": "h-vienna",
+  "nl": "Wenen",
+  "de": "Wien",
+  "fr": "Vienne"
+ },
+ {
+  "s": "prague",
+  "n": "Prague",
+  "c": "eu",
+  "i": "h-prague",
+  "nl": "Praag",
+  "de": "Prag"
+ },
+ {
+  "s": "rome",
+  "n": "Rome",
+  "c": "eu",
+  "i": "g-rome",
+  "de": "Rom"
+ },
+ {
+  "s": "venice",
+  "n": "Venice",
+  "c": "eu",
+  "i": "h-venice",
+  "nl": "Venetië",
+  "de": "Venedig",
+  "fr": "Venise"
+ },
+ {
+  "s": "barcelona",
+  "n": "Barcelona",
+  "c": "eu",
+  "i": "h-barcelona",
+  "fr": "Barcelone"
+ },
+ {
+  "s": "madrid",
+  "n": "Madrid",
+  "c": "eu",
+  "i": "g-madrid"
+ },
+ {
+  "s": "lisbon",
+  "n": "Lisbon",
+  "c": "eu",
+  "i": "g-lisbon",
+  "nl": "Lissabon",
+  "de": "Lissabon",
+  "fr": "Lisbonne"
+ },
+ {
+  "s": "copenhagen",
+  "n": "Copenhagen",
+  "c": "eu",
+  "i": "g-copenhagen",
+  "nl": "Kopenhagen",
+  "de": "Kopenhagen",
+  "fr": "Copenhague"
+ },
+ {
+  "s": "new-york",
+  "n": "New York",
+  "c": "us",
+  "i": "g-new-york"
+ },
+ {
+  "s": "los-angeles",
+  "n": "Los Angeles",
+  "c": "us",
+  "i": "w-los-angeles"
+ },
+ {
+  "s": "chicago",
+  "n": "Chicago",
+  "c": "us",
+  "i": "w-chicago"
+ },
+ {
+  "s": "houston",
+  "n": "Houston",
+  "c": "us",
+  "i": "w-houston"
+ },
+ {
+  "s": "phoenix",
+  "n": "Phoenix",
+  "c": "us",
+  "i": "w-phoenix"
+ },
+ {
+  "s": "philadelphia",
+  "n": "Philadelphia",
+  "c": "us",
+  "i": "w-philadelphia",
+  "fr": "Philadelphie"
+ },
+ {
+  "s": "san-antonio",
+  "n": "San Antonio",
+  "c": "us",
+  "i": "w-san-antonio"
+ },
+ {
+  "s": "san-diego",
+  "n": "San Diego",
+  "c": "us",
+  "i": "w-san-diego"
+ },
+ {
+  "s": "dallas",
+  "n": "Dallas",
+  "c": "us",
+  "i": "w-dallas"
+ },
+ {
+  "s": "jacksonville",
+  "n": "Jacksonville",
+  "c": "us",
+  "i": "w-jacksonville"
+ },
+ {
+  "s": "austin",
+  "n": "Austin",
+  "c": "us",
+  "i": "w-austin"
+ },
+ {
+  "s": "fort-worth",
+  "n": "Fort Worth",
+  "c": "us",
+  "i": "w-fort-worth"
+ },
+ {
+  "s": "san-jose",
+  "n": "San Jose",
+  "c": "us",
+  "i": "w-san-jose",
+  "de": "San José",
+  "fr": "San José"
+ },
+ {
+  "s": "columbus",
+  "n": "Columbus",
+  "c": "us",
+  "i": "w-columbus"
+ },
+ {
+  "s": "charlotte",
+  "n": "Charlotte",
+  "c": "us",
+  "i": "w-charlotte"
+ },
+ {
+  "s": "indianapolis",
+  "n": "Indianapolis",
+  "c": "us",
+  "i": "w-indianapolis"
+ },
+ {
+  "s": "san-francisco",
+  "n": "San Francisco",
+  "c": "us",
+  "i": "g-san-francisco"
+ },
+ {
+  "s": "seattle",
+  "n": "Seattle",
+  "c": "us",
+  "i": "w-seattle"
+ },
+ {
+  "s": "denver",
+  "n": "Denver",
+  "c": "us",
+  "i": "w-denver"
+ },
+ {
+  "s": "oklahoma-city",
+  "n": "Oklahoma City",
+  "c": "us",
+  "i": "w-oklahoma-city"
+ },
+ {
+  "s": "nashville",
+  "n": "Nashville",
+  "c": "us",
+  "i": "w-nashville"
+ },
+ {
+  "s": "washington-dc",
+  "n": "Washington",
+  "c": "us",
+  "i": "w-washington-dc"
+ },
+ {
+  "s": "el-paso",
+  "n": "El Paso",
+  "c": "us",
+  "i": "w-el-paso"
+ },
+ {
+  "s": "las-vegas",
+  "n": "Las Vegas",
+  "c": "us",
+  "i": "w-las-vegas"
+ },
+ {
+  "s": "boston",
+  "n": "Boston",
+  "c": "us",
+  "i": "w-boston"
+ },
+ {
+  "s": "birmingham",
+  "n": "Birmingham",
+  "c": "uk",
+  "i": "w-birmingham"
+ },
+ {
+  "s": "glasgow",
+  "n": "Glasgow",
+  "c": "uk",
+  "i": "w-glasgow"
+ },
+ {
+  "s": "liverpool",
+  "n": "Liverpool",
+  "c": "uk",
+  "i": "w-liverpool"
+ },
+ {
+  "s": "bristol",
+  "n": "Bristol",
+  "c": "uk",
+  "i": "w-bristol"
+ },
+ {
+  "s": "manchester",
+  "n": "Manchester",
+  "c": "uk",
+  "i": "w-manchester"
+ },
+ {
+  "s": "sheffield",
+  "n": "Sheffield",
+  "c": "uk",
+  "i": "w-sheffield"
+ },
+ {
+  "s": "leeds",
+  "n": "Leeds",
+  "c": "uk",
+  "i": "w-leeds"
+ },
+ {
+  "s": "edinburgh",
+  "n": "Edinburgh",
+  "c": "uk",
+  "i": "w-edinburgh",
+  "fr": "Édimbourg"
+ },
+ {
+  "s": "leicester",
+  "n": "Leicester",
+  "c": "uk",
+  "i": "w-leicester"
+ },
+ {
+  "s": "coventry",
+  "n": "Coventry",
+  "c": "uk",
+  "i": "w-coventry"
+ },
+ {
+  "s": "bradford",
+  "n": "Bradford",
+  "c": "uk",
+  "i": "w-bradford"
+ },
+ {
+  "s": "cardiff",
+  "n": "Cardiff",
+  "c": "uk",
+  "i": "w-cardiff"
+ },
+ {
+  "s": "belfast",
+  "n": "Belfast",
+  "c": "uk",
+  "i": "w-belfast"
+ },
+ {
+  "s": "nottingham",
+  "n": "Nottingham",
+  "c": "uk",
+  "i": "w-nottingham"
+ },
+ {
+  "s": "hull",
+  "n": "Hull",
+  "c": "uk",
+  "i": "w-hull"
+ },
+ {
+  "s": "newcastle",
+  "n": "Newcastle",
+  "c": "uk",
+  "i": "w-newcastle"
+ },
+ {
+  "s": "stoke-on-trent",
+  "n": "Stoke-on-Trent",
+  "c": "uk",
+  "i": "w-stoke-on-trent"
+ },
+ {
+  "s": "southampton",
+  "n": "Southampton",
+  "c": "uk",
+  "i": "w-southampton"
+ },
+ {
+  "s": "derby",
+  "n": "Derby",
+  "c": "uk",
+  "i": "w-derby"
+ }
+]
