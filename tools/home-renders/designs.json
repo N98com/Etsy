@@ -6476,6 +6476,16 @@
   "zoom": 1.2
  },
  {
+  "id": "z-oslo-warmup",
+  "place": "Oslo",
+  "country": "Noorwegen",
+  "lat": 59.9127,
+  "lon": 10.7461,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-oslo--nl",
   "place": "Oslo",
   "country": "Noorwegen",
@@ -6499,7 +6509,7 @@
   "id": "w-oslo--fr",
   "place": "Oslo",
   "country": "Norvège",
-  "lat": 59.91271,
+  "lat": 59.9127,
   "lon": 10.7461,
   "palette": "deep-teal",
   "w": 1200,
