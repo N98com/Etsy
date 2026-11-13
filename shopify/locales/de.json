@@ -373,6 +373,7 @@
       "group_de": "Deutschland",
       "group_fr": "Frankreich",
       "group_uk": "Vereinigtes Königreich",
+      "group_no": "Norwegen",
       "group_eu": "Mehr Europa",
       "group_us": "Vereinigte Staaten",
       "more_nl": "Weitere Städte in den Niederlanden",
@@ -380,6 +381,7 @@
       "more_de": "Weitere Städte in Deutschland",
       "more_fr": "Weitere Städte in Frankreich",
       "more_uk": "Weitere Städte im Vereinigten Königreich",
+      "more_no": "Weitere Städte in Norwegen",
       "more_eu": "Weitere Städte in Europa",
       "more_us": "Weitere Städte in den Vereinigten Staaten"
     },
@@ -395,7 +397,8 @@
       "italy": "Italien",
       "spain": "Spanien",
       "portugal": "Portugal",
-      "denmark": "Dänemark"
+      "denmark": "Dänemark",
+      "norway": "Norwegen"
     },
     "header": {
       "currency": "Währung",

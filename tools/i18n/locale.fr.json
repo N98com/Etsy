@@ -18,6 +18,7 @@
     "group_de": "Allemagne",
     "group_fr": "France",
     "group_uk": "Royaume-Uni",
+    "group_no": "Norvège",
     "group_eu": "Plus d’Europe",
     "group_us": "États-Unis",
     "more_nl": "Plus de villes aux Pays-Bas",
@@ -25,6 +26,7 @@
     "more_de": "Plus de villes en Allemagne",
     "more_fr": "Plus de villes en France",
     "more_uk": "Plus de villes au Royaume-Uni",
+    "more_no": "Plus de villes en Norvège",
     "more_eu": "Plus de villes en Europe",
     "more_us": "Plus de villes aux États-Unis"
   },
@@ -40,7 +42,8 @@
     "italy": "Italie",
     "spain": "Espagne",
     "portugal": "Portugal",
-    "denmark": "Danemark"
+    "denmark": "Danemark",
+    "norway": "Norvège"
   },
   "header": {
     "currency": "Devise",

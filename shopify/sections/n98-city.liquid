@@ -24,11 +24,11 @@
   assign designer_url = pfx | append: '/products/design-your-map'
   assign hub_url = pfx | append: '/pages/city-map-prints'
   # own country first
-  assign groups = 'nl,be,de,fr,uk,eu,us' | split: ','
+  assign groups = 'nl,be,de,fr,uk,no,eu,us' | split: ','
   if lang == 'de'
-    assign groups = 'de,nl,be,fr,uk,eu,us' | split: ','
+    assign groups = 'de,nl,be,fr,uk,no,eu,us' | split: ','
   elsif lang == 'fr'
-    assign groups = 'fr,be,nl,de,uk,eu,us' | split: ','
+    assign groups = 'fr,be,nl,de,uk,no,eu,us' | split: ','
   endif
   assign slug = page.handle | remove: '-map-print'
   assign group = ''

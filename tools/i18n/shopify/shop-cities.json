@@ -891,5 +891,126 @@
   "n": "Derby",
   "c": "uk",
   "i": "w-derby"
+ },
+ {
+  "s": "oslo",
+  "n": "Oslo",
+  "c": "no",
+  "i": "w-oslo"
+ },
+ {
+  "s": "bergen",
+  "n": "Bergen",
+  "c": "no",
+  "i": "w-bergen"
+ },
+ {
+  "s": "trondheim",
+  "n": "Trondheim",
+  "c": "no",
+  "i": "w-trondheim"
+ },
+ {
+  "s": "stavanger",
+  "n": "Stavanger",
+  "c": "no",
+  "i": "w-stavanger"
+ },
+ {
+  "s": "drammen",
+  "n": "Drammen",
+  "c": "no",
+  "i": "w-drammen"
+ },
+ {
+  "s": "fredrikstad",
+  "n": "Fredrikstad",
+  "c": "no",
+  "i": "w-fredrikstad"
+ },
+ {
+  "s": "kristiansand",
+  "n": "Kristiansand",
+  "c": "no",
+  "i": "w-kristiansand"
+ },
+ {
+  "s": "sandnes",
+  "n": "Sandnes",
+  "c": "no",
+  "i": "w-sandnes"
+ },
+ {
+  "s": "tromso",
+  "n": "Tromsø",
+  "c": "no",
+  "i": "w-tromso"
+ },
+ {
+  "s": "sarpsborg",
+  "n": "Sarpsborg",
+  "c": "no",
+  "i": "w-sarpsborg"
+ },
+ {
+  "s": "skien",
+  "n": "Skien",
+  "c": "no",
+  "i": "w-skien"
+ },
+ {
+  "s": "alesund",
+  "n": "Ålesund",
+  "c": "no",
+  "i": "w-alesund",
+  "fr": "Ålesund"
+ },
+ {
+  "s": "sandefjord",
+  "n": "Sandefjord",
+  "c": "no",
+  "i": "w-sandefjord"
+ },
+ {
+  "s": "haugesund",
+  "n": "Haugesund",
+  "c": "no",
+  "i": "w-haugesund"
+ },
+ {
+  "s": "tonsberg",
+  "n": "Tønsberg",
+  "c": "no",
+  "i": "w-tonsberg"
+ },
+ {
+  "s": "moss",
+  "n": "Moss",
+  "c": "no",
+  "i": "w-moss"
+ },
+ {
+  "s": "porsgrunn",
+  "n": "Porsgrunn",
+  "c": "no",
+  "i": "w-porsgrunn"
+ },
+ {
+  "s": "bodo",
+  "n": "Bodø",
+  "c": "no",
+  "i": "w-bodo"
+ },
+ {
+  "s": "arendal",
+  "n": "Arendal",
+  "c": "no",
+  "i": "w-arendal"
+ },
+ {
+  "s": "hamar",
+  "n": "Hamar",
+  "c": "no",
+  "i": "w-hamar"
  }
 ]
