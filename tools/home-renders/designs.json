@@ -6510,10 +6510,11 @@
   "place": "Oslo",
   "country": "Norway",
   "lat": 59.9127,
-  "lon": 10.7461,
+  "lon": 10.7465,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "zoom": 1.002
  },
  {
   "id": "w-bergen",
