@@ -6506,15 +6506,14 @@
   "h": 1680
  },
  {
-  "id": "w-oslo",
+  "id": "w-oslo-x",
   "place": "Oslo",
   "country": "Norway",
-  "lat": 59.915,
-  "lon": 10.74,
+  "lat": 59.9127,
+  "lon": 10.7461,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680,
-  "zoom": 0.9
+  "h": 1680
  },
  {
   "id": "w-bergen",
