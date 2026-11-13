@@ -403,7 +403,15 @@
       "settings": "Taal en valuta",
       "eur": "Euro",
       "usd": "Amerikaanse dollar",
-      "gbp": "Britse pond"
+      "gbp": "Britse pond",
+      "chf": "Zwitserse frank",
+      "nok": "Noorse kroon",
+      "sek": "Zweedse kroon",
+      "dkk": "Deense kroon",
+      "pln": "Poolse zloty",
+      "czk": "Tsjechische kroon",
+      "huf": "Hongaarse forint",
+      "ron": "Roemeense leu"
     }
   }
 }

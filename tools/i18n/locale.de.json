@@ -48,6 +48,14 @@
     "settings": "Sprache und Währung",
     "eur": "Euro",
     "usd": "US-Dollar",
-    "gbp": "Britisches Pfund"
+    "gbp": "Britisches Pfund",
+    "chf": "Schweizer Franken",
+    "nok": "Norwegische Krone",
+    "sek": "Schwedische Krone",
+    "dkk": "Dänische Krone",
+    "pln": "Polnischer Złoty",
+    "czk": "Tschechische Krone",
+    "huf": "Ungarischer Forint",
+    "ron": "Rumänischer Leu"
   }
 }

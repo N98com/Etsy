@@ -61,10 +61,13 @@
     if (v == null) return '';
     if (/^[A-Z]{3}$/.test(ISO)) {
       try {
-        return new Intl.NumberFormat(ISO === 'EUR' ? 'nl-NL' : 'en-' + (ISO === 'GBP' ? 'GB' : 'US'), {
+        const LOC = { EUR: 'nl-NL', GBP: 'en-GB', USD: 'en-US', CHF: 'de-CH', NOK: 'nb-NO', SEK: 'sv-SE', DKK: 'da-DK', PLN: 'pl-PL', CZK: 'cs-CZ', HUF: 'hu-HU', RON: 'ro-RO' };
+        const out = new Intl.NumberFormat(LOC[ISO] || 'en-US', {
           style: 'currency', currency: ISO,
           minimumFractionDigits: Number.isInteger(v) ? 0 : 2, maximumFractionDigits: 2,
-        }).format(v).replace(/\s/g, '');
+        }).format(v);
+        // € 39 / $39 / £39 stay compact; "449 kr" and "CHF 49" keep a non breaking space
+        return /^(EUR|USD|GBP)$/.test(ISO) ? out.replace(/\s/g, '') : out.replace(/\s/g, '\u00a0');
       } catch (e) { /* valt terug op het symbool hieronder */ }
     }
     return CURRENCY + (Number.isInteger(v) ? String(v) : v.toFixed(2).replace('.', ','));

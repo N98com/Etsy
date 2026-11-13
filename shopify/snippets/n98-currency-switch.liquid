@@ -1,38 +1,37 @@
 {%- comment -%}
-  N°98 Maps: currency switch (EUR / USD / GBP).
+  N°98 Maps: currency switch (EUR, USD, GBP and the other currencies of the markets).
+  A currency belongs to a country in Shopify, so every option switches the country.
   variant: 'drawer' (bottom of the mobile menu) or 'inline' (desktop header).
 {%- endcomment -%}
 {%- liquid
   assign n98_cur = localization.country.currency.iso_code
+  assign n98_curs = 'EUR|€,USD|$,GBP|£,CHF|Fr.,NOK|kr,SEK|kr,DKK|kr,PLN|zł,CZK|Kč,HUF|Ft,RON|lei' | split: ','
   assign n98_eur_country = 'NL'
   if n98_cur == 'EUR'
     assign n98_eur_country = localization.country.iso_code
   endif
 -%}
 {%- if variant == 'inline' -%}
-  {%- case n98_cur -%}
-    {%- when 'USD' -%}{%- assign n98_cur_label = '$ USD' -%}
-    {%- when 'GBP' -%}{%- assign n98_cur_label = '£ GBP' -%}
-    {%- else -%}{%- assign n98_cur_label = '€ EUR' -%}
-  {%- endcase -%}
+  {%- assign n98_cur_label = '€ EUR' -%}
+  {%- for x in n98_curs -%}{%- assign p = x | split: '|' -%}{%- if p[0] == n98_cur -%}{%- assign n98_cur_label = p[1] | append: ' ' | append: p[0] -%}{%- endif -%}{%- endfor -%}
   <details class="n98-curdrop">
     <summary class="n98-curdrop__toggle" aria-label="{{ 'n98.header.currency' | t }}: {{ n98_cur_label }}">
       <span>{{ n98_cur_label }}</span>
       <svg class="n98-curdrop__caret" width="9" height="6" viewBox="0 0 9 6" aria-hidden="true"><path d="M1 1l3.5 3.5L8 1" fill="none" stroke="currentColor" stroke-width="1.1"/></svg>
     </summary>
     <div class="n98-curdrop__menu" role="group" aria-label="{{ 'n98.header.currency' | t }}">
-      <button type="button" class="n98-curdrop__opt" data-n98-country="{{ n98_eur_country }}" aria-pressed="{% if n98_cur == 'EUR' %}true{% else %}false{% endif %}">€ EUR</button>
-      <button type="button" class="n98-curdrop__opt" data-n98-country="US" aria-pressed="{% if n98_cur == 'USD' %}true{% else %}false{% endif %}">$ USD</button>
-      <button type="button" class="n98-curdrop__opt" data-n98-country="GB" aria-pressed="{% if n98_cur == 'GBP' %}true{% else %}false{% endif %}">£ GBP</button>
+      {%- for x in n98_curs -%}{%- assign p = x | split: '|' -%}{%- assign c = p[0] -%}
+      <button type="button" class="n98-curdrop__opt" data-n98-country="{%- case c -%}{%- when 'USD' -%}US{%- when 'GBP' -%}GB{%- when 'CHF' -%}CH{%- when 'NOK' -%}NO{%- when 'SEK' -%}SE{%- when 'DKK' -%}DK{%- when 'PLN' -%}PL{%- when 'CZK' -%}CZ{%- when 'HUF' -%}HU{%- when 'RON' -%}RO{%- else -%}{{ n98_eur_country }}{%- endcase -%}" aria-pressed="{% if n98_cur == c %}true{% else %}false{% endif %}">{{ p[1] }} {{ c }}</button>
+      {%- endfor -%}
     </div>
   </details>
 {%- else -%}
 <div class="n98-currency n98-currency--{{ variant | default: 'drawer' }}">
   <span class="n98-currency__label">{{ 'n98.header.currency' | t }}</span>
   <div class="n98-currency__options" role="group" aria-label="{{ 'n98.header.currency' | t }}">
-    <button type="button" class="n98-currency__btn" data-n98-country="{{ n98_eur_country }}" aria-pressed="{% if n98_cur == 'EUR' %}true{% else %}false{% endif %}">€ EUR</button>
-    <button type="button" class="n98-currency__btn" data-n98-country="US" aria-pressed="{% if n98_cur == 'USD' %}true{% else %}false{% endif %}">$ USD</button>
-    <button type="button" class="n98-currency__btn" data-n98-country="GB" aria-pressed="{% if n98_cur == 'GBP' %}true{% else %}false{% endif %}">£ GBP</button>
+    {%- for x in n98_curs -%}{%- assign p = x | split: '|' -%}{%- assign c = p[0] -%}
+    <button type="button" class="n98-currency__btn" data-n98-country="{%- case c -%}{%- when 'USD' -%}US{%- when 'GBP' -%}GB{%- when 'CHF' -%}CH{%- when 'NOK' -%}NO{%- when 'SEK' -%}SE{%- when 'DKK' -%}DK{%- when 'PLN' -%}PL{%- when 'CZK' -%}CZ{%- when 'HUF' -%}HU{%- when 'RON' -%}RO{%- else -%}{{ n98_eur_country }}{%- endcase -%}" aria-pressed="{% if n98_cur == c %}true{% else %}false{% endif %}">{{ p[1] }} {{ c }}</button>
+    {%- endfor -%}
   </div>
 </div>
 {%- endif -%}

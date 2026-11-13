@@ -84,7 +84,7 @@
   .n98-curdrop[open] .n98-curdrop__caret { transform: rotate(180deg); }
   .n98-curdrop__menu {
     position: absolute; top: calc(100% - 2px); right: 0; z-index: 30; min-width: 108px;
-    display: flex; flex-direction: column; padding: 6px 0;
+    display: flex; flex-direction: column; padding: 6px 0; max-height: min(70vh, 460px); overflow-y: auto; overscroll-behavior: contain;
     background: #F4F1EB; border: 1px solid #DDD6CA; box-shadow: 0 14px 30px -18px rgba(20, 20, 20, 0.35);
   }
   .n98-curdrop__opt {
@@ -110,6 +110,7 @@
     position: absolute; top: calc(100% + 6px); right: -6px; z-index: 40;
     width: 268px; max-width: calc(100vw - 24px); padding: 16px 8px 8px;
     background: #F4F1EB; border: 1px solid #DDD6CA; box-shadow: 0 18px 40px -20px rgba(20, 20, 20, 0.4);
+    max-height: calc(100vh - 96px); max-height: calc(100dvh - 96px); overflow-y: auto; overscroll-behavior: contain;
     animation: n98-loc-in .18s ease-out;
   }
   @keyframes n98-loc-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
@@ -127,7 +128,7 @@
   .n98-loc__opt:hover { background: rgba(20, 20, 20, 0.04); color: #141414; }
   .n98-loc__opt[aria-pressed="true"] { color: #141414; font-weight: 500; }
   .n98-loc__name { flex: 1 1 auto; }
-  .n98-loc__sym { display: inline-flex; align-items: center; justify-content: center; width: 21px; font-size: 15px; color: #141414; }
+  .n98-loc__sym { display: inline-flex; align-items: center; justify-content: center; width: 26px; font-size: 14px; white-space: nowrap; color: #141414; }
   .n98-loc__code { font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 10.5px; letter-spacing: 0.12em; color: #8A8478; }
   .n98-loc__check { flex: none; opacity: 0; color: #1E3529; }
   .n98-loc__opt[aria-pressed="true"] .n98-loc__check { opacity: 1; }
