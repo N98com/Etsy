@@ -29,7 +29,7 @@
   {
    "namespace": "global",
    "key": "description_tag",
-   "type": "multi_line_text_field",
+   "type": "single_line_text_field",
    "value": "Thoughtful leaving gifts for a friend, colleague or family member who is emigrating, and how to send a personalised map of home straight to their new address."
   }
  ]

@@ -54,7 +54,7 @@ def main():
                   'templateSuffix': 'journal', 'author': {'name': 'N°98 Maps'},
                   'metafields': [{'namespace': 'n98', 'key': 'img', 'type': 'single_line_text_field', 'value': A['img']},
                                  {'namespace': 'global', 'key': 'title_tag', 'type': 'single_line_text_field', 'value': en['meta_title']},
-                                 {'namespace': 'global', 'key': 'description_tag', 'type': 'multi_line_text_field', 'value': en['meta_description']}]}
+                                 {'namespace': 'global', 'key': 'description_tag', 'type': 'single_line_text_field', 'value': en['meta_description']}]}
         json.dump(create, open(os.path.join(HERE, 'out', n + '.create.json'), 'w'), ensure_ascii=False, indent=1)
         if n in ids:
             tr = [{'id': ids[n], 'locale': l, 't': {'title': A[l]['title'], 'body_html': A[l]['body'],

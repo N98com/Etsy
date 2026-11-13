@@ -29,7 +29,7 @@
   {
    "namespace": "global",
    "key": "description_tag",
-   "type": "multi_line_text_field",
+   "type": "single_line_text_field",
    "value": "Six personal wedding gift ideas, and how to design a map of where they met, got engaged or said yes. Framed, ready to hang, free shipping."
   }
  ]

@@ -29,7 +29,7 @@
   {
    "namespace": "global",
    "key": "description_tag",
-   "type": "multi_line_text_field",
+   "type": "single_line_text_field",
    "value": "How big should a poster above the sofa be, and how high should you hang it? The two thirds rule, a size table per sofa width, and when to choose one print, two or three."
   }
  ]

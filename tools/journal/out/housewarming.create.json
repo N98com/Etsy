@@ -29,7 +29,7 @@
   {
    "namespace": "global",
    "key": "description_tag",
-   "type": "multi_line_text_field",
+   "type": "single_line_text_field",
    "value": "Seven thoughtful housewarming gift ideas, and how to make a personalised map of their new street or neighbourhood. Framed, ready to hang, free shipping."
   }
  ]
