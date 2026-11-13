@@ -239,6 +239,121 @@
     </div>
   </section>
 </div>
+{%- when 'nb' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.n98p .n98p-table th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mute); padding: 0 0 14px; border-bottom: 1px solid var(--ink); }
+.n98p .n98p-table td { padding: 18px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.n98p .n98p-table th:nth-child(n+3), .n98p .n98p-table td:nth-child(n+3) { text-align: right; }
+.n98p .n98p-size { display: flex; align-items: center; gap: 18px; }
+.n98p .n98p-size i { flex: none; display: block; width: var(--w); height: var(--h); border: 1px solid var(--ink); background: var(--card); }
+.n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
+.n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
+.n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
+.n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
+.n98p .n98p-frame .n98p-swatch { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--wall); }
+.n98p .n98p-frame .n98p-swatch span { width: 58%; aspect-ratio: 5 / 7; background: var(--paper) var(--map) center / cover no-repeat; box-shadow: inset 0 2px 5px rgba(0,0,0,.28), inset 0 0 0 1px rgba(0,0,0,.12), 0 18px 30px -18px rgba(20,20,20,.45); }
+.n98p .n98p-frame h3 { font-size: 26px; line-height: 1.1; }
+.n98p .n98p-frame p { font-size: 14.5px; color: var(--ink-2); font-weight: 300; }
+.n98p .n98p-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+.n98p .n98p-spec { border-top: 1px solid var(--ink); padding-top: 18px; }
+.n98p .n98p-spec .n98-eyebrow { display: block; margin-bottom: 10px; }
+.n98p .n98p-spec p { font-family: var(--serif); font-size: 24px; line-height: 1.25; }
+.n98p .n98p-spec small { display: block; margin-top: 8px; font-size: 14px; color: var(--mute); font-weight: 300; }
+@media (max-width: 640px) {
+  .n98p .n98p-table th:nth-child(2), .n98p .n98p-table td:nth-child(2) { display: none; }
+  .n98p .n98p-size { gap: 12px; }
+  .n98p .n98p-size i { width: calc(var(--w) * 0.55); height: calc(var(--h) * 0.55); }
+  .n98p .n98p-table td { padding: 14px 0; }
+  .n98p .n98p-size b { font-size: 19px; }
+  .n98p .n98p-price { font-size: 12px; }
+}
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Størrelser &amp; rammer</p>
+      <h1>Hver størrelse, <em>hver ramme.</em></h1>
+      <p class="n98p-lede">Åtte galleristørrelser, fra nattbordet til den store veggen. Hvert trykk lages på premium matt papir og kan komme uten ramme eller i en ramme av massivt tre, klar til å henges opp. Frakten er gratis, overalt.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="sizes">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Størrelser og priser</p>
+      <h2>Velg størrelsen, <em>vi gjør resten.</em></h2>
+      <table class="n98p-table">
+        <thead><tr><th>Størrelse</th><th>Tommer</th><th>Uten ramme</th><th>Med ramme</th></tr></thead>
+        <tbody>
+          {%- for row in n98_sizes -%}
+            {%- assign f = row | split: '|' -%}
+            {%- assign framed_sku = f[0] | append: '-black' -%}
+            {%- assign p_plain = nil -%}{%- assign p_framed = nil -%}
+            {%- if n98_product -%}
+              {%- for v in n98_product.variants -%}
+                {%- if v.sku == f[0] -%}{%- assign p_plain = v.price -%}{%- endif -%}
+                {%- if v.sku == framed_sku -%}{%- assign p_framed = v.price -%}{%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
+            <tr>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td class="n98p-in">{{ f[2] }}</td>
+              <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
+              <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <p class="n98p-note">Alle priser inkluderer mva. og gratis frakt innenfor Europa, Storbritannia og USA. Prisen med ramme er den samme for alle rammefarger.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="frames">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Rammer</p>
+      <h2>Massivt tre, <em>klar til å henges opp.</em></h2>
+      <div class="n98p-frames">
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #1E1D1B;--map:url('{{ 'n98-frame-black.jpg' | asset_url }}')"></span></div><h3>Svart</h3><p>Dyp og grafisk. Får lyse paletter til å gløde.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #F4F2EE;--map:url('{{ 'n98-frame-white.jpg' | asset_url }}');box-shadow:inset 0 2px 5px rgba(0,0,0,.2),0 0 0 15px #D9D3C8,0 18px 30px -18px rgba(20,20,20,.45)"></span></div><h3>Hvit</h3><p>Rolig og stilren som i et galleri, for lyse rom.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #C9A87C;--map:url('{{ 'n98-frame-natural.jpg' | asset_url }}')"></span></div><h3>Naturtre</h3><p>Varm og lys, hjemme i skandinaviske interiører.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #5B3F2C;--map:url('{{ 'n98-frame-darkwood.jpg' | asset_url }}')"></span></div><h3>Mørkt tre</h3><p>Rik og klassisk, laget for mørkere paletter.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="--map:url('{{ 'n98-frame-none.jpg' | asset_url }}');box-shadow:0 18px 30px -18px rgba(20,20,20,.45),0 2px 4px rgba(20,20,20,.12)"></span></div><h3>Uten ramme</h3><p>Hver størrelse passer i en ferdig standardramme, så du kan bruke din egen.</p></div>
+      </div>
+      <div class="n98p-specs" style="margin-top:48px">
+        <div class="n98p-spec"><span class="n98-eyebrow">Ramme</span><p>Massiv furu</p><small>2 til 2,5 cm dyp, 1 til 1,4 cm bred. Lett, solid og laget for å vare.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Glass</span><p>Knusesikkert pleksiglass</p><small>Krystallklart og mye lettere enn glass, så det er trygt i posten og på enhver vegg.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Oppheng</span><p>Klar til å henges opp</p><small>Opphengssett inkludert, for stående eller liggende. Fra 60×90 sitter kroken allerede på baksiden.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Verdi</span><p>Ingen rammemaker nødvendig</p><small>Én pris for trykk, ramme og levering, ofte mindre enn innramming på bestilling alene.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="paper">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Papir &amp; trykk</p>
+      <h2>Trykket for å vare, <em>laget på bestilling.</em></h2>
+      <div class="n98p-specs">
+        <div class="n98p-spec"><span class="n98-eyebrow">Papir</span><p>Premium matt, 200 g/m²</p><small>0,22 mm tykt. Glatt og uten gjenskinn, så hver gate står skarpt.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Opprinnelse</span><p>FSC sertifisert papir</p><small>Eller en tilsvarende sertifisering, avhengig av trykkeriet.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Produksjon</span><p>Trykket nær deg</p><small>Hvert kart trykkes ferskt etter bestillingen din, hos et trykkeri nær leveringsadressen.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Levering</span><p>Alltid gratis</p><small>Til Europa, Storbritannia og USA. Vanligvis 3 til 7 virkedager i Europa, 5 til 10 i USA.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">N°98 Maps</p>
+      <h2>Funnet størrelsen din? <em>Finn stedet ditt.</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Design kartet ditt <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
 {%- when 'nl' -%}
 {% render 'n98-page-styles' %}
 <div class="n98h n98p">
@@ -351,6 +466,121 @@
       <p class="n98-eyebrow">N°98 Maps</p>
       <h2>Formaat gevonden? <em>Vind je plek.</em></h2>
       <a class="n98-btn" href="{{ n98_url }}">Ontwerp je kaart <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+{%- when 'sv' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.n98p .n98p-table th { text-align: left; font-family: var(--mono); font-weight: 400; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: var(--mute); padding: 0 0 14px; border-bottom: 1px solid var(--ink); }
+.n98p .n98p-table td { padding: 18px 0; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.n98p .n98p-table th:nth-child(n+3), .n98p .n98p-table td:nth-child(n+3) { text-align: right; }
+.n98p .n98p-size { display: flex; align-items: center; gap: 18px; }
+.n98p .n98p-size i { flex: none; display: block; width: var(--w); height: var(--h); border: 1px solid var(--ink); background: var(--card); }
+.n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
+.n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
+.n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
+.n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
+.n98p .n98p-frame .n98p-swatch { aspect-ratio: 4 / 5; display: grid; place-items: center; background: var(--wall); }
+.n98p .n98p-frame .n98p-swatch span { width: 58%; aspect-ratio: 5 / 7; background: var(--paper) var(--map) center / cover no-repeat; box-shadow: inset 0 2px 5px rgba(0,0,0,.28), inset 0 0 0 1px rgba(0,0,0,.12), 0 18px 30px -18px rgba(20,20,20,.45); }
+.n98p .n98p-frame h3 { font-size: 26px; line-height: 1.1; }
+.n98p .n98p-frame p { font-size: 14.5px; color: var(--ink-2); font-weight: 300; }
+.n98p .n98p-specs { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 32px; }
+.n98p .n98p-spec { border-top: 1px solid var(--ink); padding-top: 18px; }
+.n98p .n98p-spec .n98-eyebrow { display: block; margin-bottom: 10px; }
+.n98p .n98p-spec p { font-family: var(--serif); font-size: 24px; line-height: 1.25; }
+.n98p .n98p-spec small { display: block; margin-top: 8px; font-size: 14px; color: var(--mute); font-weight: 300; }
+@media (max-width: 640px) {
+  .n98p .n98p-table th:nth-child(2), .n98p .n98p-table td:nth-child(2) { display: none; }
+  .n98p .n98p-size { gap: 12px; }
+  .n98p .n98p-size i { width: calc(var(--w) * 0.55); height: calc(var(--h) * 0.55); }
+  .n98p .n98p-table td { padding: 14px 0; }
+  .n98p .n98p-size b { font-size: 19px; }
+  .n98p .n98p-price { font-size: 12px; }
+}
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Storlekar &amp; ramar</p>
+      <h1>Varje storlek, <em>varje ram.</em></h1>
+      <p class="n98p-lede">Åtta galleristorlekar, från nattduksbordet till den stora väggen. Varje tryck görs på premium matt papper och kan komma utan ram eller i en ram av massivt trä, redo att hängas upp. Frakten är gratis, överallt.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="sizes">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Storlekar och priser</p>
+      <h2>Välj storleken, <em>vi gör resten.</em></h2>
+      <table class="n98p-table">
+        <thead><tr><th>Storlek</th><th>Tum</th><th>Utan ram</th><th>Med ram</th></tr></thead>
+        <tbody>
+          {%- for row in n98_sizes -%}
+            {%- assign f = row | split: '|' -%}
+            {%- assign framed_sku = f[0] | append: '-black' -%}
+            {%- assign p_plain = nil -%}{%- assign p_framed = nil -%}
+            {%- if n98_product -%}
+              {%- for v in n98_product.variants -%}
+                {%- if v.sku == f[0] -%}{%- assign p_plain = v.price -%}{%- endif -%}
+                {%- if v.sku == framed_sku -%}{%- assign p_framed = v.price -%}{%- endif -%}
+              {%- endfor -%}
+            {%- endif -%}
+            {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
+            <tr>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td class="n98p-in">{{ f[2] }}</td>
+              <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
+              <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
+            </tr>
+          {%- endfor -%}
+        </tbody>
+      </table>
+      <p class="n98p-note">Alla priser inkluderar moms och fri frakt inom Europa, Storbritannien och USA. Priset med ram är detsamma för alla ramfärger.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="frames">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Ramar</p>
+      <h2>Massivt trä, <em>redo att hängas upp.</em></h2>
+      <div class="n98p-frames">
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #1E1D1B;--map:url('{{ 'n98-frame-black.jpg' | asset_url }}')"></span></div><h3>Svart</h3><p>Djup och grafisk. Får ljusa paletter att lysa.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #F4F2EE;--map:url('{{ 'n98-frame-white.jpg' | asset_url }}');box-shadow:inset 0 2px 5px rgba(0,0,0,.2),0 0 0 15px #D9D3C8,0 18px 30px -18px rgba(20,20,20,.45)"></span></div><h3>Vit</h3><p>Lugn och stilren som i ett galleri, för ljusa rum.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #C9A87C;--map:url('{{ 'n98-frame-natural.jpg' | asset_url }}')"></span></div><h3>Naturträ</h3><p>Varm och ljus, hemma i skandinaviska interiörer.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="outline:14px solid #5B3F2C;--map:url('{{ 'n98-frame-darkwood.jpg' | asset_url }}')"></span></div><h3>Mörkt trä</h3><p>Rik och klassisk, gjord för mörkare paletter.</p></div>
+        <div class="n98p-frame"><div class="n98p-swatch"><span style="--map:url('{{ 'n98-frame-none.jpg' | asset_url }}');box-shadow:0 18px 30px -18px rgba(20,20,20,.45),0 2px 4px rgba(20,20,20,.12)"></span></div><h3>Utan ram</h3><p>Varje storlek passar i en färdig standardram, så du kan använda din egen.</p></div>
+      </div>
+      <div class="n98p-specs" style="margin-top:48px">
+        <div class="n98p-spec"><span class="n98-eyebrow">Ram</span><p>Massiv furu</p><small>2 till 2,5 cm djup, 1 till 1,4 cm bred. Lätt, stadig och gjord för att hålla.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Glas</span><p>Splitterfritt plexiglas</p><small>Kristallklar och mycket lättare än glas, så den är säker i posten och på varje vägg.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Upphängning</span><p>Redo att hängas upp</p><small>Upphängningssats ingår, för stående eller liggande. Från 60×90 sitter kroken redan på baksidan.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Värde</span><p>Ingen inramare behövs</p><small>Ett pris för tryck, ram och leverans, ofta mindre än enbart inramning på beställning.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-sec" id="paper">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Papper &amp; tryck</p>
+      <h2>Tryckt för att hålla, <em>gjord på beställning.</em></h2>
+      <div class="n98p-specs">
+        <div class="n98p-spec"><span class="n98-eyebrow">Papper</span><p>Premium matt, 200 g/m²</p><small>0,22 mm tjockt. Slätt och utan reflexer, så varje gata syns skarpt.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Ursprung</span><p>FSC certifierat papper</p><small>Eller en likvärdig certifiering, beroende på tryckeriet.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Produktion</span><p>Tryckt nära dig</p><small>Varje karta trycks färsk efter din beställning, i ett tryckeri nära leveransadressen.</small></div>
+        <div class="n98p-spec"><span class="n98-eyebrow">Leverans</span><p>Alltid gratis</p><small>Till Europa, Storbritannien och USA. Oftast 3 till 7 arbetsdagar i Europa, 5 till 10 i USA.</small></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">N°98 Maps</p>
+      <h2>Hittat din storlek? <em>Hitta din plats.</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Designa din karta <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
     </div>
   </section>
 </div>

@@ -144,6 +144,75 @@
     </div>
   </section>
 </div>
+{%- when 'nb' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+.n98p .n98p-prose h2 { margin: 14px 0 0; }
+.n98p .n98p-prose .n98p-text p { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.75; font-weight: 300; color: var(--ink-2); }
+.n98p .n98p-prose .n98p-text p + p { margin-top: 1.2em; }
+.n98p .n98p-quote { padding: clamp(64px, 10vw, 128px) 0; text-align: center; border-bottom: 1px solid var(--line); }
+.n98p .n98p-quote blockquote { margin: 0 auto; max-width: 18em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.12; }
+.n98p .n98p-coords { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--mute); }
+.n98p .n98p-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98p .n98p-value { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98p .n98p-value .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98p .n98p-value h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98p .n98p-value p { color: var(--ink-2); font-weight: 300; }
+@media (max-width: 760px) { .n98p .n98p-prose { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Vår historie</p>
+      <h1>Noen steder <em>blir værende hos deg.</em></h1>
+      <p class="n98p-lede">Gaten der du vokste opp. Byen der dere møttes. Kysten du alltid vender tilbake til. N°98 Maps gjør de stedene om til rolige, gjennomtenkte trykk, hvert enkelt laget bare for deg.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap n98p-prose">
+      <div>
+        <p class="n98-eyebrow">Hvorfor N°98</p>
+        <h2>Et kart er et minne <em>du kan henge opp.</em></h2>
+      </div>
+      <div class="n98p-text">
+        <p>N°98 begynte med en enkel frustrasjon: de fleste kartplakater ser like ut. Samme skrifttyper, samme farger, den samme håndfullen byer. Stedene som betyr mest for folk, kom sjelden med.</p>
+        <p>Så vi bygde vårt eget kartstudio. Hver gate, elv og kystlinje tegnes av vår egen programvare, og hver palett er satt sammen for hånd for å henge på en vegg, fra Midnight Gold til Glacier Mist. Du velger stedet, fargene og ordene. Vi sørger for at det blir vakkert trykt.</p>
+        <p>N°98 er et lite studio fra Nederland. Vi trykker på bestilling, nær der du er, så ingenting lages som ingen ville ha, og kartet ditt reiser så kort som mulig.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-quote">
+    <div class="n98-wrap">
+      <blockquote>&ldquo;Ikke en by fra en liste. Ditt sted, med dine ord.&rdquo;</blockquote>
+      <p class="n98p-coords">52.3676° N · 4.9041° E</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Det vi bryr oss om</p>
+      <h2>Laget med omtanke, <em>sendt gratis.</em></h2>
+      <div class="n98p-values">
+        <div class="n98p-value"><span class="n98-num">I</span><h3>Design først</h3><p>Hver palett, skrifttype og linjetykkelse er valgt for å se rolig og tidløs ut, ikke skrikende.</p></div>
+        <div class="n98p-value"><span class="n98-num">II</span><h3>Akkurat slik du så det</h3><p>Forhåndsvisningen du godkjenner, er nøyaktig den filen vi sender til trykk. Ingen overraskelser.</p></div>
+        <div class="n98p-value"><span class="n98-num">III</span><h3>Laget på bestilling</h3><p>Ingenting ligger på lager. Hvert kart trykkes ferskt, etter bestillingen din.</p></div>
+        <div class="n98p-value"><span class="n98-num">IV</span><h3>Gratis frakt</h3><p>På hver bestilling til Europa, Storbritannia og USA. Prisen du ser, er prisen du betaler.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Din tur</p>
+      <h2>Hvilket sted <em>blir værende hos deg?</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Design kartet ditt <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
 {%- when 'nl' -%}
 {% render 'n98-page-styles' %}
 <div class="n98h n98p">
@@ -210,6 +279,75 @@
       <p class="n98-eyebrow">Jouw beurt</p>
       <h2>Welke plek <em>blijft bij jou?</em></h2>
       <a class="n98-btn" href="{{ n98_url }}">Ontwerp je kaart <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
+    </div>
+  </section>
+</div>
+{%- when 'sv' -%}
+{% render 'n98-page-styles' %}
+<div class="n98h n98p">
+<style>
+.n98p .n98p-prose { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr); gap: clamp(32px, 6vw, 96px); }
+.n98p .n98p-prose h2 { margin: 14px 0 0; }
+.n98p .n98p-prose .n98p-text p { font-size: clamp(17px, 1.5vw, 19px); line-height: 1.75; font-weight: 300; color: var(--ink-2); }
+.n98p .n98p-prose .n98p-text p + p { margin-top: 1.2em; }
+.n98p .n98p-quote { padding: clamp(64px, 10vw, 128px) 0; text-align: center; border-bottom: 1px solid var(--line); }
+.n98p .n98p-quote blockquote { margin: 0 auto; max-width: 18em; font-family: var(--serif); font-style: italic; font-weight: 300; font-size: clamp(32px, 4.4vw, 58px); line-height: 1.12; }
+.n98p .n98p-coords { margin-top: 26px; font-family: var(--mono); font-size: 11px; letter-spacing: 0.24em; color: var(--mute); }
+.n98p .n98p-values { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 40px; }
+.n98p .n98p-value { border-top: 1px solid var(--ink); padding-top: 22px; display: flex; flex-direction: column; gap: 10px; }
+.n98p .n98p-value .n98-num { font-family: var(--serif); font-style: italic; font-size: 30px; line-height: 1; }
+.n98p .n98p-value h3 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
+.n98p .n98p-value p { color: var(--ink-2); font-weight: 300; }
+@media (max-width: 760px) { .n98p .n98p-prose { grid-template-columns: 1fr; } }
+</style>
+
+  <section class="n98p-hero">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Vår historia</p>
+      <h1>Vissa platser <em>stannar hos dig.</em></h1>
+      <p class="n98p-lede">Gatan där du växte upp. Staden där ni träffades. Kusten du alltid återvänder till. N°98 Maps gör de platserna till lugna, genomtänkta tryck, vart och ett gjort just för dig.</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap n98p-prose">
+      <div>
+        <p class="n98-eyebrow">Varför N°98</p>
+        <h2>En karta är ett minne <em>som du kan hänga upp.</em></h2>
+      </div>
+      <div class="n98p-text">
+        <p>N°98 började med en enkel frustration: de flesta kartaffischer ser likadana ut. Samma typsnitt, samma färger, samma handfull städer. De platser som betyder mest för människor kom sällan med.</p>
+        <p>Så vi byggde vår egen kartstudio. Varje gata, flod och kustlinje ritas av vår egen programvara, och varje palett är handkomponerad för att hänga på en vägg, från Midnight Gold till Glacier Mist. Du väljer platsen, färgerna och orden. Vi ser till att den blir vackert tryckt.</p>
+        <p>N°98 är en liten studio från Nederländerna. Vi trycker på beställning, nära där du är, så att inget görs som ingen ville ha och din karta reser så kort sträcka som möjligt.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-quote">
+    <div class="n98-wrap">
+      <blockquote>&ldquo;Inte en stad från en lista. Din plats, med dina ord.&rdquo;</blockquote>
+      <p class="n98p-coords">52.3676° N · 4.9041° E</p>
+    </div>
+  </section>
+
+  <section class="n98p-sec">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Det vi bryr oss om</p>
+      <h2>Gjord med omsorg, <em>skickad fritt.</em></h2>
+      <div class="n98p-values">
+        <div class="n98p-value"><span class="n98-num">I</span><h3>Design först</h3><p>Varje palett, typsnitt och linjetjocklek är vald för att se lugn och tidlös ut, inte skrikig.</p></div>
+        <div class="n98p-value"><span class="n98-num">II</span><h3>Precis som du såg den</h3><p>Förhandsvisningen du godkänner är exakt den fil vi skickar till tryck. Inga överraskningar.</p></div>
+        <div class="n98p-value"><span class="n98-num">III</span><h3>Gjord på beställning</h3><p>Inget ligger på lager. Varje karta trycks färsk, efter din beställning.</p></div>
+        <div class="n98p-value"><span class="n98-num">IV</span><h3>Fri frakt</h3><p>På varje beställning till Europa, Storbritannien och USA. Priset du ser är priset du betalar.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="n98p-cta">
+    <div class="n98-wrap">
+      <p class="n98-eyebrow">Din tur</p>
+      <h2>Vilken plats <em>stannar hos dig?</em></h2>
+      <a class="n98-btn" href="{{ n98_url }}">Designa din karta <svg width="18" height="10" viewBox="0 0 18 10" fill="none" aria-hidden="true"><path d="M0 5h16M12 1l4 4-4 4" stroke="currentColor" stroke-width="1.2"/></svg></a>
     </div>
   </section>
 </div>

@@ -10,7 +10,7 @@
 {%- liquid
   assign lang = request.locale.iso_code
   assign img_sfx = '.jpg'
-  if lang == 'nl' or lang == 'de' or lang == 'fr'
+  if lang == 'nl' or lang == 'de' or lang == 'fr' or lang == 'sv' or lang == 'nb'
     assign img_sfx = '--' | append: lang | append: '.jpg'
   endif
   assign pfx = routes.root_url

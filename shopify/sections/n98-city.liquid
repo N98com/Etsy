@@ -13,7 +13,7 @@
   assign lang = request.locale.iso_code
   # prints with the words in the language of the visitor (tools/home-renders/variants.py)
   assign img_sfx = '.jpg'
-  if lang == 'nl' or lang == 'de' or lang == 'fr'
+  if lang == 'nl' or lang == 'de' or lang == 'fr' or lang == 'sv' or lang == 'nb'
     assign img_sfx = '--' | append: lang | append: '.jpg'
   endif
   assign pfx = routes.root_url
@@ -29,6 +29,10 @@
     assign groups = 'de,nl,be,fr,uk,no,se,eu,us' | split: ','
   elsif lang == 'fr'
     assign groups = 'fr,be,nl,de,uk,no,se,eu,us' | split: ','
+  elsif lang == 'sv'
+    assign groups = 'se,no,nl,be,de,fr,uk,eu,us' | split: ','
+  elsif lang == 'nb'
+    assign groups = 'no,se,nl,be,de,fr,uk,eu,us' | split: ','
   endif
   assign slug = page.handle | remove: '-map-print'
   assign group = ''

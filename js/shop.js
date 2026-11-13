@@ -1117,7 +1117,7 @@
           if (f === 'us') return mo + '.' + d + '.' + y;
           if (f === 'eu') return d + '.' + mo + '.' + y;
           if (f === 'long-us') return MONTHS[+mo - 1] + ' ' + (+d) + ', ' + y;
-          return (+d) + (window.N98_LANG === 'de' ? '. ' : ' ') + MONTHS[+mo - 1] + ' ' + y;
+          return (+d) + (window.N98_LANG === 'de' || window.N98_LANG === 'nb' ? '. ' : ' ') + MONTHS[+mo - 1] + ' ' + y;
         };
         const baseOf = v => (v || '').replace(DATE_RE, '');
         const dateOf = v => (v.match(DATE_RE) || [''])[0];

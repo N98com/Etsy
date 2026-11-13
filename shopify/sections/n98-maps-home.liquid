@@ -10,7 +10,9 @@
 {%- case request.locale.iso_code -%}
   {%- when 'de' -%}{% render 'n98-home--de', n98_configurator_url: n98_configurator_url, n98_app_url: n98_app_url, n98_sid: section.id %}
   {%- when 'fr' -%}{% render 'n98-home--fr', n98_configurator_url: n98_configurator_url, n98_app_url: n98_app_url, n98_sid: section.id %}
+  {%- when 'nb' -%}{% render 'n98-home--nb', n98_configurator_url: n98_configurator_url, n98_app_url: n98_app_url, n98_sid: section.id %}
   {%- when 'nl' -%}{% render 'n98-home--nl', n98_configurator_url: n98_configurator_url, n98_app_url: n98_app_url, n98_sid: section.id %}
+  {%- when 'sv' -%}{% render 'n98-home--sv', n98_configurator_url: n98_configurator_url, n98_app_url: n98_app_url, n98_sid: section.id %}
   {%- else -%}{% render 'n98-home--en', n98_configurator_url: n98_configurator_url, n98_app_url: n98_app_url, n98_sid: section.id %}
 {%- endcase -%}
 

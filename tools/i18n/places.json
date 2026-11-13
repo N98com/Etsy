@@ -2,386 +2,540 @@
  "Netherlands": {
   "nl": "Nederland",
   "de": "Niederlande",
-  "fr": "Pays-Bas"
+  "fr": "Pays-Bas",
+  "sv": "Nederländerna",
+  "nb": "Nederland"
  },
  "Portugal": {
   "nl": "Portugal",
   "de": "Portugal",
-  "fr": "Portugal"
+  "fr": "Portugal",
+  "sv": "Portugal",
+  "nb": "Portugal"
  },
  "United States": {
   "nl": "Verenigde Staten",
   "de": "Vereinigte Staaten",
-  "fr": "États-Unis"
+  "fr": "États-Unis",
+  "sv": "USA",
+  "nb": "USA"
  },
  "Denmark": {
   "nl": "Denemarken",
   "de": "Dänemark",
-  "fr": "Danemark"
+  "fr": "Danemark",
+  "sv": "Danmark",
+  "nb": "Danmark"
  },
  "France": {
   "nl": "Frankrijk",
   "de": "Frankreich",
-  "fr": "France"
+  "fr": "France",
+  "sv": "Frankrike",
+  "nb": "Frankrike"
  },
  "Japan": {
   "nl": "Japan",
   "de": "Japan",
-  "fr": "Japon"
+  "fr": "Japon",
+  "sv": "Japan",
+  "nb": "Japan"
  },
  "Italy": {
   "nl": "Italië",
   "de": "Italien",
-  "fr": "Italie"
+  "fr": "Italie",
+  "sv": "Italien",
+  "nb": "Italia"
  },
  "Spain": {
   "nl": "Spanje",
   "de": "Spanien",
-  "fr": "Espagne"
+  "fr": "Espagne",
+  "sv": "Spanien",
+  "nb": "Spania"
  },
  "United Kingdom": {
   "nl": "Verenigd Koninkrijk",
   "de": "Vereinigtes Königreich",
-  "fr": "Royaume-Uni"
+  "fr": "Royaume-Uni",
+  "sv": "Storbritannien",
+  "nb": "Storbritannia"
  },
  "Germany": {
   "nl": "Duitsland",
   "de": "Deutschland",
-  "fr": "Allemagne"
+  "fr": "Allemagne",
+  "sv": "Tyskland",
+  "nb": "Tyskland"
  },
  "Czech Republic": {
   "nl": "Tsjechië",
   "de": "Tschechien",
-  "fr": "Tchéquie"
+  "fr": "Tchéquie",
+  "sv": "Tjeckien",
+  "nb": "Tsjekkia"
  },
  "Belgium": {
   "nl": "België",
   "de": "Belgien",
-  "fr": "Belgique"
+  "fr": "Belgique",
+  "sv": "Belgien",
+  "nb": "Belgia"
  },
  "Austria": {
   "nl": "Oostenrijk",
   "de": "Österreich",
-  "fr": "Autriche"
+  "fr": "Autriche",
+  "sv": "Österrike",
+  "nb": "Østerrike"
  },
  "North Holland": {
   "nl": "Noord-Holland",
   "de": "Nordholland",
-  "fr": "Hollande-Septentrionale"
+  "fr": "Hollande-Septentrionale",
+  "sv": "Nordholland",
+  "nb": "Nord-Holland"
  },
  "Catalonia": {
   "nl": "Catalonië",
   "de": "Katalonien",
-  "fr": "Catalogne"
+  "fr": "Catalogne",
+  "sv": "Katalonien",
+  "nb": "Catalonia"
  },
  "Capital Region of Denmark": {
   "nl": "Hovedstaden",
   "de": "Hovedstaden",
-  "fr": "Hovedstaden"
+  "fr": "Hovedstaden",
+  "sv": "Region Hovedstaden",
+  "nb": "Region Hovedstaden"
  },
  "Community of Madrid": {
   "nl": "Madrid",
   "de": "Madrid",
-  "fr": "Communauté de Madrid"
+  "fr": "Communauté de Madrid",
+  "sv": "Madrid",
+  "nb": "Madrid"
  },
  "Ile-de-France": {
   "nl": "Île-de-France",
   "de": "Île-de-France",
-  "fr": "Île-de-France"
+  "fr": "Île-de-France",
+  "sv": "Île-de-France",
+  "nb": "Île-de-France"
  },
  "Lazio": {
   "nl": "Lazio",
   "de": "Latium",
-  "fr": "Latium"
+  "fr": "Latium",
+  "sv": "Lazio",
+  "nb": "Lazio"
  },
  "California": {
   "nl": "Californië",
   "de": "Kalifornien",
-  "fr": "Californie"
+  "fr": "Californie",
+  "sv": "Kalifornien",
+  "nb": "California"
  },
  "Lisbon": {
   "nl": "Lissabon",
   "de": "Lissabon",
-  "fr": "Lisbonne"
+  "fr": "Lisbonne",
+  "sv": "Lissabon",
+  "nb": "Lisboa"
  },
  "Copenhagen": {
   "nl": "Kopenhagen",
   "de": "Kopenhagen",
-  "fr": "Copenhague"
+  "fr": "Copenhague",
+  "sv": "Köpenhamn",
+  "nb": "København"
  },
  "Tokyo": {
   "nl": "Tokio",
   "de": "Tokio",
-  "fr": "Tokyo"
+  "fr": "Tokyo",
+  "sv": "Tokyo",
+  "nb": "Tokyo"
  },
  "Rome": {
   "nl": "Rome",
   "de": "Rom",
-  "fr": "Rome"
+  "fr": "Rome",
+  "sv": "Rom",
+  "nb": "Roma"
  },
  "Barcelona": {
   "nl": "Barcelona",
   "de": "Barcelona",
-  "fr": "Barcelone"
+  "fr": "Barcelone",
+  "sv": "Barcelona",
+  "nb": "Barcelona"
  },
  "Venice": {
   "nl": "Venetië",
   "de": "Venedig",
-  "fr": "Venise"
+  "fr": "Venise",
+  "sv": "Venedig",
+  "nb": "Venezia"
  },
  "London": {
   "nl": "Londen",
   "de": "London",
-  "fr": "Londres"
+  "fr": "Londres",
+  "sv": "London",
+  "nb": "London"
  },
  "Berlin": {
   "nl": "Berlijn",
   "de": "Berlin",
-  "fr": "Berlin"
+  "fr": "Berlin",
+  "sv": "Berlin",
+  "nb": "Berlin"
  },
  "Prague": {
   "nl": "Praag",
   "de": "Prag",
-  "fr": "Prague"
+  "fr": "Prague",
+  "sv": "Prag",
+  "nb": "Praha"
  },
  "Antwerp": {
   "nl": "Antwerpen",
   "de": "Antwerpen",
-  "fr": "Anvers"
+  "fr": "Anvers",
+  "sv": "Antwerpen",
+  "nb": "Antwerpen"
  },
  "Vienna": {
   "nl": "Wenen",
   "de": "Wien",
-  "fr": "Vienne"
+  "fr": "Vienne",
+  "sv": "Wien",
+  "nb": "Wien"
  },
  "Florence": {
   "nl": "Florence",
   "de": "Florenz",
-  "fr": "Florence"
+  "fr": "Florence",
+  "sv": "Florens",
+  "nb": "Firenze"
  },
  "Paris": {
   "nl": "Parijs",
   "de": "Paris",
-  "fr": "Paris"
+  "fr": "Paris",
+  "sv": "Paris",
+  "nb": "Paris"
  },
  "The Hague": {
   "nl": "Den Haag",
   "de": "Den Haag",
-  "fr": "La Haye"
+  "fr": "La Haye",
+  "sv": "Haag",
+  "nb": "Haag"
  },
  "Den Bosch": {
   "nl": "Den Bosch",
   "de": "Den Bosch",
-  "fr": "Bois-le-Duc"
+  "fr": "Bois-le-Duc",
+  "sv": "Den Bosch",
+  "nb": "Den Bosch"
  },
  "Munich": {
   "nl": "München",
   "de": "München",
-  "fr": "Munich"
+  "fr": "Munich",
+  "sv": "München",
+  "nb": "München"
  },
  "Cologne": {
   "nl": "Keulen",
   "de": "Köln",
-  "fr": "Cologne"
+  "fr": "Cologne",
+  "sv": "Köln",
+  "nb": "Köln"
  },
  "Frankfurt": {
   "nl": "Frankfurt",
   "de": "Frankfurt",
-  "fr": "Francfort"
+  "fr": "Francfort",
+  "sv": "Frankfurt",
+  "nb": "Frankfurt"
  },
  "Hanover": {
   "nl": "Hannover",
   "de": "Hannover",
-  "fr": "Hanovre"
+  "fr": "Hanovre",
+  "sv": "Hannover",
+  "nb": "Hannover"
  },
  "Nuremberg": {
   "nl": "Neurenberg",
   "de": "Nürnberg",
-  "fr": "Nuremberg"
+  "fr": "Nuremberg",
+  "sv": "Nürnberg",
+  "nb": "Nürnberg"
  },
  "Dresden": {
   "nl": "Dresden",
   "de": "Dresden",
-  "fr": "Dresde"
+  "fr": "Dresde",
+  "sv": "Dresden",
+  "nb": "Dresden"
  },
  "Hamburg": {
   "nl": "Hamburg",
   "de": "Hamburg",
-  "fr": "Hambourg"
+  "fr": "Hambourg",
+  "sv": "Hamburg",
+  "nb": "Hamburg"
  },
  "Bremen": {
   "nl": "Bremen",
   "de": "Bremen",
-  "fr": "Brême"
+  "fr": "Brême",
+  "sv": "Bremen",
+  "nb": "Bremen"
  },
  "Ghent": {
   "nl": "Gent",
   "de": "Gent",
-  "fr": "Gand"
+  "fr": "Gand",
+  "sv": "Gent",
+  "nb": "Gent"
  },
  "Liège": {
   "nl": "Luik",
   "de": "Lüttich",
-  "fr": "Liège"
+  "fr": "Liège",
+  "sv": "Liège",
+  "nb": "Liège"
  },
  "Brussels": {
   "nl": "Brussel",
   "de": "Brüssel",
-  "fr": "Bruxelles"
+  "fr": "Bruxelles",
+  "sv": "Bryssel",
+  "nb": "Brussel"
  },
  "Bruges": {
   "nl": "Brugge",
   "de": "Brügge",
-  "fr": "Bruges"
+  "fr": "Bruges",
+  "sv": "Brygge",
+  "nb": "Brugge"
  },
  "Namur": {
   "nl": "Namen",
   "de": "Namur",
-  "fr": "Namur"
+  "fr": "Namur",
+  "sv": "Namur",
+  "nb": "Namur"
  },
  "Leuven": {
   "nl": "Leuven",
   "de": "Löwen",
-  "fr": "Louvain"
+  "fr": "Louvain",
+  "sv": "Leuven",
+  "nb": "Leuven"
  },
  "Mons": {
   "nl": "Bergen",
   "de": "Mons",
-  "fr": "Mons"
+  "fr": "Mons",
+  "sv": "Mons",
+  "nb": "Mons"
  },
  "Mechelen": {
   "nl": "Mechelen",
   "de": "Mecheln",
-  "fr": "Malines"
+  "fr": "Malines",
+  "sv": "Mechelen",
+  "nb": "Mechelen"
  },
  "Kortrijk": {
   "nl": "Kortrijk",
   "de": "Kortrijk",
-  "fr": "Courtrai"
+  "fr": "Courtrai",
+  "sv": "Kortrijk",
+  "nb": "Kortrijk"
  },
  "Ostend": {
   "nl": "Oostende",
   "de": "Ostende",
-  "fr": "Ostende"
+  "fr": "Ostende",
+  "sv": "Oostende",
+  "nb": "Oostende"
  },
  "Tournai": {
   "nl": "Doornik",
   "de": "Tournai",
-  "fr": "Tournai"
+  "fr": "Tournai",
+  "sv": "Tournai",
+  "nb": "Tournai"
  },
  "Aalst": {
   "nl": "Aalst",
   "de": "Aalst",
-  "fr": "Alost"
+  "fr": "Alost",
+  "sv": "Aalst",
+  "nb": "Aalst"
  },
  "Sint-Niklaas": {
   "nl": "Sint-Niklaas",
   "de": "Sint-Niklaas",
-  "fr": "Saint-Nicolas"
+  "fr": "Saint-Nicolas",
+  "sv": "Sint-Niklaas",
+  "nb": "Sint-Niklaas"
  },
  "Roeselare": {
   "nl": "Roeselare",
   "de": "Roeselare",
-  "fr": "Roulers"
+  "fr": "Roulers",
+  "sv": "Roeselare",
+  "nb": "Roeselare"
  },
  "Strasbourg": {
   "nl": "Straatsburg",
   "de": "Straßburg",
-  "fr": "Strasbourg"
+  "fr": "Strasbourg",
+  "sv": "Strasbourg",
+  "nb": "Strasbourg"
  },
  "Nice": {
   "nl": "Nice",
   "de": "Nizza",
-  "fr": "Nice"
+  "fr": "Nice",
+  "sv": "Nice",
+  "nb": "Nice"
  },
  "Where we said yes": {
   "nl": "Waar we ja zeiden",
   "de": "Wo wir Ja sagten",
-  "fr": "Là où nous avons dit oui"
+  "fr": "Là où nous avons dit oui",
+  "sv": "Där vi sa ja",
+  "nb": "Der vi sa ja"
  },
  "Our first home": {
   "nl": "Ons eerste huis",
   "de": "Unser erstes Zuhause",
-  "fr": "Notre premier chez-nous"
+  "fr": "Notre premier chez-nous",
+  "sv": "Vårt första hem",
+  "nb": "Vårt første hjem"
  },
  "Where it all began": {
   "nl": "Waar het allemaal begon",
   "de": "Wo alles begann",
-  "fr": "Là où tout a commencé"
+  "fr": "Là où tout a commencé",
+  "sv": "Där allt började",
+  "nb": "Der alt begynte"
  },
  "Where you were born": {
   "nl": "Waar je geboren bent",
   "de": "Wo du geboren bist",
-  "fr": "Là où tu es né"
+  "fr": "Là où tu es né",
+  "sv": "Där du föddes",
+  "nb": "Der du ble født"
  },
  "Where we met": {
   "nl": "Waar we elkaar ontmoetten",
   "de": "Wo wir uns trafen",
-  "fr": "Là où nous nous sommes rencontrés"
+  "fr": "Là où nous nous sommes rencontrés",
+  "sv": "Där vi träffades",
+  "nb": "Der vi møttes"
  },
  "Forever in our hearts": {
   "nl": "Voor altijd in ons hart",
   "de": "Für immer in unseren Herzen",
-  "fr": "À jamais dans nos cœurs"
+  "fr": "À jamais dans nos cœurs",
+  "sv": "För alltid i våra hjärtan",
+  "nb": "For alltid i våre hjerter"
  },
  "Where we fell in love": {
   "nl": "Waar we verliefd werden",
   "de": "Wo wir uns verliebten",
-  "fr": "Là où nous sommes tombés amoureux"
+  "fr": "Là où nous sommes tombés amoureux",
+  "sv": "Där vi blev kära",
+  "nb": "Der vi ble forelsket"
  },
  "Duisburg": {
   "nl": "Duisburg",
   "de": "Duisburg",
-  "fr": "Duisbourg"
+  "fr": "Duisbourg",
+  "sv": "Duisburg",
+  "nb": "Duisburg"
  },
  "Groningen": {
   "nl": "Groningen",
   "de": "Groningen",
-  "fr": "Groningue"
+  "fr": "Groningue",
+  "sv": "Groningen",
+  "nb": "Groningen"
  },
  "Nijmegen": {
   "nl": "Nijmegen",
   "de": "Nimwegen",
-  "fr": "Nimègue"
+  "fr": "Nimègue",
+  "sv": "Nijmegen",
+  "nb": "Nijmegen"
  },
  "Leiden": {
   "nl": "Leiden",
   "de": "Leiden",
-  "fr": "Leyde"
+  "fr": "Leyde",
+  "sv": "Leiden",
+  "nb": "Leiden"
  },
  "Arnhem": {
   "nl": "Arnhem",
   "de": "Arnheim",
-  "fr": "Arnhem"
+  "fr": "Arnhem",
+  "sv": "Arnhem",
+  "nb": "Arnhem"
  },
  "Philadelphia": {
   "nl": "Philadelphia",
   "de": "Philadelphia",
-  "fr": "Philadelphie"
+  "fr": "Philadelphie",
+  "sv": "Philadelphia",
+  "nb": "Philadelphia"
  },
  "San Jose": {
   "nl": "San Jose",
   "de": "San José",
-  "fr": "San José"
+  "fr": "San José",
+  "sv": "San Jose",
+  "nb": "San Jose"
  },
  "Edinburgh": {
   "nl": "Edinburgh",
   "de": "Edinburgh",
-  "fr": "Édimbourg"
+  "fr": "Édimbourg",
+  "sv": "Edinburgh",
+  "nb": "Edinburgh"
  },
  "Norway": {
   "nl": "Noorwegen",
   "de": "Norwegen",
-  "fr": "Norvège"
+  "fr": "Norvège",
+  "sv": "Norge",
+  "nb": "Norge"
  },
  "Sweden": {
   "nl": "Zweden",
   "de": "Schweden",
-  "fr": "Suède"
+  "fr": "Suède",
+  "sv": "Sverige",
+  "nb": "Sverige"
  },
  "Gothenburg": {
   "nl": "Göteborg",
   "de": "Göteborg",
-  "fr": "Göteborg"
+  "fr": "Göteborg",
+  "sv": "Göteborg",
+  "nb": "Göteborg"
  }
 }

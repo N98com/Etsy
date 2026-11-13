@@ -33,6 +33,21 @@
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
   {%- endif -%}
 </nav>
+{%- when 'nb' -%}
+{%- assign n98_small = linklists['n98-maps-small-links'] -%}
+<nav class="n98-small-links" aria-label="Mer">
+  {%- if n98_small.links.size > 0 -%}
+    {%- for link in n98_small.links -%}
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="/nb/#how-it-works">Slik fungerer det</a>
+    <a href="/nb/#faq">Spørsmål</a>
+    <a href="/nb/#faq">Frakt &amp; retur</a>
+    <a href="/nb/pages/contact">Contact</a>
+    <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+  {%- endif -%}
+</nav>
 {%- when 'nl' -%}
 {%- assign n98_small = linklists['n98-maps-small-links'] -%}
 <nav class="n98-small-links" aria-label="Meer">
@@ -45,6 +60,21 @@
     <a href="/nl/#faq">Vragen</a>
     <a href="/nl/#faq">Verzending &amp; retour</a>
     <a href="/nl/pages/contact">Contact</a>
+    <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+  {%- endif -%}
+</nav>
+{%- when 'sv' -%}
+{%- assign n98_small = linklists['n98-maps-small-links'] -%}
+<nav class="n98-small-links" aria-label="Mer">
+  {%- if n98_small.links.size > 0 -%}
+    {%- for link in n98_small.links -%}
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="/sv/#how-it-works">Så fungerar det</a>
+    <a href="/sv/#faq">Frågor</a>
+    <a href="/sv/#faq">Frakt &amp; returer</a>
+    <a href="/sv/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
   {%- endif -%}
 </nav>
