@@ -7,6 +7,7 @@
   assign n98_lang = localization.language.iso_code
   assign n98_cur = localization.country.currency.iso_code
   assign n98_curs = 'EUR|€,USD|$,GBP|£,CHF|Fr.,NOK|kr,SEK|kr,DKK|kr,PLN|zł,CZK|Kč,HUF|Ft,RON|lei' | split: ','
+  assign n98_main = 'EUR,USD,GBP' | split: ','
   assign n98_eur_country = 'NL'
   if n98_cur == 'EUR'
     assign n98_eur_country = localization.country.iso_code
@@ -30,7 +31,7 @@
     {%- endif -%}
     <p class="n98-loc__label">{{ 'n98.header.currency' | t }}</p>
     <div class="n98-loc__list" role="group" aria-label="{{ 'n98.header.currency' | t }}">
-      {%- for x in n98_curs -%}{%- assign p = x | split: '|' -%}{%- assign c = p[0] -%}{%- assign key = 'n98.header.' | append: c | downcase -%}
+      {%- for x in n98_curs -%}{%- assign p = x | split: '|' -%}{%- assign c = p[0] -%}{%- unless n98_main contains c or c == n98_cur -%}{%- continue -%}{%- endunless -%}{%- assign key = 'n98.header.' | append: c | downcase -%}
       <button type="button" class="n98-loc__opt" data-n98-country="{%- case c -%}{%- when 'USD' -%}US{%- when 'GBP' -%}GB{%- when 'CHF' -%}CH{%- when 'NOK' -%}NO{%- when 'SEK' -%}SE{%- when 'DKK' -%}DK{%- when 'PLN' -%}PL{%- when 'CZK' -%}CZ{%- when 'HUF' -%}HU{%- when 'RON' -%}RO{%- else -%}{{ n98_eur_country }}{%- endcase -%}" aria-pressed="{% if n98_cur == c %}true{% else %}false{% endif %}"><span class="n98-loc__sym">{{ p[1] }}</span><span class="n98-loc__name">{{ key | t }}</span><span class="n98-loc__code">{{ c }}</span>{{ n98_check }}</button>
       {%- endfor -%}
     </div>
