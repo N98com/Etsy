@@ -8,7 +8,7 @@ import importlib, json, os, re, sys
 from html.parser import HTMLParser
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
-NAMES = ['housewarming', 'wedding', 'leaving', 'sofa', 'baby']
+NAMES = ['housewarming', 'wedding', 'leaving', 'sofa', 'baby', 'everything', 'anniversary', 'memorial']
 LANGS = ['en', 'nl', 'de', 'fr']
 BLOG = 'gid://shopify/Blog/128120783231'
 
