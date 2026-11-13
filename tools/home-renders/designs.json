@@ -6476,16 +6476,6 @@
   "zoom": 1.2
  },
  {
-  "id": "w-oslo",
-  "place": "Oslo",
-  "country": "Norway",
-  "lat": 59.9127,
-  "lon": 10.7461,
-  "palette": "deep-teal",
-  "w": 1200,
-  "h": 1680
- },
- {
   "id": "w-oslo--nl",
   "place": "Oslo",
   "country": "Noorwegen",
@@ -6510,6 +6500,16 @@
   "place": "Oslo",
   "country": "Norvège",
   "lat": 59.9127,
+  "lon": 10.7461,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-oslo",
+  "place": "Oslo",
+  "country": "Norway",
+  "lat": 59.91275,
   "lon": 10.7461,
   "palette": "deep-teal",
   "w": 1200,
