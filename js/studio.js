@@ -57,8 +57,8 @@
   const errEl = gate.querySelector('.studio-error');
   const submit = gate.querySelector('button');
 
-  function showApp() { authed = true; gate.hidden = true; maybeLoadOrder(); ordersBtn.hidden = false; ordersInline.hidden = false; refreshOrders(false); }
-  function showGate() { authed = false; gate.hidden = false; ordersBtn.hidden = true; ordersInline.hidden = true; ordersPanel.hidden = true; mount(); }
+  function showApp() { authed = true; gate.hidden = true; maybeLoadOrder(); ordersBtn.hidden = false; ordersInline.hidden = false; refreshOrders(false); roadBtn.hidden = false; }
+  function showGate() { authed = false; gate.hidden = false; ordersBtn.hidden = true; ordersInline.hidden = true; ordersPanel.hidden = true; roadBtn.hidden = true; roadPanel.hidden = true; mount(); }
 
   const sbScript = document.createElement('script');
   sbScript.src = 'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js';
@@ -84,6 +84,98 @@
     sb.auth.getSession().then(({ data }) => { (data && data.session) ? showApp() : showGate(); });
   };
   document.head.appendChild(sbScript);
+
+  // ---- roadmap: de takenlijst van N°98 Maps (knop rechtsboven) ----
+  // Opgeslagen in Supabase (tabel roadmap_items, alleen voor ingelogde
+  // accounts), dus op elk apparaat dezelfde lijst. Afvinken, toevoegen, verwijderen.
+  const roadBtn = document.createElement('button');
+  roadBtn.type = 'button'; roadBtn.className = 'studio-road-btn'; roadBtn.hidden = true;
+  roadBtn.setAttribute('aria-label', 'Roadmap'); roadBtn.title = 'Roadmap';
+  roadBtn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="4" y="3.5" width="16" height="17"></rect><path d="M7.5 8.5l1.5 1.5 3-3M14 9h3M7.5 14.5l1.5 1.5 3-3M14 15h3"></path></svg>';
+  const roadPanel = document.createElement('aside');
+  roadPanel.className = 'studio-orders studio-road'; roadPanel.hidden = true;
+  roadPanel.setAttribute('aria-label', 'Roadmap');
+  roadPanel.innerHTML = `
+    <div class="studio-orders__head">
+      <div><p class="studio-eyebrow">N°98 Workbench</p><h2>Roadmap</h2></div>
+      <button type="button" class="studio-x" aria-label="Close">×</button>
+    </div>
+    <p class="studio-road__count"></p>
+    <ul class="studio-road__list"></ul>
+    <form class="studio-road__add"><input type="text" placeholder="Nieuwe taak…" autocomplete="off" aria-label="Nieuwe taak"><button type="submit">Toevoegen</button></form>
+    <p class="studio-road__status" role="status"></p>`;
+  function mountRoad() { document.body.append(roadBtn, roadPanel); }
+  if (document.body) mountRoad(); else document.addEventListener('DOMContentLoaded', mountRoad);
+  const roadList = roadPanel.querySelector('.studio-road__list');
+  const roadCount = roadPanel.querySelector('.studio-road__count');
+  const roadStatus = roadPanel.querySelector('.studio-road__status');
+  const roadForm = roadPanel.querySelector('form');
+  let roadItems = [];
+  function roadRender() {
+    const sorted = roadItems.slice().sort((a, b) => (a.done - b.done) || (a.position - b.position));
+    roadList.innerHTML = '';
+    sorted.forEach(it => {
+      const li = document.createElement('li');
+      if (it.done) li.className = 'is-done';
+      const label = document.createElement('label');
+      const cb = document.createElement('input'); cb.type = 'checkbox'; cb.checked = it.done;
+      cb.addEventListener('change', () => roadToggle(it, cb.checked));
+      const t = document.createElement('span'); t.textContent = it.title;
+      label.append(cb, t);
+      const del = document.createElement('button'); del.type = 'button'; del.className = 'studio-road__del';
+      del.textContent = '×'; del.setAttribute('aria-label', 'Verwijder ' + it.title);
+      del.addEventListener('click', () => roadRemove(it));
+      li.append(label, del); roadList.append(li);
+    });
+    const done = roadItems.filter(i => i.done).length;
+    roadCount.textContent = roadItems.length ? done + ' van ' + roadItems.length + ' afgerond' : '';
+  }
+  async function roadLoad() {
+    if (!sbClient) return;
+    roadStatus.textContent = 'Laden…';
+    const { data, error } = await sbClient.from('roadmap_items').select('*').order('position');
+    if (error) { roadStatus.textContent = 'Kon de lijst niet laden: ' + error.message; return; }
+    roadItems = data || []; roadStatus.textContent = ''; roadRender();
+  }
+  async function roadToggle(it, done) {
+    it.done = done; roadRender();
+    const { error } = await sbClient.from('roadmap_items').update({ done, done_at: done ? new Date().toISOString() : null }).eq('id', it.id);
+    if (error) { roadStatus.textContent = 'Opslaan mislukt: ' + error.message; it.done = !done; roadRender(); }
+  }
+  async function roadRemove(it) {
+    if (!window.confirm('Taak verwijderen?\n\n' + it.title)) return;
+    const { error } = await sbClient.from('roadmap_items').delete().eq('id', it.id);
+    if (error) { roadStatus.textContent = 'Verwijderen mislukt: ' + error.message; return; }
+    roadItems = roadItems.filter(x => x.id !== it.id); roadRender();
+  }
+  roadForm.addEventListener('submit', async e => {
+    e.preventDefault();
+    const inp = roadForm.querySelector('input'); const title = inp.value.trim();
+    if (!title) return;
+    const position = roadItems.reduce((m, i) => Math.max(m, i.position), 0) + 1;
+    const { data, error } = await sbClient.from('roadmap_items').insert({ title, position }).select().single();
+    if (error) { roadStatus.textContent = 'Toevoegen mislukt: ' + error.message; return; }
+    roadItems.push(data); inp.value = ''; roadRender();
+  });
+  roadBtn.addEventListener('click', () => { roadPanel.hidden = !roadPanel.hidden; if (!roadPanel.hidden) roadLoad(); });
+  roadPanel.querySelector('.studio-x').addEventListener('click', () => { roadPanel.hidden = true; });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') roadPanel.hidden = true; });
+  css.textContent += `
+    .studio-road-btn { position: fixed; top: 10px; right: 12px; z-index: 60; width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid #141414; background: #141414; color: #F4F1EB; cursor: pointer; }
+    .studio-road-btn[hidden] { display: none; }
+    .studio-orders.studio-road { left: auto; right: 0; border-right: 0; border-left: 1px solid #DDD6CA; box-shadow: -30px 0 60px -30px rgba(20,20,20,.35); }
+    .studio-road__count { margin: 0; padding: 12px 22px; border-bottom: 1px solid #DDD6CA; font: 400 10.5px 'IBM Plex Mono', ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; color: #5E594F; }
+    .studio-road__list { flex: 1 1 auto; min-height: 0; overflow-y: auto; list-style: none; margin: 0; padding: 4px 22px 20px; }
+    .studio-road__list li { display: flex; align-items: flex-start; gap: 10px; padding: 12px 0; border-bottom: 1px solid #DDD6CA; }
+    .studio-road__list label { flex: 1; display: flex; align-items: flex-start; gap: 12px; cursor: pointer; font-size: 15px; line-height: 1.45; color: #141414; }
+    .studio-road__list input { width: 18px; height: 18px; margin-top: 2px; flex: none; accent-color: #1E3529; }
+    .studio-road__list li.is-done span { text-decoration: line-through; color: #8A8478; }
+    .studio-road__del { border: 0; background: none; font-size: 20px; line-height: 1; color: #8A8478; cursor: pointer; padding: 0 2px; }
+    .studio-road__del:hover { color: #141414; }
+    .studio-road__add { display: flex; gap: 8px; padding: 14px 22px 4px; border-top: 1px solid #DDD6CA; }
+    .studio-road__add input { flex: 1; min-width: 0; font: 15px system-ui, sans-serif; padding: 10px 12px; border: 1px solid #B9B0A1; background: #FBFAF7; color: #141414; border-radius: 0; }
+    .studio-road__add button { border: 0; background: #1E3529; color: #F4F1EB; font: 500 10.5px system-ui, sans-serif; letter-spacing: .2em; text-transform: uppercase; padding: 0 14px; cursor: pointer; }
+    .studio-road__status { margin: 0; padding: 4px 22px 16px; min-height: 1.2em; font-size: 13px; color: #9A2E1F; }`;
 
   // ---- ontwerp uit een bestel-link ----
   function decodeOrder(text) {
@@ -373,5 +465,17 @@
     .studio-addr { background: #1A2A21; border-color: #2E3E34; }
     .studio-more { border-color: #EDE8DE; color: #EDE8DE; }
     .studio-orders-btn, .studio-orders-inline { background: #EDE8DE !important; border-color: #EDE8DE !important; color: #142019 !important; }
-    .studio-logout { background: #142019; border-color: #2E3E34; color: #CFC9BC; }`;
+    .studio-logout { background: #142019; border-color: #2E3E34; color: #CFC9BC; }
+    /* roadmap */
+    .studio-road-btn { background: #EDE8DE; border-color: #EDE8DE; color: #142019; }
+    .studio-orders.studio-road { border-left-color: #2E3E34; border-right: 0; }
+    .studio-road__count, .studio-road__list li, .studio-road__add { border-color: #2E3E34; }
+    .studio-road__count { color: #A3AC9F; }
+    .studio-road__list label { color: #EDE8DE; }
+    .studio-road__list input { accent-color: #C9A96E; }
+    .studio-road__list li.is-done span, .studio-road__del { color: #7F897D; }
+    .studio-road__del:hover { color: #EDE8DE; }
+    .studio-road__add input { background: #1A2A21; border-color: #4D5E52; color: #EDE8DE; }
+    .studio-road__add button { background: #C9A96E; color: #142019; }
+    .studio-road__status { color: #E59A86; }`;
 })();
