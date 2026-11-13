@@ -148,3 +148,75 @@ A = {
 <h2>Testez avant de commander</h2>
 <p>Découpez du papier journal ou du papier kraft au format envisagé et scotchez-le au mur. Vivez avec pendant une journée. C’est le moyen le plus rapide de voir si le 50×70 cm ou le 70×100 cm est le bon choix. Notre <a href="/fr/pages/sizes-and-frames">guide des formats et des cadres</a> montre chaque format et chaque couleur de cadre à l’échelle.</p>'''),
 }
+A['sv'] = dict(
+ title='Vilken storlek på tavlan ovanför soffan?',
+ excerpt='För liten och den försvinner, för stor och den slukar rummet. En enkel tumregel för storlek och höjd på konst ovanför soffan, med en tabell för varje soffbredd.',
+ meta_title='Vilken storlek på tavlan ovanför soffan? | N°98 Maps',
+ meta_description='Hur stor ska en tavla ovanför soffan vara, och hur högt ska den hänga? Tvåtredjedelsregeln, en tabell per soffbredd och tips för två eller tre tryck.',
+ body='''<h2>Tvåtredjedelsregeln</h2>
+<p>Det vanligaste misstaget ovanför en soffa är konst som är för liten. Ett enda tryck på 30×40 cm ovanför en tresits ser ut som ett frimärke på ett kuvert. Regeln som inredare använder är enkel: <strong>konsten ska täcka ungefär två tredjedelar av soffans bredd</strong>. Mellan hälften och tre fjärdedelar ser fortfarande bra ut. Mindre än hälften försvinner, mer än tre fjärdedelar känns snabbt trångt.</p>
+<p>Mät din soffa från armstöd till armstöd och multiplicera med 0,66. Det är bredden du siktar på, ram inräknad. Med två eller tre tryck räknar du även med mellanrummen.</p>
+<h2>Storlekar per soffbredd</h2>
+<table>
+<thead><tr><th>Soffans bredd</th><th>Sikta på</th><th>Ett tryck</th><th>Två tryck</th><th>Tre tryck</th></tr></thead>
+<tbody>
+<tr><td>140 till 160 cm</td><td>cirka 100 cm</td><td>70×100 cm</td><td>2 × 45×60 cm</td><td>3 × 27×35 cm</td></tr>
+<tr><td>180 till 200 cm</td><td>cirka 125 cm</td><td>70×100 cm som blickfång</td><td>2 × 50×70 cm</td><td>3 × 30×40 cm</td></tr>
+<tr><td>220 till 240 cm</td><td>cirka 150 cm</td><td>för litet ensamt</td><td>2 × 60×90 cm</td><td>3 × 40×50 cm</td></tr>
+<tr><td>260 cm och mer</td><td>cirka 175 cm</td><td>för litet ensamt</td><td>2 × 70×100 cm</td><td>3 × 50×70 cm</td></tr>
+</tbody>
+</table>
+<p>Alla våra tryck är stående, så för en bred soffa är ett par eller en rad med tre ofta den vackraste lösningen. Ett enda tryck på 70×100 cm fungerar också ovanför en stor soffa om resten av väggen är lugn, men då blir det ett blickfång snarare än att fylla bredden.</p>
+<h2>Hur högt du hänger den</h2>
+<p>Lämna <strong>20 till 25 cm</strong> mellan ryggstödets överkant och ramens nederkant. Lägre och huvudena slår i den, högre och konsten svävar bort från soffan så att de inte längre hör ihop. I ett rum med högt i tak kan du gå upp till 30 cm, men sällan mer.</p>
+<h2>Ett, två eller tre tryck</h2>
+<ul>
+<li><strong>Ett stort tryck</strong> ger lugn och fokus. Finast ovanför en tvåsits eller i ett minimalistiskt rum.</li>
+<li><strong>Två tryck</strong> sida vid sida känns balanserade och passar nästan varje soffa. Håll 6 till 8 cm mellan ramarna.</li>
+<li><strong>Tre tryck</strong> på rad fyller en lång soffa eller en hörnsoffa elegant. Välj samma storlek och samma ram, med lika stora mellanrum.</li>
+</ul>
+<h2>En serie som hör ihop</h2>
+<p>Två eller tre kartor fungerar bäst när de delar något: samma palett, samma ram och ett samband i historien. Några idéer:</p>
+<ul>
+<li>Staden där ni träffades, staden där ni bor och staden där ni gifte er</li>
+<li>Tre kvarter i samma stad med samma zoom</li>
+<li>Där var och en av er växte upp, med ert hem i mitten</li>
+</ul>
+<h2>Testa innan du beställer</h2>
+<p>Klipp ut tidningspapper eller omslagspapper i den storlek du tänker dig och tejpa upp det på väggen. Lev med det en dag. Det är det snabbaste sättet att se om 50×70 cm eller 70×100 cm är rätt. Vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a> visar varje storlek och ramfärg i skala.</p>''')
+A['nb'] = dict(
+ title='Hvilken størrelse på plakaten over sofaen?',
+ excerpt='For liten og den forsvinner, for stor og den sluker rommet. En enkel tommelfingerregel for størrelse og høyde på kunst over sofaen, med en tabell for hver sofabredde.',
+ meta_title='Hvilken størrelse på plakaten over sofaen? | N°98 Maps',
+ meta_description='Hvor stor bør en plakat over sofaen være, og hvor høyt skal den henge? Totredjedelsregelen, en tabell per sofabredde og tips for to eller tre trykk.',
+ body='''<h2>Totredjedelsregelen</h2>
+<p>Den vanligste feilen over en sofa er kunst som er for liten. Ett enkelt trykk på 30×40 cm over en tresetersofa ser ut som et frimerke på en konvolutt. Regelen interiørarkitekter bruker er enkel: <strong>kunsten bør dekke omtrent to tredjedeler av sofaens bredde</strong>. Mellom halvparten og tre fjerdedeler ser fortsatt bra ut. Mindre enn halvparten forsvinner, mer enn tre fjerdedeler føles fort trangt.</p>
+<p>Mål sofaen fra armlene til armlene og gang med 0,66. Det er bredden du sikter mot, ramme inkludert. Med to eller tre trykk regner du med mellomrommene også.</p>
+<h2>Størrelser per sofabredde</h2>
+<table>
+<thead><tr><th>Sofabredde</th><th>Sikt mot</th><th>Ett trykk</th><th>To trykk</th><th>Tre trykk</th></tr></thead>
+<tbody>
+<tr><td>140 til 160 cm</td><td>omtrent 100 cm</td><td>70×100 cm</td><td>2 × 45×60 cm</td><td>3 × 27×35 cm</td></tr>
+<tr><td>180 til 200 cm</td><td>omtrent 125 cm</td><td>70×100 cm som blikkfang</td><td>2 × 50×70 cm</td><td>3 × 30×40 cm</td></tr>
+<tr><td>220 til 240 cm</td><td>omtrent 150 cm</td><td>for lite alene</td><td>2 × 60×90 cm</td><td>3 × 40×50 cm</td></tr>
+<tr><td>260 cm og mer</td><td>omtrent 175 cm</td><td>for lite alene</td><td>2 × 70×100 cm</td><td>3 × 50×70 cm</td></tr>
+</tbody>
+</table>
+<p>Alle trykkene våre er stående, så for en bred sofa er et par eller en rad med tre ofte den vakreste løsningen. Ett enkelt trykk på 70×100 cm fungerer også over en stor sofa hvis resten av veggen er rolig, men da blir det et blikkfang heller enn å fylle bredden.</p>
+<h2>Hvor høyt du henger den</h2>
+<p>La det være <strong>20 til 25 cm</strong> mellom toppen av ryggen og bunnen av rammen. Lavere og hodene treffer den, høyere og kunsten svever bort fra sofaen så de ikke lenger hører sammen. I et rom med høyt under taket kan du gå opp til 30 cm, men sjelden mer.</p>
+<h2>Ett, to eller tre trykk</h2>
+<ul>
+<li><strong>Ett stort trykk</strong> gir ro og fokus. Finest over en tosetersofa eller i et minimalistisk rom.</li>
+<li><strong>To trykk</strong> side om side føles balansert og passer nesten alle sofaer. Hold 6 til 8 cm mellom rammene.</li>
+<li><strong>Tre trykk</strong> på rad fyller en lang sofa eller en hjørnesofa elegant. Velg samme størrelse og samme ramme, med like store mellomrom.</li>
+</ul>
+<h2>En serie som hører sammen</h2>
+<p>To eller tre kart fungerer best når de deler noe: samme palett, samme ramme og en sammenheng i historien. Noen ideer:</p>
+<ul>
+<li>Byen der dere møttes, byen der dere bor og byen der dere giftet dere</li>
+<li>Tre nabolag i samme by med samme zoom</li>
+<li>Der hver av dere vokste opp, med hjemmet deres i midten</li>
+</ul>
+<h2>Test før du bestiller</h2>
+<p>Klipp ut avispapir eller gavepapir i størrelsen du ser for deg og teip det på veggen. Lev med det en dag. Det er den raskeste måten å se om 50×70 cm eller 70×100 cm er riktig. Vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a> viser hver størrelse og rammefarge i målestokk.</p>''')

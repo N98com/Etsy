@@ -152,3 +152,77 @@ A = {
 <p>Le jour du mariage, les mariés reçoivent beaucoup et doivent tout rapporter chez eux le soir. Une affiche encadrée est souvent plus belle livrée chez eux après le voyage de noces, avec un mot disant que vous vouliez qu’elle les attende. Chaque affiche est imprimée à la commande près de chez eux et arrive généralement en 3 à 7 jours ouvrés en Europe.</p>
 <p>Envie d’autres idées ? Découvrez notre <a href="/fr/pages/wedding-gift-map">guide des cadeaux de mariage</a>.</p>'''),
 }
+A['sv'] = dict(
+ title='En personlig bröllopspresent, utanför önskelistan',
+ excerpt='Önskelistan tar hand om brödrosten. Så ger du brudparet något som bara handlar om dem, med sex idéer och en guide till en karta över platsen där deras historia började.',
+ meta_title='Personlig bröllopspresent: 6 idéer utanför listan | N°98 Maps',
+ meta_description='Sex personliga idéer till bröllopspresent, och hur du designar en karta över där de träffades eller sa ja. Inramad, fri frakt.',
+ body='''<h2>Önskelistan är för hemmet. Din present kan vara för dem.</h2>
+<p>En önskelista är praktisk, och brudpar är tacksamma för den. Men några år senare minns ingen vem som gav kastrullerna. En personlig present fungerar annorlunda: den visar att du känner deras historia, och den får en plats på en vägg eller en hylla i stället för i ett skåp.</p>
+<h2>Var du hittar en personlig idé</h2>
+<p>Nästan varje par har en handfull platser som betyder något. Där de träffades, där de hade sin första dejt, där en av dem ställde frågan och platsen där de säger ja. Om du är osäker, fråga en vän eller en av föräldrarna. De platserna är början på de mest personliga presenterna.</p>
+<h2>Sex idéer, från små till stora</h2>
+<ol>
+<li><strong>En karta över där det började.</strong> Gatan för deras första dejt eller platsen för frieriet, med datumet och två små ringar på exakt rätt plats.</li>
+<li><strong>Ett brev till deras första bröllopsdag.</strong> Skriv det nu, försegla det och be dem öppna det ett år efter bröllopet.</li>
+<li><strong>Receptet från bröllopsmiddagen.</strong> Be cateringfirman om det, skriv av det för hand och rama in det.</li>
+<li><strong>En flaska för senare.</strong> Ett vin eller ett portvin från deras bröllopsår som bara blir bättre, att öppna på tioårsdagen.</li>
+<li><strong>Deras löften, vackert tryckta.</strong> Bara med deras välsignelse, och först efter själva dagen.</li>
+<li><strong>En gästbok för hemmet.</strong> För varje middag de bjuder på under sitt första år som gifta.</li>
+</ol>
+<h2>Så designar du en bröllopskarta</h2>
+<p>Ett kartprint är presenten på listan som de ser varje dag, så det lönar sig att få detaljerna rätt.</p>
+<h3>1. Välj platsen</h3>
+<p>Bröllopsplatsen ligger nära till hands, men platsen där de träffades betyder ofta ännu mer. Gifter de sig utomlands blir den lilla staden där de firade vacker, utzoomad tillräckligt för att visa kusten eller den gamla stadskärnan.</p>
+<h3>2. Markera platsen</h3>
+<p>Sätt ringarna, ett hjärta eller en stjärna precis på platsen. Du kan sätta mer än en nål: kaféet där de träffades och kyrkan eller rådhuset där de gifte sig, så länge båda får plats på kartan.</p>
+<h3>3. Lägg till orden</h3>
+<ul>
+<li>Deras namn, till exempel <em>Anna &amp; Tom</em></li>
+<li>Bröllopsdatumet</li>
+<li>En kort rad som <em>Där vi sa ja</em> eller <em>Där allt började</em></li>
+</ul>
+<h3>4. Välj färger som passar ett par</h3>
+<p>Mjuka paletter i rosa och crème passar ett romantiskt hem. Marinblått eller djupgrönt med guldlinjer är tidlöst. Vill du ha något extra, beskär hela kartan i form av ett hjärta.</p>
+<h3>5. Välj storlek och ram</h3>
+<p>30×40 cm passar på en byrå eller en bokhylla, 50×70 cm gör intryck ovanför sängen. Osäker på vilken ram som passar deras hem? Vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a> visar varje alternativ i skala.</p>
+<h2>På dagen eller efter bröllopsresan</h2>
+<p>Ett brudpar får mycket på själva dagen och måste bära hem allt på kvällen. Ett inramat tryck är ofta finast när det skickas hem till dem efter bröllopsresan, med ett kort om att du ville att det skulle vänta på dem. Varje tryck görs på beställning nära dem och kommer oftast fram inom 3 till 7 arbetsdagar i Europa.</p>
+<p>Letar du efter fler idéer? Se vår <a href="/sv/pages/wedding-gift-map">guide till bröllopspresenter</a>.</p>''')
+A['nb'] = dict(
+ title='En personlig bryllupsgave, utenfor ønskelisten',
+ excerpt='Ønskelisten tar seg av brødristeren. Slik gir du brudeparet noe som bare handler om dem, med seks ideer og en guide til et kart over stedet der historien deres begynte.',
+ meta_title='Personlig bryllupsgave: 6 ideer utenfor listen | N°98 Maps',
+ meta_description='Seks personlige ideer til bryllupsgave, og hvordan du designer et kart over der de møttes eller sa ja. Innrammet, gratis frakt.',
+ body='''<h2>Ønskelisten er for hjemmet. Gaven din kan være for dem.</h2>
+<p>En ønskeliste er praktisk, og brudepar er takknemlige for den. Men noen år senere husker ingen hvem som ga kjelene. En personlig gave fungerer annerledes: den viser at du kjenner historien deres, og den får en plass på en vegg eller en hylle i stedet for i et skap.</p>
+<h2>Hvor du finner en personlig idé</h2>
+<p>Nesten alle par har en håndfull steder som betyr noe. Der de møttes, der de hadde første date, der en av dem stilte spørsmålet og stedet der de sier ja. Er du usikker, spør en venn eller en av foreldrene. De stedene er starten på de mest personlige gavene.</p>
+<h2>Seks ideer, fra små til store</h2>
+<ol>
+<li><strong>Et kart over der det begynte.</strong> Gaten der de hadde første date eller stedet for frieriet, med datoen og to små ringer akkurat på stedet.</li>
+<li><strong>Et brev til deres første bryllupsdag.</strong> Skriv det nå, forsegl det og be dem åpne det et år etter bryllupet.</li>
+<li><strong>Oppskriften fra bryllupsmiddagen.</strong> Spør cateringfirmaet om den, skriv den av for hånd og ramm den inn.</li>
+<li><strong>En flaske til senere.</strong> En vin eller en portvin fra bryllupsåret deres som bare blir bedre, til å åpne på tiårsdagen.</li>
+<li><strong>Løftene deres, vakkert trykket.</strong> Bare med deres velsignelse, og først etter selve dagen.</li>
+<li><strong>En gjestebok til hjemmet.</strong> For hver middag de holder i sitt første år som gifte.</li>
+</ol>
+<h2>Slik designer du et bryllupskart</h2>
+<p>En kartplakat er gaven på listen de ser hver dag, så det lønner seg å få detaljene riktige.</p>
+<h3>1. Velg stedet</h3>
+<p>Bryllupsstedet ligger nær, men stedet der de møttes betyr ofte enda mer. Gifter de seg i utlandet, blir den lille byen der de feiret vakker, zoomet ut nok til å vise kysten eller det gamle sentrum.</p>
+<h3>2. Marker stedet</h3>
+<p>Sett ringene, et hjerte eller en stjerne akkurat på stedet. Du kan sette mer enn én nål: kafeen der de møttes og kirken eller rådhuset der de giftet seg, så lenge begge får plass på kartet.</p>
+<h3>3. Legg til ordene</h3>
+<ul>
+<li>Navnene deres, for eksempel <em>Anna &amp; Tom</em></li>
+<li>Bryllupsdatoen</li>
+<li>En kort linje som <em>Der vi sa ja</em> eller <em>Der alt begynte</em></li>
+</ul>
+<h3>4. Velg farger som passer et par</h3>
+<p>Myke paletter i rosa og krem passer et romantisk hjem. Marineblått eller dypgrønt med gulllinjer er tidløst. Vil du ha noe ekstra, beskjær hele kartet i form av et hjerte.</p>
+<h3>5. Velg størrelse og ramme</h3>
+<p>30×40 cm passer på en kommode eller i en bokhylle, 50×70 cm gjør inntrykk over sengen. Usikker på hvilken ramme som passer hjemmet deres? Vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a> viser hvert alternativ i målestokk.</p>
+<h2>På selve dagen eller etter bryllupsreisen</h2>
+<p>Et brudepar får mye på selve dagen og må bære alt hjem om kvelden. Et innrammet trykk er ofte finest når det sendes hjem til dem etter bryllupsreisen, med et kort om at du ville at det skulle vente på dem. Hvert trykk lages på bestilling nær dem og kommer vanligvis frem innen 3 til 7 virkedager i Europa.</p>
+<p>Ser du etter flere ideer? Se vår <a href="/nb/pages/wedding-gift-map">guide til bryllupsgaver</a>.</p>''')

@@ -140,3 +140,71 @@ A = {
 </ul>
 <p>Vous hésitez sur le format ? Notre <a href="/fr/pages/sizes-and-frames">guide des formats et des cadres</a> montre chaque option à l’échelle, et nos <a href="/fr/pages/city-map-prints">cartes de villes</a> sont un bon point de départ.</p>'''),
 }
+A['sv'] = dict(
+ title='En present till någon som redan har allt',
+ excerpt='De köper det de behöver i samma stund som de behöver det, så allt du kommer på ligger redan i skåpet. Lösningen är inte en bättre sak, utan en bättre historia. Sju idéer som fungerar.',
+ meta_title='Present till någon som har allt: 7 idéer | N°98 Maps',
+ meta_description='Sju presentidéer till någon som redan har allt: personliga, vackra och inte till salu i någon butik. Med en karta över en plats som betyder något för dem.',
+ body='''<h2>Varför det är så svårt</h2>
+<p>Vissa människor är omöjliga att köpa något till. Inte för att de är svåra, utan för att de redan har de bra hörlurarna, det fina ljuset och vinflaskan du tänkte på. Allt du hittar i en butik hade de kunnat köpa själva, och det har de förmodligen också gjort.</p>
+<p>Svaret är en present de inte kunde köpa, eftersom den bara finns tack vare dig. Alltså något personligt, något att göra tillsammans, eller något som berättar deras egen historia för dem.</p>
+<h2>Tre frågor som hjälper</h2>
+<ul>
+<li><strong>Vilken plats pratar de alltid om?</strong> Staden där de studerade, morföräldrarnas by, stranden varje sommar.</li>
+<li><strong>Vad skulle de aldrig köpa till sig själva?</strong> Ofta något litet och lite lyxigt, eller något rent sentimentalt.</li>
+<li><strong>Vad har ni gjort tillsammans som ni båda fortfarande pratar om?</strong> En resa, en konsert, ett första möte.</li>
+</ul>
+<h2>Sju idéer</h2>
+<ol>
+<li><strong>En karta över deras plats.</strong> Gatan de växte upp på, staden där de blev kära eller orten de alltid återvänder till, med en nål på exakt rätt plats.</li>
+<li><strong>En dag i stället för en sak.</strong> En promenad, en lunch och ett museum i en stad de älskar, helt planerat av dig.</li>
+<li><strong>Ett brev.</strong> Skriv ner vad de betyder för dig. Det kostar ingenting och det är presenten människor sparar längst.</li>
+<li><strong>En favorit som fått nytt liv.</strong> Låt deras gamla klocka servas, laga deras favoritväska eller låt framkalla och rama in ett foto ur en skokartong.</li>
+<li><strong>En kurs hos en mästare.</strong> En workshop i något de älskar: bröd, keramik, vin, fotografi.</li>
+<li><strong>Deras historia, nedskriven.</strong> Till en förälder eller en äldre släkting: en bok med frågor om deras liv, att fylla i och ge tillbaka.</li>
+<li><strong>En gåva i deras namn.</strong> Till något de bryr sig om, med ett kort som förklarar varför du valde det.</li>
+</ol>
+<h2>Varför en karta fungerar så bra</h2>
+<p>Ett kartprint är en av få saker på listan som är både personlig och vacker nog för väggen hos någon med smak. Den visar en plats de kan utantill, på ett sätt de aldrig har sett den. Och den går inte att köpa i en butik, eftersom den görs för en adress och en historia.</p>
+<h3>Så gör du den till deras</h3>
+<ul>
+<li><strong>Välj platsen.</strong> Sök vilken adress som helst i världen och zooma tills gatorna sitter rätt.</li>
+<li><strong>Markera platsen.</strong> Ett hjärta, en stjärna eller ett litet hus på platsen som betyder något.</li>
+<li><strong>Lägg till orden.</strong> Platsens namn, ett datum eller en enda rad som bara de förstår.</li>
+<li><strong>Anpassa efter deras hem.</strong> Välj en palett och en ram som passar deras inredning. Om du är osäker passar en lugn palett med en svart ram eller en ram i naturträ nästan överallt.</li>
+</ul>
+<p>Osäker på storleken? Vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a> visar varje alternativ i skala, och våra <a href="/sv/pages/city-map-prints">stadskartor</a> är ett bra ställe att börja leta.</p>''')
+A['nb'] = dict(
+ title='En gave til noen som har alt',
+ excerpt='De kjøper det de trenger i det øyeblikket de trenger det, så alt du kommer på ligger allerede i skapet. Løsningen er ikke en bedre ting, men en bedre historie. Sju ideer som fungerer.',
+ meta_title='Gave til noen som har alt: 7 ideer | N°98 Maps',
+ meta_description='Sju gaveideer til noen som allerede har alt: personlige, vakre og ikke til salgs i noen butikk. Med et kart over et sted som betyr noe for dem.',
+ body='''<h2>Hvorfor det er så vanskelig</h2>
+<p>Noen mennesker er umulige å kjøpe noe til. Ikke fordi de er vanskelige, men fordi de allerede har de gode hodetelefonene, det fine lyset og vinflasken du tenkte på. Alt du finner i en butikk, kunne de ha kjøpt selv, og det har de sannsynligvis gjort.</p>
+<p>Svaret er en gave de ikke kunne kjøpe, fordi den bare finnes takket være deg. Altså noe personlig, noe å gjøre sammen, eller noe som forteller dem sin egen historie.</p>
+<h2>Tre spørsmål som hjelper</h2>
+<ul>
+<li><strong>Hvilket sted snakker de alltid om?</strong> Byen der de studerte, besteforeldrenes bygd, stranden hver sommer.</li>
+<li><strong>Hva ville de aldri kjøpt til seg selv?</strong> Ofte noe lite og litt luksuriøst, eller noe rent sentimentalt.</li>
+<li><strong>Hva har dere gjort sammen som dere begge fortsatt snakker om?</strong> En reise, en konsert, et første møte.</li>
+</ul>
+<h2>Sju ideer</h2>
+<ol>
+<li><strong>Et kart over stedet deres.</strong> Gaten de vokste opp i, byen der de ble forelsket eller stedet de stadig vender tilbake til, med en nål akkurat på riktig sted.</li>
+<li><strong>En dag i stedet for en ting.</strong> En tur, en lunsj og et museum i en by de er glad i, helt planlagt av deg.</li>
+<li><strong>Et brev.</strong> Skriv ned hva de betyr for deg. Det koster ingenting, og det er gaven folk tar vare på lengst.</li>
+<li><strong>En favoritt som får nytt liv.</strong> Få den gamle klokken deres på service, reparer favorittvesken deres eller få et bilde fra en skoeske fremkalt og innrammet.</li>
+<li><strong>Et kurs hos en mester.</strong> En workshop i noe de er glad i: brød, keramikk, vin, fotografi.</li>
+<li><strong>Historien deres, skrevet ned.</strong> Til en forelder eller besteforelder: en bok med spørsmål om livet deres, til å fylle ut og gi tilbake.</li>
+<li><strong>En gave i deres navn.</strong> Til noe de bryr seg om, med et kort som forklarer hvorfor du valgte det.</li>
+</ol>
+<h2>Hvorfor et kart fungerer så godt</h2>
+<p>En kartplakat er en av få ting på listen som er både personlig og vakker nok til veggen hos noen med smak. Den viser et sted de kan utenat, på en måte de aldri har sett det. Og den kan ikke kjøpes i en butikk, fordi den lages for én adresse og én historie.</p>
+<h3>Slik gjør du det til deres</h3>
+<ul>
+<li><strong>Velg stedet.</strong> Søk etter en hvilken som helst adresse i verden og zoom til gatene sitter riktig.</li>
+<li><strong>Marker stedet.</strong> Et hjerte, en stjerne eller et lite hus på stedet som betyr noe.</li>
+<li><strong>Legg til ordene.</strong> Navnet på stedet, en dato eller én enkelt linje som bare de forstår.</li>
+<li><strong>Tilpass det hjemmet deres.</strong> Velg en palett og en ramme som passer interiøret deres. Er du usikker, passer en rolig palett med svart ramme eller ramme i naturtre nesten overalt.</li>
+</ul>
+<p>Usikker på størrelsen? Vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a> viser hvert alternativ i målestokk, og våre <a href="/nb/pages/city-map-prints">bykart</a> er et godt sted å begynne.</p>''')

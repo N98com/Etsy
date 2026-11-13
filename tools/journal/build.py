@@ -9,7 +9,7 @@ from html.parser import HTMLParser
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 NAMES = ['housewarming', 'wedding', 'leaving', 'sofa', 'baby', 'everything', 'anniversary', 'memorial']
-LANGS = ['en', 'nl', 'de', 'fr']
+LANGS = ['en', 'nl', 'de', 'fr', 'sv', 'nb']
 BLOG = 'gid://shopify/Blog/128120783231'
 
 class Check(HTMLParser):

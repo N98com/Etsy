@@ -172,3 +172,87 @@ A = {
 <p>Lors de la crémaillère, ou quelques semaines après le déménagement, quand les cartons ont disparu et que les murs sont encore vides. Vous pouvez aussi la faire envoyer directement à leur nouvelle adresse : chaque affiche est imprimée à la commande près de chez eux et arrive généralement en 3 à 7 jours ouvrés en Europe.</p>
 <p>Envie d’autres idées pour une nouvelle maison ? Découvrez notre <a href="/fr/pages/housewarming-gift-map">guide de cadeaux de crémaillère</a>.</p>'''),
 }
+A['sv'] = dict(
+ title='En inflyttningspresent som de faktiskt sparar',
+ excerpt='Blommor vissnar och vinet är slut före midnatt. Så väljer du en inflyttningspresent som fortfarande betyder något om flera år, med sju idéer och en guide till en karta över deras nya hem.',
+ meta_title='Inflyttningspresent som de sparar: 7 idéer | N°98 Maps',
+ meta_description='Sju genomtänkta idéer till inflyttningspresent, och hur du gör en personlig karta över deras nya gata eller kvarter. Inramad, redo att hängas upp, fri frakt.',
+ body='''<h2>Varför de flesta inflyttningspresenter inte blir kvar</h2>
+<p>Klassikerna är härliga för en kväll. En bukett, en flaska vin, en ask choklad. En vecka senare är de borta, och inget i det nya hemmet påminner om dagen då de fick nycklarna. Presenterna som blir kvar handlar om själva hemmet: var det ligger, vad det betyder och livet som börjar där.</p>
+<h2>Vad som gör en bra inflyttningspresent</h2>
+<ul>
+<li><strong>Den är personlig.</strong> Den kunde bara ha gjorts för dem, för den här adressen.</li>
+<li><strong>Den passar i alla hem.</strong> Nyinflyttade är noga med sina väggar, så lugna färger och en bra ram spelar roll.</li>
+<li><strong>Den är lätt att leva med.</strong> Ingen skötsel, ingen montering, inget krafs.</li>
+</ul>
+<h2>Sju idéer som håller</h2>
+<ol>
+<li><strong>En karta över deras nya gata.</strong> Deras eget kvarter som tryck, med ett litet hus på ytterdörren och året de flyttade in.</li>
+<li><strong>En fin växt i en fin kruka.</strong> Välj en som förlåter en glömd vattning, som en svärmorstunga eller en zamioculcas.</li>
+<li><strong>En gästbok för hallen.</strong> Varje besökare under det första året skriver en rad.</li>
+<li><strong>En speciell nyckelring.</strong> I läder, med husnumret eller datumet.</li>
+<li><strong>En första middag.</strong> Laga den, eller ta med allt som behövs, den dag de fortfarande inte vet var kastrullerna står.</li>
+<li><strong>En ram till det första fotot.</strong> Fotografera dem framför dörren och ge bilden inramad.</li>
+<li><strong>En guide till kvarteret.</strong> Ditt favoritbageri, ditt favoritkafé och din favoritpromenad i deras nya område, skrivna för hand.</li>
+</ol>
+<h2>Så gör du en karta över deras nya hem</h2>
+<p>Ett kartprint är den enda presenten på listan som hänger på väggen i åratal, så här gör du den precis rätt.</p>
+<h3>1. Sök adressen och välj utsnittet</h3>
+<p>Zooma in nära för att visa deras gata och husen runt omkring, eller zooma ut för att visa kvarteret med parken, floden eller kanalen de nu bor vid. För en första lägenhet i en storstad blir hela centrum ofta vackert.</p>
+<h3>2. Välj färger efter deras inredning</h3>
+<p>Ljusa paletter passar ljusa, skandinaviska rum. Mörka paletter med guld eller kopparlinjer ser exklusiva ut i ett vardagsrum med trä och läder. Om du är osäker fungerar en lugn, neutral palett nästan överallt.</p>
+<h3>3. Lägg till orden</h3>
+<ul>
+<li><em>Vårt första hem</em> med året de fick nycklarna</li>
+<li>Gatunamnet och husnumret</li>
+<li>Deras efternamn, till exempel <em>Familjen Lindqvist · sedan 2026</em></li>
+</ul>
+<h3>4. Markera huset</h3>
+<p>Sätt ett litet hus precis på deras ytterdörr. Det är detaljen man pekar på när vänner kommer på besök.</p>
+<h3>5. Välj storlek och ram</h3>
+<p>30×40 cm är en perfekt presentstorlek för hallen eller köket. För vardagsrummet, 50×70 cm. Välj en ram i samma färg som deras möbler, eller skicka bara trycket om de gärna ramar in själva. Osäker? Vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a> visar varje alternativ i skala.</p>
+<h2>När du ger den</h2>
+<p>På själva inflyttningsfesten, eller några veckor efter flytten, när flyttkartongerna är borta och väggarna fortfarande är tomma. Du kan också skicka den direkt till deras nya adress: varje tryck görs på beställning nära dem och kommer oftast fram inom 3 till 7 arbetsdagar i Europa.</p>
+<p>Letar du efter fler idéer för ett nytt hem? Se vår <a href="/sv/pages/housewarming-gift-map">guide till inflyttningspresenter</a>.</p>''')
+A['nb'] = dict(
+ title='En innflyttingsgave de faktisk tar vare på',
+ excerpt='Blomster visner og vinen er drukket før midnatt. Slik velger du en innflyttingsgave som fortsatt betyr noe om flere år, med sju ideer og en guide til et kart over det nye hjemmet deres.',
+ meta_title='Innflyttingsgave de tar vare på: 7 ideer | N°98 Maps',
+ meta_description='Sju gjennomtenkte ideer til innflyttingsgave, og hvordan du lager et personlig kart over den nye gaten eller nabolaget deres. Innrammet, klar til å henges opp, gratis frakt.',
+ body='''<h2>Hvorfor de fleste innflyttingsgaver ikke blir værende</h2>
+<p>Klassikerne er herlige for én kveld. En bukett, en flaske vin, en eske sjokolade. En uke senere er de borte, og ingenting i det nye hjemmet minner om dagen de fikk nøklene. Gavene som blir værende handler om selve hjemmet: hvor det ligger, hva det betyr og livet som begynner der.</p>
+<h2>Hva som gjør en god innflyttingsgave</h2>
+<ul>
+<li><strong>Den er personlig.</strong> Den kunne bare ha blitt laget for dem, for denne adressen.</li>
+<li><strong>Den passer i alle hjem.</strong> Nyinnflyttede er nøye med veggene sine, så rolige farger og en god ramme betyr mye.</li>
+<li><strong>Den er lett å leve med.</strong> Ingen stell, ingen montering, ikke noe rot.</li>
+</ul>
+<h2>Sju ideer som varer</h2>
+<ol>
+<li><strong>Et kart over den nye gaten deres.</strong> Deres eget nabolag som trykk, med et lite hus på inngangsdøren og året de flyttet inn.</li>
+<li><strong>En fin plante i en fin potte.</strong> Velg en som tilgir en glemt vanning, som en svigermors tunge eller en zamioculcas.</li>
+<li><strong>En gjestebok til gangen.</strong> Hver gjest det første året skriver en linje.</li>
+<li><strong>En spesiell nøkkelring.</strong> I lær, med husnummeret eller datoen.</li>
+<li><strong>En første middag.</strong> Lag den, eller ta med alt som trengs, den dagen de fortsatt ikke vet hvor kjelene står.</li>
+<li><strong>En ramme til det første bildet.</strong> Ta et bilde av dem foran døren og gi det innrammet.</li>
+<li><strong>En guide til nabolaget.</strong> Favorittbakeriet, favorittkafeen og favoritturen din i det nye området deres, skrevet for hånd.</li>
+</ol>
+<h2>Slik lager du et kart over det nye hjemmet deres</h2>
+<p>En kartplakat er den eneste gaven på listen som henger på veggen i årevis, så her er hvordan du får den helt riktig.</p>
+<h3>1. Søk etter adressen og velg utsnittet</h3>
+<p>Zoom tett inn for å vise gaten deres og husene rundt, eller zoom ut for å vise nabolaget med parken, elven eller kanalen de nå bor ved. For en første leilighet i en storby blir hele sentrum ofte vakkert.</p>
+<h3>2. Velg farger etter interiøret</h3>
+<p>Lyse paletter passer til lyse, skandinaviske rom. Mørke paletter med gull eller kobberlinjer ser eksklusive ut i en stue med tre og lær. Er du usikker, fungerer en rolig, nøytral palett nesten overalt.</p>
+<h3>3. Legg til ordene</h3>
+<ul>
+<li><em>Vårt første hjem</em> med året de fikk nøklene</li>
+<li>Gatenavnet og husnummeret</li>
+<li>Etternavnet deres, for eksempel <em>Familien Berg · siden 2026</em></li>
+</ul>
+<h3>4. Marker huset</h3>
+<p>Sett et lite hus akkurat på inngangsdøren deres. Det er detaljen folk peker på når venner kommer på besøk.</p>
+<h3>5. Velg størrelse og ramme</h3>
+<p>30×40 cm er en perfekt gavestørrelse for gangen eller kjøkkenet. For stuen, 50×70 cm. Velg en ramme i fargen på møblene deres, eller send bare trykket hvis de liker å ramme inn selv. Usikker? Vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a> viser hvert alternativ i målestokk.</p>
+<h2>Når du gir den</h2>
+<p>På selve innflyttingsfesten, eller noen uker etter flyttingen, når eskene er borte og veggene fortsatt er tomme. Du kan også få den sendt rett til den nye adressen deres: hvert trykk lages på bestilling nær dem og kommer vanligvis frem innen 3 til 7 virkedager i Europa.</p>
+<p>Ser du etter flere ideer til et nytt hjem? Se vår <a href="/nb/pages/housewarming-gift-map">guide til innflyttingsgaver</a>.</p>''')

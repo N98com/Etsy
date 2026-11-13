@@ -1,0 +1,332 @@
+[
+ {
+  "id": "gid://shopify/Product/15894559293823",
+  "locale": "sv",
+  "t": {
+   "title": "Kartprint efter din design",
+   "body_html": "<p>Din plats, ritad som ett kartprint av konstkvalitet. Välj plats, stil, ord och storlek i vår studio. Varje tryck görs på beställning, med fri frakt till Europa, Storbritannien och USA.</p><p><strong>Papper &amp; tryck</strong><br>Premium matt papper, 200 g/m², 0,22 mm tjockt. Slät yta utan reflexer. FSC certifierat eller likvärdigt papper. Tryckt ända ut i kanten, i standardstorlekar för ramar.</p><p><strong>Ram (valfri)</strong><br>Ram av massiv furu i svart, vitt, naturträ eller mörkt trä, 2 till 2,5 cm djup, med splitterfritt plexiglas framför. Levereras inramad och redo att hängas upp, upphängningssats ingår. Eller välj bara trycket och rama in det själv.</p><p><strong>Produktsäkerhet (EU GPSR)</strong><br>Tillverkare: Gelato, Dronning Eufemias gate 8, 0191 Oslo, Norge, support@gelato.com<br>Ålder: för vuxna<br>Garanti (konsumentköp): 2 år</p>",
+   "product_type": "Kartprint",
+   "meta_title": "Kartprint efter din design: personlig stadskarta som affisch",
+   "meta_description": "Designa ett kartprint av platsen som betyder något: din stad, din gata, där ni träffades. Fler än 50 paletter, hjärta eller cirkel, dina egna ord. Med eller utan ram, fri frakt."
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOption/18593109475711",
+  "locale": "sv",
+  "t": {
+   "name": "Storlek"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOption/18813018177919",
+  "locale": "sv",
+  "t": {
+   "name": "Ram"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813854079",
+  "locale": "sv",
+  "t": {
+   "name": "Utan ram"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813886847",
+  "locale": "sv",
+  "t": {
+   "name": "Svart"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813919615",
+  "locale": "sv",
+  "t": {
+   "name": "Vit"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813952383",
+  "locale": "sv",
+  "t": {
+   "name": "Naturträ"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813985151",
+  "locale": "sv",
+  "t": {
+   "name": "Mörkt trä"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/863985041791",
+  "locale": "sv",
+  "t": {
+   "title": "Sök"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/876890227071",
+  "locale": "sv",
+  "t": {
+   "title": "Designa din karta"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/876890292607",
+  "locale": "sv",
+  "t": {
+   "title": "Presenter"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877249986943",
+  "locale": "sv",
+  "t": {
+   "title": "Dina integritetsval"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775520127",
+  "locale": "sv",
+  "t": {
+   "title": "Designa din karta"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775552895",
+  "locale": "sv",
+  "t": {
+   "title": "Inspiration"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775585663",
+  "locale": "sv",
+  "t": {
+   "title": "Presenter"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775618431",
+  "locale": "sv",
+  "t": {
+   "title": "Storlekar & ramar"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775651199",
+  "locale": "sv",
+  "t": {
+   "title": "Vår historia"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775683967",
+  "locale": "sv",
+  "t": {
+   "title": "Så fungerar det"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775716735",
+  "locale": "sv",
+  "t": {
+   "title": "Frågor"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775749503",
+  "locale": "sv",
+  "t": {
+   "title": "Frakt & returer"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/863985009023",
+  "locale": "sv",
+  "t": {
+   "title": "Kontakt"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/876890325375",
+  "locale": "sv",
+  "t": {
+   "title": "Kontakt"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775782271",
+  "locale": "sv",
+  "t": {
+   "title": "Kontakt"
+  }
+ },
+ {
+  "id": "gid://shopify/Product/15894559293823",
+  "locale": "nb",
+  "t": {
+   "title": "Kartplakat etter ditt design",
+   "body_html": "<p>Ditt sted, tegnet som en kartplakat av kunstkvalitet. Velg sted, stil, ord og størrelse i studioet vårt. Hvert trykk lages på bestilling, med gratis frakt til Europa, Storbritannia og USA.</p><p><strong>Papir &amp; trykk</strong><br>Premium matt papir, 200 g/m², 0,22 mm tykt. Glatt overflate uten gjenskinn. FSC sertifisert eller tilsvarende papir. Trykket helt ut i kanten, i standard rammestørrelser.</p><p><strong>Ramme (valgfri)</strong><br>Ramme av massiv furu i svart, hvitt, naturtre eller mørkt tre, 2 til 2,5 cm dyp, med knusesikkert pleksiglass foran. Leveres innrammet og klar til å henges opp, opphengssett inkludert. Eller velg bare trykket og ramm det inn selv.</p><p><strong>Produktsikkerhet (EU GPSR)</strong><br>Produsent: Gelato, Dronning Eufemias gate 8, 0191 Oslo, Norge, support@gelato.com<br>Alder: for voksne<br>Garanti (forbrukerkjøp): 2 år</p>",
+   "product_type": "Kartplakat",
+   "meta_title": "Kartplakat etter ditt design: personlig bykart som plakat",
+   "meta_description": "Design en kartplakat av stedet som betyr noe: byen din, gaten din, der dere møttes. Over 50 paletter, hjerte eller sirkel, dine egne ord. Med eller uten ramme, gratis frakt."
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOption/18593109475711",
+  "locale": "nb",
+  "t": {
+   "name": "Størrelse"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOption/18813018177919",
+  "locale": "nb",
+  "t": {
+   "name": "Ramme"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813854079",
+  "locale": "nb",
+  "t": {
+   "name": "Uten ramme"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813886847",
+  "locale": "nb",
+  "t": {
+   "name": "Svart"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813919615",
+  "locale": "nb",
+  "t": {
+   "name": "Hvit"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813952383",
+  "locale": "nb",
+  "t": {
+   "name": "Naturtre"
+  }
+ },
+ {
+  "id": "gid://shopify/ProductOptionValue/14146813985151",
+  "locale": "nb",
+  "t": {
+   "name": "Mørkt tre"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/863985041791",
+  "locale": "nb",
+  "t": {
+   "title": "Søk"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/876890227071",
+  "locale": "nb",
+  "t": {
+   "title": "Design kartet ditt"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/876890292607",
+  "locale": "nb",
+  "t": {
+   "title": "Gaver"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877249986943",
+  "locale": "nb",
+  "t": {
+   "title": "Dine personvernvalg"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775520127",
+  "locale": "nb",
+  "t": {
+   "title": "Design kartet ditt"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775552895",
+  "locale": "nb",
+  "t": {
+   "title": "Inspirasjon"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775585663",
+  "locale": "nb",
+  "t": {
+   "title": "Gaver"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775618431",
+  "locale": "nb",
+  "t": {
+   "title": "Størrelser & rammer"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775651199",
+  "locale": "nb",
+  "t": {
+   "title": "Vår historie"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775683967",
+  "locale": "nb",
+  "t": {
+   "title": "Slik fungerer det"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775716735",
+  "locale": "nb",
+  "t": {
+   "title": "Spørsmål"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775749503",
+  "locale": "nb",
+  "t": {
+   "title": "Frakt & retur"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/863985009023",
+  "locale": "nb",
+  "t": {
+   "title": "Kontakt"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/876890325375",
+  "locale": "nb",
+  "t": {
+   "title": "Kontakt"
+  }
+ },
+ {
+  "id": "gid://shopify/Link/877775782271",
+  "locale": "nb",
+  "t": {
+   "title": "Kontakt"
+  }
+ }
+]

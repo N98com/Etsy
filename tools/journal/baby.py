@@ -164,3 +164,83 @@ A = {
 <p>Les premières semaines après la naissance sont pleines de visites et de cadeaux. Une affiche encadrée est parfaite à apporter lors d’une visite, ou à faire livrer aux parents une fois la première effervescence passée. Chaque affiche est imprimée à la commande près de chez eux et arrive généralement en 3 à 7 jours ouvrés en Europe.</p>
 <p>Plus d’inspiration pour une naissance : découvrez nos <a href="/fr/pages/new-baby-map-print">cartes de naissance</a>.</p>'''),
 }
+A['sv'] = dict(
+ title='En present till en nyfödd som växer med dem',
+ excerpt='Bodyn är för liten efter en månad. Så väljer du en present till en nyfödd som fortfarande hänger på väggen när barnet börjar skolan, med sex idéer och en guide till en karta över födelseorten.',
+ meta_title='Present till nyfödd som håller: en karta över födelseorten | N°98 Maps',
+ meta_description='Sex presenter till en nyfödd som håller, och hur du designar en karta över var bebisen föddes, med datumet och en stjärna på platsen. Inramad, fri frakt.',
+ body='''<h2>Varför de flesta bebispresenter är borta inom ett år</h2>
+<p>Nyblivna föräldrar får ett berg av kläder, gosedjur och haklappar. Nästan allt är gulligt, och nästan allt är för litet efter några månader. Presenterna som blir kvar handlar inte om bebisens storlek, utan om bebisens historia: när och var den började.</p>
+<h2>Vad nyblivna föräldrar verkligen uppskattar</h2>
+<ul>
+<li><strong>Inget arbete.</strong> Ingen montering, ingen tvätt, inga batterier.</li>
+<li><strong>Något lugnt.</strong> Ett barnrum fylls snabbt av starka färger. Ett stilla, vackert föremål är välkommet.</li>
+<li><strong>Något för senare.</strong> En present som barnet en dag kommer att fråga om.</li>
+</ul>
+<h2>Sex idéer som håller</h2>
+<ol>
+<li><strong>En karta över var de föddes.</strong> Orten, kvarteret eller gatan för det första hemmet, med en stjärna på platsen och födelsedatumet.</li>
+<li><strong>En tidskapsel.</strong> En låda med dagens tidning, ett brev från dig och ett foto av föräldrarna, att öppna på artonårsdagen.</li>
+<li><strong>En bok med en hälsning.</strong> En barnboksklassiker som du själv älskade, med en handskriven dedikation på första sidan.</li>
+<li><strong>Ett sparkonto eller en aktie.</strong> Inte spännande i dag, mycket välkommet om tjugo år.</li>
+<li><strong>En måltid till föräldrarna.</strong> Kom med middagen under de första veckorna. Inget uppskattas mer.</li>
+<li><strong>Ett tryck av den första promenaden.</strong> Rundan föräldrarna går med barnvagnen, på en karta över deras kvarter.</li>
+</ol>
+<h2>Så gör du en födelsekarta</h2>
+<h3>1. Välj platsen</h3>
+<p>Födelseorten är det klassiska valet. Du kan också visa gatan där huset de växer upp i ligger, tillräckligt nära för att känna igen parken och skolan runt hörnet.</p>
+<h3>2. Markera platsen</h3>
+<p>En liten stjärna på sjukhuset eller på huset, beroende på var bebisen föddes. Ett hjärta eller ett träd är också vackert.</p>
+<h3>3. Lägg till detaljerna</h3>
+<ul>
+<li>Bebisens namn</li>
+<li>Födelsedatumet, och klockslaget om föräldrarna gillar det</li>
+<li>En rad som <em>Där du föddes</em> eller <em>Välkommen till världen</em></li>
+</ul>
+<h3>4. Färger för ett barnrum</h3>
+<p>Mjukt blått, salviagrönt, sand och puderrosa ser lugna ut och växer med rummet. Välj hellre inte en färg bara för rosa eller blått: en neutral palett ser fortfarande bra ut när barnrummet blir ett tonårsrum.</p>
+<h3>5. Storlek och ram</h3>
+<p>30×40 cm eller 40×50 cm passar fint på väggen ovanför skötbordet eller spjälsängen. Välj en ram i ljust trä eller vitt för ett mjukt uttryck. Se alla alternativ i vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a>.</p>
+<h2>När du ger den</h2>
+<p>De första veckorna efter födseln är fulla av besök och fulla av presenter. Ett inramat tryck är fint att ta med på ett besök, eller att skicka till föräldrarna när den första rusningen har lagt sig. Varje tryck görs på beställning nära dem och kommer oftast fram inom 3 till 7 arbetsdagar i Europa.</p>
+<p>Mer inspiration till en ny liten världsmedborgare: se våra <a href="/sv/pages/new-baby-map-print">födelsekartor</a>.</p>''')
+A['nb'] = dict(
+ title='En barselgave som vokser med dem',
+ excerpt='Bodyene er for små etter en måned. Slik velger du en barselgave som fortsatt henger på veggen når barnet begynner på skolen, med seks ideer og en guide til et kart over fødestedet.',
+ meta_title='Barselgave som varer: et kart over fødestedet | N°98 Maps',
+ meta_description='Seks barselgaver som varer, og hvordan du designer et kart over der babyen ble født, med datoen og en stjerne på stedet. Innrammet, gratis frakt.',
+ body='''<h2>Hvorfor de fleste babygaver er borte innen et år</h2>
+<p>Nybakte foreldre får et fjell av klær, kosedyr og smekker. Nesten alt er søtt, og nesten alt er for lite etter noen måneder. Gavene som blir værende handler ikke om babyens størrelse, men om babyens historie: når og hvor den begynte.</p>
+<h2>Hva nybakte foreldre virkelig setter pris på</h2>
+<ul>
+<li><strong>Ingen arbeid.</strong> Ingen montering, ingen vask, ingen batterier.</li>
+<li><strong>Noe rolig.</strong> Et barnerom fylles fort av sterke farger. En stille, vakker ting er velkommen.</li>
+<li><strong>Noe for senere.</strong> En gave barnet en dag kommer til å spørre om.</li>
+</ul>
+<h2>Seks ideer som varer</h2>
+<ol>
+<li><strong>Et kart over der de ble født.</strong> Byen, nabolaget eller gaten til det første hjemmet, med en stjerne på stedet og fødselsdatoen.</li>
+<li><strong>En tidskapsel.</strong> En eske med dagens avis, et brev fra deg og et bilde av foreldrene, til å åpne på 18-årsdagen.</li>
+<li><strong>En bok med en hilsen.</strong> En barnebokklassiker du selv var glad i, med en håndskrevet dedikasjon på første side.</li>
+<li><strong>En sparekonto eller en aksje.</strong> Ikke spennende i dag, veldig velkomment om tjue år.</li>
+<li><strong>Et måltid til foreldrene.</strong> Kom med middagen de første ukene. Ingenting blir satt mer pris på.</li>
+<li><strong>Et trykk av den første turen.</strong> Runden foreldrene går med barnevognen, på et kart over nabolaget deres.</li>
+</ol>
+<h2>Slik lager du et fødselskart</h2>
+<h3>1. Velg stedet</h3>
+<p>Fødestedet er det klassiske valget. Du kan også vise gaten der huset de vokser opp i ligger, nært nok til å kjenne igjen parken og skolen rundt hjørnet.</p>
+<h3>2. Marker stedet</h3>
+<p>En liten stjerne på sykehuset eller på huset, avhengig av hvor babyen ble født. Et hjerte eller et tre er også vakkert.</p>
+<h3>3. Legg til detaljene</h3>
+<ul>
+<li>Babyens navn</li>
+<li>Fødselsdatoen, og klokkeslettet hvis foreldrene liker det</li>
+<li>En linje som <em>Der du ble født</em> eller <em>Velkommen til verden</em></li>
+</ul>
+<h3>4. Farger til et barnerom</h3>
+<p>Myk blå, salviegrønn, sand og pudderrosa ser rolige ut og vokser med rommet. Velg helst ikke en farge bare for rosa eller blått: en nøytral palett ser fortsatt bra ut når barnerommet blir et tenåringsrom.</p>
+<h3>5. Størrelse og ramme</h3>
+<p>30×40 cm eller 40×50 cm passer fint på veggen over stellebordet eller sprinkelsengen. Velg en ramme i lyst tre eller hvitt for et mykt uttrykk. Se alle alternativene i vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a>.</p>
+<h2>Når du gir den</h2>
+<p>De første ukene etter fødselen er fulle av besøk og fulle av gaver. Et innrammet trykk er fint å ta med på barselbesøk, eller å sende til foreldrene når det første rushet har lagt seg. Hvert trykk lages på bestilling nær dem og kommer vanligvis frem innen 3 til 7 virkedager i Europa.</p>
+<p>Mer inspirasjon til en ny liten verdensborger: se våre <a href="/nb/pages/new-baby-map-print">fødselskart</a>.</p>''')

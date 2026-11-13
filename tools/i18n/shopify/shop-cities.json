@@ -18,7 +18,9 @@
   "i": "n-the-hague",
   "nl": "Den Haag",
   "de": "Den Haag",
-  "fr": "La Haye"
+  "fr": "La Haye",
+  "sv": "Haag",
+  "nb": "Haag"
  },
  {
   "s": "utrecht",
@@ -153,7 +155,9 @@
   "i": "h-antwerp",
   "nl": "Antwerpen",
   "de": "Antwerpen",
-  "fr": "Anvers"
+  "fr": "Anvers",
+  "sv": "Antwerpen",
+  "nb": "Antwerpen"
  },
  {
   "s": "ghent",
@@ -162,7 +166,9 @@
   "i": "w-ghent",
   "nl": "Gent",
   "de": "Gent",
-  "fr": "Gand"
+  "fr": "Gand",
+  "sv": "Gent",
+  "nb": "Gent"
  },
  {
   "s": "charleroi",
@@ -185,7 +191,9 @@
   "i": "w-brussels",
   "nl": "Brussel",
   "de": "Brüssel",
-  "fr": "Bruxelles"
+  "fr": "Bruxelles",
+  "sv": "Bryssel",
+  "nb": "Brussel"
  },
  {
   "s": "bruges",
@@ -193,7 +201,9 @@
   "c": "be",
   "i": "w-bruges",
   "nl": "Brugge",
-  "de": "Brügge"
+  "de": "Brügge",
+  "sv": "Brygge",
+  "nb": "Brugge"
  },
  {
   "s": "namur",
@@ -265,7 +275,9 @@
   "i": "w-ostend",
   "nl": "Oostende",
   "de": "Ostende",
-  "fr": "Ostende"
+  "fr": "Ostende",
+  "sv": "Oostende",
+  "nb": "Oostende"
  },
  {
   "s": "tournai",
@@ -313,7 +325,9 @@
   "c": "de",
   "i": "w-munich",
   "nl": "München",
-  "de": "München"
+  "de": "München",
+  "sv": "München",
+  "nb": "München"
  },
  {
   "s": "cologne",
@@ -321,7 +335,9 @@
   "c": "de",
   "i": "w-cologne",
   "nl": "Keulen",
-  "de": "Köln"
+  "de": "Köln",
+  "sv": "Köln",
+  "nb": "Köln"
  },
  {
   "s": "frankfurt",
@@ -381,7 +397,9 @@
   "i": "w-hanover",
   "nl": "Hannover",
   "de": "Hannover",
-  "fr": "Hanovre"
+  "fr": "Hanovre",
+  "sv": "Hannover",
+  "nb": "Hannover"
  },
  {
   "s": "nuremberg",
@@ -389,7 +407,9 @@
   "c": "de",
   "i": "w-nuremberg",
   "nl": "Neurenberg",
-  "de": "Nürnberg"
+  "de": "Nürnberg",
+  "sv": "Nürnberg",
+  "nb": "Nürnberg"
  },
  {
   "s": "duisburg",
@@ -567,7 +587,9 @@
   "i": "h-vienna",
   "nl": "Wenen",
   "de": "Wien",
-  "fr": "Vienne"
+  "fr": "Vienne",
+  "sv": "Wien",
+  "nb": "Wien"
  },
  {
   "s": "prague",
@@ -575,14 +597,18 @@
   "c": "eu",
   "i": "h-prague",
   "nl": "Praag",
-  "de": "Prag"
+  "de": "Prag",
+  "sv": "Prag",
+  "nb": "Praha"
  },
  {
   "s": "rome",
   "n": "Rome",
   "c": "eu",
   "i": "g-rome",
-  "de": "Rom"
+  "de": "Rom",
+  "sv": "Rom",
+  "nb": "Roma"
  },
  {
   "s": "venice",
@@ -591,7 +617,9 @@
   "i": "h-venice",
   "nl": "Venetië",
   "de": "Venedig",
-  "fr": "Venise"
+  "fr": "Venise",
+  "sv": "Venedig",
+  "nb": "Venezia"
  },
  {
   "s": "barcelona",
@@ -613,7 +641,9 @@
   "i": "g-lisbon",
   "nl": "Lissabon",
   "de": "Lissabon",
-  "fr": "Lisbonne"
+  "fr": "Lisbonne",
+  "sv": "Lissabon",
+  "nb": "Lisboa"
  },
  {
   "s": "copenhagen",
@@ -622,7 +652,9 @@
   "i": "g-copenhagen",
   "nl": "Kopenhagen",
   "de": "Kopenhagen",
-  "fr": "Copenhague"
+  "fr": "Copenhague",
+  "sv": "Köpenhamn",
+  "nb": "København"
  },
  {
   "s": "new-york",
@@ -1026,7 +1058,9 @@
   "i": "w-gothenburg",
   "nl": "Göteborg",
   "de": "Göteborg",
-  "fr": "Göteborg"
+  "fr": "Göteborg",
+  "sv": "Göteborg",
+  "nb": "Göteborg"
  },
  {
   "s": "malmo",

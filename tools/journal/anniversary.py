@@ -149,3 +149,75 @@ A = {
 <p>Chaque affiche est imprimée à la commande et arrive généralement en 3 à 7 jours ouvrés en Europe. Commandez une dizaine de jours à l’avance pour être tranquille : elle sera prête pour le jour J.</p>
 <p>D’autres idées pour les couples : découvrez notre <a href="/fr/pages/anniversary-gift-map">guide des cadeaux d’anniversaire de couple</a>.</p>'''),
 }
+A['sv'] = dict(
+ title='En årsdagspresent som berättar er historia',
+ excerpt='Oavsett om det är ert första år eller ert tjugofemte blickar den finaste årsdagspresenten tillbaka på vägen ni gått tillsammans. Sex idéer, och hur platsen där allt började hamnar på väggen.',
+ meta_title='Present till bröllopsdagen eller årsdagen: 6 idéer | N°98 Maps',
+ meta_description='Sex personliga presentidéer till er årsdag, för varje år, och hur du designar en karta över där ni träffades eller gifte er. Fri frakt.',
+ body='''<h2>Blicka tillbaka, tillsammans</h2>
+<p>En årsdag är årets enda dag som bara handlar om er två. Det gör den till det perfekta tillfället för en present som inte handlar om något nytt, utan om något gemensamt: platserna, ögonblicken och de små sakerna som bara ni känner till.</p>
+<h2>Börja med era platser</h2>
+<p>Varje relation har sin egen karta. Baren där ni pratade för första gången. Bänken där ni hade samtalet som förändrade allt. Den första lägenheten, bröllopsresans stad, gatan där ni bor nu. Skriv ner dem innan du väljer en present. Nästan varje bra idé börjar där.</p>
+<h2>Sex idéer för varje år</h2>
+<ol>
+<li><strong>En karta över där det började.</strong> Platsen där ni träffades eller hade er första dejt, med ett hjärta på platsen och datumet under.</li>
+<li><strong>Er historia i tre platser.</strong> Tre små kartor sida vid sida: där ni träffades, där ni gifte er och där ni bor nu.</li>
+<li><strong>Ett återbesök.</strong> Boka ett bord på restaurangen från er första dejt, eller en natt i staden där ni förlovade er.</li>
+<li><strong>En burk med skäl.</strong> En liten lapp för varje år tillsammans, eller för varje månad om ni precis har börjat.</li>
+<li><strong>Låten, inramad.</strong> Titeln och datumet för låten som spelades, tryckta och inramade.</li>
+<li><strong>En plan för nästa år.</strong> En resa, en kurs eller ett projekt ni börjar tillsammans, skrivet på ett kort som öppnas i dag.</li>
+</ol>
+<h2>Så designar du en karta till er årsdag</h2>
+<h3>1. Välj ögonblicket</h3>
+<p>Platsen där ni träffades berättar om början. Bröllopsplatsen står för löftet. Gatan där ni bor nu berättar vart det ledde. Välj den som betyder mest, eller sätt flera nålar om de får plats på samma karta.</p>
+<h3>2. Lägg till ett hjärta</h3>
+<p>Sätt en hjärtnål precis på platsen. Vill du ha något extra, beskär hela kartan i form av ett hjärta, så att staden själv blir symbolen.</p>
+<h3>3. Lägg till orden</h3>
+<ul>
+<li>Era namn, till exempel <em>Sofia &amp; Erik</em></li>
+<li>Datumet ni träffades eller gifte er</li>
+<li>En rad som <em>Där allt började</em> eller antalet år tillsammans</li>
+</ul>
+<h3>4. Välj färger som känns som ni</h3>
+<p>Djupt vinrött med guldlinjer känns varmt och festligt. Mjukt rosa och crème är romantiskt. Svart och vitt är tidlöst och passar i alla hem.</p>
+<h3>5. Storlek och ram</h3>
+<p>För ett sovrum eller en hall, 30×40 cm eller 40×50 cm. För tre kartor sida vid sida, tre gånger 30×40 cm i samma ram. Vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a> visar varje alternativ i skala.</p>
+<h2>Beställ i tid</h2>
+<p>Varje tryck görs på beställning och kommer oftast fram inom 3 till 7 arbetsdagar i Europa. Beställ ungefär tio dagar före datumet för säkerhets skull, så ligger det redo på själva dagen.</p>
+<p>Fler idéer för par: se vår <a href="/sv/pages/anniversary-gift-map">guide till årsdagspresenter</a>.</p>''')
+A['nb'] = dict(
+ title='En bryllupsdagsgave som forteller historien deres',
+ excerpt='Enten det er deres første år eller deres tjuefemte, ser den fineste bryllupsdagsgaven tilbake på veien dere har gått sammen. Seks ideer, og hvordan stedet der alt begynte kommer på veggen.',
+ meta_title='Gave til bryllupsdagen eller jubileet: 6 ideer | N°98 Maps',
+ meta_description='Seks personlige gaveideer til bryllupsdagen, for hvert år, og hvordan du designer et kart over der dere møttes eller giftet dere. Gratis frakt.',
+ body='''<h2>Se tilbake, sammen</h2>
+<p>En bryllupsdag eller et jubileum er årets eneste dag som bare handler om dere to. Det gjør den til det perfekte øyeblikket for en gave som ikke handler om noe nytt, men om noe felles: stedene, øyeblikkene og de små tingene bare dere kjenner til.</p>
+<h2>Begynn med stedene deres</h2>
+<p>Hvert forhold har sitt eget kart. Baren der dere snakket sammen for første gang. Benken der dere hadde samtalen som forandret alt. Den første leiligheten, byen fra bryllupsreisen, gaten der dere bor nå. Skriv dem ned før du velger en gave. Nesten hver god idé begynner der.</p>
+<h2>Seks ideer for hvert år</h2>
+<ol>
+<li><strong>Et kart over der det begynte.</strong> Stedet der dere møttes eller hadde første date, med et hjerte på stedet og datoen under.</li>
+<li><strong>Historien deres i tre steder.</strong> Tre små kart side om side: der dere møttes, der dere giftet dere og der dere bor nå.</li>
+<li><strong>Et gjensyn.</strong> Bestill et bord på restauranten fra første date, eller en natt i byen der dere forlovet dere.</li>
+<li><strong>En krukke med grunner.</strong> En liten lapp for hvert år sammen, eller for hver måned hvis dere nettopp har begynt.</li>
+<li><strong>Sangen, innrammet.</strong> Tittelen og datoen for sangen som spilte, trykket og innrammet.</li>
+<li><strong>En plan for neste år.</strong> En reise, et kurs eller et prosjekt dere begynner på sammen, skrevet på et kort som åpnes i dag.</li>
+</ol>
+<h2>Slik designer du et kart til bryllupsdagen</h2>
+<h3>1. Velg øyeblikket</h3>
+<p>Stedet der dere møttes forteller om begynnelsen. Bryllupsstedet står for løftet. Gaten der dere bor nå forteller hvor det førte. Velg det som betyr mest, eller sett flere nåler hvis de får plass på samme kart.</p>
+<h3>2. Legg til et hjerte</h3>
+<p>Sett en hjertenål akkurat på stedet. Vil du ha noe ekstra, beskjær hele kartet i form av et hjerte, så byen selv blir symbolet.</p>
+<h3>3. Legg til ordene</h3>
+<ul>
+<li>Navnene deres, for eksempel <em>Ingrid &amp; Henrik</em></li>
+<li>Datoen dere møttes eller giftet dere</li>
+<li>En linje som <em>Der alt begynte</em> eller antall år sammen</li>
+</ul>
+<h3>4. Velg farger som føles som dere</h3>
+<p>Dyp burgunder med gulllinjer føles varmt og festlig. Myk rosa og krem er romantisk. Svart og hvitt er tidløst og passer i alle hjem.</p>
+<h3>5. Størrelse og ramme</h3>
+<p>For et soverom eller en gang, 30×40 cm eller 40×50 cm. For tre kart side om side, tre ganger 30×40 cm i samme ramme. Vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a> viser hvert alternativ i målestokk.</p>
+<h2>Bestill i tide</h2>
+<p>Hvert trykk lages på bestilling og kommer vanligvis frem innen 3 til 7 virkedager i Europa. Bestill omtrent ti dager før datoen for sikkerhets skyld, så ligger det klart på selve dagen.</p>
+<p>Flere ideer for par: se vår <a href="/nb/pages/anniversary-gift-map">guide til bryllupsdagsgaver</a>.</p>''')
