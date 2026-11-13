@@ -1,0 +1,1762 @@
+{
+ "amsterdam": {
+  "name": "Amsterdam",
+  "why": "Few cities draw themselves as beautifully as Amsterdam. The seventeenth century canal ring curves around the old centre in perfect half circles, the IJ cuts a wide band of water across the top, and the Vondelpark adds a soft green shape to the south. On paper it reads as a fingerprint of the city.",
+  "ideas": [
+   "Your street in the Jordaan or De Pijp, with a house pin",
+   "The canal where you got engaged",
+   "<em>Where we met</em> with the date, for a couple who met here"
+  ],
+  "hook": "the canal ring, the IJ and the Vondelpark"
+ },
+ "rotterdam": {
+  "name": "Rotterdam",
+  "why": "Rotterdam is a city of water and bold lines. The Maas sweeps through the middle, the Erasmus Bridge links the centre to Kop van Zuid, and the harbours reach out in long fingers to the west. Its rebuilt, modern grid makes a strong graphic print in dark palettes.",
+  "ideas": [
+   "Your neighbourhood, from Kralingen to Katendrecht",
+   "The street of your first student room",
+   "<em>Our first home</em> for a new house in the city"
+  ],
+  "hook": "the Maas, the Erasmus Bridge and the harbours"
+ },
+ "the-hague": {
+  "name": "The Hague",
+  "why": "The Hague is the only big Dutch city by the sea. The Binnenhof and the Hofvijver sit at the heart of the old centre, the woods of the Haagse Bos reach right into the city, and wide green avenues lead through the stately neighbourhoods towards the dunes and the beach at Scheveningen.",
+  "ideas": [
+   "Your street in the Statenkwartier, Zeeheldenkwartier or Bezuidenhout",
+   "Scheveningen, for everyone who grew up by the sea",
+   "A leaving gift for a colleague moving on from The Hague"
+  ],
+  "hook": "the Hofvijver, the Haagse Bos and the dunes"
+ },
+ "utrecht": {
+  "name": "Utrecht",
+  "why": "Utrecht has one of the most recognisable old centres in the Netherlands. The singel, the old moat, wraps around the city like a ring, and the Oudegracht runs right through the middle with its unique wharf cellars at water level. Zoom in a little and the medieval street plan becomes the star of the print.",
+  "ideas": [
+   "The street where you lived as a student",
+   "The Dom area, where it all began",
+   "A gift for someone who moved away from Utrecht"
+  ],
+  "hook": "the singel, the Oudegracht and the old centre"
+ },
+ "eindhoven": {
+  "name": "Eindhoven",
+  "why": "Eindhoven grew from a cluster of villages into the city of light and design. The Dommel winds through a chain of green parks, the old Philips grounds of Strijp-S form their own grid to the west, and the ring road holds the compact centre together. In a dark palette with glowing lines it feels just right.",
+  "ideas": [
+   "Strijp-S, Woensel or the Witte Dame area, with your home marked",
+   "The street of your first student house at the TU/e",
+   "A gift for someone who moved to Brainport for work"
+  ],
+  "hook": "the Dommel, Strijp-S and the city centre"
+ },
+ "groningen": {
+  "name": "Groningen",
+  "why": "Groningen is a city you can read on the map. The Diepenring, a ring of canals on the line of the old ramparts, wraps around the centre, the Grote Markt and the Martinitoren sit in the middle, and the streets fan out from there in every direction. Zoom in and the old city becomes one clear, beautiful shape.",
+  "ideas": [
+   "The street of your student room, from the Zeeheldenbuurt to the Schildersbuurt",
+   "The Grote Markt and the Martinitoren",
+   "A leaving gift for someone who studied in Groningen"
+  ],
+  "hook": "the Diepenring, the Grote Markt and the old centre"
+ },
+ "tilburg": {
+  "name": "Tilburg",
+  "why": "Tilburg grew out of a ring of small hamlets that slowly joined together, which gives the city a street pattern unlike any other in the Netherlands. The old wool and textile city still shows in the Spoorzone, and the Piushaven brings a ribbon of water into the east of the centre.",
+  "ideas": [
+   "The Piushaven, with your apartment marked",
+   "The street where you lived as a student",
+   "A gift for a proud Tilburger who moved away"
+  ],
+  "hook": "the Piushaven, the Spoorzone and the city centre"
+ },
+ "almere": {
+  "name": "Almere",
+  "why": "Almere is one of the youngest cities in the world, built on land that was sea until the polder fell dry. Its map is a designed landscape: the Weerwater lies in the middle like a calm mirror, each district has its own pattern of streets, and water and woods run between them.",
+  "ideas": [
+   "Your street in Almere Stad, Almere Haven or Almere Poort",
+   "The first house you bought together",
+   "<em>Our first home</em> for a housewarming gift"
+  ],
+  "hook": "the Weerwater, the districts and the water around them"
+ },
+ "breda": {
+  "name": "Breda",
+  "why": "Breda is a historic garrison city with a lot of charm. The singels still trace the old fortifications around the centre, the Grote Kerk rises over the Grote Markt, and the castle and Park Valkenberg form a quiet green corner on the north side of the old town.",
+  "ideas": [
+   "The Grote Markt and the Havermarkt",
+   "The street where you lived as a student",
+   "A gift for someone who left Brabant for the big city"
+  ],
+  "hook": "the singels, the Grote Markt and Park Valkenberg"
+ },
+ "nijmegen": {
+  "name": "Nijmegen",
+  "why": "Nijmegen is the oldest city in the Netherlands, founded by the Romans on the hills along the Waal. The wide river curves past the old centre, the bridges cross it in long elegant lines, and on the other side the river island of the Spiegelwaal adds a new layer of water to the map.",
+  "ideas": [
+   "The Waalkade and the old centre",
+   "The street of your student room near the Radboud campus",
+   "A souvenir of the Four Days Marches"
+  ],
+  "hook": "the Waal, the bridges and the old centre"
+ },
+ "apeldoorn": {
+  "name": "Apeldoorn",
+  "why": "Apeldoorn is the green city at the edge of the Veluwe. The park of Paleis Het Loo stretches out on the north side, wide lanes lined with villas run through the town, and the forests of the Veluwe begin right where the streets end.",
+  "ideas": [
+   "Your street, from the Sprengenbos to Zevenhuizen",
+   "Paleis Het Loo and its gardens",
+   "A gift for someone who loves the Veluwe"
+  ],
+  "hook": "Paleis Het Loo, the green lanes and the city centre"
+ },
+ "arnhem": {
+  "name": "Arnhem",
+  "why": "Arnhem sits where the Veluwe hills meet the Rhine. The river runs along the south of the centre under the John Frost Bridge, Park Sonsbeek brings deep green right up to the old town, and the streets climb and curve with the hills to the north.",
+  "ideas": [
+   "The old centre and the Rijnkade",
+   "Your street in Spijkerkwartier or Sonsbeek",
+   "A gift for someone who studied or lived in Arnhem"
+  ],
+  "hook": "the Rhine, the John Frost Bridge and Park Sonsbeek"
+ },
+ "haarlem": {
+  "name": "Haarlem",
+  "why": "Haarlem is one of the most beautiful old cities of Holland. The Spaarne winds through the centre in a soft curve, the singels follow the zigzag line of the old city walls, and the Grote Markt with the Sint Bavo church sits right in the middle. It makes a warm, classic print.",
+  "ideas": [
+   "Your street in the Kleverpark area or the Garenkokerskwartier",
+   "The Grote Markt and the Sint Bavo",
+   "A housewarming gift for a new home in Haarlem"
+  ],
+  "hook": "the Spaarne, the singels and the Grote Markt"
+ },
+ "enschede": {
+  "name": "Enschede",
+  "why": "Enschede is the city of Twente, built on its textile history. The Singelring circles the compact old centre, the old factory buildings stand out between the streets around it, and the green campus of the University of Twente lies on the north west side of the city.",
+  "ideas": [
+   "The old centre inside the Singelring",
+   "The street of your student house near the UT campus",
+   "A gift for a proud Tukker"
+  ],
+  "hook": "the Singelring, the old centre and the university campus"
+ },
+ "amersfoort": {
+  "name": "Amersfoort",
+  "why": "Amersfoort has one of the best preserved medieval centres in the Netherlands. The old town forms an almost perfect oval, ringed by canals, with the Muurhuizen built into the line of the first city wall and the Koppelpoort water gate guarding the north. The Onze Lieve Vrouwetoren rises in the middle.",
+  "ideas": [
+   "The old centre with the Muurhuizen",
+   "Your street in Vathorst, Nieuwland or Soesterkwartier",
+   "A housewarming gift for a new home in Amersfoort"
+  ],
+  "hook": "the Muurhuizen, the Koppelpoort and the old centre"
+ },
+ "den-bosch": {
+  "name": "Den Bosch",
+  "why": "Den Bosch, officially 's-Hertogenbosch, is a fortress city with a lot of character. The bastions and city walls still shape the edge of the old town, the Binnendieze waterways wind through the centre and even run under the houses, and the Sint Jan cathedral rises above it all.",
+  "ideas": [
+   "The Markt and the Sint Jan",
+   "Your street in the old centre or the Muntel",
+   "A gift for a proud Bosschenaar who moved away"
+  ],
+  "hook": "the bastions, the Binnendieze and the Markt"
+ },
+ "zwolle": {
+  "name": "Zwolle",
+  "why": "Zwolle is an old Hanseatic city, and the map shows it beautifully. The stadsgracht still follows the star shaped line of the old fortifications around the centre, the Sassenpoort guards the south side, and the Peperbus tower marks the heart of the old town.",
+  "ideas": [
+   "The old centre inside the stadsgracht",
+   "Your street in Assendorp or the Diezerpoort area",
+   "A gift for someone from Overijssel"
+  ],
+  "hook": "the star shaped stadsgracht, the Sassenpoort and the old centre"
+ },
+ "leiden": {
+  "name": "Leiden",
+  "why": "Leiden is the oldest university city in the Netherlands, and one of its most beautiful on paper. Two branches of the Rhine meet in the centre, the Rapenburg curves past the old university buildings, and the singels wrap the old town in a ring of water. The canals turn the map into fine lace.",
+  "ideas": [
+   "The Rapenburg and the Burcht",
+   "The street of your student room",
+   "A graduation gift for someone who studied in Leiden"
+  ],
+  "hook": "the Rapenburg, the branches of the Rhine and the singels"
+ },
+ "zoetermeer": {
+  "name": "Zoetermeer",
+  "why": "Zoetermeer grew from a village into a city in a few decades, and the map shows how it was planned. Each neighbourhood has its own clear pattern of streets, the light rail line ties them together, and parks, lakes and canals run between them.",
+  "ideas": [
+   "Your street, from Rokkeveen to Oosterheem",
+   "The first house you bought together",
+   "<em>Our first home</em> for a housewarming gift"
+  ],
+  "hook": "the neighbourhoods, the parks and the water"
+ },
+ "leeuwarden": {
+  "name": "Leeuwarden",
+  "why": "Leeuwarden, the capital of Friesland, has a lovely old centre. The stadsgracht follows the star shaped line of the old fortifications around the town, canals cross through the middle, and the leaning Oldehove tower stands on its own square at the west side.",
+  "ideas": [
+   "The old centre and the Oldehove",
+   "Your street in Huizum or the Vosseparkwijk",
+   "A gift for someone with a Frisian heart"
+  ],
+  "hook": "the stadsgracht, the Oldehove and the old centre"
+ },
+ "maastricht": {
+  "name": "Maastricht",
+  "why": "Maastricht feels almost southern on the map. The Maas divides the old centre from the Wyck quarter, the Sint Servaas Bridge, one of the oldest bridges in the country, links the two, and the Vrijthof and the remains of the medieval walls shape the old town.",
+  "ideas": [
+   "The Vrijthof and the old centre",
+   "Wyck or the Jekerkwartier, with your home marked",
+   "A gift for someone who studied in Maastricht"
+  ],
+  "hook": "the Maas, the Sint Servaas Bridge and the Vrijthof"
+ },
+ "dordrecht": {
+  "name": "Dordrecht",
+  "why": "Dordrecht is the oldest city of Holland, and it lies on an island surrounded by rivers. Where the Oude Maas, the Merwede and the Noord meet, the old harbours reach deep into the centre and the long Voorstraat runs right through it. Water frames the map on every side.",
+  "ideas": [
+   "The old harbours and the Grote Kerk",
+   "Your street in the old centre or Reeland",
+   "A gift for someone who grew up by the rivers"
+  ],
+  "hook": "the rivers, the old harbours and the island centre"
+ },
+ "delft": {
+  "name": "Delft",
+  "why": "Delft is small, but on a map it is pure charm. Canals run in neat lines through the old centre, the Markt lies between the Nieuwe Kerk and the city hall, and the Oude Kerk leans gently over the Oude Delft. In a deep blue palette it is a nod to the famous Delft Blue.",
+  "ideas": [
+   "The Markt with the Nieuwe Kerk",
+   "The street of your student house near the TU Delft",
+   "A graduation gift for a Delft engineer"
+  ],
+  "hook": "the canals, the Markt and the Oude Kerk"
+ },
+ "antwerp": {
+  "name": "Antwerp",
+  "why": "Antwerp is shaped by the Scheldt. The river runs along the old town in a long curve, the docks of Het Eilandje stretch to the north, and the Leien boulevards follow the line of the old city walls in a wide half circle. It makes a calm, elegant print, especially in light palettes.",
+  "ideas": [
+   "The old town and the cathedral quarter",
+   "Het Zuid or Het Eilandje, with your apartment marked",
+   "<em>Where we met</em> for a couple who met in Antwerp"
+  ],
+  "hook": "the Scheldt, the docks and the Leien"
+ },
+ "ghent": {
+  "name": "Ghent",
+  "why": "Ghent is a medieval city full of water. The Leie and the Scheldt meet in the center, the Graslei and the Korenlei face each other across the old harbour, and three towers rise above the old town in a row.",
+  "ideas": [
+   "The Graslei and the Korenlei",
+   "Your street in Patershol or the student quarter",
+   "A graduation gift for someone who studied in Ghent"
+  ],
+  "hook": "the Leie, the Graslei and the old town"
+ },
+ "charleroi": {
+  "name": "Charleroi",
+  "why": "Charleroi was born as a fortress, and the map still shows it. The upper town keeps its round shape around the Place Charles II, the Sambre curves through the lower town, and the ring road follows the line of the old defences.",
+  "ideas": [
+   "The upper town and the Place Charles II",
+   "Your street in the lower town",
+   "A gift for someone from the Pays Noir"
+  ],
+  "hook": "the upper town, the Sambre and the ring"
+ },
+ "liege": {
+  "name": "Liège",
+  "why": "Liège is a lively city on the Meuse. The river and its side channel run through the center, the old town climbs the hill toward the citadel, and the Outremeuse quarter lies on the island across the water.",
+  "ideas": [
+   "The old town and the Montagne de Bueren",
+   "Outremeuse, with your home marked",
+   "A gift for someone who studied in Liège"
+  ],
+  "hook": "the Meuse, the old town and Outremeuse"
+ },
+ "brussels": {
+  "name": "Brussels",
+  "why": "Brussels has a heart shaped like a pentagon. The small ring follows the line of the old walls around the center, the Grand Place sits in the middle, and the Parc de Bruxelles and the royal quarter fill the upper town.",
+  "ideas": [
+   "The Grand Place and the old center",
+   "Your street in Ixelles, Saint Gilles or Etterbeek",
+   "A gift for a colleague leaving Brussels"
+  ],
+  "hook": "the small ring, the Grand Place and the upper town"
+ },
+ "bruges": {
+  "name": "Bruges",
+  "why": "Bruges is a fairy tale on paper. The old town forms a near perfect egg shape inside its ring canal, smaller canals wind between the houses, and the Markt and the Belfry sit right in the middle.",
+  "ideas": [
+   "The Markt and the canals",
+   "The bridge where it was asked",
+   "A souvenir of a wedding or a weekend in Bruges"
+  ],
+  "hook": "the ring canal, the Markt and the canals"
+ },
+ "namur": {
+  "name": "Namur",
+  "why": "Namur sits where the Sambre flows into the Meuse. The citadel rises on the rock between the two rivers, the old town fills the space below, and the bridges link it to the green banks on every side.",
+  "ideas": [
+   "The citadel and the confluence",
+   "Your street in the old town or Jambes",
+   "A gift for someone from Wallonia"
+  ],
+  "hook": "the Sambre, the Meuse and the citadel"
+ },
+ "leuven": {
+  "name": "Leuven",
+  "why": "Leuven is a lively university town with a clear shape. The ring road follows the old walls around the center, the Dijle winds through it, and the Oude Markt and the town hall sit right in the middle.",
+  "ideas": [
+   "The Oude Markt and the town hall",
+   "The street of your student room",
+   "A graduation gift for someone who studied in Leuven"
+  ],
+  "hook": "the ring, the Dijle and the Oude Markt"
+ },
+ "mons": {
+  "name": "Mons",
+  "why": "Mons is a compact old town on a hill. The ring boulevards follow the line of the old fortifications, the streets climb toward the belfry at the top, and the Grand Place lies just below it.",
+  "ideas": [
+   "The Grand Place and the belfry",
+   "Your street in the old town",
+   "A gift for someone who studied in Mons"
+  ],
+  "hook": "the ring boulevards, the belfry and the Grand Place"
+ },
+ "aalst": {
+  "name": "Aalst",
+  "why": "Aalst lies on the Dender, which winds past the old town. The Grote Markt with the belfry sits at the heart of the center, and the streets fan out from there to the station and the river.",
+  "ideas": [
+   "The Grote Markt and the belfry",
+   "Your street near the Dender",
+   "A souvenir of carnival in Aalst"
+  ],
+  "hook": "the Dender, the Grote Markt and the old town"
+ },
+ "mechelen": {
+  "name": "Mechelen",
+  "why": "Mechelen is a gem between Antwerp and Brussels. The Dijle curves through the old town, the ring road follows the old walls, and the tower of Saint Rumbold's rises above the Grote Markt.",
+  "ideas": [
+   "The Grote Markt and Saint Rumbold's",
+   "Your street along the Dijle",
+   "A housewarming gift for a new home in Mechelen"
+  ],
+  "hook": "the Dijle, the ring and the Grote Markt"
+ },
+ "la-louviere": {
+  "name": "La Louvière",
+  "why": "La Louvière grew up around its industry and its canals. The historic Canal du Centre with its famous boat lifts runs nearby, and the town center spreads out around the Place Maugrétout.",
+  "ideas": [
+   "Your street in the center",
+   "The old canal and its boat lifts",
+   "A gift for someone from the Centre region"
+  ],
+  "hook": "the center and the historic canals"
+ },
+ "hasselt": {
+  "name": "Hasselt",
+  "why": "Hasselt has a center you can read at a glance. The Groene Boulevard circles the old town in an almost perfect ring, and the streets inside it lead to the Grote Markt and the cathedral.",
+  "ideas": [
+   "The center inside the Groene Boulevard",
+   "Your street in Hasselt",
+   "A gift for someone from Limburg"
+  ],
+  "hook": "the Groene Boulevard, the Grote Markt and the old town"
+ },
+ "kortrijk": {
+  "name": "Kortrijk",
+  "why": "Kortrijk is a lively city on the Leie. The river runs along the old town, the Broel towers guard the old bridge, and the Grote Markt with its belfry lies just south of the water.",
+  "ideas": [
+   "The Broel towers and the Leie",
+   "Your street in the center",
+   "A gift for someone from West Flanders"
+  ],
+  "hook": "the Leie, the Broel towers and the Grote Markt"
+ },
+ "sint-niklaas": {
+  "name": "Sint-Niklaas",
+  "why": "Sint-Niklaas is home to the biggest market square in Belgium. The huge Grote Markt sits in the middle of the city, and the streets of the Waasland capital spread out from it in every direction.",
+  "ideas": [
+   "The Grote Markt",
+   "Your street in Sint-Niklaas",
+   "A gift for someone from the Waasland"
+  ],
+  "hook": "the Grote Markt and the city center"
+ },
+ "ostend": {
+  "name": "Ostend",
+  "why": "Ostend is the queen of the Belgian coast. The promenade runs along the beach, the harbour and the docks reach into the town, and the old streets of the center lie between the sea and the water.",
+  "ideas": [
+   "The promenade and the beach",
+   "Your apartment by the sea",
+   "A gift for someone who loves the coast"
+  ],
+  "hook": "the promenade, the beach and the harbour"
+ },
+ "tournai": {
+  "name": "Tournai",
+  "why": "Tournai is one of the oldest cities in Belgium. The Scheldt runs through the middle of the town, the cathedral with its five towers rises near the Grand Place, and the boulevards follow the line of the old walls.",
+  "ideas": [
+   "The cathedral and the Grand Place",
+   "Your street along the Scheldt",
+   "A gift for someone from Wallonie picarde"
+  ],
+  "hook": "the Scheldt, the cathedral and the Grand Place"
+ },
+ "genk": {
+  "name": "Genk",
+  "why": "Genk grew from the coal mines into a green city. The old mining sites, the garden districts built around them and the forests of the Hoge Kempen give the map a character of its own.",
+  "ideas": [
+   "Your street in one of the garden districts",
+   "C-Mine and Winterslag",
+   "A gift for someone with roots in the mines"
+  ],
+  "hook": "the mining sites, the garden districts and the green"
+ },
+ "seraing": {
+  "name": "Seraing",
+  "why": "Seraing lies on the Meuse, just upstream from Liège. The river curves along the town, and the old steelworks and the streets around them tell the story of its industrial past.",
+  "ideas": [
+   "Your street in Seraing",
+   "The banks of the Meuse",
+   "A gift for someone from the Liège region"
+  ],
+  "hook": "the Meuse and the town center"
+ },
+ "roeselare": {
+  "name": "Roeselare",
+  "why": "Roeselare is a busy West Flemish town with a compact center. The Grote Markt and Saint Michael's church sit at its heart, and the streets fan out from there toward the ring around it.",
+  "ideas": [
+   "The Grote Markt",
+   "Your street in Roeselare",
+   "A gift for someone from West Flanders"
+  ],
+  "hook": "the Grote Markt and the city center"
+ },
+ "berlin": {
+  "name": "Berlin",
+  "why": "Berlin is big, green and full of contrast. The Spree winds through Mitte, the Tiergarten forms a large calm shape in the middle, and the grand avenues cross the city in long straight lines. In dark palettes with gold lines, the map has a modern, graphic feel.",
+  "ideas": [
+   "Your Kiez in Kreuzberg, Neukölln or Prenzlauer Berg",
+   "The neighbourhood of a first apartment together",
+   "A souvenir of a year spent in Berlin"
+  ],
+  "hook": "the Spree, the Tiergarten and your Kiez"
+ },
+ "hamburg": {
+  "name": "Hamburg",
+  "why": "Hamburg is a city of water and bridges. The Alster lakes lie right in the middle of the center, the Elbe and the harbour stretch along the south, and the canals of the Speicherstadt make a fine pattern between them.",
+  "ideas": [
+   "Your street in Eimsbüttel, Ottensen or St. Pauli",
+   "The Alster, for a walk you will always remember",
+   "A gift for a Hamburger who moved away"
+  ],
+  "hook": "the Alster, the Elbe and the harbour"
+ },
+ "munich": {
+  "name": "Munich",
+  "why": "Munich is elegant on paper. The Altstadt sits inside a ring of boulevards, the Isar runs along the east side, and the Englischer Garten reaches deep into the city from the north as a long green shape.",
+  "ideas": [
+   "Your street in Schwabing, Maxvorstadt or Haidhausen",
+   "The Englischer Garten, for a walk together",
+   "A souvenir of a wedding or an Oktoberfest to remember"
+  ],
+  "hook": "the Altstadt, the Isar and the Englischer Garten"
+ },
+ "cologne": {
+  "name": "Cologne",
+  "why": "Cologne is shaped by the Rhine and its rings. The old town lies along the river around the cathedral, and the Ringe boulevards follow the line of the medieval walls in a wide half circle. The bridges across the Rhine complete the picture.",
+  "ideas": [
+   "The cathedral and the old town",
+   "Your Veedel, from the Belgisches Viertel to Ehrenfeld",
+   "A gift for a Kölsche who moved away"
+  ],
+  "hook": "the Rhine, the cathedral and the Ringe"
+ },
+ "frankfurt": {
+  "name": "Frankfurt",
+  "why": "Frankfurt combines old and new in one map. The Main river runs right through the city, the Wallanlagen park follows the line of the old walls around the center, and Sachsenhausen lies across the river to the south.",
+  "ideas": [
+   "Your street in Nordend, Bornheim or Sachsenhausen",
+   "The Main and the bridges, where you met",
+   "A gift for a colleague leaving Frankfurt"
+  ],
+  "hook": "the Main, the Wallanlagen and Sachsenhausen"
+ },
+ "stuttgart": {
+  "name": "Stuttgart",
+  "why": "Stuttgart lies in a green valley surrounded by vineyards and woods. The center fills the bottom of the basin, the Schlossgarten runs through it toward the Neckar, and the streets climb the hills on every side.",
+  "ideas": [
+   "Your street in the West, the South or Bad Cannstatt",
+   "The Schlossplatz and the Königstraße",
+   "A gift for someone who left Swabia"
+  ],
+  "hook": "the valley, the Schlossgarten and the Neckar"
+ },
+ "dusseldorf": {
+  "name": "Düsseldorf",
+  "why": "Düsseldorf is stylish and green along the Rhine. The river bends past the Altstadt and the MedienHafen, the Königsallee runs along its elegant canal, and the Hofgarten brings a green heart to the center.",
+  "ideas": [
+   "The Altstadt and the Rhine promenade",
+   "Your street in Pempelfort, Flingern or Oberkassel",
+   "A gift for someone who moved to Düsseldorf for work"
+  ],
+  "hook": "the Rhine, the Königsallee and the Altstadt"
+ },
+ "leipzig": {
+  "name": "Leipzig",
+  "why": "Leipzig has a compact center wrapped by its Ring, the boulevard that follows the old city walls. Around it, the green floodplain forest and the restored rivers and canals give the city a soft, lively map.",
+  "ideas": [
+   "The center inside the Ring",
+   "Your street in Plagwitz, Connewitz or the Waldstraßenviertel",
+   "A gift for someone who studied in Leipzig"
+  ],
+  "hook": "the Ring, the canals and the floodplain forest"
+ },
+ "dortmund": {
+  "name": "Dortmund",
+  "why": "Dortmund is the heart of the Ruhr. The Wallring circles the old center where the city walls once stood, the streets of the old industrial city fan out around it, and the green of the Westfalenpark lies to the south.",
+  "ideas": [
+   "The center inside the Wallring",
+   "Your street in the Kreuzviertel",
+   "A gift for a football fan from Dortmund"
+  ],
+  "hook": "the Wallring, the center and the Westfalenpark"
+ },
+ "essen": {
+  "name": "Essen",
+  "why": "Essen has grown from coal and steel into a green city. The center sits on a compact ring, the old industrial grounds make bold shapes on the map, and the Gruga park and the Baldeneysee lie to the south.",
+  "ideas": [
+   "Your street in Rüttenscheid or Holsterhausen",
+   "The center and the cathedral",
+   "A gift for someone from the Ruhrpott"
+  ],
+  "hook": "the center, Rüttenscheid and the Gruga park"
+ },
+ "bremen": {
+  "name": "Bremen",
+  "why": "Bremen is a beautiful old Hanseatic city. The Weser runs along the old town, the Wallanlagen park still follows the zigzag of the old fortifications, and the Schnoor quarter hides its tiny lanes near the river.",
+  "ideas": [
+   "The Marktplatz and the old town",
+   "Your street in the Viertel, Findorff or Schwachhausen",
+   "A gift for someone from the north"
+  ],
+  "hook": "the Weser, the Wallanlagen and the old town"
+ },
+ "dresden": {
+  "name": "Dresden",
+  "why": "Dresden is a baroque city on the Elbe. The river curves in a wide arc past the old town, the Frauenkirche and the Zwinger mark the historic center, and the Neustadt lies across the water to the north.",
+  "ideas": [
+   "The old town and the Elbe banks",
+   "Your street in the Neustadt",
+   "A souvenir of a city trip together"
+  ],
+  "hook": "the Elbe, the old town and the Neustadt"
+ },
+ "hanover": {
+  "name": "Hanover",
+  "why": "Hanover is one of the greenest cities in Germany. The Eilenriede forest reaches right into the city, the Maschsee lake lies just south of the center, and the Herrenhausen Gardens add their formal shapes to the west.",
+  "ideas": [
+   "Your street in List, Linden or the Südstadt",
+   "The Maschsee, for a walk together",
+   "A gift for someone who studied in Hanover"
+  ],
+  "hook": "the Maschsee, the Eilenriede and the old town"
+ },
+ "nuremberg": {
+  "name": "Nuremberg",
+  "why": "Nuremberg has one of the most complete old towns in Germany. The medieval walls still circle the center, the Pegnitz river runs right through it, and the castle crowns the old town on the north side.",
+  "ideas": [
+   "The old town inside the walls",
+   "Your street in Gostenhof or the Nordstadt",
+   "A souvenir of the Christmas market"
+  ],
+  "hook": "the city walls, the Pegnitz and the castle"
+ },
+ "duisburg": {
+  "name": "Duisburg",
+  "why": "Duisburg sits where the Ruhr flows into the Rhine, and its map is full of water. The huge inland harbour stretches along the rivers, the Innenhafen has become a lively waterfront, and the old center lies just beside it.",
+  "ideas": [
+   "The Innenhafen and the center",
+   "Your street in Neudorf or Duissern",
+   "A gift for someone who grew up between Rhine and Ruhr"
+  ],
+  "hook": "the Rhine, the harbour and the Innenhafen"
+ },
+ "bochum": {
+  "name": "Bochum",
+  "why": "Bochum is a lively Ruhr city with a big heart. The ring road holds the center together, the old mining and steel grounds still shape parts of the map, and the green campus of the university lies to the south.",
+  "ideas": [
+   "The Bermuda3eck and the center",
+   "Your street in Ehrenfeld or Wiemelhausen",
+   "A gift for someone who studied in Bochum"
+  ],
+  "hook": "the center, the ring and the university"
+ },
+ "wuppertal": {
+  "name": "Wuppertal",
+  "why": "Wuppertal is a long city in a narrow valley. The Wupper river winds through the bottom, the famous suspension railway follows it for miles, and the streets climb steeply up the green hills on both sides.",
+  "ideas": [
+   "Your street in Elberfeld or Barmen",
+   "The Schwebebahn line along the river",
+   "A gift for someone from the Bergisches Land"
+  ],
+  "hook": "the Wupper valley, Elberfeld and Barmen"
+ },
+ "bielefeld": {
+  "name": "Bielefeld",
+  "why": "Bielefeld lies at a gap in the Teutoburg Forest. The old town sits at the foot of the Sparrenburg castle, the wooded ridge runs right across the city, and the university lies on its green northern side.",
+  "ideas": [
+   "The old town and the Sparrenburg",
+   "Your street in the West or Gadderbaum",
+   "A gift for someone who studied in Bielefeld"
+  ],
+  "hook": "the old town, the Sparrenburg and the Teutoburg Forest"
+ },
+ "bonn": {
+  "name": "Bonn",
+  "why": "Bonn is a calm, green city on the Rhine. The old town lies close to the river around the Münster and the university, the Rheinaue park stretches along the water, and the Altstadt is famous for its cherry blossom streets in spring.",
+  "ideas": [
+   "The Altstadt with its cherry blossoms",
+   "Your street in the Südstadt or Poppelsdorf",
+   "A gift for someone who studied in Bonn"
+  ],
+  "hook": "the Rhine, the old town and the Rheinaue"
+ },
+ "munster": {
+  "name": "Münster",
+  "why": "Münster is the city of bikes and churches. The Promenade, a green ring for cyclists, follows the line of the old walls around the center, the Prinzipalmarkt runs through the middle, and the Aasee lake lies just to the south west.",
+  "ideas": [
+   "The old town inside the Promenade",
+   "Your street in the Kreuzviertel",
+   "A graduation gift for someone who studied in Münster"
+  ],
+  "hook": "the Promenade, the Prinzipalmarkt and the Aasee"
+ },
+ "paris": {
+  "name": "Paris",
+  "why": "Paris is a classic for a reason. The Seine draws a long arc through the city around the Île de la Cité, and the wide boulevards cut through the old streets like rays of a star. Whether you choose the whole centre or a single arrondissement, the map is instantly recognisable.",
+  "ideas": [
+   "The street of your honeymoon hotel",
+   "The café of a first date, marked with a heart",
+   "A heart shaped print of the Seine for an anniversary"
+  ],
+  "hook": "the Seine, the islands and the boulevards"
+ },
+ "marseille": {
+  "name": "Marseille",
+  "why": "Marseille is the oldest city in France, built around its harbour. The Vieux Port reaches deep into the center, the Canebière runs straight up from the water, and Notre Dame de la Garde watches over it all from its hill.",
+  "ideas": [
+   "The Vieux Port and the Panier",
+   "Your street in the Cours Julien or Endoume",
+   "A gift for someone with a Mediterranean heart"
+  ],
+  "hook": "the Vieux Port, the Canebière and the Panier"
+ },
+ "lyon": {
+  "name": "Lyon",
+  "why": "Lyon is built where two rivers meet. The Rhône and the Saône frame the Presqu'île in the middle, Vieux Lyon lies at the foot of Fourvière on the west bank, and the slopes of the Croix Rousse rise to the north.",
+  "ideas": [
+   "The Presqu'île and the Place Bellecour",
+   "Your street in the Croix Rousse or Vieux Lyon",
+   "A souvenir of a dinner you will never forget"
+  ],
+  "hook": "the Rhône, the Saône and the Presqu'île"
+ },
+ "toulouse": {
+  "name": "Toulouse",
+  "why": "Toulouse is the pink city on the Garonne. The river curves past the old town, the Place du Capitole sits in the middle, and the Canal du Midi draws a long line around the east side of the center.",
+  "ideas": [
+   "The Capitole and the old town",
+   "Your street in Saint Cyprien or the Carmes",
+   "A gift for someone who studied in Toulouse"
+  ],
+  "hook": "the Garonne, the Capitole and the Canal du Midi"
+ },
+ "nice": {
+  "name": "Nice",
+  "why": "Nice is pure Riviera on paper. The Promenade des Anglais follows the curve of the Baie des Anges, the narrow lanes of the old town sit at its eastern end, and the castle hill separates it from the harbour.",
+  "ideas": [
+   "The Promenade des Anglais",
+   "Vieux Nice, with a heart on your favourite square",
+   "A souvenir of a honeymoon on the Côte d'Azur"
+  ],
+  "hook": "the Promenade des Anglais, the old town and the harbour"
+ },
+ "nantes": {
+  "name": "Nantes",
+  "why": "Nantes is a city of the Loire. The river splits around the Île de Nantes, the old town and the castle of the Dukes of Brittany sit on the north bank, and the old arms of the river still show in the shape of the streets.",
+  "ideas": [
+   "The castle and the old town",
+   "The Île de Nantes, with your home marked",
+   "A gift for someone who left the west of France"
+  ],
+  "hook": "the Loire, the Île de Nantes and the castle"
+ },
+ "montpellier": {
+  "name": "Montpellier",
+  "why": "Montpellier is a sunny student city with a beautiful center. The old town, known as the Écusson, forms a shield shaped maze of streets, the Place de la Comédie opens up at its edge, and Antigone stretches toward the Lez river.",
+  "ideas": [
+   "The Écusson and the Place de la Comédie",
+   "The street of your student room",
+   "A gift for someone who studied in Montpellier"
+  ],
+  "hook": "the Écusson, the Place de la Comédie and Antigone"
+ },
+ "strasbourg": {
+  "name": "Strasbourg",
+  "why": "Strasbourg has its heart on an island. The Grande Île is wrapped by the arms of the Ill, the cathedral rises in the middle, and the half timbered houses of Petite France line the water at its western tip.",
+  "ideas": [
+   "The Grande Île and the cathedral",
+   "Petite France, with a heart on your favourite bridge",
+   "A souvenir of the Christmas market"
+  ],
+  "hook": "the Grande Île, the Ill and Petite France"
+ },
+ "bordeaux": {
+  "name": "Bordeaux",
+  "why": "Bordeaux is the Port of the Moon, named after the crescent shaped bend of the Garonne. The elegant old town lines the river, the Place de la Bourse looks out over the water, and the quays follow the curve for miles.",
+  "ideas": [
+   "The Place de la Bourse and the quays",
+   "Your street in the Chartrons or Saint Michel",
+   "A gift for a wine lover"
+  ],
+  "hook": "the Garonne crescent, the quays and the old town"
+ },
+ "lille": {
+  "name": "Lille",
+  "why": "Lille is a lively Flemish city in France. The star shaped citadel lies in the green to the north west, the old town of Vieux Lille fills the streets around the Grand Place, and the boulevards follow the line of the old walls.",
+  "ideas": [
+   "Vieux Lille and the Grand Place",
+   "Your street in Wazemmes or the Vauban quarter",
+   "A gift for someone who studied in Lille"
+  ],
+  "hook": "the citadel, Vieux Lille and the Grand Place"
+ },
+ "rennes": {
+  "name": "Rennes",
+  "why": "Rennes is the lively capital of Brittany. The Vilaine runs through the city from west to east, the old town with its half timbered houses lies on the north bank, and the Thabor park adds a green corner to the east.",
+  "ideas": [
+   "The old town and the Place des Lices",
+   "The street of your student room",
+   "A gift for someone with a Breton heart"
+  ],
+  "hook": "the Vilaine, the old town and the Thabor"
+ },
+ "toulon": {
+  "name": "Toulon",
+  "why": "Toulon is a port city on one of the finest natural harbours of the Mediterranean. The harbour opens up right in front of the old town, the Mont Faron rises behind it, and the coast curves away toward the beaches.",
+  "ideas": [
+   "The harbour and the old town",
+   "Your street in Toulon",
+   "A gift for someone who served in the navy"
+  ],
+  "hook": "the harbour, the old town and the Mont Faron"
+ },
+ "reims": {
+  "name": "Reims",
+  "why": "Reims is the city of coronations and champagne. The great cathedral stands in the heart of the center, the boulevards follow the line of the old walls around it, and the champagne houses lie on the hills to the south east.",
+  "ideas": [
+   "The cathedral and the Place Drouet d'Erlon",
+   "Your street in Reims",
+   "A gift for a champagne lover"
+  ],
+  "hook": "the cathedral, the boulevards and the champagne houses"
+ },
+ "saint-etienne": {
+  "name": "Saint-Étienne",
+  "why": "Saint-Étienne is a city of design and industry, laid out in a long valley. The Grande Rue runs straight through the center, the old mining hills rise on both sides, and the Cité du Design marks the north.",
+  "ideas": [
+   "The center and the Place Jean Jaurès",
+   "Your street in Saint-Étienne",
+   "A gift for a fan of les Verts"
+  ],
+  "hook": "the Grande Rue, the center and the hills"
+ },
+ "le-havre": {
+  "name": "Le Havre",
+  "why": "Le Havre was rebuilt by Auguste Perret after the war, and its center is a UNESCO listed grid of light and space. The port stretches along the mouth of the Seine, and the beach runs along the west of the town.",
+  "ideas": [
+   "The Perret center and the Saint Joseph church",
+   "Your street near the beach",
+   "A gift for someone who loves the Normandy coast"
+  ],
+  "hook": "the Perret grid, the port and the beach"
+ },
+ "dijon": {
+  "name": "Dijon",
+  "why": "Dijon is the old capital of the Dukes of Burgundy. The palace and the Place de la Libération sit in the middle of a compact old town, and the boulevards follow the line of the old walls around it.",
+  "ideas": [
+   "The old town and the palace of the Dukes",
+   "Your street in Dijon",
+   "A gift for a lover of Burgundy wines"
+  ],
+  "hook": "the old town, the palace and the boulevards"
+ },
+ "grenoble": {
+  "name": "Grenoble",
+  "why": "Grenoble is surrounded by mountains on every side. The Isère curves past the old town, the Bastille fort rises on the slope across the river, and the streets spread out across the flat valley floor.",
+  "ideas": [
+   "The old town and the Bastille",
+   "Your street in the center or Île Verte",
+   "A gift for someone who loves the Alps"
+  ],
+  "hook": "the Isère, the old town and the Bastille"
+ },
+ "angers": {
+  "name": "Angers",
+  "why": "Angers is a city of the Loire valley. The great castle stands on the bank of the Maine, the cathedral rises above the old town, and the boulevards circle the center in a wide ring.",
+  "ideas": [
+   "The castle and the old town",
+   "Your street in Angers",
+   "A gift for someone who studied in Angers"
+  ],
+  "hook": "the castle, the Maine and the old town"
+ },
+ "nimes": {
+  "name": "Nîmes",
+  "why": "Nîmes is the most Roman city of France. The arena and the Maison Carrée stand in the heart of the old town, the boulevards form a shield shape around it, and the Jardins de la Fontaine lie at its western edge.",
+  "ideas": [
+   "The arena and the old town",
+   "The Jardins de la Fontaine",
+   "A gift for someone who loves the south of France"
+  ],
+  "hook": "the arena, the Maison Carrée and the old town"
+ },
+ "clermont-ferrand": {
+  "name": "Clermont-Ferrand",
+  "why": "Clermont-Ferrand lies at the foot of the volcanoes of Auvergne. The old town sits on a small hill, crowned by a cathedral built from black volcanic stone, and the Place de Jaude spreads out at its foot.",
+  "ideas": [
+   "The cathedral and the Place de Jaude",
+   "Your street in Clermont-Ferrand",
+   "A gift for someone who loves the Auvergne"
+  ],
+  "hook": "the old town, the black cathedral and the Place de Jaude"
+ },
+ "london": {
+  "name": "London",
+  "why": "London is a city of villages strung along the Thames. The river bends in deep loops past Westminster, the City and Greenwich, and the great parks show up as calm open spaces in the dense street pattern. Choose the centre, or zoom in on the borough that feels like home.",
+  "ideas": [
+   "Your street in Islington, Clapham or Notting Hill",
+   "The place you lived together for the first time",
+   "A leaving gift for a friend moving away from London"
+  ],
+  "hook": "the Thames, the parks and your own borough"
+ },
+ "vienna": {
+  "name": "Vienna",
+  "why": "Vienna has a shape like no other city. The Ringstrasse circles the Innere Stadt where the old walls once stood, with the grand buildings along its edge, and the Danube Canal closes the ring to the north. It is one of the most striking city maps in the collection.",
+  "ideas": [
+   "The Innere Stadt with the Ring around it",
+   "The district where you lived, from Neubau to Leopoldstadt",
+   "<em>Where we said yes</em> for a wedding in Vienna"
+  ],
+  "hook": "the Ringstrasse, the Innere Stadt and the Danube Canal"
+ },
+ "prague": {
+  "name": "Prague",
+  "why": "Prague is a fairy tale on paper. The Vltava bends through the city, Charles Bridge links the Old Town to the Lesser Town below the castle, and the medieval streets form a dense, beautiful web. In deep reds and gold it looks almost like an old engraving.",
+  "ideas": [
+   "The Old Town and Charles Bridge",
+   "The place of a city trip together, with the date",
+   "A heart shaped print for an anniversary in Prague"
+  ],
+  "hook": "the Vltava, Charles Bridge and the Old Town"
+ },
+ "rome": {
+  "name": "Rome",
+  "why": "Rome is layered history in a single map. The Tiber curves past the Vatican and Trastevere, the ancient centre fills the bend with piazzas and narrow streets, and the great parks sit on the hills around it. Warm terracotta palettes bring out the colour of the city.",
+  "ideas": [
+   "Trastevere or the Monti quarter, with a heart on your favourite spot",
+   "The church where you got married",
+   "A souvenir of a honeymoon in Rome"
+  ],
+  "hook": "the Tiber, Trastevere and the historic centre"
+ },
+ "venice": {
+  "name": "Venice",
+  "why": "Venice is pure poetry as a map. The Grand Canal winds through the city in a perfect S, more than a hundred little islands are stitched together by bridges, and the lagoon surrounds it all. In a heart shape or a soft lagoon palette it is one of the most romantic prints we make.",
+  "ideas": [
+   "The Grand Canal in a heart shape for a honeymoon",
+   "Your hotel or the bridge where it was asked",
+   "<em>Where we met</em> for a story that started in Venice"
+  ],
+  "hook": "the Grand Canal, the islands and the lagoon"
+ },
+ "barcelona": {
+  "name": "Barcelona",
+  "why": "Barcelona has the most famous grid in the world. The Eixample, designed by Ildefons Cerdà, fills the map with perfect blocks with cut corners, the Diagonal slices straight through them, and the old Gothic Quarter forms a dense, winding contrast by the sea.",
+  "ideas": [
+   "The Eixample grid with your apartment marked",
+   "Gràcia or El Born, where you lived",
+   "A souvenir of a holiday or an Erasmus year in Barcelona"
+  ],
+  "hook": "the Eixample grid, the Diagonal and the Gothic Quarter"
+ },
+ "madrid": {
+  "name": "Madrid",
+  "why": "Madrid is warm and grand, with the Gran Vía cutting through the centre, the Retiro park as a large green rectangle to the east, and the old streets around the Plaza Mayor in between. In deep reds and gold the map has a real sense of occasion.",
+  "ideas": [
+   "Malasaña, La Latina or Chamberí, with your street marked",
+   "The place of a first date in Madrid",
+   "A gift for someone who moved to Spain"
+  ],
+  "hook": "the Gran Vía, the Retiro and the old centre"
+ },
+ "lisbon": {
+  "name": "Lisbon",
+  "why": "Lisbon tumbles down its hills to the wide Tagus estuary. The Baixa forms a neat grid between the hills, the Alfama winds in tiny streets around the castle, and the river fills the bottom of the map with calm, open space.",
+  "ideas": [
+   "Alfama or Príncipe Real, with a heart on your favourite viewpoint",
+   "The place of a honeymoon or a city trip",
+   "A gift for someone with a Portuguese heart"
+  ],
+  "hook": "the Tagus, the Baixa and the Alfama"
+ },
+ "copenhagen": {
+  "name": "Copenhagen",
+  "why": "Copenhagen is defined by water. The harbour runs right through the city, the old star shaped fortifications are still visible in the parks and lakes, and the canals of Christianshavn make a fine pattern on the island. In cool teal palettes it feels very Scandinavian.",
+  "ideas": [
+   "Nørrebro, Vesterbro or Christianshavn, with your home marked",
+   "The lakes where you went for that first walk",
+   "A souvenir of a life in Copenhagen"
+  ],
+  "hook": "the harbour, the lakes and Christianshavn"
+ },
+ "new-york": {
+  "name": "New York",
+  "why": "New York is the city of the grid. Manhattan's avenues and streets cross in a near perfect pattern, Broadway cuts its own diagonal path through it, and Central Park sits in the middle as a long green rectangle. The rivers on both sides make the island instantly recognizable.",
+  "ideas": [
+   "Your apartment in the West Village, Harlem or Brooklyn",
+   "The block where you got engaged",
+   "A going away gift for a friend leaving New York"
+  ],
+  "hook": "the Manhattan grid, Central Park and the rivers"
+ },
+ "los-angeles": {
+  "name": "Los Angeles",
+  "why": "Los Angeles is a city of long boulevards and wide horizons. The freeways sweep through the basin in bold curves, the grid of Downtown sits at an angle to the rest of the city, and the neighborhoods stretch out in every direction toward the hills and the ocean.",
+  "ideas": [
+   "Your street in Silver Lake, Echo Park or Venice",
+   "The neighborhood of your first apartment in LA",
+   "A gift for someone who moved west for a dream"
+  ],
+  "hook": "Downtown, the freeways and the boulevards"
+ },
+ "chicago": {
+  "name": "Chicago",
+  "why": "Chicago is one of the great map cities. The Loop is wrapped by the Chicago River on two sides, the city grid runs perfectly square away from the lake, and the lakefront parks draw a long green edge along Lake Michigan.",
+  "ideas": [
+   "Your street in Wicker Park, Lincoln Park or Pilsen",
+   "The Loop and the river, where you work or met",
+   "A gift for a proud Chicagoan who moved away"
+  ],
+  "hook": "the Loop, the river and the lakefront"
+ },
+ "houston": {
+  "name": "Houston",
+  "why": "Houston is big and bold on paper. Downtown forms a tight grid at an angle to the rest of the city, Buffalo Bayou winds along its edge through green parks, and the freeways circle the center in a wide loop.",
+  "ideas": [
+   "Your street in the Heights, Montrose or Midtown",
+   "The place where you started a new life in Texas",
+   "A gift for a Houstonian who moved away"
+  ],
+  "hook": "Downtown, Buffalo Bayou and the Heights"
+ },
+ "phoenix": {
+  "name": "Phoenix",
+  "why": "Phoenix is a desert city laid out on a huge, regular grid. The long straight avenues run for miles in every direction, Downtown sits at the heart of it, and the mountain parks break the pattern with open space. In warm desert tones the map feels just right.",
+  "ideas": [
+   "Your street in Arcadia, Roosevelt Row or Encanto",
+   "The first house you bought in the Valley",
+   "A gift for someone who swapped winter for the sun"
+  ],
+  "hook": "the desert grid, Downtown and the mountain parks"
+ },
+ "philadelphia": {
+  "name": "Philadelphia",
+  "why": "Philadelphia was planned around five squares, and the map still shows it. Center City is a neat grid between the Delaware and the Schuylkill rivers, City Hall marks the middle, and the Benjamin Franklin Parkway cuts a diagonal toward the art museum.",
+  "ideas": [
+   "Your rowhouse in Fishtown, Old City or South Philly",
+   "Rittenhouse Square, with a heart on your favorite bench",
+   "A graduation gift for someone who studied in Philly"
+  ],
+  "hook": "Center City, the two rivers and the squares"
+ },
+ "san-antonio": {
+  "name": "San Antonio",
+  "why": "San Antonio has one of the most charming centers in Texas. The River Walk loops through Downtown below street level, the old streets around the Alamo follow a pattern older than the grid around them, and the San Antonio River runs on to the south.",
+  "ideas": [
+   "Downtown and the River Walk",
+   "Your street in King William or Southtown",
+   "A souvenir of a wedding or a trip to San Antonio"
+  ],
+  "hook": "the River Walk, Downtown and the historic streets"
+ },
+ "san-diego": {
+  "name": "San Diego",
+  "why": "San Diego is shaped by its bay. Downtown sits right on the water, Coronado curves across the bay opposite, and Balboa Park forms a large green space just north of the center. In a soft ocean palette it makes a sunny, relaxed print.",
+  "ideas": [
+   "Your street in North Park, Little Italy or Point Loma",
+   "The beach where it was asked",
+   "A gift for someone who misses Southern California"
+  ],
+  "hook": "the bay, Downtown and Balboa Park"
+ },
+ "dallas": {
+  "name": "Dallas",
+  "why": "Dallas is a city of strong lines. The freeways wrap Downtown in a tight loop, the Trinity River runs along its west side, and the neighborhoods spread out from there. In dark copper tones the map has a sleek, modern feel.",
+  "ideas": [
+   "Your street in Uptown, Deep Ellum or Bishop Arts",
+   "The place where your story in Texas began",
+   "A gift for a new homeowner in Dallas"
+  ],
+  "hook": "Downtown, the freeway loop and the Trinity River"
+ },
+ "jacksonville": {
+  "name": "Jacksonville",
+  "why": "Jacksonville is the river city of Florida. The wide St. Johns River bends right through Downtown, its bridges cross the water in long elegant lines, and the neighborhoods line its banks on both sides.",
+  "ideas": [
+   "Your street in Riverside, Avondale or San Marco",
+   "Downtown and the bridges over the St. Johns",
+   "A gift for someone who grew up in Duval"
+  ],
+  "hook": "the St. Johns River, its bridges and Downtown"
+ },
+ "austin": {
+  "name": "Austin",
+  "why": "Austin is green and easygoing on the map. Lady Bird Lake runs along the south side of Downtown, the grid climbs north to the Capitol and the university, and parks and creeks weave through the neighborhoods.",
+  "ideas": [
+   "Your street in South Congress, East Austin or Hyde Park",
+   "The university campus, for a graduate",
+   "A gift for someone who moved to Austin for work"
+  ],
+  "hook": "Lady Bird Lake, the Capitol and Downtown"
+ },
+ "fort-worth": {
+  "name": "Fort Worth",
+  "why": "Fort Worth is where the West begins. Downtown sits on a bluff above the Trinity River, the river curves around it in wide loops, and the old Stockyards lie to the north. Warm, dark tones bring out its western character.",
+  "ideas": [
+   "Downtown and the Trinity River",
+   "Your street in the Near Southside or Arlington Heights",
+   "A souvenir of a wedding in Fort Worth"
+  ],
+  "hook": "Downtown, the Trinity River and the Stockyards"
+ },
+ "san-jose": {
+  "name": "San Jose",
+  "why": "San Jose is the capital of Silicon Valley. Downtown forms a compact grid with the Guadalupe River running along its west side, and the neighborhoods spread out in a calm, regular pattern toward the hills.",
+  "ideas": [
+   "Your street in Willow Glen or Japantown",
+   "The place of your first job in the Valley",
+   "A gift for a colleague moving on"
+  ],
+  "hook": "Downtown, the Guadalupe River and Willow Glen"
+ },
+ "columbus": {
+  "name": "Columbus",
+  "why": "Columbus has a clear, friendly map. The Scioto River runs right past Downtown, the Short North stretches up High Street toward the university, and German Village keeps its old brick streets just to the south.",
+  "ideas": [
+   "Your street in the Short North or German Village",
+   "The campus of Ohio State, for a graduate",
+   "A gift for a Buckeye who moved away"
+  ],
+  "hook": "the Scioto River, Downtown and High Street"
+ },
+ "charlotte": {
+  "name": "Charlotte",
+  "why": "Charlotte is a green city with a bright center. Uptown sits on a neat grid around the crossing of Trade and Tryon, and the tree lined neighborhoods curve around it in every direction.",
+  "ideas": [
+   "Your street in Dilworth, Plaza Midwood or NoDa",
+   "Uptown, where you work or met",
+   "A housewarming gift for a new home in Charlotte"
+  ],
+  "hook": "Uptown, the green neighborhoods and the parkways"
+ },
+ "indianapolis": {
+  "name": "Indianapolis",
+  "why": "Indianapolis was planned on a square mile, and the map shows it beautifully. Four diagonal avenues run out from Monument Circle at the center, the grid surrounds it, and White River curves along the west side of Downtown.",
+  "ideas": [
+   "Monument Circle and the Mile Square",
+   "Your street in Fountain Square or Mass Ave",
+   "A gift for a racing fan from Indy"
+  ],
+  "hook": "Monument Circle, the Mile Square and the diagonal avenues"
+ },
+ "san-francisco": {
+  "name": "San Francisco",
+  "why": "San Francisco is a city of hills, water and two grids that meet at Market Street. The bay wraps around three sides, Golden Gate Park stretches toward the ocean, and every neighborhood has its own pattern of streets.",
+  "ideas": [
+   "Your street in the Mission, Noe Valley or North Beach",
+   "The place where you lived when it all started",
+   "A gift for someone who left their heart in San Francisco"
+  ],
+  "hook": "the bay, Market Street and the hills"
+ },
+ "seattle": {
+  "name": "Seattle",
+  "why": "Seattle sits between water on every side. Elliott Bay frames Downtown on the west, Lake Union lies just to the north, and the grids of the different neighborhoods meet at sharp angles on the hills between them.",
+  "ideas": [
+   "Your street in Capitol Hill, Ballard or Fremont",
+   "Lake Union, where the houseboats float",
+   "A gift for someone who misses the Pacific Northwest"
+  ],
+  "hook": "Elliott Bay, Lake Union and Downtown"
+ },
+ "denver": {
+  "name": "Denver",
+  "why": "Denver is the Mile High City, and its map shows two worlds meeting. Downtown is laid out at an angle along the South Platte River and Cherry Creek, while the rest of the city follows a straight north south grid toward the mountains.",
+  "ideas": [
+   "Your street in LoHi, Capitol Hill or Washington Park",
+   "Union Station and LoDo",
+   "A gift for someone who moved to Colorado for the mountains"
+  ],
+  "hook": "Downtown, Cherry Creek and the South Platte River"
+ },
+ "oklahoma-city": {
+  "name": "Oklahoma City",
+  "why": "Oklahoma City has a calm, wide open map. Downtown and Bricktown sit at the center, the Oklahoma River runs along the south, and the grid stretches out in long straight lines across the plains.",
+  "ideas": [
+   "Your street in the Plaza District or Midtown",
+   "Bricktown and the canal",
+   "A gift for someone with Oklahoma roots"
+  ],
+  "hook": "Downtown, Bricktown and the Oklahoma River"
+ },
+ "nashville": {
+  "name": "Nashville",
+  "why": "Nashville is Music City, built on the bends of the Cumberland River. Downtown and Broadway sit on the west bank, the river curves around East Nashville, and the neighborhoods spread out along the old pikes that lead out of town.",
+  "ideas": [
+   "Broadway and Downtown, for a night you will never forget",
+   "Your street in East Nashville or 12 South",
+   "A souvenir of a wedding or a bachelorette weekend"
+  ],
+  "hook": "the Cumberland River, Broadway and Downtown"
+ },
+ "washington-dc": {
+  "name": "Washington",
+  "why": "Washington, D.C. has one of the most famous plans in the world. The National Mall runs from the Capitol to the Lincoln Memorial, grand diagonal avenues cut across the street grid, and the Potomac curves along the south west side.",
+  "ideas": [
+   "The National Mall and the Capitol",
+   "Your street in Georgetown, Capitol Hill or Adams Morgan",
+   "A gift for someone who worked in D.C."
+  ],
+  "hook": "the National Mall, the diagonal avenues and the Potomac"
+ },
+ "el-paso": {
+  "name": "El Paso",
+  "why": "El Paso sits where the Rio Grande cuts through the mountains. Downtown lies on the river right at the border, the Franklin Mountains rise to the north, and the city wraps around their foothills in long curving roads.",
+  "ideas": [
+   "Downtown and the Rio Grande",
+   "Your street in Kern Place or Sunset Heights",
+   "A gift for someone with roots on the border"
+  ],
+  "hook": "Downtown, the Rio Grande and the Franklin Mountains"
+ },
+ "las-vegas": {
+  "name": "Las Vegas",
+  "why": "Las Vegas glows on paper. The Strip runs in a long straight line through the city, the big resorts make their own shapes along it, and Downtown and Fremont Street lie to the north. In a neon palette it shines like the city itself.",
+  "ideas": [
+   "The Strip, where you said yes",
+   "The chapel of your wedding",
+   "A souvenir of a weekend you will never forget"
+  ],
+  "hook": "the Strip, Downtown and Fremont Street"
+ },
+ "boston": {
+  "name": "Boston",
+  "why": "Boston is one of the oldest cities in America, and its map is wonderfully irregular. The old streets wind around the Common and the Public Garden, Back Bay adds a neat grid on filled land, and the Charles River sweeps past toward the harbor.",
+  "ideas": [
+   "Your street in Beacon Hill, the South End or Back Bay",
+   "The Common and the Public Garden",
+   "A graduation gift for someone who studied in Boston"
+  ],
+  "hook": "the Common, Back Bay and the Charles River"
+ },
+ "birmingham": {
+  "name": "Birmingham",
+  "why": "Birmingham is the city of a thousand trades, and it shows on the map. The canals of the old industrial city run through the centre in long, quiet lines, the Bullring and New Street sit at its heart, and the ring of roads around it gives the centre a clear, bold shape.",
+  "ideas": [
+   "Your street in Moseley, Digbeth or the Jewellery Quarter",
+   "The canals around Gas Street Basin",
+   "A gift for a proud Brummie who moved away"
+  ],
+  "hook": "the canals, the Bullring and the Jewellery Quarter"
+ },
+ "glasgow": {
+  "name": "Glasgow",
+  "why": "Glasgow is a grid city on the Clyde. The streets of the Merchant City and the centre climb the hill in a neat, regular pattern, the river runs wide along the south side, and Kelvingrove Park opens up to the west near the university.",
+  "ideas": [
+   "Your tenement flat in the West End or Finnieston",
+   "The Clyde and the bridges in the centre",
+   "A gift for a Glaswegian who left the dear green place"
+  ],
+  "hook": "the Clyde, the city centre grid and the West End"
+ },
+ "liverpool": {
+  "name": "Liverpool",
+  "why": "Liverpool is a city made by the sea. The Mersey runs wide along its western edge, the Royal Albert Dock and the Pier Head line the waterfront, and the streets climb gently from the river towards the two cathedrals.",
+  "ideas": [
+   "The waterfront and the Royal Albert Dock",
+   "Your street in the Georgian Quarter or Baltic Triangle",
+   "A gift for a Scouser who misses home"
+  ],
+  "hook": "the Mersey, the waterfront and the docks"
+ },
+ "bristol": {
+  "name": "Bristol",
+  "why": "Bristol is a harbour city of hills and water. The Floating Harbour winds through the centre, the colourful terraces of Clifton and Totterdown climb the slopes, and the Avon Gorge cuts deep to the west under the Clifton Suspension Bridge.",
+  "ideas": [
+   "The harbourside and Spike Island",
+   "Your street in Clifton, Bedminster or Stokes Croft",
+   "A gift for someone who studied in Bristol"
+  ],
+  "hook": "the Floating Harbour, Clifton and the Avon"
+ },
+ "manchester": {
+  "name": "Manchester",
+  "why": "Manchester was the first industrial city in the world, and its centre still has that energy. The canals of Castlefield meet at the southern edge, the Northern Quarter fills the streets to the east, and the River Irwell marks the boundary with Salford.",
+  "ideas": [
+   "Your flat in Ancoats, the Northern Quarter or Didsbury",
+   "Castlefield and the canals",
+   "A gift for someone who started a new life in Manchester"
+  ],
+  "hook": "the Northern Quarter, Castlefield and the canals"
+ },
+ "sheffield": {
+  "name": "Sheffield",
+  "why": "Sheffield is often called the greenest city in England. It is built on seven hills where five rivers meet, the steep streets wind up from the centre, and the parks and woods reach right into the city towards the Peak District.",
+  "ideas": [
+   "Your street in Kelham Island, Nether Edge or Crookes",
+   "The city centre and the Peace Gardens",
+   "A gift for someone who studied in Sheffield"
+  ],
+  "hook": "the city centre, Kelham Island and the hills"
+ },
+ "leeds": {
+  "name": "Leeds",
+  "why": "Leeds grew rich on wool and it built a grand centre to prove it. The Victorian arcades and the town hall sit at the heart, the River Aire and the canal run along the south side, and the streets of Headingley stretch out to the north.",
+  "ideas": [
+   "Your street in Headingley, Chapel Allerton or Hyde Park",
+   "The city centre and the arcades",
+   "A gift for someone who studied in Leeds"
+  ],
+  "hook": "the city centre, the River Aire and the canal"
+ },
+ "edinburgh": {
+  "name": "Edinburgh",
+  "why": "Edinburgh is one of the most beautiful cities on any map. The Old Town follows the Royal Mile down from the castle, the New Town spreads out in an elegant Georgian grid to the north, and Princes Street Gardens lie green between the two.",
+  "ideas": [
+   "The Royal Mile and the castle",
+   "Your flat in Leith, Marchmont or Stockbridge",
+   "A souvenir of a wedding or a Festival you will never forget"
+  ],
+  "hook": "the castle, the Royal Mile and the New Town"
+ },
+ "leicester": {
+  "name": "Leicester",
+  "why": "Leicester is one of the oldest cities in England, with Roman roots and a lively, diverse centre. The clock tower marks the middle, the River Soar and the canal run along the west, and the university and Victoria Park lie to the south.",
+  "ideas": [
+   "The city centre and the clock tower",
+   "Your street in Clarendon Park or Stoneygate",
+   "A gift for someone who studied in Leicester"
+  ],
+  "hook": "the clock tower, the River Soar and Victoria Park"
+ },
+ "coventry": {
+  "name": "Coventry",
+  "why": "Coventry is a city of reinvention. The ring road wraps the compact centre in a tight circle, the old and new cathedrals stand side by side at its heart, and the streets spread out from there in every direction.",
+  "ideas": [
+   "The two cathedrals and the city centre",
+   "Your street in Earlsdon or Stoke",
+   "A gift for someone who studied in Coventry"
+  ],
+  "hook": "the ring road, the cathedrals and the city centre"
+ },
+ "bradford": {
+  "name": "Bradford",
+  "why": "Bradford was once the wool capital of the world. Its centre sits in a bowl surrounded by hills, the grand Victorian buildings of Little Germany line the streets to the east, and the city park with its mirror pool lies at its heart.",
+  "ideas": [
+   "The city centre and City Park",
+   "Your street in Saltaire or Heaton",
+   "A gift for someone with Bradford roots"
+  ],
+  "hook": "the city centre, Little Germany and City Park"
+ },
+ "cardiff": {
+  "name": "Cardiff",
+  "why": "Cardiff is a young capital with an old castle. The castle and Bute Park lie right next to the centre, the River Taff runs south past the stadium, and Cardiff Bay opens up wide where the city meets the sea.",
+  "ideas": [
+   "The castle, Bute Park and the centre",
+   "Cardiff Bay, with your home marked",
+   "A gift for someone with a Welsh heart"
+  ],
+  "hook": "the castle, the River Taff and Cardiff Bay"
+ },
+ "belfast": {
+  "name": "Belfast",
+  "why": "Belfast is a city of shipbuilding and red brick. The River Lagan runs through the centre to the harbour, the Titanic Quarter fills the docks where the great liners were built, and City Hall stands proudly in the middle of it all.",
+  "ideas": [
+   "City Hall and the Cathedral Quarter",
+   "Your street near Queen's or on the Lisburn Road",
+   "A gift for someone who left Belfast"
+  ],
+  "hook": "the River Lagan, City Hall and the Titanic Quarter"
+ },
+ "nottingham": {
+  "name": "Nottingham",
+  "why": "Nottingham is the city of Robin Hood. The castle stands on its rock above the centre, the Old Market Square opens up in the middle, and the streets of the Lace Market keep the memory of the city's great industry.",
+  "ideas": [
+   "The Old Market Square and the Lace Market",
+   "Your street in Sneinton, West Bridgford or the Park",
+   "A gift for someone who studied in Nottingham"
+  ],
+  "hook": "the castle, the Old Market Square and the Lace Market"
+ },
+ "hull": {
+  "name": "Hull",
+  "why": "Hull is a port city on the wide Humber estuary. The old town sits where the River Hull meets the Humber, the marina and docks line the waterfront, and the city spreads out from there across the flat land behind.",
+  "ideas": [
+   "The old town and the marina",
+   "Your street on the Avenues or in Hessle",
+   "A gift for someone who grew up by the Humber"
+  ],
+  "hook": "the Humber, the old town and the marina"
+ },
+ "newcastle": {
+  "name": "Newcastle",
+  "why": "Newcastle is a city of bridges. Seven of them cross the River Tyne in a row, the elegant streets of Grainger Town fill the centre, and the quayside runs along the river towards the Baltic and the Millennium Bridge.",
+  "ideas": [
+   "The quayside and the bridges over the Tyne",
+   "Your street in Jesmond, Heaton or Ouseburn",
+   "A gift for a Geordie who moved away"
+  ],
+  "hook": "the Tyne, its bridges and Grainger Town"
+ },
+ "stoke-on-trent": {
+  "name": "Stoke-on-Trent",
+  "why": "Stoke-on-Trent is the Potteries, a city formed from six towns. Each still has its own centre, the canals that carried the pottery run between them, and old bottle kilns still dot the map.",
+  "ideas": [
+   "Hanley and the city centre",
+   "Your street in Burslem, Stoke or Longton",
+   "A gift for someone who grew up in the Potteries"
+  ],
+  "hook": "the six towns, the canals and the Potteries"
+ },
+ "southampton": {
+  "name": "Southampton",
+  "why": "Southampton is a port city on a peninsula between two rivers. The medieval walls still trace the edge of the old town, the great docks stretch along the water where the ocean liners set sail, and the parks run through the middle of the centre.",
+  "ideas": [
+   "The old town walls and the waterfront",
+   "Your street in Portswood or Shirley",
+   "A gift for someone who studied in Southampton"
+  ],
+  "hook": "the old town walls, the docks and the parks"
+ },
+ "derby": {
+  "name": "Derby",
+  "why": "Derby is a city of rivers and industry. The River Derwent runs along the east of the centre past the old silk mill, the cathedral quarter fills the streets around it, and the city spreads out from there across the Midlands.",
+  "ideas": [
+   "The cathedral quarter and the Derwent",
+   "Your street in Darley Abbey or Allestree",
+   "A gift for someone who studied in Derby"
+  ],
+  "hook": "the Derwent, the cathedral quarter and the silk mill"
+ },
+ "oslo": {
+  "name": "Oslo",
+  "why": "Oslo is a capital on the water. The Oslofjord reaches right into the centre, the Opera House and Aker Brygge line the harbour, and Karl Johans gate runs in a straight line from the station up to the Royal Palace. The green of Frogner Park and the forested hills frame the city.",
+  "ideas": [
+   "Your flat in Grünerløkka, Frogner or Majorstuen",
+   "The harbour, the Opera House and Aker Brygge",
+   "A gift for someone who started a new life in Oslo"
+  ],
+  "hook": "the fjord, the harbour and Karl Johans gate"
+ },
+ "bergen": {
+  "name": "Bergen",
+  "why": "Bergen is the city between the seven mountains. The old wooden wharf of Bryggen lines the harbour of Vågen, the narrow streets climb the slopes towards Fløyen, and the fjords reach into the city from every side.",
+  "ideas": [
+   "Bryggen and the harbour",
+   "Your street in Nordnes, Sandviken or Møhlenpris",
+   "A gift for someone who studied in Bergen"
+  ],
+  "hook": "Bryggen, the harbour and the seven mountains"
+ },
+ "trondheim": {
+  "name": "Trondheim",
+  "why": "Trondheim is a historic city wrapped by a river. The Nidelva loops around the old centre in a wide bend, the Nidaros Cathedral stands at its southern edge, and the colourful wooden houses of Bakklandet line the water across the Old Town Bridge.",
+  "ideas": [
+   "Bakklandet and the Old Town Bridge",
+   "The street of your student room near the university",
+   "A gift for someone who left Trondheim"
+  ],
+  "hook": "the Nidelva, the cathedral and Bakklandet"
+ },
+ "stavanger": {
+  "name": "Stavanger",
+  "why": "Stavanger is a harbour city with a charming old town. The white wooden houses of Gamle Stavanger line the western side of the harbour, the cathedral and the lake of Breiavatnet sit right in the centre, and the coast is never far away.",
+  "ideas": [
+   "Gamle Stavanger and the harbour",
+   "Your street in Storhaug or Eiganes",
+   "A gift for someone who worked in Stavanger"
+  ],
+  "hook": "the harbour, Gamle Stavanger and the cathedral"
+ },
+ "drammen": {
+  "name": "Drammen",
+  "why": "Drammen is a river city. The wide Drammenselva runs straight through the middle, its bridges join Bragernes on the north bank with Strømsø on the south, and the city rises up the green hillsides on both sides.",
+  "ideas": [
+   "The river and its bridges",
+   "Your street in Bragernes or Strømsø",
+   "A gift for someone who grew up in Drammen"
+  ],
+  "hook": "the river, its bridges and Bragernes"
+ },
+ "fredrikstad": {
+  "name": "Fredrikstad",
+  "why": "Fredrikstad has one of the best preserved fortified towns in Northern Europe. The star shaped ramparts of the Old Town lie on the east bank of the Glomma, and the modern centre and the river front face it from across the water.",
+  "ideas": [
+   "The Old Town and its ramparts",
+   "Your street by the Glomma",
+   "A gift for someone with Fredrikstad roots"
+  ],
+  "hook": "the Glomma and the star shaped Old Town"
+ },
+ "kristiansand": {
+  "name": "Kristiansand",
+  "why": "Kristiansand is the summer city of the south. The centre, called Kvadraturen, is laid out as a perfect grid of square blocks, the fish market sits at the harbour, and the city beach and the Otra river frame it on either side.",
+  "ideas": [
+   "Kvadraturen and Markens gate",
+   "The fish market and the city beach",
+   "A gift for someone who loves the south coast"
+  ],
+  "hook": "Kvadraturen, the harbour and the city beach"
+ },
+ "sandnes": {
+  "name": "Sandnes",
+  "why": "Sandnes lies at the head of the Gandsfjord. The harbour and the centre sit at the end of the long arm of the sea, the neighbourhoods spread out across the green land around it, and Stavanger is just to the north.",
+  "ideas": [
+   "The harbour and the centre",
+   "Your street in Sandnes",
+   "A gift for a new home by the Gandsfjord"
+  ],
+  "hook": "the Gandsfjord, the harbour and the centre"
+ },
+ "tromso": {
+  "name": "Tromsø",
+  "why": "Tromsø is the gateway to the Arctic. The city lies on an island in the middle of the sound, the long bridge reaches across the water to the Arctic Cathedral, and the mountains rise all around it under the northern lights.",
+  "ideas": [
+   "The island centre and the bridge",
+   "The Arctic Cathedral",
+   "A souvenir of a trip to see the northern lights"
+  ],
+  "hook": "the island, the bridge and the Arctic Cathedral"
+ },
+ "sarpsborg": {
+  "name": "Sarpsborg",
+  "why": "Sarpsborg is one of the oldest towns in Norway, founded by Saint Olav. The Glomma runs past the centre, the powerful Sarpsfossen waterfall roars on its way to the sea, and green neighbourhoods stretch out along the river.",
+  "ideas": [
+   "The centre and the Glomma",
+   "Your street in Sarpsborg",
+   "A gift for someone who grew up in Østfold"
+  ],
+  "hook": "the Glomma, Sarpsfossen and the centre"
+ },
+ "skien": {
+  "name": "Skien",
+  "why": "Skien is the city of Henrik Ibsen. The river runs through the centre towards the sea, the locks of the Telemark Canal begin here, and the town climbs up the hills on both sides of the water.",
+  "ideas": [
+   "The centre and the river",
+   "Your street in Skien",
+   "A gift for a lover of Ibsen"
+  ],
+  "hook": "the river, the centre and the Telemark Canal"
+ },
+ "alesund": {
+  "name": "Ålesund",
+  "why": "Ålesund is an Art Nouveau town built on islands. After a great fire in 1904 the centre was rebuilt in one style, the Brosundet canal runs right through it, and from Aksla you look out over the rooftops to the sea and the mountains.",
+  "ideas": [
+   "Brosundet and the Art Nouveau centre",
+   "The view from Aksla",
+   "A gift for someone who grew up by the sea"
+  ],
+  "hook": "the islands, Brosundet and the Art Nouveau centre"
+ },
+ "sandefjord": {
+  "name": "Sandefjord",
+  "why": "Sandefjord was once the whaling capital of the world. The harbour lies at the head of a long fjord, the whaling monument stands at the waterfront, and the town spreads out from there between the hills.",
+  "ideas": [
+   "The harbour and the whaling monument",
+   "Your street in Sandefjord",
+   "A gift for someone who loves the Vestfold coast"
+  ],
+  "hook": "the fjord, the harbour and the centre"
+ },
+ "haugesund": {
+  "name": "Haugesund",
+  "why": "Haugesund is a coastal town built along a strait. The Smedasundet runs right through the centre, lined with quays and boats, and Haraldshaugen, the national monument, lies just to the north by the sea.",
+  "ideas": [
+   "Smedasundet and the quays",
+   "Your street in Haugesund",
+   "A souvenir of the film festival"
+  ],
+  "hook": "the Smedasundet, the quays and the centre"
+ },
+ "tonsberg": {
+  "name": "Tønsberg",
+  "why": "Tønsberg is often called the oldest town in Norway. The castle hill of Slottsfjellet rises above the centre, the wooden waterfront of Brygga lines the canal, and the islands of the Færder archipelago lie just beyond.",
+  "ideas": [
+   "Slottsfjellet and Brygga",
+   "Your street in Tønsberg",
+   "A gift for someone who spends the summers in Vestfold"
+  ],
+  "hook": "Slottsfjellet, Brygga and the canal"
+ },
+ "moss": {
+  "name": "Moss",
+  "why": "Moss lies on the Oslofjord, with the island of Jeløy just across a narrow canal. The centre sits between the water and the hills, and the ferry crosses the fjord from here to Horten.",
+  "ideas": [
+   "The centre and the canal",
+   "Jeløy, with your home marked",
+   "A gift for someone who lives by the Oslofjord"
+  ],
+  "hook": "the Oslofjord, Jeløy and the canal"
+ },
+ "porsgrunn": {
+  "name": "Porsgrunn",
+  "why": "Porsgrunn is an old port town on the river that runs from Skien to the sea. The centre lines both banks of the water, and the town is known for its porcelain, made here since the nineteenth century.",
+  "ideas": [
+   "The river and the centre",
+   "Your street in Porsgrunn",
+   "A gift for someone who grew up in Grenland"
+  ],
+  "hook": "the river, the centre and the old port"
+ },
+ "bodo": {
+  "name": "Bodø",
+  "why": "Bodø lies just north of the Arctic Circle, on a peninsula between the sea and the mountains. The harbour is the heart of the town, the islands lie scattered in the sea to the west, and the strongest tidal current in the world, Saltstraumen, is close by.",
+  "ideas": [
+   "The harbour and the centre",
+   "Your street in Bodø",
+   "A souvenir of a trip to the far north"
+  ],
+  "hook": "the harbour, the peninsula and the islands"
+ },
+ "arendal": {
+  "name": "Arendal",
+  "why": "Arendal is a white wooden town on the Skagerrak coast. The old houses of Tyholmen gather around the harbour of Pollen, and the islands and skerries of the archipelago lie just offshore.",
+  "ideas": [
+   "Tyholmen and the harbour",
+   "Your street in Arendal",
+   "A gift for someone who spends the summers on the south coast"
+  ],
+  "hook": "Tyholmen, the harbour and the islands"
+ },
+ "hamar": {
+  "name": "Hamar",
+  "why": "Hamar lies on the shore of Mjøsa, the largest lake in Norway. The town spreads along the water, the ruins of the medieval cathedral sit under a glass roof on the peninsula, and the Viking Ship arena of the 1994 Olympics stands at the edge of town.",
+  "ideas": [
+   "The town by the lake",
+   "Your street in Hamar",
+   "A gift for someone who grew up by Mjøsa"
+  ],
+  "hook": "Mjøsa, the town centre and the cathedral ruins"
+ },
+ "stockholm": {
+  "name": "Stockholm",
+  "why": "Stockholm is a capital built on fourteen islands. The medieval lanes of Gamla stan sit at its heart, Lake Mälaren meets the Baltic Sea right in the centre, and bridges link Södermalm, Norrmalm, Östermalm and Djurgården around the water.",
+  "ideas": [
+   "Your flat on Södermalm, in Vasastan or Östermalm",
+   "Gamla stan and the islands around it",
+   "A gift for someone who started a new life in Stockholm"
+  ],
+  "hook": "the islands, Gamla stan and the water"
+ },
+ "gothenburg": {
+  "name": "Gothenburg",
+  "why": "Gothenburg is a port city on the Göta älv. The canals and the old fortifications of the centre follow a Dutch plan, the river opens towards the harbour and the islands of the archipelago, and Haga with its wooden houses lies just south of the old moat.",
+  "ideas": [
+   "Haga and Linnéstaden",
+   "Your street along the canals of the centre",
+   "A gift for someone who studied in Gothenburg"
+  ],
+  "hook": "the river, the canals and Haga"
+ },
+ "malmo": {
+  "name": "Malmö",
+  "why": "Malmö is a city on the Öresund. The old squares of Stortorget and Lilla torg lie in the centre, the canals and the castle park surround them, and the Western Harbour with the Turning Torso looks out over the water towards Copenhagen.",
+  "ideas": [
+   "Lilla torg and the old centre",
+   "The Western Harbour and Ribersborg beach",
+   "A gift for someone who crossed the bridge for love"
+  ],
+  "hook": "the canals, the old squares and the Öresund"
+ },
+ "uppsala": {
+  "name": "Uppsala",
+  "why": "Uppsala is the oldest university town of Scandinavia. The cathedral and the castle stand on the hill west of the Fyrisån, the river runs through the centre past the student nations, and the old town spreads out on both banks.",
+  "ideas": [
+   "The cathedral, the castle and the river",
+   "The street of your student room near your nation",
+   "A gift for someone who graduated in Uppsala"
+  ],
+  "hook": "the Fyrisån, the cathedral and the university"
+ },
+ "vasteras": {
+  "name": "Västerås",
+  "why": "Västerås lies on the northern shore of Lake Mälaren. The Svartån flows through the old centre past the cathedral and the wooden houses of Kyrkbacken, and the harbour opens out onto the lake and its islands.",
+  "ideas": [
+   "Kyrkbacken and the cathedral",
+   "The harbour and the lake",
+   "A gift for someone who grew up in Västerås"
+  ],
+  "hook": "the river, Kyrkbacken and Lake Mälaren"
+ },
+ "orebro": {
+  "name": "Örebro",
+  "why": "Örebro is a city around a castle on the water. The Svartån runs through the centre, the castle sits on its own island in the river, and from there the streets lead to the big square and the green of Stadsparken.",
+  "ideas": [
+   "The castle and the river",
+   "Your street near Stadsparken",
+   "A gift for someone who studied in Örebro"
+  ],
+  "hook": "the castle, the river and the old centre"
+ },
+ "linkoping": {
+  "name": "Linköping",
+  "why": "Linköping is a cathedral and university city in Östergötland. The tall spire of the cathedral rises above the old centre, the Stångån curves along its eastern edge, and the open-air museum of Gamla Linköping keeps the old wooden town alive.",
+  "ideas": [
+   "The cathedral and the old centre",
+   "Gamla Linköping",
+   "A gift for someone who studied or worked in Linköping"
+  ],
+  "hook": "the cathedral, the Stångån and the old centre"
+ },
+ "helsingborg": {
+  "name": "Helsingborg",
+  "why": "Helsingborg looks out over the narrowest point of the Öresund. The Kärnan tower stands on the ridge above the centre, the terraces lead down to the harbour, and on a clear day Kronborg Castle in Denmark lies just across the water.",
+  "ideas": [
+   "Kärnan and the terraces",
+   "The harbour and the seafront",
+   "A gift for someone who lives with a view of Denmark"
+  ],
+  "hook": "Kärnan, the harbour and the Öresund"
+ },
+ "jonkoping": {
+  "name": "Jönköping",
+  "why": "Jönköping lies at the southern tip of Lake Vättern. The centre is wedged between three lakes, the long beach runs along the shore of Vättern, and the old match factory recalls the industry that made the town famous.",
+  "ideas": [
+   "The shore of Lake Vättern",
+   "Your street between the lakes",
+   "A gift for someone who grew up in Jönköping"
+  ],
+  "hook": "Lake Vättern and the centre between the lakes"
+ },
+ "norrkoping": {
+  "name": "Norrköping",
+  "why": "Norrköping is a city built around a river with waterfalls. The Motala ström rushes through the centre past the old textile mills of the Industrial Landscape, and the wide avenues and squares of the centre spread out on both sides.",
+  "ideas": [
+   "The Industrial Landscape and the waterfalls",
+   "Your street near the river",
+   "A gift for someone with roots in Norrköping"
+  ],
+  "hook": "the river, the waterfalls and the old mills"
+ },
+ "lund": {
+  "name": "Lund",
+  "why": "Lund is a university town with a thousand years of history. The Romanesque cathedral stands in the heart of the old centre, the university buildings and the park of Lundagård lie right beside it, and narrow cobbled streets lead in every direction.",
+  "ideas": [
+   "The cathedral and Lundagård",
+   "The street of your student corridor",
+   "A gift for someone who graduated in Lund"
+  ],
+  "hook": "the cathedral, Lundagård and the old streets"
+ },
+ "umea": {
+  "name": "Umeå",
+  "why": "Umeå is the city of birches on the Ume älv. The wide river runs along the centre, the avenues are lined with birch trees planted after the great fire of 1888, and the university campus lies just to the east.",
+  "ideas": [
+   "The river and the birch avenues",
+   "Your street near the campus",
+   "A gift for someone who studied in Umeå"
+  ],
+  "hook": "the river and the birch lined avenues"
+ },
+ "gavle": {
+  "name": "Gävle",
+  "why": "Gävle is a port city on the Gävleån. The river flows through the centre to the harbour on the Gulf of Bothnia, the colourful wooden houses of Gamla Gefle survived the great fire, and the long esplanades cross the city.",
+  "ideas": [
+   "Gamla Gefle and the river",
+   "The harbour and the sea",
+   "A gift for someone who grew up in Gävle"
+  ],
+  "hook": "the river, Gamla Gefle and the harbour"
+ },
+ "boras": {
+  "name": "Borås",
+  "why": "Borås is a textile town in the hills of Västergötland. The Viskan winds through the centre, street art covers the walls of the old factory streets, and forests and lakes surround the town on every side.",
+  "ideas": [
+   "The Viskan and the centre",
+   "Your street among the street art",
+   "A gift for someone with roots in Borås"
+  ],
+  "hook": "the Viskan and the old textile town"
+ },
+ "sodertalje": {
+  "name": "Södertälje",
+  "why": "Södertälje lies where the Södertälje Canal links Lake Mälaren with the Baltic Sea. The canal and its locks run along the centre, the old wooden houses of Torekällberget look down on the town, and water and forest are never far away.",
+  "ideas": [
+   "The canal and the locks",
+   "Torekällberget and the old town",
+   "A gift for someone who lives between the lake and the sea"
+  ],
+  "hook": "the canal, the locks and Torekällberget"
+ },
+ "eskilstuna": {
+  "name": "Eskilstuna",
+  "why": "Eskilstuna is a river town with a long history of smiths and craftsmen. The Eskilstunaån flows through the centre, the old workshops of Rademachersmedjorna stand along it, and parks line the water on both banks.",
+  "ideas": [
+   "The river and Rademachersmedjorna",
+   "Your street in the centre",
+   "A gift for someone who grew up in Eskilstuna"
+  ],
+  "hook": "the river and the old smithies"
+ },
+ "halmstad": {
+  "name": "Halmstad",
+  "why": "Halmstad is a seaside town on the Kattegat. The Nissan flows through the centre into the sea, the old castle stands on the riverbank, and the long sandy beaches of Tylösand lie just west of town.",
+  "ideas": [
+   "The river, the castle and the old square",
+   "Your street near the sea",
+   "A gift for someone who spends every summer in Halmstad"
+  ],
+  "hook": "the river, the castle and the coast"
+ },
+ "vaxjo": {
+  "name": "Växjö",
+  "why": "Växjö is a green city among the lakes of Småland. The cathedral stands in the centre beside Lake Växjösjön, more lakes ring the town, and the university lies on the shore of Trummen to the south.",
+  "ideas": [
+   "The cathedral and the lakes",
+   "Your street near the campus",
+   "A gift for someone who studied in Växjö"
+  ],
+  "hook": "the cathedral and the lakes around the town"
+ },
+ "karlstad": {
+  "name": "Karlstad",
+  "why": "Karlstad is a sunny city in the delta of the Klarälven. The river splits into branches as it reaches Lake Vänern, the centre lies on an island between them, and the old stone bridge leads across the eastern branch.",
+  "ideas": [
+   "The river delta and the old stone bridge",
+   "Your street on the island",
+   "A gift for someone who grew up by Lake Vänern"
+  ],
+  "hook": "the river delta and Lake Vänern"
+ },
+ "sundsvall": {
+  "name": "Sundsvall",
+  "why": "Sundsvall is the stone city of the north. After a fire in 1888 the centre was rebuilt in stone, and the grand houses now stand between two hills with the harbour opening out onto the Gulf of Bothnia.",
+  "ideas": [
+   "The stone city and the square",
+   "The harbour and the hills",
+   "A gift for someone with roots in Sundsvall"
+  ],
+  "hook": "the stone city, the hills and the harbour"
+ }
+}
