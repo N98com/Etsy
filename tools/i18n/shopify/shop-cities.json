@@ -1012,5 +1012,128 @@
   "n": "Hamar",
   "c": "no",
   "i": "w-hamar"
+ },
+ {
+  "s": "stockholm",
+  "n": "Stockholm",
+  "c": "se",
+  "i": "w-stockholm"
+ },
+ {
+  "s": "gothenburg",
+  "n": "Gothenburg",
+  "c": "se",
+  "i": "w-gothenburg",
+  "nl": "Göteborg",
+  "de": "Göteborg",
+  "fr": "Göteborg"
+ },
+ {
+  "s": "malmo",
+  "n": "Malmö",
+  "c": "se",
+  "i": "w-malmo"
+ },
+ {
+  "s": "uppsala",
+  "n": "Uppsala",
+  "c": "se",
+  "i": "w-uppsala"
+ },
+ {
+  "s": "vasteras",
+  "n": "Västerås",
+  "c": "se",
+  "i": "w-vasteras"
+ },
+ {
+  "s": "orebro",
+  "n": "Örebro",
+  "c": "se",
+  "i": "w-orebro"
+ },
+ {
+  "s": "linkoping",
+  "n": "Linköping",
+  "c": "se",
+  "i": "w-linkoping"
+ },
+ {
+  "s": "helsingborg",
+  "n": "Helsingborg",
+  "c": "se",
+  "i": "w-helsingborg"
+ },
+ {
+  "s": "jonkoping",
+  "n": "Jönköping",
+  "c": "se",
+  "i": "w-jonkoping"
+ },
+ {
+  "s": "norrkoping",
+  "n": "Norrköping",
+  "c": "se",
+  "i": "w-norrkoping"
+ },
+ {
+  "s": "lund",
+  "n": "Lund",
+  "c": "se",
+  "i": "w-lund"
+ },
+ {
+  "s": "umea",
+  "n": "Umeå",
+  "c": "se",
+  "i": "w-umea"
+ },
+ {
+  "s": "gavle",
+  "n": "Gävle",
+  "c": "se",
+  "i": "w-gavle"
+ },
+ {
+  "s": "boras",
+  "n": "Borås",
+  "c": "se",
+  "i": "w-boras"
+ },
+ {
+  "s": "sodertalje",
+  "n": "Södertälje",
+  "c": "se",
+  "i": "w-sodertalje"
+ },
+ {
+  "s": "eskilstuna",
+  "n": "Eskilstuna",
+  "c": "se",
+  "i": "w-eskilstuna"
+ },
+ {
+  "s": "halmstad",
+  "n": "Halmstad",
+  "c": "se",
+  "i": "w-halmstad"
+ },
+ {
+  "s": "vaxjo",
+  "n": "Växjö",
+  "c": "se",
+  "i": "w-vaxjo"
+ },
+ {
+  "s": "karlstad",
+  "n": "Karlstad",
+  "c": "se",
+  "i": "w-karlstad"
+ },
+ {
+  "s": "sundsvall",
+  "n": "Sundsvall",
+  "c": "se",
+  "i": "w-sundsvall"
  }
 ]

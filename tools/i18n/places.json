@@ -373,5 +373,15 @@
   "nl": "Noorwegen",
   "de": "Norwegen",
   "fr": "Norvège"
+ },
+ "Sweden": {
+  "nl": "Zweden",
+  "de": "Schweden",
+  "fr": "Suède"
+ },
+ "Gothenburg": {
+  "nl": "Göteborg",
+  "de": "Göteborg",
+  "fr": "Göteborg"
  }
 }

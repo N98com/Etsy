@@ -374,6 +374,7 @@
       "group_fr": "Frankrijk",
       "group_uk": "Verenigd Koninkrijk",
       "group_no": "Noorwegen",
+      "group_se": "Zweden",
       "group_eu": "Meer Europa",
       "group_us": "Verenigde Staten",
       "more_nl": "Meer steden in Nederland",
@@ -382,6 +383,7 @@
       "more_fr": "Meer steden in Frankrijk",
       "more_uk": "Meer steden in het Verenigd Koninkrijk",
       "more_no": "Meer steden in Noorwegen",
+      "more_se": "Meer steden in Zweden",
       "more_eu": "Meer steden in Europa",
       "more_us": "Meer steden in de Verenigde Staten"
     },
@@ -398,7 +400,8 @@
       "spain": "Spanje",
       "portugal": "Portugal",
       "denmark": "Denemarken",
-      "norway": "Noorwegen"
+      "norway": "Noorwegen",
+      "sweden": "Zweden"
     },
     "header": {
       "currency": "Valuta",

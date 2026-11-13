@@ -19,6 +19,7 @@
     "group_fr": "France",
     "group_uk": "United Kingdom",
     "group_no": "Norway",
+    "group_se": "Sweden",
     "group_eu": "More of Europe",
     "group_us": "United States",
     "more_nl": "More cities in the Netherlands",
@@ -27,6 +28,7 @@
     "more_fr": "More cities in France",
     "more_uk": "More cities in the United Kingdom",
     "more_no": "More cities in Norway",
+    "more_se": "More cities in Sweden",
     "more_eu": "More cities in Europe",
     "more_us": "More cities in the United States"
   },
@@ -43,7 +45,8 @@
     "spain": "Spain",
     "portugal": "Portugal",
     "denmark": "Denmark",
-    "norway": "Norway"
+    "norway": "Norway",
+    "sweden": "Sweden"
   },
   "header": {
     "currency": "Currency",
