@@ -415,6 +415,17 @@
       "czk": "Tsjechische kroon",
       "huf": "Hongaarse forint",
       "ron": "Roemeense leu"
+    },
+    "journal": {
+      "eyebrow": "Journal",
+      "lede": "Verhalen, ideeën en praktische gidsen over de plekken die ertoe doen, en hoe je er een print van maakt.",
+      "cta": "Ontwerp je kaart",
+      "box_title": "Maak hem van jou",
+      "box_body": "Zoek elk adres, kies je kleuren en je woorden, en zie hem aan de muur voordat je bestelt. Op bestelling gedrukt, met gratis verzending in Europa, het VK en de VS.",
+      "more": "Meer verhalen",
+      "read": "Lees verder",
+      "back": "Alle verhalen",
+      "min_read": "{{ n }} min lezen"
     }
   }
 }

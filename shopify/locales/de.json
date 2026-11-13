@@ -415,6 +415,17 @@
       "czk": "Tschechische Krone",
       "huf": "Ungarischer Forint",
       "ron": "Rumänischer Leu"
+    },
+    "journal": {
+      "eyebrow": "Journal",
+      "lede": "Geschichten, Ideen und praktische Ratgeber über die Orte, die zählen, und wie daraus ein Druck wird.",
+      "cta": "Gestalte deine Karte",
+      "box_title": "Mach sie zu deiner",
+      "box_body": "Suche jede Adresse, wähle deine Farben und Worte und sieh die Karte an der Wand, bevor du bestellst. Auf Bestellung gedruckt, mit kostenlosem Versand in Europa, nach Großbritannien und in die USA.",
+      "more": "Weitere Beiträge",
+      "read": "Weiterlesen",
+      "back": "Alle Beiträge",
+      "min_read": "{{ n }} Min. Lesezeit"
     }
   }
 }

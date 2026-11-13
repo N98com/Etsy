@@ -1,0 +1,16 @@
+{%- comment -%}
+  N°98 Maps: one article in the journal list. a: the article, img_sfx: '.jpg' or '--nl.jpg' …
+{%- endcomment -%}
+{%- assign img_id = a.metafields.n98.img.value -%}
+<a class="n98j-card" href="{{ a.url }}">
+  <div class="n98j-card__art">
+    {%- if img_id != blank -%}
+      <img src="{{ 'n98-' | append: img_id | append: img_sfx | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+    {%- elsif a.image -%}
+      {{ a.image | image_url: width: 700 | image_tag: alt: '', loading: 'lazy' }}
+    {%- endif -%}
+  </div>
+  <h2 class="n98j-card__title">{{ a.title | escape }}</h2>
+  {%- if a.excerpt != blank -%}<p class="n98j-card__text">{{ a.excerpt | strip_html | truncatewords: 26 }}</p>{%- endif -%}
+  <span class="n98j-card__more">{{ 'n98.journal.read' | t }} →</span>
+</a>

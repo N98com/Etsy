@@ -60,5 +60,16 @@
     "czk": "Couronne tchèque",
     "huf": "Forint hongrois",
     "ron": "Leu roumain"
+  },
+  "journal": {
+    "eyebrow": "Journal",
+    "lede": "Histoires, idées et guides pratiques sur les lieux qui comptent, et comment en faire une affiche.",
+    "cta": "Créez votre carte",
+    "box_title": "Faites-la vôtre",
+    "box_body": "Recherchez n’importe quelle adresse, choisissez vos couleurs et vos mots, et voyez-la au mur avant de commander. Imprimée à la commande, avec livraison gratuite en Europe, au Royaume-Uni et aux États-Unis.",
+    "more": "À lire aussi",
+    "read": "Lire la suite",
+    "back": "Tous les articles",
+    "min_read": "{{ n }} min de lecture"
   }
 }

@@ -60,5 +60,16 @@
     "czk": "Czech koruna",
     "huf": "Hungarian forint",
     "ron": "Romanian leu"
+  },
+  "journal": {
+    "eyebrow": "Journal",
+    "lede": "Stories, ideas and practical guides about the places that matter, and how to turn them into a print.",
+    "cta": "Design your map",
+    "box_title": "Make it yours",
+    "box_body": "Search any address, choose your colours and your words, and see it on a wall before you order. Printed to order, with free shipping in Europe, the UK and the US.",
+    "more": "More from the journal",
+    "read": "Read",
+    "back": "All stories",
+    "min_read": "{{ n }} min read"
   }
 }

@@ -1,0 +1,175 @@
+{%- comment -%}
+  N°98 Maps: the journal (blog template blog.journal and article template
+  article.journal), in the same style as the city pages.
+  An article shows a map print as its image: the article metafield n98.img holds
+  the id of a render in the theme assets (n98-<id>.jpg), so the words on the print
+  follow the language of the visitor (n98-<id>--nl.jpg …). Without it the
+  featured image of the article is used. Texts come from n98.journal.* in the
+  locale files; the article text itself is translated in Shopify.
+{%- endcomment -%}
+{%- liquid
+  assign lang = request.locale.iso_code
+  assign img_sfx = '.jpg'
+  if lang == 'nl' or lang == 'de' or lang == 'fr'
+    assign img_sfx = '--' | append: lang | append: '.jpg'
+  endif
+  assign pfx = routes.root_url
+  if pfx == '/'
+    assign pfx = ''
+  endif
+  assign designer = all_products['design-your-map']
+  assign designer_url = pfx | append: '/products/design-your-map'
+  assign from_price = designer.price_min | default: 3900 | money_without_trailing_zeros
+  assign arrow = '<svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg>'
+-%}
+
+<div class="n98o n98j">
+  {%- if template.name == 'article' -%}
+    {%- liquid
+      assign words = article.content | strip_html | split: ' ' | size
+      assign minutes = words | divided_by: 200 | at_least: 2
+      assign img_id = article.metafields.n98.img.value
+    -%}
+    <article>
+      <section class="n98o-hero">
+        <div class="n98o-wrap n98o-hero__grid">
+          <div class="n98o-hero__text">
+            <p class="n98o-eyebrow"><a href="{{ blog.url }}">{{ 'n98.journal.eyebrow' | t }}</a> · {{ 'n98.journal.min_read' | t: n: minutes }}</p>
+            <h1>{{ article.title | escape }}</h1>
+            {%- if article.excerpt != blank -%}<div class="n98o-lede">{{ article.excerpt | strip_html | escape }}</div>{%- endif -%}
+            <a class="n98o-cta" href="{{ designer_url }}">{{ 'n98.journal.cta' | t }} {{ arrow }}</a>
+            <ul class="n98o-trust">
+              <li>{{ 'n98.city.from' | t: price: from_price }}</li>
+              <li>{{ 'n98.city.free_shipping' | t }}</li>
+              <li>{{ 'n98.city.framed' | t }}</li>
+            </ul>
+          </div>
+          <div class="n98o-hero__art">
+            {%- if img_id != blank -%}
+              <img src="{{ 'n98-' | append: img_id | append: img_sfx | asset_url }}" alt="{{ article.title | escape }}" width="1200" height="1680" fetchpriority="high">
+            {%- elsif article.image -%}
+              {{ article.image | image_url: width: 1200 | image_tag: alt: article.title, fetchpriority: 'high' }}
+            {%- endif -%}
+          </div>
+        </div>
+      </section>
+
+      <section class="n98o-body">
+        <div class="n98o-wrap n98o-rte">
+          {{ article.content }}
+          <div class="n98j-box">
+            <h3>{{ 'n98.journal.box_title' | t }}</h3>
+            <p>{{ 'n98.journal.box_body' | t }}</p>
+            <p class="n98o-cta-row"><a class="n98o-cta" href="{{ designer_url }}">{{ 'n98.journal.cta' | t }} {{ arrow }}</a></p>
+          </div>
+        </div>
+      </section>
+    </article>
+
+    {%- liquid
+      assign shown = 0
+    -%}
+    {%- if blog.articles_count > 1 -%}
+      <section class="n98o-more">
+        <div class="n98o-wrap">
+          <p class="n98o-eyebrow">{{ 'n98.journal.more' | t }}</p>
+          <div class="n98j-grid">
+            {%- for a in blog.articles -%}
+              {%- if a.id == article.id -%}{%- continue -%}{%- endif -%}
+              {%- if shown == 3 -%}{%- break -%}{%- endif -%}
+              {%- assign shown = shown | plus: 1 -%}
+              {% render 'n98-journal-card', a: a, img_sfx: img_sfx %}
+            {%- endfor -%}
+          </div>
+          <p class="n98o-small n98o-more__note"><a href="{{ blog.url }}">{{ 'n98.journal.back' | t }}</a></p>
+        </div>
+      </section>
+    {%- endif -%}
+  {%- else -%}
+    <section class="n98o-hero n98o-hero--hub">
+      <div class="n98o-wrap">
+        <p class="n98o-eyebrow">{{ 'n98.journal.eyebrow' | t }}</p>
+        <h1>{{ blog.title | escape }}</h1>
+        <p class="n98o-lede">{{ 'n98.journal.lede' | t }}</p>
+      </div>
+    </section>
+    <section class="n98o-more n98j-list">
+      <div class="n98o-wrap">
+        {%- paginate blog.articles by 24 -%}
+          <div class="n98j-grid">
+            {%- for a in blog.articles -%}
+              {% render 'n98-journal-card', a: a, img_sfx: img_sfx %}
+            {%- endfor -%}
+          </div>
+          {%- if paginate.pages > 1 -%}<div class="n98o-small n98o-more__note">{{ paginate | default_pagination }}</div>{%- endif -%}
+        {%- endpaginate -%}
+      </div>
+    </section>
+  {%- endif -%}
+</div>
+
+<style>
+  .n98o { background: #F4F1EB; color: #141414; }
+  .n98o-wrap { max-width: 1180px; margin: 0 auto; padding: 0 22px; }
+  .n98o-eyebrow { margin: 0 0 16px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
+  .n98o-eyebrow a { color: inherit; text-decoration: none; }
+  .n98o-eyebrow a:hover { color: #141414; }
+  .n98o-hero { padding: clamp(40px, 7vw, 96px) 0 clamp(48px, 7vw, 96px); }
+  .n98o-hero--hub .n98o-lede { max-width: 38em; }
+  .n98o-hero__grid { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: clamp(32px, 6vw, 88px); align-items: center; }
+  .n98o h1 { margin: 0 0 20px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(38px, 5vw, 62px); line-height: 1.04; letter-spacing: -0.005em; }
+  .n98o-lede { margin: 0 0 30px; max-width: 32em; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 18px; line-height: 1.6; color: #4A463F; }
+  .n98o-cta { display: inline-flex; align-items: center; gap: 14px; min-height: 56px; padding: 0 28px; background: #1E3529; text-decoration: none; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.22em; text-transform: uppercase; transition: background 0.25s ease; }
+  .n98o .n98o-cta, .n98o .n98o-cta:visited, .n98o .n98o-cta:hover, .n98o .n98o-cta:focus-visible { color: #F4F1EB; text-decoration: none; }
+  .n98o .n98o-cta:hover { background: #142019; }
+  .n98o .n98o-cta:focus-visible { outline: 2px solid #1E3529; outline-offset: 3px; }
+  .n98o-cta svg { transition: transform 0.3s ease; }
+  .n98o-cta:hover svg { transform: translateX(4px); }
+  .n98o-trust { list-style: none; margin: 26px 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px 22px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.12em; text-transform: uppercase; color: #6B665C; }
+  .n98o-hero__art { background: #E6E0D5; padding: 9%; }
+  .n98o-hero__art img { display: block; width: 100%; height: auto; box-shadow: 0 1px 1px rgba(30,24,16,.1), 0 30px 48px -22px rgba(30,24,16,.55); }
+  .n98o-body { padding: clamp(56px, 8vw, 104px) 0; border-top: 1px solid #DDD6C9; }
+  .n98o-rte { max-width: 760px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 17px; line-height: 1.7; color: #4A463F; }
+  .n98o-rte h2 { margin: 48px 0 14px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(30px, 3.6vw, 42px); line-height: 1.08; color: #141414; }
+  .n98o-rte h2:first-child { margin-top: 0; }
+  .n98o-rte h3 { margin: 28px 0 8px; font-size: 12px; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: #141414; }
+  .n98o-rte p { margin: 0 0 16px; }
+  .n98o-rte ul, .n98o-rte ol { margin: 0 0 16px; padding-left: 1.2em; }
+  .n98o-rte li { margin-bottom: 6px; }
+  .n98o-rte em { font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-size: 1.2em; color: #141414; }
+  .n98o-rte strong { color: #141414; font-weight: 600; }
+  .n98o-rte a, .n98o-small a { color: #141414; text-underline-offset: 3px; }
+  .n98o-rte table { width: 100%; margin: 8px 0 24px; border-collapse: collapse; font-size: 15px; }
+  .n98o-rte th, .n98o-rte td { padding: 10px 12px 10px 0; border-bottom: 1px solid #DDD6C9; text-align: left; vertical-align: top; }
+  .n98o-rte th { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: #6B665C; }
+  .n98o-cta-row { margin-top: 28px !important; }
+  .n98o-small { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 14px; color: #6B665C; }
+  .n98j-box { margin-top: clamp(48px, 6vw, 72px); padding: clamp(28px, 4vw, 44px); background: #ECE7DE; }
+  .n98j-box h3 { margin-top: 0; }
+  .n98o-more { padding: clamp(56px, 8vw, 96px) 0 clamp(64px, 8vw, 112px); background: #ECE7DE; }
+  .n98j-list { background: #F4F1EB; padding-top: 0; }
+  .n98o-more__note { margin: clamp(28px, 4vw, 44px) 0 0; }
+  .n98j-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(28px, 4vw, 48px) clamp(18px, 3vw, 40px); }
+  .n98j-card { display: flex; flex-direction: column; color: #141414; text-decoration: none; }
+  .n98j-card__art { background: #E6E0D5; padding: 10% 18%; margin-bottom: 18px; }
+  .n98j-list .n98j-card__art { background: #ECE7DE; }
+  .n98j-card__art img { display: block; width: 100%; height: auto; box-shadow: 0 18px 30px -18px rgba(30,24,16,.5); transition: transform 0.5s ease; }
+  .n98j-card:hover .n98j-card__art img { transform: translateY(-4px); }
+  .n98j-card__title { margin: 0 0 8px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-size: 26px; line-height: 1.12; }
+  .n98j-card__text { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 15px; line-height: 1.6; color: #4A463F; }
+  .n98j-card__more { font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.18em; text-transform: uppercase; color: #141414; }
+  @media (max-width: 899px) {
+    .n98o-hero__grid { grid-template-columns: 1fr; }
+    .n98o-hero__art { order: -1; padding: 10% 16%; }
+    .n98o-cta { width: 100%; justify-content: center; }
+    .n98j-grid { grid-template-columns: 1fr; }
+  }
+</style>
+
+{% schema %}
+{
+  "name": "N°98 journal",
+  "tag": "div",
+  "settings": []
+}
+{% endschema %}
