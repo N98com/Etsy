@@ -1,0 +1,57 @@
+MAIL = '<a href="mailto:n98maps@gmail.com">n98maps@gmail.com</a>'
+UPDATED = {'en': 'Last updated: 17 November 2026', 'nl': 'Laatst bijgewerkt: 17 november 2026',
+           'de': 'Zuletzt aktualisiert: 17. November 2026', 'fr': 'Dernière mise à jour : 17 novembre 2026',
+           'sv': 'Senast uppdaterad: 17 november 2026', 'nb': 'Sist oppdatert: 17. november 2026'}
+P = {}
+P['en'] = dict(
+REFUND_POLICY=f"""<p>Every N°98 map is printed to order from the design you make. This policy explains what happens if something isn't right.</p>
+<h2>Personalised prints</h2>
+<p>Because each map is made to your own design, personalised prints can't be returned or exchanged if you simply change your mind. Under EU and UK consumer law, the 14 day right of withdrawal does not apply to goods made to the customer's specifications.</p>
+<h2>Damaged, faulty or not as designed</h2>
+<p>If your print or frame arrives damaged, has a printing fault, or doesn't match the design you approved, we'll send you a new one free of charge or refund you in full, whichever you prefer. Email a photo of the print and the packaging to {MAIL} with your order number, ideally within 14 days of delivery. You don't need to send anything back unless we ask you to. This does not affect your statutory rights.</p>
+<h2>Lost parcels</h2>
+<p>If your order hasn't arrived within the delivery times in our shipping policy, let us know. If the parcel has been lost on the way, we'll send you a new print at no cost.</p>
+<h2>Changing or cancelling an order</h2>
+<p>Spotted a typo after ordering? Email us as soon as possible. As long as your order hasn't gone to print, we can change the design or cancel the order with a full refund. Once printing has started, the order can no longer be changed or cancelled.</p>
+<h2>How refunds are paid</h2>
+<p>Approved refunds are paid to your original payment method within 14 days. Depending on your bank, it can take a few more days before the amount shows in your account.</p>""",
+SHIPPING_POLICY="""<h2>Free shipping</h2>
+<p>Shipping is free on every order. The price you see at checkout is the price you pay.</p>
+<h2>Where we ship</h2>
+<p>We ship to the Netherlands and the rest of the European Union, the United Kingdom, the United States, Norway and Switzerland, and to the other countries you can choose at checkout.</p>
+<h2>Printed close to you</h2>
+<p>Every map is printed fresh after you order by our production partner Gelato, at the print studio closest to the delivery address. That keeps the journey short and the print in good condition.</p>
+<h2>Delivery times</h2>
+<p>Most orders arrive within 3 to 7 working days in the Netherlands and the rest of Europe, and within 5 to 10 working days elsewhere. These are estimates: in busy periods, such as December, delivery can take a few days longer. You'll receive an email as soon as your order ships, with tracking where available.</p>
+<h2>Customs and import taxes</h2>
+<p>Within the European Union there are no import charges. For deliveries outside the EU, local import taxes or duties may apply if they are not collected at checkout. These are set by the destination country and are outside our control.</p>
+<h2>Delivery address</h2>
+<p>Please check your delivery address carefully. If a parcel can't be delivered because the address was incomplete or incorrect, contact us and we'll find a solution together.</p>""",
+TERMS_OF_SERVICE=f"""<h2>1. About us</h2>
+<p>These terms apply to every order placed at n98maps.com. N°98 Maps is a trade name of N°98. Our company details, including our Chamber of Commerce (KvK) number, are on our contact information page.</p>
+<h2>2. Your design</h2>
+<p>You design your map yourself in our designer. Before you order, please check the place, the text, names, dates and spelling in the preview carefully. We print exactly the design you approve. Map data comes from open sources and can contain small inaccuracies or be out of date; this is not a defect.</p>
+<h2>3. Your text</h2>
+<p>Only add text you are allowed to use. Do not add content that is unlawful, offensive or infringes the rights of others. We may refuse or cancel an order with such content, with a full refund.</p>
+<h2>4. Prices and payment</h2>
+<p>Prices are shown in the currency of your country or region. For deliveries within the European Union, prices include VAT. Shipping is free. You pay at checkout with one of the payment methods shown there. We are not bound by obvious errors in prices.</p>
+<h2>5. Your order</h2>
+<p>The agreement is made as soon as you receive our order confirmation by email.</p>
+<h2>6. Production and delivery</h2>
+<p>Every map is printed to order. The delivery times in our shipping policy are estimates. If we cannot deliver within 30 days, you may cancel the order and we will refund you in full. The risk of loss or damage passes to you once the order has been delivered.</p>
+<h2>7. Right of withdrawal</h2>
+<p>Because every map is made to your own specifications, the 14 day right of withdrawal does not apply (Article 16(c) of Directive 2011/83/EU and the national laws based on it). What we do if something is wrong is set out in our refund policy.</p>
+<h2>8. Guarantee</h2>
+<p>You have the statutory rights that apply to products that are not as agreed. If your order arrives damaged or faulty, we'll send a new print or refund you, as described in our refund policy.</p>
+<h2>9. Liability</h2>
+<p>Our liability is limited to the amount you paid for the order concerned, except in case of intent or gross negligence, or where the law does not allow such a limitation.</p>
+<h2>10. Intellectual property</h2>
+<p>The designer, our palettes, layouts and the content of this website belong to N°98 Maps. The print you order is for your own use or as a gift. It may not be reproduced or sold commercially without our written permission.</p>
+<h2>11. Privacy</h2>
+<p>We handle your personal data as described in our privacy policy.</p>
+<h2>12. Questions and complaints</h2>
+<p>Email us at {MAIL}. We aim to reply within 2 working days and resolve complaints within 14 days.</p>
+<h2>13. Applicable law</h2>
+<p>These terms are governed by Dutch law. If you are a consumer living in another country, you keep the protection of the mandatory rules of the law of that country. Disputes are submitted to the competent court in the Netherlands, unless the law gives you the right to go to the court where you live.</p>
+<h2>14. Changes</h2>
+<p>We may update these terms. The version that applied on the day of your order applies to that order.</p>""")

@@ -23,3 +23,7 @@
   (title, done, done_at, position). Read it with `select * from roadmap_items order by done, position`;
   tick an item off with `update roadmap_items set done = true, done_at = now() where id = …` once Bram and
   Claude have actually finished it. Check this list when finishing work.
+- Shop policies (refund, shipping, terms) live in `tools/legal/` (English source + nl/de/fr/sv/nb);
+  `python3 tools/legal/build.py` checks and writes `tools/legal/out/policies.json`. The Shopify connector
+  lacks `write_legal_policies`, so Bram pastes English into Settings > Policies; translations go in via
+  translationsRegister on the SHOP_POLICY resources.
