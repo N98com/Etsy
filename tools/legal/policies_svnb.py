@@ -12,8 +12,8 @@ REFUND_POLICY=f"""<p>Varje N°98 karta trycks på beställning utifrån designen
 <p>Har du upptäckt ett stavfel efter beställningen? Mejla oss så snart som möjligt. Så länge beställningen inte har gått till tryck kan vi ändra designen eller avbryta beställningen med full återbetalning. När tryckningen har börjat kan beställningen inte längre ändras eller avbrytas.</p>
 <h2>Så betalar vi tillbaka</h2>
 <p>Godkända återbetalningar görs inom 14 dagar till det betalsätt du använde. Beroende på din bank kan det ta några dagar extra innan beloppet syns på ditt konto.</p>""",
-SHIPPING_POLICY="""<h2>Fri frakt</h2>
-<p>Frakten är gratis på alla beställningar. Priset du ser i kassan är priset du betalar.</p>
+SHIPPING_POLICY="""<h2>Fraktkostnader</h2>
+<p>Frakten är gratis till Nederländerna och resten av Europeiska unionen, Storbritannien och USA. För andra länder beräknas fraktkostnaden i kassan, utifrån tryckets format och om det har ram.</p>
 <h2>Vart vi skickar</h2>
 <p>Vi skickar till Nederländerna och resten av Europeiska unionen, Storbritannien, USA, Norge och Schweiz, samt till de andra länder du kan välja i kassan.</p>
 <h2>Tryckt nära dig</h2>
@@ -31,7 +31,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
 <h2>3. Din text</h2>
 <p>Lägg bara till text som du har rätt att använda. Lägg inte till innehåll som är olagligt, kränkande eller gör intrång i andras rättigheter. Vi kan neka eller avbryta en beställning med sådant innehåll, med full återbetalning.</p>
 <h2>4. Priser och betalning</h2>
-<p>Priserna visas i valutan för ditt land eller din region. Vid leverans inom Europeiska unionen ingår moms i priserna. Frakten är gratis. Du betalar i kassan med något av de betalsätt som visas där. Uppenbara prisfel är inte bindande för oss.</p>
+<p>Priserna visas i valutan för ditt land eller din region. Vid leverans inom Europeiska unionen ingår moms i priserna. Frakten är gratis inom Europeiska unionen, Storbritannien och USA; för andra länder visas fraktkostnaden i kassan. Du betalar i kassan med något av de betalsätt som visas där. Uppenbara prisfel är inte bindande för oss.</p>
 <h2>5. Din beställning</h2>
 <p>Avtalet ingås så snart du får vår orderbekräftelse via mejl.</p>
 <h2>6. Tillverkning och leverans</h2>
@@ -64,8 +64,8 @@ REFUND_POLICY=f"""<p>Hvert N°98 kart trykkes på bestilling etter designet du l
 <p>Har du oppdaget en skrivefeil etter at du bestilte? Send oss en e-post så raskt som mulig. Så lenge bestillingen ikke er sendt til trykk, kan vi endre designet eller avbestille med full tilbakebetaling. Når trykkingen har startet, kan bestillingen ikke lenger endres eller avbestilles.</p>
 <h2>Slik betaler vi tilbake</h2>
 <p>Godkjente tilbakebetalinger utbetales innen 14 dager til betalingsmåten du brukte. Avhengig av banken din kan det ta noen dager ekstra før beløpet vises på kontoen.</p>""",
-SHIPPING_POLICY="""<h2>Gratis frakt</h2>
-<p>Frakten er gratis på alle bestillinger. Prisen du ser i kassen, er prisen du betaler.</p>
+SHIPPING_POLICY="""<h2>Fraktkostnader</h2>
+<p>Frakten er gratis til Nederland og resten av Den europeiske union, Storbritannia og USA. For andre land beregnes fraktkostnaden i kassen, ut fra formatet på trykket og om det har ramme.</p>
 <h2>Hvor vi sender</h2>
 <p>Vi sender til Nederland og resten av Den europeiske union, Storbritannia, USA, Norge og Sveits, og til de andre landene du kan velge i kassen.</p>
 <h2>Trykket nær deg</h2>
@@ -83,7 +83,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
 <h2>3. Din tekst</h2>
 <p>Legg bare til tekst du har rett til å bruke. Ikke legg til innhold som er ulovlig, krenkende eller som krenker andres rettigheter. Vi kan avvise eller kansellere en bestilling med slikt innhold, med full tilbakebetaling.</p>
 <h2>4. Priser og betaling</h2>
-<p>Prisene vises i valutaen for landet eller regionen din. Ved levering innenfor Den europeiske union inkluderer prisene merverdiavgift. Frakten er gratis. Du betaler i kassen med en av betalingsmåtene som vises der. Åpenbare prisfeil er ikke bindende for oss.</p>
+<p>Prisene vises i valutaen for landet eller regionen din. Ved levering innenfor Den europeiske union inkluderer prisene merverdiavgift. Frakten er gratis innenfor Den europeiske union, Storbritannia og USA; for andre land vises fraktkostnaden i kassen. Du betaler i kassen med en av betalingsmåtene som vises der. Åpenbare prisfeil er ikke bindende for oss.</p>
 <h2>5. Din bestilling</h2>
 <p>Avtalen inngås så snart du mottar ordrebekreftelsen vår på e-post.</p>
 <h2>6. Produksjon og levering</h2>

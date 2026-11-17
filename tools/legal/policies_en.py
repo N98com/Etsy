@@ -15,8 +15,8 @@ REFUND_POLICY=f"""<p>Every N°98 map is printed to order from the design you mak
 <p>Spotted a typo after ordering? Email us as soon as possible. As long as your order hasn't gone to print, we can change the design or cancel the order with a full refund. Once printing has started, the order can no longer be changed or cancelled.</p>
 <h2>How refunds are paid</h2>
 <p>Approved refunds are paid to your original payment method within 14 days. Depending on your bank, it can take a few more days before the amount shows in your account.</p>""",
-SHIPPING_POLICY="""<h2>Free shipping</h2>
-<p>Shipping is free on every order. The price you see at checkout is the price you pay.</p>
+SHIPPING_POLICY="""<h2>Shipping costs</h2>
+<p>Shipping is free to the Netherlands and the rest of the European Union, the United Kingdom and the United States. For other countries, the shipping costs are calculated at checkout, based on the size of your print and whether it is framed.</p>
 <h2>Where we ship</h2>
 <p>We ship to the Netherlands and the rest of the European Union, the United Kingdom, the United States, Norway and Switzerland, and to the other countries you can choose at checkout.</p>
 <h2>Printed close to you</h2>
@@ -34,7 +34,7 @@ TERMS_OF_SERVICE=f"""<h2>1. About us</h2>
 <h2>3. Your text</h2>
 <p>Only add text you are allowed to use. Do not add content that is unlawful, offensive or infringes the rights of others. We may refuse or cancel an order with such content, with a full refund.</p>
 <h2>4. Prices and payment</h2>
-<p>Prices are shown in the currency of your country or region. For deliveries within the European Union, prices include VAT. Shipping is free. You pay at checkout with one of the payment methods shown there. We are not bound by obvious errors in prices.</p>
+<p>Prices are shown in the currency of your country or region. For deliveries within the European Union, prices include VAT. Shipping is free within the European Union, the United Kingdom and the United States; for other countries the shipping costs are shown at checkout. You pay at checkout with one of the payment methods shown there. We are not bound by obvious errors in prices.</p>
 <h2>5. Your order</h2>
 <p>The agreement is made as soon as you receive our order confirmation by email.</p>
 <h2>6. Production and delivery</h2>

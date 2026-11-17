@@ -12,8 +12,8 @@ REFUND_POLICY=f"""<p>Elke N°98 kaart wordt op bestelling gedrukt, op basis van 
 <p>Zie je na het bestellen een typfout? Mail ons zo snel mogelijk. Zolang je bestelling nog niet gedrukt wordt, kunnen we het ontwerp aanpassen of de bestelling annuleren met volledige terugbetaling. Zodra het drukken is begonnen, kan de bestelling niet meer worden gewijzigd of geannuleerd.</p>
 <h2>Hoe we terugbetalen</h2>
 <p>Goedgekeurde terugbetalingen storten we binnen 14 dagen terug via de betaalmethode waarmee je hebt betaald. Afhankelijk van je bank kan het een paar dagen langer duren voordat het bedrag op je rekening staat.</p>""",
-SHIPPING_POLICY="""<h2>Gratis verzending</h2>
-<p>Verzending is bij elke bestelling gratis. De prijs die je bij het afrekenen ziet, is de prijs die je betaalt.</p>
+SHIPPING_POLICY="""<h2>Verzendkosten</h2>
+<p>Verzending is gratis naar Nederland en de rest van de Europese Unie, het Verenigd Koninkrijk en de Verenigde Staten. Voor andere landen worden de verzendkosten bij het afrekenen berekend, op basis van het formaat van je print en of hij is ingelijst.</p>
 <h2>Waar we naartoe verzenden</h2>
 <p>We verzenden naar Nederland en de rest van de Europese Unie, het Verenigd Koninkrijk, de Verenigde Staten, Noorwegen en Zwitserland, en naar de andere landen die je bij het afrekenen kunt kiezen.</p>
 <h2>Gedrukt bij jou in de buurt</h2>
@@ -31,7 +31,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Over ons</h2>
 <h2>3. Jouw tekst</h2>
 <p>Voeg alleen tekst toe die je mag gebruiken. Voeg geen inhoud toe die onrechtmatig of beledigend is of inbreuk maakt op de rechten van anderen. We mogen een bestelling met zulke inhoud weigeren of annuleren, met volledige terugbetaling.</p>
 <h2>4. Prijzen en betaling</h2>
-<p>Prijzen worden getoond in de valuta van je land of regio. Bij levering binnen de Europese Unie zijn de prijzen inclusief btw. Verzending is gratis. Je betaalt bij het afrekenen met een van de betaalmethoden die daar worden getoond. Kennelijke fouten in prijzen binden ons niet.</p>
+<p>Prijzen worden getoond in de valuta van je land of regio. Bij levering binnen de Europese Unie zijn de prijzen inclusief btw. Verzending is gratis binnen de Europese Unie, het Verenigd Koninkrijk en de Verenigde Staten; voor andere landen staan de verzendkosten bij het afrekenen. Je betaalt bij het afrekenen met een van de betaalmethoden die daar worden getoond. Kennelijke fouten in prijzen binden ons niet.</p>
 <h2>5. Je bestelling</h2>
 <p>De overeenkomst komt tot stand zodra je onze orderbevestiging per e-mail ontvangt.</p>
 <h2>6. Productie en levering</h2>
@@ -64,8 +64,8 @@ REFUND_POLICY=f"""<p>Jede N°98 Karte wird auf Bestellung nach deinem eigenen De
 <p>Hast du nach der Bestellung einen Tippfehler entdeckt? Schreib uns so schnell wie möglich. Solange deine Bestellung noch nicht im Druck ist, können wir das Design ändern oder die Bestellung mit voller Erstattung stornieren. Sobald der Druck begonnen hat, kann die Bestellung nicht mehr geändert oder storniert werden.</p>
 <h2>Wie wir erstatten</h2>
 <p>Bestätigte Erstattungen zahlen wir innerhalb von 14 Tagen über die Zahlungsart zurück, mit der du bezahlt hast. Je nach Bank kann es ein paar Tage länger dauern, bis der Betrag auf deinem Konto erscheint.</p>""",
-SHIPPING_POLICY="""<h2>Kostenloser Versand</h2>
-<p>Der Versand ist bei jeder Bestellung kostenlos. Der Preis, den du an der Kasse siehst, ist der Preis, den du zahlst.</p>
+SHIPPING_POLICY="""<h2>Versandkosten</h2>
+<p>Der Versand in die Niederlande und die übrige Europäische Union, nach Großbritannien und in die Vereinigten Staaten ist kostenlos. Für andere Länder werden die Versandkosten an der Kasse berechnet, je nach Format deines Drucks und ob er gerahmt ist.</p>
 <h2>Wohin wir liefern</h2>
 <p>Wir liefern in die Niederlande und die übrige Europäische Union, nach Großbritannien, in die Vereinigten Staaten, nach Norwegen und in die Schweiz sowie in die anderen Länder, die du an der Kasse auswählen kannst.</p>
 <h2>In deiner Nähe gedruckt</h2>
@@ -83,7 +83,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Über uns</h2>
 <h2>3. Dein Text</h2>
 <p>Füge nur Text hinzu, den du verwenden darfst. Füge keine Inhalte hinzu, die rechtswidrig oder beleidigend sind oder die Rechte anderer verletzen. Wir dürfen eine Bestellung mit solchen Inhalten ablehnen oder stornieren, mit voller Erstattung.</p>
 <h2>4. Preise und Zahlung</h2>
-<p>Die Preise werden in der Währung deines Landes oder deiner Region angezeigt. Bei Lieferungen innerhalb der Europäischen Union enthalten die Preise die Mehrwertsteuer. Der Versand ist kostenlos. Du bezahlst an der Kasse mit einer der dort angezeigten Zahlungsarten. Offensichtliche Preisfehler sind für uns nicht bindend.</p>
+<p>Die Preise werden in der Währung deines Landes oder deiner Region angezeigt. Bei Lieferungen innerhalb der Europäischen Union enthalten die Preise die Mehrwertsteuer. Der Versand innerhalb der Europäischen Union, nach Großbritannien und in die Vereinigten Staaten ist kostenlos; für andere Länder stehen die Versandkosten an der Kasse. Du bezahlst an der Kasse mit einer der dort angezeigten Zahlungsarten. Offensichtliche Preisfehler sind für uns nicht bindend.</p>
 <h2>5. Deine Bestellung</h2>
 <p>Der Vertrag kommt zustande, sobald du unsere Bestellbestätigung per E-Mail erhältst.</p>
 <h2>6. Herstellung und Lieferung</h2>

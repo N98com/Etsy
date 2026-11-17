@@ -12,8 +12,8 @@ REFUND_POLICY=f"""<p>Chaque carte N°98 est imprimée à la commande, d’après
 <p>Vous avez repéré une faute de frappe après avoir commandé ? Écrivez-nous le plus vite possible. Tant que votre commande n’est pas partie à l’impression, nous pouvons modifier le design ou annuler la commande avec un remboursement intégral. Une fois l’impression lancée, la commande ne peut plus être modifiée ni annulée.</p>
 <h2>Comment nous remboursons</h2>
 <p>Les remboursements acceptés sont versés sous 14 jours sur le moyen de paiement utilisé lors de la commande. Selon votre banque, quelques jours supplémentaires peuvent être nécessaires avant que le montant n’apparaisse sur votre compte.</p>""",
-SHIPPING_POLICY="""<h2>Livraison offerte</h2>
-<p>La livraison est offerte sur chaque commande. Le prix affiché au paiement est le prix que vous payez.</p>
+SHIPPING_POLICY="""<h2>Frais de livraison</h2>
+<p>La livraison est offerte aux Pays-Bas et dans le reste de l’Union européenne, au Royaume-Uni et aux États-Unis. Pour les autres pays, les frais de livraison sont calculés lors du paiement, selon le format de votre impression et la présence d’un cadre.</p>
 <h2>Où nous livrons</h2>
 <p>Nous livrons aux Pays-Bas et dans le reste de l’Union européenne, au Royaume-Uni, aux États-Unis, en Norvège et en Suisse, ainsi que dans les autres pays proposés lors du paiement.</p>
 <h2>Imprimée près de chez vous</h2>
@@ -31,7 +31,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Qui sommes-nous</h2>
 <h2>3. Votre texte</h2>
 <p>N’ajoutez que des textes que vous avez le droit d’utiliser. N’ajoutez aucun contenu illicite, offensant ou portant atteinte aux droits d’autrui. Nous pouvons refuser ou annuler une commande contenant un tel contenu, avec un remboursement intégral.</p>
 <h2>4. Prix et paiement</h2>
-<p>Les prix sont affichés dans la devise de votre pays ou de votre région. Pour les livraisons au sein de l’Union européenne, les prix incluent la TVA. La livraison est offerte. Vous payez lors du paiement avec l’un des moyens de paiement proposés. Les erreurs de prix manifestes ne nous engagent pas.</p>
+<p>Les prix sont affichés dans la devise de votre pays ou de votre région. Pour les livraisons au sein de l’Union européenne, les prix incluent la TVA. La livraison est offerte dans l’Union européenne, au Royaume-Uni et aux États-Unis ; pour les autres pays, les frais de livraison sont indiqués lors du paiement. Vous payez lors du paiement avec l’un des moyens de paiement proposés. Les erreurs de prix manifestes ne nous engagent pas.</p>
 <h2>5. Votre commande</h2>
 <p>Le contrat est conclu dès que vous recevez notre confirmation de commande par e-mail.</p>
 <h2>6. Fabrication et livraison</h2>
