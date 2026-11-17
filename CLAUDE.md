@@ -19,3 +19,7 @@
   printed mutation (translationsRegister) via the Shopify connector.
   The designer translates itself at runtime with `js/i18n.js` (`?lang=xx`, set by the configurator).
 - City pages: list of all cities = shop metafield `n98.cities` (json), map per page = page metafield `n98.city`.
+- Roadmap (Studio button top right): Supabase project `tzhzyprycgpnhxkmexkh`, table `public.roadmap_items`
+  (title, done, done_at, position). Read it with `select * from roadmap_items order by done, position`;
+  tick an item off with `update roadmap_items set done = true, done_at = now() where id = …` once Bram and
+  Claude have actually finished it. Check this list when finishing work.
