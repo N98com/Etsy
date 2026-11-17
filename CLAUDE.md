@@ -14,5 +14,8 @@
   `python3 tools/i18n/build.py` to build `shopify/sections|snippets` with every language
   (translations in `tools/i18n/<lang>.json`, `--missing` lists gaps). Locale keys for `| t`
   (city pages, header) are in `tools/i18n/locale.<lang>.json`, merged into `shopify/locales/`.
+  Text stored in theme settings (announcement bar, 404, cart title, ...) is translated per theme:
+  after duplicating a theme run `python3 tools/i18n/theme_content.py <new_theme_id>` and send the
+  printed mutation (translationsRegister) via the Shopify connector.
   The designer translates itself at runtime with `js/i18n.js` (`?lang=xx`, set by the configurator).
 - City pages: list of all cities = shop metafield `n98.cities` (json), map per page = page metafield `n98.city`.
