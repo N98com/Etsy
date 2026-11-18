@@ -1,0 +1,386 @@
+{
+ "monchengladbach": {
+  "lat": 51.1947131,
+  "lon": 6.4353792,
+  "display": "Mönchengladbach, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "gelsenkirchen": {
+  "lat": 51.5110321,
+  "lon": 7.0960124,
+  "display": "Gelsenkirchen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "aachen": {
+  "lat": 50.776351,
+  "lon": 6.083862,
+  "display": "Aachen, Städteregion Aachen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "krefeld": {
+  "lat": 51.3331205,
+  "lon": 6.5623343,
+  "display": "Krefeld, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "oberhausen": {
+  "lat": 51.4696137,
+  "lon": 6.8514435,
+  "display": "Oberhausen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "hagen": {
+  "lat": 51.3582945,
+  "lon": 7.473296,
+  "display": "Hagen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "hamm": {
+  "lat": 51.681281,
+  "lon": 7.8191185,
+  "display": "Hamm, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "mulheim-an-der-ruhr": {
+  "lat": 51.4272925,
+  "lon": 6.8829192,
+  "display": "Mülheim an der Ruhr, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "leverkusen": {
+  "lat": 51.0324743,
+  "lon": 6.9881194,
+  "display": "Leverkusen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "solingen": {
+  "lat": 51.1721629,
+  "lon": 7.0845893,
+  "display": "Solingen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "herne": {
+  "lat": 51.5380394,
+  "lon": 7.219985,
+  "display": "Herne, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "neuss": {
+  "lat": 51.1981778,
+  "lon": 6.6916476,
+  "display": "Neuss, Rhein-Kreis Neuss, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "paderborn": {
+  "lat": 51.7177044,
+  "lon": 8.752653,
+  "display": "Paderborn, Kreis Paderborn, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "bottrop": {
+  "lat": 51.521581,
+  "lon": 6.929204,
+  "display": "Bottrop, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "bergisch-gladbach": {
+  "lat": 50.9929303,
+  "lon": 7.1277379,
+  "display": "Bergisch Gladbach, Rheinisch-Bergischer Kreis, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "remscheid": {
+  "lat": 51.1798706,
+  "lon": 7.1943544,
+  "display": "Remscheid, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "recklinghausen": {
+  "lat": 51.6143815,
+  "lon": 7.1978546,
+  "display": "Recklinghausen, Kreis Recklinghausen, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "moers": {
+  "lat": 51.451283,
+  "lon": 6.62843,
+  "display": "Moers, Kreis Wesel, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "siegen": {
+  "lat": 50.8751175,
+  "lon": 8.0256131,
+  "display": "Siegen, Kreis Siegen-Wittgenstein, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "gutersloh": {
+  "lat": 51.9166621,
+  "lon": 8.4043282,
+  "display": "Gütersloh, Kreis Gütersloh, Nordrhein-Westfalen, Deutschland",
+  "type": "city"
+ },
+ "wiesbaden": {
+  "lat": 50.0820384,
+  "lon": 8.2416556,
+  "display": "Wiesbaden, Hessen, Deutschland",
+  "type": "city"
+ },
+ "kassel": {
+  "lat": 51.3157833,
+  "lon": 9.4978479,
+  "display": "Kassel, Hessen, Deutschland",
+  "type": "city"
+ },
+ "darmstadt": {
+  "lat": 49.872775,
+  "lon": 8.651177,
+  "display": "Darmstadt, Hessen, Deutschland",
+  "type": "city"
+ },
+ "offenbach": {
+  "lat": 50.1055002,
+  "lon": 8.7610698,
+  "display": "Offenbach am Main, Hessen, Deutschland",
+  "type": "city"
+ },
+ "hanau": {
+  "lat": 50.132881,
+  "lon": 8.9169797,
+  "display": "Hanau, Hessen, Deutschland",
+  "type": "city"
+ },
+ "mannheim": {
+  "lat": 49.4892913,
+  "lon": 8.4673098,
+  "display": "Mannheim, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "karlsruhe": {
+  "lat": 49.0068705,
+  "lon": 8.4034195,
+  "display": "Karlsruhe, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "freiburg": {
+  "lat": 47.9960901,
+  "lon": 7.8494005,
+  "display": "Freiburg im Breisgau, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "heidelberg": {
+  "lat": 49.4093582,
+  "lon": 8.694724,
+  "display": "Heidelberg, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "ulm": {
+  "lat": 48.3984968,
+  "lon": 9.9912458,
+  "display": "Ulm, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "heilbronn": {
+  "lat": 49.142291,
+  "lon": 9.218655,
+  "display": "Heilbronn, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "pforzheim": {
+  "lat": 48.890934,
+  "lon": 8.7025509,
+  "display": "Pforzheim, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "reutlingen": {
+  "lat": 48.4919508,
+  "lon": 9.2114144,
+  "display": "Reutlingen, Landkreis Reutlingen, Baden-Württemberg, Deutschland",
+  "type": "city"
+ },
+ "augsburg": {
+  "lat": 48.3690341,
+  "lon": 10.8979522,
+  "display": "Augsburg, Bayern, Deutschland",
+  "type": "city"
+ },
+ "regensburg": {
+  "lat": 49.0195333,
+  "lon": 12.0974869,
+  "display": "Regensburg, Bayern, Deutschland",
+  "type": "city"
+ },
+ "ingolstadt": {
+  "lat": 48.7630165,
+  "lon": 11.4250395,
+  "display": "Ingolstadt, Bayern, Deutschland",
+  "type": "city"
+ },
+ "furth": {
+  "lat": 49.4885711,
+  "lon": 10.9587203,
+  "display": "Fürth, Bayern, Deutschland",
+  "type": "county"
+ },
+ "wurzburg": {
+  "lat": 49.7780356,
+  "lon": 9.9434769,
+  "display": "Würzburg, Bayern, Deutschland",
+  "type": "county"
+ },
+ "erlangen": {
+  "lat": 49.5891571,
+  "lon": 10.9812072,
+  "display": "Erlangen, Bayern, Deutschland",
+  "type": "county"
+ },
+ "braunschweig": {
+  "lat": 52.2646577,
+  "lon": 10.5236066,
+  "display": "Braunschweig, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "oldenburg": {
+  "lat": 53.1389753,
+  "lon": 8.2146017,
+  "display": "Oldenburg, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "osnabruck": {
+  "lat": 52.2719595,
+  "lon": 8.047635,
+  "display": "Osnabrück, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "wolfsburg": {
+  "lat": 52.4205588,
+  "lon": 10.7861682,
+  "display": "Wolfsburg, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "gottingen": {
+  "lat": 51.5328328,
+  "lon": 9.9351811,
+  "display": "Göttingen, Radolfshausen, Landkreis Göttingen, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "salzgitter": {
+  "lat": 52.1503721,
+  "lon": 10.3593147,
+  "display": "Salzgitter, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "hildesheim": {
+  "lat": 52.1527188,
+  "lon": 9.9518083,
+  "display": "Hildesheim, Landkreis Hildesheim, Niedersachsen, Deutschland",
+  "type": "city"
+ },
+ "kiel": {
+  "lat": 54.3227085,
+  "lon": 10.135555,
+  "display": "Kiel, Altenholz, Schleswig-Holstein, Deutschland",
+  "type": "city"
+ },
+ "lubeck": {
+  "lat": 53.866444,
+  "lon": 10.684738,
+  "display": "Lübeck, Schleswig-Holstein, Deutschland",
+  "type": "city"
+ },
+ "bremerhaven": {
+  "lat": 53.5505392,
+  "lon": 8.5851945,
+  "display": "Bremerhaven, Bremen, Deutschland",
+  "type": "city"
+ },
+ "rostock": {
+  "lat": 54.0886707,
+  "lon": 12.1400211,
+  "display": "Rostock, Mecklenburg-Vorpommern, Deutschland",
+  "type": "city"
+ },
+ "schwerin": {
+  "lat": 53.6288297,
+  "lon": 11.4148038,
+  "display": "Schwerin, Mecklenburg-Vorpommern, Deutschland",
+  "type": "city"
+ },
+ "potsdam": {
+  "lat": 52.4009309,
+  "lon": 13.0591397,
+  "display": "Potsdam, Brandenburg, Deutschland",
+  "type": "city"
+ },
+ "cottbus": {
+  "lat": 51.7567447,
+  "lon": 14.3357307,
+  "display": "Cottbus - Chóśebuz, Brandenburg, Deutschland",
+  "type": "city"
+ },
+ "chemnitz": {
+  "lat": 50.8323531,
+  "lon": 12.918914,
+  "display": "Chemnitz, Lichtenau, Sachsen, Deutschland",
+  "type": "city"
+ },
+ "halle": {
+  "lat": 51.4824354,
+  "lon": 11.9712985,
+  "display": "Halle (Saale), Sachsen-Anhalt, Deutschland",
+  "type": "city"
+ },
+ "magdeburg": {
+  "lat": 52.1314783,
+  "lon": 11.6400789,
+  "display": "Magdeburg, Sachsen-Anhalt, Deutschland",
+  "type": "city"
+ },
+ "erfurt": {
+  "lat": 50.9777974,
+  "lon": 11.0287364,
+  "display": "Erfurt, Thüringen, Deutschland",
+  "type": "city"
+ },
+ "jena": {
+  "lat": 50.9281717,
+  "lon": 11.5879359,
+  "display": "Jena, Thüringen, Deutschland",
+  "type": "city"
+ },
+ "mainz": {
+  "lat": 49.9995205,
+  "lon": 8.2736253,
+  "display": "Mainz, Rheinland-Pfalz, Deutschland",
+  "type": "city"
+ },
+ "ludwigshafen": {
+  "lat": 49.4704113,
+  "lon": 8.4381568,
+  "display": "Ludwigshafen am Rhein, Rheinland-Pfalz, Deutschland",
+  "type": "city"
+ },
+ "koblenz": {
+  "lat": 50.3533278,
+  "lon": 7.5943951,
+  "display": "Koblenz, Rheinland-Pfalz, Deutschland",
+  "type": "city"
+ },
+ "trier": {
+  "lat": 49.7596208,
+  "lon": 6.6441878,
+  "display": "Trier, Trierweiler, Rheinland-Pfalz, Deutschland",
+  "type": "city"
+ },
+ "kaiserslautern": {
+  "lat": 49.4432174,
+  "lon": 7.7689951,
+  "display": "Kaiserslautern, Rheinland-Pfalz, Deutschland",
+  "type": "city"
+ },
+ "saarbrucken": {
+  "lat": 49.234362,
+  "lon": 6.996379,
+  "display": "Saarbrücken, Regionalverband Saarbrücken, Saarland, Deutschland",
+  "type": "city"
+ }
+}
