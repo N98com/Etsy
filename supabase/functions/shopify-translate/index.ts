@@ -8,6 +8,7 @@
 // POST { action: 'scopes' } lists the scopes of the app.
 // POST { action: 'policies', url } sets shop policies from a file: [{ type: 'REFUND_POLICY', body: html }]
 // POST { action: 'policy_ids' } lists the shop policies with their ids.
+// POST { action: 'shop_metafield', key: 'cities2', url } sets the shop metafield n98.<key> (json) from a file.
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
 const API_VERSION = "2026-10";
 const PREFIX = "https://raw.githubusercontent.com/N98com/Etsy/";
@@ -67,6 +68,15 @@ Deno.serve(async (req) => {
     if (b.action === "scopes") { await shopifyToken(true); return out(await gql(`{ currentAppInstallation { accessScopes { handle } } }`)); }
     if (b.action === "policy_ids") return out(await gql(`{ shop { shopPolicies { id type title url } } }`));
     if (typeof b.url !== "string" || !b.url.startsWith(PREFIX)) return out({ error: "bad url" }, 400);
+    if (b.action === "shop_metafield") {
+      if (!["cities", "cities2"].includes(b.key)) return out({ error: "bad key" }, 400);
+      const value = await (await fetch(b.url)).text();
+      JSON.parse(value);
+      const shop = await gql(`{ shop { id } }`);
+      const d = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id key } userErrors { field message } } }`,
+        { m: [{ ownerId: shop.shop.id, namespace: "n98", key: b.key, type: "json", value }] });
+      return out(d.metafieldsSet);
+    }
     if (b.action === "policies") {
       const list: any[] = await (await fetch(b.url)).json();
       const res: unknown[] = [];
