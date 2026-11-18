@@ -1,0 +1,482 @@
+{
+ "hoofddorp": {
+  "lat": 52.305554,
+  "lon": 4.6926644,
+  "display": "Hoofddorp, Haarlemmermeer, Noord-Holland, Nederland",
+  "type": "town"
+ },
+ "zaandam": {
+  "lat": 52.4424926,
+  "lon": 4.8298607,
+  "display": "Zaandam, Zaanstad, Noord-Holland, Nederland",
+  "type": "town"
+ },
+ "alkmaar": {
+  "lat": 52.6008538,
+  "lon": 4.8170994,
+  "display": "Alkmaar, Noord-Holland, Nederland",
+  "type": "municipality"
+ },
+ "purmerend": {
+  "lat": 52.5024789,
+  "lon": 4.9614827,
+  "display": "Purmerend, Noord-Holland, Nederland",
+  "type": "city"
+ },
+ "amstelveen": {
+  "lat": 52.2862177,
+  "lon": 4.8526493,
+  "display": "Amstelveen, Noord-Holland, Nederland",
+  "type": "municipality"
+ },
+ "hilversum": {
+  "lat": 52.231587,
+  "lon": 5.1734935,
+  "display": "Hilversum, Noord-Holland, Nederland",
+  "type": "municipality"
+ },
+ "heerhugowaard": {
+  "lat": 52.6631484,
+  "lon": 4.8326672,
+  "display": "Heerhugowaard, Dijk en Waard, Noord-Holland, Nederland",
+  "type": "town"
+ },
+ "hoorn": {
+  "lat": 52.6314723,
+  "lon": 5.0550437,
+  "display": "Hoorn, Noord-Holland, Nederland",
+  "type": "municipality"
+ },
+ "ijmuiden": {
+  "lat": 52.4574139,
+  "lon": 4.6116211,
+  "display": "IJmuiden, Velsen, Noord-Holland, Nederland",
+  "type": "town"
+ },
+ "bussum": {
+  "lat": 52.2773656,
+  "lon": 5.1630646,
+  "display": "Bussum, Gooise Meren, Noord-Holland, Nederland",
+  "type": "town"
+ },
+ "den-helder": {
+  "lat": 52.9508632,
+  "lon": 4.7935568,
+  "display": "Den Helder, Noord-Holland, Nederland",
+  "type": "municipality"
+ },
+ "naaldwijk": {
+  "lat": 51.9930016,
+  "lon": 4.2074197,
+  "display": "Naaldwijk, Westland, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "alphen-aan-den-rijn": {
+  "lat": 52.1130693,
+  "lon": 4.6408057,
+  "display": "Alphen aan den Rijn, Zuid-Holland, Nederland",
+  "type": "municipality"
+ },
+ "spijkenisse": {
+  "lat": 51.8464881,
+  "lon": 4.3287681,
+  "display": "Spijkenisse, Nissewaard, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "schiedam": {
+  "lat": 51.9300454,
+  "lon": 4.3864511,
+  "display": "Schiedam, Zuid-Holland, Nederland",
+  "type": "municipality"
+ },
+ "voorburg": {
+  "lat": 52.0703201,
+  "lon": 4.3558561,
+  "display": "Voorburg, Leidschendam-Voorburg, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "gouda": {
+  "lat": 52.0114922,
+  "lon": 4.7106094,
+  "display": "Gouda, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "vlaardingen": {
+  "lat": 51.9097536,
+  "lon": 4.3402639,
+  "display": "Vlaardingen, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "hellevoetsluis": {
+  "lat": 51.833921,
+  "lon": 4.1436739,
+  "display": "Hellevoetsluis, Voorne aan Zee, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "capelle-aan-den-ijssel": {
+  "lat": 51.9358538,
+  "lon": 4.5894609,
+  "display": "Capelle aan den IJssel, Zuid-Holland, Nederland",
+  "type": "municipality"
+ },
+ "katwijk": {
+  "lat": 52.2048978,
+  "lon": 4.3965975,
+  "display": "Katwijk aan Zee, Katwijk, Zuid-Holland, Nederland, 2225 CA, Nederland",
+  "type": "suburb"
+ },
+ "rijswijk": {
+  "lat": 52.0373934,
+  "lon": 4.3225028,
+  "display": "Rijswijk, Zuid-Holland, Nederland",
+  "type": "municipality"
+ },
+ "pijnacker": {
+  "lat": 52.0200581,
+  "lon": 4.434186,
+  "display": "Pijnacker, Pijnacker-Nootdorp, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "berkel-en-rodenrijs": {
+  "lat": 51.9914412,
+  "lon": 4.4739077,
+  "display": "Berkel en Rodenrijs, Lansingerland, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "oud-beijerland": {
+  "lat": 51.8214436,
+  "lon": 4.4164728,
+  "display": "Oud-Beijerland, Hoeksche Waard, Zuid-Holland, Nederland",
+  "type": "town"
+ },
+ "veenendaal": {
+  "lat": 52.0232042,
+  "lon": 5.5518002,
+  "display": "Veenendaal, Utrecht, Nederland",
+  "type": "municipality"
+ },
+ "nieuwegein": {
+  "lat": 52.0298704,
+  "lon": 5.0929334,
+  "display": "Nieuwegein, Utrecht, Nederland",
+  "type": "municipality"
+ },
+ "zeist": {
+  "lat": 52.114886,
+  "lon": 5.2517433,
+  "display": "Zeist, Utrecht, Nederland",
+  "type": "municipality"
+ },
+ "maarssen": {
+  "lat": 52.1384846,
+  "lon": 5.040082,
+  "display": "Maarssen, Stichtse Vecht, Utrecht, Nederland",
+  "type": "town"
+ },
+ "vianen": {
+  "lat": 51.9889916,
+  "lon": 5.0939178,
+  "display": "Vianen, Vijfheerenlanden, Utrecht, Nederland",
+  "type": "town"
+ },
+ "woerden": {
+  "lat": 52.1134715,
+  "lon": 4.8945298,
+  "display": "Woerden, Utrecht, Nederland",
+  "type": "municipality"
+ },
+ "houten": {
+  "lat": 52.008084,
+  "lon": 5.1776882,
+  "display": "Houten, Utrecht, Nederland",
+  "type": "municipality"
+ },
+ "driebergen": {
+  "lat": 52.0522872,
+  "lon": 5.2834752,
+  "display": "Driebergen-Rijsenburg, Utrechtse Heuvelrug, Utrecht, Nederland",
+  "type": "town"
+ },
+ "ede": {
+  "lat": 52.0716826,
+  "lon": 5.7455106,
+  "display": "Ede, Gelderland, Nederland",
+  "type": "municipality"
+ },
+ "doetinchem": {
+  "lat": 51.9585348,
+  "lon": 6.2814551,
+  "display": "Doetinchem, Gelderland, Nederland",
+  "type": "municipality"
+ },
+ "barneveld": {
+  "lat": 52.1715067,
+  "lon": 5.6454392,
+  "display": "Barneveld, Gelderland, Nederland",
+  "type": "municipality"
+ },
+ "harderwijk": {
+  "lat": 52.3400606,
+  "lon": 5.6376026,
+  "display": "Harderwijk, Gelderland, Nederland",
+  "type": "municipality"
+ },
+ "zutphen": {
+  "lat": 52.1396933,
+  "lon": 6.194772,
+  "display": "Zutphen, Gelderland, Nederland",
+  "type": "town"
+ },
+ "helmond": {
+  "lat": 51.4790956,
+  "lon": 5.6557686,
+  "display": "Helmond, Noord-Brabant, Nederland",
+  "type": "city"
+ },
+ "oss": {
+  "lat": 51.7783542,
+  "lon": 5.5320836,
+  "display": "Oss, Noord-Brabant, Nederland",
+  "type": "municipality"
+ },
+ "cuijk": {
+  "lat": 51.729939,
+  "lon": 5.8800458,
+  "display": "Cuijk, Land van Cuijk, Noord-Brabant, Nederland",
+  "type": "town"
+ },
+ "veghel": {
+  "lat": 51.6134544,
+  "lon": 5.5446938,
+  "display": "Veghel, Meierijstad, Noord-Brabant, Nederland",
+  "type": "town"
+ },
+ "roosendaal": {
+  "lat": 51.5331484,
+  "lon": 4.4561276,
+  "display": "Roosendaal, Noord-Brabant, Nederland",
+  "type": "town"
+ },
+ "bergen-op-zoom": {
+  "lat": 51.4944756,
+  "lon": 4.2871541,
+  "display": "Bergen op Zoom, Noord-Brabant, Nederland",
+  "type": "town"
+ },
+ "uden": {
+  "lat": 51.6590888,
+  "lon": 5.6148605,
+  "display": "Uden, Maashorst, Noord-Brabant, Nederland",
+  "type": "town"
+ },
+ "oosterhout": {
+  "lat": 51.6322376,
+  "lon": 4.8630424,
+  "display": "Oosterhout, Noord-Brabant, Nederland",
+  "type": "municipality"
+ },
+ "waalwijk": {
+  "lat": 51.6873372,
+  "lon": 5.0173079,
+  "display": "Waalwijk, Noord-Brabant, Nederland",
+  "type": "municipality"
+ },
+ "venlo": {
+  "lat": 51.3924489,
+  "lon": 6.1511724,
+  "display": "Venlo, Limburg, Nederland",
+  "type": "municipality"
+ },
+ "sittard": {
+  "lat": 50.9974235,
+  "lon": 5.8666627,
+  "display": "Sittard, Sittard-Geleen, Limburg, Nederland",
+  "type": "town"
+ },
+ "heerlen": {
+  "lat": 50.8775239,
+  "lon": 5.9815066,
+  "display": "Heerlen, Limburg, Nederland",
+  "type": "municipality"
+ },
+ "roermond": {
+  "lat": 51.1933903,
+  "lon": 5.9882649,
+  "display": "Roermond, Limburg, Nederland",
+  "type": "city"
+ },
+ "weert": {
+  "lat": 51.2355829,
+  "lon": 5.7050797,
+  "display": "Weert, Limburg, Nederland",
+  "type": "municipality"
+ },
+ "deventer": {
+  "lat": 52.2694897,
+  "lon": 6.2364886,
+  "display": "Deventer, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "almelo": {
+  "lat": 52.3445525,
+  "lon": 6.6574821,
+  "display": "Almelo, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "hengelo": {
+  "lat": 52.2523195,
+  "lon": 6.7955256,
+  "display": "Hengelo, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "hardenberg": {
+  "lat": 52.5754706,
+  "lon": 6.6188242,
+  "display": "Hardenberg, Overijssel, Nederland",
+  "type": "town"
+ },
+ "kampen": {
+  "lat": 52.5559484,
+  "lon": 5.9033303,
+  "display": "Kampen, Overijssel, Nederland",
+  "type": "town"
+ },
+ "borne": {
+  "lat": 52.3121858,
+  "lon": 6.7464317,
+  "display": "Borne, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "oldenzaal": {
+  "lat": 52.3078435,
+  "lon": 6.9084597,
+  "display": "Oldenzaal, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "haaksbergen": {
+  "lat": 52.1564581,
+  "lon": 6.740239,
+  "display": "Haaksbergen, Overijssel, Nederland",
+  "type": "town"
+ },
+ "losser": {
+  "lat": 52.300289,
+  "lon": 6.9881043,
+  "display": "Losser, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "rijssen": {
+  "lat": 52.3080276,
+  "lon": 6.5213004,
+  "display": "Rijssen, Rijssen-Holten, Overijssel, Nederland",
+  "type": "town"
+ },
+ "nijverdal": {
+  "lat": 52.3592015,
+  "lon": 6.4654075,
+  "display": "Nijverdal, Hellendoorn, Overijssel, Nederland",
+  "type": "town"
+ },
+ "goor": {
+  "lat": 52.2321562,
+  "lon": 6.5809004,
+  "display": "Goor, Hof van Twente, Overijssel, Nederland",
+  "type": "town"
+ },
+ "vriezenveen": {
+  "lat": 52.4086697,
+  "lon": 6.6148049,
+  "display": "Vriezenveen, Twenterand, Overijssel, Nederland",
+  "type": "town"
+ },
+ "tubbergen": {
+  "lat": 52.4039627,
+  "lon": 6.7744417,
+  "display": "Tubbergen, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "ootmarsum": {
+  "lat": 52.4075801,
+  "lon": 6.8968922,
+  "display": "Ootmarsum, Dinkelland, Overijssel, Nederland",
+  "type": "village"
+ },
+ "wierden": {
+  "lat": 52.3433112,
+  "lon": 6.5433896,
+  "display": "Wierden, Overijssel, Nederland",
+  "type": "municipality"
+ },
+ "emmen": {
+  "lat": 52.7528662,
+  "lon": 6.9525135,
+  "display": "Emmen, Drenthe, Nederland",
+  "type": "municipality"
+ },
+ "assen": {
+  "lat": 52.997225,
+  "lon": 6.5506458,
+  "display": "Assen, Drenthe, Nederland",
+  "type": "municipality"
+ },
+ "hoogeveen": {
+  "lat": 52.7264258,
+  "lon": 6.4930815,
+  "display": "Hoogeveen, Drenthe, Nederland",
+  "type": "municipality"
+ },
+ "sneek": {
+  "lat": 53.033548,
+  "lon": 5.6611029,
+  "display": "Sneek, Súdwest-Fryslân, Fryslân, Nederland",
+  "type": "town"
+ },
+ "drachten": {
+  "lat": 53.1091111,
+  "lon": 6.0948102,
+  "display": "Drachten, Smallingerland, Fryslân, Nederland",
+  "type": "town"
+ },
+ "heerenveen": {
+  "lat": 52.9984742,
+  "lon": 5.9231488,
+  "display": "Heerenveen, Fryslân, Nederland",
+  "type": "municipality"
+ },
+ "joure": {
+  "lat": 52.9644286,
+  "lon": 5.8026709,
+  "display": "Joure, De Fryske Marren, Fryslân, Nederland",
+  "type": "town"
+ },
+ "hoogezand": {
+  "lat": 53.1638192,
+  "lon": 6.7556852,
+  "display": "Hoogezand, Midden-Groningen, Groningen, Nederland",
+  "type": "town"
+ },
+ "lelystad": {
+  "lat": 52.536681,
+  "lon": 5.3610715,
+  "display": "Lelystad, Flevoland, Nederland",
+  "type": "municipality"
+ },
+ "emmeloord": {
+  "lat": 52.7087448,
+  "lon": 5.7466367,
+  "display": "Emmeloord, Noordoostpolder, Flevoland, Nederland",
+  "type": "town"
+ },
+ "terneuzen": {
+  "lat": 51.298843,
+  "lon": 3.8422044,
+  "display": "Terneuzen, Zeeland, Nederland",
+  "type": "municipality"
+ },
+ "middelburg": {
+  "lat": 51.4996784,
+  "lon": 3.6137371,
+  "display": "Middelburg, Zeeland, Nederland",
+  "type": "city"
+ }
+}
