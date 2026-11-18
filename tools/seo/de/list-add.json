@@ -1,0 +1,514 @@
+[
+ {
+  "s": "monchengladbach",
+  "n": "Mönchengladbach",
+  "c": "de",
+  "i": "d-monchengladbach",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "gelsenkirchen",
+  "n": "Gelsenkirchen",
+  "c": "de",
+  "i": "d-gelsenkirchen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "aachen",
+  "n": "Aachen",
+  "c": "de",
+  "i": "d-aachen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "krefeld",
+  "n": "Krefeld",
+  "c": "de",
+  "i": "d-krefeld",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "oberhausen",
+  "n": "Oberhausen",
+  "c": "de",
+  "i": "d-oberhausen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "hagen",
+  "n": "Hagen",
+  "c": "de",
+  "i": "d-hagen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "hamm",
+  "n": "Hamm",
+  "c": "de",
+  "i": "d-hamm",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "mulheim-an-der-ruhr",
+  "n": "Mülheim an der Ruhr",
+  "c": "de",
+  "i": "d-mulheim-an-der-ruhr",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "leverkusen",
+  "n": "Leverkusen",
+  "c": "de",
+  "i": "d-leverkusen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "solingen",
+  "n": "Solingen",
+  "c": "de",
+  "i": "d-solingen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "herne",
+  "n": "Herne",
+  "c": "de",
+  "i": "d-herne",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "neuss",
+  "n": "Neuss",
+  "c": "de",
+  "i": "d-neuss",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "paderborn",
+  "n": "Paderborn",
+  "c": "de",
+  "i": "d-paderborn",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "bottrop",
+  "n": "Bottrop",
+  "c": "de",
+  "i": "d-bottrop",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "bergisch-gladbach",
+  "n": "Bergisch Gladbach",
+  "c": "de",
+  "i": "d-bergisch-gladbach",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "remscheid",
+  "n": "Remscheid",
+  "c": "de",
+  "i": "d-remscheid",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "recklinghausen",
+  "n": "Recklinghausen",
+  "c": "de",
+  "i": "d-recklinghausen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "moers",
+  "n": "Moers",
+  "c": "de",
+  "i": "d-moers",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "siegen",
+  "n": "Siegen",
+  "c": "de",
+  "i": "d-siegen",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "gutersloh",
+  "n": "Gütersloh",
+  "c": "de",
+  "i": "d-gutersloh",
+  "p": "nw",
+  "o": "de"
+ },
+ {
+  "s": "wiesbaden",
+  "n": "Wiesbaden",
+  "c": "de",
+  "i": "d-wiesbaden",
+  "p": "he",
+  "o": "de"
+ },
+ {
+  "s": "kassel",
+  "n": "Kassel",
+  "c": "de",
+  "i": "d-kassel",
+  "p": "he",
+  "o": "de"
+ },
+ {
+  "s": "darmstadt",
+  "n": "Darmstadt",
+  "c": "de",
+  "i": "d-darmstadt",
+  "p": "he",
+  "o": "de"
+ },
+ {
+  "s": "offenbach",
+  "n": "Offenbach am Main",
+  "c": "de",
+  "i": "d-offenbach",
+  "p": "he",
+  "o": "de"
+ },
+ {
+  "s": "hanau",
+  "n": "Hanau",
+  "c": "de",
+  "i": "d-hanau",
+  "p": "he",
+  "o": "de"
+ },
+ {
+  "s": "mannheim",
+  "n": "Mannheim",
+  "c": "de",
+  "i": "d-mannheim",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "karlsruhe",
+  "n": "Karlsruhe",
+  "c": "de",
+  "i": "d-karlsruhe",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "freiburg",
+  "n": "Freiburg im Breisgau",
+  "c": "de",
+  "i": "d-freiburg",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "heidelberg",
+  "n": "Heidelberg",
+  "c": "de",
+  "i": "d-heidelberg",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "ulm",
+  "n": "Ulm",
+  "c": "de",
+  "i": "d-ulm",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "heilbronn",
+  "n": "Heilbronn",
+  "c": "de",
+  "i": "d-heilbronn",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "pforzheim",
+  "n": "Pforzheim",
+  "c": "de",
+  "i": "d-pforzheim",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "reutlingen",
+  "n": "Reutlingen",
+  "c": "de",
+  "i": "d-reutlingen",
+  "p": "bw",
+  "o": "de"
+ },
+ {
+  "s": "augsburg",
+  "n": "Augsburg",
+  "c": "de",
+  "i": "d-augsburg",
+  "p": "by",
+  "o": "de"
+ },
+ {
+  "s": "regensburg",
+  "n": "Regensburg",
+  "c": "de",
+  "i": "d-regensburg",
+  "p": "by",
+  "o": "de"
+ },
+ {
+  "s": "ingolstadt",
+  "n": "Ingolstadt",
+  "c": "de",
+  "i": "d-ingolstadt",
+  "p": "by",
+  "o": "de"
+ },
+ {
+  "s": "furth",
+  "n": "Fürth",
+  "c": "de",
+  "i": "d-furth",
+  "p": "by",
+  "o": "de"
+ },
+ {
+  "s": "wurzburg",
+  "n": "Würzburg",
+  "c": "de",
+  "i": "d-wurzburg",
+  "p": "by",
+  "o": "de"
+ },
+ {
+  "s": "erlangen",
+  "n": "Erlangen",
+  "c": "de",
+  "i": "d-erlangen",
+  "p": "by",
+  "o": "de"
+ },
+ {
+  "s": "braunschweig",
+  "n": "Braunschweig",
+  "c": "de",
+  "i": "d-braunschweig",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "oldenburg",
+  "n": "Oldenburg",
+  "c": "de",
+  "i": "d-oldenburg",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "osnabruck",
+  "n": "Osnabrück",
+  "c": "de",
+  "i": "d-osnabruck",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "wolfsburg",
+  "n": "Wolfsburg",
+  "c": "de",
+  "i": "d-wolfsburg",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "gottingen",
+  "n": "Göttingen",
+  "c": "de",
+  "i": "d-gottingen",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "salzgitter",
+  "n": "Salzgitter",
+  "c": "de",
+  "i": "d-salzgitter",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "hildesheim",
+  "n": "Hildesheim",
+  "c": "de",
+  "i": "d-hildesheim",
+  "p": "ni",
+  "o": "de"
+ },
+ {
+  "s": "kiel",
+  "n": "Kiel",
+  "c": "de",
+  "i": "d-kiel",
+  "p": "sh",
+  "o": "de"
+ },
+ {
+  "s": "lubeck",
+  "n": "Lübeck",
+  "c": "de",
+  "i": "d-lubeck",
+  "p": "sh",
+  "o": "de"
+ },
+ {
+  "s": "bremerhaven",
+  "n": "Bremerhaven",
+  "c": "de",
+  "i": "d-bremerhaven",
+  "p": "hb",
+  "o": "de"
+ },
+ {
+  "s": "rostock",
+  "n": "Rostock",
+  "c": "de",
+  "i": "d-rostock",
+  "p": "mv",
+  "o": "de"
+ },
+ {
+  "s": "schwerin",
+  "n": "Schwerin",
+  "c": "de",
+  "i": "d-schwerin",
+  "p": "mv",
+  "o": "de"
+ },
+ {
+  "s": "potsdam",
+  "n": "Potsdam",
+  "c": "de",
+  "i": "d-potsdam",
+  "p": "bb",
+  "o": "de"
+ },
+ {
+  "s": "cottbus",
+  "n": "Cottbus",
+  "c": "de",
+  "i": "d-cottbus",
+  "p": "bb",
+  "o": "de"
+ },
+ {
+  "s": "chemnitz",
+  "n": "Chemnitz",
+  "c": "de",
+  "i": "d-chemnitz",
+  "p": "sn",
+  "o": "de"
+ },
+ {
+  "s": "halle",
+  "n": "Halle (Saale)",
+  "c": "de",
+  "i": "d-halle",
+  "p": "st",
+  "o": "de"
+ },
+ {
+  "s": "magdeburg",
+  "n": "Magdeburg",
+  "c": "de",
+  "i": "d-magdeburg",
+  "p": "st",
+  "o": "de"
+ },
+ {
+  "s": "erfurt",
+  "n": "Erfurt",
+  "c": "de",
+  "i": "d-erfurt",
+  "p": "th",
+  "o": "de"
+ },
+ {
+  "s": "jena",
+  "n": "Jena",
+  "c": "de",
+  "i": "d-jena",
+  "p": "th",
+  "o": "de"
+ },
+ {
+  "s": "mainz",
+  "n": "Mainz",
+  "c": "de",
+  "i": "d-mainz",
+  "p": "rp",
+  "o": "de"
+ },
+ {
+  "s": "ludwigshafen",
+  "n": "Ludwigshafen am Rhein",
+  "c": "de",
+  "i": "d-ludwigshafen",
+  "p": "rp",
+  "o": "de"
+ },
+ {
+  "s": "koblenz",
+  "n": "Koblenz",
+  "c": "de",
+  "i": "d-koblenz",
+  "p": "rp",
+  "o": "de"
+ },
+ {
+  "s": "trier",
+  "n": "Trier",
+  "c": "de",
+  "i": "d-trier",
+  "p": "rp",
+  "o": "de"
+ },
+ {
+  "s": "kaiserslautern",
+  "n": "Kaiserslautern",
+  "c": "de",
+  "i": "d-kaiserslautern",
+  "p": "rp",
+  "o": "de"
+ },
+ {
+  "s": "saarbrucken",
+  "n": "Saarbrücken",
+  "c": "de",
+  "i": "d-saarbrucken",
+  "p": "sl",
+  "o": "de"
+ }
+]

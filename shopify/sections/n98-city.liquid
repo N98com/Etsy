@@ -37,6 +37,8 @@
   endif
   # provinces of the Netherlands, north to south (n98.city.prov_*)
   assign provs = 'gr,fy,dr,ov,fl,ge,ut,nh,zh,ze,nb,li' | split: ','
+  # German states, north to south (n98.city.state_*)
+  assign states = 'sh,hh,mv,hb,ni,be,bb,st,nw,he,th,sn,rp,sl,bw,by' | split: ','
   assign slug = page.handle | remove: '-map-print'
   assign group = ''
   assign prov = ''
@@ -124,14 +126,15 @@
       {%- for g in groups -%}
         {%- if city and g != group -%}{%- continue -%}{%- endif -%}
         <div class="n98o-group" id="{{ g }}">
-          {%- if g == 'nl' -%}
-            {%- comment -%} The Netherlands: grouped by province. Cities with e.o (languages, e.g. "en,nl") only show in those languages. On a city page: only its own province. {%- endcomment -%}
+          {%- if g == 'nl' or g == 'de' -%}
+            {%- comment -%} The Netherlands (provinces) and Germany (states): grouped by region e.p. Cities with e.o (languages, e.g. "en,nl") only show in those languages. On a city page: only its own region. {%- endcomment -%}
+            {%- if g == 'de' -%}{%- assign regions = states -%}{%- assign rkey = 'n98.city.state_' -%}{%- else -%}{%- assign regions = provs -%}{%- assign rkey = 'n98.city.prov_' -%}{%- endif -%}
             {%- capture nl_body -%}
-              {%- for pv in provs -%}
+              {%- for pv in regions -%}
                 {%- if city and prov != blank and pv != prov -%}{%- continue -%}{%- endif -%}
                 {%- capture tiles -%}
                   {%- for e in cities -%}
-                    {%- if e.c != 'nl' or e.p != pv or e.s == slug -%}{%- continue -%}{%- endif -%}
+                    {%- if e.c != g or e.p != pv or e.s == slug -%}{%- continue -%}{%- endif -%}
                     {%- if e.o -%}{%- unless e.o contains lang -%}{%- continue -%}{%- endunless -%}{%- endif -%}
                     {%- assign en = e[lang] | default: e.n -%}
                     <a class="n98o-tile" href="{{ pfx }}/pages/{{ e.s }}-map-print">
@@ -141,28 +144,28 @@
                   {%- endfor -%}
                 {%- endcapture -%}
                 {%- if tiles != blank -%}
-                  {%- assign pv_name = 'n98.city.prov_' | append: pv | t -%}
-                  <div class="n98o-prov" id="nl-{{ pv }}">
+                  {%- assign pv_name = rkey | append: pv | t -%}
+                  <div class="n98o-prov" id="{{ g }}-{{ pv }}">
                     <h3 class="n98o-prov__title">{{ pv_name }}</h3>
                     <div class="n98o-more__grid">{{ tiles }}</div>
                   </div>
                 {%- endif -%}
               {%- endfor -%}
             {%- endcapture -%}
-            <p class="n98o-eyebrow">{% if city %}{{ 'n98.city.more_nl' | t }}{% else %}{{ 'n98.city.group_nl' | t }}{% endif %}</p>
+            <p class="n98o-eyebrow">{% if city %}{{ 'n98.city.more_' | append: g | t }}{% else %}{{ 'n98.city.group_' | append: g | t }}{% endif %}</p>
             {%- unless city -%}
               <p class="n98o-small n98o-jump n98o-jump--prov">
                 {%- assign first = true -%}
-                {%- for pv in provs -%}
-                  {%- assign needle = 'id="nl-' | append: pv | append: '"' -%}
+                {%- for pv in regions -%}
+                  {%- assign needle = 'id="' | append: g | append: '-' | append: pv | append: '"' -%}
                   {%- if nl_body contains needle -%}
-                    {%- unless first %} · {% endunless -%}<a href="#nl-{{ pv }}">{{ 'n98.city.prov_' | append: pv | t }}</a>{%- assign first = false -%}
+                    {%- unless first %} · {% endunless -%}<a href="#{{ g }}-{{ pv }}">{{ rkey | append: pv | t }}</a>{%- assign first = false -%}
                   {%- endif -%}
                 {%- endfor -%}
               </p>
             {%- endunless -%}
             {{ nl_body }}
-            {%- if city -%}<p class="n98o-small"><a href="{{ hub_url }}#nl">{{ 'n98.city.all_nl' | t }}</a></p>{%- endif -%}
+            {%- if city -%}<p class="n98o-small"><a href="{{ hub_url }}#{{ g }}">{{ 'n98.city.all_' | append: g | t }}</a></p>{%- endif -%}
           {%- else -%}
           <p class="n98o-eyebrow">{% if city %}{{ 'n98.city.more_' | append: g | t }}{% else %}{{ 'n98.city.group_' | append: g | t }}{% endif %}</p>
           <div class="n98o-more__grid">
