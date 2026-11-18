@@ -1,0 +1,58 @@
+[
+{
+"filename": "sections/n98-configurator.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/sections/n98-configurator.liquid"
+},
+{
+"filename": "sections/n98-page-sizes.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/sections/n98-page-sizes.liquid"
+},
+{
+"filename": "snippets/n98-home--en.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/snippets/n98-home--en.liquid"
+},
+{
+"filename": "snippets/n98-home--nl.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/snippets/n98-home--nl.liquid"
+},
+{
+"filename": "snippets/n98-home--de.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/snippets/n98-home--de.liquid"
+},
+{
+"filename": "snippets/n98-home--fr.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/snippets/n98-home--fr.liquid"
+},
+{
+"filename": "snippets/n98-home--sv.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/snippets/n98-home--sv.liquid"
+},
+{
+"filename": "snippets/n98-home--nb.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/dd64036faba4948e4c77cd2165fa6780ae69d1a3/shopify/snippets/n98-home--nb.liquid"
+},
+{
+"filename": "assets/n98-l-copenhagen.jpg",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/395a6d209cc3c040f955da279ced1fd9b1d40e07/l-copenhagen.jpg"
+},
+{
+"filename": "assets/n98-l-copenhagen--nl.jpg",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/395a6d209cc3c040f955da279ced1fd9b1d40e07/l-copenhagen--nl.jpg"
+},
+{
+"filename": "assets/n98-l-copenhagen--de.jpg",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/395a6d209cc3c040f955da279ced1fd9b1d40e07/l-copenhagen--de.jpg"
+},
+{
+"filename": "assets/n98-l-copenhagen--fr.jpg",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/395a6d209cc3c040f955da279ced1fd9b1d40e07/l-copenhagen--fr.jpg"
+},
+{
+"filename": "assets/n98-l-copenhagen--sv.jpg",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/395a6d209cc3c040f955da279ced1fd9b1d40e07/l-copenhagen--sv.jpg"
+},
+{
+"filename": "assets/n98-l-copenhagen--nb.jpg",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/395a6d209cc3c040f955da279ced1fd9b1d40e07/l-copenhagen--nb.jpg"
+}
+]

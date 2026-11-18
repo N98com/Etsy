@@ -1,0 +1,58 @@
+[
+{
+"filename": "sections/n98-configurator.liquid",
+"md5": "1aefe1df6922efcfea0c5a41dd6696aa"
+},
+{
+"filename": "sections/n98-page-sizes.liquid",
+"md5": "14222d190d914e94c51fafcfdb790ce4"
+},
+{
+"filename": "snippets/n98-home--en.liquid",
+"md5": "000ef07dd557914424fdf4f09dc3751c"
+},
+{
+"filename": "snippets/n98-home--nl.liquid",
+"md5": "103546bf43cc32795598992cf129383b"
+},
+{
+"filename": "snippets/n98-home--de.liquid",
+"md5": "975a7182409654088b5643f7d7c0e38b"
+},
+{
+"filename": "snippets/n98-home--fr.liquid",
+"md5": "bd1de83a6e0abb80364854df32258a8e"
+},
+{
+"filename": "snippets/n98-home--sv.liquid",
+"md5": "c55a03a5eb6cd0dbf2a3a78581daec02"
+},
+{
+"filename": "snippets/n98-home--nb.liquid",
+"md5": "28cf28e11f826e0eda2e482e52becbbf"
+},
+{
+"filename": "assets/n98-l-copenhagen.jpg",
+"md5": "95369dada74cf0bcaf1baf3e1cef7529"
+},
+{
+"filename": "assets/n98-l-copenhagen--nl.jpg",
+"md5": "7a504218c120934ddbef2b51a8efa2fa"
+},
+{
+"filename": "assets/n98-l-copenhagen--de.jpg",
+"md5": "1180b1eef0216e9b1f59ec6e2451c397"
+},
+{
+"filename": "assets/n98-l-copenhagen--fr.jpg",
+"md5": "059816a40d522fe4b3833c7049b1cabc"
+},
+{
+"filename": "assets/n98-l-copenhagen--sv.jpg",
+"md5": "f5bc138060792e6db93af1515a303b87"
+},
+{
+"filename": "assets/n98-l-copenhagen--nb.jpg",
+"md5": "41fae25f9ef4ac92216f660b5d399d1e"
+}
+]
