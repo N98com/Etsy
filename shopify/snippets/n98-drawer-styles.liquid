@@ -164,6 +164,14 @@
   @media screen and (max-width: 749px) {
     #header-component :is(.header-actions__action, .header__icon--menu, .n98-loc__toggle, .n98-account-link) {
       min-width: 38px; width: 38px; height: 44px; padding: 0;
+      display: flex; align-items: center; justify-content: center; margin-block: 0;
+    }
+    /* keep every icon on one line: the wrappers around search and cart are custom elements */
+    #header-component :is(search-button, cart-icon, header-actions, .n98-loc-wrap, .header-actions__action, header-drawer, .header-drawer) {
+      display: flex; align-items: center; align-self: center;
+    }
+    #header-component :is(.header-actions__action, .header__icon--menu, .n98-loc__toggle, .n98-account-link) .svg-wrapper {
+      display: flex; align-items: center; justify-content: center; margin: 0;
     }
     #header-component :is(.header-actions__action, .header__icon--menu, .n98-loc__toggle, .n98-account-link) :is(.svg-wrapper, svg) {
       width: 20px; height: 20px;
