@@ -15,6 +15,9 @@ const designs = JSON.parse(fs.readFileSync('designs.json', 'utf8'));
 const browser = await chromium.launch({ channel: process.env.CHROME_PATH ? undefined : 'chrome', executablePath: process.env.CHROME_PATH || undefined, args: ['--no-sandbox', '--disable-dev-shm-usage'] });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 page.on('pageerror', e => console.log('page error:', e.message));
+// keep the browser's errors per design, so an empty map can be explained in the log
+let consoleErrors = [];
+page.on('console', m => { if (m.type() === 'error' && consoleErrors.length < 200) consoleErrors.push(m.text().slice(0, 240)); });
 await page.goto(`${SITE_URL}/shop.html?render=1`, { waitUntil: 'load', timeout: 120000 });
 await page.waitForFunction(() => window.LocationApp && window.LocationApp.applyDesign, null, { timeout: 60000 });
 await page.evaluate(() => document.fonts && document.fonts.ready);
@@ -28,6 +31,26 @@ let manifest = {}, prevStates = {};
 try { manifest = JSON.parse(fs.readFileSync(MANIFEST, 'utf8')); } catch (e) {}
 try { prevStates = JSON.parse(fs.readFileSync(path.join(OUT, 'designs.json'), 'utf8')); } catch (e) {}
 const newManifest = {};
+
+async function renderOnce(d) {
+  return page.evaluate(({ w, h, crop }) => {
+    const c = document.createElement('canvas');
+    c.width = w; c.height = h;
+    window.LocationApp.renderInto(c);
+    // blank test: brightness spread over the middle of the print (the map area)
+    const g = c.getContext('2d').getImageData(Math.round(w / 6), Math.round(h / 8), Math.round(w * 2 / 3), Math.round(h / 2)).data;
+    let n = 0, sum = 0, sq = 0;
+    for (let i = 0; i < g.length; i += 4 * 37) { const v = (g[i] + g[i + 1] + g[i + 2]) / 3; n++; sum += v; sq += v * v; }
+    const sd = Math.sqrt(Math.max(0, sq / n - (sum / n) ** 2));
+    let out = c;
+    if (crop) {
+      out = document.createElement('canvas');
+      out.width = crop[2]; out.height = crop[3];
+      out.getContext('2d').drawImage(c, crop[0], crop[1], crop[2], crop[3], 0, 0, crop[2], crop[3]);
+    }
+    return { b64: out.toDataURL('image/jpeg', 0.86).split(',')[1], blank: sd < 4 };
+  }, { w: d.w, h: d.h, crop: d.crop || null });
+}
 
 for (const d of designs) {
   const key = JSON.stringify(d);
@@ -50,22 +73,21 @@ for (const d of designs) {
   if (d.mask) state.mask = d.mask;
   if (d.layout) state.layout = d.layout;
   if (d.pinScale) state.pinScale = d.pinScale;
-  await page.evaluate(s => window.LocationApp.applyDesign(s), state);
-  await page.waitForTimeout(400);
-  if (process.env.TEST_SKIP_DATA !== '1') await page.waitForFunction(() => window.LocationApp.isDataReady(), null, { timeout: 240000, polling: 500 });
-  await page.waitForTimeout(900);
-  const b64 = await page.evaluate(({ w, h, crop }) => {
-    const c = document.createElement('canvas');
-    c.width = w; c.height = h;
-    window.LocationApp.renderInto(c);
-    let out = c;
-    if (crop) {
-      out = document.createElement('canvas');
-      out.width = crop[2]; out.height = crop[3];
-      out.getContext('2d').drawImage(c, crop[0], crop[1], crop[2], crop[3], 0, 0, crop[2], crop[3]);
-    }
-    return out.toDataURL('image/jpeg', 0.86).split(',')[1];
-  }, { w: d.w, h: d.h, crop: d.crop || null });
+  // An empty map (no data arrived) is retried with a tiny nudge of the centre; if it stays empty
+  // it is written anyway but left out of the manifest, so the next run tries it again.
+  let b64 = null, blank = true;
+  for (let attempt = 0; attempt < 4 && blank; attempt++) {
+    consoleErrors = [];
+    const st = attempt ? Object.assign({}, state, { center: { lat: d.lat + 0.0001 * attempt, lon: d.lon } }) : state;
+    await page.evaluate(s => window.LocationApp.applyDesign(s), st);
+    await page.waitForTimeout(400 + attempt * 3000);
+    if (process.env.TEST_SKIP_DATA !== '1') await page.waitForFunction(() => window.LocationApp.isDataReady(), null, { timeout: 240000, polling: 500 });
+    await page.waitForTimeout(900 + attempt * 2000);
+    ({ b64, blank } = await renderOnce(d));
+    if (blank) console.log('empty map', d.id, 'attempt', attempt + 1, consoleErrors.length, 'errors:', [...new Set(consoleErrors)].slice(0, 4).join(' | '));
+    if (process.env.TEST_SKIP_DATA === '1') blank = false;
+  }
+  if (blank) delete newManifest[d.id];
   fs.writeFileSync(path.join(OUT, d.id + '.jpg'), Buffer.from(b64, 'base64'));
   if (d.trace) {
     // Potloodversie voor de homepagina: neem elke lijn en elk vlak op dat de

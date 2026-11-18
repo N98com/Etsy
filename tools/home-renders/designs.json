@@ -14131,7 +14131,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-gelsenkirchen--de",
@@ -14142,7 +14143,8 @@
   "palette": "graphite-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-aachen--de",
@@ -14153,7 +14155,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-krefeld--de",
@@ -14164,7 +14167,8 @@
   "palette": "ash-rose",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-oberhausen--de",
@@ -14175,7 +14179,8 @@
   "palette": "steel-blue",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-hagen--de",
@@ -14186,7 +14191,8 @@
   "palette": "woodland",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-hamm--de",
@@ -14197,7 +14203,8 @@
   "palette": "earth",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-mulheim-an-der-ruhr--de",
@@ -14208,7 +14215,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-leverkusen--de",
@@ -14219,7 +14227,8 @@
   "palette": "cobalt",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-solingen--de",
@@ -14230,7 +14239,8 @@
   "palette": "graphite-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-herne--de",
@@ -14241,7 +14251,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-neuss--de",
@@ -14252,7 +14263,8 @@
   "palette": "parchment-sepia",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-paderborn--de",
@@ -14263,7 +14275,8 @@
   "palette": "terracotta-sun",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-bottrop--de",
@@ -14274,7 +14287,8 @@
   "palette": "midnight-copper",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-bergisch-gladbach--de",
@@ -14285,7 +14299,8 @@
   "palette": "woodland",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-remscheid--de",
@@ -14296,7 +14311,8 @@
   "palette": "slate",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-recklinghausen--de",
@@ -14307,7 +14323,8 @@
   "palette": "claret",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-moers--de",
@@ -14318,7 +14335,8 @@
   "palette": "ash-rose",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-siegen--de",
@@ -14329,7 +14347,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-gutersloh--de",
@@ -14340,7 +14359,8 @@
   "palette": "mint-etching",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-wiesbaden--de",
@@ -14351,7 +14371,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-kassel--de",
@@ -14362,7 +14383,8 @@
   "palette": "emerald-city",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-darmstadt--de",
@@ -14373,7 +14395,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-offenbach--de",
@@ -14384,7 +14407,8 @@
   "palette": "sepia-noir",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-hanau--de",
@@ -14395,7 +14419,8 @@
   "palette": "parchment-sepia",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-mannheim--de",
@@ -14406,7 +14431,8 @@
   "palette": "graphite-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-karlsruhe--de",
@@ -14417,7 +14443,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-freiburg--de",
@@ -14428,7 +14455,8 @@
   "palette": "woodland",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-heidelberg--de",
@@ -14439,7 +14467,8 @@
   "palette": "terracotta-sun",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "d-ulm--de",
@@ -14450,7 +14479,8 @@
   "palette": "slate",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-heilbronn--de",
@@ -14461,7 +14491,8 @@
   "palette": "claret",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-pforzheim--de",
@@ -14472,7 +14503,8 @@
   "palette": "bronze",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-reutlingen--de",
@@ -14483,7 +14515,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-augsburg--de",
@@ -14494,7 +14527,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-regensburg--de",
@@ -14505,7 +14539,8 @@
   "palette": "parchment-sepia",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "d-ingolstadt--de",
@@ -14516,7 +14551,8 @@
   "palette": "graphite-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-furth--de",
@@ -14527,7 +14563,8 @@
   "palette": "ash-rose",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-wurzburg--de",
@@ -14538,7 +14575,8 @@
   "palette": "claret",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-erlangen--de",
@@ -14549,7 +14587,8 @@
   "palette": "mint-etching",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-braunschweig--de",
@@ -14560,7 +14599,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-oldenburg--de",
@@ -14571,7 +14611,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-osnabruck--de",
@@ -14582,7 +14623,8 @@
   "palette": "terracotta-sun",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-wolfsburg--de",
@@ -14593,7 +14635,8 @@
   "palette": "steel-blue",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-gottingen--de",
@@ -14604,7 +14647,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-salzgitter--de",
@@ -14615,7 +14659,8 @@
   "palette": "graphite-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-hildesheim--de",
@@ -14626,7 +14671,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-kiel--de",
@@ -14637,7 +14683,8 @@
   "palette": "cobalt",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-lubeck--de",
@@ -14648,7 +14695,8 @@
   "palette": "parchment-sepia",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "d-bremerhaven--de",
@@ -14659,7 +14707,8 @@
   "palette": "steel-blue",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-rostock--de",
@@ -14670,7 +14719,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-schwerin--de",
@@ -14681,7 +14731,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-potsdam--de",
@@ -14692,7 +14743,8 @@
   "palette": "emerald-city",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-cottbus--de",
@@ -14703,7 +14755,8 @@
   "palette": "woodland",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-chemnitz--de",
@@ -14714,7 +14767,8 @@
   "palette": "graphite-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-halle--de",
@@ -14725,7 +14779,8 @@
   "palette": "claret",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-magdeburg--de",
@@ -14736,7 +14791,8 @@
   "palette": "slate",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-erfurt--de",
@@ -14747,7 +14803,8 @@
   "palette": "terracotta-sun",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-jena--de",
@@ -14758,7 +14815,8 @@
   "palette": "mint-etching",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-mainz--de",
@@ -14769,7 +14827,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-ludwigshafen--de",
@@ -14780,7 +14839,8 @@
   "palette": "graphite-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-koblenz--de",
@@ -14791,7 +14851,8 @@
   "palette": "cobalt",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-trier--de",
@@ -14802,7 +14863,8 @@
   "palette": "parchment-sepia",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  },
  {
   "id": "d-kaiserslautern--de",
@@ -14813,7 +14875,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.1
+  "zoom": 1.1,
+  "retry": 1
  },
  {
   "id": "d-saarbrucken--de",
@@ -14824,6 +14887,7 @@
   "palette": "ash-rose",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.2
+  "zoom": 1.2,
+  "retry": 1
  }
 ]
