@@ -72,7 +72,7 @@ Deno.serve(async (req) => {
     if (b.action === "policy_ids") return out(await gql(`{ shop { shopPolicies { id type title url } } }`));
     if (typeof b.url !== "string" || !b.url.startsWith(PREFIX)) return out({ error: "bad url" }, 400);
     if (b.action === "shop_metafield") {
-      if (!["cities", "cities2"].includes(b.key)) return out({ error: "bad key" }, 400);
+      if (!["cities", "cities2", "cities3"].includes(b.key)) return out({ error: "bad key" }, 400);
       const value = await (await fetch(b.url)).text();
       JSON.parse(value);
       const shop = await gql(`{ shop { id } }`);
