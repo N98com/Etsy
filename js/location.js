@@ -104,6 +104,16 @@ window.LocationApp = (() => {
   ];
   RATIO_PRESETS.push({ id: 'custom', label: 'Custom', w: null, h: null });
   RATIO_PRESETS.push({ id: 'other', label: 'Other', w: null, h: null });
+  // Liggend: hetzelfde bestelbare formaat (zelfde id, dus dezelfde Shopify-variant
+  // en Gelato-maat), alleen breedte en hoogte omgedraaid. Geldt alleen voor de
+  // vaste Gelato-maten; Custom en Other hebben hun eigen breedte en hoogte al.
+  function orient(p) {
+    if (!p || !p.inW || !state.landscape) return p;
+    return Object.assign({}, p, {
+      w: p.h, h: p.w, inW: p.inH, inH: p.inW, cmW: p.cmH, cmH: p.cmW, pxW: p.pxH, pxH: p.pxW,
+      label: `${p.inH}×${p.inW}in · ${p.cmH}×${p.cmW}cm`, orientation: 'landscape',
+    });
+  }
 
   // Vijf posterlayouts — zie js/mapRender.js voor de tekencode van elk.
   const LAYOUT_PRESETS = [
@@ -185,6 +195,7 @@ window.LocationApp = (() => {
     center: { lat: 52.3676, lon: 4.9041 },
     scale: 0, // px per graad breedtegraad ("zoom") — gezet in init()
     ratioId: 'in10x12', ratio: { w: 5, h: 6 },
+    landscape: false, // liggend: dezelfde Gelato-maat, breedte en hoogte omgedraaid
     layoutId: 'fade', maskId: 'none', pinIconId: 'basic', pinScale: 1,
     mapPaletteId: MAP_PALETTES[0].id,
     captionFontId: CAPTION_FONT_PRESETS[0].id,
@@ -1014,12 +1025,21 @@ window.LocationApp = (() => {
     otherRatioRow.hidden = id !== 'other';
     if (id === 'custom') { applyCustomRatio(); return; }
     if (id === 'other') { applyOtherRatio(); return; }
-    const preset = RATIO_PRESETS.find(r => r.id === id);
+    const preset = orient(RATIO_PRESETS.find(r => r.id === id));
     state.ratio = { w: preset.w, h: preset.h };
     resizeCanvasForRatio();
     updateExportSizes(preset);
     render();
     invalidateFetch();
+  }
+  function setOrientation(landscape) {
+    landscape = !!landscape;
+    if (state.landscape === landscape) return;
+    state.landscape = landscape;
+    if (state.ratioId !== 'custom' && state.ratioId !== 'other') {
+      selectRatio(state.ratioId);
+      showFormatHint(currentRatioPreset());
+    }
   }
   // "Other" is de oude, bredere maatlijst (zie OTHER_RATIO_PRESETS) — zelfde
   // mechanisme als een normale Sizes-preset, maar dan via de secundaire
@@ -1115,7 +1135,7 @@ window.LocationApp = (() => {
     if (state.ratioId === 'other') {
       return OTHER_RATIO_PRESETS.find(p => p.id === otherRatioSelect.value) || OTHER_RATIO_PRESETS[0];
     }
-    return RATIO_PRESETS.find(r => r.id === state.ratioId);
+    return orient(RATIO_PRESETS.find(r => r.id === state.ratioId));
   }
 
   // Permanent (niet-hover) readout onder de Sizes-dropdown/Custom-velden,
@@ -1349,6 +1369,7 @@ window.LocationApp = (() => {
       center: { lat: +state.center.lat.toFixed(7), lon: +state.center.lon.toFixed(7) },
       scale: state.scale,
       ratioId: state.ratioId,
+      ...(state.landscape ? { orientation: 'landscape' } : {}),
       palette: state.mapPaletteId,
       layout: state.layoutId,
       mask: state.maskId,
@@ -1371,6 +1392,7 @@ window.LocationApp = (() => {
     if (d.state) d = d.state; // de hele bestel-samenvatting mag ook
     if (d.v !== DESIGN_STATE_VERSION) throw new Error('Unknown design version');
     // formaat eerst: dat bepaalt de canvasgrootte (en dus de uitsnede)
+    state.landscape = d.orientation === 'landscape';
     if (d.ratioId && [...ratioTabs.options].some(o => o.value === d.ratioId)) {
       ratioTabs.value = d.ratioId;
       selectRatio(d.ratioId);
@@ -1433,6 +1455,7 @@ window.LocationApp = (() => {
       size: preset ? {
         id: preset.id, label: preset.label,
         inW: preset.inW, inH: preset.inH, cmW: preset.cmW, cmH: preset.cmH,
+        orientation: state.landscape && preset.inW ? 'landscape' : 'portrait',
       } : { id: state.ratioId, label: 'Custom', pxW: customRatioW ? parseInt(customRatioW.value, 10) : null, pxH: customRatioH ? parseInt(customRatioH.value, 10) : null },
       palette: { id: state.mapPaletteId, name: palette.name || state.mapPaletteId },
       layoutId: state.layoutId, maskId: state.maskId, pinIconId: state.pinIconId, pinScale: state.pinScale,
@@ -1838,6 +1861,8 @@ window.LocationApp = (() => {
     isDataReady: () => !exportPNGBtn.disabled,
     renderPrintFile: scale => renderPrintBlob(scale),
     applyDesign: d => applyDesignState(d),
+    setOrientation: on => setOrientation(on),
+    isLandscape: () => state.landscape,
     getPins: () => ({
       selected: state.selectedPin,
       pins: state.pins.map(p => ({ lat: p.lat, lon: p.lon, icon: p.icon || state.pinIconId, text: p.text })),

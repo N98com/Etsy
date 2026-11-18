@@ -303,7 +303,8 @@
       // 2 Colours
       add(1, $('paletteCats'), $('shopSlotPalettes'), $('paletteSolidHead'), $('shopSlotSolid'));
       // 3 Shape & layout
-      add(2, sub('Shape'), $('shopSlotMask'), sub('Layout'), $('shopSlotLayout'));
+      const orientHead = sub('Orientation'); orientHead.classList.add('orient-head');
+      add(2, orientHead, $('shopOrient'), sub('Shape'), $('shopSlotMask'), sub('Layout'), $('shopSlotLayout'));
       // 4 Text
       add(3, sub('Typeface'), $('shopSlotFont'), sub('Text size'), $('shopSlotTextSizes'));
       // 5 Pins
@@ -311,7 +312,7 @@
       // 6 Size & frame: formaten, dan de lijst en de rest van de oude stap IV
       add(5, sub('Size'), $('shopSizeGrid'));
       const fhd = old[3].querySelector('.frame-head'); if (fhd) fhd.innerHTML = 'Frame <span class="optional">solid pine, ready to hang</span>';
-      [...old[3].children].forEach(c => { if (!c.matches('.step-eyebrow, .step-title, .step-lede, #shopSizeGrid')) panels[5].appendChild(c); });
+      [...old[3].children].forEach(c => { if (!c.matches('.step-eyebrow, .step-title, .step-lede, #shopSizeGrid, .orient-head')) panels[5].appendChild(c); });
       old.forEach(o => o.remove());
       const navEl = host.querySelector('.step-nav');
       panels.forEach(pn => host.insertBefore(pn, navEl));
@@ -390,6 +391,28 @@
       const [inch, cm] = opt.textContent.split('·').map(s => s.trim());
       return { cm: cm.replace('cm', ' cm'), inch: inch.replace('in', ' in') };
     }
+    // Liggend: dezelfde maat (zelfde variant), breedte en hoogte omgedraaid
+    const isLandscape = () => !!(window.LocationApp && window.LocationApp.isLandscape && window.LocationApp.isLandscape());
+    const flip = t => t.replace(/(\d+)×(\d+)/, (_, a, b) => b + '×' + a);
+    function cardLabels(opt) {
+      const l = sizeLabels(opt);
+      return isLandscape() ? { cm: flip(l.cm), inch: flip(l.inch) } : l;
+    }
+    function refreshSizeCards() {
+      [...sizeGrid.children].forEach(btn => {
+        const opt = sizeOptions.find(o => o.value === btn.dataset.sizeId);
+        if (!opt) return;
+        const { cm, inch } = cardLabels(opt);
+        btn.querySelector('.size-cm').textContent = cm;
+        btn.querySelector('.size-in').textContent = inch;
+        const m = cm.match(/(\d+)×(\d+)/);
+        if (m) {
+          const shape = btn.querySelector('.size-shape'), k = isLandscape() ? 0.22 : 0.32; // langste zijde past in de kolom
+          shape.style.width = Math.round(+m[1] * k) + 'px';
+          shape.style.height = Math.round(+m[2] * k) + 'px';
+        }
+      });
+    }
     sizeOptions.forEach(opt => {
       const { cm, inch } = sizeLabels(opt);
       const btn = document.createElement('button');
@@ -467,13 +490,40 @@
 
     function currentCm() {
       const opt = sizeOptions.find(o => o.value === ratioSelect.value);
-      return opt ? sizeLabels(opt).cm : '';
+      return opt ? cardLabels(opt).cm : '';
     }
+
+    // ---- Staand of liggend ----
+    const orientGrid = $('shopOrient');
+    // Alleen tonen als de winkel het aanzet (&orient=1, vanaf thema v38), in de Studio en lokaal;
+    // zo komt liggend pas live als het thema dat ook kan doorgeven aan de winkelwagen.
+    const orientOn = !inIframe || new URLSearchParams(window.location.search).get('orient') === '1';
+    if (!orientOn) { orientGrid.hidden = true; document.querySelectorAll('.orient-head').forEach(h => { h.hidden = true; }); }
+    function syncOrient() {
+      const land = isLandscape();
+      [...orientGrid.querySelectorAll('.orient-card')].forEach(b => {
+        const on = (b.dataset.orient === 'landscape') === land;
+        b.classList.toggle('active', on); b.setAttribute('aria-pressed', on ? 'true' : 'false');
+      });
+      refreshSizeCards();
+    }
+    function setOrient(land) {
+      if (!window.LocationApp || !window.LocationApp.setOrientation) return;
+      window.LocationApp.setOrientation(land);
+      selectSize(ratioSelect.value); // labels, prijsregel, kamer en overzicht volgen
+    }
+    // een geladen ontwerp (Studio-bestelling, #design= van de homepage) kan liggend zijn
+    document.addEventListener('mapgen:place', () => setTimeout(() => selectSize(ratioSelect.value), 0));
+    orientGrid.addEventListener('click', e => {
+      const b = e.target.closest('.orient-card');
+      if (b) setOrient(b.dataset.orient === 'landscape');
+    });
     function selectSize(id) {
       if (ratioSelect.value !== id) {
         ratioSelect.value = id;
         ratioSelect.dispatchEvent(new Event('change'));
       }
+      syncOrient();
       [...sizeGrid.children].forEach(b => {
         const on = b.dataset.sizeId === id;
         b.classList.toggle('active', on);

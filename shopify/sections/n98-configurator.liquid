@@ -24,7 +24,7 @@
 -%}
 {%- case request.locale.iso_code -%}
 {%- when 'de' -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&orient=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -255,6 +255,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Orientation': size.orientation === 'landscape' ? 'Landscape' : '',
         'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
@@ -293,7 +294,7 @@
   })();
 </script>
 {%- when 'fr' -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&orient=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -524,6 +525,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Orientation': size.orientation === 'landscape' ? 'Landscape' : '',
         'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
@@ -562,7 +564,7 @@
   })();
 </script>
 {%- when 'nb' -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&orient=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -793,6 +795,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Orientation': size.orientation === 'landscape' ? 'Landscape' : '',
         'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
@@ -831,7 +834,7 @@
   })();
 </script>
 {%- when 'nl' -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&orient=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -1062,6 +1065,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Orientation': size.orientation === 'landscape' ? 'Landscape' : '',
         'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
@@ -1100,7 +1104,7 @@
   })();
 </script>
 {%- when 'sv' -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&orient=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -1331,6 +1335,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Orientation': size.orientation === 'landscape' ? 'Landscape' : '',
         'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',
@@ -1369,7 +1374,7 @@
   })();
 </script>
 {%- else -%}
-{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
+{%- capture frame_src -%}{{ app_url }}?embed=1&frames=1&orient=1&parentOrigin={{ request.origin | url_encode }}&currency={{ cart.currency.symbol | url_encode }}&iso={{ cart.currency.iso_code }}&prices={{ price_list | url_encode }}&gifts=1&lang={{ request.locale.iso_code }}&v={{ 'now' | date: '%Y%m%d%H%M' }}{%- endcapture -%}
 
 <section class="n98c" id="n98c-{{ section.id }}">
   <h1 class="n98c-visually-hidden">{{ product.title | escape }}</h1>
@@ -1600,6 +1605,7 @@
         'Location': joinParts([loc.place, loc.region, loc.country]) || 'Custom location',
         'Coordinates': (typeof loc.lat === 'number' ? loc.lat.toFixed(5) + ', ' + loc.lon.toFixed(5) : ''),
         'Size': size.label || size.id,
+        'Orientation': size.orientation === 'landscape' ? 'Landscape' : '',
         'Frame': frameChoice ? (d.frameLabel || frameChoice) + ' (ready to hang)' : 'No frame',
         'Palette': (d.palette && d.palette.name) || '',
         'Title': text.place || '',

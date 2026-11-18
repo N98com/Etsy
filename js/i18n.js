@@ -56,6 +56,7 @@
       'Palette groups': 'Paletgroepen', 'Solid colours': 'Effen kleuren', 'Background colour': 'Achtergrondkleur',
       'Choose my own text colour': 'Kies zelf een tekstkleur', 'Text colour': 'Tekstkleur',
       // shape
+      'Orientation': 'Oriëntatie', 'Portrait': 'Staand', 'Landscape': 'Liggend',
       'Layout': 'Opmaak', 'None': 'Geen', 'Circle': 'Cirkel', 'Heart': 'Hart', 'Diamond': 'Ruit', 'Hexagon': 'Zeshoek',
       'Frame': 'Lijst', 'Layout: Frame': 'Kader', 'Fade': 'Vervaging', 'Gallery': 'Galerie', 'Stamp': 'Stempel', 'Ledger': 'Strook',
       // text
@@ -129,6 +130,7 @@
       'Home is wherever you are': 'Thuis is waar jij bent', 'Forever in our hearts': 'Voor altijd in ons hart'
     },
     de: {
+      "Orientation": "Ausrichtung", "Portrait": "Hochformat", "Landscape": "Querformat",
       "Place": "Ort",
       "Colours": "Farben",
       "Shape": "Form",
@@ -364,6 +366,7 @@
       "Forever in our hearts": "Für immer in unseren Herzen"
     },
     fr: {
+      "Orientation": "Orientation", "Portrait": "Portrait", "Landscape": "Paysage",
       "Place": "Lieu",
       "Colours": "Couleurs",
       "Shape": "Forme",
@@ -599,6 +602,7 @@
       "Forever in our hearts": "À jamais dans nos cœurs"
     },
     sv: {
+      "Orientation": "Orientering", "Portrait": "Stående", "Landscape": "Liggande",
       "Place": "Plats",
       "Colours": "Färger",
       "Shape": "Form",
@@ -834,6 +838,7 @@
       "Forever in our hearts": "För alltid i våra hjärtan"
     },
     nb: {
+      "Orientation": "Retning", "Portrait": "Stående", "Landscape": "Liggende",
       "Place": "Sted",
       "Colours": "Farger",
       "Shape": "Form",
