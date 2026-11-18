@@ -1,0 +1,322 @@
+[
+{
+"slug": "monchengladbach",
+"q": "Mönchengladbach, Deutschland",
+"cc": "de"
+},
+{
+"slug": "gelsenkirchen",
+"q": "Gelsenkirchen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "aachen",
+"q": "Aachen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "krefeld",
+"q": "Krefeld, Deutschland",
+"cc": "de"
+},
+{
+"slug": "oberhausen",
+"q": "Oberhausen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "hagen",
+"q": "Hagen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "hamm",
+"q": "Hamm, Westfalen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "mulheim-an-der-ruhr",
+"q": "Mülheim an der Ruhr, Deutschland",
+"cc": "de"
+},
+{
+"slug": "leverkusen",
+"q": "Leverkusen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "solingen",
+"q": "Solingen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "herne",
+"q": "Herne, Deutschland",
+"cc": "de"
+},
+{
+"slug": "neuss",
+"q": "Neuss, Deutschland",
+"cc": "de"
+},
+{
+"slug": "paderborn",
+"q": "Paderborn, Deutschland",
+"cc": "de"
+},
+{
+"slug": "bottrop",
+"q": "Bottrop, Deutschland",
+"cc": "de"
+},
+{
+"slug": "bergisch-gladbach",
+"q": "Bergisch Gladbach, Deutschland",
+"cc": "de"
+},
+{
+"slug": "remscheid",
+"q": "Remscheid, Deutschland",
+"cc": "de"
+},
+{
+"slug": "recklinghausen",
+"q": "Recklinghausen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "moers",
+"q": "Moers, Deutschland",
+"cc": "de"
+},
+{
+"slug": "siegen",
+"q": "Siegen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "gutersloh",
+"q": "Gütersloh, Deutschland",
+"cc": "de"
+},
+{
+"slug": "wiesbaden",
+"q": "Wiesbaden, Deutschland",
+"cc": "de"
+},
+{
+"slug": "kassel",
+"q": "Kassel, Deutschland",
+"cc": "de"
+},
+{
+"slug": "darmstadt",
+"q": "Darmstadt, Deutschland",
+"cc": "de"
+},
+{
+"slug": "offenbach",
+"q": "Offenbach am Main, Deutschland",
+"cc": "de"
+},
+{
+"slug": "hanau",
+"q": "Hanau, Deutschland",
+"cc": "de"
+},
+{
+"slug": "mannheim",
+"q": "Mannheim, Deutschland",
+"cc": "de"
+},
+{
+"slug": "karlsruhe",
+"q": "Karlsruhe, Deutschland",
+"cc": "de"
+},
+{
+"slug": "freiburg",
+"q": "Freiburg im Breisgau, Deutschland",
+"cc": "de"
+},
+{
+"slug": "heidelberg",
+"q": "Heidelberg, Deutschland",
+"cc": "de"
+},
+{
+"slug": "ulm",
+"q": "Ulm, Deutschland",
+"cc": "de"
+},
+{
+"slug": "heilbronn",
+"q": "Heilbronn, Deutschland",
+"cc": "de"
+},
+{
+"slug": "pforzheim",
+"q": "Pforzheim, Deutschland",
+"cc": "de"
+},
+{
+"slug": "reutlingen",
+"q": "Reutlingen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "augsburg",
+"q": "Augsburg, Deutschland",
+"cc": "de"
+},
+{
+"slug": "regensburg",
+"q": "Regensburg, Deutschland",
+"cc": "de"
+},
+{
+"slug": "ingolstadt",
+"q": "Ingolstadt, Deutschland",
+"cc": "de"
+},
+{
+"slug": "furth",
+"q": "Fürth, Deutschland",
+"cc": "de"
+},
+{
+"slug": "wurzburg",
+"q": "Würzburg, Deutschland",
+"cc": "de"
+},
+{
+"slug": "erlangen",
+"q": "Erlangen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "braunschweig",
+"q": "Braunschweig, Deutschland",
+"cc": "de"
+},
+{
+"slug": "oldenburg",
+"q": "Oldenburg (Oldb), Deutschland",
+"cc": "de"
+},
+{
+"slug": "osnabruck",
+"q": "Osnabrück, Deutschland",
+"cc": "de"
+},
+{
+"slug": "wolfsburg",
+"q": "Wolfsburg, Deutschland",
+"cc": "de"
+},
+{
+"slug": "gottingen",
+"q": "Göttingen, Deutschland",
+"cc": "de"
+},
+{
+"slug": "salzgitter",
+"q": "Salzgitter, Deutschland",
+"cc": "de"
+},
+{
+"slug": "hildesheim",
+"q": "Hildesheim, Deutschland",
+"cc": "de"
+},
+{
+"slug": "kiel",
+"q": "Kiel, Deutschland",
+"cc": "de"
+},
+{
+"slug": "lubeck",
+"q": "Lübeck, Deutschland",
+"cc": "de"
+},
+{
+"slug": "bremerhaven",
+"q": "Bremerhaven, Deutschland",
+"cc": "de"
+},
+{
+"slug": "rostock",
+"q": "Rostock, Deutschland",
+"cc": "de"
+},
+{
+"slug": "schwerin",
+"q": "Schwerin, Deutschland",
+"cc": "de"
+},
+{
+"slug": "potsdam",
+"q": "Potsdam, Deutschland",
+"cc": "de"
+},
+{
+"slug": "cottbus",
+"q": "Cottbus, Deutschland",
+"cc": "de"
+},
+{
+"slug": "chemnitz",
+"q": "Chemnitz, Deutschland",
+"cc": "de"
+},
+{
+"slug": "halle",
+"q": "Halle (Saale), Deutschland",
+"cc": "de"
+},
+{
+"slug": "magdeburg",
+"q": "Magdeburg, Deutschland",
+"cc": "de"
+},
+{
+"slug": "erfurt",
+"q": "Erfurt, Deutschland",
+"cc": "de"
+},
+{
+"slug": "jena",
+"q": "Jena, Deutschland",
+"cc": "de"
+},
+{
+"slug": "mainz",
+"q": "Mainz, Deutschland",
+"cc": "de"
+},
+{
+"slug": "ludwigshafen",
+"q": "Ludwigshafen am Rhein, Deutschland",
+"cc": "de"
+},
+{
+"slug": "koblenz",
+"q": "Koblenz, Deutschland",
+"cc": "de"
+},
+{
+"slug": "trier",
+"q": "Trier, Deutschland",
+"cc": "de"
+},
+{
+"slug": "kaiserslautern",
+"q": "Kaiserslautern, Deutschland",
+"cc": "de"
+},
+{
+"slug": "saarbrucken",
+"q": "Saarbrücken, Deutschland",
+"cc": "de"
+}
+]
