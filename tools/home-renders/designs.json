@@ -11034,10 +11034,20 @@
   "zoom": 1.1
  },
  {
-  "id": "w-stockholm",
+  "id": "z-stockholm-warmup",
   "place": "Stockholm",
   "country": "Sweden",
   "lat": 59.3293,
+  "lon": 18.0686,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-stockholm",
+  "place": "Stockholm",
+  "country": "Sweden",
+  "lat": 59.3294,
   "lon": 18.0686,
   "palette": "deep-teal",
   "w": 1200,
@@ -12342,10 +12352,21 @@
   "zoom": 1.2
  },
  {
-  "id": "x-hoofddorp",
+  "id": "z-hoofddorp-warmup",
   "place": "Hoofddorp",
   "country": "Netherlands",
   "lat": 52.3056,
+  "lon": 4.6927,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "x-hoofddorp",
+  "place": "Hoofddorp",
+  "country": "Netherlands",
+  "lat": 52.3057,
   "lon": 4.6927,
   "palette": "graphite-gold",
   "w": 1200,
