@@ -269,7 +269,13 @@
     "Den Bosch": "Bois-le-Duc",
     "United Kingdom": "Royaume-Uni",
     "Norway": "Norvège",
-    "Sweden": "Suède"
+    "Sweden": "Suède",
+    "Orientation": "Orientation",
+    "Portrait": "Portrait",
+    "Landscape": "Paysage",
+    "Every size also comes in landscape, at the same price.": "Chaque format existe aussi en paysage, au même prix.",
+    "Can I order it in landscape?": "Puis-je la commander en format paysage ?",
+    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Oui. Chaque format existe en portrait ou en paysage, au même prix. Vous le choisissez pendant la création, et l’aperçu pivote avec."
   },
   "raw": {
     "n98-maps-home.liquid": [

@@ -73,6 +73,7 @@ for (const d of designs) {
   if (d.mask) state.mask = d.mask;
   if (d.layout) state.layout = d.layout;
   if (d.pinScale) state.pinScale = d.pinScale;
+  if (d.orientation) state.orientation = d.orientation; // 'landscape': same size, width and height swapped
   // An empty map (no data arrived) is retried with a tiny nudge of the centre; if it stays empty
   // it is written anyway but left out of the manifest, so the next run tries it again.
   let b64 = null, blank = true;

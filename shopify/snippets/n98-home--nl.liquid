@@ -334,10 +334,13 @@
   transition: width 0.8s var(--ease), height 0.8s var(--ease);
 }
 .n98h .n98-room-art img { width: 100%; height: 100%; object-fit: cover; }
+.n98h .n98-room-art img[hidden] { display: none; }
 .n98h .n98-room svg.n98-sofa { position: absolute; left: 50%; transform: translateX(-50%); width: calc(220 * var(--pxcm)); height: auto; overflow: visible; bottom: var(--floor); }
 .n98h .n98-room svg.n98-plant { position: absolute; left: calc(50% + 128 * var(--pxcm)); bottom: var(--floor); width: calc(52 * var(--pxcm)); height: auto; }
 .n98h .n98-room-tag { position: absolute; left: 18px; top: 16px; font-family: var(--mono); font-size: 10.5px; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-2); }
 .n98h .n98-sizebar { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.n98h .n98-orientbar + .n98-sizebar { margin-top: 8px; }
+.n98h .n98-orientbar button { font-family: var(--sans, inherit); letter-spacing: 0.02em; font-size: 13px; }
 .n98h .n98-sizebar button {
   min-height: 44px; padding: 0 16px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer;
   font-family: var(--mono); font-size: 11px; letter-spacing: 0.06em; transition: background 0.25s var(--ease), color 0.25s var(--ease), border-color 0.25s var(--ease);
@@ -533,9 +536,13 @@
     </div>
     <div class="n98-room n98-reveal" id="n98h-room" style="--w:50;--h:70">
       <span class="n98-room-tag" id="n98h-room-tag">50×70 cm boven een bank van 220 cm</span>
-      <div class="n98-room-art"><img src="{{ 'n98-g-copenhagen--nl.jpg' | asset_url }}" alt="" loading="lazy" width="1200" height="1680"></div>
+      <div class="n98-room-art"><img src="{{ 'n98-g-copenhagen--nl.jpg' | asset_url }}" alt="" loading="lazy" width="1200" height="1680"><img src="{{ 'n98-l-copenhagen--nl.jpg' | asset_url }}" alt="" loading="lazy" width="1680" height="1200" hidden></div>
       <svg class="n98-plant" viewBox="0 0 52 120" aria-hidden="true"><path d="M26 74C20 52 6 46 4 30c10 4 18 14 22 30-2-22 2-40 12-52 4 16-2 34-8 46 6-12 16-18 22-18-4 14-14 24-22 38z" fill="#5E6B52"/><path d="M12 74h28l-4 46H16z" fill="#C9B79C"/></svg>
       <svg class="n98-sofa" viewBox="0 0 220 85" aria-hidden="true"><rect x="6" y="20" width="208" height="40" rx="6" fill="#8E8576"/><rect x="0" y="34" width="26" height="44" rx="6" fill="#7E7567"/><rect x="194" y="34" width="26" height="44" rx="6" fill="#7E7567"/><rect x="22" y="48" width="176" height="26" rx="4" fill="#9A9182"/><rect x="14" y="78" width="6" height="7" fill="#3E3A33"/><rect x="200" y="78" width="6" height="7" fill="#3E3A33"/><rect x="40" y="26" width="34" height="24" rx="5" fill="#B9AF9C"/><rect x="146" y="26" width="34" height="24" rx="5" fill="#B5AB98"/></svg>
+    </div>
+    <div class="n98-sizebar n98-orientbar" role="group" aria-label="Oriëntatie" id="n98h-orient">
+      <button type="button" data-o="p" aria-pressed="true">Staand</button>
+      <button type="button" data-o="l" aria-pressed="false">Liggend</button>
     </div>
     <div class="n98-sizebar" role="group" aria-label="Kies een formaat" id="n98h-sizes">
       <button type="button" data-w="20" data-h="25" aria-pressed="false">20×25</button>
@@ -557,6 +564,7 @@
         <details open><summary>Ziet mijn print eruit als de preview?</summary><p>Ja. De preview verandert live terwijl je ontwerpt en is precies het bestand dat we naar de drukker sturen.</p></details>
         <details><summary>Op welk papier drukken we?</summary><p>Premium mat papier van 200 gsm (0,22 mm): een glad oppervlak zonder glans, zodat elke straat haarscherp te lezen is. Het papier is FSC gecertificeerd of gelijkwaardig.</p></details>
         <details><summary>Kan ik hem ingelijst bestellen?</summary><p>Ja. Kies een lijst van massief grenen in zwart, wit, naturel hout of donker hout. Je kaart komt achter onbreekbaar plexiglas, met ophangset, klaar voor de muur. Liever je eigen lijst? Elke print heeft een standaard lijstformaat, dus hij past in een kant en klare lijst van dezelfde maat.</p></details>
+        <details><summary>Kan ik hem ook liggend bestellen?</summary><p>Ja. Elk formaat is er staand of liggend, voor dezelfde prijs. Je kiest het tijdens het ontwerpen en het voorbeeld draait mee.</p></details>
         <details><summary>Wat kost verzending?</summary><p>Niets. We versturen naar Nederland, de rest van de EU, het VK en de VS, en verzending is altijd gratis. De prijs die je ziet, is de prijs die je betaalt.</p></details>
         <details><summary>Wanneer komt hij aan?</summary><p>Elke kaart wordt vers gedrukt na je bestelling, bij een drukkerij dichtbij jou. De meeste bestellingen komen binnen 3 tot 7 werkdagen aan in Nederland en de rest van Europa, en binnen 5 tot 10 werkdagen elders. Bestel je voor de kerst? Bestel uiterlijk 10 december voor Europa en 5 december voor de rest van de wereld, dan ligt hij op tijd onder de boom.</p></details>
         <details><summary>Kan ik een gepersonaliseerde print retourneren?</summary><p>Omdat elke kaart naar jouw eigen ontwerp wordt gemaakt, kunnen gepersonaliseerde prints niet geretourneerd of geruild worden. Volgens de Europese wet geldt het herroepingsrecht van 14 dagen niet voor producten die op maat zijn gemaakt. Komt je print beschadigd aan, of klopt hij niet met het ontwerp dat je goedkeurde, dan sturen we een nieuwe of betalen we je volledig terug. Mail een foto naar <a href="mailto:n98maps@gmail.com">n98maps@gmail.com</a> binnen 14 dagen na levering.</p></details>
@@ -725,13 +733,37 @@
   // --- formaten op schaal ---
   var room = document.getElementById('n98h-room'), tag = document.getElementById('n98h-room-tag');
   var sizes = document.getElementById('n98h-sizes');
+  var orient = document.getElementById('n98h-orient'), wide = false;
+  // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+  function showSize(b) {
+    var w = b.getAttribute('data-w'), h = b.getAttribute('data-h');
+    if (wide) { var t = w; w = h; h = t; }
+    room.style.setProperty('--w', w);
+    room.style.setProperty('--h', h);
+    // het label staat al in de taal van de bezoeker: alleen de maat vervangen
+    tag.textContent = tag.textContent.replace(/\d+×\d+/, w + '×' + h);
+  }
+  function relabel() {
+    sizes.querySelectorAll('button[data-w]').forEach(function (x) {
+      var w = x.getAttribute('data-w'), h = x.getAttribute('data-h');
+      x.textContent = wide ? h + '×' + w : w + '×' + h;
+    });
+  }
   if (room && sizes) sizes.addEventListener('click', function (e) {
     var b = e.target.closest('button[data-w]');
     if (!b) return;
     sizes.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
-    room.style.setProperty('--w', b.getAttribute('data-w'));
-    room.style.setProperty('--h', b.getAttribute('data-h'));
-    tag.textContent = b.getAttribute('data-w') + '×' + b.getAttribute('data-h') + ' cm above a 220 cm sofa';
+    showSize(b);
+  });
+  if (room && sizes && orient) orient.addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-o]');
+    if (!b) return;
+    wide = b.getAttribute('data-o') === 'l';
+    orient.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+    relabel();
+    room.querySelectorAll('.n98-room-art img').forEach(function (im, i) { im.hidden = (i === 1) !== wide; });
+    var cur = sizes.querySelector('button[aria-pressed="true"]');
+    if (cur) showSize(cur);
   });
 })();
 

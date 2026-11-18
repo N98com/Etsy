@@ -22,6 +22,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -56,7 +60,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Größen und Preise</p>
       <h2>Wähle die Größe, <em>wir machen den Rest.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Ausrichtung" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Hochformat</button>
+        <button type="button" data-o="l" aria-pressed="false">Querformat</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Größe</th><th>Zoll</th><th>Ohne Rahmen</th><th>Gerahmt</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -71,7 +79,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -79,9 +87,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">Alle Preise inklusive MwSt. und kostenlosem Versand innerhalb Europas, nach Großbritannien und in die USA. Gerahmt kostet jede Rahmenfarbe gleich viel.</p>
+      <p class="n98p-note">Jede Größe gibt es auch im Querformat, zum selben Preis.</p>
+      <p class="n98p-note" style="margin-top:6px">Alle Preise inklusive MwSt. und kostenlosem Versand innerhalb Europas, nach Großbritannien und in die USA. Gerahmt kostet jede Rahmenfarbe gleich viel.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">
@@ -137,6 +167,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -171,7 +205,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Formats et prix</p>
       <h2>Choisissez le format, <em>on s’occupe du reste.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Orientation" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Portrait</button>
+        <button type="button" data-o="l" aria-pressed="false">Paysage</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Format</th><th>Pouces</th><th>Sans cadre</th><th>Encadrée</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -186,7 +224,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -194,9 +232,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">Tous les prix incluent la TVA et la livraison gratuite en Europe, au Royaume-Uni et aux États-Unis. Le prix encadré est le même pour chaque couleur de cadre.</p>
+      <p class="n98p-note">Chaque format existe aussi en paysage, au même prix.</p>
+      <p class="n98p-note" style="margin-top:6px">Tous les prix incluent la TVA et la livraison gratuite en Europe, au Royaume-Uni et aux États-Unis. Le prix encadré est le même pour chaque couleur de cadre.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">
@@ -252,6 +312,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -286,7 +350,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Størrelser og priser</p>
       <h2>Velg størrelsen, <em>vi gjør resten.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Retning" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Stående</button>
+        <button type="button" data-o="l" aria-pressed="false">Liggende</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Størrelse</th><th>Tommer</th><th>Uten ramme</th><th>Med ramme</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -301,7 +369,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -309,9 +377,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">Alle priser inkluderer mva. og gratis frakt innenfor Europa, Storbritannia og USA. Prisen med ramme er den samme for alle rammefarger.</p>
+      <p class="n98p-note">Alle størrelser finnes også liggende, til samme pris.</p>
+      <p class="n98p-note" style="margin-top:6px">Alle priser inkluderer mva. og gratis frakt innenfor Europa, Storbritannia og USA. Prisen med ramme er den samme for alle rammefarger.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">
@@ -367,6 +457,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -401,7 +495,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Formaten en prijzen</p>
       <h2>Kies het formaat, <em>wij doen de rest.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Oriëntatie" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Staand</button>
+        <button type="button" data-o="l" aria-pressed="false">Liggend</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Formaat</th><th>Inch</th><th>Zonder lijst</th><th>Met lijst</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -416,7 +514,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -424,9 +522,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">Alle prijzen zijn inclusief btw en gratis verzending binnen Europa, het VK en de VS. De prijs met lijst is voor elke lijstkleur gelijk.</p>
+      <p class="n98p-note">Elk formaat is er ook liggend, voor dezelfde prijs.</p>
+      <p class="n98p-note" style="margin-top:6px">Alle prijzen zijn inclusief btw en gratis verzending binnen Europa, het VK en de VS. De prijs met lijst is voor elke lijstkleur gelijk.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">
@@ -482,6 +602,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -516,7 +640,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Storlekar och priser</p>
       <h2>Välj storleken, <em>vi gör resten.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Orientering" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Stående</button>
+        <button type="button" data-o="l" aria-pressed="false">Liggande</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Storlek</th><th>Tum</th><th>Utan ram</th><th>Med ram</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -531,7 +659,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -539,9 +667,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">Alla priser inkluderar moms och fri frakt inom Europa, Storbritannien och USA. Priset med ram är detsamma för alla ramfärger.</p>
+      <p class="n98p-note">Varje storlek finns även liggande, till samma pris.</p>
+      <p class="n98p-note" style="margin-top:6px">Alla priser inkluderar moms och fri frakt inom Europa, Storbritannien och USA. Priset med ram är detsamma för alla ramfärger.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">
@@ -597,6 +747,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -631,7 +785,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Sizes and prices</p>
       <h2>Choose the size, <em>we do the rest.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Orientation" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Portrait</button>
+        <button type="button" data-o="l" aria-pressed="false">Landscape</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Size</th><th>Inches</th><th>Unframed</th><th>Framed</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -646,7 +804,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -654,9 +812,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">All prices include VAT and free shipping within Europe, the UK and the US. Framed prices are the same for every frame colour.</p>
+      <p class="n98p-note">Every size also comes in landscape, at the same price.</p>
+      <p class="n98p-note" style="margin-top:6px">All prices include VAT and free shipping within Europe, the UK and the US. Framed prices are the same for every frame colour.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">

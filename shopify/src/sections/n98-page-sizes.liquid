@@ -20,6 +20,10 @@
 .n98p .n98p-size b { font-family: var(--serif); font-weight: 400; font-size: 22px; line-height: 1; }
 .n98p .n98p-in { font-family: var(--mono); font-size: 12px; color: var(--mute); }
 .n98p .n98p-price { font-family: var(--mono); font-size: 13px; white-space: nowrap; padding-left: 16px !important; }
+.n98p .n98p-orient { display: inline-flex; gap: 8px; margin: 0 0 22px; }
+.n98p .n98p-orient button { min-height: 44px; padding: 0 18px; border: 1px solid var(--line); background: transparent; color: var(--ink-2); cursor: pointer; font-size: 14px; }
+.n98p .n98p-orient button:hover { border-color: var(--ink); color: var(--ink); }
+.n98p .n98p-orient button[aria-pressed="true"] { background: var(--ink); border-color: var(--ink); color: var(--paper); }
 .n98p .n98p-note { margin-top: 18px; font-size: 14px; color: var(--mute); font-weight: 300; }
 .n98p .n98p-frames { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 28px; }
 .n98p .n98p-frame { display: flex; flex-direction: column; gap: 14px; }
@@ -54,7 +58,11 @@
     <div class="n98-wrap">
       <p class="n98-eyebrow">Sizes and prices</p>
       <h2>Choose the size, <em>we do the rest.</em></h2>
-      <table class="n98p-table">
+      <div class="n98p-orient" role="group" aria-label="Orientation" id="n98p-orient">
+        <button type="button" data-o="p" aria-pressed="true">Portrait</button>
+        <button type="button" data-o="l" aria-pressed="false">Landscape</button>
+      </div>
+      <table class="n98p-table" id="n98p-table">
         <thead><tr><th>Size</th><th>Inches</th><th>Unframed</th><th>Framed</th></tr></thead>
         <tbody>
           {%- for row in n98_sizes -%}
@@ -69,7 +77,7 @@
             {%- endif -%}
             {%- assign iw = f[3] | divided_by: 2 -%}{%- assign ih = f[4] | divided_by: 2 -%}
             <tr>
-              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px"></i><div><b>{{ f[1] }}</b></div></div></td>
+              <td><div class="n98p-size"><i style="--w:{{ iw }}px;--h:{{ ih }}px" data-w="{{ iw }}" data-h="{{ ih }}"></i><div><b>{{ f[1] }}</b></div></div></td>
               <td class="n98p-in">{{ f[2] }}</td>
               <td class="n98p-price">{% if p_plain %}{{ p_plain | money }}{% endif %}</td>
               <td class="n98p-price">{% if p_framed %}{{ p_framed | money }}{% endif %}</td>
@@ -77,9 +85,31 @@
           {%- endfor -%}
         </tbody>
       </table>
-      <p class="n98p-note">All prices include VAT and free shipping within Europe, the UK and the US. Framed prices are the same for every frame colour.</p>
+      <p class="n98p-note">Every size also comes in landscape, at the same price.</p>
+      <p class="n98p-note" style="margin-top:6px">All prices include VAT and free shipping within Europe, the UK and the US. Framed prices are the same for every frame colour.</p>
     </div>
   </section>
+
+  <script>
+  (function () {
+    // staand of liggend: dezelfde maten, breedte en hoogte omgedraaid
+    var bar = document.getElementById('n98p-orient'), table = document.getElementById('n98p-table');
+    if (!bar || !table) return;
+    var swap = function (t) { return t.replace(/(\d+)×(\d+)/, function (_, a, b) { return b + '×' + a; }); };
+    var wide = false;
+    bar.addEventListener('click', function (e) {
+      var b = e.target.closest('button[data-o]');
+      if (!b || (b.getAttribute('data-o') === 'l') === wide) return;
+      wide = !wide;
+      bar.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); });
+      table.querySelectorAll('.n98p-size b, .n98p-in').forEach(function (el) { el.textContent = swap(el.textContent); });
+      table.querySelectorAll('.n98p-size i').forEach(function (i) {
+        var w = i.getAttribute('data-w'), h = i.getAttribute('data-h');
+        i.style.setProperty('--w', (wide ? h : w) + 'px'); i.style.setProperty('--h', (wide ? w : h) + 'px');
+      });
+    });
+  })();
+  </script>
 
   <section class="n98p-sec" id="frames">
     <div class="n98-wrap">

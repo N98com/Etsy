@@ -269,7 +269,13 @@
     "Den Bosch": "Den Bosch",
     "United Kingdom": "Verenigd Koninkrijk",
     "Norway": "Noorwegen",
-    "Sweden": "Zweden"
+    "Sweden": "Zweden",
+    "Orientation": "Oriëntatie",
+    "Portrait": "Staand",
+    "Landscape": "Liggend",
+    "Every size also comes in landscape, at the same price.": "Elk formaat is er ook liggend, voor dezelfde prijs.",
+    "Can I order it in landscape?": "Kan ik hem ook liggend bestellen?",
+    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Ja. Elk formaat is er staand of liggend, voor dezelfde prijs. Je kiest het tijdens het ontwerpen en het voorbeeld draait mee."
   },
   "raw": {
     "n98-maps-home.liquid": [

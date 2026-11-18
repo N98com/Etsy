@@ -14889,5 +14889,71 @@
   "h": 1680,
   "zoom": 1.2,
   "retry": 1
+ },
+ {
+  "id": "l-copenhagen",
+  "place": "Copenhagen",
+  "country": "Denmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "l-copenhagen--nl",
+  "place": "Kopenhagen",
+  "country": "Denemarken",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "l-copenhagen--de",
+  "place": "Kopenhagen",
+  "country": "Dänemark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "l-copenhagen--fr",
+  "place": "Copenhague",
+  "country": "Danemark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "l-copenhagen--sv",
+  "place": "Köpenhamn",
+  "country": "Danmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "l-copenhagen--nb",
+  "place": "København",
+  "country": "Danmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
  }
 ]

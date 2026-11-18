@@ -270,7 +270,13 @@
     "Contact": "Kontakt",
     "United Kingdom": "Vereinigtes Königreich",
     "Norway": "Norwegen",
-    "Sweden": "Schweden"
+    "Sweden": "Schweden",
+    "Orientation": "Ausrichtung",
+    "Portrait": "Hochformat",
+    "Landscape": "Querformat",
+    "Every size also comes in landscape, at the same price.": "Jede Größe gibt es auch im Querformat, zum selben Preis.",
+    "Can I order it in landscape?": "Kann ich sie auch im Querformat bestellen?",
+    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Ja. Jede Größe gibt es im Hoch- oder Querformat, zum selben Preis. Du wählst es beim Gestalten, und die Vorschau dreht sich mit."
   },
   "raw": {
     "n98-maps-home.liquid": [
