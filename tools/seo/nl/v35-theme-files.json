@@ -1,0 +1,34 @@
+[
+{
+"filename": "sections/n98-city.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/sections/n98-city.liquid"
+},
+{
+"filename": "snippets/meta-tags.liquid",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/snippets/meta-tags.liquid"
+},
+{
+"filename": "locales/en.default.json",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/locales/en.default.json"
+},
+{
+"filename": "locales/nl.json",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/locales/nl.json"
+},
+{
+"filename": "locales/de.json",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/locales/de.json"
+},
+{
+"filename": "locales/fr.json",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/locales/fr.json"
+},
+{
+"filename": "locales/sv.json",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/locales/sv.json"
+},
+{
+"filename": "locales/nb.json",
+"url": "https://raw.githubusercontent.com/N98com/Etsy/55c1481f4be53fc257813a6022c87468f8bdb908/shopify/locales/nb.json"
+}
+]
