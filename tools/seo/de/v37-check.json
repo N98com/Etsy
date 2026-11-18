@@ -1,0 +1,34 @@
+[
+{
+"filename": "sections/n98-city.liquid",
+"md5": "3892ddb5914ee760080cfdf50f2df189"
+},
+{
+"filename": "snippets/meta-tags.liquid",
+"md5": "c7f78963b175ada18e9dd58b1fca08ef"
+},
+{
+"filename": "locales/en.default.json",
+"md5": "4f4edfc433de12777c26579895858b48"
+},
+{
+"filename": "locales/nl.json",
+"md5": "71f257194a81712301accc8c5756c06f"
+},
+{
+"filename": "locales/de.json",
+"md5": "57421846bd7718ea42abfa6ba705e2c5"
+},
+{
+"filename": "locales/fr.json",
+"md5": "579056bbf4d12533de16cdb58c6e9aec"
+},
+{
+"filename": "locales/sv.json",
+"md5": "c46531dbe025b1013e7954a55469cef7"
+},
+{
+"filename": "locales/nb.json",
+"md5": "65d000f1970c5b418d5305b8dc0ed596"
+}
+]
