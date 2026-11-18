@@ -9,7 +9,8 @@
 {%- liquid
   assign city = page.metafields.n98.city.value
   assign lede = page.metafields.n98.lede.value
-  assign cities = shop.metafields.n98.cities.value
+  # n98.cities2 (with provinces p and languages o) replaces n98.cities from v35 on
+  assign cities = shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
   assign lang = request.locale.iso_code
   # prints with the words in the language of the visitor (tools/home-renders/variants.py)
   assign img_sfx = '.jpg'

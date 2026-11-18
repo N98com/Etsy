@@ -43,7 +43,7 @@ def build():
         body = ('<h2>Why %s makes a beautiful map</h2>\n<p>%s</p>\n<h2>Ideas for your %s map</h2>\n<ul>\n%s\n</ul>\n'
                 '<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>') % (
             name, why, name, '\n'.join('<li>%s</li>' % i for i in ideas))
-        pages.append({'title': '%s map print' % name, 'handle': '%s-map-print' % slug, 'body': body, 'isPublished': True, 'templateSuffix': 'city',
+        pages.append({'title': '%s map print' % name, 'handle': '%s-map-print' % slug, 'body': body, 'isPublished': False, 'templateSuffix': 'city',
             'metafields': [
                 {'namespace': 'n98', 'key': 'city', 'type': 'json', 'value': json.dumps({'name': name, 'country': 'Netherlands', 'lat': lat, 'lon': lon, 'palette': pal, 'scale': int(round(SCALE * zoom)), 'img': img_id(slug), 'langs': LANGS}, ensure_ascii=False)},
                 {'namespace': 'n98', 'key': 'lede', 'type': 'multi_line_text_field', 'value': 'A personalised map print of %s, drawn from real map data: %s, or just your own street. Your colours, your words, framed or unframed.' % (name, hook)},
@@ -80,6 +80,8 @@ if __name__ == '__main__':
     assert not re.findall('[–—]', txt), 'dash'
     json.dump(designs, open(os.path.join(HERE, 'designs-add.json'), 'w'), ensure_ascii=False, indent=1)
     json.dump(pages, open(os.path.join(HERE, 'pages.json'), 'w'), ensure_ascii=False)
+    json.dump(pages[:40], open(os.path.join(HERE, 'pages-a.json'), 'w'), ensure_ascii=False)
+    json.dump(pages[40:], open(os.path.join(HERE, 'pages-b.json'), 'w'), ensure_ascii=False)
     json.dump(lst, open(os.path.join(HERE, 'list-add.json'), 'w'), ensure_ascii=False, indent=1)
     print(len(pages), 'pages', len(designs), 'renders; max title', max(len(p['metafields'][2]['value']) for p in pages),
           'max desc', max(len(p['metafields'][3]['value']) for p in pages),
