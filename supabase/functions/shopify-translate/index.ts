@@ -1,6 +1,7 @@
 // N°98 Maps: registers translations in Shopify from a JSON file in the N98com/Etsy repo.
 // Only reads files from raw.githubusercontent.com/N98com/Etsy/ and only writes
-// translations and shop policies, so it is safe without a login. Uses the same app credentials as
+// translations, shop policies, the city list and files of unpublished themes, all from that repo,
+// so it is safe without a login. Uses the same app credentials as
 // shopify-orders (needs read/write_translations and write_legal_policies).
 // POST { url } with a file: [{ id: gid, locale: 'de', t: { key: value } }]
 //   An item may name a page by handle instead of id: { page: 'oslo-map-print', locale, t, lede }
@@ -9,6 +10,8 @@
 // POST { action: 'policies', url } sets shop policies from a file: [{ type: 'REFUND_POLICY', body: html }]
 // POST { action: 'policy_ids' } lists the shop policies with their ids.
 // POST { action: 'shop_metafield', key: 'cities2', url } sets the shop metafield n98.<key> (json) from a file.
+// POST { action: 'theme_upload', theme, url } uploads repo files [{ filename, url }] to an unpublished theme (never MAIN).
+// POST { action: 'theme_check', theme, url } compares [{ filename, md5 }] with the theme.
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
 const API_VERSION = "2026-10";
 const PREFIX = "https://raw.githubusercontent.com/N98com/Etsy/";
@@ -76,6 +79,35 @@ Deno.serve(async (req) => {
       const d = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id key } userErrors { field message } } }`,
         { m: [{ ownerId: shop.shop.id, namespace: "n98", key: b.key, type: "json", value }] });
       return out(d.metafieldsSet);
+    }
+    if (b.action === "theme_upload") {
+      // { theme: numeric id, url: file [{ filename, url }] } -> themeFilesUpsert in chunks; never on the live theme
+      const tid = `gid://shopify/OnlineStoreTheme/${String(b.theme).replace(/\D/g, "")}`;
+      const th = await gql(`query($id: ID!) { theme(id: $id) { id role name } }`, { id: tid });
+      if (!th.theme) return out({ error: "no theme" }, 400);
+      if (th.theme.role === "MAIN") return out({ error: "refusing to write to the live theme" }, 400);
+      const files: any[] = await (await fetch(b.url)).json();
+      const res: unknown[] = [];
+      for (let i = 0; i < files.length; i += 25) {
+        const chunk = files.slice(i, i + 25).filter((f) => typeof f.filename === "string" && typeof f.url === "string" && f.url.startsWith(PREFIX));
+        const d = await gql(`mutation($t: ID!, $f: [OnlineStoreThemeFilesUpsertFileInput!]!) { themeFilesUpsert(themeId: $t, files: $f) { upsertedThemeFiles { filename } job { id } userErrors { field message } } }`,
+          { t: tid, f: chunk.map((f) => ({ filename: f.filename, body: { type: "URL", value: f.url } })) });
+        res.push({ from: i, n: chunk.length, job: d.themeFilesUpsert.job?.id, errors: d.themeFilesUpsert.userErrors });
+      }
+      return out({ theme: th.theme.name, res });
+    }
+    if (b.action === "theme_check") {
+      // { theme, url: file [{ filename, md5 }] } -> which files are missing or differ
+      const tid = `gid://shopify/OnlineStoreTheme/${String(b.theme).replace(/\D/g, "")}`;
+      const files: any[] = await (await fetch(b.url)).json();
+      const bad: unknown[] = []; let ok = 0;
+      for (let i = 0; i < files.length; i += 50) {
+        const chunk = files.slice(i, i + 50);
+        const d = await gql(`query($id: ID!, $f: [String!]) { theme(id: $id) { files(filenames: $f, first: 50) { nodes { filename checksumMd5 } } } }`, { id: tid, f: chunk.map((f) => f.filename) });
+        const m: Record<string, string> = {}; for (const n of d.theme.files.nodes) m[n.filename] = n.checksumMd5;
+        for (const f of chunk) { if (m[f.filename] && (!f.md5 || m[f.filename] === f.md5)) ok++; else bad.push({ f: f.filename, have: m[f.filename] || null }); }
+      }
+      return out({ ok, bad: bad.slice(0, 60), nbad: bad.length });
     }
     if (b.action === "policies") {
       const list: any[] = await (await fetch(b.url)).json();
