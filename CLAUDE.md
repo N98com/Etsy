@@ -18,11 +18,15 @@
   after duplicating a theme run `python3 tools/i18n/theme_content.py <new_theme_id>` and send the
   printed mutation (translationsRegister) via the Shopify connector.
   The designer translates itself at runtime with `js/i18n.js` (`?lang=xx`, set by the configurator).
-- City pages: list of all cities = shop metafield `n98.cities2` (json, from v35 on; falls back to `n98.cities`),
+- City pages: list of all cities = shop metafield `n98.cities3` (json, from v37 on, adds German states) falling back to
+  `n98.cities2` (v35/v36) and `n98.cities`. Never put entries a live theme can't handle in the key that theme reads;
+  give the new theme a new key instead.
   map per page = page metafield `n98.city`. Entries: s slug, n name, c group, i image, p province (nl only),
   o languages ("en,nl": only shown in those languages; the page json has "langs" and gets noindex elsewhere).
-  Dutch towns: `tools/seo/nl/` (cities.py, t_*.py texts, gen.py). Set the list with shopify-translate
-  {action:'shop_metafield', key:'cities2', url}. Theme files and renders go to an unpublished theme with
+  Dutch towns: `tools/seo/nl/` (cities.py, t_*.py texts, gen.py). German cities (DE only, German source text):
+  `tools/seo/de/`, grouped by state (`p`: sh, by, nw, ...; locale keys state_*). Renders retry empty maps by themselves
+  (`tools/home-renders/render.mjs`; an empty one stays out of the manifest and is retried on the next run). Set the list with shopify-translate
+  {action:'shop_metafield', key:'cities3', url}. Theme files and renders go to an unpublished theme with
   {action:'theme_upload', theme, url:[{filename,url}]} and are verified with {action:'theme_check'}.
   Theme content translations are copied when a theme is duplicated.
 - Roadmap (Studio button top right): Supabase project `tzhzyprycgpnhxkmexkh`, table `public.roadmap_items`
