@@ -19,4 +19,5 @@ for l in LANGS:
         out.setdefault(k, {})[l] = body
 os.makedirs(os.path.join(os.path.dirname(__file__), 'out'), exist_ok=True)
 json.dump(out, open(os.path.join(os.path.dirname(__file__), 'out', 'policies.json'), 'w'), ensure_ascii=False, indent=1)
+json.dump([{'type': k, 'body': v['en']} for k, v in out.items()], open(os.path.join(os.path.dirname(__file__), 'out', 'shopify-en.json'), 'w'), ensure_ascii=False, indent=1)
 print({k: {l: len(b) for l, b in v.items()} for k, v in out.items()})
