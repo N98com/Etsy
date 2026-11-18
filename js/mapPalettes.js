@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // Kleurstellingen voor de kaart-kunst (Locatie-tab). Anders dan de simpele
 // bg+inks van de generatieve algoritmes heeft een kaart echte semantische
 // lagen — achtergrond, water, groen, hoofdwegen, kleinere wegen en tekst —

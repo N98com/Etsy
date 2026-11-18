@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // N°98 Maps: translations of the designer (shop.html).
 // The language comes from ?lang=xx (the Shopify section passes the shop language).
 // English is the source: every text node and the attributes aria-label, title,

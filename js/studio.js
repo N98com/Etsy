@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // N°98 Maps Studio: shop.html?studio=1 (n98com.github.io/Etsy/ stuurt hierheen).
 // Zelfde tool als in Shopify, maar achter de Supabase-login van de werkbank,
 // met "Export print file" in stap IV (zie STUDIO in shop.js). Opent ook

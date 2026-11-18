@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // UI-laag voor de Locatie-tab: kaart en resultaat samengevoegd in één
 // levend, pannable/zoombaar canvas — de gestylde kaart IS de interactieve
 // kaart. Voorheen was dit een aparte rauwe Leaflet-achtergrond die je met
@@ -300,8 +301,18 @@ window.LocationApp = (() => {
   // preview te kunnen sturen zonder dat het eindresultaat zomaar overgenomen
   // kan worden — niemand anders die inlogt ziet deze optie. Client-side
   // check (geen server-side afdwinging), zoals afgesproken puur een UI-gemak.
-  const WATERMARK_ACCOUNT_EMAIL = 'bramengbers@hotmail.nl';
-  function canUseWatermark() { return window.currentUserEmail === WATERMARK_ACCOUNT_EMAIL; }
+  // het account wordt herkend aan een hash, zodat het e-mailadres niet in de openbare code staat
+  const WATERMARK_ACCOUNT_HASH = '7bf37ee0ce56baf6';
+  let watermarkOk = false;
+  async function checkWatermarkAccount() {
+    try {
+      const e = (window.currentUserEmail || '').toLowerCase();
+      const d = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(e));
+      watermarkOk = Array.from(new Uint8Array(d)).map(b => b.toString(16).padStart(2, '0')).join('').slice(0, 16) === WATERMARK_ACCOUNT_HASH;
+    } catch (err) { watermarkOk = false; }
+  }
+  checkWatermarkAccount(); setInterval(checkWatermarkAccount, 4000);
+  function canUseWatermark() { return watermarkOk; }
 
   function getActivePalette() {
     if (state.gtaStyle) return GTA_STYLE_PALETTE;

@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // Tekent de daadwerkelijke kaart-kunst: een geo-bounding-box + opgehaalde
 // OSM-data + een kleurstelling wordt één samenhangende afbeelding, inclusief
 // het onderschrift (plaatsnaam/land/coördinaten) als onderdeel van dezelfde

@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // Vertaalt Protomaps' basiskaart-vector-tegels (MVT, laag-schema bevestigd via
 // pmtiles.io tegen build.protomaps.com) naar de interne vorm die de renderer
 // verwacht (voorheen uit Overpass afkomstig, inmiddels volledig vervangen) —

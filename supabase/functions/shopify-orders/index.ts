@@ -4,7 +4,7 @@
 // logged-in Studio owner.
 //
 // Secrets: SHOPIFY_CLIENT_ID, SHOPIFY_CLIENT_SECRET (Dev Dashboard app,
-// client credentials grant), optional SHOPIFY_SHOP and ORDERS_ALLOWED_EMAILS.
+// client credentials grant), optional SHOPIFY_SHOP, ORDERS_ALLOWED_EMAILS and ORDERS_ALLOWED_HASHES.
 //
 // GET  ?view=open|history[&after=cursor] -> { orders: [...], next }
 // POST { action: "mark", id } -> adds tag "print-file-ready" (needs write_orders)
@@ -12,8 +12,15 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
 const API_VERSION = "2026-10";
-const ALLOWED = (Deno.env.get("ORDERS_ALLOWED_EMAILS") || "bramengbers@hotmail.nl")
+// The owner is recognised by the SHA-256 of the e-mail address, so the address is not in this public code.
+const ALLOWED = (Deno.env.get("ORDERS_ALLOWED_EMAILS") || "")
   .split(",").map((s) => s.trim().toLowerCase()).filter(Boolean);
+const ALLOWED_HASHES = (Deno.env.get("ORDERS_ALLOWED_HASHES") || "7bf37ee0ce56baf620c2615a237bb3a454de607966b4225b7974d9be88b7b85a").split(",").map((s) => s.trim()).filter(Boolean);
+async function sha256(t: string) {
+  const d = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(t));
+  return Array.from(new Uint8Array(d)).map((b) => b.toString(16).padStart(2, "0")).join("");
+}
+
 const ORIGINS = ["https://n98com.github.io", "http://127.0.0.1:8765", "http://localhost:8765"];
 const READY_TAG = "print-file-ready";
 const LOAD_DAYS = 30; // ontwerpen van klanten blijven 30 dagen inlaadbaar
@@ -78,7 +85,8 @@ Deno.serve(async (req) => {
       global: { headers: { Authorization: auth } },
     });
     const { data: { user } } = await sb.auth.getUser(auth.replace(/^Bearer\s+/i, ""));
-    if (!user || !ALLOWED.includes((user.email || "").toLowerCase())) return json(req, { error: "Not allowed." }, 403);
+    const mail = (user?.email || "").toLowerCase();
+    if (!user || !(ALLOWED.includes(mail) || ALLOWED_HASHES.includes(await sha256(mail)))) return json(req, { error: "Not allowed." }, 403);
 
     if (req.method === "POST") {
       const b = await req.json().catch(() => ({}));

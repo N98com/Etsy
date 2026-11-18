@@ -1,3 +1,4 @@
+/*! N°98 Maps. Copyright (c) 2026 N°98. All rights reserved. Not licensed for use outside n98maps.com. */
 // Klant-configurator (shop.html): de stap-voor-stap-indeling rond dezelfde
 // kaartmotor als index.html. Dit bestand raakt geen kaart-state aan — het
 // verplaatst alleen de bestaande bedieningselementen (die location.js bij ID
