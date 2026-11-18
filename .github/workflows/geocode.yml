@@ -1,0 +1,46 @@
+name: Geocode
+
+# Looks up coordinates for the place names in tools/seo/nl/geocode-in.json
+# ([{slug, q}]) via Nominatim (1 request per second) and commits geocode-out.json.
+
+on:
+  push:
+    paths:
+      - 'tools/seo/nl/geocode-in.json'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  geocode:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - name: Geocode
+        run: |
+          python3 - <<'PY'
+          import json, time, urllib.parse, urllib.request
+          src = json.load(open('tools/seo/nl/geocode-in.json'))
+          out = {}
+          for it in src:
+              u = 'https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=nl&q=' + urllib.parse.quote(it['q'])
+              req = urllib.request.Request(u, headers={'User-Agent': 'N98Maps/1.0 (https://n98maps.com)'})
+              try:
+                  j = json.load(urllib.request.urlopen(req, timeout=30))
+                  out[it['slug']] = {'lat': float(j[0]['lat']), 'lon': float(j[0]['lon']), 'display': j[0]['display_name'], 'type': j[0].get('addresstype')} if j else {'error': 'none'}
+              except Exception as e:
+                  out[it['slug']] = {'error': str(e)}
+              time.sleep(1.2)
+          json.dump(out, open('tools/seo/nl/geocode-out.json', 'w'), ensure_ascii=False, indent=1)
+          print(sum('lat' in v for v in out.values()), 'of', len(out))
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@users.noreply.github.com"
+          git add tools/seo/nl/geocode-out.json
+          git commit -m "Geocode results" || exit 0
+          git pull --rebase -q origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
