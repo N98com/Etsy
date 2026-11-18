@@ -30,7 +30,20 @@
     "more_no": "Meer steden in Noorwegen",
     "more_se": "Meer steden in Zweden",
     "more_eu": "Meer steden in Europa",
-    "more_us": "Meer steden in de Verenigde Staten"
+    "more_us": "Meer steden in de Verenigde Staten",
+    "prov_gr": "Groningen",
+    "prov_fy": "Friesland",
+    "prov_dr": "Drenthe",
+    "prov_ov": "Overijssel",
+    "prov_fl": "Flevoland",
+    "prov_ge": "Gelderland",
+    "prov_ut": "Utrecht",
+    "prov_nh": "Noord-Holland",
+    "prov_zh": "Zuid-Holland",
+    "prov_ze": "Zeeland",
+    "prov_nb": "Noord-Brabant",
+    "prov_li": "Limburg",
+    "all_nl": "Alle steden in Nederland"
   },
   "country": {
     "netherlands": "Nederland",

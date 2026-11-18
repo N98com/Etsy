@@ -392,7 +392,20 @@
       "more_no": "Plus de villes en Norvège",
       "more_se": "Plus de villes en Suède",
       "more_eu": "Plus de villes en Europe",
-      "more_us": "Plus de villes aux États-Unis"
+      "more_us": "Plus de villes aux États-Unis",
+      "prov_gr": "Groningue",
+      "prov_fy": "Frise",
+      "prov_dr": "Drenthe",
+      "prov_ov": "Overijssel",
+      "prov_fl": "Flevoland",
+      "prov_ge": "Gueldre",
+      "prov_ut": "Utrecht",
+      "prov_nh": "Hollande-Septentrionale",
+      "prov_zh": "Hollande-Méridionale",
+      "prov_ze": "Zélande",
+      "prov_nb": "Brabant-Septentrional",
+      "prov_li": "Limbourg",
+      "all_nl": "Toutes les villes des Pays-Bas"
     },
     "country": {
       "netherlands": "Pays-Bas",

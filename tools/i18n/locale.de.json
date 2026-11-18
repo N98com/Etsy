@@ -30,7 +30,20 @@
     "more_no": "Weitere Städte in Norwegen",
     "more_se": "Mehr Städte in Schweden",
     "more_eu": "Weitere Städte in Europa",
-    "more_us": "Weitere Städte in den Vereinigten Staaten"
+    "more_us": "Weitere Städte in den Vereinigten Staaten",
+    "prov_gr": "Groningen",
+    "prov_fy": "Friesland",
+    "prov_dr": "Drenthe",
+    "prov_ov": "Overijssel",
+    "prov_fl": "Flevoland",
+    "prov_ge": "Gelderland",
+    "prov_ut": "Utrecht",
+    "prov_nh": "Nordholland",
+    "prov_zh": "Südholland",
+    "prov_ze": "Zeeland",
+    "prov_nb": "Nordbrabant",
+    "prov_li": "Limburg",
+    "all_nl": "Alle Städte in den Niederlanden"
   },
   "country": {
     "netherlands": "Niederlande",

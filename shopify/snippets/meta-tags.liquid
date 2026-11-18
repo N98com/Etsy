@@ -6,6 +6,13 @@
 
 <meta charset="utf-8">
 <meta name="google-site-verification" content="7Ed5YAOxQX9rIxgW5iyUBylFON1_I8z5uyo1469xJkM">
+{%- comment -%} N°98 Maps: city pages that only exist in some languages (page metafield n98.city, "langs": "en,nl") are not indexed in the other languages. {%- endcomment -%}
+{%- if request.page_type == 'page' -%}
+  {%- assign n98_langs = page.metafields.n98.city.value.langs -%}
+  {%- if n98_langs != blank -%}
+    {%- unless n98_langs contains request.locale.iso_code -%}<meta name="robots" content="noindex, follow">{%- endunless -%}
+  {%- endif -%}
+{%- endif -%}
 <meta
   http-equiv="X-UA-Compatible"
   content="IE=edge"

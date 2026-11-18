@@ -1,0 +1,642 @@
+[
+ {
+  "s": "hoofddorp",
+  "n": "Hoofddorp",
+  "c": "nl",
+  "i": "x-hoofddorp",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "zaandam",
+  "n": "Zaandam",
+  "c": "nl",
+  "i": "x-zaandam",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "alkmaar",
+  "n": "Alkmaar",
+  "c": "nl",
+  "i": "x-alkmaar",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "purmerend",
+  "n": "Purmerend",
+  "c": "nl",
+  "i": "x-purmerend",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "amstelveen",
+  "n": "Amstelveen",
+  "c": "nl",
+  "i": "x-amstelveen",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "hilversum",
+  "n": "Hilversum",
+  "c": "nl",
+  "i": "x-hilversum",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "heerhugowaard",
+  "n": "Heerhugowaard",
+  "c": "nl",
+  "i": "x-heerhugowaard",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "hoorn",
+  "n": "Hoorn",
+  "c": "nl",
+  "i": "x-hoorn",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "ijmuiden",
+  "n": "IJmuiden",
+  "c": "nl",
+  "i": "x-ijmuiden",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "bussum",
+  "n": "Bussum",
+  "c": "nl",
+  "i": "x-bussum",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "den-helder",
+  "n": "Den Helder",
+  "c": "nl",
+  "i": "x-den-helder",
+  "p": "nh",
+  "o": "en,nl"
+ },
+ {
+  "s": "naaldwijk",
+  "n": "Naaldwijk",
+  "c": "nl",
+  "i": "x-naaldwijk",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "alphen-aan-den-rijn",
+  "n": "Alphen aan den Rijn",
+  "c": "nl",
+  "i": "x-alphen-aan-den-rijn",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "spijkenisse",
+  "n": "Spijkenisse",
+  "c": "nl",
+  "i": "x-spijkenisse",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "schiedam",
+  "n": "Schiedam",
+  "c": "nl",
+  "i": "x-schiedam",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "voorburg",
+  "n": "Voorburg",
+  "c": "nl",
+  "i": "x-voorburg",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "gouda",
+  "n": "Gouda",
+  "c": "nl",
+  "i": "x-gouda",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "vlaardingen",
+  "n": "Vlaardingen",
+  "c": "nl",
+  "i": "x-vlaardingen",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "hellevoetsluis",
+  "n": "Hellevoetsluis",
+  "c": "nl",
+  "i": "x-hellevoetsluis",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "capelle-aan-den-ijssel",
+  "n": "Capelle aan den IJssel",
+  "c": "nl",
+  "i": "x-capelle-aan-den-ijssel",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "katwijk",
+  "n": "Katwijk",
+  "c": "nl",
+  "i": "x-katwijk",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "rijswijk",
+  "n": "Rijswijk",
+  "c": "nl",
+  "i": "x-rijswijk",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "pijnacker",
+  "n": "Pijnacker",
+  "c": "nl",
+  "i": "x-pijnacker",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "berkel-en-rodenrijs",
+  "n": "Berkel en Rodenrijs",
+  "c": "nl",
+  "i": "x-berkel-en-rodenrijs",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "oud-beijerland",
+  "n": "Oud-Beijerland",
+  "c": "nl",
+  "i": "x-oud-beijerland",
+  "p": "zh",
+  "o": "en,nl"
+ },
+ {
+  "s": "veenendaal",
+  "n": "Veenendaal",
+  "c": "nl",
+  "i": "x-veenendaal",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "nieuwegein",
+  "n": "Nieuwegein",
+  "c": "nl",
+  "i": "x-nieuwegein",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "zeist",
+  "n": "Zeist",
+  "c": "nl",
+  "i": "x-zeist",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "maarssen",
+  "n": "Maarssen",
+  "c": "nl",
+  "i": "x-maarssen",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "vianen",
+  "n": "Vianen",
+  "c": "nl",
+  "i": "x-vianen",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "woerden",
+  "n": "Woerden",
+  "c": "nl",
+  "i": "x-woerden",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "houten",
+  "n": "Houten",
+  "c": "nl",
+  "i": "x-houten",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "driebergen",
+  "n": "Driebergen",
+  "c": "nl",
+  "i": "x-driebergen",
+  "p": "ut",
+  "o": "en,nl"
+ },
+ {
+  "s": "ede",
+  "n": "Ede",
+  "c": "nl",
+  "i": "x-ede",
+  "p": "ge",
+  "o": "en,nl"
+ },
+ {
+  "s": "doetinchem",
+  "n": "Doetinchem",
+  "c": "nl",
+  "i": "x-doetinchem",
+  "p": "ge",
+  "o": "en,nl"
+ },
+ {
+  "s": "barneveld",
+  "n": "Barneveld",
+  "c": "nl",
+  "i": "x-barneveld",
+  "p": "ge",
+  "o": "en,nl"
+ },
+ {
+  "s": "harderwijk",
+  "n": "Harderwijk",
+  "c": "nl",
+  "i": "x-harderwijk",
+  "p": "ge",
+  "o": "en,nl"
+ },
+ {
+  "s": "zutphen",
+  "n": "Zutphen",
+  "c": "nl",
+  "i": "x-zutphen",
+  "p": "ge",
+  "o": "en,nl"
+ },
+ {
+  "s": "helmond",
+  "n": "Helmond",
+  "c": "nl",
+  "i": "x-helmond",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "oss",
+  "n": "Oss",
+  "c": "nl",
+  "i": "x-oss",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "cuijk",
+  "n": "Cuijk",
+  "c": "nl",
+  "i": "x-cuijk",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "veghel",
+  "n": "Veghel",
+  "c": "nl",
+  "i": "x-veghel",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "roosendaal",
+  "n": "Roosendaal",
+  "c": "nl",
+  "i": "x-roosendaal",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "bergen-op-zoom",
+  "n": "Bergen op Zoom",
+  "c": "nl",
+  "i": "x-bergen-op-zoom",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "uden",
+  "n": "Uden",
+  "c": "nl",
+  "i": "x-uden",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "oosterhout",
+  "n": "Oosterhout",
+  "c": "nl",
+  "i": "x-oosterhout",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "waalwijk",
+  "n": "Waalwijk",
+  "c": "nl",
+  "i": "x-waalwijk",
+  "p": "nb",
+  "o": "en,nl"
+ },
+ {
+  "s": "venlo",
+  "n": "Venlo",
+  "c": "nl",
+  "i": "x-venlo",
+  "p": "li",
+  "o": "en,nl"
+ },
+ {
+  "s": "sittard",
+  "n": "Sittard",
+  "c": "nl",
+  "i": "x-sittard",
+  "p": "li",
+  "o": "en,nl"
+ },
+ {
+  "s": "heerlen",
+  "n": "Heerlen",
+  "c": "nl",
+  "i": "x-heerlen",
+  "p": "li",
+  "o": "en,nl"
+ },
+ {
+  "s": "roermond",
+  "n": "Roermond",
+  "c": "nl",
+  "i": "x-roermond",
+  "p": "li",
+  "o": "en,nl"
+ },
+ {
+  "s": "weert",
+  "n": "Weert",
+  "c": "nl",
+  "i": "x-weert",
+  "p": "li",
+  "o": "en,nl"
+ },
+ {
+  "s": "deventer",
+  "n": "Deventer",
+  "c": "nl",
+  "i": "x-deventer",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "almelo",
+  "n": "Almelo",
+  "c": "nl",
+  "i": "x-almelo",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "hengelo",
+  "n": "Hengelo",
+  "c": "nl",
+  "i": "x-hengelo",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "hardenberg",
+  "n": "Hardenberg",
+  "c": "nl",
+  "i": "x-hardenberg",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "kampen",
+  "n": "Kampen",
+  "c": "nl",
+  "i": "x-kampen",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "borne",
+  "n": "Borne",
+  "c": "nl",
+  "i": "x-borne",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "oldenzaal",
+  "n": "Oldenzaal",
+  "c": "nl",
+  "i": "x-oldenzaal",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "haaksbergen",
+  "n": "Haaksbergen",
+  "c": "nl",
+  "i": "x-haaksbergen",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "losser",
+  "n": "Losser",
+  "c": "nl",
+  "i": "x-losser",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "rijssen",
+  "n": "Rijssen",
+  "c": "nl",
+  "i": "x-rijssen",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "nijverdal",
+  "n": "Nijverdal",
+  "c": "nl",
+  "i": "x-nijverdal",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "goor",
+  "n": "Goor",
+  "c": "nl",
+  "i": "x-goor",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "vriezenveen",
+  "n": "Vriezenveen",
+  "c": "nl",
+  "i": "x-vriezenveen",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "tubbergen",
+  "n": "Tubbergen",
+  "c": "nl",
+  "i": "x-tubbergen",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "ootmarsum",
+  "n": "Ootmarsum",
+  "c": "nl",
+  "i": "x-ootmarsum",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "wierden",
+  "n": "Wierden",
+  "c": "nl",
+  "i": "x-wierden",
+  "p": "ov",
+  "o": "en,nl"
+ },
+ {
+  "s": "emmen",
+  "n": "Emmen",
+  "c": "nl",
+  "i": "x-emmen",
+  "p": "dr",
+  "o": "en,nl"
+ },
+ {
+  "s": "assen",
+  "n": "Assen",
+  "c": "nl",
+  "i": "x-assen",
+  "p": "dr",
+  "o": "en,nl"
+ },
+ {
+  "s": "hoogeveen",
+  "n": "Hoogeveen",
+  "c": "nl",
+  "i": "x-hoogeveen",
+  "p": "dr",
+  "o": "en,nl"
+ },
+ {
+  "s": "sneek",
+  "n": "Sneek",
+  "c": "nl",
+  "i": "x-sneek",
+  "p": "fy",
+  "o": "en,nl"
+ },
+ {
+  "s": "drachten",
+  "n": "Drachten",
+  "c": "nl",
+  "i": "x-drachten",
+  "p": "fy",
+  "o": "en,nl"
+ },
+ {
+  "s": "heerenveen",
+  "n": "Heerenveen",
+  "c": "nl",
+  "i": "x-heerenveen",
+  "p": "fy",
+  "o": "en,nl"
+ },
+ {
+  "s": "joure",
+  "n": "Joure",
+  "c": "nl",
+  "i": "x-joure",
+  "p": "fy",
+  "o": "en,nl"
+ },
+ {
+  "s": "hoogezand",
+  "n": "Hoogezand",
+  "c": "nl",
+  "i": "x-hoogezand",
+  "p": "gr",
+  "o": "en,nl"
+ },
+ {
+  "s": "lelystad",
+  "n": "Lelystad",
+  "c": "nl",
+  "i": "x-lelystad",
+  "p": "fl",
+  "o": "en,nl"
+ },
+ {
+  "s": "emmeloord",
+  "n": "Emmeloord",
+  "c": "nl",
+  "i": "x-emmeloord",
+  "p": "fl",
+  "o": "en,nl"
+ },
+ {
+  "s": "terneuzen",
+  "n": "Terneuzen",
+  "c": "nl",
+  "i": "x-terneuzen",
+  "p": "ze",
+  "o": "en,nl"
+ },
+ {
+  "s": "middelburg",
+  "n": "Middelburg",
+  "c": "nl",
+  "i": "x-middelburg",
+  "p": "ze",
+  "o": "en,nl"
+ }
+]

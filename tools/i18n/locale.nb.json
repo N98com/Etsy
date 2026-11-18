@@ -30,7 +30,20 @@
     "more_no": "Flere byer i Norge",
     "more_se": "Flere byer i Sverige",
     "more_eu": "Flere byer i Europa",
-    "more_us": "Flere byer i USA"
+    "more_us": "Flere byer i USA",
+    "prov_gr": "Groningen",
+    "prov_fy": "Friesland",
+    "prov_dr": "Drenthe",
+    "prov_ov": "Overijssel",
+    "prov_fl": "Flevoland",
+    "prov_ge": "Gelderland",
+    "prov_ut": "Utrecht",
+    "prov_nh": "Nord-Holland",
+    "prov_zh": "Sør-Holland",
+    "prov_ze": "Zeeland",
+    "prov_nb": "Nord-Brabant",
+    "prov_li": "Limburg",
+    "all_nl": "Alle byer i Nederland"
   },
   "country": {
     "netherlands": "Nederland",

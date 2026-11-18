@@ -12,10 +12,11 @@
   "type": "town"
  },
  "alkmaar": {
-  "lat": 52.6008538,
-  "lon": 4.8170994,
+  "lat": 52.6315,
+  "lon": 4.7486,
   "display": "Alkmaar, Noord-Holland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "purmerend": {
   "lat": 52.5024789,
@@ -42,10 +43,11 @@
   "type": "town"
  },
  "hoorn": {
-  "lat": 52.6314723,
-  "lon": 5.0550437,
+  "lat": 52.6413,
+  "lon": 5.0597,
   "display": "Hoorn, Noord-Holland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "ijmuiden": {
   "lat": 52.4574139,
@@ -60,10 +62,11 @@
   "type": "town"
  },
  "den-helder": {
-  "lat": 52.9508632,
-  "lon": 4.7935568,
+  "lat": 52.9563,
+  "lon": 4.76,
   "display": "Den Helder, Noord-Holland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "naaldwijk": {
   "lat": 51.9930016,
@@ -72,10 +75,11 @@
   "type": "town"
  },
  "alphen-aan-den-rijn": {
-  "lat": 52.1130693,
-  "lon": 4.6408057,
+  "lat": 52.1295,
+  "lon": 4.6574,
   "display": "Alphen aan den Rijn, Zuid-Holland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "spijkenisse": {
   "lat": 51.8464881,
@@ -84,10 +88,11 @@
   "type": "town"
  },
  "schiedam": {
-  "lat": 51.9300454,
-  "lon": 4.3864511,
+  "lat": 51.9167,
+  "lon": 4.399,
   "display": "Schiedam, Zuid-Holland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "voorburg": {
   "lat": 52.0703201,
@@ -162,10 +167,11 @@
   "type": "municipality"
  },
  "zeist": {
-  "lat": 52.114886,
-  "lon": 5.2517433,
+  "lat": 52.0894,
+  "lon": 5.2329,
   "display": "Zeist, Utrecht, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "maarssen": {
   "lat": 52.1384846,
@@ -180,16 +186,18 @@
   "type": "town"
  },
  "woerden": {
-  "lat": 52.1134715,
-  "lon": 4.8945298,
+  "lat": 52.0858,
+  "lon": 4.8834,
   "display": "Woerden, Utrecht, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "houten": {
-  "lat": 52.008084,
-  "lon": 5.1776882,
+  "lat": 52.0287,
+  "lon": 5.168,
   "display": "Houten, Utrecht, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "driebergen": {
   "lat": 52.0522872,
@@ -198,10 +206,11 @@
   "type": "town"
  },
  "ede": {
-  "lat": 52.0716826,
-  "lon": 5.7455106,
+  "lat": 52.0402,
+  "lon": 5.6649,
   "display": "Ede, Gelderland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "doetinchem": {
   "lat": 51.9585348,
@@ -210,16 +219,18 @@
   "type": "municipality"
  },
  "barneveld": {
-  "lat": 52.1715067,
-  "lon": 5.6454392,
+  "lat": 52.1395,
+  "lon": 5.5856,
   "display": "Barneveld, Gelderland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "harderwijk": {
-  "lat": 52.3400606,
-  "lon": 5.6376026,
+  "lat": 52.3413,
+  "lon": 5.6203,
   "display": "Harderwijk, Gelderland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "zutphen": {
   "lat": 52.1396933,
@@ -234,10 +245,11 @@
   "type": "city"
  },
  "oss": {
-  "lat": 51.7783542,
-  "lon": 5.5320836,
+  "lat": 51.765,
+  "lon": 5.518,
   "display": "Oss, Noord-Brabant, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "cuijk": {
   "lat": 51.729939,
@@ -270,22 +282,25 @@
   "type": "town"
  },
  "oosterhout": {
-  "lat": 51.6322376,
-  "lon": 4.8630424,
+  "lat": 51.6449,
+  "lon": 4.8597,
   "display": "Oosterhout, Noord-Brabant, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "waalwijk": {
-  "lat": 51.6873372,
-  "lon": 5.0173079,
+  "lat": 51.6866,
+  "lon": 5.0656,
   "display": "Waalwijk, Noord-Brabant, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "venlo": {
-  "lat": 51.3924489,
-  "lon": 6.1511724,
+  "lat": 51.3704,
+  "lon": 6.1724,
   "display": "Venlo, Limburg, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "sittard": {
   "lat": 50.9974235,
@@ -294,10 +309,11 @@
   "type": "town"
  },
  "heerlen": {
-  "lat": 50.8775239,
-  "lon": 5.9815066,
+  "lat": 50.8876,
+  "lon": 5.9806,
   "display": "Heerlen, Limburg, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "roermond": {
   "lat": 51.1933903,
@@ -306,28 +322,32 @@
   "type": "city"
  },
  "weert": {
-  "lat": 51.2355829,
-  "lon": 5.7050797,
+  "lat": 51.2517,
+  "lon": 5.7069,
   "display": "Weert, Limburg, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "deventer": {
-  "lat": 52.2694897,
-  "lon": 6.2364886,
+  "lat": 52.2552,
+  "lon": 6.1606,
   "display": "Deventer, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "almelo": {
-  "lat": 52.3445525,
-  "lon": 6.6574821,
+  "lat": 52.357,
+  "lon": 6.6625,
   "display": "Almelo, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "hengelo": {
-  "lat": 52.2523195,
-  "lon": 6.7955256,
+  "lat": 52.2658,
+  "lon": 6.7931,
   "display": "Hengelo, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "hardenberg": {
   "lat": 52.5754706,
@@ -342,16 +362,18 @@
   "type": "town"
  },
  "borne": {
-  "lat": 52.3121858,
-  "lon": 6.7464317,
+  "lat": 52.3005,
+  "lon": 6.7525,
   "display": "Borne, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "oldenzaal": {
-  "lat": 52.3078435,
-  "lon": 6.9084597,
+  "lat": 52.3131,
+  "lon": 6.9286,
   "display": "Oldenzaal, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "haaksbergen": {
   "lat": 52.1564581,
@@ -360,10 +382,11 @@
   "type": "town"
  },
  "losser": {
-  "lat": 52.300289,
-  "lon": 6.9881043,
+  "lat": 52.261,
+  "lon": 7.004,
   "display": "Losser, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "rijssen": {
   "lat": 52.3080276,
@@ -402,28 +425,32 @@
   "type": "village"
  },
  "wierden": {
-  "lat": 52.3433112,
-  "lon": 6.5433896,
+  "lat": 52.3589,
+  "lon": 6.594,
   "display": "Wierden, Overijssel, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "emmen": {
-  "lat": 52.7528662,
-  "lon": 6.9525135,
+  "lat": 52.785,
+  "lon": 6.897,
   "display": "Emmen, Drenthe, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "assen": {
-  "lat": 52.997225,
-  "lon": 6.5506458,
+  "lat": 52.9925,
+  "lon": 6.5642,
   "display": "Assen, Drenthe, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "hoogeveen": {
-  "lat": 52.7264258,
-  "lon": 6.4930815,
+  "lat": 52.7233,
+  "lon": 6.476,
   "display": "Hoogeveen, Drenthe, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "sneek": {
   "lat": 53.033548,
@@ -438,10 +465,11 @@
   "type": "town"
  },
  "heerenveen": {
-  "lat": 52.9984742,
-  "lon": 5.9231488,
+  "lat": 52.9597,
+  "lon": 5.9203,
   "display": "Heerenveen, Fryslân, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "joure": {
   "lat": 52.9644286,
@@ -456,10 +484,11 @@
   "type": "town"
  },
  "lelystad": {
-  "lat": 52.536681,
-  "lon": 5.3610715,
+  "lat": 52.5185,
+  "lon": 5.4714,
   "display": "Lelystad, Flevoland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "emmeloord": {
   "lat": 52.7087448,
@@ -468,10 +497,11 @@
   "type": "town"
  },
  "terneuzen": {
-  "lat": 51.298843,
-  "lon": 3.8422044,
+  "lat": 51.3353,
+  "lon": 3.828,
   "display": "Terneuzen, Zeeland, Nederland",
-  "type": "municipality"
+  "type": "municipality",
+  "fixed": "town centre"
  },
  "middelburg": {
   "lat": 51.4996784,
