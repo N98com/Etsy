@@ -18,7 +18,13 @@
   after duplicating a theme run `python3 tools/i18n/theme_content.py <new_theme_id>` and send the
   printed mutation (translationsRegister) via the Shopify connector.
   The designer translates itself at runtime with `js/i18n.js` (`?lang=xx`, set by the configurator).
-- City pages: list of all cities = shop metafield `n98.cities` (json), map per page = page metafield `n98.city`.
+- City pages: list of all cities = shop metafield `n98.cities2` (json, from v35 on; falls back to `n98.cities`),
+  map per page = page metafield `n98.city`. Entries: s slug, n name, c group, i image, p province (nl only),
+  o languages ("en,nl": only shown in those languages; the page json has "langs" and gets noindex elsewhere).
+  Dutch towns: `tools/seo/nl/` (cities.py, t_*.py texts, gen.py). Set the list with shopify-translate
+  {action:'shop_metafield', key:'cities2', url}. Theme files and renders go to an unpublished theme with
+  {action:'theme_upload', theme, url:[{filename,url}]} and are verified with {action:'theme_check'}.
+  Theme content translations are copied when a theme is duplicated.
 - Roadmap (Studio button top right): Supabase project `tzhzyprycgpnhxkmexkh`, table `public.roadmap_items`
   (title, done, done_at, position). Read it with `select * from roadmap_items order by done, position`;
   tick an item off with `update roadmap_items set done = true, done_at = now() where id = …` once Bram and
