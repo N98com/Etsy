@@ -1,525 +1,1002 @@
 [
  {
-  "id": "q01-desert-sunset",
-  "name": "Desert Sunset",
-  "gradDir": "diag",
-  "bg": "#2a0e1e",
-  "bgStops": [
-   "#2a0e1e",
-   "#9a2a2a",
-   "#d8902a"
-  ],
-  "water": "#41162e",
-  "waterStops": [
-   "#41162e",
-   "#5c1919",
-   "#835718"
-  ],
-  "park": "#2a0e1e",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q02-tropical-dusk",
-  "name": "Tropical Dusk",
-  "gradDir": "vertical",
-  "bg": "#14123a",
-  "bgStops": [
-   "#14123a",
-   "#7a1f5a",
-   "#d0602a"
-  ],
-  "water": "#0c0b23",
-  "waterStops": [
-   "#0c0b23",
-   "#491336",
-   "#7d3a19"
-  ],
-  "park": "#14123a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q03-royal-ember",
-  "name": "Royal Ember",
-  "gradDir": "diag",
-  "bg": "#141a50",
-  "bgStops": [
-   "#141a50",
-   "#5a1a4a",
-   "#b8402a"
-  ],
-  "water": "#0c1030",
-  "waterStops": [
-   "#0c1030",
-   "#36102c",
-   "#6e2619"
-  ],
-  "park": "#141a50",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q04-golden-hour",
-  "name": "Golden Hour",
-  "gradDir": "vertical",
-  "bg": "#2a1030",
-  "bgStops": [
-   "#2a1030",
-   "#a8402a",
-   "#e0a83a"
-  ],
-  "water": "#190a1d",
-  "waterStops": [
-   "#190a1d",
-   "#652619",
-   "#926917"
-  ],
-  "park": "#2a1030",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q05-aurora",
-  "name": "Aurora",
+  "id": "u01-orchid-shadow",
+  "name": "Orchid Shadow",
   "gradDir": "horizontal",
-  "bg": "#0e2a3a",
+  "bg": "#212011",
   "bgStops": [
-   "#0e2a3a",
-   "#2a5a4a",
-   "#5a2a6a"
+   "#212011",
+   "#b14e8d"
   ],
-  "water": "#081923",
+  "water": "#35341b",
   "waterStops": [
-   "#081923",
-   "#19362c",
-   "#361940"
+   "#35341b",
+   "#6a2f55"
   ],
-  "park": "#0e2a3a",
+  "park": "#212011",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
  },
  {
-  "id": "q06-bordeaux-glow",
-  "name": "Bordeaux Glow",
-  "gradDir": "radial",
-  "bg": "#9a2a3a",
-  "bgStops": [
-   "#9a2a3a",
-   "#4a0f1f",
-   "#1a050a"
-  ],
-  "water": "#5c1923",
-  "waterStops": [
-   "#5c1923",
-   "#2c0913",
-   "#340a14"
-  ],
-  "park": "#9a2a3a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q07-amber-halo",
-  "name": "Amber Halo",
-  "gradDir": "radial",
-  "bg": "#c8862a",
-  "bgStops": [
-   "#c8862a",
-   "#6a2a14",
-   "#1a0c08"
-  ],
-  "water": "#785019",
-  "waterStops": [
-   "#785019",
-   "#40190c",
-   "#31170f"
-  ],
-  "park": "#c8862a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q08-violet-halo",
-  "name": "Violet Halo",
-  "gradDir": "radial",
-  "bg": "#8a4ab0",
-  "bgStops": [
-   "#8a4ab0",
-   "#3a1a5a",
-   "#0e0a1e"
-  ],
-  "water": "#532c6a",
-  "waterStops": [
-   "#532c6a",
-   "#231036",
-   "#191235"
-  ],
-  "park": "#8a4ab0",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q09-rose-halo",
-  "name": "Rose Halo",
-  "gradDir": "radial",
-  "bg": "#c06a7a",
-  "bgStops": [
-   "#c06a7a",
-   "#6a2a3a",
-   "#1e0a10"
-  ],
-  "water": "#7e3543",
-  "waterStops": [
-   "#7e3543",
-   "#401923",
-   "#35121c"
-  ],
-  "park": "#c06a7a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q10-emerald-halo",
-  "name": "Emerald Halo",
-  "gradDir": "radial",
-  "bg": "#3a8a6a",
-  "bgStops": [
-   "#3a8a6a",
-   "#14402e",
-   "#06140e"
-  ],
-  "water": "#235340",
-  "waterStops": [
-   "#235340",
-   "#0c261c",
-   "#0d2c1e"
-  ],
-  "park": "#3a8a6a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q11-midnight-halo",
-  "name": "Midnight Halo",
-  "gradDir": "radial",
-  "bg": "#3a5a9a",
-  "bgStops": [
-   "#3a5a9a",
-   "#16244a",
-   "#060a18"
-  ],
-  "water": "#23365c",
-  "waterStops": [
-   "#23365c",
-   "#0d162c",
-   "#0c1430"
-  ],
-  "park": "#3a5a9a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q12-copper-halo",
-  "name": "Copper Halo",
-  "gradDir": "radial",
-  "bg": "#c0703a",
-  "bgStops": [
-   "#c0703a",
-   "#5a2a18",
-   "#140a06"
-  ],
-  "water": "#734323",
-  "waterStops": [
-   "#734323",
-   "#36190e",
-   "#2c160d"
-  ],
-  "park": "#c0703a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q13-fire-opal",
-  "name": "Fire Opal",
+  "id": "u02-autumn-vineyard",
+  "name": "Autumn Vineyard",
   "gradDir": "diag",
-  "bg": "#3a0a10",
+  "bg": "#141f0f",
   "bgStops": [
-   "#3a0a10",
-   "#c0302a",
-   "#e8a040"
+   "#141f0f",
+   "#4c461d",
+   "#884644"
   ],
-  "water": "#23060a",
+  "water": "#213419",
   "waterStops": [
-   "#23060a",
-   "#731d19",
-   "#9f6313"
+   "#213419",
+   "#2e2a11",
+   "#522a29"
   ],
-  "park": "#3a0a10",
+  "park": "#141f0f",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
  },
  {
-  "id": "q14-plum-orchard",
-  "name": "Plum Orchard",
+  "id": "u03-raspberry-fields",
+  "name": "Raspberry Fields",
+  "gradDir": "diag",
+  "bg": "#34360e",
+  "bgStops": [
+   "#34360e",
+   "#563525",
+   "#b93969"
+  ],
+  "water": "#1f2008",
+  "waterStops": [
+   "#1f2008",
+   "#342016",
+   "#6f223f"
+  ],
+  "park": "#34360e",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u04-hazel-grove",
+  "name": "Hazel Grove",
+  "gradDir": "diag",
+  "bg": "#1d3613",
+  "bgStops": [
+   "#1d3613",
+   "#64652a",
+   "#7d513d"
+  ],
+  "water": "#11200b",
+  "waterStops": [
+   "#11200b",
+   "#3c3d19",
+   "#4b3125"
+  ],
+  "park": "#1d3613",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u05-meadow-gold",
+  "name": "Meadow Gold",
+  "gradDir": "vertical",
+  "bg": "#0a2315",
+  "bgStops": [
+   "#0a2315",
+   "#376223",
+   "#afa742"
+  ],
+  "water": "#113b23",
+  "waterStops": [
+   "#113b23",
+   "#213b15",
+   "#696428"
+  ],
+  "park": "#0a2315",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u06-plum-citrine",
+  "name": "Plum Citrine",
+  "gradDir": "diag",
+  "bg": "#320d23",
+  "bgStops": [
+   "#320d23",
+   "#bebe36"
+  ],
+  "water": "#1e0815",
+  "waterStops": [
+   "#1e0815",
+   "#727220"
+  ],
+  "park": "#320d23",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u07-olive-blossom",
+  "name": "Olive Blossom",
+  "gradDir": "diag",
+  "bg": "#1c260b",
+  "bgStops": [
+   "#1c260b",
+   "#803f55"
+  ],
+  "water": "#2d3e12",
+  "waterStops": [
+   "#2d3e12",
+   "#4d2633"
+  ],
+  "park": "#1c260b",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u08-magenta-velvet",
+  "name": "Magenta Velvet",
+  "gradDir": "vertical",
+  "bg": "#170e1b",
+  "bgStops": [
+   "#170e1b",
+   "#6f206e",
+   "#912f6e"
+  ],
+  "water": "#28182f",
+  "waterStops": [
+   "#28182f",
+   "#431342",
+   "#571c42"
+  ],
+  "park": "#170e1b",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u09-lime-dusk",
+  "name": "Lime Dusk",
+  "gradDir": "diag",
+  "bg": "#263318",
+  "bgStops": [
+   "#263318",
+   "#beb733"
+  ],
+  "water": "#171f0e",
+  "waterStops": [
+   "#171f0e",
+   "#726e1f"
+  ],
+  "park": "#263318",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u10-fuchsia-ember",
+  "name": "Fuchsia Ember",
+  "gradDir": "vertical",
+  "bg": "#2e150d",
+  "bgStops": [
+   "#2e150d",
+   "#762332",
+   "#c13c8a"
+  ],
+  "water": "#462014",
+  "waterStops": [
+   "#462014",
+   "#47151e",
+   "#742453"
+  ],
+  "park": "#2e150d",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u11-fern-valley",
+  "name": "Fern Valley",
+  "gradDir": "vertical",
+  "bg": "#123825",
+  "bgStops": [
+   "#123825",
+   "#2b6a2f",
+   "#608e46"
+  ],
+  "water": "#0b2216",
+  "waterStops": [
+   "#0b2216",
+   "#1a401c",
+   "#3a552a"
+  ],
+  "park": "#123825",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u12-lagoon-path",
+  "name": "Lagoon Path",
+  "gradDir": "diag",
+  "bg": "#0d2f14",
+  "bgStops": [
+   "#0d2f14",
+   "#2c5747",
+   "#419b9f"
+  ],
+  "water": "#14471e",
+  "waterStops": [
+   "#14471e",
+   "#1a342b",
+   "#275d5f"
+  ],
+  "park": "#0d2f14",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u13-deep-cobalt",
+  "name": "Deep Cobalt",
+  "gradDir": "vertical",
+  "bg": "#0b261c",
+  "bgStops": [
+   "#0b261c",
+   "#3551c5"
+  ],
+  "water": "#123e2d",
+  "waterStops": [
+   "#123e2d",
+   "#203176"
+  ],
+  "park": "#0b261c",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u14-kingfisher",
+  "name": "Kingfisher",
+  "gradDir": "diag",
+  "bg": "#0d1a0d",
+  "bgStops": [
+   "#0d1a0d",
+   "#318aa2"
+  ],
+  "water": "#172e17",
+  "waterStops": [
+   "#172e17",
+   "#1d5361"
+  ],
+  "park": "#0d1a0d",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u15-delft-night",
+  "name": "Delft Night",
+  "gradDir": "diag",
+  "bg": "#0c2614",
+  "bgStops": [
+   "#0c2614",
+   "#3a70c1"
+  ],
+  "water": "#133d20",
+  "waterStops": [
+   "#133d20",
+   "#234374"
+  ],
+  "park": "#0c2614",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u16-jade-halo",
+  "name": "Jade Halo",
+  "gradDir": "radial",
+  "bg": "#41b99a",
+  "bgStops": [
+   "#41b99a",
+   "#1c424a",
+   "#102124"
+  ],
+  "water": "#276f5c",
+  "waterStops": [
+   "#276f5c",
+   "#11282c",
+   "#193439"
+  ],
+  "park": "#41b99a",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u17-highland-green",
+  "name": "Highland Green",
+  "gradDir": "vertical",
+  "bg": "#132136",
+  "bgStops": [
+   "#132136",
+   "#50a94b"
+  ],
+  "water": "#0b1420",
+  "waterStops": [
+   "#0b1420",
+   "#30652d"
+  ],
+  "park": "#132136",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u18-forest-clearing",
+  "name": "Forest Clearing",
   "gradDir": "horizontal",
-  "bg": "#2a0f2e",
+  "bg": "#271711",
   "bgStops": [
-   "#2a0f2e",
-   "#6a2050",
-   "#b0606a"
+   "#271711",
+   "#309a38"
   ],
-  "water": "#3f1745",
+  "water": "#3c241a",
   "waterStops": [
-   "#3f1745",
-   "#401330",
-   "#6d363d"
+   "#3c241a",
+   "#1d5c22"
   ],
-  "park": "#2a0f2e",
+  "park": "#271711",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
  },
  {
-  "id": "q15-ocean-sunrise",
-  "name": "Ocean Sunrise",
-  "gradDir": "vertical",
-  "bg": "#0c1a33",
-  "bgStops": [
-   "#0c1a33",
-   "#3a3a6a",
-   "#c8705a"
-  ],
-  "water": "#07101f",
-  "waterStops": [
-   "#07101f",
-   "#232340",
-   "#823d2b"
-  ],
-  "park": "#0c1a33",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q16-saffron-wine",
-  "name": "Saffron Wine",
-  "gradDir": "diag",
-  "bg": "#3a0f1e",
-  "bgStops": [
-   "#3a0f1e",
-   "#8a2a2a",
-   "#c8962e"
-  ],
-  "water": "#230912",
-  "waterStops": [
-   "#230912",
-   "#531919",
-   "#785a1c"
-  ],
-  "park": "#3a0f1e",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q17-mulled-wine",
-  "name": "Mulled Wine",
-  "gradDir": "vertical",
-  "bg": "#1e0810",
-  "bgStops": [
-   "#1e0810",
-   "#6a1a2a",
-   "#a8502a"
-  ],
-  "water": "#360e1d",
-  "waterStops": [
-   "#360e1d",
-   "#401019",
-   "#653019"
-  ],
-  "park": "#1e0810",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q18-berry-gold",
-  "name": "Berry Gold",
-  "gradDir": "diag",
-  "bg": "#2a0a2a",
-  "bgStops": [
-   "#2a0a2a",
-   "#8a1a4a",
-   "#c8962e"
-  ],
-  "water": "#431043",
-  "waterStops": [
-   "#431043",
-   "#53102c",
-   "#785a1c"
-  ],
-  "park": "#2a0a2a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q19-forest-ember",
-  "name": "Forest Ember",
-  "gradDir": "diag",
-  "bg": "#0c241a",
-  "bgStops": [
-   "#0c241a",
-   "#5a5a1e",
-   "#b8501e"
-  ],
-  "water": "#143b2b",
-  "waterStops": [
-   "#143b2b",
-   "#363612",
-   "#6e3012"
-  ],
-  "park": "#0c241a",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q20-twilight-rose",
-  "name": "Twilight Rose",
-  "gradDir": "vertical",
-  "bg": "#101436",
-  "bgStops": [
-   "#101436",
-   "#5a2a5a",
-   "#c0707a"
-  ],
-  "water": "#0a0c20",
-  "waterStops": [
-   "#0a0c20",
-   "#361936",
-   "#7f3841"
-  ],
-  "park": "#101436",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q21-velvet-flame",
-  "name": "Velvet Flame",
+  "id": "u19-iris-bay",
+  "name": "Iris Bay",
   "gradDir": "horizontal",
-  "bg": "#2a0a3a",
+  "bg": "#310e2f",
   "bgStops": [
-   "#2a0a3a",
-   "#8a1a3a",
-   "#d0602a"
+   "#310e2f",
+   "#419dba"
   ],
-  "water": "#190623",
+  "water": "#1d081c",
   "waterStops": [
-   "#190623",
-   "#531023",
-   "#7d3a19"
+   "#1d081c",
+   "#275e70"
   ],
-  "park": "#2a0a3a",
+  "park": "#310e2f",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
  },
  {
-  "id": "q22-cocoa-blush",
-  "name": "Cocoa Blush",
-  "gradDir": "diag",
-  "bg": "#1e120e",
-  "bgStops": [
-   "#1e120e",
-   "#6a3a30",
-   "#c0807a"
-  ],
-  "water": "#331f18",
-  "waterStops": [
-   "#331f18",
-   "#40231d",
-   "#80423d"
-  ],
-  "park": "#1e120e",
-  "road": "#f6f3ec",
-  "roadMinor": "#c9c2b6",
-  "text": "#f6f3ec"
- },
- {
-  "id": "q23-indigo-gold",
-  "name": "Indigo Gold",
+  "id": "u20-alpine-lake",
+  "name": "Alpine Lake",
   "gradDir": "vertical",
-  "bg": "#0e1236",
+  "bg": "#37320f",
   "bgStops": [
-   "#0e1236",
-   "#3a2a5a",
-   "#c8962e"
+   "#37320f",
+   "#2c4622",
+   "#34a97c"
   ],
-  "water": "#080b20",
+  "water": "#211e09",
   "waterStops": [
-   "#080b20",
-   "#231936",
-   "#785a1c"
+   "#211e09",
+   "#1a2a14",
+   "#1f654a"
   ],
-  "park": "#0e1236",
+  "park": "#37320f",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
  },
  {
-  "id": "q24-sienna-night",
-  "name": "Sienna Night",
+  "id": "u21-moonstone-halo",
+  "name": "Moonstone Halo",
   "gradDir": "radial",
-  "bg": "#b8603a",
+  "bg": "#507ea2",
   "bgStops": [
-   "#b8603a",
-   "#4a2014",
-   "#0e0806"
+   "#507ea2",
+   "#1c1d4a",
+   "#0f0f38"
   ],
-  "water": "#6e3a23",
+  "water": "#304c61",
   "waterStops": [
-   "#6e3a23",
-   "#2c130c",
-   "#23140f"
+   "#304c61",
+   "#11112c",
+   "#090922"
   ],
-  "park": "#b8603a",
+  "park": "#507ea2",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
  },
  {
-  "id": "q25-prism-night",
-  "name": "Prism Night",
-  "gradDir": "horizontal",
-  "bg": "#1a1450",
+  "id": "u22-peony-night",
+  "name": "Peony Night",
+  "gradDir": "vertical",
+  "bg": "#3a0f1a",
   "bgStops": [
-   "#1a1450",
-   "#7a1a5a",
-   "#c0502a"
+   "#3a0f1a",
+   "#b63fa2"
   ],
-  "water": "#100c30",
+  "water": "#230910",
   "waterStops": [
-   "#100c30",
-   "#491036",
-   "#733019"
+   "#230910",
+   "#6d2661"
   ],
-  "park": "#1a1450",
+  "park": "#3a0f1a",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u23-amethyst-rise",
+  "name": "Amethyst Rise",
+  "gradDir": "vertical",
+  "bg": "#2b0d0d",
+  "bgStops": [
+   "#2b0d0d",
+   "#4f2847",
+   "#5d33a4"
+  ],
+  "water": "#421414",
+  "waterStops": [
+   "#421414",
+   "#2f182b",
+   "#381f62"
+  ],
+  "park": "#2b0d0d",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u24-spring-moss",
+  "name": "Spring Moss",
+  "gradDir": "horizontal",
+  "bg": "#243014",
+  "bgStops": [
+   "#243014",
+   "#3cbd4d"
+  ],
+  "water": "#161d0c",
+  "waterStops": [
+   "#161d0c",
+   "#24712e"
+  ],
+  "park": "#243014",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u25-lilac-velvet",
+  "name": "Lilac Velvet",
+  "gradDir": "vertical",
+  "bg": "#310e29",
+  "bgStops": [
+   "#310e29",
+   "#692e6b",
+   "#9237b7"
+  ],
+  "water": "#1d0819",
+  "waterStops": [
+   "#1d0819",
+   "#3f1c40",
+   "#58216e"
+  ],
+  "park": "#310e29",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u26-cherry-olive",
+  "name": "Cherry Olive",
+  "gradDir": "diag",
+  "bg": "#340f15",
+  "bgStops": [
+   "#340f15",
+   "#6e932a"
+  ],
+  "water": "#1f090d",
+  "waterStops": [
+   "#1f090d",
+   "#425819"
+  ],
+  "park": "#340f15",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u27-plum-sapphire",
+  "name": "Plum Sapphire",
+  "gradDir": "vertical",
+  "bg": "#2f1629",
+  "bgStops": [
+   "#2f1629",
+   "#395cc4"
+  ],
+  "water": "#1c0d19",
+  "waterStops": [
+   "#1c0d19",
+   "#223776"
+  ],
+  "park": "#2f1629",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u28-lime-glacier",
+  "name": "Lime Glacier",
+  "gradDir": "vertical",
+  "bg": "#10343b",
+  "bgStops": [
+   "#10343b",
+   "#81b932"
+  ],
+  "water": "#0a1f23",
+  "waterStops": [
+   "#0a1f23",
+   "#4d6f1e"
+  ],
+  "park": "#10343b",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u29-evergreen-tide",
+  "name": "Evergreen Tide",
+  "gradDir": "vertical",
+  "bg": "#0f1232",
+  "bgStops": [
+   "#0f1232",
+   "#215b5b",
+   "#37873e"
+  ],
+  "water": "#090b1e",
+  "waterStops": [
+   "#090b1e",
+   "#143737",
+   "#215125"
+  ],
+  "park": "#0f1232",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u30-mint-shadow",
+  "name": "Mint Shadow",
+  "gradDir": "horizontal",
+  "bg": "#0e1c0b",
+  "bgStops": [
+   "#0e1c0b",
+   "#36c18c"
+  ],
+  "water": "#193214",
+  "waterStops": [
+   "#193214",
+   "#207454"
+  ],
+  "park": "#0e1c0b",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u31-fjord-moss",
+  "name": "Fjord Moss",
+  "gradDir": "vertical",
+  "bg": "#1a3413",
+  "bgStops": [
+   "#1a3413",
+   "#415b85"
+  ],
+  "water": "#101f0b",
+  "waterStops": [
+   "#101f0b",
+   "#273750"
+  ],
+  "park": "#1a3413",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u32-ultraviolet",
+  "name": "Ultraviolet",
+  "gradDir": "horizontal",
+  "bg": "#10193b",
+  "bgStops": [
+   "#10193b",
+   "#6638bf"
+  ],
+  "water": "#0a0f23",
+  "waterStops": [
+   "#0a0f23",
+   "#3d2273"
+  ],
+  "park": "#10193b",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u33-orchid-spice",
+  "name": "Orchid Spice",
+  "gradDir": "diag",
+  "bg": "#2d1e12",
+  "bgStops": [
+   "#2d1e12",
+   "#612338",
+   "#ac38bd"
+  ],
+  "water": "#1b120b",
+  "waterStops": [
+   "#1b120b",
+   "#3a1522",
+   "#672271"
+  ],
+  "park": "#2d1e12",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u34-pistachio-grove",
+  "name": "Pistachio Grove",
+  "gradDir": "diag",
+  "bg": "#3a3011",
+  "bgStops": [
+   "#3a3011",
+   "#689930"
+  ],
+  "water": "#231d0a",
+  "waterStops": [
+   "#231d0a",
+   "#3e5c1d"
+  ],
+  "park": "#3a3011",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u35-cobalt-depths",
+  "name": "Cobalt Depths",
+  "gradDir": "diag",
+  "bg": "#0e1c14",
+  "bgStops": [
+   "#0e1c14",
+   "#1e4652",
+   "#302d9f"
+  ],
+  "water": "#183023",
+  "waterStops": [
+   "#183023",
+   "#122a31",
+   "#1d1b5f"
+  ],
+  "park": "#0e1c14",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u36-teal-twilight",
+  "name": "Teal Twilight",
+  "gradDir": "diag",
+  "bg": "#130f20",
+  "bgStops": [
+   "#130f20",
+   "#254f6f",
+   "#388466"
+  ],
+  "water": "#1f1935",
+  "waterStops": [
+   "#1f1935",
+   "#162f43",
+   "#224f3d"
+  ],
+  "park": "#130f20",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u37-mystic-waters",
+  "name": "Mystic Waters",
+  "gradDir": "diag",
+  "bg": "#320f37",
+  "bgStops": [
+   "#320f37",
+   "#2e216c",
+   "#356c9e"
+  ],
+  "water": "#1e0921",
+  "waterStops": [
+   "#1e0921",
+   "#1c1441",
+   "#20415f"
+  ],
+  "park": "#320f37",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u38-nebula",
+  "name": "Nebula",
+  "gradDir": "diag",
+  "bg": "#132b37",
+  "bgStops": [
+   "#132b37",
+   "#2c264d",
+   "#ad3ab2"
+  ],
+  "water": "#0b1a21",
+  "waterStops": [
+   "#0b1a21",
+   "#1a172e",
+   "#68236b"
+  ],
+  "park": "#132b37",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u39-aqua-night",
+  "name": "Aqua Night",
+  "gradDir": "vertical",
+  "bg": "#140e30",
+  "bgStops": [
+   "#140e30",
+   "#36c5b9"
+  ],
+  "water": "#0c081d",
+  "waterStops": [
+   "#0c081d",
+   "#20766f"
+  ],
+  "park": "#140e30",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u40-rainforest-blue",
+  "name": "Rainforest Blue",
+  "gradDir": "diag",
+  "bg": "#121e0e",
+  "bgStops": [
+   "#121e0e",
+   "#20664f",
+   "#3973bc"
+  ],
+  "water": "#1f3318",
+  "waterStops": [
+   "#1f3318",
+   "#133d2f",
+   "#224571"
+  ],
+  "park": "#121e0e",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u41-electric-moss",
+  "name": "Electric Moss",
+  "gradDir": "diag",
+  "bg": "#0d101a",
+  "bgStops": [
+   "#0d101a",
+   "#42c635"
+  ],
+  "water": "#171d2e",
+  "waterStops": [
+   "#171d2e",
+   "#287720"
+  ],
+  "park": "#0d101a",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u42-lavender-lagoon",
+  "name": "Lavender Lagoon",
+  "gradDir": "horizontal",
+  "bg": "#0f372d",
+  "bgStops": [
+   "#0f372d",
+   "#8354a6"
+  ],
+  "water": "#09211b",
+  "waterStops": [
+   "#09211b",
+   "#4f3264"
+  ],
+  "park": "#0f372d",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u43-dusky-lapis",
+  "name": "Dusky Lapis",
+  "gradDir": "vertical",
+  "bg": "#27131c",
+  "bgStops": [
+   "#27131c",
+   "#48215e",
+   "#3c4d81"
+  ],
+  "water": "#3c1d2b",
+  "waterStops": [
+   "#3c1d2b",
+   "#2b1438",
+   "#242e4d"
+  ],
+  "park": "#27131c",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u44-wild-orchid",
+  "name": "Wild Orchid",
+  "gradDir": "vertical",
+  "bg": "#37330f",
+  "bgStops": [
+   "#37330f",
+   "#692421",
+   "#963082"
+  ],
+  "water": "#211f09",
+  "waterStops": [
+   "#211f09",
+   "#3f1614",
+   "#5a1d4e"
+  ],
+  "park": "#37330f",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u45-indigo-glow",
+  "name": "Indigo Glow",
+  "gradDir": "radial",
+  "bg": "#5e3ec0",
+  "bgStops": [
+   "#5e3ec0",
+   "#1c294a",
+   "#0e1a37"
+  ],
+  "water": "#382573",
+  "waterStops": [
+   "#382573",
+   "#11192c",
+   "#081021"
+  ],
+  "park": "#5e3ec0",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u46-green-apple",
+  "name": "Green Apple",
+  "gradDir": "vertical",
+  "bg": "#0d310f",
+  "bgStops": [
+   "#0d310f",
+   "#92b934"
+  ],
+  "water": "#081d09",
+  "waterStops": [
+   "#081d09",
+   "#586f1f"
+  ],
+  "park": "#0d310f",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u47-peacock-night",
+  "name": "Peacock Night",
+  "gradDir": "diag",
+  "bg": "#160c18",
+  "bgStops": [
+   "#160c18",
+   "#2e3369",
+   "#36a1a0"
+  ],
+  "water": "#29162c",
+  "waterStops": [
+   "#29162c",
+   "#1c1f3f",
+   "#206160"
+  ],
+  "park": "#160c18",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u48-tropical-reef",
+  "name": "Tropical Reef",
+  "gradDir": "diag",
+  "bg": "#2b340f",
+  "bgStops": [
+   "#2b340f",
+   "#216d2b",
+   "#54a3a5"
+  ],
+  "water": "#1a1f09",
+  "waterStops": [
+   "#1a1f09",
+   "#14411a",
+   "#326263"
+  ],
+  "park": "#2b340f",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u49-gilded-plum",
+  "name": "Gilded Plum",
+  "gradDir": "diag",
+  "bg": "#1b0d18",
+  "bgStops": [
+   "#1b0d18",
+   "#48251f",
+   "#bbc138"
+  ],
+  "water": "#30172a",
+  "waterStops": [
+   "#30172a",
+   "#2b1613",
+   "#707422"
+  ],
+  "park": "#1b0d18",
+  "road": "#f6f3ec",
+  "roadMinor": "#c9c2b6",
+  "text": "#f6f3ec"
+ },
+ {
+  "id": "u50-wine-indigo",
+  "name": "Wine & Indigo",
+  "gradDir": "diag",
+  "bg": "#391019",
+  "bgStops": [
+   "#391019",
+   "#3932b8"
+  ],
+  "water": "#220a0f",
+  "waterStops": [
+   "#220a0f",
+   "#221e6e"
+  ],
+  "park": "#391019",
   "road": "#f6f3ec",
   "roadMinor": "#c9c2b6",
   "text": "#f6f3ec"
