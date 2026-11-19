@@ -207,6 +207,8 @@
 }
 .n98h .n98-frame-mat { padding: var(--mat); background: #F6F3EC; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), inset 0 2px 8px rgba(0, 0, 0, 0.12); }
 .n98h .n98-frame-art { position: relative; aspect-ratio: 5 / 7; background: #ECE7DD; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.n98h .n98-frame.is-wide { width: min(100%, calc(min(62svh, 660px) * 0.98 + var(--fw) * 2 + var(--mat) * 2)); }
+.n98h .n98-frame.is-wide .n98-frame-art { aspect-ratio: 7 / 5; }
 .n98h .n98-frame-art img, .n98h .n98-frame-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .n98h .n98-frame-art img { object-fit: cover; transition: opacity 0.8s var(--ease); }
 .n98h .n98-frame.is-drawing .n98-frame-art img { opacity: 0; transition-duration: 0.5s; }
@@ -234,6 +236,7 @@
   .n98h .n98-hero2-copy { gap: 18px; }
   .n98h .n98-hero2-find { padding-top: 0; }
   .n98h .n98-frame { width: min(100%, 360px); }
+  .n98h .n98-frame.is-wide { width: min(100%, 480px); }
   .n98h .n98-find input { font-size: 21px; }
   .n98h .n98-step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 18px; }
   .n98h .n98-step p { font-size: 14px; }
@@ -926,6 +929,7 @@
 
   function play(c, tr) {
     cancelAnimationFrame(raf);
+    frame.classList.toggle('is-wide', tr.t.w > tr.t.h); // liggende posters krijgen een liggende lijst
     size();
     var t = tr.t, k = W / t.w, bgFill = t.fill ? paint(ctx, t.fill, k) : null;
     lctx.clearRect(0, 0, W, H);
@@ -995,7 +999,7 @@
     start(cities[idx]);
   }
   function start(c) {
-    load(c).then(function (tr) { play(c, tr); }).catch(function () { finalImg.src = c.img.src; frame.classList.add('is-final'); setTimeout(next, 6000); });
+    load(c).then(function (tr) { play(c, tr); }).catch(function () { frame.classList.toggle('is-wide', +c.img.getAttribute('width') > +c.img.getAttribute('height')); finalImg.src = c.img.src; frame.classList.add('is-final'); setTimeout(next, 6000); });
     var n = cities[(cities.indexOf(c) + 1) % cities.length];
     load(n).catch(function () {});
     if (n.img.loading === 'lazy') n.img.loading = 'eager';

@@ -537,5 +537,54 @@
   "fr": "Göteborg",
   "sv": "Göteborg",
   "nb": "Göteborg"
+ },
+ "Milan": {
+  "nl": "Milaan",
+  "de": "Mailand",
+  "fr": "Milan",
+  "sv": "Milano",
+  "nb": "Milano"
+ },
+ "Athens": {
+  "nl": "Athene",
+  "de": "Athen",
+  "fr": "Athènes",
+  "sv": "Aten",
+  "nb": "Athen"
+ },
+ "Warsaw": {
+  "nl": "Warschau",
+  "de": "Warschau",
+  "fr": "Varsovie",
+  "sv": "Warszawa",
+  "nb": "Warszawa"
+ },
+ "Budapest": {
+  "nl": "Boedapest",
+  "de": "Budapest",
+  "fr": "Budapest",
+  "sv": "Budapest",
+  "nb": "Budapest"
+ },
+ "Hungary": {
+  "nl": "Hongarije",
+  "de": "Ungarn",
+  "fr": "Hongrie",
+  "sv": "Ungern",
+  "nb": "Ungarn"
+ },
+ "Greece": {
+  "nl": "Griekenland",
+  "de": "Griechenland",
+  "fr": "Grèce",
+  "sv": "Grekland",
+  "nb": "Hellas"
+ },
+ "Poland": {
+  "nl": "Polen",
+  "de": "Polen",
+  "fr": "Pologne",
+  "sv": "Polen",
+  "nb": "Polen"
  }
 }
