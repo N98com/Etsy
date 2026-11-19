@@ -14965,7 +14965,8 @@
   "palette": "sunset-boulevard",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "v-paris--nl",

@@ -37,18 +37,23 @@ async function renderOnce(d) {
     const c = document.createElement('canvas');
     c.width = w; c.height = h;
     window.LocationApp.renderInto(c);
-    // blank test: brightness spread over the middle of the print (the map area)
-    const g = c.getContext('2d').getImageData(Math.round(w / 6), Math.round(h / 8), Math.round(w * 2 / 3), Math.round(h / 2)).data;
-    let n = 0, sum = 0, sq = 0;
-    for (let i = 0; i < g.length; i += 4 * 37) { const v = (g[i] + g[i + 1] + g[i + 2]) / 3; n++; sum += v; sq += v * v; }
-    const sd = Math.sqrt(Math.max(0, sq / n - (sum / n) ** 2));
+    // blank test: how much neighbouring pixels differ in the middle of the print (the map area).
+    // Streets give sharp edges; an empty map is flat or a smooth colour fade, so edges are near zero.
+    const rw = Math.round(w * 2 / 3), rh = Math.round(h / 2);
+    const g = c.getContext('2d').getImageData(Math.round(w / 6), Math.round(h / 8), rw, rh).data;
+    let n = 0, edge = 0;
+    for (let y = 0; y < rh; y += 7) for (let x = 0; x < rw - 1; x += 3) {
+      const i = (y * rw + x) * 4, j = i + 4;
+      edge += Math.abs(g[i] - g[j]) + Math.abs(g[i + 1] - g[j + 1]) + Math.abs(g[i + 2] - g[j + 2]); n++;
+    }
+    const sd = edge / n;
     let out = c;
     if (crop) {
       out = document.createElement('canvas');
       out.width = crop[2]; out.height = crop[3];
       out.getContext('2d').drawImage(c, crop[0], crop[1], crop[2], crop[3], 0, 0, crop[2], crop[3]);
     }
-    return { b64: out.toDataURL('image/jpeg', 0.86).split(',')[1], blank: sd < 4 };
+    return { b64: out.toDataURL('image/jpeg', 0.86).split(',')[1], blank: sd < 2 };
   }, { w: d.w, h: d.h, crop: d.crop || null });
 }
 
