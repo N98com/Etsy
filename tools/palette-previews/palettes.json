@@ -1,6 +1,6 @@
 [
  {
-  "id": "v01-ocean-drive",
+  "id": "v06-ocean-drive",
   "name": "Ocean Drive",
   "gradDir": "vertical",
   "bg": "#1a0b3a",
@@ -9,11 +9,11 @@
    "#c2187a",
    "#ff8a3d"
   ],
-  "water": "#06303c",
+  "water": "#0e1d30",
   "waterStops": [
-   "#06303c",
-   "#0b4d5a",
-   "#0f6b72"
+   "#0e1d30",
+   "#4b2549",
+   "#784a21"
   ],
   "park": "#1a0b3a",
   "road": "#fff1f6",
@@ -21,7 +21,7 @@
   "text": "#fff1f6"
  },
  {
-  "id": "v02-neon-palms",
+  "id": "v07-neon-palms",
   "name": "Neon Palms",
   "gradDir": "diag",
   "bg": "#2a0a4a",
@@ -30,11 +30,11 @@
    "#e0307f",
    "#ffb347"
   ],
-  "water": "#062e3a",
+  "water": "#131d36",
   "waterStops": [
-   "#062e3a",
-   "#0a4c5a",
-   "#0e6e78"
+   "#131d36",
+   "#5b2a4c",
+   "#7c6221"
   ],
   "park": "#2a0a4a",
   "road": "#fff1f6",
@@ -42,7 +42,7 @@
   "text": "#fff1f6"
  },
  {
-  "id": "v03-sunset-strip",
+  "id": "v08-sunset-strip",
   "name": "Sunset Strip",
   "gradDir": "vertical",
   "bg": "#3a0a5a",
@@ -51,11 +51,11 @@
    "#ff3d7f",
    "#ffd166"
   ],
-  "water": "#121c4f",
+  "water": "#191e3c",
   "waterStops": [
-   "#121c4f",
-   "#1b2a6b",
-   "#24408a"
+   "#191e3c",
+   "#781e46",
+   "#877721"
   ],
   "park": "#3a0a5a",
   "road": "#fff1f6",
@@ -63,7 +63,7 @@
   "text": "#fff1f6"
  },
  {
-  "id": "v04-miami-dusk",
+  "id": "v09-miami-dusk",
   "name": "Miami Dusk",
   "gradDir": "radial",
   "bg": "#ff7a59",
@@ -72,11 +72,11 @@
    "#b0246f",
    "#2a0f45"
   ],
-  "water": "#0f6b72",
+  "water": "#833721",
   "waterStops": [
-   "#0f6b72",
-   "#0b4d5a",
-   "#06303c"
+   "#833721",
+   "#452945",
+   "#131f34"
   ],
   "park": "#ff7a59",
   "road": "#fff1f6",
@@ -84,7 +84,7 @@
   "text": "#fff1f6"
  },
  {
-  "id": "v05-coastline-glow",
+  "id": "v10-coastline-glow",
   "name": "Coastline Glow",
   "gradDir": "horizontal",
   "bg": "#24104f",
@@ -93,11 +93,11 @@
    "#d4206f",
    "#ff9e4a"
   ],
-  "water": "#063a3e",
+  "water": "#122038",
   "waterStops": [
-   "#063a3e",
-   "#0a5a5e",
-   "#0f7a7a"
+   "#122038",
+   "#522846",
+   "#7d5421"
   ],
   "park": "#24104f",
   "road": "#fff1f6",
