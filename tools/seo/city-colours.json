@@ -16,9 +16,17 @@
  "edinburgh": "forest-mist",
  "brussels": "golden-wine",
  "antwerp": "pomegranate",
- "los-angeles": "saffron-silk",
+ "los-angeles": "ocean-drive",
  "munich": "olive-leaf",
  "hamburg": "sapphire-night",
  "nice": "raspberry-velvet",
- "cologne": "rose-gold-noir"
+ "cologne": "rose-gold-noir",
+ "amsterdam": "golden-hour",
+ "rotterdam": "fire-opal",
+ "the-hague": "plum-orchard",
+ "utrecht": "berry-gold",
+ "bruges": "amber-halo",
+ "ghent": "emerald-halo",
+ "copenhagen": "iris-bay",
+ "las-vegas": "tropical-dusk"
 }
