@@ -171,6 +171,31 @@ const MAP_PALETTES = [
     bg: '#14101a', bg2: '#b8805a', water: '#231c2d', water2: '#734c31', park: '#14101a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
   { id: 'golden-wine', name: 'Golden Wine',
     bg: '#2a0a14', bg2: '#c89a4a', water: '#431020', water2: '#7e5e26', park: '#2a0a14', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  // November 2026: gradients met drie kleuren en een richting (gradDir, zie mapRender.js), gekozen door Bram.
+  { id: 'desert-sunset', name: 'Desert Sunset', gradDir: 'diag',
+    bg: '#2a0e1e', bgStops: ['#2a0e1e', '#9a2a2a', '#d8902a'], water: '#41162e', waterStops: ['#41162e', '#5c1919', '#835718'], park: '#2a0e1e', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'tropical-dusk', name: 'Tropical Dusk', gradDir: 'vertical',
+    bg: '#14123a', bgStops: ['#14123a', '#7a1f5a', '#d0602a'], water: '#0c0b23', waterStops: ['#0c0b23', '#491336', '#7d3a19'], park: '#14123a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'golden-hour', name: 'Golden Hour', gradDir: 'vertical',
+    bg: '#2a1030', bgStops: ['#2a1030', '#a8402a', '#e0a83a'], water: '#190a1d', waterStops: ['#190a1d', '#652619', '#926917'], park: '#2a1030', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'bordeaux-glow', name: 'Bordeaux Glow', gradDir: 'radial',
+    bg: '#9a2a3a', bgStops: ['#9a2a3a', '#4a0f1f', '#1a050a'], water: '#5c1923', waterStops: ['#5c1923', '#2c0913', '#340a14'], park: '#9a2a3a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'amber-halo', name: 'Amber Halo', gradDir: 'radial',
+    bg: '#c8862a', bgStops: ['#c8862a', '#6a2a14', '#1a0c08'], water: '#785019', waterStops: ['#785019', '#40190c', '#31170f'], park: '#c8862a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'emerald-halo', name: 'Emerald Halo', gradDir: 'radial',
+    bg: '#3a8a6a', bgStops: ['#3a8a6a', '#14402e', '#06140e'], water: '#235340', waterStops: ['#235340', '#0c261c', '#0d2c1e'], park: '#3a8a6a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'copper-halo', name: 'Copper Halo', gradDir: 'radial',
+    bg: '#c0703a', bgStops: ['#c0703a', '#5a2a18', '#140a06'], water: '#734323', waterStops: ['#734323', '#36190e', '#2c160d'], park: '#c0703a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'fire-opal', name: 'Fire Opal', gradDir: 'diag',
+    bg: '#3a0a10', bgStops: ['#3a0a10', '#c0302a', '#e8a040'], water: '#23060a', waterStops: ['#23060a', '#731d19', '#9f6313'], park: '#3a0a10', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'plum-orchard', name: 'Plum Orchard', gradDir: 'horizontal',
+    bg: '#2a0f2e', bgStops: ['#2a0f2e', '#6a2050', '#b0606a'], water: '#3f1745', waterStops: ['#3f1745', '#401330', '#6d363d'], park: '#2a0f2e', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'saffron-wine', name: 'Saffron Wine', gradDir: 'diag',
+    bg: '#3a0f1e', bgStops: ['#3a0f1e', '#8a2a2a', '#c8962e'], water: '#230912', waterStops: ['#230912', '#531919', '#785a1c'], park: '#3a0f1e', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'berry-gold', name: 'Berry Gold', gradDir: 'diag',
+    bg: '#2a0a2a', bgStops: ['#2a0a2a', '#8a1a4a', '#c8962e'], water: '#431043', waterStops: ['#431043', '#53102c', '#785a1c'], park: '#2a0a2a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'velvet-flame', name: 'Velvet Flame', gradDir: 'horizontal',
+    bg: '#2a0a3a', bgStops: ['#2a0a3a', '#8a1a3a', '#d0602a'], water: '#190623', waterStops: ['#190623', '#531023', '#7d3a19'], park: '#2a0a3a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
 ];
 
 // Effen kleurenreeks: elke kaart is één vlakke ondergrondkleur met puur witte
@@ -286,4 +311,5 @@ const PALETTE_CATEGORIES = [
   { id: 'dark-gold', label: 'Dark & Gold', ids: ['emerald-gold-noir', 'bordeaux-gold', 'forest-brass', 'graphite-gold', 'royal-velvet', 'midnight-copper', 'burnt-sienna-noir', 'coal-dune', 'sepia-noir', 'old-navy', 'amethyst-gold', 'lapis-gold', 'rose-gold-noir'] },
   { id: 'night', label: 'Night', ids: ['graphite-line', 'graphite-harbor', 'obsidian-harbor', 'electric-midnight-glow', 'neon-tokyo'] },
   { id: 'fade', label: 'Colour fades', ids: ['twilight-bloom', 'sunset-boulevard', 'northern-lights', 'rose-hour', 'forest-mist', 'ember-glow', 'golden-dusk', 'desert-mirage', 'burgundy-rose', 'midnight-ember', 'moss-honey', 'cherry-cola', 'saffron-night', 'champagne-dusk', 'mulberry-gold', 'midnight-rose', 'tuscan-sunset', 'violet-flame', 'bourbon-glow', 'sangria', 'marigold-night', 'fig-honey', 'paprika-dusk', 'bronze-age', 'velvet-ochre', 'dusky-orchid', 'oxblood-amber', 'royal-wine', 'gilded-forest', 'desert-night', 'golden-wine'] },
+  { id: 'gradient', label: 'Gradients', ids: ['desert-sunset', 'tropical-dusk', 'golden-hour', 'bordeaux-glow', 'amber-halo', 'emerald-halo', 'copper-halo', 'fire-opal', 'plum-orchard', 'saffron-wine', 'berry-gold', 'velvet-flame'] },
 ];
