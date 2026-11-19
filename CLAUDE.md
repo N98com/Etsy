@@ -23,6 +23,8 @@
   give the new theme a new key instead.
   map per page = page metafield `n98.city`. Entries: s slug, n name, c group, i image, p province (nl only),
   o languages ("en,nl": only shown in those languages; the page json has "langs" and gets noindex elsewhere).
+  Policy (Nov 2026): 30 world cities in every language, other cities only in English plus their own
+  language(s) (be: nl,fr). Change the page "langs" with shopify-translate {action:'city_langs', url:[{handle,langs}]}.
   Dutch towns: `tools/seo/nl/` (cities.py, t_*.py texts, gen.py). German cities (DE only, German source text):
   `tools/seo/de/`, grouped by state (`p`: sh, by, nw, ...; locale keys state_*). Renders retry empty maps by themselves
   (`tools/home-renders/render.mjs`; an empty one stays out of the manifest and is retried on the next run). Set the list with shopify-translate
