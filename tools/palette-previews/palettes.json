@@ -1,107 +1,48 @@
 [
  {
-  "id": "v06-ocean-drive",
-  "name": "Ocean Drive",
-  "gradDir": "vertical",
-  "bg": "#1a0b3a",
-  "bgStops": [
-   "#1a0b3a",
-   "#c2187a",
-   "#ff8a3d"
-  ],
-  "water": "#0e1d30",
-  "waterStops": [
-   "#0e1d30",
-   "#4b2549",
-   "#784a21"
-  ],
-  "park": "#1a0b3a",
-  "road": "#fff1f6",
-  "roadMinor": "#e9b8cf",
-  "text": "#fff1f6"
+  "bg": "#0d0d0d",
+  "water": "#175c46",
+  "park": "#242424",
+  "road": "#c9a227",
+  "roadMinor": "#7a6636",
+  "text": "#c9a227",
+  "id": "e0-huidig",
+  "name": "Emerald Gold Noir (nu)"
  },
  {
-  "id": "v07-neon-palms",
-  "name": "Neon Palms",
-  "gradDir": "diag",
-  "bg": "#2a0a4a",
-  "bgStops": [
-   "#2a0a4a",
-   "#e0307f",
-   "#ffb347"
-  ],
-  "water": "#131d36",
-  "waterStops": [
-   "#131d36",
-   "#5b2a4c",
-   "#7c6221"
-  ],
-  "park": "#2a0a4a",
-  "road": "#fff1f6",
-  "roadMinor": "#e9b8cf",
-  "text": "#fff1f6"
+  "bg": "#0d0d0d",
+  "water": "#175c46",
+  "park": "#242424",
+  "road": "#c9a227",
+  "roadMinor": "#7a6636",
+  "text": "#c9a227",
+  "id": "e1-dunner-1",
+  "name": "Emerald Gold Noir dunner 1",
+  "waterInset": 0.0008,
+  "riverScale": 0.7
  },
  {
-  "id": "v08-sunset-strip",
-  "name": "Sunset Strip",
-  "gradDir": "vertical",
-  "bg": "#3a0a5a",
-  "bgStops": [
-   "#3a0a5a",
-   "#ff3d7f",
-   "#ffd166"
-  ],
-  "water": "#191e3c",
-  "waterStops": [
-   "#191e3c",
-   "#781e46",
-   "#877721"
-  ],
-  "park": "#3a0a5a",
-  "road": "#fff1f6",
-  "roadMinor": "#e9b8cf",
-  "text": "#fff1f6"
+  "bg": "#0d0d0d",
+  "water": "#175c46",
+  "park": "#242424",
+  "road": "#c9a227",
+  "roadMinor": "#7a6636",
+  "text": "#c9a227",
+  "id": "e2-dunner-2",
+  "name": "Emerald Gold Noir dunner 2",
+  "waterInset": 0.0014,
+  "riverScale": 0.6
  },
  {
-  "id": "v09-miami-dusk",
-  "name": "Miami Dusk",
-  "gradDir": "radial",
-  "bg": "#ff7a59",
-  "bgStops": [
-   "#ff7a59",
-   "#b0246f",
-   "#2a0f45"
-  ],
-  "water": "#833721",
-  "waterStops": [
-   "#833721",
-   "#452945",
-   "#131f34"
-  ],
-  "park": "#ff7a59",
-  "road": "#fff1f6",
-  "roadMinor": "#e9b8cf",
-  "text": "#fff1f6"
- },
- {
-  "id": "v10-coastline-glow",
-  "name": "Coastline Glow",
-  "gradDir": "horizontal",
-  "bg": "#24104f",
-  "bgStops": [
-   "#24104f",
-   "#d4206f",
-   "#ff9e4a"
-  ],
-  "water": "#122038",
-  "waterStops": [
-   "#122038",
-   "#522846",
-   "#7d5421"
-  ],
-  "park": "#24104f",
-  "road": "#fff1f6",
-  "roadMinor": "#e9b8cf",
-  "text": "#fff1f6"
+  "bg": "#0d0d0d",
+  "water": "#175c46",
+  "park": "#242424",
+  "road": "#c9a227",
+  "roadMinor": "#7a6636",
+  "text": "#c9a227",
+  "id": "e3-dunner-3",
+  "name": "Emerald Gold Noir dunner 3",
+  "waterInset": 0.0022,
+  "riverScale": 0.5
  }
 ]

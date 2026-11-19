@@ -616,7 +616,11 @@ const MapRender = (() => {
     streets
       .filter(s => s.tags.natural === 'water' || s.tags.natural === 'bay')
       .forEach(s => {
-        const waterOpts = { fill: fills.water, stroke: palette.coastline, strokeWidth: coastlineWidth };
+        // waterInset (per palet): een rand in de landkleur over de waterkant, zodat
+        // grachten en rivieren smaller ogen (de helft van de lijn valt over het water).
+        const waterOpts = palette.waterInset
+          ? { fill: fills.water, stroke: fills.bg, strokeWidth: Math.max(w, h) * palette.waterInset * 2 }
+          : { fill: fills.water, stroke: palette.coastline, strokeWidth: coastlineWidth };
         if (s.rings) {
           painter.multiPolygon(s.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon))), waterOpts);
         } else {
@@ -631,7 +635,7 @@ const MapRender = (() => {
     streets
       .filter(s => s.tags.waterway === 'river' || s.tags.waterway === 'canal' || s.tags.waterway === 'stream')
       .forEach(s => {
-        const riverWidth = s.tags.waterway === 'river' ? Math.max(w, h) * 0.0035 : Math.max(w, h) * 0.0015;
+        const riverWidth = (s.tags.waterway === 'river' ? Math.max(w, h) * 0.0035 : Math.max(w, h) * 0.0015) * (palette.riverScale || 1);
         painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), { stroke: fills.water, strokeWidth: riverWidth, fill: 'none' });
       });
 
