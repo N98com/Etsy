@@ -128,6 +128,17 @@ const SOLID_PALETTES = [
   // November 2026: uit de voorstellen, op verzoek bij de effen kleuren.
   { id: 'steel-blue', name: 'Steel Blue',
     bg: '#4a6274', water: '#384c5b', park: '#546d80', road: '#f3f1ea', roadMinor: '#9fb0bc', text: '#f3f1ea' },
+  // November 2026: gekozen uit 50 effen voorstellen (tools/palette-previews, op Amsterdam).
+  { id: 'pomegranate', name: 'Pomegranate',
+    bg: '#7a1f2b', water: '#50121a', park: '#7a1f2b', road: '#f6f3ec', roadMinor: '#be9495', text: '#f6f3ec' },
+  { id: 'saffron-silk', name: 'Saffron Silk',
+    bg: '#b8862b', water: '#795718', park: '#b8862b', road: '#f6f3ec', roadMinor: '#dac295', text: '#f6f3ec' },
+  { id: 'olive-leaf', name: 'Olive Leaf',
+    bg: '#5e6b2f', water: '#3d461d', park: '#5e6b2f', road: '#f6f3ec', roadMinor: '#b2b697', text: '#f6f3ec' },
+  { id: 'sapphire-night', name: 'Sapphire Night',
+    bg: '#1e2f6e', water: '#111d48', park: '#1e2f6e', road: '#f6f3ec', roadMinor: '#959bb3', text: '#f6f3ec' },
+  { id: 'raspberry-velvet', name: 'Raspberry Velvet',
+    bg: '#8a2a52', water: '#5b1834', park: '#8a2a52', road: '#f6f3ec', roadMinor: '#c599a7', text: '#f6f3ec' },
 ];
 
 function getMapPalette(id) {
