@@ -217,6 +217,9 @@ const MAP_PALETTES = [
     bg: '#2d1e12', bgStops: ['#2d1e12', '#612338', '#ac38bd'], water: '#1b120b', waterStops: ['#1b120b', '#3a1522', '#672271'], park: '#2d1e12', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
   { id: 'electric-moss', name: 'Electric Moss', gradDir: 'diag',
     bg: '#0d101a', bgStops: ['#0d101a', '#42c635'], water: '#171d2e', waterStops: ['#171d2e', '#287720'], park: '#0d101a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  // November 2026: neon-zonsondergang in GTA-stijl (algemene naam), gekozen door Bram.
+  { id: 'ocean-drive', name: 'Ocean Drive', gradDir: 'vertical',
+    bg: '#1a0b3a', bgStops: ['#1a0b3a', '#c2187a', '#ff8a3d'], water: '#0e1d30', waterStops: ['#0e1d30', '#4b2549', '#784a21'], park: '#1a0b3a', road: '#fff1f6', roadMinor: '#e9b8cf', text: '#fff1f6' },
 ];
 
 // Effen kleurenreeks: elke kaart is één vlakke ondergrondkleur met puur witte
@@ -331,5 +334,5 @@ const PALETTE_CATEGORIES = [
   { id: 'colourful', label: 'Colourful', ids: ['coral', 'flamingo', 'tangerine-dream', 'mauve', 'ash-rose', 'plum-velvet', 'mint-chocolate'] },
   { id: 'dark-gold', label: 'Dark & Gold', ids: ['emerald-gold-noir', 'bordeaux-gold', 'forest-brass', 'graphite-gold', 'royal-velvet', 'midnight-copper', 'burnt-sienna-noir', 'coal-dune', 'sepia-noir', 'old-navy', 'amethyst-gold', 'lapis-gold', 'rose-gold-noir'] },
   { id: 'night', label: 'Night', ids: ['graphite-line', 'graphite-harbor', 'obsidian-harbor', 'electric-midnight-glow', 'neon-tokyo'] },
-  { id: 'fade', label: 'Fade', noI18n: true, ids: ['royal-wine', 'midnight-rose', 'rose-hour', 'plum-orchard', 'cherry-cola', 'sangria', 'midnight-ember', 'tuscan-sunset', 'paprika-dusk', 'tropical-dusk', 'velvet-flame', 'sunset-boulevard', 'desert-night', 'ember-glow', 'fire-opal', 'amber-halo', 'marigold-night', 'champagne-dusk', 'desert-mirage', 'golden-wine', 'golden-hour', 'berry-gold', 'golden-dusk', 'gilded-forest', 'meadow-gold', 'lime-dusk', 'forest-mist', 'lime-glacier', 'electric-moss', 'spring-moss', 'emerald-halo', 'jade-halo', 'iris-bay', 'ultraviolet', 'northern-lights', 'orchid-spice', 'dusky-orchid', 'twilight-bloom', 'orchid-shadow'] },
+  { id: 'fade', label: 'Fade', noI18n: true, ids: ['royal-wine', 'midnight-rose', 'rose-hour', 'plum-orchard', 'cherry-cola', 'sangria', 'midnight-ember', 'tuscan-sunset', 'paprika-dusk', 'tropical-dusk', 'velvet-flame', 'sunset-boulevard', 'ocean-drive', 'desert-night', 'ember-glow', 'fire-opal', 'amber-halo', 'marigold-night', 'champagne-dusk', 'desert-mirage', 'golden-wine', 'golden-hour', 'berry-gold', 'golden-dusk', 'gilded-forest', 'meadow-gold', 'lime-dusk', 'forest-mist', 'lime-glacier', 'electric-moss', 'spring-moss', 'emerald-halo', 'jade-halo', 'iris-bay', 'ultraviolet', 'northern-lights', 'orchid-spice', 'dusky-orchid', 'twilight-bloom', 'orchid-shadow'] },
 ];
