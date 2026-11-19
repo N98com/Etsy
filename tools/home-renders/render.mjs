@@ -105,6 +105,14 @@ for (const d of designs) {
       let bg = null;
       const origBg = P.setBackground;
       P.setBackground = function (c) { if (!bg) bg = c; return origBg.apply(this, arguments); };
+      // Kleurverlopen (Fade-paletten) als {l|r: geometrie, s: kleuren} opschrijven, zodat de
+      // homepagina ze kan nabootsen; de eerste volle vlakvulling is de ondergrond van de kaart.
+      const origLin = P.linearFill, origRad = P.radialFill, origPolygon = P.polygon;
+      let mapBg = null;
+      P.linearFill = function (x1, y1, x2, y2, s) { const g = origLin.apply(this, arguments); try { g.__n98 = { l: [x1, y1, x2, y2].map(Math.round), s: s.slice() }; } catch (e) {} return g; };
+      P.radialFill = function (cx, cy, r, s) { const g = origRad.apply(this, arguments); try { g.__n98 = { r: [cx, cy, r].map(Math.round), s: s.slice() }; } catch (e) {} return g; };
+      P.polygon = function (pts, o) { if (mapBg == null && o && o.fill && pts.length === 4) mapBg = o.fill; return origPolygon.apply(this, arguments); };
+      const col = c => typeof c === 'string' ? c : (c && c.__n98) || null;
       P.polyline = function (pts, o) {
         o = o || {};
         if (o.stroke && (!o.fill || o.fill === 'none') && pts.length >= 2) lines.push({ c: o.stroke, w: o.strokeWidth || 1, a: o.opacity == null ? 1 : o.opacity, p: pts });
@@ -116,7 +124,7 @@ for (const d of designs) {
         return origPoly.apply(this, arguments);
       };
       const c = document.createElement('canvas'); c.width = w; c.height = h;
-      try { window.LocationApp.renderInto(c); } finally { P.polyline = origLine; P.multiPolygon = origPoly; P.setBackground = origBg; }
+      try { window.LocationApp.renderInto(c); } finally { P.polyline = origLine; P.multiPolygon = origPoly; P.setBackground = origBg; P.linearFill = origLin; P.radialFill = origRad; P.polygon = origPolygon; }
       function rdp(pts, eps) {
         if (pts.length < 3) return pts;
         const keep = new Uint8Array(pts.length); keep[0] = keep[pts.length - 1] = 1;
@@ -131,7 +139,7 @@ for (const d of designs) {
       }
       const inView = p => p[0] > -20 && p[0] < w + 20 && p[1] > -20 && p[1] < h + 20;
       const styles = [], sKey = {};
-      const sid = (c, w, a) => { const k = c + '|' + w.toFixed(2) + '|' + a; if (!(k in sKey)) { sKey[k] = styles.length; styles.push([c, +w.toFixed(2), a]); } return sKey[k]; };
+      const sid = (c, w, a) => { c = col(c); const k = JSON.stringify(c) + '|' + w.toFixed(2) + '|' + a; if (!(k in sKey)) { sKey[k] = styles.length; styles.push([c, +w.toFixed(2), a]); } return sKey[k]; };
       const outLines = [];
       for (const l of lines) {
         const pts = rdp(l.p, 0.7);
@@ -144,10 +152,12 @@ for (const d of designs) {
       const outAreas = [];
       for (const ar of areas) {
         const rings = ar.r.map(r => rdp(r, 1.2)).filter(r => r.length >= 3 && r.some(inView));
-        if (!rings.length) continue;
-        outAreas.push([ar.c, rings.map(r => { const f = []; r.forEach(q => f.push(Math.round(q[0] * 2), Math.round(q[1] * 2))); return f; })]);
+        if (!rings.length || !col(ar.c)) continue;
+        outAreas.push([col(ar.c), rings.map(r => { const f = []; r.forEach(q => f.push(Math.round(q[0] * 2), Math.round(q[1] * 2))); return f; })]);
       }
-      return JSON.stringify({ w, h, q: 2, bg, styles, lines: outLines, areas: outAreas });
+      const out = { w, h, q: 2, bg, styles, lines: outLines, areas: outAreas };
+      if (mapBg && typeof mapBg !== 'string' && col(mapBg)) out.fill = col(mapBg);
+      return JSON.stringify(out);
     }, { w: d.w, h: d.h });
     fs.writeFileSync(path.join(OUT, d.id + '.trace.json'), trace);
     console.log('traced', d.id, (trace.length / 1024).toFixed(0) + ' KB');

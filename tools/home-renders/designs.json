@@ -1306,6 +1306,378 @@
   "zoom": 1.35
  },
  {
+  "id": "h-lisbon",
+  "place": "Lisbon",
+  "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-lisbon--nl",
+  "place": "Lissabon",
+  "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-lisbon--de",
+  "place": "Lissabon",
+  "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-lisbon--fr",
+  "place": "Lisbonne",
+  "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-lisbon--sv",
+  "place": "Lissabon",
+  "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-lisbon--nb",
+  "place": "Lisboa",
+  "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-copenhagen",
+  "place": "Copenhagen",
+  "country": "Denmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-copenhagen--nl",
+  "place": "Kopenhagen",
+  "country": "Denemarken",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-copenhagen--de",
+  "place": "Kopenhagen",
+  "country": "Dänemark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-copenhagen--fr",
+  "place": "Copenhague",
+  "country": "Danemark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-copenhagen--sv",
+  "place": "Köpenhamn",
+  "country": "Danmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-copenhagen--nb",
+  "place": "København",
+  "country": "Danmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-stockholm",
+  "place": "Stockholm",
+  "country": "Sweden",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-stockholm--nl",
+  "place": "Stockholm",
+  "country": "Zweden",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-stockholm--de",
+  "place": "Stockholm",
+  "country": "Schweden",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-stockholm--fr",
+  "place": "Stockholm",
+  "country": "Suède",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-stockholm--sv",
+  "place": "Stockholm",
+  "country": "Sverige",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-stockholm--nb",
+  "place": "Stockholm",
+  "country": "Sverige",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york",
+  "place": "New York",
+  "country": "United States",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-new-york--nl",
+  "place": "New York",
+  "country": "Verenigde Staten",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york--de",
+  "place": "New York",
+  "country": "Vereinigte Staaten",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york--fr",
+  "place": "New York",
+  "country": "États-Unis",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york--sv",
+  "place": "New York",
+  "country": "USA",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york--nb",
+  "place": "New York",
+  "country": "USA",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-los-angeles",
+  "place": "Los Angeles",
+  "country": "United States",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "trace": true,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-los-angeles--nl",
+  "place": "Los Angeles",
+  "country": "Verenigde Staten",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-los-angeles--de",
+  "place": "Los Angeles",
+  "country": "Vereinigte Staaten",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-los-angeles--fr",
+  "place": "Los Angeles",
+  "country": "États-Unis",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-los-angeles--sv",
+  "place": "Los Angeles",
+  "country": "USA",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-los-angeles--nb",
+  "place": "Los Angeles",
+  "country": "USA",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-madrid",
+  "place": "Madrid",
+  "country": "Spain",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680,
+  "trace": true
+ },
+ {
+  "id": "h-madrid--nl",
+  "place": "Madrid",
+  "country": "Spanje",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-madrid--de",
+  "place": "Madrid",
+  "country": "Spanien",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-madrid--fr",
+  "place": "Madrid",
+  "country": "Espagne",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-madrid--sv",
+  "place": "Madrid",
+  "country": "Spanien",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-madrid--nb",
+  "place": "Madrid",
+  "country": "Spania",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "o-wedding",
   "place": "Florence",
   "country": "Where we said yes · 21.06.2025",
