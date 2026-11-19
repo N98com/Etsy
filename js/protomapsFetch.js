@@ -126,8 +126,25 @@ const ProtomapsFetch = (() => {
   // — nodig omdat een cache-hit puur op bounds-bevat-bounds niet meer
   // volstaat nu diezelfde tier op een kleiner gebied een dieper zoomniveau
   // kan opleveren (zie findCachedFetch in location.js).
+  // Breedte van het gebied in km (langste zijde), voor de tussenstappen hieronder.
+  function spanKm(bounds) {
+    const midLat = (bounds.north + bounds.south) / 2;
+    const w = (bounds.east - bounds.west) * 111.32 * Math.cos(midLat * Math.PI / 180);
+    const h = (bounds.north - bounds.south) * 110.57;
+    return Math.max(Math.abs(w), Math.abs(h));
+  }
   function zoomForFetch(bounds, tier) {
-    return (tier === 'street' || tier === 'city' || tier === 'region')
+    // City-tier begint direct na de street-tier (~8 km). Meteen naar zoom 12
+    // springen liet bij uitzoomen in één klap alle zijstraatjes verdwijnen;
+    // daarom eerst nog twee tussenstappen met meer detail (zoom 14 en 13),
+    // zodat het detail geleidelijk afneemt. Tegelaantal blijft ruim binnen budget.
+    if (tier === 'city') {
+      const km = spanKm(bounds);
+      if (km < 18) return 14;
+      if (km < 40) return 13;
+      return TIER_ZOOM.city;
+    }
+    return (tier === 'street' || tier === 'region')
       ? TIER_ZOOM[tier]
       : pickZoomForBounds(bounds, TIER_ZOOM.country);
   }
