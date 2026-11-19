@@ -204,6 +204,7 @@
 .n98h .n98-frame.is-wide .n98-frame-art { aspect-ratio: 7 / 5; }
 .n98h .n98-frame-art img, .n98h .n98-frame-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .n98h .n98-frame-art img { object-fit: cover; transition: opacity 0.8s var(--ease); }
+.n98h .n98-frame.is-turning .n98-frame-art img { opacity: 0; transition-duration: 0.4s; }
 .n98h .n98-frame.is-drawing .n98-frame-art img { opacity: 0; transition-duration: 0.5s; }
 .n98h .n98-frame.is-final .n98-frame-art img { opacity: 1; transition-duration: 1.4s; }
 .n98h .n98-frame[data-pencil="off"].is-final .n98-frame-art img { transition-duration: 2.2s; }
@@ -897,9 +898,10 @@
     return g;
   }
   function size() {
-    var r = stage.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
-    W = stage.width = lineCv.width = areaCv.width = Math.round(r.width * d);
-    H = stage.height = lineCv.height = areaCv.height = Math.round(r.height * d);
+    // clientWidth/Height: de maat zonder de draai-animatie erin
+    var d = Math.min(2, window.devicePixelRatio || 1);
+    W = stage.width = lineCv.width = areaCv.width = Math.round(stage.clientWidth * d);
+    H = stage.height = lineCv.height = areaCv.height = Math.round(stage.clientHeight * d);
   }
   function strokeLine(c2, l, k, until) {
     // grafiet: hoe dikker de weg, hoe donkerder en steviger de lijn
@@ -926,9 +928,28 @@
     pencil.style.transform = 'translate3d(' + px.toFixed(1) + 'px,' + (py - (lift || 0)).toFixed(1) + 'px,0) rotate(' + pAngle.toFixed(1) + 'deg)';
   }
 
+  function turn(wide, done) {
+    frame.classList.remove('is-final', 'is-lifting'); frame.classList.add('is-turning');
+    setTimeout(function () {
+      ctx.fillStyle = '#F7F4EE'; ctx.fillRect(0, 0, W, H);
+      var a = frame.getBoundingClientRect();
+      frame.classList.toggle('is-wide', wide);
+      var b = frame.getBoundingClientRect();
+      var dx = a.left + a.width / 2 - (b.left + b.width / 2), dy = a.top + a.height / 2 - (b.top + b.height / 2);
+      frame.style.transition = 'none';
+      frame.style.transform = 'translate(' + dx.toFixed(1) + 'px,' + dy.toFixed(1) + 'px) rotate(' + (wide ? -90 : 90) + 'deg) scale(' + (a.width / b.height).toFixed(4) + ')';
+      frame.getBoundingClientRect();
+      frame.style.transition = 'transform 1.1s cubic-bezier(0.65, 0, 0.35, 1)';
+      frame.style.transform = '';
+      setTimeout(function () { frame.style.transition = ''; done(); }, 1200);
+    }, 450);
+  }
   function play(c, tr) {
     cancelAnimationFrame(raf);
-    frame.classList.toggle('is-wide', tr.t.w > tr.t.h); // liggende posters krijgen een liggende lijst
+    // liggende posters krijgen een liggende lijst: eerst draait de lege lijst een kwartslag
+    var wide = tr.t.w > tr.t.h;
+    if (wide !== frame.classList.contains('is-wide')) { turn(wide, function () { play(c, tr); }); return; }
+    frame.classList.remove('is-turning');
     size();
     var t = tr.t, k = W / t.w, bgFill = t.fill ? paint(ctx, t.fill, k) : null;
     lctx.clearRect(0, 0, W, H);
