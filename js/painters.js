@@ -77,6 +77,15 @@ class CanvasPainter {
     ctx.restore();
   }
 
+  // Kleurverloop als vulling (voor "fade"-paletten: ondergrond en water lopen
+  // van de ene kleur in de andere). Coördinaten in de huidige ruimte; geeft
+  // een waarde terug die als fill/stroke gebruikt kan worden.
+  linearFill(x1, y1, x2, y2, colors) {
+    const grad = this.ctx.createLinearGradient(x1, y1, x2, y2);
+    colors.forEach((c, i) => grad.addColorStop(colors.length > 1 ? i / (colors.length - 1) : 0, c));
+    return grad;
+  }
+
   // Verticaal kleurverloop over een rechthoek — gebruikt voor de
   // "Fade"-layout: een donkere waas die van doorzichtig naar ondoorzichtig
   // loopt zodat het onderschrift leesbaar blijft bovenop de kaart zelf,
@@ -177,6 +186,15 @@ class SVGPainter {
   multiPolygon(rings, { fill, stroke, strokeWidth } = {}) {
     const d = rings.map(ring => 'M' + ring.map(([x, y]) => `${fmt(x)},${fmt(y)}`).join('L') + 'Z').join(' ');
     this.parts.push(`<path d="${d}" fill-rule="evenodd" ${fillAttr(fill)} ${strokeAttr(stroke, strokeWidth)}/>`);
+  }
+
+  // Zie CanvasPainter.linearFill.
+  linearFill(x1, y1, x2, y2, colors) {
+    this._gradCounter = (this._gradCounter || 0) + 1;
+    const id = `fill${this._gradCounter}`;
+    const stops = colors.map((c, i) => `<stop offset="${fmt(colors.length > 1 ? i / (colors.length - 1) * 100 : 0)}%" stop-color="${c}"/>`).join('');
+    this.parts.push(`<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${fmt(x1)}" y1="${fmt(y1)}" x2="${fmt(x2)}" y2="${fmt(y2)}">${stops}</linearGradient></defs>`);
+    return `url(#${id})`;
   }
 
   // Zie CanvasPainter.verticalGradientRect.

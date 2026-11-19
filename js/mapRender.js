@@ -537,6 +537,11 @@ const MapRender = (() => {
     // hier gaat isoleren (een echte geo-grens) altijd voor.
     const masking = !!(maskId && maskId !== 'none' && !isolate);
 
+    // "Fade"-paletten: bg2/water2 laten ondergrond en water diagonaal (linksboven
+    // naar rechtsonder) in een tweede kleur overlopen. Zonder bg2 gewoon vlak.
+    const gradFill = (a, b) => (b && painter.linearFill ? painter.linearFill(0, 0, mapW, mapH, [a, b]) : a);
+    const fills = { bg: gradFill(palette.bg, palette.bg2), water: gradFill(palette.water, palette.water2) };
+    fills.park = palette.bg2 && (!palette.park || palette.park === palette.bg) ? fills.bg : gradFill(palette.park, palette.park2);
     let projectedRings = null;
     if (isolate) {
       projectedRings = isolate.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));
@@ -551,7 +556,7 @@ const MapRender = (() => {
         // met de eigen waterkleur van het palet vullen (i.p.v. een neutrale
         // vlakke kleur) laat het als een echte kust/oceaan-overgang ogen,
         // met een lichte "ondiep water"-gloed vlak langs de kust.
-        painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: palette.water });
+        painter.polygon([[0, 0], [mapW, 0], [mapW, mapH], [0, mapH]], { fill: fills.water });
         drawIsolateHalo(painter, projectedRings, lightenColor(palette.water, 0.4), Math.max(w, h) * 0.0018);
       }
       painter.beginClipPath(projectedRings);
@@ -563,7 +568,7 @@ const MapRender = (() => {
         painter.beginClip(0, 0, mapW, mapH);
       }
     }
-    drawMapBackground(painter, palette, mapW, mapH);
+    drawMapBackground(painter, palette, mapW, mapH, fills.bg);
 
     if (gtaStyle) {
       drawTerrainContours(painter, mapW, mapH, bounds, '#242424');
@@ -586,7 +591,7 @@ const MapRender = (() => {
       // het bij land/water/wegen/gebouwen, net als hun games zelf).
       streets
         .filter(s => s.tags.leisure === 'park' || s.tags.landuse === 'forest' || s.tags.landuse === 'grass')
-        .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: palette.park }));
+        .forEach(s => painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), { fill: fills.park }));
     }
 
     // Een dunne "coastline"-rand (waar het palet er een opgeeft) houdt land
@@ -600,7 +605,7 @@ const MapRender = (() => {
     streets
       .filter(s => s.tags.natural === 'water' || s.tags.natural === 'bay')
       .forEach(s => {
-        const waterOpts = { fill: palette.water, stroke: palette.coastline, strokeWidth: coastlineWidth };
+        const waterOpts = { fill: fills.water, stroke: palette.coastline, strokeWidth: coastlineWidth };
         if (s.rings) {
           painter.multiPolygon(s.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon))), waterOpts);
         } else {
@@ -616,7 +621,7 @@ const MapRender = (() => {
       .filter(s => s.tags.waterway === 'river' || s.tags.waterway === 'canal' || s.tags.waterway === 'stream')
       .forEach(s => {
         const riverWidth = s.tags.waterway === 'river' ? Math.max(w, h) * 0.0035 : Math.max(w, h) * 0.0015;
-        painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), { stroke: palette.water, strokeWidth: riverWidth, fill: 'none' });
+        painter.polyline(s.coords.map(([lat, lon]) => project(lat, lon)), { stroke: fills.water, strokeWidth: riverWidth, fill: 'none' });
       });
 
     // Landsgrenzen — vooral op land/continent-schaal belangrijk voor
@@ -640,7 +645,7 @@ const MapRender = (() => {
       const buildingStroke = Math.max(1, Math.min(mapW, mapH) * 0.0018);
       buildings.forEach(b => {
         painter.polygon(b.coords.map(([lat, lon]) => project(lat, lon)), {
-          fill: palette.bg, stroke: palette.building, strokeWidth: buildingStroke,
+          fill: fills.bg, stroke: palette.building, strokeWidth: buildingStroke,
         });
       });
     }
@@ -931,8 +936,8 @@ const MapRender = (() => {
     }
   }
 
-  function drawMapBackground(painter, palette, w, h) {
-    painter.polygon([[0, 0], [w, 0], [w, h], [0, h]], { fill: palette.bg });
+  function drawMapBackground(painter, palette, w, h, fill) {
+    painter.polygon([[0, 0], [w, 0], [w, h], [0, h]], { fill: fill || palette.bg });
   }
 
   // Klein, diagonaal herhaald watermerk over de volle afbeelding — puur voor
