@@ -9,9 +9,9 @@
 {%- liquid
   assign city = page.metafields.n98.city.value
   assign lede = page.metafields.n98.lede.value
-  # n98.cities4 (v39: entries may carry their own image i and palette pl, which win over the page metafield),
+  # n98.cities5 (v40: nine more cities in gradients) and n98.cities4 (v39: entries may carry their own image i and palette pl, which win over the page metafield),
   # then cities3 (v37, German states), cities2 (v35, provinces p and languages o) and cities
-  assign cities = shop.metafields.n98.cities4.value | default: shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
+  assign cities = shop.metafields.n98.cities5.value | default: shop.metafields.n98.cities4.value | default: shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
   assign lang = request.locale.iso_code
   # prints with the words in the language of the visitor (tools/home-renders/variants.py)
   assign img_sfx = '.jpg'
