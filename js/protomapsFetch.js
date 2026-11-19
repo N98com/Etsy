@@ -126,6 +126,10 @@ const ProtomapsFetch = (() => {
   // — nodig omdat een cache-hit puur op bounds-bevat-bounds niet meer
   // volstaat nu diezelfde tier op een kleiner gebied een dieper zoomniveau
   // kan opleveren (zie findCachedFetch in location.js).
+  // Tot deze breedte (langste zijde, km) toont de kaart nog alle straten en paden,
+  // net als ingezoomd (Bram: "ik wil alles erop kunnen zien", ongeveer een hele
+  // stad als Amsterdam inclusief de ring). Daarboven neemt het detail geleidelijk af.
+  const FULL_DETAIL_KM = 24;
   // Breedte van het gebied in km (langste zijde), voor de tussenstappen hieronder.
   function spanKm(bounds) {
     const midLat = (bounds.north + bounds.south) / 2;
@@ -140,8 +144,8 @@ const ProtomapsFetch = (() => {
     // zodat het detail geleidelijk afneemt. Tegelaantal blijft ruim binnen budget.
     if (tier === 'city') {
       const km = spanKm(bounds);
-      if (km < 18) return 14;
-      if (km < 40) return 13;
+      if (km < FULL_DETAIL_KM) return 14; // nog alle straten (zie filterStreets)
+      if (km < 45) return 13;
       return TIER_ZOOM.city;
     }
     return (tier === 'street' || tier === 'region')
@@ -218,8 +222,9 @@ const ProtomapsFetch = (() => {
   // zee-vlak is in deze data een samengestelde vulling zonder eigen naam-tag,
   // dus "alleen genoemd water" filterde op land/continent-schaal de HELE zee
   // weg — precies het element dat een kaart op die schaal herkenbaar maakt.
-  function filterStreets(features, tier, styleHint) {
-    const allow = HIGHWAY_ALLOW[tier];
+  function filterStreets(features, tier, styleHint, bounds) {
+    // City-tier op zoom 14 (gebied tot FULL_DETAIL_KM): geen wegfilter, alles erop
+    const allow = (tier === 'city' && bounds && zoomForFetch(bounds, tier) >= 14) ? null : HIGHWAY_ALLOW[tier];
     const skipGreenery = styleHint === 'gta' || styleHint === 'rdr2' || styleHint === 'experimental' || styleHint === 'nightlight';
     return features.filter(f => {
       if (f.tags.highway) return !allow || allow.has(f.tags.highway);
@@ -234,7 +239,7 @@ const ProtomapsFetch = (() => {
 
   async function fetchStreets(bounds, tier = 'street', styleHint = null) {
     const all = await fetchAreaCached(bounds, tier);
-    return filterStreets(all.filter(f => !f.tags.building), tier, styleHint);
+    return filterStreets(all.filter(f => !f.tags.building), tier, styleHint, bounds);
   }
 
   async function fetchBuildings(bounds, tier = 'street') {
