@@ -1624,7 +1624,8 @@ window.LocationApp = (() => {
       });
       grid.appendChild(card);
     }
-    MAP_PALETTES.forEach(p => buildPaletteCard(p, paletteGrid));
+    // hidden: uit de keuzelijst gehaald, maar nog bruikbaar voor bestaande ontwerpen en bestellingen
+    MAP_PALETTES.filter(p => !p.hidden).forEach(p => buildPaletteCard(p, paletteGrid));
     SOLID_PALETTES.forEach(p => buildPaletteCard(p, solidPaletteGrid));
 
     searchBtn.addEventListener('click', runSearch);
