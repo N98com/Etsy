@@ -21,7 +21,8 @@ const MAP_PALETTES = [
   // luxueuze art-deco-combinatie: gouden wegen die oplichten tegen een
   // zwarte ondergrond, met smaragd water als accent.
   { id: 'emerald-gold-noir', name: 'Emerald Gold Noir',
-    bg: '#0d0d0d', water: '#175c46', park: '#242424', road: '#c9a227', roadMinor: '#7a6636', text: '#c9a227' },
+    bg: '#0d0d0d', water: '#175c46', park: '#242424', road: '#c9a227', roadMinor: '#7a6636', text: '#c9a227',
+    waterInset: 0.0008, riverScale: 0.7 }, // water iets dunner (Bram, nov 2026)
   // De volgende vier zijn met de hand benaderd op basis van referentiebeelden
   // die de gebruiker aanleverde (net als de acht hierboven).
   { id: 'sandstone-lagoon', name: 'Sandstone Lagoon',
