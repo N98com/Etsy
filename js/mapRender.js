@@ -613,20 +613,37 @@ const MapRender = (() => {
     // worden met de multi-ring tekenprimitief getekend, anders blijven ze
     // onzichtbaar en lijkt de zee simpelweg te ontbreken.
     const coastlineWidth = palette.coastline ? Math.max(1.5, Math.min(mapW, mapH) * 0.005) : undefined;
+    const insetRings = [];
     streets
       .filter(s => s.tags.natural === 'water' || s.tags.natural === 'bay')
       .forEach(s => {
         // waterInset (per palet): een rand in de landkleur over de waterkant, zodat
         // grachten en rivieren smaller ogen (de helft van de lijn valt over het water).
         const waterOpts = palette.waterInset
-          ? { fill: fills.water, stroke: fills.bg, strokeWidth: Math.max(w, h) * palette.waterInset * 2 }
+          ? { fill: fills.water }
           : { fill: fills.water, stroke: palette.coastline, strokeWidth: coastlineWidth };
-        if (s.rings) {
-          painter.multiPolygon(s.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon))), waterOpts);
-        } else {
-          painter.polygon(s.coords.map(([lat, lon]) => project(lat, lon)), waterOpts);
-        }
+        const rings = s.rings ? s.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon))) : [s.coords.map(([lat, lon]) => project(lat, lon))];
+        if (s.rings) painter.multiPolygon(rings, waterOpts); else painter.polygon(rings[0], waterOpts);
+        if (palette.waterInset) insetRings.push(...rings);
       });
+    // waterInset: na alle waterkleur een rand in de landkleur over de echte oevers,
+    // zodat grachten en rivieren smaller ogen. Rechte horizontale/verticale stukken
+    // zijn de naden tussen kaarttegels en worden overgeslagen (anders strepen in open water).
+    if (palette.waterInset && insetRings.length) {
+      const sw = Math.max(w, h) * palette.waterInset * 2;
+      for (const ring of insetRings) {
+        let run = [];
+        const flush = () => { if (run.length > 1) painter.polyline(run, { stroke: fills.bg, strokeWidth: sw, fill: 'none' }); run = []; };
+        for (let i = 0; i < ring.length; i++) {
+          const p = ring[i], q = ring[(i + 1) % ring.length];
+          const seam = Math.abs(p[0] - q[0]) < 0.05 || Math.abs(p[1] - q[1]) < 0.05;
+          if (seam) { flush(); continue; }
+          if (!run.length) run.push(p);
+          run.push(q);
+        }
+        flush();
+      }
+    }
 
     // Alleen de waterlopen die op een echte kaart ook als lijn zichtbaar
     // zijn (rivier/kanaal/beek) — sloten en drainagegreppels zijn op elke
