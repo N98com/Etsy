@@ -196,6 +196,27 @@ const MAP_PALETTES = [
     bg: '#2a0a2a', bgStops: ['#2a0a2a', '#8a1a4a', '#c8962e'], water: '#431043', waterStops: ['#431043', '#53102c', '#785a1c'], park: '#2a0a2a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
   { id: 'velvet-flame', name: 'Velvet Flame', gradDir: 'horizontal',
     bg: '#2a0a3a', bgStops: ['#2a0a3a', '#8a1a3a', '#d0602a'], water: '#190623', waterStops: ['#190623', '#531023', '#7d3a19'], park: '#2a0a3a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  // November 2026: vierde ronde fades, uniek ten opzichte van alles wat eerder getoond is, gekozen door Bram.
+  { id: 'orchid-shadow', name: 'Orchid Shadow', gradDir: 'horizontal',
+    bg: '#212011', bgStops: ['#212011', '#b14e8d'], water: '#35341b', waterStops: ['#35341b', '#6a2f55'], park: '#212011', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'meadow-gold', name: 'Meadow Gold', gradDir: 'vertical',
+    bg: '#0a2315', bgStops: ['#0a2315', '#376223', '#afa742'], water: '#113b23', waterStops: ['#113b23', '#213b15', '#696428'], park: '#0a2315', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'lime-dusk', name: 'Lime Dusk', gradDir: 'diag',
+    bg: '#263318', bgStops: ['#263318', '#beb733'], water: '#171f0e', waterStops: ['#171f0e', '#726e1f'], park: '#263318', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'jade-halo', name: 'Jade Halo', gradDir: 'radial',
+    bg: '#41b99a', bgStops: ['#41b99a', '#1c424a', '#102124'], water: '#276f5c', waterStops: ['#276f5c', '#11282c', '#193439'], park: '#41b99a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'iris-bay', name: 'Iris Bay', gradDir: 'horizontal',
+    bg: '#310e2f', bgStops: ['#310e2f', '#419dba'], water: '#1d081c', waterStops: ['#1d081c', '#275e70'], park: '#310e2f', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'spring-moss', name: 'Spring Moss', gradDir: 'horizontal',
+    bg: '#243014', bgStops: ['#243014', '#3cbd4d'], water: '#161d0c', waterStops: ['#161d0c', '#24712e'], park: '#243014', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'lime-glacier', name: 'Lime Glacier', gradDir: 'vertical',
+    bg: '#10343b', bgStops: ['#10343b', '#81b932'], water: '#0a1f23', waterStops: ['#0a1f23', '#4d6f1e'], park: '#10343b', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'ultraviolet', name: 'Ultraviolet', gradDir: 'horizontal',
+    bg: '#10193b', bgStops: ['#10193b', '#6638bf'], water: '#0a0f23', waterStops: ['#0a0f23', '#3d2273'], park: '#10193b', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'orchid-spice', name: 'Orchid Spice', gradDir: 'diag',
+    bg: '#2d1e12', bgStops: ['#2d1e12', '#612338', '#ac38bd'], water: '#1b120b', waterStops: ['#1b120b', '#3a1522', '#672271'], park: '#2d1e12', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'electric-moss', name: 'Electric Moss', gradDir: 'diag',
+    bg: '#0d101a', bgStops: ['#0d101a', '#42c635'], water: '#171d2e', waterStops: ['#171d2e', '#287720'], park: '#0d101a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
 ];
 
 // Effen kleurenreeks: elke kaart is één vlakke ondergrondkleur met puur witte
@@ -310,5 +331,5 @@ const PALETTE_CATEGORIES = [
   { id: 'colourful', label: 'Colourful', ids: ['coral', 'flamingo', 'tangerine-dream', 'mauve', 'ash-rose', 'plum-velvet', 'mint-chocolate'] },
   { id: 'dark-gold', label: 'Dark & Gold', ids: ['emerald-gold-noir', 'bordeaux-gold', 'forest-brass', 'graphite-gold', 'royal-velvet', 'midnight-copper', 'burnt-sienna-noir', 'coal-dune', 'sepia-noir', 'old-navy', 'amethyst-gold', 'lapis-gold', 'rose-gold-noir'] },
   { id: 'night', label: 'Night', ids: ['graphite-line', 'graphite-harbor', 'obsidian-harbor', 'electric-midnight-glow', 'neon-tokyo'] },
-  { id: 'fade', label: 'Fade', noI18n: true, ids: ['royal-wine', 'midnight-rose', 'rose-hour', 'plum-orchard', 'cherry-cola', 'sangria', 'midnight-ember', 'tuscan-sunset', 'paprika-dusk', 'tropical-dusk', 'velvet-flame', 'sunset-boulevard', 'desert-night', 'ember-glow', 'fire-opal', 'amber-halo', 'marigold-night', 'champagne-dusk', 'desert-mirage', 'golden-wine', 'golden-hour', 'berry-gold', 'golden-dusk', 'gilded-forest', 'forest-mist', 'emerald-halo', 'northern-lights', 'dusky-orchid', 'twilight-bloom'] },
+  { id: 'fade', label: 'Fade', noI18n: true, ids: ['royal-wine', 'midnight-rose', 'rose-hour', 'plum-orchard', 'cherry-cola', 'sangria', 'midnight-ember', 'tuscan-sunset', 'paprika-dusk', 'tropical-dusk', 'velvet-flame', 'sunset-boulevard', 'desert-night', 'ember-glow', 'fire-opal', 'amber-halo', 'marigold-night', 'champagne-dusk', 'desert-mirage', 'golden-wine', 'golden-hour', 'berry-gold', 'golden-dusk', 'gilded-forest', 'meadow-gold', 'lime-dusk', 'forest-mist', 'lime-glacier', 'electric-moss', 'spring-moss', 'emerald-halo', 'jade-halo', 'iris-bay', 'ultraviolet', 'northern-lights', 'orchid-spice', 'dusky-orchid', 'twilight-bloom', 'orchid-shadow'] },
 ];
