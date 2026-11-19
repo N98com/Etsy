@@ -12,6 +12,7 @@
 // POST { action: 'shop_metafield', key: 'cities2', url } sets the shop metafield n98.<key> (json) from a file.
 // POST { action: 'theme_upload', theme, url } uploads repo files [{ filename, url }] to an unpublished theme (never MAIN).
 // POST { action: 'theme_check', theme, url } compares [{ filename, md5 }] with the theme.
+// POST { action: 'city_langs', url } sets "langs" in page metafield n98.city for [{ handle, langs }].
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
 const API_VERSION = "2026-10";
 const PREFIX = "https://raw.githubusercontent.com/N98com/Etsy/";
@@ -79,6 +80,28 @@ Deno.serve(async (req) => {
       const d = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id key } userErrors { field message } } }`,
         { m: [{ ownerId: shop.shop.id, namespace: "n98", key: b.key, type: "json", value }] });
       return out(d.metafieldsSet);
+    }
+    if (b.action === "city_langs") {
+      // { url: file [{ handle, langs }] } -> sets "langs" in the page metafield n98.city (noindex in other languages)
+      const list: any[] = await (await fetch(b.url)).json();
+      const res: unknown[] = []; let done = 0;
+      for (let i = 0; i < list.length; i += 20) {
+        const hs = list.slice(i, i + 20);
+        const q = `{ ${hs.map((x, k) => `p${k}: pages(first: 1, query: ${JSON.stringify("handle:" + x.handle)}) { nodes { id handle metafield(namespace: "n98", key: "city") { value } } }`).join(" ")} }`;
+        const d = await gql(q);
+        const m: unknown[] = [];
+        hs.forEach((x, k) => {
+          const n = (d[`p${k}`]?.nodes || []).find((y: any) => y.handle === x.handle);
+          if (!n || !n.metafield) { res.push({ handle: x.handle, error: "not found" }); return; }
+          const v = JSON.parse(n.metafield.value); v.langs = String(x.langs);
+          m.push({ ownerId: n.id, namespace: "n98", key: "city", type: "json", value: JSON.stringify(v) });
+        });
+        if (!m.length) continue;
+        const r = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id } userErrors { field message } } }`, { m });
+        done += r.metafieldsSet.metafields?.length || 0;
+        if (r.metafieldsSet.userErrors.length) res.push(r.metafieldsSet.userErrors);
+      }
+      return out({ done, errors: res });
     }
     if (b.action === "theme_upload") {
       // { theme: numeric id, url: file [{ filename, url }] } -> themeFilesUpsert in chunks; never on the live theme

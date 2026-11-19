@@ -1,0 +1,586 @@
+[
+{
+"handle": "eindhoven-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "groningen-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "tilburg-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "almere-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "breda-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "nijmegen-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "apeldoorn-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "arnhem-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "haarlem-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "enschede-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "amersfoort-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "den-bosch-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "zwolle-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "leiden-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "zoetermeer-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "leeuwarden-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "maastricht-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "dordrecht-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "delft-map-print",
+"langs": "en,nl"
+},
+{
+"handle": "charleroi-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "liege-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "namur-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "leuven-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "mons-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "aalst-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "mechelen-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "la-louviere-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "hasselt-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "kortrijk-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "sint-niklaas-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "ostend-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "tournai-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "genk-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "seraing-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "roeselare-map-print",
+"langs": "en,nl,fr"
+},
+{
+"handle": "frankfurt-map-print",
+"langs": "en,de"
+},
+{
+"handle": "stuttgart-map-print",
+"langs": "en,de"
+},
+{
+"handle": "dusseldorf-map-print",
+"langs": "en,de"
+},
+{
+"handle": "leipzig-map-print",
+"langs": "en,de"
+},
+{
+"handle": "dortmund-map-print",
+"langs": "en,de"
+},
+{
+"handle": "essen-map-print",
+"langs": "en,de"
+},
+{
+"handle": "bremen-map-print",
+"langs": "en,de"
+},
+{
+"handle": "dresden-map-print",
+"langs": "en,de"
+},
+{
+"handle": "hanover-map-print",
+"langs": "en,de"
+},
+{
+"handle": "nuremberg-map-print",
+"langs": "en,de"
+},
+{
+"handle": "duisburg-map-print",
+"langs": "en,de"
+},
+{
+"handle": "bochum-map-print",
+"langs": "en,de"
+},
+{
+"handle": "wuppertal-map-print",
+"langs": "en,de"
+},
+{
+"handle": "bielefeld-map-print",
+"langs": "en,de"
+},
+{
+"handle": "bonn-map-print",
+"langs": "en,de"
+},
+{
+"handle": "munster-map-print",
+"langs": "en,de"
+},
+{
+"handle": "marseille-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "lyon-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "toulouse-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "nantes-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "montpellier-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "strasbourg-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "bordeaux-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "lille-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "rennes-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "toulon-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "reims-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "saint-etienne-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "le-havre-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "dijon-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "grenoble-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "angers-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "nimes-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "clermont-ferrand-map-print",
+"langs": "en,fr"
+},
+{
+"handle": "chicago-map-print",
+"langs": "en"
+},
+{
+"handle": "houston-map-print",
+"langs": "en"
+},
+{
+"handle": "phoenix-map-print",
+"langs": "en"
+},
+{
+"handle": "philadelphia-map-print",
+"langs": "en"
+},
+{
+"handle": "san-antonio-map-print",
+"langs": "en"
+},
+{
+"handle": "san-diego-map-print",
+"langs": "en"
+},
+{
+"handle": "dallas-map-print",
+"langs": "en"
+},
+{
+"handle": "jacksonville-map-print",
+"langs": "en"
+},
+{
+"handle": "austin-map-print",
+"langs": "en"
+},
+{
+"handle": "fort-worth-map-print",
+"langs": "en"
+},
+{
+"handle": "san-jose-map-print",
+"langs": "en"
+},
+{
+"handle": "columbus-map-print",
+"langs": "en"
+},
+{
+"handle": "charlotte-map-print",
+"langs": "en"
+},
+{
+"handle": "indianapolis-map-print",
+"langs": "en"
+},
+{
+"handle": "seattle-map-print",
+"langs": "en"
+},
+{
+"handle": "denver-map-print",
+"langs": "en"
+},
+{
+"handle": "oklahoma-city-map-print",
+"langs": "en"
+},
+{
+"handle": "nashville-map-print",
+"langs": "en"
+},
+{
+"handle": "washington-dc-map-print",
+"langs": "en"
+},
+{
+"handle": "el-paso-map-print",
+"langs": "en"
+},
+{
+"handle": "boston-map-print",
+"langs": "en"
+},
+{
+"handle": "birmingham-map-print",
+"langs": "en"
+},
+{
+"handle": "glasgow-map-print",
+"langs": "en"
+},
+{
+"handle": "liverpool-map-print",
+"langs": "en"
+},
+{
+"handle": "bristol-map-print",
+"langs": "en"
+},
+{
+"handle": "manchester-map-print",
+"langs": "en"
+},
+{
+"handle": "sheffield-map-print",
+"langs": "en"
+},
+{
+"handle": "leeds-map-print",
+"langs": "en"
+},
+{
+"handle": "leicester-map-print",
+"langs": "en"
+},
+{
+"handle": "coventry-map-print",
+"langs": "en"
+},
+{
+"handle": "bradford-map-print",
+"langs": "en"
+},
+{
+"handle": "cardiff-map-print",
+"langs": "en"
+},
+{
+"handle": "belfast-map-print",
+"langs": "en"
+},
+{
+"handle": "nottingham-map-print",
+"langs": "en"
+},
+{
+"handle": "hull-map-print",
+"langs": "en"
+},
+{
+"handle": "newcastle-map-print",
+"langs": "en"
+},
+{
+"handle": "stoke-on-trent-map-print",
+"langs": "en"
+},
+{
+"handle": "southampton-map-print",
+"langs": "en"
+},
+{
+"handle": "derby-map-print",
+"langs": "en"
+},
+{
+"handle": "bergen-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "trondheim-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "stavanger-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "drammen-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "fredrikstad-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "kristiansand-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "sandnes-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "tromso-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "sarpsborg-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "skien-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "alesund-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "sandefjord-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "haugesund-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "tonsberg-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "moss-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "porsgrunn-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "bodo-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "arendal-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "hamar-map-print",
+"langs": "en,nb"
+},
+{
+"handle": "gothenburg-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "malmo-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "uppsala-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "vasteras-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "orebro-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "linkoping-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "helsingborg-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "jonkoping-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "norrkoping-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "lund-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "umea-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "gavle-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "boras-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "sodertalje-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "eskilstuna-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "halmstad-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "vaxjo-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "karlstad-map-print",
+"langs": "en,sv"
+},
+{
+"handle": "sundsvall-map-print",
+"langs": "en,sv"
+}
+]

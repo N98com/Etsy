@@ -171,6 +171,7 @@
           <div class="n98o-more__grid">
             {%- for e in cities -%}
               {%- if e.c != g or e.s == slug -%}{%- continue -%}{%- endif -%}
+              {%- if e.o -%}{%- unless e.o contains lang -%}{%- continue -%}{%- endunless -%}{%- endif -%}
               {%- assign en = e[lang] | default: e.n -%}
               <a class="n98o-tile" href="{{ pfx }}/pages/{{ e.s }}-map-print">
                 <img src="{{ 'n98-' | append: e.i | append: img_sfx | asset_url }}" alt="{{ 'n98.city.img_alt' | t: city: en | escape }}" loading="lazy" width="1200" height="1680">
