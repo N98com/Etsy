@@ -9,8 +9,9 @@
 {%- liquid
   assign city = page.metafields.n98.city.value
   assign lede = page.metafields.n98.lede.value
-  # n98.cities3 (v37, with German states) replaces cities2 (v35, provinces p and languages o) and cities
-  assign cities = shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
+  # n98.cities4 (v39: entries may carry their own image i and palette pl, which win over the page metafield),
+  # then cities3 (v37, German states), cities2 (v35, provinces p and languages o) and cities
+  assign cities = shop.metafields.n98.cities4.value | default: shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
   assign lang = request.locale.iso_code
   # prints with the words in the language of the visitor (tools/home-renders/variants.py)
   assign img_sfx = '.jpg'
@@ -44,11 +45,19 @@
   assign prov = ''
   if city
     assign name = city.name
+    assign city_img = city.img
+    assign city_pal = city.palette
     for e in cities
       if e.s == slug
         assign group = e.c
         assign prov = e.p
         assign name = e[lang] | default: e.n
+        if e.i
+          assign city_img = e.i
+        endif
+        if e.pl
+          assign city_pal = e.pl
+        endif
       endif
     endfor
     assign country_key = city.country | handleize | replace: '-', '_' | prepend: 'n98.country.'
@@ -64,7 +73,7 @@
       echo '},"scale":'
       echo city.scale
       echo ',"ratioId":"in20x28","palette":"'
-      echo city.palette
+      echo city_pal
       echo '","layout":"fade","mask":"none","matColor":"#f7f4ee","textColor":null,"font":"default","show":{"place":true,"region":false,"country":true,"coords":true},"text":{"place":"'
       echo name
       echo '","region":"","country":"'
@@ -73,7 +82,7 @@
     endcapture
     assign design_hash = design_json | strip | base64_url_safe_encode | remove: '='
     assign design_link = designer_url | append: '#design=' | append: design_hash
-    assign img = 'n98-' | append: city.img | append: img_sfx
+    assign img = 'n98-' | append: city_img | append: img_sfx
   endif
   assign from_price = designer.price_min | default: 3900 | money_without_trailing_zeros
   assign arrow = '<svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg>'
