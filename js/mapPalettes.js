@@ -99,6 +99,28 @@ const MAP_PALETTES = [
     bg: '#6b5257', water: '#574145', park: '#765d62', road: '#f1dfe0', roadMinor: '#a88a8f', text: '#f6e8e8' },
   { id: 'neon-tokyo', name: 'Neon Tokyo',
     bg: '#14101f', water: '#251a3d', park: '#1b1529', road: '#ff4fa3', roadMinor: '#6a3cc9', text: '#ff7ac0' },
+  // November 2026: in de stijl van Royal Velvet en Bordeaux Gold, gekozen door Bram.
+  { id: 'amethyst-gold', name: 'Amethyst Gold',
+    bg: '#2b1145', water: '#1a0a29', park: '#341553', road: '#d9b56a', roadMinor: '#56228b', text: '#ecd58c' },
+  { id: 'lapis-gold', name: 'Lapis Gold',
+    bg: '#142a5e', water: '#0c1938', park: '#17316d', road: '#d9b56a', roadMinor: '#234aa5', text: '#ecd58c' },
+  { id: 'rose-gold-noir', name: 'Rose Gold Noir',
+    bg: '#1c1a1e', water: '#111012', park: '#252228', road: '#d8a48f', roadMinor: '#47424c', text: '#ecc3b2' },
+  // November 2026: kleurverlopen (bg2/water2: land en water lopen diagonaal in een tweede kleur over, zie mapRender.js).
+  { id: 'twilight-bloom', name: 'Twilight Bloom',
+    bg: '#1d1f5e', bg2: '#6a1f4f', water2: '#40132f', water: '#111338', park: '#1d1f5e', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'sunset-boulevard', name: 'Sunset Boulevard',
+    bg: '#5c1530', bg2: '#b5521f', water2: '#6d3113', water: '#370d1d', park: '#5c1530', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'northern-lights', name: 'Northern Lights',
+    bg: '#0d3b46', bg2: '#3d1f63', water2: '#25133b', water: '#08232a', park: '#0d3b46', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'rose-hour', name: 'Rosé Hour',
+    bg: '#4a2440', bg2: '#b3646f', water2: '#70373f', water: '#2c1626', park: '#4a2440', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'forest-mist', name: 'Forest Mist',
+    bg: '#12352a', bg2: '#6b6a2a', water2: '#404019', water: '#0b2019', park: '#12352a', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'ember-glow', name: 'Ember Glow',
+    bg: '#3a0e14', bg2: '#a8661c', water2: '#653d11', water: '#23080c', park: '#3a0e14', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
+  { id: 'golden-dusk', name: 'Golden Dusk',
+    bg: '#2a1a12', bg2: '#9c7a2a', water2: '#5e4919', water: '#19100b', park: '#2a1a12', road: '#f6f3ec', roadMinor: '#c9c2b6', text: '#f6f3ec' },
 ];
 
 // Effen kleurenreeks: elke kaart is één vlakke ondergrondkleur met puur witte
@@ -211,6 +233,7 @@ const PALETTE_CATEGORIES = [
   { id: 'light', label: 'Light', ids: ['mono', 'chalk-line', 'chalk-harbor', 'mint-etching', 'glacier-mist', 'rosewater-bloom', 'parchment-sepia', 'seafoam', 'cherry-blossom'] },
   { id: 'earth', label: 'Earth', ids: ['earth', 'sandstone-lagoon', 'terracotta-sun', 'clay-pot', 'verdigris-dusk', 'lagoon', 'deep-teal', 'emerald-city'] },
   { id: 'colourful', label: 'Colourful', ids: ['coral', 'flamingo', 'tangerine-dream', 'mauve', 'ash-rose', 'plum-velvet', 'mint-chocolate'] },
-  { id: 'dark-gold', label: 'Dark & Gold', ids: ['emerald-gold-noir', 'bordeaux-gold', 'forest-brass', 'graphite-gold', 'royal-velvet', 'midnight-copper', 'burnt-sienna-noir', 'coal-dune', 'sepia-noir', 'old-navy'] },
+  { id: 'dark-gold', label: 'Dark & Gold', ids: ['emerald-gold-noir', 'bordeaux-gold', 'forest-brass', 'graphite-gold', 'royal-velvet', 'midnight-copper', 'burnt-sienna-noir', 'coal-dune', 'sepia-noir', 'old-navy', 'amethyst-gold', 'lapis-gold', 'rose-gold-noir'] },
   { id: 'night', label: 'Night', ids: ['graphite-line', 'graphite-harbor', 'obsidian-harbor', 'electric-midnight-glow', 'neon-tokyo'] },
+  { id: 'fade', label: 'Colour fades', ids: ['twilight-bloom', 'sunset-boulevard', 'northern-lights', 'rose-hour', 'forest-mist', 'ember-glow', 'golden-dusk'] },
 ];
