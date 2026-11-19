@@ -86,6 +86,13 @@ class CanvasPainter {
     return grad;
   }
 
+  // Cirkelvormig verloop (van het midden naar buiten), zie linearFill.
+  radialFill(cx, cy, r, colors) {
+    const grad = this.ctx.createRadialGradient(cx, cy, 0, cx, cy, r);
+    colors.forEach((c, i) => grad.addColorStop(colors.length > 1 ? i / (colors.length - 1) : 0, c));
+    return grad;
+  }
+
   // Verticaal kleurverloop over een rechthoek — gebruikt voor de
   // "Fade"-layout: een donkere waas die van doorzichtig naar ondoorzichtig
   // loopt zodat het onderschrift leesbaar blijft bovenop de kaart zelf,
@@ -194,6 +201,15 @@ class SVGPainter {
     const id = `fill${this._gradCounter}`;
     const stops = colors.map((c, i) => `<stop offset="${fmt(colors.length > 1 ? i / (colors.length - 1) * 100 : 0)}%" stop-color="${c}"/>`).join('');
     this.parts.push(`<defs><linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${fmt(x1)}" y1="${fmt(y1)}" x2="${fmt(x2)}" y2="${fmt(y2)}">${stops}</linearGradient></defs>`);
+    return `url(#${id})`;
+  }
+
+  // Zie CanvasPainter.radialFill.
+  radialFill(cx, cy, r, colors) {
+    this._gradCounter = (this._gradCounter || 0) + 1;
+    const id = `fill${this._gradCounter}`;
+    const stops = colors.map((c, i) => `<stop offset="${fmt(colors.length > 1 ? i / (colors.length - 1) * 100 : 0)}%" stop-color="${c}"/>`).join('');
+    this.parts.push(`<defs><radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${fmt(cx)}" cy="${fmt(cy)}" r="${fmt(r)}">${stops}</radialGradient></defs>`);
     return `url(#${id})`;
   }
 

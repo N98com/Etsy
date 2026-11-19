@@ -539,9 +539,20 @@ const MapRender = (() => {
 
     // "Fade"-paletten: bg2/water2 laten ondergrond en water diagonaal (linksboven
     // naar rechtsonder) in een tweede kleur overlopen. Zonder bg2 gewoon vlak.
-    const gradFill = (a, b) => (b && painter.linearFill ? painter.linearFill(0, 0, mapW, mapH, [a, b]) : a);
-    const fills = { bg: gradFill(palette.bg, palette.bg2), water: gradFill(palette.water, palette.water2) };
-    fills.park = palette.bg2 && (!palette.park || palette.park === palette.bg) ? fills.bg : gradFill(palette.park, palette.park2);
+    // Gradient-paletten: bgStops/waterStops (meer kleuren) met gradDir 'diag' (standaard),
+    // 'vertical', 'horizontal' of 'radial' (gloed vanuit het midden).
+    const dir = palette.gradDir || 'diag';
+    const fillFrom = (stops) => {
+      if (!stops || stops.length < 2 || !painter.linearFill) return null;
+      if (dir === 'radial' && painter.radialFill) return painter.radialFill(mapW / 2, mapH * 0.45, Math.hypot(mapW, mapH) * 0.6, stops);
+      if (dir === 'vertical') return painter.linearFill(0, 0, 0, mapH, stops);
+      if (dir === 'horizontal') return painter.linearFill(0, 0, mapW, 0, stops);
+      return painter.linearFill(0, 0, mapW, mapH, stops);
+    };
+    const gradFill = (a, b, stops) => fillFrom(stops || (b ? [a, b] : null)) || a;
+    const fills = { bg: gradFill(palette.bg, palette.bg2, palette.bgStops), water: gradFill(palette.water, palette.water2, palette.waterStops) };
+    const graded = palette.bg2 || palette.bgStops;
+    fills.park = graded && (!palette.park || palette.park === palette.bg) ? fills.bg : gradFill(palette.park, palette.park2);
     let projectedRings = null;
     if (isolate) {
       projectedRings = isolate.rings.map(ring => ring.map(([lat, lon]) => project(lat, lon)));

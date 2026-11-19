@@ -1606,7 +1606,7 @@ window.LocationApp = (() => {
       const strip = document.createElement('div');
       strip.className = 'swatch-strip';
       // kleurverloop-paletten tonen hun verloop ook in het staaltje
-      [p.bg2 ? `linear-gradient(135deg, ${p.bg}, ${p.bg2})` : p.bg, p.water2 ? `linear-gradient(135deg, ${p.water}, ${p.water2})` : p.water, p.park, p.road].forEach(c => {
+      [p.bgStops ? `linear-gradient(135deg, ${p.bgStops.join(', ')})` : p.bg2 ? `linear-gradient(135deg, ${p.bg}, ${p.bg2})` : p.bg, p.waterStops ? `linear-gradient(135deg, ${p.waterStops.join(', ')})` : p.water2 ? `linear-gradient(135deg, ${p.water}, ${p.water2})` : p.water, p.park, p.road].forEach(c => {
         const sw = document.createElement('span');
         sw.style.background = c;
         strip.appendChild(sw);
