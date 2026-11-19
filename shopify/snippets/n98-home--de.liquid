@@ -200,6 +200,8 @@
 }
 .n98h .n98-frame-mat { padding: var(--mat); background: #F6F3EC; box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.06), inset 0 2px 8px rgba(0, 0, 0, 0.12); }
 .n98h .n98-frame-art { position: relative; aspect-ratio: 5 / 7; background: #ECE7DD; overflow: hidden; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08); }
+.n98h .n98-frame.is-wide { width: min(100%, calc(min(62svh, 660px) * 0.98 + var(--fw) * 2 + var(--mat) * 2)); }
+.n98h .n98-frame.is-wide .n98-frame-art { aspect-ratio: 7 / 5; }
 .n98h .n98-frame-art img, .n98h .n98-frame-art canvas { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; display: block; }
 .n98h .n98-frame-art img { object-fit: cover; transition: opacity 0.8s var(--ease); }
 .n98h .n98-frame.is-drawing .n98-frame-art img { opacity: 0; transition-duration: 0.5s; }
@@ -227,6 +229,7 @@
   .n98h .n98-hero2-copy { gap: 18px; }
   .n98h .n98-hero2-find { padding-top: 0; }
   .n98h .n98-frame { width: min(100%, 360px); }
+  .n98h .n98-frame.is-wide { width: min(100%, 480px); }
   .n98h .n98-find input { font-size: 21px; }
   .n98h .n98-step-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px 18px; }
   .n98h .n98-step p { font-size: 14px; }
@@ -370,7 +373,7 @@
       <p class="n98-lede">Jede Stadt, Straße oder Küste, gezeichnet in deinen Farben und Worten. Auf Bestellung gedruckt auf Papier in Museumsqualität und gemacht zum Einrahmen.</p>
     </div>
     <div class="n98-hero2-art">
-      <div class="n98-frame" id="n98h-frame" data-trace-base="{{ n98_app_url | split: 'shop.html' | first }}img/home/ https://cdn.jsdelivr.net/gh/N98com/Etsy@90f8a53b4f24d1e589f977bf13478a0667c74cbe/img/home/ https://raw.githubusercontent.com/N98com/Etsy/90f8a53b4f24d1e589f977bf13478a0667c74cbe/img/home/" data-pencil="off">
+      <div class="n98-frame" id="n98h-frame" data-trace-base="{{ n98_app_url | split: 'shop.html' | first }}img/home/ https://cdn.jsdelivr.net/gh/N98com/Etsy@a3bae3a052c2d65f93a1f3a3c9514d366c3b2d7a/img/home/ https://raw.githubusercontent.com/N98com/Etsy/a3bae3a052c2d65f93a1f3a3c9514d366c3b2d7a/img/home/" data-pencil="off">
         <div class="n98-frame-mat">
           <div class="n98-frame-art">
             <canvas id="n98h-draw" aria-hidden="true"></canvas>
@@ -398,6 +401,12 @@
         <img data-id="h-new-york" data-place="New York" data-lat="40.7484" data-lon="-73.9857" src="{{ 'n98-h-new-york--de.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
         <img data-id="h-los-angeles" data-place="Los Angeles" data-lat="34.0522" data-lon="-118.2437" src="{{ 'n98-h-los-angeles--de.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
         <img data-id="h-madrid" data-place="Madrid" data-lat="40.4180" data-lon="-3.7000" src="{{ 'n98-h-madrid--de.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-milan" data-place="Mailand" data-lat="45.4642" data-lon="9.1900" src="{{ 'n98-h-milan--de.jpg' | asset_url }}" alt="" width="1680" height="1200" loading="lazy">
+        <img data-id="h-munich" data-place="München" data-lat="48.1374" data-lon="11.5755" src="{{ 'n98-h-munich--de.jpg' | asset_url }}" alt="" width="1680" height="1200" loading="lazy">
+        <img data-id="h-budapest" data-place="Budapest" data-lat="47.4979" data-lon="19.0402" src="{{ 'n98-h-budapest--de.jpg' | asset_url }}" alt="" width="1680" height="1200" loading="lazy">
+        <img data-id="h-athens" data-place="Athen" data-lat="37.9755" data-lon="23.7348" src="{{ 'n98-h-athens--de.jpg' | asset_url }}" alt="" width="1680" height="1200" loading="lazy">
+        <img data-id="h-warsaw" data-place="Warschau" data-lat="52.2297" data-lon="21.0122" src="{{ 'n98-h-warsaw--de.jpg' | asset_url }}" alt="" width="1680" height="1200" loading="lazy">
+        <img data-id="h-hamburg" data-place="Hamburg" data-lat="53.5503" data-lon="9.9930" src="{{ 'n98-h-hamburg--de.jpg' | asset_url }}" alt="" width="1680" height="1200" loading="lazy">
       </div>
       <p class="n98-now" id="n98h-now" aria-live="polite">Wird gezeichnet · <b>Amsterdam</b></p>
     </div>
@@ -919,6 +928,7 @@
 
   function play(c, tr) {
     cancelAnimationFrame(raf);
+    frame.classList.toggle('is-wide', tr.t.w > tr.t.h); // liggende posters krijgen een liggende lijst
     size();
     var t = tr.t, k = W / t.w, bgFill = t.fill ? paint(ctx, t.fill, k) : null;
     lctx.clearRect(0, 0, W, H);
@@ -988,7 +998,7 @@
     start(cities[idx]);
   }
   function start(c) {
-    load(c).then(function (tr) { play(c, tr); }).catch(function () { finalImg.src = c.img.src; frame.classList.add('is-final'); setTimeout(next, 6000); });
+    load(c).then(function (tr) { play(c, tr); }).catch(function () { frame.classList.toggle('is-wide', +c.img.getAttribute('width') > +c.img.getAttribute('height')); finalImg.src = c.img.src; frame.classList.add('is-final'); setTimeout(next, 6000); });
     var n = cities[(cities.indexOf(c) + 1) % cities.length];
     load(n).catch(function () {});
     if (n.img.loading === 'lazy') n.img.loading = 'eager';
