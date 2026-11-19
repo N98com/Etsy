@@ -370,7 +370,7 @@
       <p class="n98-lede">Hver by, gate eller kystlinje, tegnet i dine egne farger og ord. Trykket på bestilling på papir av museumskvalitet og laget for å rammes inn.</p>
     </div>
     <div class="n98-hero2-art">
-      <div class="n98-frame" id="n98h-frame" data-trace-base="{{ n98_app_url | split: 'shop.html' | first }}img/home/ https://cdn.jsdelivr.net/gh/N98com/Etsy@96b8926d7abd59d247e07a65e6b9beadb14cf826/img/home/ https://raw.githubusercontent.com/N98com/Etsy/96b8926d7abd59d247e07a65e6b9beadb14cf826/img/home/" data-pencil="off">
+      <div class="n98-frame" id="n98h-frame" data-trace-base="{{ n98_app_url | split: 'shop.html' | first }}img/home/ https://cdn.jsdelivr.net/gh/N98com/Etsy@90f8a53b4f24d1e589f977bf13478a0667c74cbe/img/home/ https://raw.githubusercontent.com/N98com/Etsy/90f8a53b4f24d1e589f977bf13478a0667c74cbe/img/home/" data-pencil="off">
         <div class="n98-frame-mat">
           <div class="n98-frame-art">
             <canvas id="n98h-draw" aria-hidden="true"></canvas>
@@ -392,6 +392,12 @@
         <img data-id="h-vienna" data-place="Wien" data-lat="48.2070" data-lon="16.3690" src="{{ 'n98-h-vienna--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
         <img data-id="h-barcelona" data-place="Barcelona" data-lat="41.3910" data-lon="2.1700" src="{{ 'n98-h-barcelona--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
         <img data-id="h-venice" data-place="Venezia" data-lat="45.4372" data-lon="12.3330" src="{{ 'n98-h-venice--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-lisbon" data-place="Lisboa" data-lat="38.7139" data-lon="-9.1394" src="{{ 'n98-h-lisbon--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-copenhagen" data-place="København" data-lat="55.6786" data-lon="12.5753" src="{{ 'n98-h-copenhagen--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-stockholm" data-place="Stockholm" data-lat="59.3294" data-lon="18.0686" src="{{ 'n98-h-stockholm--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-new-york" data-place="New York" data-lat="40.7484" data-lon="-73.9857" src="{{ 'n98-h-new-york--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-los-angeles" data-place="Los Angeles" data-lat="34.0522" data-lon="-118.2437" src="{{ 'n98-h-los-angeles--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
+        <img data-id="h-madrid" data-place="Madrid" data-lat="40.4180" data-lon="-3.7000" src="{{ 'n98-h-madrid--nb.jpg' | asset_url }}" alt="" width="1200" height="1680" loading="lazy">
       </div>
       <p class="n98-now" id="n98h-now" aria-live="polite">Tegner nå · <b>Amsterdam</b></p>
     </div>
@@ -873,6 +879,14 @@
     return { t: t, majors: order, cells: cells.filter(function (ce) { return ce.lines.length; }), wave: wave };
   }
 
+  // kleur of kleurverloop uit de trace ({l: [x1,y1,x2,y2] of r: [cx,cy,r], s: kleuren}) in schermmaat
+  function paint(c2, f, k) {
+    if (!f || typeof f === 'string') return f || '#F4F1EB';
+    var g = f.r ? c2.createRadialGradient(f.r[0] * k, f.r[1] * k, 0, f.r[0] * k, f.r[1] * k, f.r[2] * k)
+      : c2.createLinearGradient(f.l[0] * k, f.l[1] * k, f.l[2] * k, f.l[3] * k);
+    f.s.forEach(function (c, i) { g.addColorStop(f.s.length > 1 ? i / (f.s.length - 1) : 0, c); });
+    return g;
+  }
   function size() {
     var r = stage.getBoundingClientRect(), d = Math.min(2, window.devicePixelRatio || 1);
     W = stage.width = lineCv.width = areaCv.width = Math.round(r.width * d);
@@ -906,11 +920,11 @@
   function play(c, tr) {
     cancelAnimationFrame(raf);
     size();
-    var t = tr.t, k = W / t.w;
+    var t = tr.t, k = W / t.w, bgFill = t.fill ? paint(ctx, t.fill, k) : null;
     lctx.clearRect(0, 0, W, H);
     actx.clearRect(0, 0, W, H);
     t.areas.forEach(function (ar) {
-      actx.fillStyle = ar[0]; actx.beginPath();
+      actx.fillStyle = paint(actx, ar[0], k); actx.beginPath();
       ar[1].forEach(function (ring) { for (var i = 0; i < ring.length; i += 2) { var x = ring[i] / t.q * k, y = ring[i + 1] / t.q * k; if (i) actx.lineTo(x, y); else actx.moveTo(x, y); } actx.closePath(); });
       actx.fill('evenodd');
     });
@@ -959,7 +973,7 @@
       }
       ctx.clearRect(0, 0, W, H);
       ctx.fillStyle = t.bg || '#F4F1EB'; ctx.fillRect(0, 0, W, H);
-      if (areaA > 0) { ctx.globalAlpha = areaA; ctx.drawImage(areaCv, 0, 0); ctx.globalAlpha = 1; }
+      if (areaA > 0) { ctx.globalAlpha = areaA; if (bgFill) { ctx.fillStyle = bgFill; ctx.fillRect(0, 0, W, H); } ctx.drawImage(areaCv, 0, 0); ctx.globalAlpha = 1; }
       ctx.drawImage(lineCv, 0, 0);
       if (phase !== 'done') { raf = requestAnimationFrame(frameStep); return; }
       // over naar de echte poster met tekst
