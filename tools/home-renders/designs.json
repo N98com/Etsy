@@ -8,7 +8,8 @@
   "palette": "midnight-copper",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "g-amsterdam--nl",
@@ -18,7 +19,8 @@
   "lon": 4.8952,
   "palette": "midnight-copper",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-amsterdam--de",
@@ -28,7 +30,8 @@
   "lon": 4.8952,
   "palette": "midnight-copper",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-amsterdam--fr",
@@ -38,7 +41,8 @@
   "lon": 4.8952,
   "palette": "midnight-copper",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-amsterdam--sv",
@@ -48,7 +52,8 @@
   "lon": 4.8952,
   "palette": "midnight-copper",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-amsterdam--nb",
@@ -58,7 +63,8 @@
   "lon": 4.8952,
   "palette": "midnight-copper",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-lisbon",
@@ -249,7 +255,8 @@
   "palette": "parchment-sepia",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "g-paris--nl",
@@ -259,7 +266,8 @@
   "lon": 2.3448,
   "palette": "parchment-sepia",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-paris--de",
@@ -269,7 +277,8 @@
   "lon": 2.3448,
   "palette": "parchment-sepia",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-paris--fr",
@@ -279,7 +288,8 @@
   "lon": 2.3448,
   "palette": "parchment-sepia",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-paris--sv",
@@ -289,7 +299,8 @@
   "lon": 2.3448,
   "palette": "parchment-sepia",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-paris--nb",
@@ -299,7 +310,8 @@
   "lon": 2.3448,
   "palette": "parchment-sepia",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-tokyo",
@@ -430,7 +442,8 @@
   "palette": "terracotta-sun",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "g-rome--nl",
@@ -440,7 +453,8 @@
   "lon": 12.4769,
   "palette": "terracotta-sun",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-rome--de",
@@ -450,7 +464,8 @@
   "lon": 12.4769,
   "palette": "terracotta-sun",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-rome--fr",
@@ -460,7 +475,8 @@
   "lon": 12.4769,
   "palette": "terracotta-sun",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-rome--sv",
@@ -470,7 +486,8 @@
   "lon": 12.4769,
   "palette": "terracotta-sun",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-rome--nb",
@@ -480,7 +497,8 @@
   "lon": 12.4769,
   "palette": "terracotta-sun",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-barcelona",
@@ -687,7 +705,8 @@
   "palette": "deep-teal",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "h-rotterdam--nl",
@@ -697,7 +716,8 @@
   "lon": 4.483,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-rotterdam--de",
@@ -707,7 +727,8 @@
   "lon": 4.483,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-rotterdam--fr",
@@ -717,7 +738,8 @@
   "lon": 4.483,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-rotterdam--sv",
@@ -727,7 +749,8 @@
   "lon": 4.483,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-rotterdam--nb",
@@ -737,7 +760,8 @@
   "lon": 4.483,
   "palette": "deep-teal",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-london",
@@ -748,7 +772,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "h-london--nl",
@@ -758,7 +783,8 @@
   "lon": -0.11,
   "palette": "forest-brass",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-london--de",
@@ -768,7 +794,8 @@
   "lon": -0.11,
   "palette": "forest-brass",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-london--fr",
@@ -778,7 +805,8 @@
   "lon": -0.11,
   "palette": "forest-brass",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-london--sv",
@@ -788,7 +816,8 @@
   "lon": -0.11,
   "palette": "forest-brass",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-london--nb",
@@ -798,7 +827,8 @@
   "lon": -0.11,
   "palette": "forest-brass",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-berlin",
@@ -809,7 +839,8 @@
   "palette": "graphite-gold",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "h-berlin--nl",
@@ -819,7 +850,8 @@
   "lon": 13.395,
   "palette": "graphite-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-berlin--de",
@@ -829,7 +861,8 @@
   "lon": 13.395,
   "palette": "graphite-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-berlin--fr",
@@ -839,7 +872,8 @@
   "lon": 13.395,
   "palette": "graphite-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-berlin--sv",
@@ -849,7 +883,8 @@
   "lon": 13.395,
   "palette": "graphite-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-berlin--nb",
@@ -859,7 +894,8 @@
   "lon": 13.395,
   "palette": "graphite-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "g-madrid",
@@ -930,7 +966,8 @@
   "palette": "bordeaux-gold",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "h-prague--nl",
@@ -940,7 +977,8 @@
   "lon": 14.4185,
   "palette": "bordeaux-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-prague--de",
@@ -950,7 +988,8 @@
   "lon": 14.4185,
   "palette": "bordeaux-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-prague--fr",
@@ -960,7 +999,8 @@
   "lon": 14.4185,
   "palette": "bordeaux-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-prague--sv",
@@ -970,7 +1010,8 @@
   "lon": 14.4185,
   "palette": "bordeaux-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-prague--nb",
@@ -980,7 +1021,8 @@
   "lon": 14.4185,
   "palette": "bordeaux-gold",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-utrecht",
@@ -992,7 +1034,8 @@
   "w": 1200,
   "h": 1680,
   "trace": true,
-  "zoom": 1.5
+  "zoom": 1.5,
+  "retry": 1
  },
  {
   "id": "h-utrecht--nl",
@@ -1003,7 +1046,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.5
+  "zoom": 1.5,
+  "retry": 1
  },
  {
   "id": "h-utrecht--de",
@@ -1014,7 +1058,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.5
+  "zoom": 1.5,
+  "retry": 1
  },
  {
   "id": "h-utrecht--fr",
@@ -1025,7 +1070,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.5
+  "zoom": 1.5,
+  "retry": 1
  },
  {
   "id": "h-utrecht--sv",
@@ -1036,7 +1082,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.5
+  "zoom": 1.5,
+  "retry": 1
  },
  {
   "id": "h-utrecht--nb",
@@ -1047,7 +1094,8 @@
   "palette": "old-navy",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.5
+  "zoom": 1.5,
+  "retry": 1
  },
  {
   "id": "h-antwerp",
@@ -1059,7 +1107,8 @@
   "w": 1200,
   "h": 1680,
   "trace": true,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "h-antwerp--nl",
@@ -1070,7 +1119,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "h-antwerp--de",
@@ -1081,7 +1131,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "h-antwerp--fr",
@@ -1092,7 +1143,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "h-antwerp--sv",
@@ -1103,7 +1155,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "h-antwerp--nb",
@@ -1114,7 +1167,8 @@
   "palette": "chalk-harbor",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.3
+  "zoom": 1.3,
+  "retry": 1
  },
  {
   "id": "h-vienna",
@@ -1125,7 +1179,8 @@
   "palette": "emerald-gold-noir",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "h-vienna--nl",
@@ -1135,7 +1190,8 @@
   "lon": 16.369,
   "palette": "emerald-gold-noir",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-vienna--de",
@@ -1145,7 +1201,8 @@
   "lon": 16.369,
   "palette": "emerald-gold-noir",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-vienna--fr",
@@ -1155,7 +1212,8 @@
   "lon": 16.369,
   "palette": "emerald-gold-noir",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-vienna--sv",
@@ -1165,7 +1223,8 @@
   "lon": 16.369,
   "palette": "emerald-gold-noir",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-vienna--nb",
@@ -1175,7 +1234,8 @@
   "lon": 16.369,
   "palette": "emerald-gold-noir",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-barcelona",
@@ -1186,7 +1246,8 @@
   "palette": "clay-pot",
   "w": 1200,
   "h": 1680,
-  "trace": true
+  "trace": true,
+  "retry": 1
  },
  {
   "id": "h-barcelona--nl",
@@ -1196,7 +1257,8 @@
   "lon": 2.17,
   "palette": "clay-pot",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-barcelona--de",
@@ -1206,7 +1268,8 @@
   "lon": 2.17,
   "palette": "clay-pot",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-barcelona--fr",
@@ -1216,7 +1279,8 @@
   "lon": 2.17,
   "palette": "clay-pot",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-barcelona--sv",
@@ -1226,7 +1290,8 @@
   "lon": 2.17,
   "palette": "clay-pot",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-barcelona--nb",
@@ -1236,7 +1301,8 @@
   "lon": 2.17,
   "palette": "clay-pot",
   "w": 1200,
-  "h": 1680
+  "h": 1680,
+  "retry": 1
  },
  {
   "id": "h-venice",
@@ -1248,7 +1314,8 @@
   "w": 1200,
   "h": 1680,
   "trace": true,
-  "zoom": 1.35
+  "zoom": 1.35,
+  "retry": 1
  },
  {
   "id": "h-venice--nl",
@@ -1259,7 +1326,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.35
+  "zoom": 1.35,
+  "retry": 1
  },
  {
   "id": "h-venice--de",
@@ -1270,7 +1338,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.35
+  "zoom": 1.35,
+  "retry": 1
  },
  {
   "id": "h-venice--fr",
@@ -1281,7 +1350,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.35
+  "zoom": 1.35,
+  "retry": 1
  },
  {
   "id": "h-venice--sv",
@@ -1292,7 +1362,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.35
+  "zoom": 1.35,
+  "retry": 1
  },
  {
   "id": "h-venice--nb",
@@ -1303,7 +1374,8 @@
   "palette": "lagoon",
   "w": 1200,
   "h": 1680,
-  "zoom": 1.35
+  "zoom": 1.35,
+  "retry": 1
  },
  {
   "id": "h-lisbon",
