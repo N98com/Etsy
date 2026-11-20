@@ -771,6 +771,44 @@
       roomBox.style.height = Math.round(ROOM_H * k) + 'px';
     }
 
+    // De muur kiest zelf een kleur die bij het palet past: we middelen de kaart tot één
+    // kleur. Lichte posters houden de donkergroene muur (warm) of antraciet (koel);
+    // donkere posters krijgen een lichte of contrasterende muur. Geen extra keuze voor de klant.
+    const ROOM_WALLS = {
+      forest: 'img/room-wall-empty.jpg', linen: 'img/rooms/linen.jpg', terracotta: 'img/rooms/terracotta.jpg',
+      'dusty-blue': 'img/rooms/dusty-blue.jpg', charcoal: 'img/rooms/charcoal.jpg', sand: 'img/rooms/sand.jpg', sage: 'img/rooms/sage.jpg',
+    };
+    const roomImg = roomInner.querySelector('img');
+    const wallProbe = document.createElement('canvas'); wallProbe.width = wallProbe.height = 12;
+    function wallFor() {
+      const t = wallProbe.getContext('2d', { willReadFrequently: true });
+      t.clearRect(0, 0, 12, 12); t.drawImage(mapCanvas, 0, 0, 12, 12);
+      const d = t.getImageData(0, 0, 12, 12).data;
+      let r = 0, g = 0, b = 0, n = 0;
+      for (let i = 0; i < d.length; i += 4) { if (!d[i + 3]) continue; r += d[i]; g += d[i + 1]; b += d[i + 2]; n++; }
+      if (!n) return 'forest';
+      r /= n * 255; g /= n * 255; b /= n * 255;
+      const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dl = mx - mn;
+      const sat = dl ? dl / (1 - Math.abs(2 * l - 1)) : 0;
+      let h = 0;
+      if (dl) { h = mx === r ? ((g - b) / dl) % 6 : mx === g ? (b - r) / dl + 2 : (r - g) / dl + 4; h = (h * 60 + 360) % 360; }
+      if (l > 0.6) return (sat < 0.15 || (h >= 20 && h < 75)) ? 'forest' : 'charcoal';
+      if (sat < 0.12) return 'terracotta';          // zwart, grijs: warme terracotta
+      if (h < 20 || h >= 330) return 'sage';        // rood, wijn, roze: salie
+      if (h < 65) return 'dusty-blue';              // oranje, goud, bruin: stoffig blauw
+      if (h < 150) return 'linen';                  // groen: linnen
+      if (h < 250) return 'sand';                   // petrol, blauw: zand
+      return 'linen';                               // paars: linnen
+    }
+    function matchWall() {
+      const w = wallFor();
+      if (roomImg.dataset.wall === w) return;
+      roomImg.dataset.wall = w;
+      const pre = new Image();
+      pre.onload = () => { if (roomImg.dataset.wall === w) roomImg.src = ROOM_WALLS[w]; };
+      pre.src = ROOM_WALLS[w];
+    }
+
     // Echte afmeting van het gekozen formaat, in cm (uit location.js).
     function posterCm() {
       const s = summary();
@@ -782,6 +820,7 @@
       const ctx = roomCtx;
       ctx.clearRect(0, 0, ART.w, ART.h);
       if (!mapCanvas.width || !mapCanvas.height) return;
+      try { matchWall(); } catch (e) { /* muur blijft zoals hij is */ }
 
       const [cmW, cmH] = posterCm();
       const pw = cmW * PX_PER_CM, ph = cmH * PX_PER_CM;     // de print zelf
