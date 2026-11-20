@@ -773,7 +773,8 @@
   "w": 1200,
   "h": 1680,
   "trace": true,
-  "retry": 1
+  "retry": 1,
+  "zoom": 1.4
  },
  {
   "id": "h-london--nl",
@@ -784,7 +785,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "retry": 1
+  "retry": 1,
+  "zoom": 1.4
  },
  {
   "id": "h-london--de",
@@ -795,7 +797,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "retry": 1
+  "retry": 1,
+  "zoom": 1.4
  },
  {
   "id": "h-london--fr",
@@ -806,7 +809,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "retry": 1
+  "retry": 1,
+  "zoom": 1.4
  },
  {
   "id": "h-london--sv",
@@ -817,7 +821,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "retry": 1
+  "retry": 1,
+  "zoom": 1.4
  },
  {
   "id": "h-london--nb",
@@ -828,7 +833,8 @@
   "palette": "forest-brass",
   "w": 1200,
   "h": 1680,
-  "retry": 1
+  "retry": 1,
+  "zoom": 1.4
  },
  {
   "id": "h-berlin",
