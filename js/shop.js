@@ -773,13 +773,13 @@
 
     // De muur past zich aan het palet aan: tien vaste muren, geen extra keuze voor de klant.
     const ROOM_WALLS = { forest: 'img/room-wall-empty.jpg' };
-    ['linen', 'sand', 'blush', 'sage', 'dusty-blue', 'ochre', 'terracotta', 'navy', 'charcoal'].forEach(w => { ROOM_WALLS[w] = 'img/rooms/' + w + '.jpg'; });
+    ['linen', 'sand', 'blush', 'sage', 'eucalyptus', 'dusty-blue', 'ochre', 'terracotta', 'navy', 'charcoal'].forEach(w => { ROOM_WALLS[w] = 'img/rooms/' + w + '.jpg'; });
     const roomImg = roomInner.querySelector('img');
-    // Elk palet heeft een vaste muur (PALETTE_WALLS in mapPalettes.js): niets te berekenen.
+    // Elk palet heeft een vaste muur (PALETTE_WALLS / paletteWall in mapPalettes.js).
     function wallFor() {
       const s = summary();
       const id = s && s.palette && s.palette.id;
-      const w = id && typeof PALETTE_WALLS !== 'undefined' ? PALETTE_WALLS[id] : null;
+      const w = id && typeof paletteWall === 'function' ? paletteWall(id) : null;
       return w && ROOM_WALLS[w] ? w : 'forest';
     }
     function matchWall() {

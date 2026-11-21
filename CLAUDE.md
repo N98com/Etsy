@@ -42,3 +42,6 @@
   Push, then POST {action:'policies', url:<raw shopify-en.json>} to the Supabase function shopify-translate
   (the app has write_legal_policies); translations: POST {url:<raw tools/i18n/shopify/policies-tr.json>}
   (items {id: ShopPolicy gid, locale, t:{body}}). Policy ids: POST {action:'policy_ids'}.
+- "On the wall" (designer): eleven fixed walls in `img/rooms/` (forest = `img/room-wall-empty.jpg`). Each palette is linked
+  to a wall in `PALETTE_WALLS` (end of `js/mapPalettes.js`); a new palette without an entry gets one automatically from
+  `paletteWall()` (same rules, from its background colours). Add an entry only to override that choice.

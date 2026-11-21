@@ -339,31 +339,62 @@ const PALETTE_CATEGORIES = [
 ];
 
 // Vaste muurkleur per palet voor "On the wall" (img/rooms/<naam>.jpg, forest = img/room-wall-empty.jpg).
-// Tien muren: forest, linen, sand, blush, sage, dusty-blue, ochre, terracotta, navy, charcoal.
-// Nieuw palet zonder regel hier: de donkergroene muur (forest).
+// Elf muren: forest, linen, sand, blush, sage, eucalyptus, dusty-blue, ochre, terracotta, navy, charcoal.
+// Nieuw palet zonder regel hier: paletteWall() kiest er zelf een (zelfde regels, één keer per palet).
 const PALETTE_WALLS = {
   mono: 'forest', earth: 'linen', 'old-navy': 'sand', coral: 'charcoal',
   mauve: 'linen', 'electric-midnight-glow': 'terracotta', 'emerald-gold-noir': 'terracotta', 'sandstone-lagoon': 'forest',
   'mint-etching': 'charcoal', 'obsidian-harbor': 'sand', 'glacier-mist': 'charcoal', 'rosewater-bloom': 'forest',
   'coal-dune': 'terracotta', 'verdigris-dusk': 'blush', 'chalk-line': 'forest', 'graphite-line': 'terracotta',
   'chalk-harbor': 'forest', 'graphite-harbor': 'terracotta', 'parchment-sepia': 'forest', 'terracotta-sun': 'sage',
-  'deep-teal': 'sand', 'bordeaux-gold': 'sage', 'midnight-copper': 'sand', 'forest-brass': 'linen',
+  'deep-teal': 'sand', 'bordeaux-gold': 'eucalyptus', 'midnight-copper': 'sand', 'forest-brass': 'linen',
   'tangerine-dream': 'forest', 'plum-velvet': 'ochre', seafoam: 'charcoal', 'burnt-sienna-noir': 'dusty-blue',
   'cherry-blossom': 'charcoal', 'sepia-noir': 'dusty-blue', flamingo: 'charcoal', lagoon: 'sand',
   'graphite-gold': 'terracotta', 'mint-chocolate': 'dusty-blue', 'royal-velvet': 'ochre', 'clay-pot': 'sage',
-  'emerald-city': 'linen', 'ash-rose': 'sage', 'neon-tokyo': 'ochre', 'amethyst-gold': 'ochre',
-  'lapis-gold': 'sand', 'rose-gold-noir': 'terracotta', 'twilight-bloom': 'sand', 'sunset-boulevard': 'sage',
-  'northern-lights': 'sand', 'rose-hour': 'ochre', 'forest-mist': 'linen', 'ember-glow': 'sage',
-  'golden-dusk': 'dusty-blue', 'desert-mirage': 'sage', 'burgundy-rose': 'sage', 'midnight-ember': 'ochre',
+  'emerald-city': 'linen', 'ash-rose': 'eucalyptus', 'neon-tokyo': 'ochre', 'amethyst-gold': 'ochre',
+  'lapis-gold': 'sand', 'rose-gold-noir': 'terracotta', 'twilight-bloom': 'sand', 'sunset-boulevard': 'eucalyptus',
+  'northern-lights': 'sand', 'rose-hour': 'ochre', 'forest-mist': 'linen', 'ember-glow': 'eucalyptus',
+  'golden-dusk': 'dusty-blue', 'desert-mirage': 'sage', 'burgundy-rose': 'eucalyptus', 'midnight-ember': 'ochre',
   'moss-honey': 'linen', 'cherry-cola': 'sage', 'saffron-night': 'sand', 'champagne-dusk': 'sage',
   'mulberry-gold': 'ochre', 'midnight-rose': 'sand', 'tuscan-sunset': 'navy', 'violet-flame': 'ochre',
-  'bourbon-glow': 'sage', sangria: 'sage', 'marigold-night': 'sand', 'fig-honey': 'ochre',
+  'bourbon-glow': 'sage', sangria: 'eucalyptus', 'marigold-night': 'sand', 'fig-honey': 'ochre',
   'paprika-dusk': 'sage', 'bronze-age': 'dusty-blue', 'velvet-ochre': 'dusty-blue', 'dusky-orchid': 'ochre',
   'oxblood-amber': 'sage', 'royal-wine': 'sand', 'gilded-forest': 'linen', 'desert-night': 'ochre',
-  'golden-wine': 'sage', 'desert-sunset': 'sage', 'tropical-dusk': 'sage', 'golden-hour': 'dusty-blue',
-  'bordeaux-glow': 'sage', 'amber-halo': 'dusty-blue', 'emerald-halo': 'linen', 'copper-halo': 'dusty-blue',
-  'fire-opal': 'sage', 'plum-orchard': 'sage', 'saffron-wine': 'sage', 'berry-gold': 'sage',
-  'velvet-flame': 'sage', 'orchid-shadow': 'sage', 'meadow-gold': 'blush', 'lime-dusk': 'navy',
+  'golden-wine': 'eucalyptus', 'desert-sunset': 'sage', 'tropical-dusk': 'eucalyptus', 'golden-hour': 'dusty-blue',
+  'bordeaux-glow': 'eucalyptus', 'amber-halo': 'dusty-blue', 'emerald-halo': 'linen', 'copper-halo': 'dusty-blue',
+  'fire-opal': 'sage', 'plum-orchard': 'eucalyptus', 'saffron-wine': 'sage', 'berry-gold': 'sage',
+  'velvet-flame': 'eucalyptus', 'orchid-shadow': 'eucalyptus', 'meadow-gold': 'blush', 'lime-dusk': 'navy',
   'jade-halo': 'sand', 'iris-bay': 'sand', 'spring-moss': 'blush', 'lime-glacier': 'blush',
-  ultraviolet: 'ochre', 'orchid-spice': 'ochre', 'electric-moss': 'blush', 'ocean-drive': 'sage',
+  ultraviolet: 'ochre', 'orchid-spice': 'ochre', 'electric-moss': 'blush', 'ocean-drive': 'eucalyptus',
 };
+
+// Muur voor een palet: de vaste keuze hierboven, anders uit de achtergrondkleuren afgeleid.
+// Zo krijgt elk nieuw palet automatisch een passende muur.
+const paletteWall = (() => {
+  const cache = {};
+  function derive(p) {
+    const cols = (p.bgStops && p.bgStops.length ? p.bgStops : [p.bg]).filter(Boolean);
+    if (!cols.length) return 'forest';
+    let r = 0, g = 0, b = 0;
+    cols.forEach(c => { const n = parseInt(String(c).slice(1, 7), 16); r += (n >> 16) & 255; g += (n >> 8) & 255; b += n & 255; });
+    r /= cols.length * 255; g /= cols.length * 255; b /= cols.length * 255;
+    const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dl = mx - mn;
+    const s = dl ? dl / (1 - Math.abs(2 * l - 1)) : 0;
+    let h = 0;
+    if (dl) { h = mx === r ? ((g - b) / dl) % 6 : mx === g ? (b - r) / dl + 2 : (r - g) / dl + 4; h = (h * 60 + 360) % 360; }
+    if (l > 0.6) return (s < 0.15 || (h >= 20 && h < 75)) ? 'forest' : 'charcoal'; // licht: groen of antraciet
+    if (s < 0.12) return 'terracotta';                       // zwart, grijs
+    if (h >= 330) return 'eucalyptus';                       // roze, wijn, magenta
+    if (h < 20) return 'sage';                               // rood, koraal
+    if (h < 50) return 'dusty-blue';                         // oranje, amber, koper
+    if (h < 75) return 'navy';                               // goud, oker
+    if (h < 165) return l < 0.25 ? 'linen' : 'blush';        // groen
+    if (h < 250) return 'sand';                              // petrol, blauw
+    return 'ochre';                                          // paars, violet
+  }
+  return function (id) {
+    if (PALETTE_WALLS[id]) return PALETTE_WALLS[id];
+    if (!(id in cache)) { const p = MAP_PALETTES.find(x => x.id === id); cache[id] = p ? derive(p) : 'forest'; }
+    return cache[id];
+  };
+})();
