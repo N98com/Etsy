@@ -771,23 +771,24 @@
       roomBox.style.height = Math.round(ROOM_H * k) + 'px';
     }
 
-    // De muur kiest zelf een kleur die bij het palet past: we middelen de kaart tot één
-    // kleur. Lichte posters houden de donkergroene muur (warm) of antraciet (koel);
+    // De muur kiest zelf een kleur die bij het palet past. Lichte posters houden de donkergroene muur (warm) of antraciet (koel);
     // donkere posters krijgen een lichte of contrasterende muur. Geen extra keuze voor de klant.
     const ROOM_WALLS = {
       forest: 'img/room-wall-empty.jpg', linen: 'img/rooms/linen.jpg', terracotta: 'img/rooms/terracotta.jpg',
       'dusty-blue': 'img/rooms/dusty-blue.jpg', charcoal: 'img/rooms/charcoal.jpg', sand: 'img/rooms/sand.jpg', sage: 'img/rooms/sage.jpg',
     };
     const roomImg = roomInner.querySelector('img');
-    const wallProbe = document.createElement('canvas'); wallProbe.width = wallProbe.height = 12;
+    // Uit de paletdefinitie (gemiddelde van de achtergrondkleuren), niet uit het canvas:
+    // het kaartcanvas teruglezen kostte op iPhone te veel geheugen en liet de pagina crashen.
     function wallFor() {
-      const t = wallProbe.getContext('2d', { willReadFrequently: true });
-      t.clearRect(0, 0, 12, 12); t.drawImage(mapCanvas, 0, 0, 12, 12);
-      const d = t.getImageData(0, 0, 12, 12).data;
-      let r = 0, g = 0, b = 0, n = 0;
-      for (let i = 0; i < d.length; i += 4) { if (!d[i + 3]) continue; r += d[i]; g += d[i + 1]; b += d[i + 2]; n++; }
-      if (!n) return 'forest';
-      r /= n * 255; g /= n * 255; b /= n * 255;
+      const s = summary();
+      const id = s && s.palette && s.palette.id;
+      const pal = id && typeof MAP_PALETTES !== 'undefined' ? MAP_PALETTES.find(p => p.id === id) : null;
+      if (!pal) return 'forest';
+      const cols = (pal.bgStops && pal.bgStops.length ? pal.bgStops : [pal.bg]).filter(Boolean);
+      let r = 0, g = 0, b = 0;
+      cols.forEach(c => { const n = parseInt(String(c).slice(1, 7), 16); r += (n >> 16) & 255; g += (n >> 8) & 255; b += n & 255; });
+      r /= cols.length * 255; g /= cols.length * 255; b /= cols.length * 255;
       const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dl = mx - mn;
       const sat = dl ? dl / (1 - Math.abs(2 * l - 1)) : 0;
       let h = 0;
