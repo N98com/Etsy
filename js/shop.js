@@ -771,35 +771,16 @@
       roomBox.style.height = Math.round(ROOM_H * k) + 'px';
     }
 
-    // De muur kiest zelf een kleur die bij het palet past. Lichte posters houden de donkergroene muur (warm) of antraciet (koel);
-    // donkere posters krijgen een lichte of contrasterende muur. Geen extra keuze voor de klant.
-    const ROOM_WALLS = {
-      forest: 'img/room-wall-empty.jpg', linen: 'img/rooms/linen.jpg', terracotta: 'img/rooms/terracotta.jpg',
-      'dusty-blue': 'img/rooms/dusty-blue.jpg', charcoal: 'img/rooms/charcoal.jpg', sand: 'img/rooms/sand.jpg', sage: 'img/rooms/sage.jpg',
-    };
+    // De muur past zich aan het palet aan: tien vaste muren, geen extra keuze voor de klant.
+    const ROOM_WALLS = { forest: 'img/room-wall-empty.jpg' };
+    ['linen', 'sand', 'blush', 'sage', 'dusty-blue', 'ochre', 'terracotta', 'navy', 'charcoal'].forEach(w => { ROOM_WALLS[w] = 'img/rooms/' + w + '.jpg'; });
     const roomImg = roomInner.querySelector('img');
-    // Uit de paletdefinitie (gemiddelde van de achtergrondkleuren), niet uit het canvas:
-    // het kaartcanvas teruglezen kostte op iPhone te veel geheugen en liet de pagina crashen.
+    // Elk palet heeft een vaste muur (PALETTE_WALLS in mapPalettes.js): niets te berekenen.
     function wallFor() {
       const s = summary();
       const id = s && s.palette && s.palette.id;
-      const pal = id && typeof MAP_PALETTES !== 'undefined' ? MAP_PALETTES.find(p => p.id === id) : null;
-      if (!pal) return 'forest';
-      const cols = (pal.bgStops && pal.bgStops.length ? pal.bgStops : [pal.bg]).filter(Boolean);
-      let r = 0, g = 0, b = 0;
-      cols.forEach(c => { const n = parseInt(String(c).slice(1, 7), 16); r += (n >> 16) & 255; g += (n >> 8) & 255; b += n & 255; });
-      r /= cols.length * 255; g /= cols.length * 255; b /= cols.length * 255;
-      const mx = Math.max(r, g, b), mn = Math.min(r, g, b), l = (mx + mn) / 2, dl = mx - mn;
-      const sat = dl ? dl / (1 - Math.abs(2 * l - 1)) : 0;
-      let h = 0;
-      if (dl) { h = mx === r ? ((g - b) / dl) % 6 : mx === g ? (b - r) / dl + 2 : (r - g) / dl + 4; h = (h * 60 + 360) % 360; }
-      if (l > 0.6) return (sat < 0.15 || (h >= 20 && h < 75)) ? 'forest' : 'charcoal';
-      if (sat < 0.12) return 'terracotta';          // zwart, grijs: warme terracotta
-      if (h < 20 || h >= 330) return 'sage';        // rood, wijn, roze: salie
-      if (h < 65) return 'dusty-blue';              // oranje, goud, bruin: stoffig blauw
-      if (h < 150) return 'linen';                  // groen: linnen
-      if (h < 250) return 'sand';                   // petrol, blauw: zand
-      return 'linen';                               // paars: linnen
+      const w = id && typeof PALETTE_WALLS !== 'undefined' ? PALETTE_WALLS[id] : null;
+      return w && ROOM_WALLS[w] ? w : 'forest';
     }
     function matchWall() {
       const w = wallFor();
