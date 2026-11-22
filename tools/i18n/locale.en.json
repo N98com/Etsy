@@ -7,7 +7,7 @@
     "framed": "Framed and ready to hang, if you like",
     "img_alt": "{{ city }} map print by N°98 Maps",
     "made_title": "Made to order",
-    "made_body": "Your map is printed on 200 gsm matte paper, FSC certified, by our production partner nearest to you. Choose one of eight sizes from 20×25 to 70×100 cm, unframed or in a solid pine frame with shatterproof plexiglass, ready to hang. Free shipping within Europe, the UK and the US.",
+    "made_body": "Your map is printed on 200 gsm matte paper, FSC certified or equivalent, by our production partner nearest to you. Choose one of eight sizes from 20×25 to 70×100 cm, unframed or in a solid pine frame with shatterproof plexiglass, ready to hang. Free shipping within Europe, the UK and the US.",
     "start_with": "Start with {{ city }}",
     "not_your_city_html": "Not your city? <a href=\"{{ url }}\">Search any place on earth</a> in the designer.",
     "not_here_html": "Your city is not here? Every place on earth works: <a href=\"{{ url }}\">open the designer</a> and search for it.",

@@ -369,7 +369,7 @@
       "framed": "Encadrée et prête à accrocher, si vous le souhaitez",
       "img_alt": "{{ city }}, affiche de carte par N°98 Maps",
       "made_title": "Faite à la commande",
-      "made_body": "Votre carte est imprimée sur papier mat de 200 gsm, certifié FSC, par notre partenaire de production le plus proche de chez vous. Choisissez parmi huit formats de 20×25 à 70×100 cm, sans cadre ou dans un cadre en pin massif avec plexiglas incassable, prête à accrocher. Livraison gratuite en Europe, au Royaume-Uni et aux États-Unis.",
+      "made_body": "Votre carte est imprimée sur papier mat de 200 gsm, certifié FSC ou équivalent, par notre partenaire de production le plus proche de chez vous. Choisissez parmi huit formats de 20×25 à 70×100 cm, sans cadre ou dans un cadre en pin massif avec plexiglas incassable, prête à accrocher. Livraison gratuite en Europe, au Royaume-Uni et aux États-Unis.",
       "start_with": "Commencer avec {{ city }}",
       "not_your_city_html": "Pas votre ville ? <a href=\"{{ url }}\">Cherchez n’importe quel lieu au monde</a> dans l’éditeur.",
       "not_here_html": "Votre ville n’est pas là ? Tous les lieux du monde fonctionnent : <a href=\"{{ url }}\">ouvrez l’éditeur</a> et cherchez-la.",

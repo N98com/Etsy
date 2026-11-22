@@ -7,7 +7,7 @@
     "framed": "Innrammet og klar til å henges opp, om du vil",
     "img_alt": "Kartplakat over {{ city }} fra N°98 Maps",
     "made_title": "Laget på bestilling",
-    "made_body": "Kartet ditt trykkes på matt papir på 200 g/m², FSC sertifisert, hos produksjonspartneren nærmest deg. Velg en av åtte størrelser fra 20×25 til 70×100 cm, uten ramme eller i en ramme av massiv furu med knusesikkert pleksiglass, klar til å henges opp. Gratis frakt innenfor Europa, Storbritannia og USA.",
+    "made_body": "Kartet ditt trykkes på matt papir på 200 g/m², FSC sertifisert eller tilsvarende, hos produksjonspartneren nærmest deg. Velg en av åtte størrelser fra 20×25 til 70×100 cm, uten ramme eller i en ramme av massiv furu med knusesikkert pleksiglass, klar til å henges opp. Gratis frakt innenfor Europa, Storbritannia og USA.",
     "start_with": "Begynn med {{ city }}",
     "not_your_city_html": "Ikke din by? <a href=\"{{ url }}\">Søk etter et hvilket som helst sted på jorden</a> i designverktøyet.",
     "not_here_html": "Er ikke byen din her? Alle steder på jorden fungerer: <a href=\"{{ url }}\">åpne designverktøyet</a> og søk etter den.",

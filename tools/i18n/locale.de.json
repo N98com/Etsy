@@ -7,7 +7,7 @@
     "framed": "Gerahmt und fertig zum Aufhängen, wenn du möchtest",
     "img_alt": "Kartendruck von {{ city }} von N°98 Maps",
     "made_title": "Auf Bestellung gefertigt",
-    "made_body": "Deine Karte wird auf mattem Papier mit 200 gsm gedruckt, FSC zertifiziert, von unserem Produktionspartner in deiner Nähe. Wähle aus acht Größen von 20×25 bis 70×100 cm, ohne Rahmen oder in einem Rahmen aus massiver Kiefer mit bruchsicherem Plexiglas, fertig zum Aufhängen. Kostenloser Versand innerhalb Europas, nach Großbritannien und in die USA.",
+    "made_body": "Deine Karte wird auf mattem Papier mit 200 gsm gedruckt, FSC zertifiziert oder gleichwertig, von unserem Produktionspartner in deiner Nähe. Wähle aus acht Größen von 20×25 bis 70×100 cm, ohne Rahmen oder in einem Rahmen aus massiver Kiefer mit bruchsicherem Plexiglas, fertig zum Aufhängen. Kostenloser Versand innerhalb Europas, nach Großbritannien und in die USA.",
     "start_with": "Mit {{ city }} beginnen",
     "not_your_city_html": "Nicht deine Stadt? <a href=\"{{ url }}\">Suche jeden Ort der Welt</a> im Designer.",
     "not_here_html": "Deine Stadt ist nicht dabei? Jeder Ort der Welt funktioniert: <a href=\"{{ url }}\">öffne den Designer</a> und suche ihn.",
