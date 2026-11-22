@@ -86,7 +86,55 @@
   endif
   assign from_price = designer.price_min | default: 3900 | money_without_trailing_zeros
   assign arrow = '<svg width="22" height="10" viewBox="0 0 22 10" fill="none" stroke="currentColor" stroke-width="1.2" aria-hidden="true"><path d="M0 5h20M16 1l4 4-4 4"/></svg>'
+  assign site_root = request.origin | append: pfx | append: '/'
+  assign hub_page = pages['city-map-prints']
 -%}
+
+{%- comment -%}
+  Structured data (JSON-LD): breadcrumbs on every page; on a city page also the print itself as a
+  Product with an AggregateOffer (from/to price of the designer, in the visitor's currency).
+  Everything here is visible on the page: name, image, price "from", the designer link.
+{%- endcomment -%}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": {{ shop.name | json }}, "item": {{ site_root | json }} }
+        {%- if city -%},
+        { "@type": "ListItem", "position": 2, "name": {{ hub_page.title | default: 'City map prints' | json }}, "item": {{ request.origin | append: hub_url | json }} },
+        { "@type": "ListItem", "position": 3, "name": {{ page.title | json }}, "item": {{ canonical_url | json }} }
+        {%- else -%},
+        { "@type": "ListItem", "position": 2, "name": {{ page.title | json }}, "item": {{ canonical_url | json }} }
+        {%- endif %}
+      ]
+    }
+    {%- if city and designer -%},
+    {
+      "@type": "Product",
+      "@id": {{ canonical_url | append: '#print' | json }},
+      "name": {{ page.title | json }},
+      "description": {{ lede | default: page.content | strip_html | strip_newlines | truncate: 300 | json }},
+      "image": {{ img | asset_url | prepend: 'https:' | json }},
+      "url": {{ canonical_url | json }},
+      "brand": { "@type": "Brand", "name": {{ shop.name | json }} },
+      "category": "Map print",
+      "offers": {
+        "@type": "AggregateOffer",
+        "priceCurrency": {{ cart.currency.iso_code | json }},
+        "lowPrice": {{ designer.price_min | divided_by: 100.0 | json }},
+        "highPrice": {{ designer.price_max | divided_by: 100.0 | json }},
+        "offerCount": {{ designer.variants.size | json }},
+        "availability": "https://schema.org/InStock",
+        "url": {{ request.origin | append: designer_url | json }}
+      }
+    }
+    {%- endif %}
+  ]
+}
+</script>
 
 <div class="n98o">
   {%- if city -%}
