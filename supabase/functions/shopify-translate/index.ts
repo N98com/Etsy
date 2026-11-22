@@ -13,6 +13,7 @@
 // POST { action: 'theme_upload', theme, url } uploads repo files [{ filename, url }] to an unpublished theme (never MAIN).
 // POST { action: 'theme_check', theme, url } compares [{ filename, md5 }] with the theme.
 // POST { action: 'city_langs', url } sets "langs" in page metafield n98.city for [{ handle, langs }].
+// POST { action: 'city_notes', url, dry? } puts map notes per city into page bodies and translations.
 // POST { action: 'eu_shipping', type?: "PAGE", after?, dry? } rewrites "free shipping in Europe, the UK ..."
 //   to "the EU" (fixed rules, every language) in pages (title, body, SEO title and description) and their translations, 25 per call.
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
@@ -123,6 +124,52 @@ async function euShipping(b: any) {
   }
   return { next: conn.pageInfo.hasNextPage ? conn.pageInfo.endCursor : null, scanned: conn.nodes.length, changes: changes.length, sample: changes.slice(0, 6), errors };
 }
+// city_notes: file [{ handle, notes: { en: html, nl: html, ... } }] -> puts the block in a <div class="n98-notes">
+// before the last paragraph of the page body (English source and each translation), replacing an earlier block.
+const NOTE_RE = /<div class="n98-notes">[\s\S]*?<\/div>\n?/g;
+function putNotes(html: string, block: string) {
+  const clean = html.replace(NOTE_RE, "");
+  const wrapped = `<div class="n98-notes">\n${block}\n</div>\n`;
+  const i = clean.lastIndexOf("<p>");
+  return i < 0 ? clean + "\n" + wrapped : clean.slice(0, i) + wrapped + clean.slice(i);
+}
+async function cityNotes(b: any) {
+  const list: any[] = await (await fetch(b.url)).json();
+  const tq = LOCALES.map((l) => `${l}: translations(locale: "${l}") { key value }`).join(" ");
+  const res: any[] = []; const errors: unknown[] = [];
+  for (const it of list) {
+    const d = await gql(`query($q: String!) { pages(first: 1, query: $q) { nodes { id handle body } } }`, { q: "handle:" + it.handle });
+    const pg = (d.pages.nodes || []).find((x: any) => x.handle === it.handle);
+    if (!pg) { errors.push({ handle: it.handle, error: "not found" }); continue; }
+    const r0 = await gql(`query($id: ID!) { translatableResource(resourceId: $id) { ${tq} } }`, { id: pg.id });
+    const tr0 = r0.translatableResource;
+    const n = it.notes || {};
+    let enChanged = false;
+    if (n.en) {
+      const nb = putNotes(pg.body, n.en);
+      if (nb !== pg.body) {
+        enChanged = true;
+        if (!b.dry) { const m = await gql(`mutation($id: ID!, $p: PageUpdateInput!) { pageUpdate(id: $id, page: $p) { userErrors { field message } } }`, { id: pg.id, p: { body: nb } }); if (m.pageUpdate.userErrors.length) errors.push({ handle: it.handle, ue: m.pageUpdate.userErrors }); }
+      }
+    }
+    let dig = "";
+    const r1 = await gql(`query($id: ID!) { translatableResource(resourceId: $id) { translatableContent { key digest } } }`, { id: pg.id });
+    for (const c of r1.translatableResource.translatableContent) if (c.key === "body_html") dig = c.digest;
+    const tr: any[] = []; const done: string[] = enChanged ? ["en"] : [];
+    for (const l of LOCALES) {
+      const cur = (tr0[l] || []).find((t: any) => t.key === "body_html");
+      if (!cur || !cur.value) { if (n[l]) errors.push({ handle: it.handle, locale: l, error: "no translated body" }); continue; }
+      const nv = n[l] ? putNotes(cur.value, n[l]) : cur.value;
+      if (nv !== cur.value || enChanged) { tr.push({ locale: l, key: "body_html", value: nv, translatableContentDigest: dig }); if (nv !== cur.value) done.push(l); }
+    }
+    if (tr.length && !b.dry) {
+      const m = await gql(`mutation($r: ID!, $t: [TranslationInput!]!) { translationsRegister(resourceId: $r, translations: $t) { userErrors { field message } } }`, { r: pg.id, t: tr });
+      if (m.translationsRegister.userErrors.length) errors.push({ handle: it.handle, ue: m.translationsRegister.userErrors });
+    }
+    res.push({ h: it.handle, done });
+  }
+  return { n: res.length, res, errors, sample: b.dry && list[0] ? putNotes("<h2>x</h2>\n<p>a</p>\n<p>last</p>", list[0].notes.en || "") : undefined };
+}
 const POLICY_TYPES = ["REFUND_POLICY", "SHIPPING_POLICY", "TERMS_OF_SERVICE", "TERMS_OF_SALE", "CONTACT_INFORMATION", "LEGAL_NOTICE", "PRIVACY_POLICY"];
 const out = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { "Content-Type": "application/json" } });
 Deno.serve(async (req) => {
@@ -132,6 +179,7 @@ Deno.serve(async (req) => {
     if (b.action === "policy_ids") return out(await gql(`{ shop { shopPolicies { id type title url } } }`));
     if (b.action === "eu_shipping") return out(await euShipping(b));
     if (typeof b.url !== "string" || !b.url.startsWith(PREFIX)) return out({ error: "bad url" }, 400);
+    if (b.action === "city_notes") return out(await cityNotes(b));
     if (b.action === "shop_metafield") {
       if (typeof b.key !== "string" || !/^cities\d*$/.test(b.key)) return out({ error: "bad key" }, 400);
       const value = await (await fetch(b.url)).text();

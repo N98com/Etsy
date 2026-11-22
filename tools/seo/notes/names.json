@@ -1,0 +1,216 @@
+{
+"amsterdam": {
+"n": "Amsterdam"
+},
+"rotterdam": {
+"n": "Rotterdam"
+},
+"the-hague": {
+"n": "The Hague",
+"nl": "Den Haag",
+"de": "Den Haag",
+"fr": "La Haye",
+"sv": "Haag",
+"nb": "Haag"
+},
+"utrecht": {
+"n": "Utrecht"
+},
+"antwerp": {
+"n": "Antwerp",
+"nl": "Antwerpen",
+"de": "Antwerpen",
+"fr": "Anvers",
+"sv": "Antwerpen",
+"nb": "Antwerpen"
+},
+"ghent": {
+"n": "Ghent",
+"nl": "Gent",
+"de": "Gent",
+"fr": "Gand",
+"sv": "Gent",
+"nb": "Gent"
+},
+"brussels": {
+"n": "Brussels",
+"nl": "Brussel",
+"de": "Brüssel",
+"fr": "Bruxelles",
+"sv": "Bryssel",
+"nb": "Brussel"
+},
+"bruges": {
+"n": "Bruges",
+"nl": "Brugge",
+"de": "Brügge",
+"sv": "Brygge",
+"nb": "Brugge"
+},
+"berlin": {
+"n": "Berlin",
+"nl": "Berlijn"
+},
+"hamburg": {
+"n": "Hamburg",
+"fr": "Hambourg"
+},
+"munich": {
+"n": "Munich",
+"nl": "München",
+"de": "München",
+"sv": "München",
+"nb": "München"
+},
+"cologne": {
+"n": "Cologne",
+"nl": "Keulen",
+"de": "Köln",
+"sv": "Köln",
+"nb": "Köln"
+},
+"paris": {
+"n": "Paris",
+"nl": "Parijs"
+},
+"nice": {
+"n": "Nice",
+"de": "Nizza"
+},
+"london": {
+"n": "London",
+"nl": "Londen",
+"fr": "Londres"
+},
+"vienna": {
+"n": "Vienna",
+"nl": "Wenen",
+"de": "Wien",
+"fr": "Vienne",
+"sv": "Wien",
+"nb": "Wien"
+},
+"prague": {
+"n": "Prague",
+"nl": "Praag",
+"de": "Prag",
+"sv": "Prag",
+"nb": "Praha"
+},
+"rome": {
+"n": "Rome",
+"de": "Rom",
+"sv": "Rom",
+"nb": "Roma"
+},
+"venice": {
+"n": "Venice",
+"nl": "Venetië",
+"de": "Venedig",
+"fr": "Venise",
+"sv": "Venedig",
+"nb": "Venezia"
+},
+"barcelona": {
+"n": "Barcelona",
+"fr": "Barcelone"
+},
+"madrid": {
+"n": "Madrid"
+},
+"lisbon": {
+"n": "Lisbon",
+"nl": "Lissabon",
+"de": "Lissabon",
+"fr": "Lisbonne",
+"sv": "Lissabon",
+"nb": "Lisboa"
+},
+"copenhagen": {
+"n": "Copenhagen",
+"nl": "Kopenhagen",
+"de": "Kopenhagen",
+"fr": "Copenhague",
+"sv": "Köpenhamn",
+"nb": "København"
+},
+"new-york": {
+"n": "New York"
+},
+"los-angeles": {
+"n": "Los Angeles"
+},
+"san-francisco": {
+"n": "San Francisco"
+},
+"las-vegas": {
+"n": "Las Vegas"
+},
+"edinburgh": {
+"n": "Edinburgh",
+"fr": "Édimbourg"
+},
+"oslo": {
+"n": "Oslo"
+},
+"stockholm": {
+"n": "Stockholm"
+},
+"eindhoven": {
+"n": "Eindhoven"
+},
+"groningen": {
+"n": "Groningen"
+},
+"tilburg": {
+"n": "Tilburg"
+},
+"almere": {
+"n": "Almere"
+},
+"breda": {
+"n": "Breda"
+},
+"nijmegen": {
+"n": "Nijmegen"
+},
+"apeldoorn": {
+"n": "Apeldoorn"
+},
+"arnhem": {
+"n": "Arnhem"
+},
+"haarlem": {
+"n": "Haarlem"
+},
+"enschede": {
+"n": "Enschede"
+},
+"amersfoort": {
+"n": "Amersfoort"
+},
+"den-bosch": {
+"n": "Den Bosch"
+},
+"zwolle": {
+"n": "Zwolle"
+},
+"leiden": {
+"n": "Leiden"
+},
+"zoetermeer": {
+"n": "Zoetermeer"
+},
+"leeuwarden": {
+"n": "Leeuwarden"
+},
+"maastricht": {
+"n": "Maastricht"
+},
+"dordrecht": {
+"n": "Dordrecht"
+},
+"delft": {
+"n": "Delft"
+}
+}
