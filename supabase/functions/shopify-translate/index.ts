@@ -134,7 +134,8 @@ function putNotes(html: string, block: string) {
   return i < 0 ? clean + "\n" + wrapped : clean.slice(0, i) + wrapped + clean.slice(i);
 }
 async function cityNotes(b: any) {
-  const list: any[] = await (await fetch(b.url)).json();
+  const from = Number(b.from) || 0;
+  const list: any[] = ((await (await fetch(b.url)).json()) as any[]).slice(from, from + (Number(b.n) || 10));
   const tq = LOCALES.map((l) => `${l}: translations(locale: "${l}") { key value }`).join(" ");
   const res: any[] = []; const errors: unknown[] = [];
   for (const it of list) {
