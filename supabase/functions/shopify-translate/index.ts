@@ -13,6 +13,8 @@
 // POST { action: 'theme_upload', theme, url } uploads repo files [{ filename, url }] to an unpublished theme (never MAIN).
 // POST { action: 'theme_check', theme, url } compares [{ filename, md5 }] with the theme.
 // POST { action: 'city_langs', url } sets "langs" in page metafield n98.city for [{ handle, langs }].
+// POST { action: 'eu_shipping', type?: "PAGE", after?, dry? } rewrites "free shipping in Europe, the UK ..."
+//   to "the EU" (fixed rules, every language) in pages (title, body, SEO title and description) and their translations, 25 per call.
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
 const API_VERSION = "2026-10";
 const PREFIX = "https://raw.githubusercontent.com/N98com/Etsy/";
@@ -64,6 +66,63 @@ async function resolvePages(items: any[], errors: unknown[]) {
   }
   return outItems;
 }
+
+const EU_RULES: [RegExp, string][] = [
+  [/\b(?:the )?Europe(?=, (?:the )?UK)/g, "the EU"],
+  [/Europa(?=, (?:het )?(?:VK|Verenigd))/g, "de EU"],
+  [/\bin Europa, nach Großbritannien/g, "in der EU, nach Großbritannien"],
+  [/innerhalb Europas, nach/g, "innerhalb der EU, nach"],
+  [/\bnach Europa, Großbritannien/g, "in die EU, nach Großbritannien"],
+  [/\bNach Europa, Großbritannien/g, "In die EU, nach Großbritannien"],
+  [/\bin Europa, UK und USA/g, "in der EU, UK und USA"],
+  [/\ben Europe, au Royaume/g, "dans l’UE, au Royaume"],
+  [/\bEn Europe, au Royaume/g, "Dans l’UE, au Royaume"],
+  [/\b(i|inom|till|Till) Europa(?=, Storbritannien)/g, "$1 EU"],
+  [/\b(i|innenfor|til|Til) Europa(?=, Storbritannia)/g, "$1 EU"],
+];
+const euFix = (v: string) => EU_RULES.reduce((s, [a, b]) => s.replace(a, b), v);
+const LOCALES = ["nl", "de", "fr", "sv", "nb"];
+async function euShipping(b: any) {
+  const type = b.type || "PAGE";
+  const tq = LOCALES.map((l) => `${l}: translations(locale: "${l}") { key value }`).join(" ");
+  const d = await gql(`query($a: String) { translatableResources(resourceType: ${type}, first: 25, after: $a) { pageInfo { hasNextPage endCursor } nodes { resourceId translatableContent { key value digest } ${tq} } } }`, { a: b.after || null });
+  const conn = d.translatableResources; const changes: any[] = []; const errors: unknown[] = [];
+  for (const n of conn.nodes) {
+    const src: Record<string, any> = {}; for (const c of n.translatableContent) src[c.key] = c;
+    const changed = new Set<string>(); const dig: Record<string, string> = {};
+    for (const c of n.translatableContent) dig[c.key] = c.digest;
+    const pageInput: Record<string, string> = {}; const mfs: any[] = [];
+    for (const c of n.translatableContent) {
+      if (!c.value || euFix(c.value) === c.value) continue;
+      const nv = euFix(c.value); changes.push({ id: n.resourceId, locale: "en", key: c.key, from: c.value, to: nv }); changed.add(c.key);
+      if (type !== "PAGE") { errors.push({ id: n.resourceId, key: c.key, error: "source not a page, change it by hand" }); continue; }
+      if (c.key === "body_html") pageInput.body = nv;
+      else if (c.key === "title") pageInput.title = nv;
+      else if (c.key === "meta_description") mfs.push({ ownerId: n.resourceId, namespace: "global", key: "description_tag", type: "single_line_text_field", value: nv });
+      else if (c.key === "meta_title") mfs.push({ ownerId: n.resourceId, namespace: "global", key: "title_tag", type: "single_line_text_field", value: nv });
+      else errors.push({ id: n.resourceId, key: c.key, error: "unknown key, not changed" });
+    }
+    if (!b.dry && (mfs.length || Object.keys(pageInput).length)) {
+      if (mfs.length) { const m = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { userErrors { field message } } }`, { m: mfs }); if (m.metafieldsSet.userErrors.length) errors.push({ id: n.resourceId, ue: m.metafieldsSet.userErrors }); }
+      if (Object.keys(pageInput).length) { const m = await gql(`mutation($id: ID!, $p: PageUpdateInput!) { pageUpdate(id: $id, page: $p) { userErrors { field message } } }`, { id: n.resourceId, p: pageInput }); if (m.pageUpdate.userErrors.length) errors.push({ id: n.resourceId, ue: m.pageUpdate.userErrors }); }
+      const r = await gql(`query($id: ID!) { translatableResource(resourceId: $id) { translatableContent { key digest } } }`, { id: n.resourceId });
+      for (const c of r.translatableResource.translatableContent) dig[c.key] = c.digest;
+    }
+    const tr: any[] = [];
+    for (const l of LOCALES) for (const t of (n[l] || [])) {
+      if (!t.value || !src[t.key]) continue;
+      const nv = euFix(t.value);
+      if (nv === t.value && !changed.has(t.key)) continue;
+      if (nv !== t.value) changes.push({ id: n.resourceId, locale: l, key: t.key, from: t.value, to: nv });
+      tr.push({ locale: l, key: t.key, value: nv, translatableContentDigest: dig[t.key] });
+    }
+    if (tr.length && !b.dry) {
+      const m = await gql(`mutation($r: ID!, $t: [TranslationInput!]!) { translationsRegister(resourceId: $r, translations: $t) { userErrors { field message } } }`, { r: n.resourceId, t: tr });
+      if (m.translationsRegister.userErrors.length) errors.push({ id: n.resourceId, ue: m.translationsRegister.userErrors });
+    }
+  }
+  return { next: conn.pageInfo.hasNextPage ? conn.pageInfo.endCursor : null, scanned: conn.nodes.length, changes: changes.length, sample: changes.slice(0, 6), errors };
+}
 const POLICY_TYPES = ["REFUND_POLICY", "SHIPPING_POLICY", "TERMS_OF_SERVICE", "TERMS_OF_SALE", "CONTACT_INFORMATION", "LEGAL_NOTICE", "PRIVACY_POLICY"];
 const out = (b: unknown, s = 200) => new Response(JSON.stringify(b), { status: s, headers: { "Content-Type": "application/json" } });
 Deno.serve(async (req) => {
@@ -71,6 +130,7 @@ Deno.serve(async (req) => {
     const b = await req.json().catch(() => ({}));
     if (b.action === "scopes") { await shopifyToken(true); return out(await gql(`{ currentAppInstallation { accessScopes { handle } } }`)); }
     if (b.action === "policy_ids") return out(await gql(`{ shop { shopPolicies { id type title url } } }`));
+    if (b.action === "eu_shipping") return out(await euShipping(b));
     if (typeof b.url !== "string" || !b.url.startsWith(PREFIX)) return out({ error: "bad url" }, 400);
     if (b.action === "shop_metafield") {
       if (typeof b.key !== "string" || !/^cities\d*$/.test(b.key)) return out({ error: "bad key" }, 400);
