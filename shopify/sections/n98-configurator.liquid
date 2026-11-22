@@ -38,72 +38,6 @@
   <noscript><p class="n98c-note">Aktiviere JavaScript, um deine Karte zu gestalten.</p></noscript>
 </section>
 
-{%- comment -%}
-  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
-  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
-  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
-{%- endcomment -%}
-<section class="n98c-about" aria-labelledby="n98c-about-title">
-  <div class="n98c-about__wrap">
-    <p class="n98c-eyebrow">Über deinen Kartendruck</p>
-    <h2 id="n98c-about-title">Eine Karte von dem Ort, <em>der zählt</em></h2>
-    <p class="n98c-lede">Jede N°98 Karte wird aus echten Kartendaten gezeichnet, für jeden Ort der Welt: eine Stadt, ein Dorf, eine einzelne Straße oder die Haustür deines ersten Zuhauses. Du wählst die Farben, die Form und die Worte. Wir drucken sie auf Bestellung auf kräftigem Mattpapier und schicken sie dir, oder direkt an die Person, für die sie gedacht ist.</p>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>So funktioniert es</h3>
-        <ol class="n98c-steps">
-          <li><b>Ort.</b> Suche eine Adresse, eine Straße oder eine Stadt und wähle genau den richtigen Ausschnitt.</li>
-          <li><b>Farben.</b> Wähle aus mehr als fünfzig Paletten, gemacht für die Wand.</li>
-          <li><b>Form.</b> Ein klassisches Rechteck, ein Kreis oder ein Herz.</li>
-          <li><b>Text.</b> Behalte den Ortsnamen oder setze deine eigenen Worte und ein Datum darauf.</li>
-          <li><b>Pins.</b> Markiere den Ort mit einem Herz, einem Haus, zwei Ringen oder deinen Initialen.</li>
-          <li><b>Größe &amp; Rahmen.</b> Acht Größen, ohne Rahmen oder gerahmt und bereit zum Aufhängen.</li>
-        </ol>
-      </div>
-      <div>
-        <h3>Größen und Preise</h3>
-        <ul class="n98c-sizes">
-          {%- assign noframe = product.options_with_values[1].values.first -%}
-          {%- for v in product.variants -%}
-            {%- if v.option2 == noframe -%}
-              {%- assign framed = nil -%}
-              {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
-              {%- endfor -%}
-              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · gerahmt {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-        <p class="n98c-small">Alle Preise inklusive MwSt. und kostenlosem Versand innerhalb der EU, nach Großbritannien und in die USA.</p>
-      </div>
-    </div>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Papier und Rahmen</h3>
-        <p>Premium Mattpapier mit 200 gsm, FSC zertifiziert oder gleichwertig, mit glatter Oberfläche ohne Spiegelungen. Die Rahmen sind aus massiver Kiefer in Schwarz, Weiß, Naturholz oder dunklem Holz, mit bruchsicherem Plexiglas und Aufhängeset. Jede Karte kommt fertig zum Aufhängen.</p>
-      </div>
-      <div>
-        <h3>In deiner Nähe gedruckt</h3>
-        <p>Deine Karte wird auf Bestellung von unserem Produktionspartner in deiner Nähe gedruckt, damit sie nur einen kurzen Weg hat und sicher ankommt: meist innerhalb von 3 bis 7 Werktagen in Europa und 5 bis 10 in den USA. Kommt sie einmal beschädigt oder fehlerhaft an, schicken wir dir einen neuen Druck.</p>
-      </div>
-    </div>
-
-    <h3>Fragen</h3>
-    <dl class="n98c-faq">
-      <dt>Kann ich eine Karte von jeder Adresse machen?</dt>
-      <dd>Ja. Jeder Ort mit Straßen auf der Karte funktioniert, von der Weltstadt bis zum kleinen Dorf oder einem einzelnen Haus.</dd>
-      <dt>Kann ich sie als Geschenk verschicken?</dt>
-      <dd>Natürlich. Gib beim Bezahlen die Adresse der beschenkten Person ein, und wir schicken die Karte direkt dorthin.</dd>
-      <dt>Welche Größe soll ich wählen?</dt>
-      <dd>Für ein Geschenk, das in jeden Raum passt: 30×40 oder 40×50 cm. Für einen Blickfang über dem Sofa oder Bett: 50×70 cm oder größer. Die Vorschau zeigt deine Karte maßstabsgetreu an einer Wand, noch bevor du bestellst.</dd>
-      <dt>Kann ich sie auch im Querformat bestellen?</dt>
-      <dd>Ja. Jede Größe gibt es im Hoch- oder Querformat, zum selben Preis. Du wählst es beim Gestalten, und die Vorschau dreht sich mit.</dd>
-    </dl>
-  </div>
-</section>
-
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
 <style>
@@ -117,27 +51,6 @@
   /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
      hele scherm, er schuift niets meer onder de knop onderin omhoog. */
   .page-wrapper > footer { display: none !important; }
-  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
-  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
-  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
-  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
-  .n98c-about h2 em { font-style: italic; }
-  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
-  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
-  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
-  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
-  .n98c-cols p { margin: 0; }
-  .n98c-steps { margin: 0; padding-left: 1.2em; }
-  .n98c-steps li { margin-bottom: 6px; }
-  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
-  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
-  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
-  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
-  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
-  .n98c-faq { margin: 0; }
-  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
-  .n98c-faq dd { margin: 4px 0 0; }
-  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -310,72 +223,6 @@
   <noscript><p class="n98c-note">Activez JavaScript pour créer votre carte.</p></noscript>
 </section>
 
-{%- comment -%}
-  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
-  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
-  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
-{%- endcomment -%}
-<section class="n98c-about" aria-labelledby="n98c-about-title">
-  <div class="n98c-about__wrap">
-    <p class="n98c-eyebrow">À propos de votre affiche</p>
-    <h2 id="n98c-about-title">Une carte du lieu <em>qui compte</em></h2>
-    <p class="n98c-lede">Chaque carte N°98 est dessinée à partir de vraies données cartographiques, pour n’importe quel lieu au monde : une ville, un village, une seule rue ou le seuil de votre premier chez vous. Vous choisissez les couleurs, la forme et les mots. Nous l’imprimons à la commande sur un papier mat épais et nous vous l’envoyons, ou directement à la personne à qui elle est destinée.</p>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Comment ça marche</h3>
-        <ol class="n98c-steps">
-          <li><b>Lieu.</b> Cherchez une adresse, une rue ou une ville et cadrez-la parfaitement.</li>
-          <li><b>Couleurs.</b> Choisissez parmi plus de cinquante palettes pensées pour le mur.</li>
-          <li><b>Forme.</b> Un rectangle classique, un cercle ou un cœur.</li>
-          <li><b>Texte.</b> Gardez le nom du lieu ou ajoutez vos propres mots et une date.</li>
-          <li><b>Repères.</b> Marquez l’endroit d’un cœur, d’une maison, de deux alliances ou de vos initiales.</li>
-          <li><b>Format &amp; cadre.</b> Huit formats, sans cadre ou encadrés et prêts à accrocher.</li>
-        </ol>
-      </div>
-      <div>
-        <h3>Formats et prix</h3>
-        <ul class="n98c-sizes">
-          {%- assign noframe = product.options_with_values[1].values.first -%}
-          {%- for v in product.variants -%}
-            {%- if v.option2 == noframe -%}
-              {%- assign framed = nil -%}
-              {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
-              {%- endfor -%}
-              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · encadrée {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-        <p class="n98c-small">Tous les prix incluent la TVA et la livraison gratuite dans l’UE, au Royaume-Uni et aux États-Unis.</p>
-      </div>
-    </div>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Papier et cadre</h3>
-        <p>Papier mat premium de 200 gsm, certifié FSC ou équivalent, à la surface lisse et sans reflets. Les cadres sont en pin massif noir, blanc, bois naturel ou bois foncé, avec un plexiglas incassable et un kit d’accrochage. Chaque carte arrive prête à accrocher.</p>
-      </div>
-      <div>
-        <h3>Imprimée près de chez vous</h3>
-        <p>Votre carte est imprimée à la commande par notre partenaire de production le plus proche de chez vous, pour un trajet court et une arrivée en parfait état : en général sous 3 à 7 jours ouvrés en Europe et 5 à 10 aux États-Unis. Si elle arrive abîmée ou erronée, nous vous envoyons un nouveau tirage.</p>
-      </div>
-    </div>
-
-    <h3>Questions</h3>
-    <dl class="n98c-faq">
-      <dt>Puis-je créer une carte de n’importe quelle adresse ?</dt>
-      <dd>Oui. Tout lieu avec des rues sur la carte fonctionne, d’une grande métropole à un petit village ou une seule maison.</dd>
-      <dt>Puis-je l’envoyer en cadeau ?</dt>
-      <dd>Bien sûr. Saisissez l’adresse de la personne à qui elle est destinée lors du paiement, et nous la lui envoyons directement.</dd>
-      <dt>Quel format choisir ?</dt>
-      <dd>Pour un cadeau qui trouve sa place dans toutes les pièces : 30×40 ou 40×50 cm. Pour une pièce forte au dessus d’un canapé ou d’un lit : 50×70 cm ou plus. L’aperçu montre votre carte au mur, à l’échelle, avant de commander.</dd>
-      <dt>Puis-je la commander en format paysage ?</dt>
-      <dd>Oui. Chaque format existe en portrait ou en paysage, au même prix. Vous le choisissez pendant la création, et l’aperçu pivote avec.</dd>
-    </dl>
-  </div>
-</section>
-
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
 <style>
@@ -389,27 +236,6 @@
   /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
      hele scherm, er schuift niets meer onder de knop onderin omhoog. */
   .page-wrapper > footer { display: none !important; }
-  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
-  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
-  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
-  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
-  .n98c-about h2 em { font-style: italic; }
-  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
-  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
-  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
-  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
-  .n98c-cols p { margin: 0; }
-  .n98c-steps { margin: 0; padding-left: 1.2em; }
-  .n98c-steps li { margin-bottom: 6px; }
-  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
-  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
-  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
-  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
-  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
-  .n98c-faq { margin: 0; }
-  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
-  .n98c-faq dd { margin: 4px 0 0; }
-  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -582,72 +408,6 @@
   <noscript><p class="n98c-note">Slå på JavaScript for å designe kartet ditt.</p></noscript>
 </section>
 
-{%- comment -%}
-  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
-  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
-  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
-{%- endcomment -%}
-<section class="n98c-about" aria-labelledby="n98c-about-title">
-  <div class="n98c-about__wrap">
-    <p class="n98c-eyebrow">Om kartplakaten din</p>
-    <h2 id="n98c-about-title">Et kart over stedet <em>som betyr noe</em></h2>
-    <p class="n98c-lede">Hvert N°98 kart tegnes fra ekte kartdata, for et hvilket som helst sted på jorden: en by, en landsby, én enkelt gate eller dørstokken til ditt første hjem. Du velger fargene, formen og ordene. Vi trykker det på bestilling på kraftig matt papir og sender det til deg, eller rett til den det er til.</p>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Slik fungerer det</h3>
-        <ol class="n98c-steps">
-          <li><b>Sted.</b> Søk etter en adresse, en gate eller en by og ramm den inn akkurat riktig.</li>
-          <li><b>Farger.</b> Velg blant mer enn femti paletter, laget for å henge på en vegg.</li>
-          <li><b>Form.</b> Et klassisk rektangel, en sirkel eller et hjerte.</li>
-          <li><b>Tekst.</b> Behold stedsnavnet eller legg til egne ord og en dato.</li>
-          <li><b>Nåler.</b> Marker stedet med et hjerte, et hus, to ringer eller initialene deres.</li>
-          <li><b>Størrelse &amp; ramme.</b> Åtte størrelser, uten ramme eller innrammet og klar til å henges opp.</li>
-        </ol>
-      </div>
-      <div>
-        <h3>Størrelser og priser</h3>
-        <ul class="n98c-sizes">
-          {%- assign noframe = product.options_with_values[1].values.first -%}
-          {%- for v in product.variants -%}
-            {%- if v.option2 == noframe -%}
-              {%- assign framed = nil -%}
-              {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
-              {%- endfor -%}
-              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · med ramme {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-        <p class="n98c-small">Alle priser inkluderer mva. og gratis frakt innenfor EU, Storbritannia og USA.</p>
-      </div>
-    </div>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Papir og ramme</h3>
-        <p>Premium matt papir på 200 g/m², FSC sertifisert eller tilsvarende, med en glatt overflate uten gjenskinn. Rammene er av massiv furu i svart, hvitt, naturtre eller mørkt tre, med knusesikkert pleksiglass foran og opphengssett inkludert. Hvert kart kommer klart til å henges opp.</p>
-      </div>
-      <div>
-        <h3>Trykket nær deg</h3>
-        <p>Kartet ditt trykkes på bestilling hos produksjonspartneren nærmest deg, så det reiser en kort vei og kommer frem i god stand: vanligvis innen 3 til 7 virkedager i Europa og 5 til 10 i USA. Skulle det komme frem skadet eller feil, sender vi et nytt trykk.</p>
-      </div>
-    </div>
-
-    <h3>Spørsmål</h3>
-    <dl class="n98c-faq">
-      <dt>Kan jeg lage et kart over hvilken som helst adresse?</dt>
-      <dd>Ja. Alle steder med gater på kartet fungerer, fra en verdensby til en liten landsby eller ett enkelt hus.</dd>
-      <dt>Kan jeg sende det som gave?</dt>
-      <dd>Selvfølgelig. Skriv inn adressen til mottakeren i kassen, så sender vi det rett dit.</dd>
-      <dt>Hvilken størrelse bør jeg velge?</dt>
-      <dd>For en gave som passer i alle rom: 30×40 eller 40×50 cm. For et blikkfang over sofaen eller sengen: 50×70 cm eller større. Forhåndsvisningen viser kartet ditt på en vegg, i riktig målestokk, før du bestiller.</dd>
-      <dt>Kan jeg bestille det liggende?</dt>
-      <dd>Ja. Alle størrelser finnes stående eller liggende, til samme pris. Du velger det mens du designer, og forhåndsvisningen snur seg med.</dd>
-    </dl>
-  </div>
-</section>
-
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
 <style>
@@ -661,27 +421,6 @@
   /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
      hele scherm, er schuift niets meer onder de knop onderin omhoog. */
   .page-wrapper > footer { display: none !important; }
-  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
-  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
-  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
-  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
-  .n98c-about h2 em { font-style: italic; }
-  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
-  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
-  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
-  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
-  .n98c-cols p { margin: 0; }
-  .n98c-steps { margin: 0; padding-left: 1.2em; }
-  .n98c-steps li { margin-bottom: 6px; }
-  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
-  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
-  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
-  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
-  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
-  .n98c-faq { margin: 0; }
-  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
-  .n98c-faq dd { margin: 4px 0 0; }
-  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -854,72 +593,6 @@
   <noscript><p class="n98c-note">Zet JavaScript aan om je kaart te ontwerpen.</p></noscript>
 </section>
 
-{%- comment -%}
-  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
-  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
-  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
-{%- endcomment -%}
-<section class="n98c-about" aria-labelledby="n98c-about-title">
-  <div class="n98c-about__wrap">
-    <p class="n98c-eyebrow">Over je kaartprint</p>
-    <h2 id="n98c-about-title">Een kaart van de plek <em>die ertoe doet</em></h2>
-    <p class="n98c-lede">Elke N°98 kaart wordt getekend uit echte kaartdata, voor elke plek op aarde: een stad, een dorp, één straat of de voordeur van je eerste huis. Jij kiest de kleuren, de vorm en de woorden. Wij drukken hem op bestelling op stevig mat papier en sturen hem naar jou, of rechtstreeks naar degene voor wie hij is.</p>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Zo werkt het</h3>
-        <ol class="n98c-steps">
-          <li><b>Plek.</b> Zoek een adres, een straat of een stad en kader hem precies goed in.</li>
-          <li><b>Kleuren.</b> Kies uit meer dan vijftig paletten, gemaakt om aan de muur te hangen.</li>
-          <li><b>Vorm.</b> Een klassieke rechthoek, een cirkel of een hart.</li>
-          <li><b>Tekst.</b> Houd de plaatsnaam of zet er je eigen woorden en een datum op.</li>
-          <li><b>Pins.</b> Markeer de plek met een hart, een huisje, twee ringen of je initialen.</li>
-          <li><b>Formaat &amp; lijst.</b> Acht formaten, zonder lijst of ingelijst en klaar om op te hangen.</li>
-        </ol>
-      </div>
-      <div>
-        <h3>Formaten en prijzen</h3>
-        <ul class="n98c-sizes">
-          {%- assign noframe = product.options_with_values[1].values.first -%}
-          {%- for v in product.variants -%}
-            {%- if v.option2 == noframe -%}
-              {%- assign framed = nil -%}
-              {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
-              {%- endfor -%}
-              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · met lijst {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-        <p class="n98c-small">Alle prijzen zijn inclusief btw en gratis verzending binnen de EU, het Verenigd Koninkrijk en de VS.</p>
-      </div>
-    </div>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Papier en lijst</h3>
-        <p>Premium mat papier van 200 gsm, FSC gecertificeerd of gelijkwaardig, met een glad oppervlak zonder glans. De lijsten zijn van massief grenen in zwart, wit, naturel hout of donker hout, met onbreekbaar plexiglas ervoor en een ophangset erbij. Elke kaart komt klaar om op te hangen.</p>
-      </div>
-      <div>
-        <h3>Dichtbij jou gedrukt</h3>
-        <p>Je kaart wordt op bestelling gedrukt door onze productiepartner die het dichtst bij jou zit, zodat hij een korte reis maakt en heel aankomt: meestal binnen 3 tot 7 werkdagen in Europa en 5 tot 10 in de VS. Komt hij ooit beschadigd of verkeerd aan, dan sturen we een nieuwe.</p>
-      </div>
-    </div>
-
-    <h3>Vragen</h3>
-    <dl class="n98c-faq">
-      <dt>Kan ik van elk adres een kaart maken?</dt>
-      <dd>Ja. Elke plek met straten op de kaart werkt, van een wereldstad tot een klein dorp of één huis.</dd>
-      <dt>Kan ik hem als cadeau versturen?</dt>
-      <dd>Natuurlijk. Vul bij het afrekenen het adres in van degene voor wie hij is, dan sturen we hem rechtstreeks naar diegene.</dd>
-      <dt>Welk formaat moet ik kiezen?</dt>
-      <dd>Voor een cadeau dat in elke kamer past: 30×40 of 40×50 cm. Voor een blikvanger boven de bank of het bed: 50×70 cm of groter. De preview laat je kaart op ware grootte aan een muur zien, nog voordat je bestelt.</dd>
-      <dt>Kan ik hem ook liggend bestellen?</dt>
-      <dd>Ja. Elk formaat is er staand of liggend, voor dezelfde prijs. Je kiest het tijdens het ontwerpen en het voorbeeld draait mee.</dd>
-    </dl>
-  </div>
-</section>
-
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
 <style>
@@ -933,27 +606,6 @@
   /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
      hele scherm, er schuift niets meer onder de knop onderin omhoog. */
   .page-wrapper > footer { display: none !important; }
-  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
-  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
-  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
-  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
-  .n98c-about h2 em { font-style: italic; }
-  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
-  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
-  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
-  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
-  .n98c-cols p { margin: 0; }
-  .n98c-steps { margin: 0; padding-left: 1.2em; }
-  .n98c-steps li { margin-bottom: 6px; }
-  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
-  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
-  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
-  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
-  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
-  .n98c-faq { margin: 0; }
-  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
-  .n98c-faq dd { margin: 4px 0 0; }
-  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -1126,72 +778,6 @@
   <noscript><p class="n98c-note">Aktivera JavaScript för att designa din karta.</p></noscript>
 </section>
 
-{%- comment -%}
-  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
-  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
-  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
-{%- endcomment -%}
-<section class="n98c-about" aria-labelledby="n98c-about-title">
-  <div class="n98c-about__wrap">
-    <p class="n98c-eyebrow">Om ditt kartprint</p>
-    <h2 id="n98c-about-title">En karta över platsen <em>som betyder något</em></h2>
-    <p class="n98c-lede">Varje N°98 karta ritas från riktiga kartdata, för vilken plats som helst på jorden: en stad, en by, en enda gata eller tröskeln till ert första hem. Du väljer färgerna, formen och orden. Vi trycker den på beställning på kraftigt matt papper och skickar den till dig, eller direkt till den som ska få den.</p>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Så fungerar det</h3>
-        <ol class="n98c-steps">
-          <li><b>Plats.</b> Sök en adress, en gata eller en stad och rama in den precis rätt.</li>
-          <li><b>Färger.</b> Välj bland fler än femtio paletter, gjorda för att hänga på en vägg.</li>
-          <li><b>Form.</b> En klassisk rektangel, en cirkel eller ett hjärta.</li>
-          <li><b>Text.</b> Behåll ortnamnet eller lägg till egna ord och ett datum.</li>
-          <li><b>Nålar.</b> Markera platsen med ett hjärta, ett hus, två ringar eller era initialer.</li>
-          <li><b>Storlek &amp; ram.</b> Åtta storlekar, utan ram eller inramade och redo att hängas upp.</li>
-        </ol>
-      </div>
-      <div>
-        <h3>Storlekar och priser</h3>
-        <ul class="n98c-sizes">
-          {%- assign noframe = product.options_with_values[1].values.first -%}
-          {%- for v in product.variants -%}
-            {%- if v.option2 == noframe -%}
-              {%- assign framed = nil -%}
-              {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
-              {%- endfor -%}
-              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · med ram {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-        <p class="n98c-small">Alla priser inkluderar moms och fri frakt inom EU, Storbritannien och USA.</p>
-      </div>
-    </div>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Papper och ram</h3>
-        <p>Premium matt papper på 200 g/m², FSC certifierat eller motsvarande, med en slät yta utan reflexer. Ramarna är av massiv furu i svart, vitt, naturträ eller mörkt trä, med splitterfritt plexiglas framför och upphängningssats medföljer. Varje karta kommer redo att hängas upp.</p>
-      </div>
-      <div>
-        <h3>Tryckt nära dig</h3>
-        <p>Din karta trycks på beställning av den produktionspartner som ligger närmast dig, så att den reser en kort sträcka och kommer fram i fint skick: oftast inom 3 till 7 arbetsdagar i Europa och 5 till 10 i USA. Skulle den komma fram skadad eller fel skickar vi ett nytt tryck.</p>
-      </div>
-    </div>
-
-    <h3>Frågor</h3>
-    <dl class="n98c-faq">
-      <dt>Kan jag göra en karta över vilken adress som helst?</dt>
-      <dd>Ja. Alla platser med gator på kartan fungerar, från en världsstad till en liten by eller ett enda hus.</dd>
-      <dt>Kan jag skicka den som present?</dt>
-      <dd>Självklart. Ange adressen till mottagaren i kassan så skickar vi den direkt dit.</dd>
-      <dt>Vilken storlek ska jag välja?</dt>
-      <dd>För en present som passar i alla rum: 30×40 eller 40×50 cm. För ett blickfång ovanför soffan eller sängen: 50×70 cm eller större. Förhandsvisningen visar din karta på en vägg, i skala, innan du beställer.</dd>
-      <dt>Kan jag beställa den liggande?</dt>
-      <dd>Ja. Varje storlek finns stående eller liggande, till samma pris. Du väljer det medan du designar, och förhandsvisningen vänder sig med.</dd>
-    </dl>
-  </div>
-</section>
-
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
 <style>
@@ -1205,27 +791,6 @@
   /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
      hele scherm, er schuift niets meer onder de knop onderin omhoog. */
   .page-wrapper > footer { display: none !important; }
-  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
-  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
-  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
-  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
-  .n98c-about h2 em { font-style: italic; }
-  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
-  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
-  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
-  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
-  .n98c-cols p { margin: 0; }
-  .n98c-steps { margin: 0; padding-left: 1.2em; }
-  .n98c-steps li { margin-bottom: 6px; }
-  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
-  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
-  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
-  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
-  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
-  .n98c-faq { margin: 0; }
-  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
-  .n98c-faq dd { margin: 4px 0 0; }
-  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
 </style>
 
 <script>
@@ -1398,72 +963,6 @@
   <noscript><p class="n98c-note">Please enable JavaScript to design your map.</p></noscript>
 </section>
 
-{%- comment -%}
-  Tekst onder de ontwerper. De ontwerper zelf draait in een iframe en telt
-  voor Google nauwelijks mee; dit is wat zoekmachines van deze pagina lezen.
-  Op mobiel scrollt de ontwerper niet door naar dit blok (overscroll contain).
-{%- endcomment -%}
-<section class="n98c-about" aria-labelledby="n98c-about-title">
-  <div class="n98c-about__wrap">
-    <p class="n98c-eyebrow">About your map print</p>
-    <h2 id="n98c-about-title">A map of the place <em>that matters</em></h2>
-    <p class="n98c-lede">Every N°98 map is drawn from real map data, for any place on earth: a city, a village, a single street or the doorstep of your first home. You choose the colours, the shape and the words. We print it to order on heavyweight matte paper and send it to you, or straight to the person it is for.</p>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>How it works</h3>
-        <ol class="n98c-steps">
-          <li><b>Place.</b> Search an address, a street or a city and frame it just right.</li>
-          <li><b>Colours.</b> Choose from more than fifty palettes made to live on a wall.</li>
-          <li><b>Shape.</b> A classic rectangle, a circle or a heart.</li>
-          <li><b>Text.</b> Keep the place name or add your own words and a date.</li>
-          <li><b>Pins.</b> Mark the spot with a heart, a house, two rings or your initials.</li>
-          <li><b>Size &amp; frame.</b> Eight sizes, unframed or framed and ready to hang.</li>
-        </ol>
-      </div>
-      <div>
-        <h3>Sizes and prices</h3>
-        <ul class="n98c-sizes">
-          {%- assign noframe = product.options_with_values[1].values.first -%}
-          {%- for v in product.variants -%}
-            {%- if v.option2 == noframe -%}
-              {%- assign framed = nil -%}
-              {%- for f in product.variants -%}
-                {%- if f.option1 == v.option1 and f.option2 != noframe and framed == nil -%}{%- assign framed = f -%}{%- endif -%}
-              {%- endfor -%}
-              <li><span>{{ v.option1 }}</span><span>{{ v.price | money_without_trailing_zeros }}{% if framed %} · framed {{ framed.price | money_without_trailing_zeros }}{% endif %}</span></li>
-            {%- endif -%}
-          {%- endfor -%}
-        </ul>
-        <p class="n98c-small">All prices include VAT and free shipping within the EU, the UK and the US.</p>
-      </div>
-    </div>
-
-    <div class="n98c-cols">
-      <div>
-        <h3>Paper and frame</h3>
-        <p>Premium matte paper of 200 gsm, FSC certified or equivalent, with a smooth surface and no glare. The frames are solid pine in black, white, natural wood or dark wood, with shatterproof plexiglass in front and a hanging kit included. Every map arrives ready to hang.</p>
-      </div>
-      <div>
-        <h3>Printed close to you</h3>
-        <p>Your map is printed to order by our production partner nearest to you, so it travels a short way and arrives in good condition: usually within 3 to 7 working days in Europe and 5 to 10 in the US. If it ever arrives damaged or wrong, we send a new print.</p>
-      </div>
-    </div>
-
-    <h3>Questions</h3>
-    <dl class="n98c-faq">
-      <dt>Can I make a map of any address?</dt>
-      <dd>Yes. Any place with streets on the map works, from a world city to a small village or a single house.</dd>
-      <dt>Can I send it as a gift?</dt>
-      <dd>Of course. Enter the address of the person it is for at checkout and we send it straight to them.</dd>
-      <dt>Which size should I choose?</dt>
-      <dd>For a gift that fits any room, 30×40 or 40×50 cm. For a statement above a sofa or bed, 50×70 cm or larger. The preview shows your map on a wall, to scale, before you order.</dd>
-      <dt>Can I order it in landscape?</dt>
-      <dd>Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.</dd>
-    </dl>
-  </div>
-</section>
-
 <script type="application/ld+json">{{ product | structured_data }}</script>
 
 <style>
@@ -1477,27 +976,6 @@
   /* Ook de footer (socials, copyright, policies) weg: de ontwerper is het
      hele scherm, er schuift niets meer onder de knop onderin omhoog. */
   .page-wrapper > footer { display: none !important; }
-  .n98c-about { background: #F4F1EB; color: #141414; border-top: 1px solid #DDD6C9; }
-  .n98c-about__wrap { max-width: 1080px; margin: 0 auto; padding: clamp(56px, 8vw, 104px) 22px clamp(64px, 8vw, 112px); }
-  .n98c-eyebrow { margin: 0 0 14px; font-family: 'IBM Plex Mono', ui-monospace, monospace; font-size: 10.5px; letter-spacing: 0.24em; text-transform: uppercase; color: #6B665C; }
-  .n98c-about h2 { margin: 0 0 18px; font-family: 'Cormorant Garamond', Cormorant, Georgia, serif; font-weight: 400; font-size: clamp(34px, 4.6vw, 54px); line-height: 1.04; }
-  .n98c-about h2 em { font-style: italic; }
-  .n98c-about h3 { margin: 0 0 12px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.22em; text-transform: uppercase; }
-  .n98c-about p, .n98c-about li, .n98c-about dd { font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; line-height: 1.65; color: #4A463F; }
-  .n98c-lede { max-width: 40em; margin: 0 0 clamp(36px, 5vw, 56px); font-size: 18px !important; }
-  .n98c-cols { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(28px, 5vw, 72px); margin-bottom: clamp(32px, 5vw, 56px); }
-  .n98c-cols p { margin: 0; }
-  .n98c-steps { margin: 0; padding-left: 1.2em; }
-  .n98c-steps li { margin-bottom: 6px; }
-  .n98c-steps b, .n98c-faq dt { color: #141414; font-weight: 600; }
-  .n98c-sizes { list-style: none; margin: 0 0 12px; padding: 0; border-top: 1px solid #DDD6C9; }
-  .n98c-sizes li { display: flex; justify-content: space-between; gap: 12px; padding: 9px 0; border-bottom: 1px solid #DDD6C9; font-size: 15px; }
-  .n98c-sizes li span:last-child { color: #141414; text-align: right; }
-  .n98c-small { font-size: 13px !important; color: #6B665C !important; margin: 0; }
-  .n98c-faq { margin: 0; }
-  .n98c-faq dt { margin-top: 14px; font-family: 'Hanken Grotesk', system-ui, sans-serif; font-size: 16px; }
-  .n98c-faq dd { margin: 4px 0 0; }
-  @media (max-width: 760px) { .n98c-cols { grid-template-columns: 1fr; } }
 </style>
 
 <script>
