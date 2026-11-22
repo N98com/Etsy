@@ -163,7 +163,6 @@
     "Can I order it framed?": "Puis-je la commander encadrée ?",
     "Yes. Choose a solid pine frame in black, white, natural wood or dark wood. Your map arrives behind shatterproof plexiglass, with the hanging kit included, ready for the wall. Prefer your own frame? Every print is made to a standard frame size, so it fits a ready-made frame of the same size.": "Oui. Choisissez un cadre en pin massif noir, blanc, bois naturel ou bois foncé. Votre carte arrive derrière un plexiglas incassable, avec le kit d’accrochage, prête pour le mur. Vous préférez votre propre cadre ? Chaque affiche est à un format de cadre standard et s’adapte à un cadre du commerce de même taille.",
     "What does shipping cost?": "Combien coûte la livraison ?",
-    "Nothing. We ship to the Netherlands, the rest of the EU, the UK and the US, and shipping is always free. The price you see is the price you pay.": "Rien. Nous livrons aux Pays-Bas, dans le reste de l’UE, au Royaume-Uni et aux États-Unis, et la livraison est toujours gratuite. Le prix affiché est le prix que vous payez.",
     "When will it arrive?": "Quand arrivera-t-elle ?",
     "Every map is printed fresh after you order, at a print studio close to you. Most orders arrive within 3–7 working days in the Netherlands and the rest of Europe, and within 5–10 working days elsewhere. Ordering for Christmas? Order by 10 December for Europe and by 5 December for the rest of the world to have it under the tree in time.": "Chaque carte est imprimée à la commande, dans un atelier près de chez vous. La plupart des commandes arrivent sous 3 à 7 jours ouvrés aux Pays-Bas et dans le reste de l’Europe, et sous 5 à 10 jours ouvrés ailleurs. Une commande pour Noël ? Commandez avant le 10 décembre pour l’Europe et avant le 5 décembre pour le reste du monde pour qu’elle soit sous le sapin à temps.",
     "Can I return a personalised print?": "Puis-je retourner une affiche personnalisée ?",
@@ -275,7 +274,8 @@
     "Landscape": "Paysage",
     "Every size also comes in landscape, at the same price.": "Chaque format existe aussi en paysage, au même prix.",
     "Can I order it in landscape?": "Puis-je la commander en format paysage ?",
-    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Oui. Chaque format existe en portrait ou en paysage, au même prix. Vous le choisissez pendant la création, et l’aperçu pivote avec."
+    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Oui. Chaque format existe en portrait ou en paysage, au même prix. Vous le choisissez pendant la création, et l’aperçu pivote avec.",
+    "Nothing within the EU, the UK and the US: shipping there is always free, so the price you see is the price you pay. We also ship to Norway and Switzerland, where the shipping cost is shown at checkout.": "Rien dans l’UE, au Royaume-Uni et aux États-Unis : la livraison y est toujours gratuite, le prix affiché est donc le prix que vous payez. Nous livrons aussi en Norvège et en Suisse, où les frais de livraison s’affichent au paiement."
   },
   "raw": {
     "n98-maps-home.liquid": [

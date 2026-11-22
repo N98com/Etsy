@@ -163,7 +163,6 @@
     "Can I order it framed?": "Kan jeg bestille det innrammet?",
     "Yes. Choose a solid pine frame in black, white, natural wood or dark wood. Your map arrives behind shatterproof plexiglass, with the hanging kit included, ready for the wall. Prefer your own frame? Every print is made to a standard frame size, so it fits a ready-made frame of the same size.": "Ja. Velg en ramme av massiv furu i svart, hvitt, naturtre eller mørkt tre. Kartet ditt kommer bak knusesikkert pleksiglass, med opphengssett, klart for veggen. Vil du heller bruke din egen ramme? Hvert trykk har en standardstørrelse, så det passer i en ferdig ramme av samme størrelse.",
     "What does shipping cost?": "Hva koster frakten?",
-    "Nothing. We ship to the Netherlands, the rest of the EU, the UK and the US, and shipping is always free. The price you see is the price you pay.": "Ingenting. Vi sender til Nederland, resten av EU, Storbritannia og USA, og frakten er alltid gratis. Prisen du ser, er prisen du betaler.",
     "When will it arrive?": "Når kommer det frem?",
     "Every map is printed fresh after you order, at a print studio close to you. Most orders arrive within 3–7 working days in the Netherlands and the rest of Europe, and within 5–10 working days elsewhere. Ordering for Christmas? Order by 10 December for Europe and by 5 December for the rest of the world to have it under the tree in time.": "Hvert kart trykkes ferskt etter bestillingen din, hos et trykkeri nær deg. De fleste bestillinger kommer frem innen 3 til 7 virkedager i Nederland og resten av Europa, og innen 5 til 10 virkedager andre steder. Bestiller du til jul? Bestill senest 10. desember for Europa og 5. desember for resten av verden, så ligger det under treet i tide.",
     "Can I return a personalised print?": "Kan jeg returnere et personlig trykk?",
@@ -275,7 +274,8 @@
     "Landscape": "Liggende",
     "Every size also comes in landscape, at the same price.": "Alle størrelser finnes også liggende, til samme pris.",
     "Can I order it in landscape?": "Kan jeg bestille det liggende?",
-    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Ja. Alle størrelser finnes stående eller liggende, til samme pris. Du velger det mens du designer, og forhåndsvisningen snur seg med."
+    "Yes. Every size comes in portrait or landscape, at the same price. You choose it while you design, and the preview turns with it.": "Ja. Alle størrelser finnes stående eller liggende, til samme pris. Du velger det mens du designer, og forhåndsvisningen snur seg med.",
+    "Nothing within the EU, the UK and the US: shipping there is always free, so the price you see is the price you pay. We also ship to Norway and Switzerland, where the shipping cost is shown at checkout.": "Ingenting innenfor EU, Storbritannia og USA: dit er frakten alltid gratis, så prisen du ser, er prisen du betaler. Vi sender også til Norge og Sveits, der fraktkostnaden vises i kassen."
   },
   "raw": {
     "n98-maps-home.liquid": [
