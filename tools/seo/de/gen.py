@@ -43,9 +43,10 @@ def build():
                 {'namespace': 'n98', 'key': 'lede', 'type': 'multi_line_text_field', 'value': 'Ein personalisierter Kartendruck von %s, gezeichnet aus echten Kartendaten. Er zeigt %s oder einfach deine eigene Straße. Deine Farben, deine Worte, mit oder ohne Rahmen.' % (name, hook)},
                 {'namespace': 'global', 'key': 'title_tag', 'type': 'single_line_text_field', 'value': fit(['Stadtkarte %s: personalisiertes Kartenposter', 'Stadtkarte %s: Kartenposter'], name, limit=70)},
                 {'namespace': 'global', 'key': 'description_tag', 'type': 'single_line_text_field', 'value': fit([
-                    'Gestalte deine eigene Stadtkarte von %s und zeige %s oder deine eigene Straße. Über 50 Paletten, eigene Worte und Pins. Kostenloser Versand in Europa.',
-                    'Deine eigene Stadtkarte von %s mit %s. Über 50 Paletten, eigene Worte und Pins, kostenloser Versand.',
-                    'Deine eigene Stadtkarte von %s mit %s. Über 50 Paletten.'], name, hook)}]})
+                    # hook is in the accusative: always after "zeige", never after "mit" (that needs the dative)
+                    'Deine eigene Stadtkarte von %s: zeige %s oder deine eigene Straße. Über 50 Paletten, eigene Worte und Pins, kostenloser Versand.',
+                    'Deine Stadtkarte von %s: zeige %s. Über 50 Paletten, eigene Worte und Pins, kostenloser Versand.',
+                    'Stadtkarte von %s: zeige %s. Über 50 Paletten, eigene Worte und Pins.'], name, hook)}]})
         lst.append({'s': slug, 'n': name, 'c': 'de', 'i': img_id(slug), 'p': state, 'o': LANGS})
     return designs, pages, lst
 
