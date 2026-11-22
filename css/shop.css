@@ -520,7 +520,7 @@ button.location-search-result:hover { background: var(--paper); }
     will-change: transform, height; contain: layout paint;
   }
   .shop-stage.is-full { transform: none !important; height: 100vh !important; height: 100dvh !important; }
-  .shop-panel { margin-top: var(--stage-full, 52svh); min-height: 100svh; }
+  .shop-panel { margin-top: var(--stage-full, 52svh); min-height: var(--panel-min, 70svh); box-sizing: border-box; }
   .steps { top: var(--stage-min, 30svh); }
 
   .stage-views {

@@ -677,7 +677,7 @@
       if (!compactMq.matches) {
         M = null;
         hostSpacer.style.height = '0px';
-        root.style.removeProperty('--stage-full'); root.style.removeProperty('--stage-min');
+        root.style.removeProperty('--stage-full'); root.style.removeProperty('--stage-min'); root.style.removeProperty('--panel-min');
         stageEl.style.transform = ''; stageEl.style.height = '';
         folds.forEach(f => { f.el.style.height = ''; f.el.style.marginTop = ''; f.el.style.overflow = ''; f.el.style.opacity = ''; });
         root.classList.remove('stage-compact');
@@ -691,6 +691,9 @@
       const full = Math.round(vh * 0.52), min = Math.round(vh * 0.3);
       root.style.setProperty('--stage-full', full + 'px');
       root.style.setProperty('--stage-min', min + 'px');
+      // het paneel is net hoog genoeg om de kaart klein te laten klappen en het
+      // scherm eronder te vullen; korte stappen (Place) scrollen niet verder door
+      root.style.setProperty('--panel-min', (vh - min) + 'px');
       M = { full, min, host: Math.round(hostSpacer.getBoundingClientRect().bottom + window.scrollY) };
     }
     function update() {
