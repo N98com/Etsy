@@ -8,6 +8,8 @@ from en_world import T as EN_W
 from en_nl import T as EN_N
 from nl_world import T as NL_W
 from nl_nl import T as NL_N
+from en_nl2 import T as EN_N2
+from nl_nl2 import T as NL_N2
 from de_world import T as DE_W
 from fr_world import T as FR_W
 from sv_world import T as SV_W
@@ -32,8 +34,9 @@ def build():
     world = {'en': EN_W, 'nl': NL_W, 'de': DE_W, 'fr': FR_W, 'sv': SV_W, 'nb': NB_W}
     for slug in EN_W:
         out.append({'handle': slug + '-map-print', 'notes': {l: block(l, slug, t[slug]) for l, t in world.items()}})
-    for slug in EN_N:
-        out.append({'handle': slug + '-map-print', 'notes': {'en': block('en', slug, EN_N[slug]), 'nl': block('nl', slug, NL_N[slug])}})
+    for en, nl in ((EN_N, NL_N), (EN_N2, NL_N2)):
+        for slug in en:
+            out.append({'handle': slug + '-map-print', 'notes': {'en': block('en', slug, en[slug]), 'nl': block('nl', slug, nl[slug])}})
     return out
 
 
@@ -41,6 +44,7 @@ if __name__ == '__main__':
     for name, t in [('nl_world', NL_W), ('de', DE_W), ('fr', FR_W), ('sv', SV_W), ('nb', NB_W)]:
         assert set(t) == set(EN_W), (name, set(EN_W) ^ set(t))
     assert set(NL_N) == set(EN_N), set(EN_N) ^ set(NL_N)
+    assert set(NL_N2) == set(EN_N2), set(EN_N2) ^ set(NL_N2)
     out = build()
     txt = json.dumps(out, ensure_ascii=False)
     assert not re.findall('[–—]', txt), 'dash'

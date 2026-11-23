@@ -461,5 +461,565 @@
    "en": "<h2>Delft on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies around the Markt with the Nieuwe Kerk and the city hall. The TU Delft campus lies to the south, and Tanthof and Voorhof are residential districts.</p>\n<p><strong>Water.</strong> The Oude Delft, the oldest canal, runs through the centre. The Schie runs along the east side, and canals and a moat surround the old town.</p>\n<p><strong>Streets.</strong> The old town is a long rectangle of canals and narrow streets, lined by the gabled houses known from Vermeer. Outside it the districts follow the flat polder layout.</p>",
    "nl": "<h2>Delft op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt rond de Markt met de Nieuwe Kerk en het stadhuis. De campus van de TU Delft ligt in het zuiden, en Tanthof en Voorhof zijn woonwijken.</p>\n<p><strong>Water.</strong> De Oude Delft, de oudste gracht, loopt door het centrum. De Schie stroomt langs de oostkant, en grachten en een singel omringen de oude stad.</p>\n<p><strong>Straten.</strong> De oude stad is een lange rechthoek van grachten en smalle straten, met de trapgevels die je kent van Vermeer. Daarbuiten volgen de wijken de vlakke opzet van de polder.</p>"
   }
+ },
+ {
+  "handle": "hoofddorp-map-print",
+  "notes": {
+   "en": "<h2>Hoofddorp on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies where the Hoofdweg and the Kruisweg cross. Floriande, Toolenburg and Overbos are large newer districts, and Pax and Bornholm sit closer to the old village.</p>\n<p><strong>Water.</strong> The Ringvaart circles the whole Haarlemmermeer polder, and Floriande is built on a cluster of islands. Ponds and lakes fill the Haarlemmermeerse Bos on the edge of town.</p>\n<p><strong>Streets.</strong> The polder grid sets the rules: long straight roads and ditches at right angles, with the newer districts curving gently inside the rectangles.</p>",
+   "nl": "<h2>Hoofddorp op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt waar de Hoofdweg en de Kruisweg elkaar kruisen. Floriande, Toolenburg en Overbos zijn grote nieuwere wijken, en Pax en Bornholm liggen dichter bij het oude dorp.</p>\n<p><strong>Water.</strong> De Ringvaart loopt om de hele Haarlemmermeerpolder, en Floriande is gebouwd op een groep eilanden. Vijvers en plassen vullen het Haarlemmermeerse Bos aan de rand van het dorp.</p>\n<p><strong>Straten.</strong> Het raster van de polder bepaalt alles: lange rechte wegen en sloten haaks op elkaar, met nieuwere wijken die zacht binnen de rechthoeken buigen.</p>"
+  }
+ },
+ {
+  "handle": "zaandam-map-print",
+  "notes": {
+   "en": "<h2>Zaandam on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies by the Dam and the station. The Rosmolenwijk and Kogerveld are older districts, while Poelenburg, Pelders en Hoornseveld and Westerwatering spread out to the west.</p>\n<p><strong>Water.</strong> The Zaan flows into the Voorzaan and the North Sea Canal at the south of town. Ditches and small lakes of the peat meadows edge the map in the north.</p>\n<p><strong>Streets.</strong> The oldest streets follow the dikes on both sides of the Zaan in long ribbons. Behind them the twentieth century districts form neat, regular blocks.</p>",
+   "nl": "<h2>Zaandam op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt bij de Dam en het station. De Rosmolenwijk en Kogerveld zijn oudere wijken, en Poelenburg, Pelders en Hoornseveld en Westerwatering strekken zich uit naar het westen.</p>\n<p><strong>Water.</strong> De Zaan stroomt aan de zuidkant van de stad uit in de Voorzaan en het Noordzeekanaal. Sloten en plasjes van het veenweidegebied omlijsten de kaart in het noorden.</p>\n<p><strong>Straten.</strong> De oudste straten volgen de dijken aan beide kanten van de Zaan in lange linten. Daarachter vormen de twintigste eeuwse wijken nette, regelmatige blokken.</p>"
+  }
+ },
+ {
+  "handle": "alkmaar-map-print",
+  "notes": {
+   "en": "<h2>Alkmaar on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town sits inside the singel. Oudorp, Daalmeer and Huiswaard lie to the north and east, and Overdie and De Mare fill the rest of the map.</p>\n<p><strong>Water.</strong> The star shaped singelgracht wraps around the centre, the Noordhollandsch Kanaal runs along its west side, and canals such as the Luttik Oudorp run through the old town.</p>\n<p><strong>Streets.</strong> Inside the star, streets like the Langestraat and the Laat run in long parallel lines. Outside it the districts fan out along the roads to the villages around town.</p>",
+   "nl": "<h2>Alkmaar op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de singel. Oudorp, Daalmeer en Huiswaard liggen in het noorden en oosten, en Overdie en De Mare vullen de rest van de kaart.</p>\n<p><strong>Water.</strong> De stervormige singelgracht ligt om het centrum, het Noordhollandsch Kanaal loopt langs de westkant, en grachten zoals het Luttik Oudorp lopen door de oude stad.</p>\n<p><strong>Straten.</strong> Binnen de ster lopen straten als de Langestraat en de Laat in lange evenwijdige lijnen. Daarbuiten waaieren de wijken uit langs de wegen naar de dorpen rond de stad.</p>"
+  }
+ },
+ {
+  "handle": "purmerend-map-print",
+  "notes": {
+   "en": "<h2>Purmerend on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies around the Koemarkt. Overwhere and Wheermolen are older districts, and Weidevenne is a large new district built on islands in the south.</p>\n<p><strong>Water.</strong> The Where flows through the centre, the Noordhollandsch Kanaal passes along the town, and Weidevenne is laced with canals. The ring canals of the Beemster and the Purmer edge the map.</p>\n<p><strong>Streets.</strong> The compact old centre gives way to the dead straight roads of the polders. To the north the Beemster grid, a World Heritage site, draws its perfect squares.</p>",
+   "nl": "<h2>Purmerend op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt rond de Koemarkt. Overwhere en Wheermolen zijn oudere wijken, en Weidevenne is een grote nieuwe wijk op eilanden in het zuiden.</p>\n<p><strong>Water.</strong> De Where stroomt door het centrum, het Noordhollandsch Kanaal loopt langs de stad, en Weidevenne zit vol vaarten. De ringvaarten van de Beemster en de Purmer omlijsten de kaart.</p>\n<p><strong>Straten.</strong> Het compacte oude centrum gaat over in de kaarsrechte wegen van de polders. In het noorden tekent de Beemster, werelderfgoed, zijn perfecte vierkanten.</p>"
+  }
+ },
+ {
+  "handle": "amstelveen-map-print",
+  "notes": {
+   "en": "<h2>Amstelveen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The Stadshart is the modern centre. Elsrijk and Randwijk are green and quiet, Westwijk and Middenhoven are newer, and the Oude Dorp keeps its village character.</p>\n<p><strong>Water.</strong> The Amstel follows the eastern edge, the Poel lake lies near Bovenkerk, and the long straight Bosbaan cuts through the Amsterdamse Bos in the west.</p>\n<p><strong>Streets.</strong> Long lanes like the Amsterdamseweg and the Bovenkerkerweg run north to south. Between them the post war districts curve around parks and canals.</p>",
+   "nl": "<h2>Amstelveen op de kaart</h2>\n<p><strong>Wijken.</strong> Het Stadshart is het moderne centrum. Elsrijk en Randwijk zijn groen en rustig, Westwijk en Middenhoven zijn nieuwer, en het Oude Dorp heeft zijn dorpse karakter gehouden.</p>\n<p><strong>Water.</strong> De Amstel volgt de oostrand, de Poel ligt bij Bovenkerk, en de lange rechte Bosbaan snijdt in het westen door het Amsterdamse Bos.</p>\n<p><strong>Straten.</strong> Lange lanen zoals de Amsterdamseweg en de Bovenkerkerweg lopen van noord naar zuid. Daartussen buigen de naoorlogse wijken om parken en vaarten heen.</p>"
+  }
+ },
+ {
+  "handle": "hilversum-map-print",
+  "notes": {
+   "en": "<h2>Hilversum on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Groest and the Kerkbrink. Trompenberg and Boomberg are villa districts, Kerkelanden is a green post war district, and the Media Park lies to the north.</p>\n<p><strong>Water.</strong> There is little water in this sandy town. The Hilversums Kanaal starts on the west side, and the lakes of Loosdrecht lie just beyond the edge of the map.</p>\n<p><strong>Streets.</strong> Curving villa lanes wind between the woods and the heath. Around the centre the streets form an irregular web, typical of a town that grew from a heath village.</p>",
+   "nl": "<h2>Hilversum op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Groest en de Kerkbrink. Trompenberg en Boomberg zijn villawijken, Kerkelanden is een groene naoorlogse wijk, en het Media Park ligt in het noorden.</p>\n<p><strong>Water.</strong> In deze zanderige stad is weinig water. Het Hilversums Kanaal begint aan de westkant, en de Loosdrechtse Plassen liggen net buiten de kaart.</p>\n<p><strong>Straten.</strong> Bochtige villalanen slingeren tussen bos en hei. Rond het centrum vormen de straten een onregelmatig web, typisch voor een stad die uit een heidedorp groeide.</p>"
+  }
+ },
+ {
+  "handle": "heerhugowaard-map-print",
+  "notes": {
+   "en": "<h2>Heerhugowaard on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Middenwaard. Butterhuizen, Huygenhoek and the Edelstenenwijk are residential districts, and the Stad van de Zon is built around a lake in the south.</p>\n<p><strong>Water.</strong> A ring canal follows the edge of the old lake bed, the polder ditches run in straight lines, and the lake of the Stad van de Zon sits in the middle of its district.</p>\n<p><strong>Streets.</strong> The Middenweg runs dead straight through the polder from south to north. The districts fill the rectangles between the old polder roads.</p>",
+   "nl": "<h2>Heerhugowaard op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Middenwaard. Butterhuizen, Huygenhoek en de Edelstenenwijk zijn woonwijken, en de Stad van de Zon is in het zuiden rond een meer gebouwd.</p>\n<p><strong>Water.</strong> Een ringvaart volgt de rand van de oude meerbodem, de poldersloten lopen in rechte lijnen, en het meer van de Stad van de Zon ligt midden in zijn wijk.</p>\n<p><strong>Straten.</strong> De Middenweg loopt kaarsrecht door de polder van zuid naar noord. De wijken vullen de rechthoeken tussen de oude polderwegen.</p>"
+  }
+ },
+ {
+  "handle": "hoorn-map-print",
+  "notes": {
+   "en": "<h2>Hoorn on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies between the harbour and the Grote Noord. Kersenboogerd, Risdam and Grote Waal are newer districts, and Zwaag is a village that grew into the town.</p>\n<p><strong>Water.</strong> The Markermeer forms the whole southern edge. The Binnenhaven and Buitenhaven cut into the old town, and canals and the old moat circle the centre.</p>\n<p><strong>Streets.</strong> The old streets run in long lines from the harbour inland, with the Grote Noord as the main street. Outside the old moat the districts follow a modern plan.</p>",
+   "nl": "<h2>Hoorn op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt tussen de haven en het Grote Noord. Kersenboogerd, Risdam en Grote Waal zijn nieuwere wijken, en Zwaag is een dorp dat in de stad is opgegaan.</p>\n<p><strong>Water.</strong> Het Markermeer vormt de hele zuidrand. De Binnenhaven en de Buitenhaven snijden in de oude stad, en grachten en de oude stadsgracht lopen om het centrum.</p>\n<p><strong>Straten.</strong> De oude straten lopen in lange lijnen van de haven landinwaarts, met het Grote Noord als hoofdstraat. Buiten de oude gracht volgen de wijken een modern plan.</p>"
+  }
+ },
+ {
+  "handle": "ijmuiden-map-print",
+  "notes": {
+   "en": "<h2>IJmuiden on the map</h2>\n<p><strong>Neighbourhoods.</strong> Oud IJmuiden lies near the locks, Zeewijk is a large post war district by the dunes, and Driehuis and Velsen-Zuid lie to the east. Velsen-Noord lies across the canal.</p>\n<p><strong>Water.</strong> The North Sea Canal and its locks, including one of the largest sea locks in the world, form the northern edge. The fishing harbour and the Forteiland lie at the mouth.</p>\n<p><strong>Streets.</strong> The Kennemerlaan is the long main street. Zeewijk follows a planned post war layout, and the dunes behind the beach stay almost empty on the map.</p>",
+   "nl": "<h2>IJmuiden op de kaart</h2>\n<p><strong>Wijken.</strong> Oud IJmuiden ligt bij de sluizen, Zeewijk is een grote naoorlogse wijk bij de duinen, en Driehuis en Velsen-Zuid liggen in het oosten. Velsen-Noord ligt aan de overkant van het kanaal.</p>\n<p><strong>Water.</strong> Het Noordzeekanaal met zijn sluizen, waaronder een van de grootste zeesluizen ter wereld, vormt de noordrand. De vissershaven en het Forteiland liggen bij de monding.</p>\n<p><strong>Straten.</strong> De Kennemerlaan is de lange hoofdstraat. Zeewijk volgt een gepland naoorlogs plan, en de duinen achter het strand blijven op de kaart bijna leeg.</p>"
+  }
+ },
+ {
+  "handle": "bussum-map-print",
+  "notes": {
+   "en": "<h2>Bussum on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the station and the Brinklaan. Het Spiegel is a villa district, Bussum Zuid is green and quiet, and the old fortress of Naarden lies to the north.</p>\n<p><strong>Water.</strong> There is little water in this sandy town. The moats of Naarden and the Gooimeer lie to the north, and ponds dot the woods and estates around town.</p>\n<p><strong>Streets.</strong> Curving lanes with villas wind through the woods. The railway cuts the town in two, and long roads lead out towards Naarden, Huizen and Hilversum.</p>",
+   "nl": "<h2>Bussum op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het station en de Brinklaan. Het Spiegel is een villawijk, Bussum Zuid is groen en rustig, en de oude vesting Naarden ligt in het noorden.</p>\n<p><strong>Water.</strong> In dit zanderige dorp is weinig water. De vestinggrachten van Naarden en het Gooimeer liggen in het noorden, en vijvers liggen verspreid in de bossen en op de landgoederen.</p>\n<p><strong>Straten.</strong> Bochtige lanen met villa’s slingeren door het bos. Het spoor snijdt het dorp in tweeën, en lange wegen leiden naar Naarden, Huizen en Hilversum.</p>"
+  }
+ },
+ {
+  "handle": "den-helder-map-print",
+  "notes": {
+   "en": "<h2>Den Helder on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies near Willemsoord, the former naval shipyard. Nieuw Den Helder and De Schooten are residential districts, and Julianadorp lies to the south.</p>\n<p><strong>Water.</strong> The Marsdiep separates the town from Texel, the naval harbour lies by the water, and the Noordhollandsch Kanaal ends here after its long route from Amsterdam.</p>\n<p><strong>Streets.</strong> Dikes and forts of the old Stelling Den Helder ring the town. Inside them the streets form a regular grid, with dunes and beach along the west.</p>",
+   "nl": "<h2>Den Helder op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt bij Willemsoord, de voormalige marinewerf. Nieuw Den Helder en De Schooten zijn woonwijken, en Julianadorp ligt in het zuiden.</p>\n<p><strong>Water.</strong> Het Marsdiep scheidt de stad van Texel, de marinehaven ligt aan het water, en het Noordhollandsch Kanaal eindigt hier na zijn lange route vanaf Amsterdam.</p>\n<p><strong>Straten.</strong> Dijken en forten van de oude Stelling Den Helder liggen om de stad. Daarbinnen vormen de straten een regelmatig raster, met duinen en strand langs de westkant.</p>"
+  }
+ },
+ {
+  "handle": "naaldwijk-map-print",
+  "notes": {
+   "en": "<h2>Naaldwijk on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old village lies around the church square. Newer districts such as Hoogeland spread out around it, and greenhouse land fills every other part of the map.</p>\n<p><strong>Water.</strong> The Naaldwijkse Vaart runs through town, and countless ditches and water basins for the greenhouses make a fine blue pattern across the Westland.</p>\n<p><strong>Streets.</strong> Greenhouses line up in long straight blocks along the polder roads. The old centre is the only part where the streets curve.</p>",
+   "nl": "<h2>Naaldwijk op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude dorp ligt rond het kerkplein. Nieuwere wijken zoals Hoogeland liggen eromheen, en kassen vullen de rest van de kaart.</p>\n<p><strong>Water.</strong> De Naaldwijkse Vaart loopt door het dorp, en talloze sloten en waterbassins voor de kassen vormen een fijn blauw patroon over het Westland.</p>\n<p><strong>Straten.</strong> Kassen staan in lange rechte blokken langs de polderwegen. Alleen in het oude centrum buigen de straten.</p>"
+  }
+ },
+ {
+  "handle": "alphen-aan-den-rijn-map-print",
+  "notes": {
+   "en": "<h2>Alphen aan den Rijn on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies along the Oude Rijn. Kerk en Zanen and Ridderveld are large residential districts, and Oudshoorn lies on the other side of the river.</p>\n<p><strong>Water.</strong> The Oude Rijn crosses the town from east to west, the Gouwe branches off to the south, and the Aarkanaal leads north. Polder ditches surround the town.</p>\n<p><strong>Streets.</strong> The streets run parallel to the river, with the Hooftstraat as the main street. The newer districts are laid out around canals and parks.</p>",
+   "nl": "<h2>Alphen aan den Rijn op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt langs de Oude Rijn. Kerk en Zanen en Ridderveld zijn grote woonwijken, en Oudshoorn ligt aan de overkant van de rivier.</p>\n<p><strong>Water.</strong> De Oude Rijn loopt van oost naar west door de stad, de Gouwe takt af naar het zuiden, en het Aarkanaal leidt naar het noorden. Poldersloten omringen de stad.</p>\n<p><strong>Straten.</strong> De straten lopen evenwijdig aan de rivier, met de Hooftstraat als hoofdstraat. De nieuwere wijken liggen rond vaarten en parken.</p>"
+  }
+ },
+ {
+  "handle": "spijkenisse-map-print",
+  "notes": {
+   "en": "<h2>Spijkenisse on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old village lies around the church by the Oude Maas. Groenewoud, Waterland, Maaswijk and De Akkers were built from the 1970s onward, when the town grew fast.</p>\n<p><strong>Water.</strong> The Oude Maas forms the northern edge, crossed by the Spijkenisserbrug. Canals and ponds run through every district, fitting their names.</p>\n<p><strong>Streets.</strong> The new districts were planned with curving roads and green belts. The metro line from Rotterdam runs through the middle of town.</p>",
+   "nl": "<h2>Spijkenisse op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude dorp ligt rond de kerk aan de Oude Maas. Groenewoud, Waterland, Maaswijk en De Akkers werden vanaf de jaren zeventig gebouwd, toen de stad snel groeide.</p>\n<p><strong>Water.</strong> De Oude Maas vormt de noordrand en wordt overspannen door de Spijkenisserbrug. Vaarten en vijvers lopen door elke wijk, zoals de namen al doen vermoeden.</p>\n<p><strong>Straten.</strong> De nieuwe wijken werden ontworpen met bochtige wegen en groene zones. De metrolijn vanuit Rotterdam loopt door het midden van de stad.</p>"
+  }
+ },
+ {
+  "handle": "schiedam-map-print",
+  "notes": {
+   "en": "<h2>Schiedam on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre sits between the harbours. Oost, Nieuwland and Groenoord are older residential districts, and Kethel and Woudhoek lie to the north and west.</p>\n<p><strong>Water.</strong> The Schie flows into the Nieuwe Maas, the Lange Haven and the Korte Haven run through the old town, and the singel with its windmills marks the old walls.</p>\n<p><strong>Streets.</strong> The old streets follow the harbours in long narrow lines. Beyond the singel the districts form regular blocks, with the A20 motorway along the north.</p>",
+   "nl": "<h2>Schiedam op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt tussen de havens. Oost, Nieuwland en Groenoord zijn oudere woonwijken, en Kethel en Woudhoek liggen in het noorden en westen.</p>\n<p><strong>Water.</strong> De Schie stroomt uit in de Nieuwe Maas, de Lange Haven en de Korte Haven lopen door de oude stad, en de singel met de molens markeert de oude wallen.</p>\n<p><strong>Straten.</strong> De oude straten volgen de havens in lange smalle lijnen. Buiten de singel vormen de wijken regelmatige blokken, met de A20 langs de noordkant.</p>"
+  }
+ },
+ {
+  "handle": "voorburg-map-print",
+  "notes": {
+   "en": "<h2>Voorburg on the map</h2>\n<p><strong>Neighbourhoods.</strong> Oud Voorburg lies along the Herenstraat. Bovenveen, Essesteijn and Damsigt are leafy districts, and Voorburg West borders The Hague.</p>\n<p><strong>Water.</strong> The Vliet runs along the town from Leiden to Delft. Hofwijck and other estates lie by the water, and ponds dot the parks.</p>\n<p><strong>Streets.</strong> The Herenstraat follows the old village line, and wide lanes such as the Laan van Nieuw Oosteinde run towards The Hague. Many streets are lined with trees.</p>",
+   "nl": "<h2>Voorburg op de kaart</h2>\n<p><strong>Wijken.</strong> Oud Voorburg ligt langs de Herenstraat. Bovenveen, Essesteijn en Damsigt zijn groene wijken, en Voorburg West grenst aan Den Haag.</p>\n<p><strong>Water.</strong> De Vliet loopt langs het dorp van Leiden naar Delft. Hofwijck en andere buitenplaatsen liggen aan het water, en vijvers liggen verspreid in de parken.</p>\n<p><strong>Straten.</strong> De Herenstraat volgt de oude dorpslijn, en brede lanen zoals de Laan van Nieuw Oosteinde lopen naar Den Haag. Veel straten zijn met bomen omzoomd.</p>"
+  }
+ },
+ {
+  "handle": "gouda-map-print",
+  "notes": {
+   "en": "<h2>Gouda on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies around the Markt. Kort Haarlem and Korte Akkeren are older districts, Bloemendaal and Goverwelle lie to the north and east.</p>\n<p><strong>Water.</strong> The Gouwe and the Hollandse IJssel meet at the south of town. The Turfsingel and Kattensingel follow the old walls, and canals run straight through the centre.</p>\n<p><strong>Streets.</strong> The triangular Markt sits at the heart of a compact web of streets such as the Lange Groenendaal. Around the singels the districts follow the polder lines.</p>",
+   "nl": "<h2>Gouda op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt rond de Markt. Kort Haarlem en Korte Akkeren zijn oudere wijken, Bloemendaal en Goverwelle liggen in het noorden en oosten.</p>\n<p><strong>Water.</strong> De Gouwe en de Hollandse IJssel komen aan de zuidkant van de stad samen. De Turfsingel en de Kattensingel volgen de oude wallen, en grachten lopen dwars door het centrum.</p>\n<p><strong>Straten.</strong> De driehoekige Markt ligt in het hart van een compact web van straten zoals de Lange Groenendaal. Rond de singels volgen de wijken de lijnen van de polder.</p>"
+  }
+ },
+ {
+  "handle": "vlaardingen-map-print",
+  "notes": {
+   "en": "<h2>Vlaardingen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies between the Markt and the Oude Haven. Westwijk, Holy and Ambacht are residential districts, and Oost lies towards Schiedam.</p>\n<p><strong>Water.</strong> The Nieuwe Maas forms the southern edge, the Oude Haven cuts deep into the town, and the Vlaardingervaart leads north. The Broekpolder adds lakes and green.</p>\n<p><strong>Streets.</strong> The Hoogstraat is the old main street along the harbour. The post war districts are laid out in long rows with green between them.</p>",
+   "nl": "<h2>Vlaardingen op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt tussen de Markt en de Oude Haven. Westwijk, Holy en Ambacht zijn woonwijken, en Oost ligt richting Schiedam.</p>\n<p><strong>Water.</strong> De Nieuwe Maas vormt de zuidrand, de Oude Haven snijdt diep de stad in, en de Vlaardingervaart leidt naar het noorden. De Broekpolder voegt plassen en groen toe.</p>\n<p><strong>Straten.</strong> De Hoogstraat is de oude hoofdstraat langs de haven. De naoorlogse wijken liggen in lange rijen met groen ertussen.</p>"
+  }
+ },
+ {
+  "handle": "hellevoetsluis-map-print",
+  "notes": {
+   "en": "<h2>Hellevoetsluis on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old fortress town sits by the harbour. Nieuwenhoorn is an old village that grew into the town, and De Struytse Hoeck and Ravense Hoek are newer districts.</p>\n<p><strong>Water.</strong> The Haringvliet forms the southern edge. The Kanaal door Voorne starts at the old harbour, and moats surround the bastions of the fortress.</p>\n<p><strong>Streets.</strong> Inside the fortress the streets form a small regular grid. Outside it the districts follow curving roads, laid out around water and green.</p>",
+   "nl": "<h2>Hellevoetsluis op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude vestingstadje ligt bij de haven. Nieuwenhoorn is een oud dorp dat in de stad is opgegaan, en De Struytse Hoeck en Ravense Hoek zijn nieuwere wijken.</p>\n<p><strong>Water.</strong> Het Haringvliet vormt de zuidrand. Het Kanaal door Voorne begint bij de oude haven, en grachten omringen de bastions van de vesting.</p>\n<p><strong>Straten.</strong> Binnen de vesting vormen de straten een klein regelmatig raster. Daarbuiten volgen de wijken bochtige wegen, aangelegd rond water en groen.</p>"
+  }
+ },
+ {
+  "handle": "capelle-aan-den-ijssel-map-print",
+  "notes": {
+   "en": "<h2>Capelle aan den IJssel on the map</h2>\n<p><strong>Neighbourhoods.</strong> Schollevaar, Oostgaarde and Middelwatering are large residential districts. Capelle-West borders Rotterdam, and the old village lies along the dike.</p>\n<p><strong>Water.</strong> The Hollandse IJssel forms the southern edge, crossed by the Algerabrug. The Schollebos and many lakes and canals add blue to the districts.</p>\n<p><strong>Streets.</strong> The old village follows the river dike. The newer districts were planned with long curving roads, green strips and water between the blocks.</p>",
+   "nl": "<h2>Capelle aan den IJssel op de kaart</h2>\n<p><strong>Wijken.</strong> Schollevaar, Oostgaarde en Middelwatering zijn grote woonwijken. Capelle-West grenst aan Rotterdam, en het oude dorp ligt langs de dijk.</p>\n<p><strong>Water.</strong> De Hollandse IJssel vormt de zuidrand en wordt overspannen door de Algerabrug. Het Schollebos en veel plassen en vaarten brengen blauw in de wijken.</p>\n<p><strong>Straten.</strong> Het oude dorp volgt de rivierdijk. De nieuwere wijken werden ontworpen met lange bochtige wegen, groenstroken en water tussen de blokken.</p>"
+  }
+ },
+ {
+  "handle": "katwijk-map-print",
+  "notes": {
+   "en": "<h2>Katwijk on the map</h2>\n<p><strong>Neighbourhoods.</strong> Katwijk aan Zee lies by the beach, Katwijk aan den Rijn lies inland, and Rijnsburg and Valkenburg are villages within the municipality. Hoornes is a newer district.</p>\n<p><strong>Water.</strong> The Oude Rijn reaches the sea here through the old outlet sluices of 1807. The North Sea and the dunes form the western edge.</p>\n<p><strong>Streets.</strong> The boulevard follows the coast, and the Voorstraat is the old main street. The streets of the old fishing village are short and close together.</p>",
+   "nl": "<h2>Katwijk op de kaart</h2>\n<p><strong>Wijken.</strong> Katwijk aan Zee ligt aan het strand, Katwijk aan den Rijn ligt landinwaarts, en Rijnsburg en Valkenburg zijn dorpen binnen de gemeente. Hoornes is een nieuwere wijk.</p>\n<p><strong>Water.</strong> De Oude Rijn bereikt hier de zee via de oude uitwateringssluis van 1807. De Noordzee en de duinen vormen de westrand.</p>\n<p><strong>Straten.</strong> De boulevard volgt de kust, en de Voorstraat is de oude hoofdstraat. De straten van het oude vissersdorp zijn kort en liggen dicht op elkaar.</p>"
+  }
+ },
+ {
+  "handle": "rijswijk-map-print",
+  "notes": {
+   "en": "<h2>Rijswijk on the map</h2>\n<p><strong>Neighbourhoods.</strong> Oud Rijswijk lies around the Herenstraat. Te Werve, Leeuwendaal and the Bomen en Bloemenbuurt are residential districts, and Rijswijk Buiten is the newest.</p>\n<p><strong>Water.</strong> The Vliet runs along the eastern side. Ponds and canals fill the Wilhelminapark and the green estates such as Te Werve.</p>\n<p><strong>Streets.</strong> The Herenstraat follows the old village line. The districts around it form a calm grid, merging into The Hague and Delft without clear edges.</p>",
+   "nl": "<h2>Rijswijk op de kaart</h2>\n<p><strong>Wijken.</strong> Oud Rijswijk ligt rond de Herenstraat. Te Werve, Leeuwendaal en de Bomen en Bloemenbuurt zijn woonwijken, en Rijswijk Buiten is de nieuwste.</p>\n<p><strong>Water.</strong> De Vliet loopt langs de oostkant. Vijvers en vaarten vullen het Wilhelminapark en groene landgoederen zoals Te Werve.</p>\n<p><strong>Straten.</strong> De Herenstraat volgt de oude dorpslijn. De wijken eromheen vormen een rustig raster en lopen zonder duidelijke grens over in Den Haag en Delft.</p>"
+  }
+ },
+ {
+  "handle": "pijnacker-map-print",
+  "notes": {
+   "en": "<h2>Pijnacker on the map</h2>\n<p><strong>Neighbourhoods.</strong> Pijnacker has its old centre along the main road. Koningshof, Klapwijk, Ackerswoude and Tolhek are residential districts, and Nootdorp is the second village of the municipality.</p>\n<p><strong>Water.</strong> The Dobbeplas lies near Nootdorp, the Ackerdijkse Plassen lie to the south, and polder ditches draw lines across the land between the villages.</p>\n<p><strong>Streets.</strong> The old village follows the road in a long line. The new districts are built in rectangles between the polder ditches.</p>",
+   "nl": "<h2>Pijnacker op de kaart</h2>\n<p><strong>Wijken.</strong> Pijnacker heeft zijn oude centrum langs de hoofdweg. Koningshof, Klapwijk, Ackerswoude en Tolhek zijn woonwijken, en Nootdorp is het tweede dorp van de gemeente.</p>\n<p><strong>Water.</strong> De Dobbeplas ligt bij Nootdorp, de Ackerdijkse Plassen liggen in het zuiden, en poldersloten trekken lijnen over het land tussen de dorpen.</p>\n<p><strong>Straten.</strong> Het oude dorp volgt de weg in een lang lint. De nieuwe wijken zijn gebouwd in rechthoeken tussen de poldersloten.</p>"
+  }
+ },
+ {
+  "handle": "berkel-en-rodenrijs-map-print",
+  "notes": {
+   "en": "<h2>Berkel en Rodenrijs on the map</h2>\n<p><strong>Neighbourhoods.</strong> The village centre lies along the main street. Rodenrijs lies to the south and the Westpolder is a large new district on the west side.</p>\n<p><strong>Water.</strong> Polder ditches and canals run in straight lines through the land. The Rottemeren lie a little to the east, and the Westpolder is built around water.</p>\n<p><strong>Streets.</strong> The roads follow the old reclamation pattern in long straight lines. The RandstadRail station gives the newer districts their focus.</p>",
+   "nl": "<h2>Berkel en Rodenrijs op de kaart</h2>\n<p><strong>Wijken.</strong> Het dorpscentrum ligt langs de hoofdstraat. Rodenrijs ligt in het zuiden en de Westpolder is een grote nieuwe wijk aan de westkant.</p>\n<p><strong>Water.</strong> Poldersloten en vaarten lopen in rechte lijnen door het land. De Rottemeren liggen iets naar het oosten, en de Westpolder is rond water gebouwd.</p>\n<p><strong>Straten.</strong> De wegen volgen het oude droogmakerijpatroon in lange rechte lijnen. Het RandstadRailstation geeft de nieuwere wijken hun middelpunt.</p>"
+  }
+ },
+ {
+  "handle": "oud-beijerland-map-print",
+  "notes": {
+   "en": "<h2>Oud-Beijerland on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies along the harbour and the dike. Poortwijk and the Zinkweg area are residential districts, and new districts grow towards the fields.</p>\n<p><strong>Water.</strong> The Spui flows along the south west of town, and the old harbour leads to it. Creeks wind through the polders of the Hoeksche Waard.</p>\n<p><strong>Streets.</strong> The oldest streets follow the dike in a long line. Around them the polders keep their straight roads and ditches.</p>",
+   "nl": "<h2>Oud-Beijerland op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt langs de haven en de dijk. Poortwijk en de omgeving van de Zinkweg zijn woonwijken, en nieuwe wijken groeien richting de akkers.</p>\n<p><strong>Water.</strong> Het Spui stroomt langs de zuidwestkant van het dorp, en de oude haven leidt erheen. Kreken slingeren door de polders van de Hoeksche Waard.</p>\n<p><strong>Straten.</strong> De oudste straten volgen de dijk in een lange lijn. Rondom houden de polders hun rechte wegen en sloten.</p>"
+  }
+ },
+ {
+  "handle": "veenendaal-map-print",
+  "notes": {
+   "en": "<h2>Veenendaal on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Markt and the Oude Kerk. Dragonder, Petenbos, Engelenburg and Veenendaal Oost are residential districts.</p>\n<p><strong>Water.</strong> The town was built on peat, and old canals from that time still run through it. Ponds fill the parks, and the woods of the Heuvelrug lie to the west.</p>\n<p><strong>Streets.</strong> The Hoofdstraat runs through the old centre, past the former textile mills. The newer districts follow a planned layout with green between the blocks.</p>",
+   "nl": "<h2>Veenendaal op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Markt en de Oude Kerk. Dragonder, Petenbos, Engelenburg en Veenendaal Oost zijn woonwijken.</p>\n<p><strong>Water.</strong> De stad is op veen gebouwd, en oude vaarten uit die tijd lopen er nog doorheen. Vijvers vullen de parken, en de bossen van de Heuvelrug liggen in het westen.</p>\n<p><strong>Straten.</strong> De Hoofdstraat loopt door het oude centrum, langs de voormalige textielfabrieken. De nieuwere wijken volgen een gepland plan met groen tussen de blokken.</p>"
+  }
+ },
+ {
+  "handle": "nieuwegein-map-print",
+  "notes": {
+   "en": "<h2>Nieuwegein on the map</h2>\n<p><strong>Neighbourhoods.</strong> Vreeswijk and Jutphaas are the old villages. Galecop, Batau, Fokkesteeg, Zuilenstein and Doorslag were built from the 1970s onward as a new town.</p>\n<p><strong>Water.</strong> The Merwedekanaal and the Lekkanaal cut through the town, the Lek forms the southern edge, and the old locks of Vreeswijk lie at the river.</p>\n<p><strong>Streets.</strong> The new town was planned around the tram line to Utrecht. Its districts have curving roads, canals and green strips, with the city centre in the middle.</p>",
+   "nl": "<h2>Nieuwegein op de kaart</h2>\n<p><strong>Wijken.</strong> Vreeswijk en Jutphaas zijn de oude dorpen. Galecop, Batau, Fokkesteeg, Zuilenstein en Doorslag werden vanaf de jaren zeventig gebouwd als nieuwe stad.</p>\n<p><strong>Water.</strong> Het Merwedekanaal en het Lekkanaal snijden door de stad, de Lek vormt de zuidrand, en de oude sluizen van Vreeswijk liggen aan de rivier.</p>\n<p><strong>Straten.</strong> De nieuwe stad werd ontworpen rond de tramlijn naar Utrecht. De wijken hebben bochtige wegen, vaarten en groenstroken, met de binnenstad in het midden.</p>"
+  }
+ },
+ {
+  "handle": "zeist-map-print",
+  "notes": {
+   "en": "<h2>Zeist on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Slotlaan. Kerckebosch, Vollenhove and Crosestein are residential districts, and Den Dolder, Austerlitz and Huis ter Heide are villages nearby.</p>\n<p><strong>Water.</strong> Zeist lies on the dry sand of the Heuvelrug, so water is rare. Ponds and canals belong to Slot Zeist and the estates, and the Kromme Rijn flows to the south.</p>\n<p><strong>Streets.</strong> Long straight lanes lead through the woods to the Slot. Around them villa streets curve, and the Zusterplein and Broederplein form a neat pair of squares.</p>",
+   "nl": "<h2>Zeist op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Slotlaan. Kerckebosch, Vollenhove en Crosestein zijn woonwijken, en Den Dolder, Austerlitz en Huis ter Heide zijn dorpen in de buurt.</p>\n<p><strong>Water.</strong> Zeist ligt op het droge zand van de Heuvelrug, dus water is schaars. Vijvers en grachten horen bij Slot Zeist en de landgoederen, en de Kromme Rijn stroomt in het zuiden.</p>\n<p><strong>Straten.</strong> Lange rechte lanen leiden door het bos naar het Slot. Daaromheen buigen villastraten, en het Zusterplein en het Broederplein vormen een net paar pleinen.</p>"
+  }
+ },
+ {
+  "handle": "maarssen-map-print",
+  "notes": {
+   "en": "<h2>Maarssen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old village lies along the Vecht. Maarssenbroek is the large new district across the canal, built from the 1970s onward.</p>\n<p><strong>Water.</strong> The Vecht winds past the village, the Amsterdam Rijnkanaal cuts straight through, and the Maarsseveense Plassen lie to the north.</p>\n<p><strong>Streets.</strong> The old village streets follow the river. Maarssenbroek was planned with curving roads around canals, and estates line the Vecht to the north.</p>",
+   "nl": "<h2>Maarssen op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude dorp ligt langs de Vecht. Maarssenbroek is de grote nieuwe wijk aan de overkant van het kanaal, gebouwd vanaf de jaren zeventig.</p>\n<p><strong>Water.</strong> De Vecht slingert langs het dorp, het Amsterdam Rijnkanaal snijdt er recht doorheen, en de Maarsseveense Plassen liggen in het noorden.</p>\n<p><strong>Straten.</strong> De oude dorpsstraten volgen de rivier. Maarssenbroek werd ontworpen met bochtige wegen rond vaarten, en buitenplaatsen liggen langs de Vecht in het noorden.</p>"
+  }
+ },
+ {
+  "handle": "vianen-map-print",
+  "notes": {
+   "en": "<h2>Vianen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the walls along the Voorstraat. Newer districts lie to the south, and Hagestein and Everdingen are villages nearby.</p>\n<p><strong>Water.</strong> The Lek forms the northern edge, the Merwedekanaal passes the town, and moats still circle the old walls.</p>\n<p><strong>Streets.</strong> The old town is a small, regular grid with the wide Voorstraat in the middle, ending at the Lekpoort. Outside it the streets follow modern lines.</p>",
+   "nl": "<h2>Vianen op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de wallen langs de Voorstraat. Nieuwere wijken liggen in het zuiden, en Hagestein en Everdingen zijn dorpen in de buurt.</p>\n<p><strong>Water.</strong> De Lek vormt de noordrand, het Merwedekanaal loopt langs de stad, en grachten liggen nog om de oude wallen.</p>\n<p><strong>Straten.</strong> De oude stad is een klein, regelmatig raster met de brede Voorstraat in het midden, die eindigt bij de Lekpoort. Daarbuiten volgen de straten moderne lijnen.</p>"
+  }
+ },
+ {
+  "handle": "woerden-map-print",
+  "notes": {
+   "en": "<h2>Woerden on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the singel. Molenvliet, Snel en Polanen and the Schilderskwartier are residential districts, and Harmelen is a village nearby.</p>\n<p><strong>Water.</strong> The Oude Rijn runs through the town, the singel with its bastions surrounds the centre, and polder ditches spread out in the Groene Hart.</p>\n<p><strong>Streets.</strong> Inside the singel the streets are short and old, with the Rijnstraat as the main street. Outside it the districts follow the polder roads.</p>",
+   "nl": "<h2>Woerden op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de singel. Molenvliet, Snel en Polanen en het Schilderskwartier zijn woonwijken, en Harmelen is een dorp in de buurt.</p>\n<p><strong>Water.</strong> De Oude Rijn loopt door de stad, de singel met zijn bastions ligt om het centrum, en poldersloten strekken zich uit in het Groene Hart.</p>\n<p><strong>Straten.</strong> Binnen de singel zijn de straten kort en oud, met de Rijnstraat als hoofdstraat. Daarbuiten volgen de wijken de polderwegen.</p>"
+  }
+ },
+ {
+  "handle": "houten-map-print",
+  "notes": {
+   "en": "<h2>Houten on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old village lies in the middle, surrounded by Houten Noord and Houten Zuid. Castellum is a newer district in the south.</p>\n<p><strong>Water.</strong> Canals and ponds wind between the districts, and the Amsterdam Rijnkanaal runs along the west side of town.</p>\n<p><strong>Streets.</strong> A ring road keeps cars on the outside, and each district can only be reached from that ring. Bike paths run straight to the station in the middle.</p>",
+   "nl": "<h2>Houten op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude dorp ligt in het midden, omringd door Houten Noord en Houten Zuid. Castellum is een nieuwere wijk in het zuiden.</p>\n<p><strong>Water.</strong> Vaarten en vijvers slingeren tussen de wijken, en het Amsterdam Rijnkanaal loopt langs de westkant.</p>\n<p><strong>Straten.</strong> Een ringweg houdt auto’s aan de buitenkant, en elke wijk is alleen vanaf die ring bereikbaar. Fietspaden lopen recht naar het station in het midden.</p>"
+  }
+ },
+ {
+  "handle": "driebergen-map-print",
+  "notes": {
+   "en": "<h2>Driebergen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies along the Hoofdstraat. Rijsenburg is the second village that grew together with Driebergen, and country estates and villa areas fill the rest.</p>\n<p><strong>Water.</strong> There is little water on the Heuvelrug. Ponds belong to the estates, and the Kromme Rijn flows through the fields to the south.</p>\n<p><strong>Streets.</strong> The Hoofdstraat follows the old road along the ridge, lined with estates. Lanes lead from it into the woods on the north side.</p>",
+   "nl": "<h2>Driebergen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt langs de Hoofdstraat. Rijsenburg is het tweede dorp dat met Driebergen is samengegroeid, en landgoederen en villawijken vullen de rest.</p>\n<p><strong>Water.</strong> Op de Heuvelrug is weinig water. Vijvers horen bij de landgoederen, en de Kromme Rijn stroomt door de velden in het zuiden.</p>\n<p><strong>Straten.</strong> De Hoofdstraat volgt de oude weg over de rug, omzoomd door landgoederen. Lanen leiden ervandaan het bos in aan de noordkant.</p>"
+  }
+ },
+ {
+  "handle": "ede-map-print",
+  "notes": {
+   "en": "<h2>Ede on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the station. Veldhuizen, Rietkampen and Kernhem are residential districts, and Bennekom is a village nearby.</p>\n<p><strong>Water.</strong> Ede lies on the dry sand of the Veluwe, so water is rare. The Valleikanaal runs through the fields to the west.</p>\n<p><strong>Streets.</strong> The railway runs through the middle of town. The former barracks area is laid out as a new district, and the woods begin right where the streets end.</p>",
+   "nl": "<h2>Ede op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het station. Veldhuizen, Rietkampen en Kernhem zijn woonwijken, en Bennekom is een dorp in de buurt.</p>\n<p><strong>Water.</strong> Ede ligt op het droge zand van de Veluwe, dus water is schaars. Het Valleikanaal loopt door de velden in het westen.</p>\n<p><strong>Straten.</strong> Het spoor loopt door het midden van de stad. Het voormalige kazerneterrein is als nieuwe wijk aangelegd, en het bos begint precies waar de straten ophouden.</p>"
+  }
+ },
+ {
+  "handle": "doetinchem-map-print",
+  "notes": {
+   "en": "<h2>Doetinchem on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies around the Simonsplein. De Huet, Overstegen, Dichteren and Schöneveld are residential districts.</p>\n<p><strong>Water.</strong> The Oude IJssel curves through the town, and small streams flow into it from the fields of the Achterhoek.</p>\n<p><strong>Streets.</strong> The centre has a compact web of old streets such as the Hamburgerstraat. Long roads lead out to the villages of the Achterhoek.</p>",
+   "nl": "<h2>Doetinchem op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt rond het Simonsplein. De Huet, Overstegen, Dichteren en Schöneveld zijn woonwijken.</p>\n<p><strong>Water.</strong> De Oude IJssel buigt door de stad, en kleine beken stromen erin vanuit de velden van de Achterhoek.</p>\n<p><strong>Straten.</strong> Het centrum heeft een compact web van oude straten zoals de Hamburgerstraat. Lange wegen leiden naar de dorpen van de Achterhoek.</p>"
+  }
+ },
+ {
+  "handle": "barneveld-map-print",
+  "notes": {
+   "en": "<h2>Barneveld on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies around the church. Veller and Vaarst are newer districts, and hamlets and farms lie all around.</p>\n<p><strong>Water.</strong> The Barneveldse Beek runs past the village, and the Valleikanaal lies further west. Ditches mark the fields of the Gelderse Vallei.</p>\n<p><strong>Streets.</strong> The old streets meet at the church. Around them the newer districts form neat blocks, and country roads lead to the farms.</p>",
+   "nl": "<h2>Barneveld op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt rond de kerk. Veller en Vaarst zijn nieuwere wijken, en buurtschappen en boerderijen liggen overal rondom.</p>\n<p><strong>Water.</strong> De Barneveldse Beek stroomt langs het dorp, en het Valleikanaal ligt verder naar het westen. Sloten markeren de velden van de Gelderse Vallei.</p>\n<p><strong>Straten.</strong> De oude straten komen samen bij de kerk. Daaromheen vormen de nieuwere wijken nette blokken, en landwegen leiden naar de boerderijen.</p>"
+  }
+ },
+ {
+  "handle": "harderwijk-map-print",
+  "notes": {
+   "en": "<h2>Harderwijk on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the walls. Stadsweiden and Drielanden are newer districts, and the Waterfront is a new district by the lake.</p>\n<p><strong>Water.</strong> The Veluwemeer forms the northern edge, with harbours and the boulevard along the shore.</p>\n<p><strong>Streets.</strong> Inside the walls the old town has narrow streets such as the Donkerstraat. Outside them the districts spread towards the Veluwe.</p>",
+   "nl": "<h2>Harderwijk op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de muren. Stadsweiden en Drielanden zijn nieuwere wijken, en het Waterfront is een nieuwe wijk aan het meer.</p>\n<p><strong>Water.</strong> Het Veluwemeer vormt de noordrand, met havens en de boulevard langs de oever.</p>\n<p><strong>Straten.</strong> Binnen de muren heeft de oude stad smalle straten zoals de Donkerstraat. Daarbuiten strekken de wijken zich uit richting de Veluwe.</p>"
+  }
+ },
+ {
+  "handle": "zutphen-map-print",
+  "notes": {
+   "en": "<h2>Zutphen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the walls. Leesten and the Waterkwartier are residential districts, and De Hoven lies across the IJssel.</p>\n<p><strong>Water.</strong> The IJssel forms the western edge, and the Berkel flows into it through the old town. Moats still follow parts of the walls.</p>\n<p><strong>Streets.</strong> The old town has squares such as the Houtmarkt and the Zaadmarkt, and the Nieuwstad was a planned extension in the Middle Ages.</p>",
+   "nl": "<h2>Zutphen op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de muren. Leesten en het Waterkwartier zijn woonwijken, en De Hoven ligt aan de overkant van de IJssel.</p>\n<p><strong>Water.</strong> De IJssel vormt de westrand, en de Berkel stroomt er dwars door de oude stad in. Grachten volgen nog delen van de muren.</p>\n<p><strong>Straten.</strong> De oude stad heeft pleinen zoals de Houtmarkt en de Zaadmarkt, en de Nieuwstad was al in de middeleeuwen een geplande uitbreiding.</p>"
+  }
+ },
+ {
+  "handle": "helmond-map-print",
+  "notes": {
+   "en": "<h2>Helmond on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the castle. Brandevoort and Dierdonk are newer districts, Rijpelberg and Mierlo-Hout lie to the west, and Stiphout to the north.</p>\n<p><strong>Water.</strong> The Zuid-Willemsvaart runs through the centre, the Eindhovens Kanaal ends here, and the castle stands in its moat.</p>\n<p><strong>Streets.</strong> The canal cuts the town in two, with the centre on its east bank. Brandevoort is built like a walled village, with a canal around it.</p>",
+   "nl": "<h2>Helmond op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het kasteel. Brandevoort en Dierdonk zijn nieuwere wijken, Rijpelberg en Mierlo-Hout liggen in het westen, en Stiphout in het noorden.</p>\n<p><strong>Water.</strong> De Zuid-Willemsvaart loopt door het centrum, het Eindhovens Kanaal eindigt hier, en het kasteel staat in zijn slotgracht.</p>\n<p><strong>Straten.</strong> Het kanaal snijdt de stad in tweeën, met het centrum op de oostoever. Brandevoort is gebouwd als een ommuurd dorp, met een gracht eromheen.</p>"
+  }
+ },
+ {
+  "handle": "oss-map-print",
+  "notes": {
+   "en": "<h2>Oss on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Heuvel. Ruwaard and Schadewijk are residential districts, and Berghem, Megen and Lith are villages within the municipality.</p>\n<p><strong>Water.</strong> The Maas flows to the north of town, and a canal leads from Oss to the river. Small streams run through the fields.</p>\n<p><strong>Streets.</strong> Long roads lead out from the centre to the villages around it. Industrial areas lie along the canal on the north side.</p>",
+   "nl": "<h2>Oss op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Heuvel. Ruwaard en Schadewijk zijn woonwijken, en Berghem, Megen en Lith zijn dorpen binnen de gemeente.</p>\n<p><strong>Water.</strong> De Maas stroomt ten noorden van de stad, en een kanaal leidt van Oss naar de rivier. Kleine beken lopen door de velden.</p>\n<p><strong>Straten.</strong> Lange wegen leiden vanuit het centrum naar de dorpen eromheen. Bedrijventerreinen liggen langs het kanaal aan de noordkant.</p>"
+  }
+ },
+ {
+  "handle": "cuijk-map-print",
+  "notes": {
+   "en": "<h2>Cuijk on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies along the Maas. Padbroek is a large residential district, and villages surround the town.</p>\n<p><strong>Water.</strong> The Maas forms the eastern edge, and the Kraaijenbergse Plassen make a big pattern of lakes to the north west.</p>\n<p><strong>Streets.</strong> The old streets follow the river bank. Behind them the town spreads out in regular blocks towards the railway.</p>",
+   "nl": "<h2>Cuijk op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt langs de Maas. Padbroek is een grote woonwijk, en dorpen omringen de stad.</p>\n<p><strong>Water.</strong> De Maas vormt de oostrand, en de Kraaijenbergse Plassen vormen in het noordwesten een groot patroon van meren.</p>\n<p><strong>Straten.</strong> De oude straten volgen de rivieroever. Daarachter breidt de stad zich in regelmatige blokken uit richting het spoor.</p>"
+  }
+ },
+ {
+  "handle": "veghel-map-print",
+  "notes": {
+   "en": "<h2>Veghel on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the church. The Noordkade lies along the canal, and villages such as Erp and Mariaheide belong to the same municipality.</p>\n<p><strong>Water.</strong> The Zuid-Willemsvaart runs through the town, and the river Aa flows past it.</p>\n<p><strong>Streets.</strong> The Hoofdstraat runs through the centre. Industrial areas line the canal, and country roads lead out to the villages.</p>",
+   "nl": "<h2>Veghel op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de kerk. De Noordkade ligt langs het kanaal, en dorpen zoals Erp en Mariaheide horen bij dezelfde gemeente.</p>\n<p><strong>Water.</strong> De Zuid-Willemsvaart loopt door de stad, en de Aa stroomt erlangs.</p>\n<p><strong>Straten.</strong> De Hoofdstraat loopt door het centrum. Bedrijventerreinen liggen langs het kanaal, en landwegen leiden naar de dorpen.</p>"
+  }
+ },
+ {
+  "handle": "roosendaal-map-print",
+  "notes": {
+   "en": "<h2>Roosendaal on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Markt. Kalsdonk, Tolberg, Langdonk and Kortendijk are residential districts.</p>\n<p><strong>Water.</strong> The Roosendaalse Vliet flows to the north, and ponds lie in the parks. The woods of the border land are close by.</p>\n<p><strong>Streets.</strong> The railway yard sits just north of the centre. Long roads lead out to Antwerp, Bergen op Zoom and Breda.</p>",
+   "nl": "<h2>Roosendaal op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Markt. Kalsdonk, Tolberg, Langdonk en Kortendijk zijn woonwijken.</p>\n<p><strong>Water.</strong> De Roosendaalse Vliet stroomt in het noorden, en vijvers liggen in de parken. De bossen van het grensgebied liggen dichtbij.</p>\n<p><strong>Straten.</strong> Het spoorwegemplacement ligt vlak ten noorden van het centrum. Lange wegen leiden naar Antwerpen, Bergen op Zoom en Breda.</p>"
+  }
+ },
+ {
+  "handle": "bergen-op-zoom-map-print",
+  "notes": {
+   "en": "<h2>Bergen op Zoom on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies around the Grote Markt. Gageldonk, Meilust and Fort-Zeekant are residential districts.</p>\n<p><strong>Water.</strong> The Oosterschelde lies to the west, the old harbour leads to it, and the Binnenschelde is a lake right next to town.</p>\n<p><strong>Streets.</strong> The old town sits on the slope of the Brabantse Wal. Its streets meet at the Grote Markt, and the newer districts climb up the ridge.</p>",
+   "nl": "<h2>Bergen op Zoom op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt rond de Grote Markt. Gageldonk, Meilust en Fort-Zeekant zijn woonwijken.</p>\n<p><strong>Water.</strong> De Oosterschelde ligt in het westen, de oude haven leidt erheen, en de Binnenschelde is een meer vlak naast de stad.</p>\n<p><strong>Straten.</strong> De oude stad ligt op de helling van de Brabantse Wal. De straten komen samen op de Grote Markt, en de nieuwere wijken klimmen de rug op.</p>"
+  }
+ },
+ {
+  "handle": "uden-map-print",
+  "notes": {
+   "en": "<h2>Uden on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Markt. Bitswijk, Hoeven and Velmolen are residential districts, and Volkel lies to the east.</p>\n<p><strong>Water.</strong> Uden has no river, so the ponds in the parks and the fens of De Maashorst are the main water on the map.</p>\n<p><strong>Streets.</strong> Long roads lead out from the Markt in all directions. The newer districts fill the space between them.</p>",
+   "nl": "<h2>Uden op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Markt. Bitswijk, Hoeven en Velmolen zijn woonwijken, en Volkel ligt in het oosten.</p>\n<p><strong>Water.</strong> Uden heeft geen rivier, dus de vijvers in de parken en de vennen van De Maashorst zijn het belangrijkste water op de kaart.</p>\n<p><strong>Straten.</strong> Lange wegen leiden vanaf de Markt alle kanten op. De nieuwere wijken vullen de ruimte daartussen.</p>"
+  }
+ },
+ {
+  "handle": "oosterhout-map-print",
+  "notes": {
+   "en": "<h2>Oosterhout on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around De Heuvel. Oosterheide, Vrachelen and Dommelbergen are residential districts, and the old manor houses, the slotjes, lie around town.</p>\n<p><strong>Water.</strong> The Wilhelminakanaal runs along the north side, and ponds and moats belong to the slotjes.</p>\n<p><strong>Streets.</strong> De Heuvel is a wide square where many streets meet. Around it the streets curve, with green lanes leading out to the woods.</p>",
+   "nl": "<h2>Oosterhout op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond De Heuvel. Oosterheide, Vrachelen en Dommelbergen zijn woonwijken, en de oude slotjes liggen verspreid rond de stad.</p>\n<p><strong>Water.</strong> Het Wilhelminakanaal loopt langs de noordkant, en vijvers en grachten horen bij de slotjes.</p>\n<p><strong>Straten.</strong> De Heuvel is een breed plein waar veel straten samenkomen. Daaromheen buigen de straten, met groene lanen naar de bossen.</p>"
+  }
+ },
+ {
+  "handle": "waalwijk-map-print",
+  "notes": {
+   "en": "<h2>Waalwijk on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies along the Grotestraat. Sprang-Capelle and Waspik are villages within the municipality.</p>\n<p><strong>Water.</strong> The Bergsche Maas forms the northern edge, and a harbour leads from the town to the river.</p>\n<p><strong>Streets.</strong> The town stretches along the main road, the old Langstraat. The sand dunes of the Loonse en Drunense Duinen lie to the south.</p>",
+   "nl": "<h2>Waalwijk op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt langs de Grotestraat. Sprang-Capelle en Waspik zijn dorpen binnen de gemeente.</p>\n<p><strong>Water.</strong> De Bergsche Maas vormt de noordrand, en een haven leidt van de stad naar de rivier.</p>\n<p><strong>Straten.</strong> De stad strekt zich uit langs de hoofdweg, de oude Langstraat. De zandverstuivingen van de Loonse en Drunense Duinen liggen in het zuiden.</p>"
+  }
+ },
+ {
+  "handle": "venlo-map-print",
+  "notes": {
+   "en": "<h2>Venlo on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies on the east bank of the Maas. Blerick lies across the river, Venlo-Oost and Tegelen spread out to the east and south.</p>\n<p><strong>Water.</strong> The Maas forms the main line on the map, with bridges between Venlo and Blerick. Ponds lie in the parks.</p>\n<p><strong>Streets.</strong> The old town has a compact web of streets around the Markt. Long roads lead out to Germany, only a few kilometres away.</p>",
+   "nl": "<h2>Venlo op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt op de oostoever van de Maas. Blerick ligt aan de overkant, en Venlo-Oost en Tegelen strekken zich uit naar het oosten en zuiden.</p>\n<p><strong>Water.</strong> De Maas is de belangrijkste lijn op de kaart, met bruggen tussen Venlo en Blerick. Vijvers liggen in de parken.</p>\n<p><strong>Straten.</strong> De oude stad heeft een compact web van straten rond de Markt. Lange wegen leiden naar Duitsland, op maar een paar kilometer afstand.</p>"
+  }
+ },
+ {
+  "handle": "sittard-map-print",
+  "notes": {
+   "en": "<h2>Sittard on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the former walls. Overhoven is a residential district, and Geleen forms one town with Sittard.</p>\n<p><strong>Water.</strong> The Geleenbeek and the Rode Beek flow through the area, and ponds lie in the parks.</p>\n<p><strong>Streets.</strong> The old town is round, with streets meeting at the Markt. The German border runs just east of town.</p>",
+   "nl": "<h2>Sittard op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de voormalige wallen. Overhoven is een woonwijk, en Geleen vormt samen met Sittard één stad.</p>\n<p><strong>Water.</strong> De Geleenbeek en de Rode Beek stromen door de omgeving, en vijvers liggen in de parken.</p>\n<p><strong>Straten.</strong> De oude stad is rond, met straten die samenkomen op de Markt. De Duitse grens loopt vlak ten oosten van de stad.</p>"
+  }
+ },
+ {
+  "handle": "heerlen-map-print",
+  "notes": {
+   "en": "<h2>Heerlen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Pancratiusplein. Heerlerheide, Hoensbroek, Schandelen and Welten are districts, and old mining villages lie all around.</p>\n<p><strong>Water.</strong> Heerlen lies in the hills, and streams such as the Geleenbeek start here. Ponds lie in the parks and old mine areas.</p>\n<p><strong>Streets.</strong> The streets climb and curve with the hills. The old mining districts form their own small grids around former shafts.</p>",
+   "nl": "<h2>Heerlen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het Pancratiusplein. Heerlerheide, Hoensbroek, Schandelen en Welten zijn wijken, en oude mijnwerkersdorpen liggen overal rondom.</p>\n<p><strong>Water.</strong> Heerlen ligt in de heuvels, en beken zoals de Geleenbeek ontspringen hier. Vijvers liggen in de parken en op oude mijnterreinen.</p>\n<p><strong>Straten.</strong> De straten klimmen en buigen met de heuvels mee. De oude mijnwijken vormen hun eigen kleine rasters rond voormalige schachten.</p>"
+  }
+ },
+ {
+  "handle": "roermond-map-print",
+  "notes": {
+   "en": "<h2>Roermond on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the former walls. Maasniel, Kapel in ’t Zand, Donderberg and Swalmen are districts.</p>\n<p><strong>Water.</strong> The Roer flows into the Maas here, and the Maasplassen spread out in a big pattern of lakes to the west.</p>\n<p><strong>Streets.</strong> The old town is a compact web around the Munsterplein and the Markt. Long roads lead out to the villages along the Maas.</p>",
+   "nl": "<h2>Roermond op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de voormalige wallen. Maasniel, Kapel in ’t Zand, Donderberg en Swalmen zijn wijken.</p>\n<p><strong>Water.</strong> De Roer stroomt hier in de Maas, en de Maasplassen vormen in het westen een groot patroon van meren.</p>\n<p><strong>Straten.</strong> De oude stad is een compact web rond het Munsterplein en de Markt. Lange wegen leiden naar de dorpen langs de Maas.</p>"
+  }
+ },
+ {
+  "handle": "weert-map-print",
+  "notes": {
+   "en": "<h2>Weert on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Markt and the Sint-Martinuskerk. Leuken, Fatima, Moesel and Boshoven are residential districts.</p>\n<p><strong>Water.</strong> The Zuid-Willemsvaart curves past the town, and other canals meet near Nederweert. Fens lie in the woods of the Kempen.</p>\n<p><strong>Streets.</strong> The old town has a compact web of streets. The districts grow outward along the roads to Belgium and Brabant.</p>",
+   "nl": "<h2>Weert op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Markt en de Sint-Martinuskerk. Leuken, Fatima, Moesel en Boshoven zijn woonwijken.</p>\n<p><strong>Water.</strong> De Zuid-Willemsvaart buigt langs de stad, en andere kanalen komen samen bij Nederweert. Vennen liggen in de bossen van de Kempen.</p>\n<p><strong>Straten.</strong> De oude stad heeft een compact web van straten. De wijken groeien naar buiten langs de wegen naar België en Brabant.</p>"
+  }
+ },
+ {
+  "handle": "deventer-map-print",
+  "notes": {
+   "en": "<h2>Deventer on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies around the Brink. Colmschate, Keizerslanden, Zandweerd and the Rivierenwijk are residential districts.</p>\n<p><strong>Water.</strong> The IJssel draws a wide curve along the old town. The Schipbeek flows into it from the east.</p>\n<p><strong>Streets.</strong> The old town has a dense web of streets around the Brink and the Bergkwartier. The districts spread to the east, away from the river.</p>",
+   "nl": "<h2>Deventer op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt rond de Brink. Colmschate, Keizerslanden, Zandweerd en de Rivierenwijk zijn woonwijken.</p>\n<p><strong>Water.</strong> De IJssel trekt een brede bocht langs de oude stad. De Schipbeek stroomt er vanuit het oosten in.</p>\n<p><strong>Straten.</strong> De oude stad heeft een dicht web van straten rond de Brink en het Bergkwartier. De wijken breiden zich uit naar het oosten, weg van de rivier.</p>"
+  }
+ },
+ {
+  "handle": "almelo-map-print",
+  "notes": {
+   "en": "<h2>Almelo on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Grotestraat. De Riet and Ossenkoppelerhoek are large residential districts.</p>\n<p><strong>Water.</strong> Canals meet in Almelo: a side branch of the Twentekanaal and the canal to De Haandrik.</p>\n<p><strong>Streets.</strong> Long roads lead out from the old centre. The former textile mills shaped the districts around them.</p>",
+   "nl": "<h2>Almelo op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Grotestraat. De Riet en Ossenkoppelerhoek zijn grote woonwijken.</p>\n<p><strong>Water.</strong> Kanalen komen samen in Almelo: een zijtak van het Twentekanaal en het kanaal naar De Haandrik.</p>\n<p><strong>Straten.</strong> Lange wegen leiden vanuit het oude centrum naar buiten. De voormalige textielfabrieken bepaalden de wijken eromheen.</p>"
+  }
+ },
+ {
+  "handle": "hengelo-map-print",
+  "notes": {
+   "en": "<h2>Hengelo on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Markt and the town hall. Hasseler Es, Berflo Es and Groot Driene are residential districts.</p>\n<p><strong>Water.</strong> The Twentekanaal runs along the south of town with a harbour, and streams such as the Drienerbeek flow through the parks.</p>\n<p><strong>Streets.</strong> The railway and the canal shaped the plan. The districts spread out between them, with green estates around the edges.</p>",
+   "nl": "<h2>Hengelo op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Markt en het stadhuis. Hasseler Es, Berflo Es en Groot Driene zijn woonwijken.</p>\n<p><strong>Water.</strong> Het Twentekanaal loopt met een haven langs de zuidkant van de stad, en beken zoals de Drienerbeek stromen door de parken.</p>\n<p><strong>Straten.</strong> Het spoor en het kanaal bepaalden het stadsplan. De wijken liggen daartussen, met groene landgoederen aan de randen.</p>"
+  }
+ },
+ {
+  "handle": "hardenberg-map-print",
+  "notes": {
+   "en": "<h2>Hardenberg on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies by the Vecht. Heemse lies south of the river, and Baalderveld and Marslanden are newer districts.</p>\n<p><strong>Water.</strong> The Overijsselse Vecht winds through the town, and the canal to Almelo starts close by.</p>\n<p><strong>Streets.</strong> The old streets follow the river. The newer districts spread out north and south, with fields all around.</p>",
+   "nl": "<h2>Hardenberg op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt aan de Vecht. Heemse ligt ten zuiden van de rivier, en Baalderveld en Marslanden zijn nieuwere wijken.</p>\n<p><strong>Water.</strong> De Overijsselse Vecht slingert door de stad, en het kanaal naar Almelo begint vlakbij.</p>\n<p><strong>Straten.</strong> De oude straten volgen de rivier. De nieuwere wijken liggen in het noorden en zuiden, met velden rondom.</p>"
+  }
+ },
+ {
+  "handle": "kampen-map-print",
+  "notes": {
+   "en": "<h2>Kampen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies along the IJssel. Brunnepe, the Hanzewijk and Onderdijks are residential districts, and IJsselmuiden lies across the river.</p>\n<p><strong>Water.</strong> The IJssel forms the eastern edge of the old town, close to where it reaches the Ketelmeer. Old moats lie behind the town.</p>\n<p><strong>Streets.</strong> Long streets such as the Oudestraat run parallel to the river, crossed by short lanes. Two city gates still stand on the land side, and the Koornmarktspoort faces the river.</p>",
+   "nl": "<h2>Kampen op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt langs de IJssel. Brunnepe, de Hanzewijk en Onderdijks zijn woonwijken, en IJsselmuiden ligt aan de overkant van de rivier.</p>\n<p><strong>Water.</strong> De IJssel vormt de oostrand van de oude stad, vlak voordat hij het Ketelmeer bereikt. Oude grachten liggen achter de stad.</p>\n<p><strong>Straten.</strong> Lange straten zoals de Oudestraat lopen evenwijdig aan de rivier, gekruist door korte stegen. Aan de landkant staan nog twee stadspoorten, en de Koornmarktspoort kijkt uit op de rivier.</p>"
+  }
+ },
+ {
+  "handle": "borne-map-print",
+  "notes": {
+   "en": "<h2>Borne on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies around the church. Bornsche Maten is a large new district on the west side of town.</p>\n<p><strong>Water.</strong> Small streams cross the fields, and Bornsche Maten is built around ponds and green.</p>\n<p><strong>Streets.</strong> The old village streets meet near the church. Bornsche Maten has curving streets in a planned layout.</p>",
+   "nl": "<h2>Borne op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt rond de kerk. Bornsche Maten is een grote nieuwe wijk aan de westkant van het dorp.</p>\n<p><strong>Water.</strong> Kleine beken lopen door de velden, en Bornsche Maten is gebouwd rond vijvers en groen.</p>\n<p><strong>Straten.</strong> De oude dorpsstraten komen samen bij de kerk. Bornsche Maten heeft bochtige straten in een gepland plan.</p>"
+  }
+ },
+ {
+  "handle": "oldenzaal-map-print",
+  "notes": {
+   "en": "<h2>Oldenzaal on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies around the basilica. The districts grow outward on all sides, with Zuid-Berghuizen in the south.</p>\n<p><strong>Water.</strong> Oldenzaal lies on high ground, so there is little water. Ponds lie in the parks and small streams flow through the fields.</p>\n<p><strong>Streets.</strong> The old streets form an almost perfect circle around the basilica. Roads lead out from it to Germany and the villages around.</p>",
+   "nl": "<h2>Oldenzaal op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt rond de basiliek. De wijken groeien aan alle kanten naar buiten, met Zuid-Berghuizen in het zuiden.</p>\n<p><strong>Water.</strong> Oldenzaal ligt hoog, dus er is weinig water. Vijvers liggen in de parken en kleine beken stromen door de velden.</p>\n<p><strong>Straten.</strong> De oude straten vormen een bijna perfecte cirkel rond de basiliek. Wegen leiden ervandaan naar Duitsland en de dorpen rondom.</p>"
+  }
+ },
+ {
+  "handle": "haaksbergen-map-print",
+  "notes": {
+   "en": "<h2>Haaksbergen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the church. Buurse and Sint Isidorushoeve are villages within the municipality.</p>\n<p><strong>Water.</strong> The Buurserbeek flows south of the village, and the moors of the Haaksbergerveen have pools and ditches.</p>\n<p><strong>Streets.</strong> The village streets meet at the centre. Around it fields and estates make a fine pattern of lanes and woodland edges.</p>",
+   "nl": "<h2>Haaksbergen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de kerk. Buurse en Sint Isidorushoeve zijn dorpen binnen de gemeente.</p>\n<p><strong>Water.</strong> De Buurserbeek stroomt ten zuiden van het dorp, en het Haaksbergerveen heeft veenputten en sloten.</p>\n<p><strong>Straten.</strong> De dorpsstraten komen samen in het centrum. Daaromheen vormen velden en landgoederen een fijn patroon van lanen en bosranden.</p>"
+  }
+ },
+ {
+  "handle": "losser-map-print",
+  "notes": {
+   "en": "<h2>Losser on the map</h2>\n<p><strong>Neighbourhoods.</strong> The village centre lies near the Dinkel. De Lutte, Overdinkel and Glane are villages within the municipality.</p>\n<p><strong>Water.</strong> The Dinkel meanders along the east side of the village, close to the German border.</p>\n<p><strong>Streets.</strong> The village streets meet at the centre. Country roads wind between fields, heath and small woods.</p>",
+   "nl": "<h2>Losser op de kaart</h2>\n<p><strong>Wijken.</strong> Het dorpscentrum ligt bij de Dinkel. De Lutte, Overdinkel en Glane zijn dorpen binnen de gemeente.</p>\n<p><strong>Water.</strong> De Dinkel meandert langs de oostkant van het dorp, vlak bij de Duitse grens.</p>\n<p><strong>Straten.</strong> De dorpsstraten komen samen in het centrum. Landwegen slingeren tussen velden, heide en kleine bossen.</p>"
+  }
+ },
+ {
+  "handle": "rijssen-map-print",
+  "notes": {
+   "en": "<h2>Rijssen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies near the Regge. Holten is a village within the same municipality.</p>\n<p><strong>Water.</strong> The Regge flows past the town, and small streams cross the fields to the east.</p>\n<p><strong>Streets.</strong> The old streets meet near the church. The Holterberg and the Sallandse Heuvelrug rise to the west.</p>",
+   "nl": "<h2>Rijssen op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt bij de Regge. Holten is een dorp binnen dezelfde gemeente.</p>\n<p><strong>Water.</strong> De Regge stroomt langs de stad, en kleine beken lopen door de velden in het oosten.</p>\n<p><strong>Straten.</strong> De oude straten komen samen bij de kerk. De Holterberg en de Sallandse Heuvelrug rijzen op in het westen.</p>"
+  }
+ },
+ {
+  "handle": "nijverdal-map-print",
+  "notes": {
+   "en": "<h2>Nijverdal on the map</h2>\n<p><strong>Neighbourhoods.</strong> The village centre lies around the Grotestraat. Residential districts spread out towards the hills.</p>\n<p><strong>Water.</strong> The Regge flows along the east side of the village.</p>\n<p><strong>Streets.</strong> The streets follow the foot of the Sallandse Heuvelrug. The heath and woods begin right where the houses end.</p>",
+   "nl": "<h2>Nijverdal op de kaart</h2>\n<p><strong>Wijken.</strong> Het dorpscentrum ligt rond de Grotestraat. Woonwijken strekken zich uit richting de heuvels.</p>\n<p><strong>Water.</strong> De Regge stroomt langs de oostkant van het dorp.</p>\n<p><strong>Straten.</strong> De straten volgen de voet van de Sallandse Heuvelrug. Heide en bos beginnen precies waar de huizen ophouden.</p>"
+  }
+ },
+ {
+  "handle": "goor-map-print",
+  "notes": {
+   "en": "<h2>Goor on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the church. Delden is the other small town in the municipality of Hof van Twente.</p>\n<p><strong>Water.</strong> The Twentekanaal and its harbour run along the edge of town, and small streams cross the estates.</p>\n<p><strong>Streets.</strong> The old streets meet at the centre. Around it the estates and fields make a fine pattern of lanes.</p>",
+   "nl": "<h2>Goor op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de kerk. Delden is het andere stadje in de gemeente Hof van Twente.</p>\n<p><strong>Water.</strong> Het Twentekanaal en de haven lopen langs de rand van de stad, en kleine beken lopen over de landgoederen.</p>\n<p><strong>Straten.</strong> De oude straten komen samen in het centrum. Daaromheen vormen landgoederen en velden een fijn patroon van lanen.</p>"
+  }
+ },
+ {
+  "handle": "vriezenveen-map-print",
+  "notes": {
+   "en": "<h2>Vriezenveen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The village stretches along the main road. Westerhaar is a village to the north east.</p>\n<p><strong>Water.</strong> Canals from the peat era run beside the road, and ditches cross the fields.</p>\n<p><strong>Streets.</strong> Vriezenveen is a ribbon village, built along one road for several kilometres. Side roads branch off at right angles into the fields.</p>",
+   "nl": "<h2>Vriezenveen op de kaart</h2>\n<p><strong>Wijken.</strong> Het dorp strekt zich uit langs de hoofdweg. Westerhaar is een dorp in het noordoosten.</p>\n<p><strong>Water.</strong> Vaarten uit de veentijd lopen langs de weg, en sloten doorkruisen de velden.</p>\n<p><strong>Straten.</strong> Vriezenveen is een lintdorp, gebouwd langs één weg van een paar kilometer. Zijwegen takken haaks af de velden in.</p>"
+  }
+ },
+ {
+  "handle": "tubbergen-map-print",
+  "notes": {
+   "en": "<h2>Tubbergen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The village centre lies around the church. Albergen, Vasse and Geesteren are villages within the municipality.</p>\n<p><strong>Water.</strong> Small streams cross the fields, and the Dinkel valley lies to the east.</p>\n<p><strong>Streets.</strong> Country roads wind between farms and small woods. The village streets meet at the church.</p>",
+   "nl": "<h2>Tubbergen op de kaart</h2>\n<p><strong>Wijken.</strong> Het dorpscentrum ligt rond de kerk. Albergen, Vasse en Geesteren zijn dorpen binnen de gemeente.</p>\n<p><strong>Water.</strong> Kleine beken lopen door de velden, en het Dinkeldal ligt in het oosten.</p>\n<p><strong>Straten.</strong> Landwegen slingeren tussen boerderijen en kleine bossen. De dorpsstraten komen samen bij de kerk.</p>"
+  }
+ },
+ {
+  "handle": "ootmarsum-map-print",
+  "notes": {
+   "en": "<h2>Ootmarsum on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town sits on a hill around the church. Small residential districts lie around it.</p>\n<p><strong>Water.</strong> Streams run down from the hills to the Dinkel valley in the east.</p>\n<p><strong>Streets.</strong> The old streets form a round plan around the church. Country roads lead out to the hills and the Kuiperberg.</p>",
+   "nl": "<h2>Ootmarsum op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude stadje ligt op een heuvel rond de kerk. Kleine woonwijken liggen eromheen.</p>\n<p><strong>Water.</strong> Beken lopen van de heuvels naar het Dinkeldal in het oosten.</p>\n<p><strong>Straten.</strong> De oude straten vormen een rond plan rond de kerk. Landwegen leiden naar de heuvels en de Kuiperberg.</p>"
+  }
+ },
+ {
+  "handle": "wierden-map-print",
+  "notes": {
+   "en": "<h2>Wierden on the map</h2>\n<p><strong>Neighbourhoods.</strong> The village centre lies around the church. Enter is a village within the municipality.</p>\n<p><strong>Water.</strong> The Regge flows to the west, and small streams cross the fields.</p>\n<p><strong>Streets.</strong> The railway runs through the middle of the village. The heath of the Wierdense Veld lies to the north.</p>",
+   "nl": "<h2>Wierden op de kaart</h2>\n<p><strong>Wijken.</strong> Het dorpscentrum ligt rond de kerk. Enter is een dorp binnen de gemeente.</p>\n<p><strong>Water.</strong> De Regge stroomt in het westen, en kleine beken lopen door de velden.</p>\n<p><strong>Straten.</strong> Het spoor loopt door het midden van het dorp. De heide van het Wierdense Veld ligt in het noorden.</p>"
+  }
+ },
+ {
+  "handle": "emmen-map-print",
+  "notes": {
+   "en": "<h2>Emmen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Raadhuisplein and the Wildlands zoo. Angelslo, Emmerhout, Bargeres and Rietlanden are residential districts.</p>\n<p><strong>Water.</strong> Long straight canals from the peat era run to the east, and ponds lie in the woods around the dolmens.</p>\n<p><strong>Streets.</strong> The old village streets curve around the centre. The newer districts follow planned layouts, with green strips between them.</p>",
+   "nl": "<h2>Emmen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het Raadhuisplein en dierenpark Wildlands. Angelslo, Emmerhout, Bargeres en Rietlanden zijn woonwijken.</p>\n<p><strong>Water.</strong> Lange rechte kanalen uit de veentijd lopen naar het oosten, en vijvers liggen in de bossen rond de hunebedden.</p>\n<p><strong>Straten.</strong> De oude dorpsstraten buigen rond het centrum. De nieuwere wijken volgen geplande ontwerpen, met groenstroken ertussen.</p>"
+  }
+ },
+ {
+  "handle": "assen-map-print",
+  "notes": {
+   "en": "<h2>Assen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Brink. Kloosterveen, Marsdijk, Pittelo and Lariks are residential districts.</p>\n<p><strong>Water.</strong> The Drentsche Hoofdvaart starts in Assen, and ponds lie in the Asserbos.</p>\n<p><strong>Streets.</strong> The old centre has a compact web around the Brink. The districts spread out between woods and fields.</p>",
+   "nl": "<h2>Assen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Brink. Kloosterveen, Marsdijk, Pittelo en Lariks zijn woonwijken.</p>\n<p><strong>Water.</strong> De Drentsche Hoofdvaart begint in Assen, en vijvers liggen in het Asserbos.</p>\n<p><strong>Straten.</strong> Het oude centrum heeft een compact web rond de Brink. De wijken strekken zich uit tussen bossen en velden.</p>"
+  }
+ },
+ {
+  "handle": "hoogeveen-map-print",
+  "notes": {
+   "en": "<h2>Hoogeveen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies along the Hoofdstraat. Krakeel, Erflanden and Wolfsbos are residential districts, and Hollandscheveld is a village to the south.</p>\n<p><strong>Water.</strong> The Hoogeveensche Vaart runs past the town, a canal from the peat era.</p>\n<p><strong>Streets.</strong> The Hoofdstraat runs in a dead straight line through town, following the old peat canal. Side streets branch off at right angles.</p>",
+   "nl": "<h2>Hoogeveen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt langs de Hoofdstraat. Krakeel, Erflanden en Wolfsbos zijn woonwijken, en Hollandscheveld is een dorp in het zuiden.</p>\n<p><strong>Water.</strong> De Hoogeveensche Vaart loopt langs de stad, een kanaal uit de veentijd.</p>\n<p><strong>Straten.</strong> De Hoofdstraat loopt kaarsrecht door de stad en volgt de oude veenvaart. Zijstraten takken haaks af.</p>"
+  }
+ },
+ {
+  "handle": "sneek-map-print",
+  "notes": {
+   "en": "<h2>Sneek on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the canals. Tinga, Noorderhoek and Duinterpen are residential districts.</p>\n<p><strong>Water.</strong> Canals circle the old town, the Waterpoort stands over the water, and the Sneekermeer lies to the east.</p>\n<p><strong>Streets.</strong> The old streets follow the canals in a compact web. Outside them the districts spread towards the lakes.</p>",
+   "nl": "<h2>Sneek op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de grachten. Tinga, Noorderhoek en Duinterpen zijn woonwijken.</p>\n<p><strong>Water.</strong> Grachten lopen om de oude stad, de Waterpoort staat over het water, en het Sneekermeer ligt in het oosten.</p>\n<p><strong>Straten.</strong> De oude straten volgen de grachten in een compact web. Daarbuiten strekken de wijken zich uit richting de meren.</p>"
+  }
+ },
+ {
+  "handle": "drachten-map-print",
+  "notes": {
+   "en": "<h2>Drachten on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Raadhuisplein. De Wiken and De Drait are residential districts.</p>\n<p><strong>Water.</strong> The Drachtstervaart leads into the centre, and canals run through the districts. Lakes lie to the north.</p>\n<p><strong>Streets.</strong> The streets follow the old peat canals in long lines. The Laweiplein became famous as a square without traffic lights or signs.</p>",
+   "nl": "<h2>Drachten op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het Raadhuisplein. De Wiken en De Drait zijn woonwijken.</p>\n<p><strong>Water.</strong> De Drachtstervaart leidt het centrum in, en vaarten lopen door de wijken. Meren liggen in het noorden.</p>\n<p><strong>Straten.</strong> De straten volgen de oude veenvaarten in lange lijnen. Het Laweiplein werd beroemd als plein zonder verkeerslichten of borden.</p>"
+  }
+ },
+ {
+  "handle": "heerenveen-map-print",
+  "notes": {
+   "en": "<h2>Heerenveen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the old peat canal. Skoatterwâld is a newer district, and Oranjewoud lies to the south east.</p>\n<p><strong>Water.</strong> The Schoterlandse Compagnonsvaart runs through the town, a canal from the peat era. Ponds lie in the woods of Oranjewoud.</p>\n<p><strong>Streets.</strong> The old streets follow the canal in long lines. Thialf and the woods give the edges of the map large open shapes.</p>",
+   "nl": "<h2>Heerenveen op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de oude veenvaart. Skoatterwâld is een nieuwere wijk, en Oranjewoud ligt in het zuidoosten.</p>\n<p><strong>Water.</strong> De Schoterlandse Compagnonsvaart loopt door de stad, een kanaal uit de veentijd. Vijvers liggen in de bossen van Oranjewoud.</p>\n<p><strong>Straten.</strong> De oude straten volgen de vaart in lange lijnen. Thialf en de bossen geven de randen van de kaart grote open vormen.</p>"
+  }
+ },
+ {
+  "handle": "joure-map-print",
+  "notes": {
+   "en": "<h2>Joure on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies along the Midstraat. Residential districts spread out around it.</p>\n<p><strong>Water.</strong> Canals lead from Joure to the lakes nearby, such as the Langweerder Wielen and the Sneekermeer.</p>\n<p><strong>Streets.</strong> The Midstraat runs through the centre in a long line. The newer districts are laid out around green and water.</p>",
+   "nl": "<h2>Joure op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt langs de Midstraat. Woonwijken liggen eromheen.</p>\n<p><strong>Water.</strong> Vaarten leiden van Joure naar de meren in de buurt, zoals de Langweerder Wielen en het Sneekermeer.</p>\n<p><strong>Straten.</strong> De Midstraat loopt in een lange lijn door het centrum. De nieuwere wijken liggen rond groen en water.</p>"
+  }
+ },
+ {
+  "handle": "hoogezand-map-print",
+  "notes": {
+   "en": "<h2>Hoogezand on the map</h2>\n<p><strong>Neighbourhoods.</strong> Hoogezand and Sappemeer form one long town. Foxhol and Kalkwijk lie nearby.</p>\n<p><strong>Water.</strong> The Winschoterdiep runs through the whole town, and the Zuidlaardermeer lies to the south.</p>\n<p><strong>Streets.</strong> The town stretches for kilometres along the canal. Side streets branch off at right angles, following the old peat land.</p>",
+   "nl": "<h2>Hoogezand op de kaart</h2>\n<p><strong>Wijken.</strong> Hoogezand en Sappemeer vormen samen één lange stad. Foxhol en Kalkwijk liggen in de buurt.</p>\n<p><strong>Water.</strong> Het Winschoterdiep loopt door de hele stad, en het Zuidlaardermeer ligt in het zuiden.</p>\n<p><strong>Straten.</strong> De stad strekt zich kilometers uit langs het kanaal. Zijstraten takken haaks af en volgen het oude veenland.</p>"
+  }
+ },
+ {
+  "handle": "lelystad-map-print",
+  "notes": {
+   "en": "<h2>Lelystad on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the station. Atolwijk, Bolder and the Zuiderzeewijk are residential districts, and Batavia Stad lies by the water.</p>\n<p><strong>Water.</strong> The Markermeer forms the western edge, and canals run through the districts. The Oostvaardersplassen lie to the north east.</p>\n<p><strong>Streets.</strong> Lelystad was planned on empty land, with separate roads for cars, bicycles and buses. The Houtribdijk leads across the water to Enkhuizen.</p>",
+   "nl": "<h2>Lelystad op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond het station. Atolwijk, Bolder en de Zuiderzeewijk zijn woonwijken, en Batavia Stad ligt aan het water.</p>\n<p><strong>Water.</strong> Het Markermeer vormt de westrand, en vaarten lopen door de wijken. De Oostvaardersplassen liggen in het noordoosten.</p>\n<p><strong>Straten.</strong> Lelystad werd op leeg land ontworpen, met aparte wegen voor auto’s, fietsers en bussen. De Houtribdijk leidt over het water naar Enkhuizen.</p>"
+  }
+ },
+ {
+  "handle": "emmeloord-map-print",
+  "notes": {
+   "en": "<h2>Emmeloord on the map</h2>\n<p><strong>Neighbourhoods.</strong> The centre lies around the Poldertoren. Residential districts spread out around it, and a ring of villages lies further out.</p>\n<p><strong>Water.</strong> The main canals of the Noordoostpolder meet near the town, and ditches cross the fields in straight lines.</p>\n<p><strong>Streets.</strong> Roads and canals run out from the centre in straight lines towards the villages. The polder grid fills everything in between.</p>",
+   "nl": "<h2>Emmeloord op de kaart</h2>\n<p><strong>Wijken.</strong> Het centrum ligt rond de Poldertoren. Woonwijken liggen eromheen, en verder weg ligt een ring van dorpen.</p>\n<p><strong>Water.</strong> De hoofdvaarten van de Noordoostpolder komen bij de stad samen, en sloten doorkruisen de velden in rechte lijnen.</p>\n<p><strong>Straten.</strong> Wegen en vaarten lopen vanuit het centrum in rechte lijnen naar de dorpen. Het polderraster vult alles daartussen.</p>"
+  }
+ },
+ {
+  "handle": "terneuzen-map-print",
+  "notes": {
+   "en": "<h2>Terneuzen on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old centre lies by the harbour. Residential districts spread out to the south, and Sluiskil and Axel lie nearby.</p>\n<p><strong>Water.</strong> The Westerschelde forms the northern edge, and the canal to Ghent starts here with large locks.</p>\n<p><strong>Streets.</strong> The old streets lie close to the water. Industrial areas line the canal, and polder roads lead out to the villages.</p>",
+   "nl": "<h2>Terneuzen op de kaart</h2>\n<p><strong>Wijken.</strong> Het oude centrum ligt bij de haven. Woonwijken strekken zich uit naar het zuiden, en Sluiskil en Axel liggen in de buurt.</p>\n<p><strong>Water.</strong> De Westerschelde vormt de noordrand, en het kanaal naar Gent begint hier met grote sluizen.</p>\n<p><strong>Straten.</strong> De oude straten liggen dicht bij het water. Bedrijventerreinen liggen langs het kanaal, en polderwegen leiden naar de dorpen.</p>"
+  }
+ },
+ {
+  "handle": "middelburg-map-print",
+  "notes": {
+   "en": "<h2>Middelburg on the map</h2>\n<p><strong>Neighbourhoods.</strong> The old town lies inside the star of canals. Dauwendaele and Mortiere are residential districts.</p>\n<p><strong>Water.</strong> The singels form an almost perfect star around the old town, and the Kanaal door Walcheren passes along its east side.</p>\n<p><strong>Streets.</strong> The old streets meet at the Markt and the abbey. Outside the star the districts follow the roads to Vlissingen and Veere.</p>",
+   "nl": "<h2>Middelburg op de kaart</h2>\n<p><strong>Wijken.</strong> De oude stad ligt binnen de ster van grachten. Dauwendaele en Mortiere zijn woonwijken.</p>\n<p><strong>Water.</strong> De singels vormen een bijna perfecte ster rond de oude stad, en het Kanaal door Walcheren loopt langs de oostkant.</p>\n<p><strong>Straten.</strong> De oude straten komen samen bij de Markt en de abdij. Buiten de ster volgen de wijken de wegen naar Vlissingen en Veere.</p>"
+  }
  }
 ]
