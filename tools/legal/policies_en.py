@@ -1,4 +1,4 @@
-MAIL = '<a href="mailto:n98maps@gmail.com">n98maps@gmail.com</a>'
+MAIL = '<a href="mailto:info@n98maps.com">info@n98maps.com</a>'
 UPDATED = {'en': 'Last updated: 17 November 2026', 'nl': 'Laatst bijgewerkt: 17 november 2026',
            'de': 'Zuletzt aktualisiert: 17. November 2026', 'fr': 'Dernière mise à jour : 17 novembre 2026',
            'sv': 'Senast uppdaterad: 17 november 2026', 'nb': 'Sist oppdatert: 17. november 2026'}
