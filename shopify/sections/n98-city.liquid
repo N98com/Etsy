@@ -13,6 +13,11 @@
   # then cities3 (v37, German states), cities2 (v35, provinces p and languages o) and cities
   assign cities = shop.metafields.n98.cities5.value | default: shop.metafields.n98.cities4.value | default: shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
   assign lang = request.locale.iso_code
+  # key of the city name in this language; Polish names are stored as "pol" because "pl" is the palette
+  assign nk = lang
+  if lang == 'pl'
+    assign nk = 'pol'
+  endif
   # prints with the words in the language of the visitor (tools/home-renders/variants.py)
   assign img_sfx = '.jpg'
   if lang == 'nl' or lang == 'de' or lang == 'fr' or lang == 'sv' or lang == 'nb' or lang == 'pl' or lang == 'it'
@@ -55,7 +60,7 @@
       if e.s == slug
         assign group = e.c
         assign prov = e.p
-        assign name = e[lang] | default: e.n
+        assign name = e[nk] | default: e.n
         if e.i
           assign city_img = e.i
         endif
@@ -197,7 +202,7 @@
                   {%- for e in cities -%}
                     {%- if e.c != g or e.p != pv or e.s == slug -%}{%- continue -%}{%- endif -%}
                     {%- if e.o -%}{%- unless e.o contains lang -%}{%- continue -%}{%- endunless -%}{%- endif -%}
-                    {%- assign en = e[lang] | default: e.n -%}
+                    {%- assign en = e[nk] | default: e.n -%}
                     <a class="n98o-tile" href="{{ pfx }}/pages/{{ e.s }}-map-print">
                       <img src="{{ 'n98-' | append: e.i | append: img_sfx | asset_url }}" alt="{{ 'n98.city.img_alt' | t: city: en | escape }}" loading="lazy" width="1200" height="1680">
                       <span class="n98o-tile__line">{{ en }}</span>
@@ -233,7 +238,7 @@
             {%- for e in cities -%}
               {%- if e.c != g or e.s == slug -%}{%- continue -%}{%- endif -%}
               {%- if e.o -%}{%- unless e.o contains lang -%}{%- continue -%}{%- endunless -%}{%- endif -%}
-              {%- assign en = e[lang] | default: e.n -%}
+              {%- assign en = e[nk] | default: e.n -%}
               <a class="n98o-tile" href="{{ pfx }}/pages/{{ e.s }}-map-print">
                 <img src="{{ 'n98-' | append: e.i | append: img_sfx | asset_url }}" alt="{{ 'n98.city.img_alt' | t: city: en | escape }}" loading="lazy" width="1200" height="1680">
                 <span class="n98o-tile__line">{{ en }}</span>

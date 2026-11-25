@@ -14,16 +14,20 @@ from de_world import T as DE_W
 from fr_world import T as FR_W
 from sv_world import T as SV_W
 from nb_world import T as NB_W
+from pl_world import T as PL_W
+from it_world import T as IT_W
 
-HEAD = {'en': '%s on the map', 'nl': '%s op de kaart', 'de': '%s auf der Karte', 'fr': '%s sur la carte', 'sv': '%s på kartan', 'nb': '%s på kartet'}
+HEAD = {'en': '%s on the map', 'nl': '%s op de kaart', 'de': '%s auf der Karte', 'fr': '%s sur la carte', 'sv': '%s på kartan', 'nb': '%s på kartet', 'pl': '%s na mapie', 'it': '%s sulla mappa'}
 LAB = {'en': ('Neighbourhoods', 'Water', 'Streets'), 'nl': ('Wijken', 'Water', 'Straten'), 'de': ('Viertel', 'Wasser', 'Straßen'),
-       'fr': ('Quartiers', 'L’eau', 'Les rues'), 'sv': ('Stadsdelar', 'Vatten', 'Gator'), 'nb': ('Bydeler', 'Vann', 'Gater')}
+       'fr': ('Quartiers', 'L’eau', 'Les rues'), 'sv': ('Stadsdelar', 'Vatten', 'Gator'), 'nb': ('Bydeler', 'Vann', 'Gater'),
+       'pl': ('Dzielnice', 'Woda', 'Ulice'), 'it': ('Quartieri', 'Acqua', 'Strade')}
 # localized names (from the shop metafield n98.cities5); default is the English name
 NAME = json.load(open(os.path.join(HERE, 'names.json')))
 
 
 def block(lang, slug, parts):
-    name = NAME[slug].get(lang) or NAME[slug]['n']
+    # Polish names are stored as "pol": "pl" is the palette field in n98.cities5
+    name = NAME[slug].get('pol' if lang == 'pl' else lang) or NAME[slug]['n']
     lab = LAB[lang]
     ps = '\n'.join('<p><strong>%s.</strong>%s%s</p>' % (lab[i], ' ', html.escape(parts[i], quote=False)) for i in range(3))
     return '<h2>%s</h2>\n%s' % (html.escape(HEAD[lang] % name, quote=False), ps)
@@ -31,7 +35,7 @@ def block(lang, slug, parts):
 
 def build():
     out = []
-    world = {'en': EN_W, 'nl': NL_W, 'de': DE_W, 'fr': FR_W, 'sv': SV_W, 'nb': NB_W}
+    world = {'en': EN_W, 'nl': NL_W, 'de': DE_W, 'fr': FR_W, 'sv': SV_W, 'nb': NB_W, 'pl': PL_W, 'it': IT_W}
     for slug in EN_W:
         out.append({'handle': slug + '-map-print', 'notes': {l: block(l, slug, t[slug]) for l, t in world.items()}})
     for en, nl in ((EN_N, NL_N), (EN_N2, NL_N2)):
@@ -41,7 +45,7 @@ def build():
 
 
 if __name__ == '__main__':
-    for name, t in [('nl_world', NL_W), ('de', DE_W), ('fr', FR_W), ('sv', SV_W), ('nb', NB_W)]:
+    for name, t in [('nl_world', NL_W), ('de', DE_W), ('fr', FR_W), ('sv', SV_W), ('nb', NB_W), ('pl', PL_W), ('it', IT_W)]:
         assert set(t) == set(EN_W), (name, set(EN_W) ^ set(t))
     assert set(NL_N) == set(EN_N), set(EN_N) ^ set(NL_N)
     assert set(NL_N2) == set(EN_N2), set(EN_N2) ^ set(NL_N2)

@@ -1,456 +1,495 @@
 {
-"amsterdam": {
-"n": "Amsterdam"
-},
-"rotterdam": {
-"n": "Rotterdam"
-},
-"the-hague": {
-"n": "The Hague",
-"nl": "Den Haag",
-"de": "Den Haag",
-"fr": "La Haye",
-"sv": "Haag",
-"nb": "Haag"
-},
-"utrecht": {
-"n": "Utrecht"
-},
-"antwerp": {
-"n": "Antwerp",
-"nl": "Antwerpen",
-"de": "Antwerpen",
-"fr": "Anvers",
-"sv": "Antwerpen",
-"nb": "Antwerpen"
-},
-"ghent": {
-"n": "Ghent",
-"nl": "Gent",
-"de": "Gent",
-"fr": "Gand",
-"sv": "Gent",
-"nb": "Gent"
-},
-"brussels": {
-"n": "Brussels",
-"nl": "Brussel",
-"de": "Brüssel",
-"fr": "Bruxelles",
-"sv": "Bryssel",
-"nb": "Brussel"
-},
-"bruges": {
-"n": "Bruges",
-"nl": "Brugge",
-"de": "Brügge",
-"sv": "Brygge",
-"nb": "Brugge"
-},
-"berlin": {
-"n": "Berlin",
-"nl": "Berlijn"
-},
-"hamburg": {
-"n": "Hamburg",
-"fr": "Hambourg"
-},
-"munich": {
-"n": "Munich",
-"nl": "München",
-"de": "München",
-"sv": "München",
-"nb": "München"
-},
-"cologne": {
-"n": "Cologne",
-"nl": "Keulen",
-"de": "Köln",
-"sv": "Köln",
-"nb": "Köln"
-},
-"paris": {
-"n": "Paris",
-"nl": "Parijs"
-},
-"nice": {
-"n": "Nice",
-"de": "Nizza"
-},
-"london": {
-"n": "London",
-"nl": "Londen",
-"fr": "Londres"
-},
-"vienna": {
-"n": "Vienna",
-"nl": "Wenen",
-"de": "Wien",
-"fr": "Vienne",
-"sv": "Wien",
-"nb": "Wien"
-},
-"prague": {
-"n": "Prague",
-"nl": "Praag",
-"de": "Prag",
-"sv": "Prag",
-"nb": "Praha"
-},
-"rome": {
-"n": "Rome",
-"de": "Rom",
-"sv": "Rom",
-"nb": "Roma"
-},
-"venice": {
-"n": "Venice",
-"nl": "Venetië",
-"de": "Venedig",
-"fr": "Venise",
-"sv": "Venedig",
-"nb": "Venezia"
-},
-"barcelona": {
-"n": "Barcelona",
-"fr": "Barcelone"
-},
-"madrid": {
-"n": "Madrid"
-},
-"lisbon": {
-"n": "Lisbon",
-"nl": "Lissabon",
-"de": "Lissabon",
-"fr": "Lisbonne",
-"sv": "Lissabon",
-"nb": "Lisboa"
-},
-"copenhagen": {
-"n": "Copenhagen",
-"nl": "Kopenhagen",
-"de": "Kopenhagen",
-"fr": "Copenhague",
-"sv": "Köpenhamn",
-"nb": "København"
-},
-"new-york": {
-"n": "New York"
-},
-"los-angeles": {
-"n": "Los Angeles"
-},
-"san-francisco": {
-"n": "San Francisco"
-},
-"las-vegas": {
-"n": "Las Vegas"
-},
-"edinburgh": {
-"n": "Edinburgh",
-"fr": "Édimbourg"
-},
-"oslo": {
-"n": "Oslo"
-},
-"stockholm": {
-"n": "Stockholm"
-},
-"eindhoven": {
-"n": "Eindhoven"
-},
-"groningen": {
-"n": "Groningen"
-},
-"tilburg": {
-"n": "Tilburg"
-},
-"almere": {
-"n": "Almere"
-},
-"breda": {
-"n": "Breda"
-},
-"nijmegen": {
-"n": "Nijmegen"
-},
-"apeldoorn": {
-"n": "Apeldoorn"
-},
-"arnhem": {
-"n": "Arnhem"
-},
-"haarlem": {
-"n": "Haarlem"
-},
-"enschede": {
-"n": "Enschede"
-},
-"amersfoort": {
-"n": "Amersfoort"
-},
-"den-bosch": {
-"n": "Den Bosch"
-},
-"zwolle": {
-"n": "Zwolle"
-},
-"leiden": {
-"n": "Leiden"
-},
-"zoetermeer": {
-"n": "Zoetermeer"
-},
-"leeuwarden": {
-"n": "Leeuwarden"
-},
-"maastricht": {
-"n": "Maastricht"
-},
-"dordrecht": {
-"n": "Dordrecht"
-},
-"delft": {
-"n": "Delft"
-},
-"hoofddorp": {
-"n": "Hoofddorp"
-},
-"zaandam": {
-"n": "Zaandam"
-},
-"alkmaar": {
-"n": "Alkmaar"
-},
-"purmerend": {
-"n": "Purmerend"
-},
-"amstelveen": {
-"n": "Amstelveen"
-},
-"hilversum": {
-"n": "Hilversum"
-},
-"heerhugowaard": {
-"n": "Heerhugowaard"
-},
-"hoorn": {
-"n": "Hoorn"
-},
-"ijmuiden": {
-"n": "IJmuiden"
-},
-"bussum": {
-"n": "Bussum"
-},
-"den-helder": {
-"n": "Den Helder"
-},
-"naaldwijk": {
-"n": "Naaldwijk"
-},
-"alphen-aan-den-rijn": {
-"n": "Alphen aan den Rijn"
-},
-"spijkenisse": {
-"n": "Spijkenisse"
-},
-"schiedam": {
-"n": "Schiedam"
-},
-"voorburg": {
-"n": "Voorburg"
-},
-"gouda": {
-"n": "Gouda"
-},
-"vlaardingen": {
-"n": "Vlaardingen"
-},
-"hellevoetsluis": {
-"n": "Hellevoetsluis"
-},
-"capelle-aan-den-ijssel": {
-"n": "Capelle aan den IJssel"
-},
-"katwijk": {
-"n": "Katwijk"
-},
-"rijswijk": {
-"n": "Rijswijk"
-},
-"pijnacker": {
-"n": "Pijnacker"
-},
-"berkel-en-rodenrijs": {
-"n": "Berkel en Rodenrijs"
-},
-"oud-beijerland": {
-"n": "Oud-Beijerland"
-},
-"veenendaal": {
-"n": "Veenendaal"
-},
-"nieuwegein": {
-"n": "Nieuwegein"
-},
-"zeist": {
-"n": "Zeist"
-},
-"maarssen": {
-"n": "Maarssen"
-},
-"vianen": {
-"n": "Vianen"
-},
-"woerden": {
-"n": "Woerden"
-},
-"houten": {
-"n": "Houten"
-},
-"driebergen": {
-"n": "Driebergen"
-},
-"ede": {
-"n": "Ede"
-},
-"doetinchem": {
-"n": "Doetinchem"
-},
-"barneveld": {
-"n": "Barneveld"
-},
-"harderwijk": {
-"n": "Harderwijk"
-},
-"zutphen": {
-"n": "Zutphen"
-},
-"helmond": {
-"n": "Helmond"
-},
-"oss": {
-"n": "Oss"
-},
-"cuijk": {
-"n": "Cuijk"
-},
-"veghel": {
-"n": "Veghel"
-},
-"roosendaal": {
-"n": "Roosendaal"
-},
-"bergen-op-zoom": {
-"n": "Bergen op Zoom"
-},
-"uden": {
-"n": "Uden"
-},
-"oosterhout": {
-"n": "Oosterhout"
-},
-"waalwijk": {
-"n": "Waalwijk"
-},
-"venlo": {
-"n": "Venlo"
-},
-"sittard": {
-"n": "Sittard"
-},
-"heerlen": {
-"n": "Heerlen"
-},
-"roermond": {
-"n": "Roermond"
-},
-"weert": {
-"n": "Weert"
-},
-"deventer": {
-"n": "Deventer"
-},
-"almelo": {
-"n": "Almelo"
-},
-"hengelo": {
-"n": "Hengelo"
-},
-"hardenberg": {
-"n": "Hardenberg"
-},
-"kampen": {
-"n": "Kampen"
-},
-"borne": {
-"n": "Borne"
-},
-"oldenzaal": {
-"n": "Oldenzaal"
-},
-"haaksbergen": {
-"n": "Haaksbergen"
-},
-"losser": {
-"n": "Losser"
-},
-"rijssen": {
-"n": "Rijssen"
-},
-"nijverdal": {
-"n": "Nijverdal"
-},
-"goor": {
-"n": "Goor"
-},
-"vriezenveen": {
-"n": "Vriezenveen"
-},
-"tubbergen": {
-"n": "Tubbergen"
-},
-"ootmarsum": {
-"n": "Ootmarsum"
-},
-"wierden": {
-"n": "Wierden"
-},
-"emmen": {
-"n": "Emmen"
-},
-"assen": {
-"n": "Assen"
-},
-"hoogeveen": {
-"n": "Hoogeveen"
-},
-"sneek": {
-"n": "Sneek"
-},
-"drachten": {
-"n": "Drachten"
-},
-"heerenveen": {
-"n": "Heerenveen"
-},
-"joure": {
-"n": "Joure"
-},
-"hoogezand": {
-"n": "Hoogezand"
-},
-"lelystad": {
-"n": "Lelystad"
-},
-"emmeloord": {
-"n": "Emmeloord"
-},
-"terneuzen": {
-"n": "Terneuzen"
-},
-"middelburg": {
-"n": "Middelburg"
-}
+ "amsterdam": {
+  "n": "Amsterdam"
+ },
+ "rotterdam": {
+  "n": "Rotterdam"
+ },
+ "the-hague": {
+  "n": "The Hague",
+  "nl": "Den Haag",
+  "de": "Den Haag",
+  "fr": "La Haye",
+  "sv": "Haag",
+  "nb": "Haag",
+  "pol": "Haga",
+  "it": "L’Aia"
+ },
+ "utrecht": {
+  "n": "Utrecht"
+ },
+ "antwerp": {
+  "n": "Antwerp",
+  "nl": "Antwerpen",
+  "de": "Antwerpen",
+  "fr": "Anvers",
+  "sv": "Antwerpen",
+  "nb": "Antwerpen",
+  "pol": "Antwerpia",
+  "it": "Anversa"
+ },
+ "ghent": {
+  "n": "Ghent",
+  "nl": "Gent",
+  "de": "Gent",
+  "fr": "Gand",
+  "sv": "Gent",
+  "nb": "Gent",
+  "pol": "Gandawa",
+  "it": "Gand"
+ },
+ "brussels": {
+  "n": "Brussels",
+  "nl": "Brussel",
+  "de": "Brüssel",
+  "fr": "Bruxelles",
+  "sv": "Bryssel",
+  "nb": "Brussel",
+  "pol": "Bruksela",
+  "it": "Bruxelles"
+ },
+ "bruges": {
+  "n": "Bruges",
+  "nl": "Brugge",
+  "de": "Brügge",
+  "sv": "Brygge",
+  "nb": "Brugge",
+  "pol": "Brugia"
+ },
+ "berlin": {
+  "n": "Berlin",
+  "nl": "Berlijn",
+  "it": "Berlino"
+ },
+ "hamburg": {
+  "n": "Hamburg",
+  "fr": "Hambourg",
+  "it": "Amburgo"
+ },
+ "munich": {
+  "n": "Munich",
+  "nl": "München",
+  "de": "München",
+  "sv": "München",
+  "nb": "München",
+  "pol": "Monachium",
+  "it": "Monaco di Baviera"
+ },
+ "cologne": {
+  "n": "Cologne",
+  "nl": "Keulen",
+  "de": "Köln",
+  "sv": "Köln",
+  "nb": "Köln",
+  "pol": "Kolonia",
+  "it": "Colonia"
+ },
+ "paris": {
+  "n": "Paris",
+  "nl": "Parijs",
+  "pol": "Paryż",
+  "it": "Parigi"
+ },
+ "nice": {
+  "n": "Nice",
+  "de": "Nizza",
+  "pol": "Nicea",
+  "it": "Nizza"
+ },
+ "london": {
+  "n": "London",
+  "nl": "Londen",
+  "fr": "Londres",
+  "pol": "Londyn",
+  "it": "Londra"
+ },
+ "vienna": {
+  "n": "Vienna",
+  "nl": "Wenen",
+  "de": "Wien",
+  "fr": "Vienne",
+  "sv": "Wien",
+  "nb": "Wien",
+  "pol": "Wiedeń"
+ },
+ "prague": {
+  "n": "Prague",
+  "nl": "Praag",
+  "de": "Prag",
+  "sv": "Prag",
+  "nb": "Praha",
+  "pol": "Praga",
+  "it": "Praga"
+ },
+ "rome": {
+  "n": "Rome",
+  "de": "Rom",
+  "sv": "Rom",
+  "nb": "Roma",
+  "pol": "Rzym",
+  "it": "Roma"
+ },
+ "venice": {
+  "n": "Venice",
+  "nl": "Venetië",
+  "de": "Venedig",
+  "fr": "Venise",
+  "sv": "Venedig",
+  "nb": "Venezia",
+  "pol": "Wenecja",
+  "it": "Venezia"
+ },
+ "barcelona": {
+  "n": "Barcelona",
+  "fr": "Barcelone",
+  "it": "Barcellona"
+ },
+ "madrid": {
+  "n": "Madrid",
+  "pol": "Madryt"
+ },
+ "lisbon": {
+  "n": "Lisbon",
+  "nl": "Lissabon",
+  "de": "Lissabon",
+  "fr": "Lisbonne",
+  "sv": "Lissabon",
+  "nb": "Lisboa",
+  "pol": "Lizbona",
+  "it": "Lisbona"
+ },
+ "copenhagen": {
+  "n": "Copenhagen",
+  "nl": "Kopenhagen",
+  "de": "Kopenhagen",
+  "fr": "Copenhague",
+  "sv": "Köpenhamn",
+  "nb": "København",
+  "pol": "Kopenhaga",
+  "it": "Copenaghen"
+ },
+ "new-york": {
+  "n": "New York",
+  "pol": "Nowy Jork"
+ },
+ "los-angeles": {
+  "n": "Los Angeles"
+ },
+ "san-francisco": {
+  "n": "San Francisco"
+ },
+ "las-vegas": {
+  "n": "Las Vegas"
+ },
+ "edinburgh": {
+  "n": "Edinburgh",
+  "fr": "Édimbourg",
+  "pol": "Edynburg",
+  "it": "Edimburgo"
+ },
+ "oslo": {
+  "n": "Oslo"
+ },
+ "stockholm": {
+  "n": "Stockholm",
+  "pol": "Sztokholm",
+  "it": "Stoccolma"
+ },
+ "eindhoven": {
+  "n": "Eindhoven"
+ },
+ "groningen": {
+  "n": "Groningen"
+ },
+ "tilburg": {
+  "n": "Tilburg"
+ },
+ "almere": {
+  "n": "Almere"
+ },
+ "breda": {
+  "n": "Breda"
+ },
+ "nijmegen": {
+  "n": "Nijmegen"
+ },
+ "apeldoorn": {
+  "n": "Apeldoorn"
+ },
+ "arnhem": {
+  "n": "Arnhem"
+ },
+ "haarlem": {
+  "n": "Haarlem"
+ },
+ "enschede": {
+  "n": "Enschede"
+ },
+ "amersfoort": {
+  "n": "Amersfoort"
+ },
+ "den-bosch": {
+  "n": "Den Bosch"
+ },
+ "zwolle": {
+  "n": "Zwolle"
+ },
+ "leiden": {
+  "n": "Leiden"
+ },
+ "zoetermeer": {
+  "n": "Zoetermeer"
+ },
+ "leeuwarden": {
+  "n": "Leeuwarden"
+ },
+ "maastricht": {
+  "n": "Maastricht"
+ },
+ "dordrecht": {
+  "n": "Dordrecht"
+ },
+ "delft": {
+  "n": "Delft"
+ },
+ "hoofddorp": {
+  "n": "Hoofddorp"
+ },
+ "zaandam": {
+  "n": "Zaandam"
+ },
+ "alkmaar": {
+  "n": "Alkmaar"
+ },
+ "purmerend": {
+  "n": "Purmerend"
+ },
+ "amstelveen": {
+  "n": "Amstelveen"
+ },
+ "hilversum": {
+  "n": "Hilversum"
+ },
+ "heerhugowaard": {
+  "n": "Heerhugowaard"
+ },
+ "hoorn": {
+  "n": "Hoorn"
+ },
+ "ijmuiden": {
+  "n": "IJmuiden"
+ },
+ "bussum": {
+  "n": "Bussum"
+ },
+ "den-helder": {
+  "n": "Den Helder"
+ },
+ "naaldwijk": {
+  "n": "Naaldwijk"
+ },
+ "alphen-aan-den-rijn": {
+  "n": "Alphen aan den Rijn"
+ },
+ "spijkenisse": {
+  "n": "Spijkenisse"
+ },
+ "schiedam": {
+  "n": "Schiedam"
+ },
+ "voorburg": {
+  "n": "Voorburg"
+ },
+ "gouda": {
+  "n": "Gouda"
+ },
+ "vlaardingen": {
+  "n": "Vlaardingen"
+ },
+ "hellevoetsluis": {
+  "n": "Hellevoetsluis"
+ },
+ "capelle-aan-den-ijssel": {
+  "n": "Capelle aan den IJssel"
+ },
+ "katwijk": {
+  "n": "Katwijk"
+ },
+ "rijswijk": {
+  "n": "Rijswijk"
+ },
+ "pijnacker": {
+  "n": "Pijnacker"
+ },
+ "berkel-en-rodenrijs": {
+  "n": "Berkel en Rodenrijs"
+ },
+ "oud-beijerland": {
+  "n": "Oud-Beijerland"
+ },
+ "veenendaal": {
+  "n": "Veenendaal"
+ },
+ "nieuwegein": {
+  "n": "Nieuwegein"
+ },
+ "zeist": {
+  "n": "Zeist"
+ },
+ "maarssen": {
+  "n": "Maarssen"
+ },
+ "vianen": {
+  "n": "Vianen"
+ },
+ "woerden": {
+  "n": "Woerden"
+ },
+ "houten": {
+  "n": "Houten"
+ },
+ "driebergen": {
+  "n": "Driebergen"
+ },
+ "ede": {
+  "n": "Ede"
+ },
+ "doetinchem": {
+  "n": "Doetinchem"
+ },
+ "barneveld": {
+  "n": "Barneveld"
+ },
+ "harderwijk": {
+  "n": "Harderwijk"
+ },
+ "zutphen": {
+  "n": "Zutphen"
+ },
+ "helmond": {
+  "n": "Helmond"
+ },
+ "oss": {
+  "n": "Oss"
+ },
+ "cuijk": {
+  "n": "Cuijk"
+ },
+ "veghel": {
+  "n": "Veghel"
+ },
+ "roosendaal": {
+  "n": "Roosendaal"
+ },
+ "bergen-op-zoom": {
+  "n": "Bergen op Zoom"
+ },
+ "uden": {
+  "n": "Uden"
+ },
+ "oosterhout": {
+  "n": "Oosterhout"
+ },
+ "waalwijk": {
+  "n": "Waalwijk"
+ },
+ "venlo": {
+  "n": "Venlo"
+ },
+ "sittard": {
+  "n": "Sittard"
+ },
+ "heerlen": {
+  "n": "Heerlen"
+ },
+ "roermond": {
+  "n": "Roermond"
+ },
+ "weert": {
+  "n": "Weert"
+ },
+ "deventer": {
+  "n": "Deventer"
+ },
+ "almelo": {
+  "n": "Almelo"
+ },
+ "hengelo": {
+  "n": "Hengelo"
+ },
+ "hardenberg": {
+  "n": "Hardenberg"
+ },
+ "kampen": {
+  "n": "Kampen"
+ },
+ "borne": {
+  "n": "Borne"
+ },
+ "oldenzaal": {
+  "n": "Oldenzaal"
+ },
+ "haaksbergen": {
+  "n": "Haaksbergen"
+ },
+ "losser": {
+  "n": "Losser"
+ },
+ "rijssen": {
+  "n": "Rijssen"
+ },
+ "nijverdal": {
+  "n": "Nijverdal"
+ },
+ "goor": {
+  "n": "Goor"
+ },
+ "vriezenveen": {
+  "n": "Vriezenveen"
+ },
+ "tubbergen": {
+  "n": "Tubbergen"
+ },
+ "ootmarsum": {
+  "n": "Ootmarsum"
+ },
+ "wierden": {
+  "n": "Wierden"
+ },
+ "emmen": {
+  "n": "Emmen"
+ },
+ "assen": {
+  "n": "Assen"
+ },
+ "hoogeveen": {
+  "n": "Hoogeveen"
+ },
+ "sneek": {
+  "n": "Sneek"
+ },
+ "drachten": {
+  "n": "Drachten"
+ },
+ "heerenveen": {
+  "n": "Heerenveen"
+ },
+ "joure": {
+  "n": "Joure"
+ },
+ "hoogezand": {
+  "n": "Hoogezand"
+ },
+ "lelystad": {
+  "n": "Lelystad"
+ },
+ "emmeloord": {
+  "n": "Emmeloord"
+ },
+ "terneuzen": {
+  "n": "Terneuzen"
+ },
+ "middelburg": {
+  "n": "Middelburg"
+ }
 }
