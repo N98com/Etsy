@@ -13,7 +13,7 @@
     facebook: section.settings.facebook
   %}
   {%- assign n98_pay = section.settings.payment_types | split: ',' -%}
-  <ul class="n98-footpay" aria-label="Payment methods">
+  <ul class="n98-footpay" aria-label="Zahlungsarten">
     {%- for type in n98_pay -%}
       <li>{{ type | strip | payment_type_svg_tag: class: 'n98-footpay__icon' }}</li>
     {%- endfor -%}
@@ -43,7 +43,7 @@
     facebook: section.settings.facebook
   %}
   {%- assign n98_pay = section.settings.payment_types | split: ',' -%}
-  <ul class="n98-footpay" aria-label="Payment methods">
+  <ul class="n98-footpay" aria-label="Moyens de paiement">
     {%- for type in n98_pay -%}
       <li>{{ type | strip | payment_type_svg_tag: class: 'n98-footpay__icon' }}</li>
     {%- endfor -%}
@@ -73,7 +73,7 @@
     facebook: section.settings.facebook
   %}
   {%- assign n98_pay = section.settings.payment_types | split: ',' -%}
-  <ul class="n98-footpay" aria-label="Payment methods">
+  <ul class="n98-footpay" aria-label="Betalingsmåter">
     {%- for type in n98_pay -%}
       <li>{{ type | strip | payment_type_svg_tag: class: 'n98-footpay__icon' }}</li>
     {%- endfor -%}
@@ -103,7 +103,7 @@
     facebook: section.settings.facebook
   %}
   {%- assign n98_pay = section.settings.payment_types | split: ',' -%}
-  <ul class="n98-footpay" aria-label="Payment methods">
+  <ul class="n98-footpay" aria-label="Betaalmethodes">
     {%- for type in n98_pay -%}
       <li>{{ type | strip | payment_type_svg_tag: class: 'n98-footpay__icon' }}</li>
     {%- endfor -%}
@@ -133,7 +133,7 @@
     facebook: section.settings.facebook
   %}
   {%- assign n98_pay = section.settings.payment_types | split: ',' -%}
-  <ul class="n98-footpay" aria-label="Payment methods">
+  <ul class="n98-footpay" aria-label="Betalningsmetoder">
     {%- for type in n98_pay -%}
       <li>{{ type | strip | payment_type_svg_tag: class: 'n98-footpay__icon' }}</li>
     {%- endfor -%}
