@@ -1,0 +1,1586 @@
+[
+ {
+  "title": "Warsaw map print",
+  "handle": "warsaw-map-print",
+  "body": "<h2>Why Warsaw makes a beautiful map</h2>\n<p>Warsaw is a capital on the Vistula. The rebuilt Old Town sits on the high west bank, the Royal Route runs south from the Castle Square past palaces and churches, and Łazienki Park forms a long green shape along the escarpment. Praga faces it all from the other side of the river.</p>\n<h2>Ideas for your Warsaw map</h2>\n<ul>\n<li>Your street in Mokotów, Żoliborz or Praga</li>\n<li>The Old Town and the Royal Route</li>\n<li>A gift for someone who started a new life in Warsaw</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Warsaw\", \"country\": \"Poland\", \"lat\": 52.2297, \"lon\": 21.0122, \"palette\": \"graphite-gold\", \"scale\": 18000, \"img\": \"w-warsaw\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Warsaw, drawn from real map data: the Vistula, the Old Town and the Royal Route, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Warsaw Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Warsaw map print with the Vistula, the Old Town and the Royal Route. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Kraków map print",
+  "handle": "krakow-map-print",
+  "body": "<h2>Why Kraków makes a beautiful map</h2>\n<p>Kraków keeps one of the most beautiful old towns in Europe. The Planty park follows the line of the old walls in a green ring, the Main Square sits right in the middle, and Wawel Hill rises above the bend of the Vistula with Kazimierz just to the south.</p>\n<h2>Ideas for your Kraków map</h2>\n<ul>\n<li>The Main Square and the Planty</li>\n<li>Kazimierz or Podgórze, with your flat marked</li>\n<li>A gift for someone who studied in Kraków</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Kraków\", \"country\": \"Poland\", \"lat\": 50.0614, \"lon\": 19.9366, \"palette\": \"bordeaux-gold\", \"scale\": 21600, \"img\": \"w-krakow\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Kraków, drawn from real map data: the Planty, the Main Square and Wawel Hill, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Kraków Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Kraków map print with the Planty, the Main Square and Wawel Hill. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Wrocław map print",
+  "handle": "wroclaw-map-print",
+  "body": "<h2>Why Wrocław makes a beautiful map</h2>\n<p>Wrocław is a city of islands and bridges. The Oder splits into many arms around Ostrów Tumski and the other river islands, the Market Square sits at the heart of the old town, and the old moat still curves around the centre as a green ribbon.</p>\n<h2>Ideas for your Wrocław map</h2>\n<ul>\n<li>The Market Square and Ostrów Tumski</li>\n<li>Your street in Nadodrze or near the river</li>\n<li>A gift for someone who left their heart in Wrocław</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Wrocław\", \"country\": \"Poland\", \"lat\": 51.1079, \"lon\": 17.0385, \"palette\": \"deep-teal\", \"scale\": 19800, \"img\": \"w-wroclaw\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Wrocław, drawn from real map data: the Oder, the islands and the Market Square, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Wrocław Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Wrocław map print with the Oder, the islands and the Market Square. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Łódź map print",
+  "handle": "lodz-map-print",
+  "body": "<h2>Why Łódź makes a beautiful map</h2>\n<p>Łódź grew fast in the nineteenth century around its textile mills. Piotrkowska Street runs straight through the centre for kilometres, the streets around it form a regular grid, and the old factories of Manufaktura and Księży Młyn stand out as large blocks on the map.</p>\n<h2>Ideas for your Łódź map</h2>\n<ul>\n<li>Piotrkowska Street, with your favourite spot marked</li>\n<li>Your flat in a tenement in the centre</li>\n<li>A gift for someone who studied in Łódź</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Łódź\", \"country\": \"Poland\", \"lat\": 51.7592, \"lon\": 19.456, \"palette\": \"sepia-noir\", \"scale\": 19800, \"img\": \"w-lodz\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Łódź, drawn from real map data: Piotrkowska Street, the grid and the old factories, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Łódź Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Łódź map print with Piotrkowska Street, the grid and the old factories. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Poznań map print",
+  "handle": "poznan-map-print",
+  "body": "<h2>Why Poznań makes a beautiful map</h2>\n<p>Poznań is a city of squares and water. The Old Market Square with its town hall sits at the heart of the old town, the Warta winds past Ostrów Tumski where Poland began, and Lake Malta forms a long calm shape to the east.</p>\n<h2>Ideas for your Poznań map</h2>\n<ul>\n<li>The Old Market Square and its colourful houses</li>\n<li>Jeżyce, Łazarz or Wilda, with your street marked</li>\n<li>A gift for someone who studied in Poznań</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Poznań\", \"country\": \"Poland\", \"lat\": 52.4064, \"lon\": 16.9252, \"palette\": \"claret\", \"scale\": 19800, \"img\": \"w-poznan\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Poznań, drawn from real map data: the Old Market Square, the Warta and Lake Malta, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Poznań Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Poznań map print with the Old Market Square, the Warta and Lake Malta. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Gdańsk map print",
+  "handle": "gdansk-map-print",
+  "body": "<h2>Why Gdańsk makes a beautiful map</h2>\n<p>Gdańsk is a Hanseatic port on the Motława. The Long Market runs through the Main Town towards the river and the old Crane, the canals and granaries of Granary Island lie across the water, and the shipyard stretches out to the north.</p>\n<h2>Ideas for your Gdańsk map</h2>\n<ul>\n<li>The Long Market and the Motława</li>\n<li>Your street in Wrzeszcz or Oliwa</li>\n<li>A souvenir of a summer on the Baltic coast</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Gdańsk\", \"country\": \"Poland\", \"lat\": 54.352, \"lon\": 18.6466, \"palette\": \"old-navy\", \"scale\": 19800, \"img\": \"w-gdansk\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Gdańsk, drawn from real map data: the Motława, the Main Town and the shipyard, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Gdańsk Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Gdańsk map print with the Motława, the Main Town and the shipyard. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Szczecin map print",
+  "handle": "szczecin-map-print",
+  "body": "<h2>Why Szczecin makes a beautiful map</h2>\n<p>Szczecin is a port city on the Oder with a plan like no other in Poland. Wide avenues meet in star shaped squares, the terraces of the Wały Chrobrego look out over the river, and the water of the Oder and Lake Dąbie fills the east of the map.</p>\n<h2>Ideas for your Szczecin map</h2>\n<ul>\n<li>The star squares of the centre</li>\n<li>The Wały Chrobrego and the river</li>\n<li>A gift for someone who grew up in Szczecin</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Szczecin\", \"country\": \"Poland\", \"lat\": 53.4285, \"lon\": 14.5528, \"palette\": \"steel-blue\", \"scale\": 19800, \"img\": \"w-szczecin\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Szczecin, drawn from real map data: the Oder, the star squares and the Wały Chrobrego, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Szczecin Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Szczecin map print with the Oder, the star squares and the Wały Chrobrego. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Bydgoszcz map print",
+  "handle": "bydgoszcz-map-print",
+  "body": "<h2>Why Bydgoszcz makes a beautiful map</h2>\n<p>Bydgoszcz is a city on the Brda. The river runs through the centre past the old granaries, Mill Island sits in the middle as a green island between its arms, and the historic Bydgoszcz Canal leads away to the west.</p>\n<h2>Ideas for your Bydgoszcz map</h2>\n<ul>\n<li>Mill Island and the granaries on the Brda</li>\n<li>Your street in the centre or in Fordon</li>\n<li>A gift for someone who grew up in Bydgoszcz</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Bydgoszcz\", \"country\": \"Poland\", \"lat\": 53.1235, \"lon\": 18.0084, \"palette\": \"lagoon\", \"scale\": 21600, \"img\": \"w-bydgoszcz\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Bydgoszcz, drawn from real map data: the Brda, Mill Island and the canal, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Bydgoszcz Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Bydgoszcz map print with the Brda, Mill Island and the canal. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Lublin map print",
+  "handle": "lublin-map-print",
+  "body": "<h2>Why Lublin makes a beautiful map</h2>\n<p>Lublin has an old town on a hill. The Kraków Gate leads into a web of narrow streets around the Market Square, the castle rises on its own hill just beyond, and the long Krakowskie Przedmieście runs west as the main street of the city.</p>\n<h2>Ideas for your Lublin map</h2>\n<ul>\n<li>The Old Town and the Kraków Gate</li>\n<li>Krakowskie Przedmieście, with your favourite café</li>\n<li>A gift for someone who studied in Lublin</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Lublin\", \"country\": \"Poland\", \"lat\": 51.2465, \"lon\": 22.5684, \"palette\": \"terracotta-sun\", \"scale\": 21600, \"img\": \"w-lublin\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Lublin, drawn from real map data: the Old Town, the castle and the Kraków Gate, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Lublin Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Lublin map print with the Old Town, the castle and the Kraków Gate. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Białystok map print",
+  "handle": "bialystok-map-print",
+  "body": "<h2>Why Białystok makes a beautiful map</h2>\n<p>Białystok is a green city in the north east. The Branicki Palace and its formal gardens fill a large part of the centre, the triangular Kościuszko Market Square lies just beside them, and parks follow the small Biała river through the town.</p>\n<h2>Ideas for your Białystok map</h2>\n<ul>\n<li>The Branicki Palace and its gardens</li>\n<li>Kościuszko Market Square, where it all began</li>\n<li>A gift for someone from Podlasie</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Białystok\", \"country\": \"Poland\", \"lat\": 53.1325, \"lon\": 23.1688, \"palette\": \"forest-brass\", \"scale\": 21600, \"img\": \"w-bialystok\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Białystok, drawn from real map data: the Branicki Palace, the Market Square and the parks, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Białystok Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Białystok map print with the Branicki Palace, the Market Square and the parks. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Katowice map print",
+  "handle": "katowice-map-print",
+  "body": "<h2>Why Katowice makes a beautiful map</h2>\n<p>Katowice is the heart of Upper Silesia. The Spodek arena and the Culture Zone on the site of an old mine mark the centre, the red brick workers’ estate of Nikiszowiec forms a neat pattern to the south east, and the large Silesian Park stretches out to the north.</p>\n<h2>Ideas for your Katowice map</h2>\n<ul>\n<li>The Spodek and the Culture Zone</li>\n<li>Nikiszowiec, with your street marked</li>\n<li>A gift for someone who grew up in Silesia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Katowice\", \"country\": \"Poland\", \"lat\": 50.2649, \"lon\": 19.0238, \"palette\": \"graphite-harbor\", \"scale\": 19800, \"img\": \"w-katowice\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Katowice, drawn from real map data: the Spodek, Nikiszowiec and the Culture Zone, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Katowice Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Katowice map print with the Spodek, Nikiszowiec and the Culture Zone. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Gdynia map print",
+  "handle": "gdynia-map-print",
+  "body": "<h2>Why Gdynia makes a beautiful map</h2>\n<p>Gdynia is a young port city, built almost entirely in the 1920s and 1930s. Its modernist centre leads down to Kościuszko Square and the long pier, the seafront boulevard follows the coast below Kamienna Góra, and the harbour basins fill the north of the map.</p>\n<h2>Ideas for your Gdynia map</h2>\n<ul>\n<li>The pier and the seafront boulevard</li>\n<li>Your flat in the modernist centre</li>\n<li>A souvenir of a summer by the sea</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Gdynia\", \"country\": \"Poland\", \"lat\": 54.5189, \"lon\": 18.5305, \"palette\": \"chalk-harbor\", \"scale\": 19800, \"img\": \"w-gdynia\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Gdynia, drawn from real map data: the harbour, the seafront and the modernist centre, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Gdynia Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Gdynia map print with the harbour, the seafront and the modernist centre. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Częstochowa map print",
+  "handle": "czestochowa-map-print",
+  "body": "<h2>Why Częstochowa makes a beautiful map</h2>\n<p>Częstochowa is built along one long avenue. The Aleja Najświętszej Maryi Panny runs straight through the centre up to the Jasna Góra monastery on its hill, and the Warta winds past the old town on the east side.</p>\n<h2>Ideas for your Częstochowa map</h2>\n<ul>\n<li>Jasna Góra and the long avenue</li>\n<li>Your street in the centre</li>\n<li>A gift for someone who grew up in Częstochowa</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Częstochowa\", \"country\": \"Poland\", \"lat\": 50.8118, \"lon\": 19.1203, \"palette\": \"parchment-sepia\", \"scale\": 21600, \"img\": \"w-czestochowa\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Częstochowa, drawn from real map data: Jasna Góra, the long avenue and the Warta, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Częstochowa Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Częstochowa map print with Jasna Góra, the long avenue and the Warta. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Radom map print",
+  "handle": "radom-map-print",
+  "body": "<h2>Why Radom makes a beautiful map</h2>\n<p>Radom has a calm, regular centre. Żeromskiego Street runs through it as the main promenade, the small medieval town of Kazimierz the Great lies just to the south west, and parks such as the Kościuszko Park add green spaces between the streets.</p>\n<h2>Ideas for your Radom map</h2>\n<ul>\n<li>Żeromskiego Street and the centre</li>\n<li>Your street, with your home marked</li>\n<li>A gift for someone who grew up in Radom</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Radom\", \"country\": \"Poland\", \"lat\": 51.4027, \"lon\": 21.1471, \"palette\": \"slate\", \"scale\": 21600, \"img\": \"w-radom\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Radom, drawn from real map data: Żeromskiego Street, the old town and the parks, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Radom Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Radom map print with Żeromskiego Street, the old town and the parks. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Rzeszów map print",
+  "handle": "rzeszow-map-print",
+  "body": "<h2>Why Rzeszów makes a beautiful map</h2>\n<p>Rzeszów is the capital of south east Poland. The Market Square with its town hall sits at the heart of the old centre, the Lubomirski Castle lies just to the south, and the Wisłok river runs along the east with green banks and a long reservoir.</p>\n<h2>Ideas for your Rzeszów map</h2>\n<ul>\n<li>The Market Square and the castle</li>\n<li>Your street, with your flat marked</li>\n<li>A gift for someone who studied in Rzeszów</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Rzeszów\", \"country\": \"Poland\", \"lat\": 50.0412, \"lon\": 21.9991, \"palette\": \"cobalt\", \"scale\": 21600, \"img\": \"w-rzeszow\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Rzeszów, drawn from real map data: the Market Square, the castle and the Wisłok, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Rzeszów Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Rzeszów map print with the Market Square, the castle and the Wisłok. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Toruń map print",
+  "handle": "torun-map-print",
+  "body": "<h2>Why Toruń makes a beautiful map</h2>\n<p>Toruń is a Gothic town on the Vistula. The old and new towns sit side by side inside their medieval walls, the brick churches and the town hall rise above the narrow streets, and the wide river runs along the whole south side of the map.</p>\n<h2>Ideas for your Toruń map</h2>\n<ul>\n<li>The old town and the Vistula</li>\n<li>Your street within the old walls</li>\n<li>A gift for someone who studied in Toruń</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Toruń\", \"country\": \"Poland\", \"lat\": 53.0138, \"lon\": 18.5984, \"palette\": \"bordeaux-gold\", \"scale\": 23400, \"img\": \"w-torun\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Toruń, drawn from real map data: the Vistula, the Gothic old town and the city walls, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Toruń Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Toruń map print with the Vistula, the Gothic old town and the city walls. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Sosnowiec map print",
+  "handle": "sosnowiec-map-print",
+  "body": "<h2>Why Sosnowiec makes a beautiful map</h2>\n<p>Sosnowiec is the largest town of the Zagłębie Dąbrowskie. The Czarna Przemsza and the Brynica meet on its edge, the centre spreads around Modrzejowska Street and the station, and the old castle of Sielec stands by the river.</p>\n<h2>Ideas for your Sosnowiec map</h2>\n<ul>\n<li>The centre around Modrzejowska Street</li>\n<li>Your street, with your home marked</li>\n<li>A gift for someone who grew up in Zagłębie</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Sosnowiec\", \"country\": \"Poland\", \"lat\": 50.2863, \"lon\": 19.1041, \"palette\": \"graphite-line\", \"scale\": 19800, \"img\": \"w-sosnowiec\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Sosnowiec, drawn from real map data: the Przemsza, the centre and the castle in Sielec, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Sosnowiec Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Sosnowiec map print with the Przemsza, the centre and the castle in Sielec. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Kielce map print",
+  "handle": "kielce-map-print",
+  "body": "<h2>Why Kielce makes a beautiful map</h2>\n<p>Kielce lies among the Holy Cross Mountains. The Palace of the Kraków Bishops sits on a hill above the centre, Sienkiewicza Street runs as the main promenade towards the station, and the old quarry of Kadzielnia forms a green bowl in the south.</p>\n<h2>Ideas for your Kielce map</h2>\n<ul>\n<li>The Bishops’ Palace and Sienkiewicza Street</li>\n<li>Kadzielnia, for a walk you remember</li>\n<li>A gift for someone who grew up in Kielce</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Kielce\", \"country\": \"Poland\", \"lat\": 50.8661, \"lon\": 20.6286, \"palette\": \"woodland\", \"scale\": 21600, \"img\": \"w-kielce\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Kielce, drawn from real map data: the Bishops’ Palace, Kadzielnia and Sienkiewicza Street, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Kielce Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Kielce map print with the Bishops’ Palace, Kadzielnia and Sienkiewicza Street. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Gliwice map print",
+  "handle": "gliwice-map-print",
+  "body": "<h2>Why Gliwice makes a beautiful map</h2>\n<p>Gliwice has a compact old town with its market square and town hall, still traced by the line of the old walls. The wooden radio tower stands in the north, and the Kłodnica river and the Gliwice Canal cross the city on their way to the Oder.</p>\n<h2>Ideas for your Gliwice map</h2>\n<ul>\n<li>The Market Square and the old town</li>\n<li>The radio tower and your street around it</li>\n<li>A gift for someone who studied in Gliwice</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Gliwice\", \"country\": \"Poland\", \"lat\": 50.2945, \"lon\": 18.6714, \"palette\": \"mint-etching\", \"scale\": 21600, \"img\": \"w-gliwice\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Gliwice, drawn from real map data: the Market Square, the radio tower and the canal, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Gliwice Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Gliwice map print with the Market Square, the radio tower and the canal. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Olsztyn map print",
+  "handle": "olsztyn-map-print",
+  "body": "<h2>Why Olsztyn makes a beautiful map</h2>\n<p>Olsztyn is a city of lakes and forest. The Łyna winds through the old town below the castle of the Warmian Chapter, where Copernicus once lived, and more than ten lakes lie within the city limits, framed by green.</p>\n<h2>Ideas for your Olsztyn map</h2>\n<ul>\n<li>The old town, the castle and the Łyna</li>\n<li>Your street near one of the lakes</li>\n<li>A gift for someone from Warmia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Olsztyn\", \"country\": \"Poland\", \"lat\": 53.7784, \"lon\": 20.4801, \"palette\": \"seafoam\", \"scale\": 21600, \"img\": \"w-olsztyn\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Olsztyn, drawn from real map data: the Łyna, the castle and the lakes, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Olsztyn Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Olsztyn map print with the Łyna, the castle and the lakes. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Zabrze map print",
+  "handle": "zabrze-map-print",
+  "body": "<h2>Why Zabrze makes a beautiful map</h2>\n<p>Zabrze carries its mining history on the map. The old Guido mine and the Queen Louise adit mark the centre, the streets of the workers’ districts form neat patterns between them, and parks and green spaces fill the land of former pits.</p>\n<h2>Ideas for your Zabrze map</h2>\n<ul>\n<li>The Guido mine and the centre</li>\n<li>Your street, with your home marked</li>\n<li>A gift for someone who grew up in Silesia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Zabrze\", \"country\": \"Poland\", \"lat\": 50.3249, \"lon\": 18.7857, \"palette\": \"coal-dune\", \"scale\": 19800, \"img\": \"w-zabrze\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Zabrze, drawn from real map data: the old mines, the centre and the parks, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Zabrze Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Zabrze map print with the old mines, the centre and the parks. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Bielsko-Biała map print",
+  "handle": "bielsko-biala-map-print",
+  "body": "<h2>Why Bielsko-Biała makes a beautiful map</h2>\n<p>Bielsko-Biała lies at the foot of the Beskids. The small Biała river once divided two towns that are now one, the Sułkowski Castle stands above the old town of Bielsko, and the elegant streets of the centre have earned it the name of Little Vienna.</p>\n<h2>Ideas for your Bielsko-Biała map</h2>\n<ul>\n<li>The castle and the old town</li>\n<li>Your street, with the mountains in view</li>\n<li>A gift for someone who loves the Beskids</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Bielsko-Biała\", \"country\": \"Poland\", \"lat\": 49.8224, \"lon\": 19.0584, \"palette\": \"emerald-city\", \"scale\": 21600, \"img\": \"w-bielsko-biala\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Bielsko-Biała, drawn from real map data: the Biała, the castle and the old town, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Bielsko-Biała Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Bielsko-Biała map print with the Biała, the castle and the old town. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Bytom map print",
+  "handle": "bytom-map-print",
+  "body": "<h2>Why Bytom makes a beautiful map</h2>\n<p>Bytom is one of the oldest towns of Upper Silesia. Its medieval market square still sits at the heart of the centre, the streets around it are lined with grand tenements from the industrial age, and parks fill the gaps between the districts.</p>\n<h2>Ideas for your Bytom map</h2>\n<ul>\n<li>The Market Square and the old town</li>\n<li>Your street, with your home marked</li>\n<li>A gift for someone who grew up in Bytom</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Bytom\", \"country\": \"Poland\", \"lat\": 50.348, \"lon\": 18.9157, \"palette\": \"sepia-noir\", \"scale\": 21600, \"img\": \"w-bytom\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Bytom, drawn from real map data: the Market Square, the old town and the parks, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Bytom Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Bytom map print with the Market Square, the old town and the parks. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Zielona Góra map print",
+  "handle": "zielona-gora-map-print",
+  "body": "<h2>Why Zielona Góra makes a beautiful map</h2>\n<p>Zielona Góra is the wine town of Poland. The old town gathers around its market square and town hall, the Palm House sits on the hill of the Wine Park above it, and vineyards and forest surround the city on every side.</p>\n<h2>Ideas for your Zielona Góra map</h2>\n<ul>\n<li>The Market Square and the Wine Park</li>\n<li>Your street, with your home marked</li>\n<li>A gift for someone who loves wine</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Zielona Góra\", \"country\": \"Poland\", \"lat\": 51.9356, \"lon\": 15.5062, \"palette\": \"woodland\", \"scale\": 21600, \"img\": \"w-zielona-gora\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Zielona Góra, drawn from real map data: the old town, the Palm House and the vineyards, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Zielona Góra Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Zielona Góra map print with the old town, the Palm House and the vineyards. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Rybnik map print",
+  "handle": "rybnik-map-print",
+  "body": "<h2>Why Rybnik makes a beautiful map</h2>\n<p>Rybnik has a lively market square at the heart of its centre, with the Ruda river flowing close by. To the south west the large Rybnik Reservoir forms a wide shape of water, popular for sailing in summer.</p>\n<h2>Ideas for your Rybnik map</h2>\n<ul>\n<li>The Market Square and the centre</li>\n<li>The reservoir, for a summer you remember</li>\n<li>A gift for someone who grew up in Rybnik</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Rybnik\", \"country\": \"Poland\", \"lat\": 50.0971, \"lon\": 18.5418, \"palette\": \"lagoon\", \"scale\": 21600, \"img\": \"w-rybnik\", \"langs\": \"en,pl\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Rybnik, drawn from real map data: the Market Square, the Ruda and the reservoir, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Rybnik Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Rybnik map print with the Market Square, the Ruda and the reservoir. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Milan map print",
+  "handle": "milan-map-print",
+  "body": "<h2>Why Milan makes a beautiful map</h2>\n<p>Milan grows outward from the Duomo in rings. The old streets radiate from the cathedral square, the circles of the former canals, the Spanish walls and the outer ring wrap around them, and the Navigli canals lead away to the south west. Parco Sempione and the Sforza Castle add a large green shape in the north west.</p>\n<h2>Ideas for your Milan map</h2>\n<ul>\n<li>Brera, the Navigli or Isola, with your flat marked</li>\n<li>The Duomo, where it all began</li>\n<li>A gift for someone who started a new life in Milan</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Milan\", \"country\": \"Italy\", \"lat\": 45.4642, \"lon\": 9.19, \"palette\": \"graphite-gold\", \"scale\": 18000, \"img\": \"w-milan\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Milan, drawn from real map data: the Duomo, the rings and the Navigli, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Milan Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Milan map print with the Duomo, the rings and the Navigli. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Naples map print",
+  "handle": "naples-map-print",
+  "body": "<h2>Why Naples makes a beautiful map</h2>\n<p>Naples curves along one of the most famous bays in the world. Spaccanapoli cuts straight through the ancient grid of the historic centre, the Spanish Quarters climb the hill in a tight pattern of narrow streets, and the seafront runs past Castel dell’Ovo with Vesuvius across the water.</p>\n<h2>Ideas for your Naples map</h2>\n<ul>\n<li>Spaccanapoli and the historic centre</li>\n<li>Your street in Chiaia, the Vomero or the Spanish Quarters</li>\n<li>A gift for someone with a Neapolitan heart</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Naples\", \"country\": \"Italy\", \"lat\": 40.8518, \"lon\": 14.2681, \"palette\": \"terracotta-sun\", \"scale\": 18000, \"img\": \"w-naples\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Naples, drawn from real map data: the bay, Spaccanapoli and the Spanish Quarters, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Naples Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Naples map print with the bay, Spaccanapoli and the Spanish Quarters. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Turin map print",
+  "handle": "turin-map-print",
+  "body": "<h2>Why Turin makes a beautiful map</h2>\n<p>Turin is a city of straight lines. Its centre follows the Roman and baroque grid, with long porticoes along the main streets, the Mole Antonelliana rises above the rooftops, and the Po runs along the east with the Valentino park on its bank and the hills beyond.</p>\n<h2>Ideas for your Turin map</h2>\n<ul>\n<li>San Salvario, Vanchiglia or the Quadrilatero, with your street marked</li>\n<li>The Valentino park and the Po</li>\n<li>A gift for someone who studied in Turin</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Turin\", \"country\": \"Italy\", \"lat\": 45.0703, \"lon\": 7.6869, \"palette\": \"steel-blue\", \"scale\": 19800, \"img\": \"w-turin\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Turin, drawn from real map data: the grid, the Po and the Valentino park, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Turin Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Turin map print with the grid, the Po and the Valentino park. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Palermo map print",
+  "handle": "palermo-map-print",
+  "body": "<h2>Why Palermo makes a beautiful map</h2>\n<p>Palermo is divided by two straight streets. Via Maqueda and Corso Vittorio Emanuele cross at the Quattro Canti and split the old town into four quarters, the harbour opens to the sea, and Monte Pellegrino rises above the coast to the north.</p>\n<h2>Ideas for your Palermo map</h2>\n<ul>\n<li>The Quattro Canti and the old town</li>\n<li>Your street near the markets of Ballarò or the Vucciria</li>\n<li>A souvenir of a summer in Sicily</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Palermo\", \"country\": \"Italy\", \"lat\": 38.1157, \"lon\": 13.3615, \"palette\": \"clay-pot\", \"scale\": 19800, \"img\": \"w-palermo\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Palermo, drawn from real map data: the Quattro Canti, the harbour and Monte Pellegrino, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Palermo Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Palermo map print with the Quattro Canti, the harbour and Monte Pellegrino. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Genoa map print",
+  "handle": "genoa-map-print",
+  "body": "<h2>Why Genoa makes a beautiful map</h2>\n<p>Genoa is squeezed between the mountains and the sea. The narrow lanes of the old town, the caruggi, wind down to the Porto Antico, the city climbs the steep hills behind in curving roads, and the coast stretches out on both sides along the Ligurian Sea.</p>\n<h2>Ideas for your Genoa map</h2>\n<ul>\n<li>The Porto Antico and the caruggi</li>\n<li>Your street in Castelletto, Albaro or Boccadasse</li>\n<li>A souvenir of the Ligurian coast</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Genoa\", \"country\": \"Italy\", \"lat\": 44.4056, \"lon\": 8.9463, \"palette\": \"old-navy\", \"scale\": 19800, \"img\": \"w-genoa\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Genoa, drawn from real map data: the old harbour, the caruggi and the hills, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Genoa Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Genoa map print with the old harbour, the caruggi and the hills. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Bologna map print",
+  "handle": "bologna-map-print",
+  "body": "<h2>Why Bologna makes a beautiful map</h2>\n<p>Bologna is red, learned and lined with porticoes. The medieval centre sits inside a ring of avenues that follows the line of the old walls, the Two Towers rise where the old roads meet, and the main streets fan out from Piazza Maggiore towards the old city gates.</p>\n<h2>Ideas for your Bologna map</h2>\n<ul>\n<li>Piazza Maggiore and the Two Towers</li>\n<li>Your street in the university quarter</li>\n<li>A gift for someone who studied in Bologna</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Bologna\", \"country\": \"Italy\", \"lat\": 44.4949, \"lon\": 11.3426, \"palette\": \"bordeaux-gold\", \"scale\": 21600, \"img\": \"w-bologna\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Bologna, drawn from real map data: the ring of avenues, the Two Towers and the porticoes, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Bologna Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Bologna map print with the ring of avenues, the Two Towers and the porticoes. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Florence map print",
+  "handle": "florence-map-print",
+  "body": "<h2>Why Florence makes a beautiful map</h2>\n<p>Florence fits a world of art into a small map. The Arno runs through the middle, crossed by the Ponte Vecchio, the Duomo stands at the heart of the dense old centre, and the Oltrarno climbs towards the Boboli Gardens and Piazzale Michelangelo on the south bank.</p>\n<h2>Ideas for your Florence map</h2>\n<ul>\n<li>The Duomo and the Ponte Vecchio</li>\n<li>Your street in the Oltrarno or Santo Spirito</li>\n<li><em>Where we said yes</em> for a wedding in Florence</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Florence\", \"country\": \"Italy\", \"lat\": 43.7696, \"lon\": 11.2558, \"palette\": \"terracotta-sun\", \"scale\": 21600, \"img\": \"w-florence\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Florence, drawn from real map data: the Arno, the Duomo and the Oltrarno, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Florence Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Florence map print with the Arno, the Duomo and the Oltrarno. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Bari map print",
+  "handle": "bari-map-print",
+  "body": "<h2>Why Bari makes a beautiful map</h2>\n<p>Bari has two faces on one map. The old town of Bari Vecchia is a maze of lanes on its own small peninsula, the Murat quarter next to it is a perfect nineteenth century grid, and the long seafront promenade follows the Adriatic coast.</p>\n<h2>Ideas for your Bari map</h2>\n<ul>\n<li>Bari Vecchia and the Basilica of Saint Nicholas</li>\n<li>Your street in the Murat quarter</li>\n<li>A souvenir of a summer in Puglia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Bari\", \"country\": \"Italy\", \"lat\": 41.1171, \"lon\": 16.8719, \"palette\": \"chalk-harbor\", \"scale\": 21600, \"img\": \"w-bari\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Bari, drawn from real map data: Bari Vecchia, the Murat grid and the seafront, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Bari Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Bari map print with Bari Vecchia, the Murat grid and the seafront. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Catania map print",
+  "handle": "catania-map-print",
+  "body": "<h2>Why Catania makes a beautiful map</h2>\n<p>Catania lives between the sea and Etna. Its baroque centre was rebuilt in dark lava stone after 1693, Via Etnea runs straight north from the cathedral square towards the volcano, and the harbour and the long beach of the Plaia open to the south.</p>\n<h2>Ideas for your Catania map</h2>\n<ul>\n<li>Piazza del Duomo and Via Etnea</li>\n<li>Your street in the baroque centre</li>\n<li>A souvenir of a summer in Sicily</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Catania\", \"country\": \"Italy\", \"lat\": 37.5079, \"lon\": 15.083, \"palette\": \"sepia-noir\", \"scale\": 19800, \"img\": \"w-catania\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Catania, drawn from real map data: Via Etnea, the baroque centre and the harbour, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Catania Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Catania map print with Via Etnea, the baroque centre and the harbour. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Verona map print",
+  "handle": "verona-map-print",
+  "body": "<h2>Why Verona makes a beautiful map</h2>\n<p>Verona sits inside a loop of the Adige. The river curves around the old centre in a tight bend, the Roman street grid still shapes the streets around Piazza delle Erbe, and the Arena and the Ponte Pietra stand out on the map.</p>\n<h2>Ideas for your Verona map</h2>\n<ul>\n<li>The Arena and Piazza delle Erbe</li>\n<li>The Ponte Pietra and the river</li>\n<li><em>Where we met</em> for a story that started in Verona</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Verona\", \"country\": \"Italy\", \"lat\": 45.4384, \"lon\": 10.9916, \"palette\": \"claret\", \"scale\": 21600, \"img\": \"w-verona\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Verona, drawn from real map data: the Adige, the Arena and the old centre, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Verona Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Verona map print with the Adige, the Arena and the old centre. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Messina map print",
+  "handle": "messina-map-print",
+  "body": "<h2>Why Messina makes a beautiful map</h2>\n<p>Messina faces the mainland across the strait. Its harbour curves in the shape of a sickle, which gave the city its ancient name, the centre was rebuilt in a regular grid after the earthquake of 1908, and the hills rise steeply behind it.</p>\n<h2>Ideas for your Messina map</h2>\n<ul>\n<li>The harbour and the strait</li>\n<li>Your street in the centre</li>\n<li>A gift for someone who crossed the strait</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Messina\", \"country\": \"Italy\", \"lat\": 38.1938, \"lon\": 15.554, \"palette\": \"deep-teal\", \"scale\": 19800, \"img\": \"w-messina\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Messina, drawn from real map data: the strait, the sickle harbour and the grid, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Messina Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Messina map print with the strait, the sickle harbour and the grid. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Padua map print",
+  "handle": "padua-map-print",
+  "body": "<h2>Why Padua makes a beautiful map</h2>\n<p>Padua is a city of squares, canals and students. The huge oval of Prato della Valle lies in the south of the centre, arms of the Bacchiglione follow the line of the old walls, and the old streets with their porticoes lead to the university and the market squares.</p>\n<h2>Ideas for your Padua map</h2>\n<ul>\n<li>Prato della Valle and the old centre</li>\n<li>Your street near the university</li>\n<li>A gift for someone who studied in Padua</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Padua\", \"country\": \"Italy\", \"lat\": 45.4064, \"lon\": 11.8768, \"palette\": \"forest-brass\", \"scale\": 21600, \"img\": \"w-padua\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Padua, drawn from real map data: Prato della Valle, the canals and the old centre, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Padua Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Padua map print with Prato della Valle, the canals and the old centre. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Trieste map print",
+  "handle": "trieste-map-print",
+  "body": "<h2>Why Trieste makes a beautiful map</h2>\n<p>Trieste opens straight onto the sea. Piazza Unità d’Italia faces the Adriatic, the Borgo Teresiano spreads out in a neat grid around the Canal Grande, and the city climbs steeply up the Karst hills behind.</p>\n<h2>Ideas for your Trieste map</h2>\n<ul>\n<li>Piazza Unità and the seafront</li>\n<li>The Canal Grande and the Borgo Teresiano</li>\n<li>A gift for someone who loves Trieste</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Trieste\", \"country\": \"Italy\", \"lat\": 45.6495, \"lon\": 13.7768, \"palette\": \"steel-blue\", \"scale\": 19800, \"img\": \"w-trieste\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Trieste, drawn from real map data: Piazza Unità, the Canal Grande and the sea, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Trieste Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Trieste map print with Piazza Unità, the Canal Grande and the sea. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Parma map print",
+  "handle": "parma-map-print",
+  "body": "<h2>Why Parma makes a beautiful map</h2>\n<p>Parma is calm and elegant on paper. The Duomo and the Baptistery stand at the heart of the old town, the Pilotta palace lines the river, and the Parco Ducale fills the opposite bank with green, joined by the bridges over the Parma.</p>\n<h2>Ideas for your Parma map</h2>\n<ul>\n<li>The Duomo and the Baptistery</li>\n<li>The Parco Ducale and the Oltretorrente</li>\n<li>A gift for someone who grew up in Parma</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Parma\", \"country\": \"Italy\", \"lat\": 44.8015, \"lon\": 10.3279, \"palette\": \"parchment-sepia\", \"scale\": 21600, \"img\": \"w-parma\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Parma, drawn from real map data: the Duomo, the Pilotta and the Parco Ducale, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Parma Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Parma map print with the Duomo, the Pilotta and the Parco Ducale. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Brescia map print",
+  "handle": "brescia-map-print",
+  "body": "<h2>Why Brescia makes a beautiful map</h2>\n<p>Brescia has layers of history in a compact centre. The castle sits on the Cidneo hill above the old town, the Roman forum and the monastery of Santa Giulia lie at its foot, and Piazza della Loggia and Piazza della Vittoria mark the heart of the city.</p>\n<h2>Ideas for your Brescia map</h2>\n<ul>\n<li>Piazza della Loggia and the old town</li>\n<li>The castle on the Cidneo hill</li>\n<li>A gift for someone who grew up in Brescia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Brescia\", \"country\": \"Italy\", \"lat\": 45.5416, \"lon\": 10.2118, \"palette\": \"graphite-harbor\", \"scale\": 21600, \"img\": \"w-brescia\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Brescia, drawn from real map data: the castle, Piazza della Loggia and the Roman forum, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Brescia Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Brescia map print with the castle, Piazza della Loggia and the Roman forum. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Prato map print",
+  "handle": "prato-map-print",
+  "body": "<h2>Why Prato makes a beautiful map</h2>\n<p>Prato is the textile city of Tuscany. Its medieval walls form a clear hexagon around the old centre, the Castello dell’Imperatore stands inside them next to the cathedral, and the Bisenzio river runs along the west side.</p>\n<h2>Ideas for your Prato map</h2>\n<ul>\n<li>The hexagon of the old walls</li>\n<li>The cathedral and the castle</li>\n<li>A gift for someone who grew up in Prato</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Prato\", \"country\": \"Italy\", \"lat\": 43.8777, \"lon\": 11.1023, \"palette\": \"ash-rose\", \"scale\": 23400, \"img\": \"w-prato\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Prato, drawn from real map data: the hexagon of the walls, the castle and the Bisenzio, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Prato Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Prato map print with the hexagon of the walls, the castle and the Bisenzio. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Taranto map print",
+  "handle": "taranto-map-print",
+  "body": "<h2>Why Taranto makes a beautiful map</h2>\n<p>Taranto is the city of two seas. The old town sits on an island between the Mar Grande and the Mar Piccolo, the swing bridge links it to the nineteenth century grid of the new town, and the water shapes every edge of the map.</p>\n<h2>Ideas for your Taranto map</h2>\n<ul>\n<li>The old town on its island</li>\n<li>The swing bridge and the two seas</li>\n<li>A gift for someone who grew up in Taranto</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Taranto\", \"country\": \"Italy\", \"lat\": 40.4644, \"lon\": 17.247, \"palette\": \"lagoon\", \"scale\": 19800, \"img\": \"w-taranto\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Taranto, drawn from real map data: the two seas, the old town and the swing bridge, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Taranto Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Taranto map print with the two seas, the old town and the swing bridge. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Modena map print",
+  "handle": "modena-map-print",
+  "body": "<h2>Why Modena makes a beautiful map</h2>\n<p>Modena has a compact centre inside a ring of avenues on the line of the old walls. The Duomo and the Ghirlandina tower stand on Piazza Grande, the Via Emilia crosses the old town, and the Ducal Palace faces its own large square in the north.</p>\n<h2>Ideas for your Modena map</h2>\n<ul>\n<li>Piazza Grande and the Ghirlandina</li>\n<li>Your street inside the ring of avenues</li>\n<li>A gift for someone who grew up in Modena</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Modena\", \"country\": \"Italy\", \"lat\": 44.6471, \"lon\": 10.9252, \"palette\": \"claret\", \"scale\": 21600, \"img\": \"w-modena\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Modena, drawn from real map data: the Duomo, the Ghirlandina and the ring of avenues, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Modena Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Modena map print with the Duomo, the Ghirlandina and the ring of avenues. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Reggio Calabria map print",
+  "handle": "reggio-calabria-map-print",
+  "body": "<h2>Why Reggio Calabria makes a beautiful map</h2>\n<p>Reggio Calabria looks across the strait at Sicily and Etna. The Lungomare Falcomatà follows the water along the whole centre, and behind it the city was rebuilt in a regular grid after the earthquake of 1908, climbing towards the hills of Aspromonte.</p>\n<h2>Ideas for your Reggio Calabria map</h2>\n<ul>\n<li>The Lungomare and the strait</li>\n<li>Your street in the centre</li>\n<li>A souvenir of the south</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Reggio Calabria\", \"country\": \"Italy\", \"lat\": 38.1113, \"lon\": 15.6476, \"palette\": \"chalk-harbor\", \"scale\": 19800, \"img\": \"w-reggio-calabria\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Reggio Calabria, drawn from real map data: the Lungomare, the strait and the grid, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Reggio Calabria Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Reggio Calabria map print with the Lungomare, the strait and the grid. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Reggio Emilia map print",
+  "handle": "reggio-emilia-map-print",
+  "body": "<h2>Why Reggio Emilia makes a beautiful map</h2>\n<p>Reggio Emilia has a centre shaped like a hexagon. A ring of avenues follows the line of the old walls, the Via Emilia crosses the old town from east to west, and the squares around the cathedral and Piazza Prampolini sit at its heart.</p>\n<h2>Ideas for your Reggio Emilia map</h2>\n<ul>\n<li>The squares around the cathedral</li>\n<li>Your street inside the hexagon</li>\n<li>A gift for someone who grew up in Reggio Emilia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Reggio Emilia\", \"country\": \"Italy\", \"lat\": 44.6989, \"lon\": 10.6297, \"palette\": \"mint-etching\", \"scale\": 21600, \"img\": \"w-reggio-emilia\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Reggio Emilia, drawn from real map data: the hexagon of avenues, the squares and the Via Emilia, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Reggio Emilia Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Reggio Emilia map print with the hexagon of avenues, the squares and the Via Emilia. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Perugia map print",
+  "handle": "perugia-map-print",
+  "body": "<h2>Why Perugia makes a beautiful map</h2>\n<p>Perugia sits on a hilltop in the green heart of Italy. Corso Vannucci runs along the ridge to the Fontana Maggiore and the cathedral, the old streets drop down the slopes in curves and stairways, and parts of the Etruscan walls still enclose the centre.</p>\n<h2>Ideas for your Perugia map</h2>\n<ul>\n<li>Corso Vannucci and the Fontana Maggiore</li>\n<li>Your street on the hill</li>\n<li>A gift for someone who studied in Perugia</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Perugia\", \"country\": \"Italy\", \"lat\": 43.1107, \"lon\": 12.3908, \"palette\": \"bronze\", \"scale\": 21600, \"img\": \"w-perugia\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Perugia, drawn from real map data: the hill, Corso Vannucci and the Etruscan walls, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Perugia Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Perugia map print with the hill, Corso Vannucci and the Etruscan walls. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Ravenna map print",
+  "handle": "ravenna-map-print",
+  "body": "<h2>Why Ravenna makes a beautiful map</h2>\n<p>Ravenna is the city of mosaics. Its compact centre holds the Byzantine churches and Piazza del Popolo, the Candiano canal leads from the old town straight towards the sea, and pine forests and beaches line the coast to the east.</p>\n<h2>Ideas for your Ravenna map</h2>\n<ul>\n<li>Piazza del Popolo and the old centre</li>\n<li>Your street near the mosaics</li>\n<li>A gift for someone who grew up in Ravenna</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Ravenna\", \"country\": \"Italy\", \"lat\": 44.4184, \"lon\": 12.2035, \"palette\": \"emerald-gold-noir\", \"scale\": 21600, \"img\": \"w-ravenna\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Ravenna, drawn from real map data: the old centre, the Candiano canal and the mosaics, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Ravenna Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Ravenna map print with the old centre, the Candiano canal and the mosaics. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ },
+ {
+  "title": "Livorno map print",
+  "handle": "livorno-map-print",
+  "body": "<h2>Why Livorno makes a beautiful map</h2>\n<p>Livorno was planned by the Medici as an ideal city. The Fosso Reale still surrounds the old centre with a ring of water, the canals of the Venezia Nuova quarter wind between the houses, and the Terrazza Mascagni looks out over the sea.</p>\n<h2>Ideas for your Livorno map</h2>\n<ul>\n<li>The Venezia Nuova and its canals</li>\n<li>The Terrazza Mascagni and the seafront</li>\n<li>A gift for someone with a Livornese heart</li>\n</ul>\n<p>Every detail is yours: choose from more than fifty palettes, a classic rectangle, a circle or a heart, and add your own words, a date and pins on the places that matter.</p>",
+  "isPublished": true,
+  "templateSuffix": "city",
+  "metafields": [
+   {
+    "namespace": "n98",
+    "key": "city",
+    "type": "json",
+    "value": "{\"name\": \"Livorno\", \"country\": \"Italy\", \"lat\": 43.5485, \"lon\": 10.3106, \"palette\": \"cobalt\", \"scale\": 21600, \"img\": \"w-livorno\", \"langs\": \"en,it\"}"
+   },
+   {
+    "namespace": "n98",
+    "key": "lede",
+    "type": "multi_line_text_field",
+    "value": "A personalised map print of Livorno, drawn from real map data: the Fosso Reale, the Venezia Nuova and the seafront, or just your own street. Your colours, your words, framed or unframed."
+   },
+   {
+    "namespace": "global",
+    "key": "title_tag",
+    "type": "single_line_text_field",
+    "value": "Livorno Map Print: Personalised City Map Poster"
+   },
+   {
+    "namespace": "global",
+    "key": "description_tag",
+    "type": "single_line_text_field",
+    "value": "Design your own Livorno map print with the Fosso Reale, the Venezia Nuova and the seafront. 50+ palettes, your own words and pins. Framed or unframed, free shipping."
+   }
+  ]
+ }
+]

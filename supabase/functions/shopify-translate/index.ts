@@ -1,6 +1,6 @@
 // N°98 Maps: registers translations in Shopify from a JSON file in the N98com/Etsy repo.
 // Only reads files from raw.githubusercontent.com/N98com/Etsy/ and only writes
-// translations, shop policies, the city list and files of unpublished themes, all from that repo,
+// translations, shop policies, the city list, new pages and files of unpublished themes, all from that repo,
 // so it is safe without a login. Uses the same app credentials as
 // shopify-orders (needs read/write_translations and write_legal_policies).
 // POST { url } with a file: [{ id: gid, locale: 'de', t: { key: value } }]
@@ -14,6 +14,9 @@
 // POST { action: 'theme_check', theme, url } compares [{ filename, md5 }] with the theme.
 // POST { action: 'city_langs', url } sets "langs" in page metafield n98.city for [{ handle, langs }].
 // POST { action: 'city_notes', url, dry? } puts map notes per city into page bodies and translations.
+// POST { action: 'pages_create', url } creates the pages of a file [{ title, handle, body, isPublished, templateSuffix, metafields }]
+//   that do not exist yet (existing handles are skipped).
+// POST { action: 'pages_publish', url, publish? } publishes (or with publish: false hides) the pages [{ handle }] of a file.
 // POST { action: 'eu_shipping', type?: "PAGE", after?, dry? } rewrites "free shipping in Europe, the UK ..."
 //   to "the EU" (fixed rules, every language) in pages (title, body, SEO title and description) and their translations, 25 per call.
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
@@ -82,7 +85,7 @@ const EU_RULES: [RegExp, string][] = [
   [/\b(i|innenfor|til|Til) Europa(?=, Storbritannia)/g, "$1 EU"],
 ];
 const euFix = (v: string) => EU_RULES.reduce((s, [a, b]) => s.replace(a, b), v);
-const LOCALES = ["nl", "de", "fr", "sv", "nb"];
+const LOCALES = ["nl", "de", "fr", "sv", "nb", "pl", "it"];
 async function euShipping(b: any) {
   const type = b.type || "PAGE";
   const tq = LOCALES.map((l) => `${l}: translations(locale: "${l}") { key value }`).join(" ");
@@ -189,6 +192,29 @@ Deno.serve(async (req) => {
       const d = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { metafields { id key } userErrors { field message } } }`,
         { m: [{ ownerId: shop.shop.id, namespace: "n98", key: b.key, type: "json", value }] });
       return out(d.metafieldsSet);
+    }
+    if (b.action === "pages_create" || b.action === "pages_publish") {
+      const list: any[] = await (await fetch(b.url)).json();
+      const res: unknown[] = []; let done = 0;
+      for (let i = 0; i < list.length; i += 10) {
+        const hs = list.slice(i, i + 10);
+        const q = `{ ${hs.map((x, k) => `p${k}: pages(first: 1, query: ${JSON.stringify("handle:" + x.handle)}) { nodes { id handle } }`).join(" ")} }`;
+        const d = await gql(q);
+        for (let k = 0; k < hs.length; k++) {
+          const x = hs[k]; const n = (d[`p${k}`]?.nodes || []).find((y: any) => y.handle === x.handle);
+          if (b.action === "pages_publish") {
+            if (!n) { res.push({ handle: x.handle, error: "not found" }); continue; }
+            const m = await gql(`mutation($id: ID!, $p: PageUpdateInput!) { pageUpdate(id: $id, page: $p) { userErrors { field message } } }`, { id: n.id, p: { isPublished: b.publish !== false } });
+            if (m.pageUpdate.userErrors.length) res.push({ handle: x.handle, ue: m.pageUpdate.userErrors }); else done++;
+            continue;
+          }
+          if (n) { res.push({ handle: x.handle, skipped: "exists" }); continue; }
+          const page = { title: x.title, handle: x.handle, body: x.body, isPublished: !!x.isPublished, templateSuffix: x.templateSuffix, metafields: x.metafields };
+          const m = await gql(`mutation($p: PageCreateInput!) { pageCreate(page: $p) { page { id } userErrors { field message } } }`, { p: page });
+          if (m.pageCreate.userErrors.length) res.push({ handle: x.handle, ue: m.pageCreate.userErrors }); else done++;
+        }
+      }
+      return out({ n: list.length, done, res });
     }
     if (b.action === "city_langs") {
       // { url: file [{ handle, langs }] } -> sets "langs" in the page metafield n98.city (noindex in other languages)

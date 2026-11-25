@@ -9,9 +9,9 @@
 {%- liquid
   assign city = page.metafields.n98.city.value
   assign lede = page.metafields.n98.lede.value
-  # n98.cities5 (v40: nine more cities in gradients) and n98.cities4 (v39: entries may carry their own image i and palette pl, which win over the page metafield),
+  # n98.cities6 (v49: Poland and Italy, Rome and Venice in the Italy group), n98.cities5 (v40: nine more cities in gradients) and n98.cities4 (v39: entries may carry their own image i and palette pl, which win over the page metafield),
   # then cities3 (v37, German states), cities2 (v35, provinces p and languages o) and cities
-  assign cities = shop.metafields.n98.cities5.value | default: shop.metafields.n98.cities4.value | default: shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
+  assign cities = shop.metafields.n98.cities6.value | default: shop.metafields.n98.cities5.value | default: shop.metafields.n98.cities4.value | default: shop.metafields.n98.cities3.value | default: shop.metafields.n98.cities2.value | default: shop.metafields.n98.cities.value
   assign lang = request.locale.iso_code
   # key of the city name in this language; Polish names are stored as "pol" because "pl" is the palette
   assign nk = lang
@@ -31,19 +31,21 @@
   assign designer_url = pfx | append: '/products/design-your-map'
   assign hub_url = pfx | append: '/pages/city-map-prints'
   # own country first
-  assign groups = 'nl,be,de,fr,uk,no,se,eu,us' | split: ','
-  if lang == 'de'
-    assign groups = 'de,nl,be,fr,uk,no,se,eu,us' | split: ','
+  assign groups = 'nl,be,de,fr,uk,no,se,it,eu,us' | split: ','
+  if lang == 'en'
+    assign groups = 'nl,be,de,fr,uk,no,se,pl,it,eu,us' | split: ','
+  elsif lang == 'de'
+    assign groups = 'de,nl,be,fr,uk,no,se,it,eu,us' | split: ','
   elsif lang == 'fr'
-    assign groups = 'fr,be,nl,de,uk,no,se,eu,us' | split: ','
+    assign groups = 'fr,be,nl,de,uk,no,se,it,eu,us' | split: ','
   elsif lang == 'sv'
-    assign groups = 'se,no,nl,be,de,fr,uk,eu,us' | split: ','
+    assign groups = 'se,no,nl,be,de,fr,uk,it,eu,us' | split: ','
   elsif lang == 'nb'
-    assign groups = 'no,se,nl,be,de,fr,uk,eu,us' | split: ','
+    assign groups = 'no,se,nl,be,de,fr,uk,it,eu,us' | split: ','
   elsif lang == 'pl'
-    assign groups = 'eu,de,nl,be,fr,uk,se,no,us' | split: ','
+    assign groups = 'pl,eu,de,nl,be,fr,uk,it,se,no,us' | split: ','
   elsif lang == 'it'
-    assign groups = 'eu,fr,de,nl,be,uk,se,no,us' | split: ','
+    assign groups = 'it,eu,fr,de,nl,be,uk,se,no,us' | split: ','
   endif
   # provinces of the Netherlands, north to south (n98.city.prov_*)
   assign provs = 'gr,fy,dr,ov,fl,ge,ut,nh,zh,ze,nb,li' | split: ','

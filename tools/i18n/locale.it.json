@@ -20,6 +20,8 @@
     "group_uk": "Regno Unito",
     "group_no": "Norvegia",
     "group_se": "Svezia",
+    "group_pl": "Polonia",
+    "group_it": "Italia",
     "group_eu": "Resto d’Europa",
     "group_us": "Stati Uniti",
     "more_nl": "Altre città nei Paesi Bassi",
@@ -29,6 +31,8 @@
     "more_uk": "Altre città nel Regno Unito",
     "more_no": "Altre città in Norvegia",
     "more_se": "Altre città in Svezia",
+    "more_pl": "Altre città in Polonia",
+    "more_it": "Altre città in Italia",
     "more_eu": "Altre città in Europa",
     "more_us": "Altre città negli Stati Uniti",
     "prov_gr": "Groninga",
@@ -76,7 +80,8 @@
     "portugal": "Portogallo",
     "denmark": "Danimarca",
     "norway": "Norvegia",
-    "sweden": "Svezia"
+    "sweden": "Svezia",
+    "poland": "Polonia"
   },
   "header": {
     "currency": "Valuta",

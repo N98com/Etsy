@@ -20,6 +20,8 @@
     "group_uk": "Vereinigtes Königreich",
     "group_no": "Norwegen",
     "group_se": "Schweden",
+    "group_pl": "Polen",
+    "group_it": "Italien",
     "group_eu": "Mehr Europa",
     "group_us": "Vereinigte Staaten",
     "more_nl": "Weitere Städte in den Niederlanden",
@@ -29,6 +31,8 @@
     "more_uk": "Weitere Städte im Vereinigten Königreich",
     "more_no": "Weitere Städte in Norwegen",
     "more_se": "Mehr Städte in Schweden",
+    "more_pl": "Weitere Städte in Polen",
+    "more_it": "Weitere Städte in Italien",
     "more_eu": "Weitere Städte in Europa",
     "more_us": "Weitere Städte in den Vereinigten Staaten",
     "prov_gr": "Groningen",
@@ -76,7 +80,8 @@
     "portugal": "Portugal",
     "denmark": "Dänemark",
     "norway": "Norwegen",
-    "sweden": "Schweden"
+    "sweden": "Schweden",
+    "poland": "Polen"
   },
   "header": {
     "currency": "Währung",

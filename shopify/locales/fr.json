@@ -382,6 +382,8 @@
       "group_uk": "Royaume-Uni",
       "group_no": "Norvège",
       "group_se": "Suède",
+      "group_pl": "Pologne",
+      "group_it": "Italie",
       "group_eu": "Plus d’Europe",
       "group_us": "États-Unis",
       "more_nl": "Plus de villes aux Pays-Bas",
@@ -391,6 +393,8 @@
       "more_uk": "Plus de villes au Royaume-Uni",
       "more_no": "Plus de villes en Norvège",
       "more_se": "Plus de villes en Suède",
+      "more_pl": "Plus de villes en Pologne",
+      "more_it": "Plus de villes en Italie",
       "more_eu": "Plus de villes en Europe",
       "more_us": "Plus de villes aux États-Unis",
       "prov_gr": "Groningue",
@@ -438,7 +442,8 @@
       "portugal": "Portugal",
       "denmark": "Danemark",
       "norway": "Norvège",
-      "sweden": "Suède"
+      "sweden": "Suède",
+      "poland": "Pologne"
     },
     "header": {
       "currency": "Devise",

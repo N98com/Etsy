@@ -20,6 +20,8 @@
     "group_uk": "Verenigd Koninkrijk",
     "group_no": "Noorwegen",
     "group_se": "Zweden",
+    "group_pl": "Polen",
+    "group_it": "Italië",
     "group_eu": "Meer Europa",
     "group_us": "Verenigde Staten",
     "more_nl": "Meer steden in Nederland",
@@ -29,6 +31,8 @@
     "more_uk": "Meer steden in het Verenigd Koninkrijk",
     "more_no": "Meer steden in Noorwegen",
     "more_se": "Meer steden in Zweden",
+    "more_pl": "Meer steden in Polen",
+    "more_it": "Meer steden in Italië",
     "more_eu": "Meer steden in Europa",
     "more_us": "Meer steden in de Verenigde Staten",
     "prov_gr": "Groningen",
@@ -76,7 +80,8 @@
     "portugal": "Portugal",
     "denmark": "Denemarken",
     "norway": "Noorwegen",
-    "sweden": "Zweden"
+    "sweden": "Zweden",
+    "poland": "Polen"
   },
   "header": {
     "currency": "Valuta",
