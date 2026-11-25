@@ -33,6 +33,21 @@
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
   {%- endif -%}
 </nav>
+{%- when 'it' -%}
+{%- assign n98_small = linklists['n98-maps-small-links'] -%}
+<nav class="n98-small-links" aria-label="Altro">
+  {%- if n98_small.links.size > 0 -%}
+    {%- for link in n98_small.links -%}
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="/it/#how-it-works">Come funziona</a>
+    <a href="/it/#faq">FAQ</a>
+    <a href="/it/#faq">Spedizioni e resi</a>
+    <a href="/it/pages/contact">Contact</a>
+    <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+  {%- endif -%}
+</nav>
 {%- when 'nb' -%}
 {%- assign n98_small = linklists['n98-maps-small-links'] -%}
 <nav class="n98-small-links" aria-label="Mer">
@@ -60,6 +75,21 @@
     <a href="/nl/#faq">Vragen</a>
     <a href="/nl/#faq">Verzending &amp; retour</a>
     <a href="/nl/pages/contact">Contact</a>
+    <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+  {%- endif -%}
+</nav>
+{%- when 'pl' -%}
+{%- assign n98_small = linklists['n98-maps-small-links'] -%}
+<nav class="n98-small-links" aria-label="Więcej">
+  {%- if n98_small.links.size > 0 -%}
+    {%- for link in n98_small.links -%}
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+    {%- endfor -%}
+  {%- else -%}
+    <a href="/pl/#how-it-works">Jak to działa</a>
+    <a href="/pl/#faq">FAQ</a>
+    <a href="/pl/#faq">Wysyłka i zwroty</a>
+    <a href="/pl/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
   {%- endif -%}
 </nav>

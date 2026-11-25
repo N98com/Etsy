@@ -1,4 +1,4 @@
-"""Build tools/i18n/<lang>.json for sv and nb from src_<lang>.py (values in the key order of nl.json)."""
+"""Build tools/i18n/<lang>.json for a language from src_<lang>.py (values in the key order of nl.json)."""
 import importlib, json, sys
 from pathlib import Path
 HERE = Path(__file__).resolve().parent

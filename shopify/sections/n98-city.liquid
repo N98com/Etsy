@@ -15,7 +15,7 @@
   assign lang = request.locale.iso_code
   # prints with the words in the language of the visitor (tools/home-renders/variants.py)
   assign img_sfx = '.jpg'
-  if lang == 'nl' or lang == 'de' or lang == 'fr' or lang == 'sv' or lang == 'nb'
+  if lang == 'nl' or lang == 'de' or lang == 'fr' or lang == 'sv' or lang == 'nb' or lang == 'pl' or lang == 'it'
     assign img_sfx = '--' | append: lang | append: '.jpg'
   endif
   assign pfx = routes.root_url
@@ -35,6 +35,10 @@
     assign groups = 'se,no,nl,be,de,fr,uk,eu,us' | split: ','
   elsif lang == 'nb'
     assign groups = 'no,se,nl,be,de,fr,uk,eu,us' | split: ','
+  elsif lang == 'pl'
+    assign groups = 'eu,de,nl,be,fr,uk,se,no,us' | split: ','
+  elsif lang == 'it'
+    assign groups = 'eu,fr,de,nl,be,uk,se,no,us' | split: ','
   endif
   # provinces of the Netherlands, north to south (n98.city.prov_*)
   assign provs = 'gr,fy,dr,ov,fl,ge,ut,nh,zh,ze,nb,li' | split: ','

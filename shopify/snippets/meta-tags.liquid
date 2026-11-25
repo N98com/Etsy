@@ -41,6 +41,10 @@
         assign page_title = 'Personliga kartaffischer över platserna du älskar'
       elsif request.locale.iso_code == 'nb'
         assign page_title = 'Personlige kartplakater over stedene du er glad i'
+      elsif request.locale.iso_code == 'pl'
+        assign page_title = 'Personalizowane plakaty z mapami miejsc, które kochasz'
+      elsif request.locale.iso_code == 'it'
+        assign page_title = 'Stampe con mappe personalizzate dei luoghi che ami'
       else
         assign page_title = 'Custom Map Prints of the Places You Love'
       endif
@@ -56,6 +60,10 @@
         assign page_description = 'Gör platsen som betyder något till ett kartprint av konstkvalitet: din stad, din gata eller platsen där ni träffades. Fler än 50 paletter, med eller utan ram, fri frakt inom EU, Storbritannien och USA.'
       elsif request.locale.iso_code == 'nb'
         assign page_description = 'Gjør stedet som betyr noe om til en kartplakat av kunstkvalitet: byen din, gaten din eller stedet der dere møttes. Over 50 paletter, med eller uten ramme, gratis frakt i EU, Storbritannia og USA.'
+      elsif request.locale.iso_code == 'pl'
+        assign page_description = 'Zamień miejsce, które ma znaczenie, w artystyczny plakat z mapą: Twoje miasto, Twoją ulicę albo miejsce, w którym się poznaliście. Ponad 50 palet, w ramie lub bez, darmowa wysyłka w UE, Wielkiej Brytanii i USA.'
+      elsif request.locale.iso_code == 'it'
+        assign page_description = 'Trasforma il luogo che conta in una stampa con mappa di qualità artistica: la tua città, la tua via o il punto dove vi siete conosciuti. Più di 50 palette, con o senza cornice, spedizione gratuita in UE, Regno Unito e Stati Uniti.'
       else
         assign page_description = 'Turn the place that matters into a fine-art map print: your city, your street or the spot where you met. 50+ palettes, framed or unframed, free shipping in the EU, the UK and the US.'
       endif
