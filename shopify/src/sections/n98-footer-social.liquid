@@ -10,11 +10,20 @@
     pinterest: section.settings.pinterest,
     facebook: section.settings.facebook
   %}
+  {%- assign n98_pay = section.settings.payment_types | split: ',' -%}
+  <ul class="n98-footpay" aria-label="Payment methods">
+    {%- for type in n98_pay -%}
+      <li>{{ type | strip | payment_type_svg_tag: class: 'n98-footpay__icon' }}</li>
+    {%- endfor -%}
+  </ul>
   <p class="n98-footsocial__legal">N°98 Maps · KvK 42231154 · Oldenzaal, NL</p>
 </div>
 <style>
   .n98-footsocial { display: flex; flex-direction: column; align-items: center; gap: 16px; padding: 44px 20px 30px; background: #F4F1EB; border-top: 1px solid #DDD6CA; }
   .n98-footsocial__label { margin: 0; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: .3em; text-transform: uppercase; color: #5E594F; }
+  .n98-footpay { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin: 10px 0 0; padding: 0; list-style: none; }
+  .n98-footpay li { margin: 0; }
+  .n98-footpay__icon { display: block; width: 38px; height: 24px; }
   .n98-footsocial__legal { margin: 6px 0 0; font-family: 'IBM Plex Mono', ui-monospace, Menlo, monospace; font-size: 10px; letter-spacing: .12em; color: #5E594F; text-align: center; }
   .n98-social { display: flex; gap: 14px; margin: 0; padding: 0; list-style: none; }
   .n98-social li { margin: 0; }
@@ -29,6 +38,7 @@
     { "type": "text", "id": "whatsapp", "label": "WhatsApp number (international, digits only)", "default": "31613168888" },
     { "type": "url", "id": "instagram", "label": "Instagram link" },
     { "type": "url", "id": "pinterest", "label": "Pinterest link", "info": "Leave empty until the account exists: the icon stays visible without a link." },
+    { "type": "text", "id": "payment_types", "label": "Payment icons (comma separated)", "default": "ideal,visa,master,american_express,paypal,apple_pay,google_pay,shopify_pay", "info": "Shopify payment type names, shown in this order." },
     { "type": "url", "id": "facebook", "label": "Facebook link", "info": "Leave empty until the page exists: the icon stays visible without a link." }
   ],
   "enabled_on": { "groups": ["footer"] },
