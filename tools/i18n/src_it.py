@@ -23,7 +23,7 @@ V = [
 "Carta e cornice",
 "Carta opaca premium da 200 g/m², certificata FSC o equivalente, con superficie liscia e senza riflessi. Le cornici sono in pino massello nero, bianco, legno naturale o legno scuro, con plexiglas infrangibile davanti e kit per appendere incluso. Ogni mappa arriva pronta da appendere.",
 "Stampata vicino a te",
-"La tua mappa viene stampata su ordinazione dal nostro partner di produzione più vicino a te, così fa poca strada e arriva in buone condizioni: di solito in 3–7 giorni lavorativi in Europa e 5–10 negli Stati Uniti. Se dovesse arrivare danneggiata o sbagliata, ti mandiamo una nuova stampa.",
+"La tua mappa viene stampata su ordinazione dal nostro partner di produzione più vicino a te, così fa poca strada e arriva in buone condizioni: di solito tra 3 e 7 giorni lavorativi in Europa e tra 5 e 10 negli Stati Uniti. Se dovesse arrivare danneggiata o sbagliata, ti mandiamo una nuova stampa.",
 "Domande",
 "Posso creare la mappa di qualsiasi indirizzo?",
 "Sì. Funziona qualsiasi luogo con strade sulla mappa, da una grande città a un piccolo paese o una singola casa.",
@@ -222,7 +222,7 @@ V = [
 "Ogni mappa è stampata fresca dopo l’ordine, in uno studio vicino all’indirizzo di consegna.",
 "Consegna",
 "Sempre gratuita",
-"In UE, Regno Unito e Stati Uniti. Di solito 3–7 giorni lavorativi in Europa, 5–10 negli Stati Uniti.",
+"In UE, Regno Unito e Stati Uniti. Di solito da 3 a 7 giorni lavorativi in Europa, da 5 a 10 negli Stati Uniti.",
 "Trovato il formato?",
 "Trova il tuo luogo.",
 "La nostra storia",
@@ -275,7 +275,7 @@ V = [
 "Posso ordinarla in orizzontale?",
 "Sì. Ogni formato è disponibile in verticale o in orizzontale, allo stesso prezzo. Lo scegli mentre crei e l’anteprima ruota di conseguenza.",
 "Niente in UE, Regno Unito e Stati Uniti: lì la spedizione è sempre gratuita, quindi il prezzo che vedi è il prezzo che paghi. Spediamo anche in Norvegia e Svizzera, dove il costo di spedizione è indicato al checkout.",
-"Ogni mappa è stampata fresca dopo l’ordine, in uno studio di stampa vicino a te. La maggior parte degli ordini arriva in 3–7 giorni lavorativi nei Paesi Bassi e nel resto d’Europa, e in 5–10 giorni lavorativi altrove.",
+"Ogni mappa è stampata fresca dopo l’ordine, in uno studio di stampa vicino a te. La maggior parte degli ordini arriva tra 3 e 7 giorni lavorativi nei Paesi Bassi e nel resto d’Europa, e tra 5 e 10 giorni lavorativi altrove.",
 "Metodi di pagamento",
 ]
 RAW_H1 = '<h1 aria-label="I luoghi che ti hanno reso chi sei, disegnati per durare."><span class="w" style="--i:0">I</span> <span class="w" style="--i:1">luoghi</span> <span class="w" style="--i:2">che</span> <span class="w" style="--i:3">ti</span> <span class="w" style="--i:4">hanno</span> <span class="w" style="--i:5">reso</span> <span class="w" style="--i:6">chi</span> <span class="w" style="--i:7">sei,</span> <em><span class="w" style="--i:8">disegnati</span> <span class="w" style="--i:9">per</span> <span class="w" style="--i:10">durare.</span></em></h1>'

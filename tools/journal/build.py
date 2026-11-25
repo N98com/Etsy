@@ -9,7 +9,8 @@ from html.parser import HTMLParser
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 NAMES = ['housewarming', 'wedding', 'leaving', 'sofa', 'baby', 'everything', 'anniversary', 'memorial']
-LANGS = ['en', 'nl', 'de', 'fr', 'sv', 'nb']
+LANGS = ['en', 'nl', 'de', 'fr', 'sv', 'nb', 'pl', 'it']
+import tr_pl, tr_it  # Polish and Italian live in their own files
 BLOG = 'gid://shopify/Blog/128120783231'
 
 class Check(HTMLParser):
@@ -46,6 +47,7 @@ def main():
     ok = True
     for n in NAMES:
         A = importlib.import_module(n).A
+        A['pl'], A['it'] = tr_pl.J[n], tr_it.J[n]
         p = check(n, A)
         print(n, 'OK' if not p else p); ok &= not p
         en = A['en']
