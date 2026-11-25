@@ -754,5 +754,30 @@
     "nb": "Polen",
     "pl": "Polska",
     "it": "Polonia"
+  },
+  "New York": {
+    "pl": "Nowy Jork"
+  },
+  "Stockholm": {
+    "pl": "Sztokholm",
+    "it": "Stoccolma"
+  },
+  "Marseille": {
+    "pl": "Marsylia",
+    "it": "Marsiglia"
+  },
+  "Leipzig": {
+    "pl": "Lipsk",
+    "it": "Lipsia"
+  },
+  "Toulouse": {
+    "pl": "Tuluza",
+    "it": "Tolosa"
+  },
+  "Stuttgart": {
+    "it": "Stoccarda"
+  },
+  "Lyon": {
+    "it": "Lione"
   }
 }

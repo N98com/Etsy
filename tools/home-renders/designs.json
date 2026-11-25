@@ -67,6 +67,28 @@
   "retry": 1
  },
  {
+  "id": "g-amsterdam--pl",
+  "place": "Amsterdam",
+  "country": "Holandia",
+  "lat": 52.3702,
+  "lon": 4.8952,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "g-amsterdam--it",
+  "place": "Amsterdam",
+  "country": "Paesi Bassi",
+  "lat": 52.3702,
+  "lon": 4.8952,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "g-lisbon",
   "place": "Lisbon",
   "country": "Portugal",
@@ -120,6 +142,26 @@
   "id": "g-lisbon--nb",
   "place": "Lisboa",
   "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "verdigris-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-lisbon--pl",
+  "place": "Lizbona",
+  "country": "Portugalia",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "verdigris-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-lisbon--it",
+  "place": "Lisbona",
+  "country": "Portogallo",
   "lat": 38.7139,
   "lon": -9.1394,
   "palette": "verdigris-dusk",
@@ -187,6 +229,26 @@
   "h": 1680
  },
  {
+  "id": "g-new-york--pl",
+  "place": "Nowy Jork",
+  "country": "Stany Zjednoczone",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-new-york--it",
+  "place": "New York",
+  "country": "Stati Uniti",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "g-copenhagen",
   "place": "Copenhagen",
   "country": "Denmark",
@@ -240,6 +302,26 @@
   "id": "g-copenhagen--nb",
   "place": "København",
   "country": "Danmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-copenhagen--pl",
+  "place": "Kopenhaga",
+  "country": "Dania",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-copenhagen--it",
+  "place": "Copenaghen",
+  "country": "Danimarca",
   "lat": 55.6786,
   "lon": 12.5753,
   "palette": "deep-teal",
@@ -314,6 +396,28 @@
   "retry": 1
  },
  {
+  "id": "g-paris--pl",
+  "place": "Paryż",
+  "country": "Francja",
+  "lat": 48.8576,
+  "lon": 2.3448,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "g-paris--it",
+  "place": "Parigi",
+  "country": "Francia",
+  "lat": 48.8576,
+  "lon": 2.3448,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "g-tokyo",
   "place": "Tokyo",
   "country": "Japan",
@@ -374,6 +478,26 @@
   "h": 1680
  },
  {
+  "id": "g-tokyo--pl",
+  "place": "Tokio",
+  "country": "Japonia",
+  "lat": 35.6812,
+  "lon": 139.7671,
+  "palette": "neon-tokyo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-tokyo--it",
+  "place": "Tokyo",
+  "country": "Giappone",
+  "lat": 35.6812,
+  "lon": 139.7671,
+  "palette": "neon-tokyo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "g-san-francisco",
   "place": "San Francisco",
   "country": "United States",
@@ -427,6 +551,26 @@
   "id": "g-san-francisco--nb",
   "place": "San Francisco",
   "country": "USA",
+  "lat": 37.7793,
+  "lon": -122.4193,
+  "palette": "mono",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-san-francisco--pl",
+  "place": "San Francisco",
+  "country": "Stany Zjednoczone",
+  "lat": 37.7793,
+  "lon": -122.4193,
+  "palette": "mono",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-san-francisco--it",
+  "place": "San Francisco",
+  "country": "Stati Uniti",
   "lat": 37.7793,
   "lon": -122.4193,
   "palette": "mono",
@@ -501,6 +645,28 @@
   "retry": 1
  },
  {
+  "id": "g-rome--pl",
+  "place": "Rzym",
+  "country": "Włochy",
+  "lat": 41.8986,
+  "lon": 12.4769,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "g-rome--it",
+  "place": "Roma",
+  "country": "Italia",
+  "lat": 41.8986,
+  "lon": 12.4769,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "g-barcelona",
   "place": "Barcelona",
   "country": "Spain",
@@ -554,6 +720,26 @@
   "id": "g-barcelona--nb",
   "place": "Barcelona",
   "country": "Spania",
+  "lat": 41.3874,
+  "lon": 2.1686,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-barcelona--pl",
+  "place": "Barcelona",
+  "country": "Hiszpania",
+  "lat": 41.3874,
+  "lon": 2.1686,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-barcelona--it",
+  "place": "Barcellona",
+  "country": "Spagna",
   "lat": 41.3874,
   "lon": 2.1686,
   "palette": "lagoon",
@@ -681,6 +867,46 @@
   "h": 1680
  },
  {
+  "id": "m-said-yes--pl",
+  "place": "Tu powiedzieliśmy tak",
+  "country": "Amsterdam · 21.06.2025",
+  "lat": 52.3726,
+  "lon": 4.885,
+  "zoom": 2.4,
+  "palette": "chalk-harbor",
+  "pins": [
+   {
+    "lat": 52.37455,
+    "lon": 4.88385,
+    "icon": "rings"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "m-said-yes--it",
+  "place": "Dove ci siamo detti sì",
+  "country": "Amsterdam · 21.06.2025",
+  "lat": 52.3726,
+  "lon": 4.885,
+  "zoom": 2.4,
+  "palette": "chalk-harbor",
+  "pins": [
+   {
+    "lat": 52.37455,
+    "lon": 4.88385,
+    "icon": "rings"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "c-detail",
   "place": "Venice",
   "country": "Italy",
@@ -764,6 +990,28 @@
   "retry": 1
  },
  {
+  "id": "h-rotterdam--pl",
+  "place": "Rotterdam",
+  "country": "Holandia",
+  "lat": 51.918,
+  "lon": 4.483,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "h-rotterdam--it",
+  "place": "Rotterdam",
+  "country": "Paesi Bassi",
+  "lat": 51.918,
+  "lon": 4.483,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "h-london",
   "place": "London",
   "country": "United Kingdom",
@@ -828,6 +1076,30 @@
   "id": "h-london--nb",
   "place": "London",
   "country": "Storbritannia",
+  "lat": 51.509,
+  "lon": -0.11,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1,
+  "zoom": 1.4
+ },
+ {
+  "id": "h-london--pl",
+  "place": "Londyn",
+  "country": "Wielka Brytania",
+  "lat": 51.509,
+  "lon": -0.11,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1,
+  "zoom": 1.4
+ },
+ {
+  "id": "h-london--it",
+  "place": "Londra",
+  "country": "Regno Unito",
   "lat": 51.509,
   "lon": -0.11,
   "palette": "forest-brass",
@@ -904,6 +1176,28 @@
   "retry": 1
  },
  {
+  "id": "h-berlin--pl",
+  "place": "Berlin",
+  "country": "Niemcy",
+  "lat": 52.517,
+  "lon": 13.395,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "h-berlin--it",
+  "place": "Berlino",
+  "country": "Germania",
+  "lat": 52.517,
+  "lon": 13.395,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "g-madrid",
   "place": "Madrid",
   "country": "Spain",
@@ -957,6 +1251,26 @@
   "id": "g-madrid--nb",
   "place": "Madrid",
   "country": "Spania",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-madrid--pl",
+  "place": "Madrid",
+  "country": "Hiszpania",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "g-madrid--it",
+  "place": "Madrid",
+  "country": "Spagna",
   "lat": 40.418,
   "lon": -3.7,
   "palette": "bordeaux-gold",
@@ -1031,6 +1345,28 @@
   "retry": 1
  },
  {
+  "id": "h-prague--pl",
+  "place": "Praga",
+  "country": "Czechy",
+  "lat": 50.0865,
+  "lon": 14.4185,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "h-prague--it",
+  "place": "Praga",
+  "country": "Repubblica Ceca",
+  "lat": 50.0865,
+  "lon": 14.4185,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "h-utrecht",
   "place": "Utrecht",
   "country": "Netherlands",
@@ -1095,6 +1431,30 @@
   "id": "h-utrecht--nb",
   "place": "Utrecht",
   "country": "Nederland",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5,
+  "retry": 1
+ },
+ {
+  "id": "h-utrecht--pl",
+  "place": "Utrecht",
+  "country": "Holandia",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5,
+  "retry": 1
+ },
+ {
+  "id": "h-utrecht--it",
+  "place": "Utrecht",
+  "country": "Paesi Bassi",
   "lat": 52.0907,
   "lon": 5.1214,
   "palette": "old-navy",
@@ -1177,6 +1537,30 @@
   "retry": 1
  },
  {
+  "id": "h-antwerp--pl",
+  "place": "Antwerpia",
+  "country": "Belgia",
+  "lat": 51.2205,
+  "lon": 4.4005,
+  "palette": "golden-hour",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3,
+  "retry": 1
+ },
+ {
+  "id": "h-antwerp--it",
+  "place": "Anversa",
+  "country": "Belgio",
+  "lat": 51.2205,
+  "lon": 4.4005,
+  "palette": "golden-hour",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3,
+  "retry": 1
+ },
+ {
   "id": "h-vienna",
   "place": "Vienna",
   "country": "Austria",
@@ -1244,6 +1628,28 @@
   "retry": 1
  },
  {
+  "id": "h-vienna--pl",
+  "place": "Wiedeń",
+  "country": "Austria",
+  "lat": 48.207,
+  "lon": 16.369,
+  "palette": "emerald-gold-noir",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "h-vienna--it",
+  "place": "Vienna",
+  "country": "Austria",
+  "lat": 48.207,
+  "lon": 16.369,
+  "palette": "emerald-gold-noir",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "h-barcelona",
   "place": "Barcelona",
   "country": "Spain",
@@ -1303,6 +1709,28 @@
   "id": "h-barcelona--nb",
   "place": "Barcelona",
   "country": "Spania",
+  "lat": 41.391,
+  "lon": 2.17,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "h-barcelona--pl",
+  "place": "Barcelona",
+  "country": "Hiszpania",
+  "lat": 41.391,
+  "lon": 2.17,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "h-barcelona--it",
+  "place": "Barcellona",
+  "country": "Spagna",
   "lat": 41.391,
   "lon": 2.17,
   "palette": "clay-pot",
@@ -1384,6 +1812,30 @@
   "retry": 1
  },
  {
+  "id": "h-venice--pl",
+  "place": "Wenecja",
+  "country": "Włochy",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.35,
+  "retry": 1
+ },
+ {
+  "id": "h-venice--it",
+  "place": "Venezia",
+  "country": "Italia",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.35,
+  "retry": 1
+ },
+ {
   "id": "h-lisbon",
   "place": "Lisbon",
   "country": "Portugal",
@@ -1438,6 +1890,26 @@
   "id": "h-lisbon--nb",
   "place": "Lisboa",
   "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-lisbon--pl",
+  "place": "Lizbona",
+  "country": "Portugalia",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-lisbon--it",
+  "place": "Lisbona",
+  "country": "Portogallo",
   "lat": 38.7139,
   "lon": -9.1394,
   "palette": "golden-dusk",
@@ -1506,6 +1978,26 @@
   "h": 1680
  },
  {
+  "id": "h-copenhagen--pl",
+  "place": "Kopenhaga",
+  "country": "Dania",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-copenhagen--it",
+  "place": "Copenaghen",
+  "country": "Danimarca",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "jade-halo",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "h-stockholm",
   "place": "Stockholm",
   "country": "Sweden",
@@ -1567,6 +2059,26 @@
   "h": 1680
  },
  {
+  "id": "h-stockholm--pl",
+  "place": "Sztokholm",
+  "country": "Szwecja",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-stockholm--it",
+  "place": "Stoccolma",
+  "country": "Svezia",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "h-new-york",
   "place": "New York",
   "country": "United States",
@@ -1621,6 +2133,26 @@
   "id": "h-new-york--nb",
   "place": "New York",
   "country": "USA",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york--pl",
+  "place": "Nowy Jork",
+  "country": "Stany Zjednoczone",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "ultraviolet",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-new-york--it",
+  "place": "New York",
+  "country": "Stati Uniti",
   "lat": 40.7484,
   "lon": -73.9857,
   "palette": "ultraviolet",
@@ -1695,6 +2227,28 @@
   "zoom": 0.8
  },
  {
+  "id": "h-los-angeles--pl",
+  "place": "Los Angeles",
+  "country": "Stany Zjednoczone",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "h-los-angeles--it",
+  "place": "Los Angeles",
+  "country": "Stati Uniti",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
   "id": "h-madrid",
   "place": "Madrid",
   "country": "Spain",
@@ -1749,6 +2303,26 @@
   "id": "h-madrid--nb",
   "place": "Madrid",
   "country": "Spania",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-madrid--pl",
+  "place": "Madrid",
+  "country": "Hiszpania",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "paprika-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "h-madrid--it",
+  "place": "Madrid",
+  "country": "Spagna",
   "lat": 40.418,
   "lon": -3.7,
   "palette": "paprika-dusk",
@@ -1813,6 +2387,28 @@
  },
  {
   "id": "h-milan--nb",
+  "place": "Milano",
+  "country": "Italia",
+  "lat": 45.4642,
+  "lon": 9.19,
+  "palette": "fire-opal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-milan--pl",
+  "place": "Mediolan",
+  "country": "Włochy",
+  "lat": 45.4642,
+  "lon": 9.19,
+  "palette": "fire-opal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-milan--it",
   "place": "Milano",
   "country": "Italia",
   "lat": 45.4642,
@@ -1890,6 +2486,28 @@
   "orientation": "landscape"
  },
  {
+  "id": "h-munich--pl",
+  "place": "Monachium",
+  "country": "Niemcy",
+  "lat": 48.1374,
+  "lon": 11.5755,
+  "palette": "spring-moss",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-munich--it",
+  "place": "Monaco di Baviera",
+  "country": "Germania",
+  "lat": 48.1374,
+  "lon": 11.5755,
+  "palette": "spring-moss",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
   "id": "h-budapest",
   "place": "Budapest",
   "country": "Hungary",
@@ -1949,6 +2567,28 @@
   "id": "h-budapest--nb",
   "place": "Budapest",
   "country": "Ungarn",
+  "lat": 47.4979,
+  "lon": 19.0402,
+  "palette": "amber-halo",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-budapest--pl",
+  "place": "Budapeszt",
+  "country": "Węgry",
+  "lat": 47.4979,
+  "lon": 19.0402,
+  "palette": "amber-halo",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-budapest--it",
+  "place": "Budapest",
+  "country": "Ungheria",
   "lat": 47.4979,
   "lon": 19.0402,
   "palette": "amber-halo",
@@ -2024,6 +2664,28 @@
   "orientation": "landscape"
  },
  {
+  "id": "h-athens--pl",
+  "place": "Ateny",
+  "country": "Grecja",
+  "lat": 37.9755,
+  "lon": 23.7348,
+  "palette": "ocean-drive",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-athens--it",
+  "place": "Atene",
+  "country": "Grecia",
+  "lat": 37.9755,
+  "lon": 23.7348,
+  "palette": "ocean-drive",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
   "id": "h-warsaw",
   "place": "Warsaw",
   "country": "Poland",
@@ -2091,6 +2753,28 @@
   "orientation": "landscape"
  },
  {
+  "id": "h-warsaw--pl",
+  "place": "Warszawa",
+  "country": "Polska",
+  "lat": 52.2297,
+  "lon": 21.0122,
+  "palette": "orchid-shadow",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-warsaw--it",
+  "place": "Varsavia",
+  "country": "Polonia",
+  "lat": 52.2297,
+  "lon": 21.0122,
+  "palette": "orchid-shadow",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
   "id": "h-hamburg",
   "place": "Hamburg",
   "country": "Germany",
@@ -2150,6 +2834,28 @@
   "id": "h-hamburg--nb",
   "place": "Hamburg",
   "country": "Tyskland",
+  "lat": 53.5503,
+  "lon": 9.993,
+  "palette": "jade-halo",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-hamburg--pl",
+  "place": "Hamburg",
+  "country": "Niemcy",
+  "lat": 53.5503,
+  "lon": 9.993,
+  "palette": "jade-halo",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "h-hamburg--it",
+  "place": "Amburgo",
+  "country": "Germania",
   "lat": 53.5503,
   "lon": 9.993,
   "palette": "jade-halo",
@@ -2278,6 +2984,46 @@
   "h": 1260
  },
  {
+  "id": "o-wedding--pl",
+  "place": "Florencja",
+  "country": "Tu powiedzieliśmy tak · 21.06.2025",
+  "lat": 43.77,
+  "lon": 11.254,
+  "zoom": 1.3,
+  "palette": "rosewater-bloom",
+  "pins": [
+   {
+    "lat": 43.7731,
+    "lon": 11.256,
+    "icon": "rings"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-wedding--it",
+  "place": "Firenze",
+  "country": "Dove ci siamo detti sì · 21.06.2025",
+  "lat": 43.77,
+  "lon": 11.254,
+  "zoom": 1.3,
+  "palette": "rosewater-bloom",
+  "pins": [
+   {
+    "lat": 43.7731,
+    "lon": 11.256,
+    "icon": "rings"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
   "id": "o-new-home",
   "place": "Haarlem",
   "country": "Our first home",
@@ -2381,6 +3127,46 @@
   "id": "o-new-home--nb",
   "place": "Haarlem",
   "country": "Vårt første hjem",
+  "lat": 52.3812,
+  "lon": 4.6368,
+  "zoom": 2.2,
+  "palette": "parchment-sepia",
+  "pins": [
+   {
+    "lat": 52.3826,
+    "lon": 4.639,
+    "icon": "house"
+   }
+  ],
+  "pinColor": "#7a3b1c",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-new-home--pl",
+  "place": "Haarlem",
+  "country": "Nasz pierwszy dom",
+  "lat": 52.3812,
+  "lon": 4.6368,
+  "zoom": 2.2,
+  "palette": "parchment-sepia",
+  "pins": [
+   {
+    "lat": 52.3826,
+    "lon": 4.639,
+    "icon": "house"
+   }
+  ],
+  "pinColor": "#7a3b1c",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-new-home--it",
+  "place": "Haarlem",
+  "country": "La nostra prima casa",
   "lat": 52.3812,
   "lon": 4.6368,
   "zoom": 2.2,
@@ -2530,6 +3316,50 @@
   "layout": "default"
  },
  {
+  "id": "o-anniversary--pl",
+  "place": "Paryż",
+  "country": "Tu wszystko się zaczęło · 2016",
+  "lat": 48.8566,
+  "lon": 2.3422,
+  "zoom": 1.2,
+  "palette": "bordeaux-gold",
+  "mask": "heart",
+  "pins": [
+   {
+    "lat": 48.853,
+    "lon": 2.3499,
+    "icon": "heartpin"
+   }
+  ],
+  "pinColor": "#d4af6a",
+  "pinScale": 1.5,
+  "w": 900,
+  "h": 1260,
+  "layout": "default"
+ },
+ {
+  "id": "o-anniversary--it",
+  "place": "Parigi",
+  "country": "Dove tutto è cominciato · 2016",
+  "lat": 48.8566,
+  "lon": 2.3422,
+  "zoom": 1.2,
+  "palette": "bordeaux-gold",
+  "mask": "heart",
+  "pins": [
+   {
+    "lat": 48.853,
+    "lon": 2.3499,
+    "icon": "heartpin"
+   }
+  ],
+  "pinColor": "#d4af6a",
+  "pinScale": 1.5,
+  "w": 900,
+  "h": 1260,
+  "layout": "default"
+ },
+ {
   "id": "o-new-baby",
   "place": "Utrecht",
   "country": "Where you were born · 03.02.2026",
@@ -2633,6 +3463,46 @@
   "id": "o-new-baby--nb",
   "place": "Utrecht",
   "country": "Der du ble født · 03.02.2026",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "zoom": 1.6,
+  "palette": "glacier-mist",
+  "pins": [
+   {
+    "lat": 52.088,
+    "lon": 5.119,
+    "icon": "star"
+   }
+  ],
+  "pinColor": "#c79a3b",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-new-baby--pl",
+  "place": "Utrecht",
+  "country": "Tu się urodziłeś · 03.02.2026",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "zoom": 1.6,
+  "palette": "glacier-mist",
+  "pins": [
+   {
+    "lat": 52.088,
+    "lon": 5.119,
+    "icon": "star"
+   }
+  ],
+  "pinColor": "#c79a3b",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260
+ },
+ {
+  "id": "o-new-baby--it",
+  "place": "Utrecht",
+  "country": "Dove sei nato · 03.02.2026",
   "lat": 52.0907,
   "lon": 5.1214,
   "zoom": 1.6,
@@ -2763,6 +3633,50 @@
   "id": "o-valentine--nb",
   "place": "Venezia",
   "country": "Der vi møttes",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "zoom": 1.3,
+  "palette": "cherry-blossom",
+  "mask": "heart",
+  "pins": [
+   {
+    "lat": 45.438,
+    "lon": 12.3358,
+    "icon": "heart"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260,
+  "layout": "default"
+ },
+ {
+  "id": "o-valentine--pl",
+  "place": "Wenecja",
+  "country": "Tu się poznaliśmy",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "zoom": 1.3,
+  "palette": "cherry-blossom",
+  "mask": "heart",
+  "pins": [
+   {
+    "lat": 45.438,
+    "lon": 12.3358,
+    "icon": "heart"
+   }
+  ],
+  "pinColor": "#b3262e",
+  "pinScale": 1.6,
+  "w": 900,
+  "h": 1260,
+  "layout": "default"
+ },
+ {
+  "id": "o-valentine--it",
+  "place": "Venezia",
+  "country": "Dove ci siamo conosciuti",
   "lat": 45.4372,
   "lon": 12.333,
   "zoom": 1.3,
@@ -2914,6 +3828,50 @@
   "layout": "default"
  },
  {
+  "id": "o-memorial--pl",
+  "place": "Lizbona",
+  "country": "Na zawsze w naszych sercach",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "zoom": 1.3,
+  "palette": "mono",
+  "mask": "circle",
+  "pins": [
+   {
+    "lat": 38.7139,
+    "lon": -9.1394,
+    "icon": "star"
+   }
+  ],
+  "pinColor": "#9c7a3c",
+  "pinScale": 1.5,
+  "w": 900,
+  "h": 1260,
+  "layout": "default"
+ },
+ {
+  "id": "o-memorial--it",
+  "place": "Lisbona",
+  "country": "Per sempre nei nostri cuori",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "zoom": 1.3,
+  "palette": "mono",
+  "mask": "circle",
+  "pins": [
+   {
+    "lat": 38.7139,
+    "lon": -9.1394,
+    "icon": "star"
+   }
+  ],
+  "pinColor": "#9c7a3c",
+  "pinScale": 1.5,
+  "w": 900,
+  "h": 1260,
+  "layout": "default"
+ },
+ {
   "id": "n-the-hague",
   "place": "The Hague",
   "country": "Netherlands",
@@ -2972,6 +3930,28 @@
   "id": "n-the-hague--nb",
   "place": "Haag",
   "country": "Nederland",
+  "lat": 52.094,
+  "lon": 4.295,
+  "palette": "verdigris-dusk",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.85
+ },
+ {
+  "id": "n-the-hague--pl",
+  "place": "Haga",
+  "country": "Holandia",
+  "lat": 52.094,
+  "lon": 4.295,
+  "palette": "verdigris-dusk",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.85
+ },
+ {
+  "id": "n-the-hague--it",
+  "place": "L’Aia",
+  "country": "Paesi Bassi",
   "lat": 52.094,
   "lon": 4.295,
   "palette": "verdigris-dusk",
@@ -3046,6 +4026,28 @@
   "zoom": 1.2
  },
  {
+  "id": "n-eindhoven--pl",
+  "place": "Eindhoven",
+  "country": "Holandia",
+  "lat": 51.44,
+  "lon": 5.478,
+  "palette": "electric-midnight-glow",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-eindhoven--it",
+  "place": "Eindhoven",
+  "country": "Paesi Bassi",
+  "lat": 51.44,
+  "lon": 5.478,
+  "palette": "electric-midnight-glow",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "n-groningen",
   "place": "Groningen",
   "country": "Netherlands",
@@ -3104,6 +4106,28 @@
   "id": "n-groningen--nb",
   "place": "Groningen",
   "country": "Nederland",
+  "lat": 53.219,
+  "lon": 6.568,
+  "palette": "plum-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-groningen--pl",
+  "place": "Groningen",
+  "country": "Holandia",
+  "lat": 53.219,
+  "lon": 6.568,
+  "palette": "plum-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-groningen--it",
+  "place": "Groninga",
+  "country": "Paesi Bassi",
   "lat": 53.219,
   "lon": 6.568,
   "palette": "plum-velvet",
@@ -3178,6 +4202,28 @@
   "zoom": 1.2
  },
  {
+  "id": "n-tilburg--pl",
+  "place": "Tilburg",
+  "country": "Holandia",
+  "lat": 51.558,
+  "lon": 5.085,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-tilburg--it",
+  "place": "Tilburg",
+  "country": "Paesi Bassi",
+  "lat": 51.558,
+  "lon": 5.085,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "n-almere",
   "place": "Almere",
   "country": "Netherlands",
@@ -3231,6 +4277,26 @@
   "id": "n-almere--nb",
   "place": "Almere",
   "country": "Nederland",
+  "lat": 52.371,
+  "lon": 5.22,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-almere--pl",
+  "place": "Almere",
+  "country": "Holandia",
+  "lat": 52.371,
+  "lon": 5.22,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-almere--it",
+  "place": "Almere",
+  "country": "Paesi Bassi",
   "lat": 52.371,
   "lon": 5.22,
   "palette": "seafoam",
@@ -3296,6 +4362,28 @@
   "id": "n-breda--nb",
   "place": "Breda",
   "country": "Nederland",
+  "lat": 51.589,
+  "lon": 4.776,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-breda--pl",
+  "place": "Breda",
+  "country": "Holandia",
+  "lat": 51.589,
+  "lon": 4.776,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-breda--it",
+  "place": "Breda",
+  "country": "Paesi Bassi",
   "lat": 51.589,
   "lon": 4.776,
   "palette": "claret",
@@ -3370,6 +4458,28 @@
   "zoom": 1.3
  },
  {
+  "id": "n-nijmegen--pl",
+  "place": "Nijmegen",
+  "country": "Holandia",
+  "lat": 51.845,
+  "lon": 5.864,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "n-nijmegen--it",
+  "place": "Nimega",
+  "country": "Paesi Bassi",
+  "lat": 51.845,
+  "lon": 5.864,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "n-apeldoorn",
   "place": "Apeldoorn",
   "country": "Netherlands",
@@ -3428,6 +4538,28 @@
   "id": "n-apeldoorn--nb",
   "place": "Apeldoorn",
   "country": "Nederland",
+  "lat": 52.214,
+  "lon": 5.965,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-apeldoorn--pl",
+  "place": "Apeldoorn",
+  "country": "Holandia",
+  "lat": 52.214,
+  "lon": 5.965,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-apeldoorn--it",
+  "place": "Apeldoorn",
+  "country": "Paesi Bassi",
   "lat": 52.214,
   "lon": 5.965,
   "palette": "earth",
@@ -3502,6 +4634,28 @@
   "zoom": 1.2
  },
  {
+  "id": "n-arnhem--pl",
+  "place": "Arnhem",
+  "country": "Holandia",
+  "lat": 51.983,
+  "lon": 5.911,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-arnhem--it",
+  "place": "Arnhem",
+  "country": "Paesi Bassi",
+  "lat": 51.983,
+  "lon": 5.911,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "n-haarlem",
   "place": "Haarlem",
   "country": "Netherlands",
@@ -3560,6 +4714,28 @@
   "id": "n-haarlem--nb",
   "place": "Haarlem",
   "country": "Nederland",
+  "lat": 52.381,
+  "lon": 4.637,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-haarlem--pl",
+  "place": "Haarlem",
+  "country": "Holandia",
+  "lat": 52.381,
+  "lon": 4.637,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-haarlem--it",
+  "place": "Haarlem",
+  "country": "Paesi Bassi",
   "lat": 52.381,
   "lon": 4.637,
   "palette": "parchment-sepia",
@@ -3634,6 +4810,28 @@
   "zoom": 1.2
  },
  {
+  "id": "n-enschede--pl",
+  "place": "Enschede",
+  "country": "Holandia",
+  "lat": 52.221,
+  "lon": 6.894,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "n-enschede--it",
+  "place": "Enschede",
+  "country": "Paesi Bassi",
+  "lat": 52.221,
+  "lon": 6.894,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "n-amersfoort",
   "place": "Amersfoort",
   "country": "Netherlands",
@@ -3692,6 +4890,28 @@
   "id": "n-amersfoort--nb",
   "place": "Amersfoort",
   "country": "Nederland",
+  "lat": 52.156,
+  "lon": 5.388,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-amersfoort--pl",
+  "place": "Amersfoort",
+  "country": "Holandia",
+  "lat": 52.156,
+  "lon": 5.388,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-amersfoort--it",
+  "place": "Amersfoort",
+  "country": "Paesi Bassi",
   "lat": 52.156,
   "lon": 5.388,
   "palette": "sandstone-lagoon",
@@ -3766,6 +4986,28 @@
   "zoom": 1.5
  },
  {
+  "id": "n-den-bosch--pl",
+  "place": "Den Bosch",
+  "country": "Holandia",
+  "lat": 51.689,
+  "lon": 5.304,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-den-bosch--it",
+  "place": "Den Bosch",
+  "country": "Paesi Bassi",
+  "lat": 51.689,
+  "lon": 5.304,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
   "id": "n-zwolle",
   "place": "Zwolle",
   "country": "Netherlands",
@@ -3824,6 +5066,28 @@
   "id": "n-zwolle--nb",
   "place": "Zwolle",
   "country": "Nederland",
+  "lat": 52.512,
+  "lon": 6.094,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-zwolle--pl",
+  "place": "Zwolle",
+  "country": "Holandia",
+  "lat": 52.512,
+  "lon": 6.094,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-zwolle--it",
+  "place": "Zwolle",
+  "country": "Paesi Bassi",
   "lat": 52.512,
   "lon": 6.094,
   "palette": "steel-blue",
@@ -3898,6 +5162,28 @@
   "zoom": 1.6
  },
  {
+  "id": "n-leiden--pl",
+  "place": "Lejda",
+  "country": "Holandia",
+  "lat": 52.159,
+  "lon": 4.49,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
+  "id": "n-leiden--it",
+  "place": "Leida",
+  "country": "Paesi Bassi",
+  "lat": 52.159,
+  "lon": 4.49,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.6
+ },
+ {
   "id": "n-zoetermeer",
   "place": "Zoetermeer",
   "country": "Netherlands",
@@ -3951,6 +5237,26 @@
   "id": "n-zoetermeer--nb",
   "place": "Zoetermeer",
   "country": "Nederland",
+  "lat": 52.06,
+  "lon": 4.494,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-zoetermeer--pl",
+  "place": "Zoetermeer",
+  "country": "Holandia",
+  "lat": 52.06,
+  "lon": 4.494,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "n-zoetermeer--it",
+  "place": "Zoetermeer",
+  "country": "Paesi Bassi",
   "lat": 52.06,
   "lon": 4.494,
   "palette": "glacier-mist",
@@ -4016,6 +5322,28 @@
   "id": "n-leeuwarden--nb",
   "place": "Leeuwarden",
   "country": "Nederland",
+  "lat": 53.201,
+  "lon": 5.799,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-leeuwarden--pl",
+  "place": "Leeuwarden",
+  "country": "Holandia",
+  "lat": 53.201,
+  "lon": 5.799,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "n-leeuwarden--it",
+  "place": "Leeuwarden",
+  "country": "Paesi Bassi",
   "lat": 53.201,
   "lon": 5.799,
   "palette": "slate",
@@ -4090,6 +5418,28 @@
   "zoom": 1.4
  },
  {
+  "id": "n-maastricht--pl",
+  "place": "Maastricht",
+  "country": "Holandia",
+  "lat": 50.851,
+  "lon": 5.691,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "n-maastricht--it",
+  "place": "Maastricht",
+  "country": "Paesi Bassi",
+  "lat": 50.851,
+  "lon": 5.691,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
   "id": "n-dordrecht",
   "place": "Dordrecht",
   "country": "Netherlands",
@@ -4148,6 +5498,28 @@
   "id": "n-dordrecht--nb",
   "place": "Dordrecht",
   "country": "Nederland",
+  "lat": 51.813,
+  "lon": 4.67,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "n-dordrecht--pl",
+  "place": "Dordrecht",
+  "country": "Holandia",
+  "lat": 51.813,
+  "lon": 4.67,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "n-dordrecht--it",
+  "place": "Dordrecht",
+  "country": "Paesi Bassi",
   "lat": 51.813,
   "lon": 4.67,
   "palette": "chalk-harbor",
@@ -4222,6 +5594,28 @@
   "zoom": 1.7
  },
  {
+  "id": "n-delft--pl",
+  "place": "Delft",
+  "country": "Holandia",
+  "lat": 52.0115,
+  "lon": 4.359,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.7
+ },
+ {
+  "id": "n-delft--it",
+  "place": "Delft",
+  "country": "Paesi Bassi",
+  "lat": 52.0115,
+  "lon": 4.359,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.7
+ },
+ {
   "id": "w-los-angeles",
   "place": "Los Angeles",
   "country": "United States",
@@ -4280,6 +5674,28 @@
   "id": "w-los-angeles--nb",
   "place": "Los Angeles",
   "country": "USA",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "w-los-angeles--pl",
+  "place": "Los Angeles",
+  "country": "Stany Zjednoczone",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "w-los-angeles--it",
+  "place": "Los Angeles",
+  "country": "Stati Uniti",
   "lat": 34.0522,
   "lon": -118.2437,
   "palette": "sepia-noir",
@@ -4348,6 +5764,26 @@
   "h": 1680
  },
  {
+  "id": "w-chicago--pl",
+  "place": "Chicago",
+  "country": "Stany Zjednoczone",
+  "lat": 41.8838,
+  "lon": -87.632,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-chicago--it",
+  "place": "Chicago",
+  "country": "Stati Uniti",
+  "lat": 41.8838,
+  "lon": -87.632,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-houston",
   "place": "Houston",
   "country": "United States",
@@ -4406,6 +5842,28 @@
   "id": "w-houston--nb",
   "place": "Houston",
   "country": "USA",
+  "lat": 29.758,
+  "lon": -95.365,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-houston--pl",
+  "place": "Houston",
+  "country": "Stany Zjednoczone",
+  "lat": 29.758,
+  "lon": -95.365,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-houston--it",
+  "place": "Houston",
+  "country": "Stati Uniti",
   "lat": 29.758,
   "lon": -95.365,
   "palette": "graphite-gold",
@@ -4480,6 +5938,28 @@
   "zoom": 0.8
  },
  {
+  "id": "w-phoenix--pl",
+  "place": "Phoenix",
+  "country": "Stany Zjednoczone",
+  "lat": 33.4484,
+  "lon": -112.074,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "w-phoenix--it",
+  "place": "Phoenix",
+  "country": "Stati Uniti",
+  "lat": 33.4484,
+  "lon": -112.074,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
   "id": "w-philadelphia",
   "place": "Philadelphia",
   "country": "United States",
@@ -4533,6 +6013,26 @@
   "id": "w-philadelphia--nb",
   "place": "Philadelphia",
   "country": "USA",
+  "lat": 39.9526,
+  "lon": -75.1652,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-philadelphia--pl",
+  "place": "Filadelfia",
+  "country": "Stany Zjednoczone",
+  "lat": 39.9526,
+  "lon": -75.1652,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-philadelphia--it",
+  "place": "Filadelfia",
+  "country": "Stati Uniti",
   "lat": 39.9526,
   "lon": -75.1652,
   "palette": "claret",
@@ -4598,6 +6098,28 @@
   "id": "w-san-antonio--nb",
   "place": "San Antonio",
   "country": "USA",
+  "lat": 29.4241,
+  "lon": -98.4936,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-san-antonio--pl",
+  "place": "San Antonio",
+  "country": "Stany Zjednoczone",
+  "lat": 29.4241,
+  "lon": -98.4936,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-san-antonio--it",
+  "place": "San Antonio",
+  "country": "Stati Uniti",
   "lat": 29.4241,
   "lon": -98.4936,
   "palette": "clay-pot",
@@ -4672,6 +6194,28 @@
   "zoom": 0.9
  },
  {
+  "id": "w-san-diego--pl",
+  "place": "San Diego",
+  "country": "Stany Zjednoczone",
+  "lat": 32.7157,
+  "lon": -117.1611,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-san-diego--it",
+  "place": "San Diego",
+  "country": "Stati Uniti",
+  "lat": 32.7157,
+  "lon": -117.1611,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
   "id": "w-dallas",
   "place": "Dallas",
   "country": "United States",
@@ -4725,6 +6269,26 @@
   "id": "w-dallas--nb",
   "place": "Dallas",
   "country": "USA",
+  "lat": 32.779,
+  "lon": -96.8,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-dallas--pl",
+  "place": "Dallas",
+  "country": "Stany Zjednoczone",
+  "lat": 32.779,
+  "lon": -96.8,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-dallas--it",
+  "place": "Dallas",
+  "country": "Stati Uniti",
   "lat": 32.779,
   "lon": -96.8,
   "palette": "midnight-copper",
@@ -4790,6 +6354,28 @@
   "id": "w-jacksonville--nb",
   "place": "Jacksonville",
   "country": "USA",
+  "lat": 30.327,
+  "lon": -81.66,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-jacksonville--pl",
+  "place": "Jacksonville",
+  "country": "Stany Zjednoczone",
+  "lat": 30.327,
+  "lon": -81.66,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-jacksonville--it",
+  "place": "Jacksonville",
+  "country": "Stati Uniti",
   "lat": 30.327,
   "lon": -81.66,
   "palette": "deep-teal",
@@ -4864,6 +6450,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-austin--pl",
+  "place": "Austin",
+  "country": "Stany Zjednoczone",
+  "lat": 30.2672,
+  "lon": -97.7431,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-austin--it",
+  "place": "Austin",
+  "country": "Stati Uniti",
+  "lat": 30.2672,
+  "lon": -97.7431,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-fort-worth",
   "place": "Fort Worth",
   "country": "United States",
@@ -4917,6 +6525,26 @@
   "id": "w-fort-worth--nb",
   "place": "Fort Worth",
   "country": "USA",
+  "lat": 32.7555,
+  "lon": -97.3308,
+  "palette": "burnt-sienna-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-fort-worth--pl",
+  "place": "Fort Worth",
+  "country": "Stany Zjednoczone",
+  "lat": 32.7555,
+  "lon": -97.3308,
+  "palette": "burnt-sienna-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-fort-worth--it",
+  "place": "Fort Worth",
+  "country": "Stati Uniti",
   "lat": 32.7555,
   "lon": -97.3308,
   "palette": "burnt-sienna-noir",
@@ -4984,6 +6612,26 @@
   "h": 1680
  },
  {
+  "id": "w-san-jose--pl",
+  "place": "San Jose",
+  "country": "Stany Zjednoczone",
+  "lat": 37.3382,
+  "lon": -121.8863,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-san-jose--it",
+  "place": "San Jose",
+  "country": "Stati Uniti",
+  "lat": 37.3382,
+  "lon": -121.8863,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-columbus",
   "place": "Columbus",
   "country": "United States",
@@ -5037,6 +6685,26 @@
   "id": "w-columbus--nb",
   "place": "Columbus",
   "country": "USA",
+  "lat": 39.9612,
+  "lon": -82.9988,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-columbus--pl",
+  "place": "Columbus",
+  "country": "Stany Zjednoczone",
+  "lat": 39.9612,
+  "lon": -82.9988,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-columbus--it",
+  "place": "Columbus",
+  "country": "Stati Uniti",
   "lat": 39.9612,
   "lon": -82.9988,
   "palette": "old-navy",
@@ -5104,6 +6772,26 @@
   "h": 1680
  },
  {
+  "id": "w-charlotte--pl",
+  "place": "Charlotte",
+  "country": "Stany Zjednoczone",
+  "lat": 35.2271,
+  "lon": -80.8431,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-charlotte--it",
+  "place": "Charlotte",
+  "country": "Stati Uniti",
+  "lat": 35.2271,
+  "lon": -80.8431,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-indianapolis",
   "place": "Indianapolis",
   "country": "United States",
@@ -5157,6 +6845,26 @@
   "id": "w-indianapolis--nb",
   "place": "Indianapolis",
   "country": "USA",
+  "lat": 39.7684,
+  "lon": -86.1581,
+  "palette": "chalk-line",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-indianapolis--pl",
+  "place": "Indianapolis",
+  "country": "Stany Zjednoczone",
+  "lat": 39.7684,
+  "lon": -86.1581,
+  "palette": "chalk-line",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-indianapolis--it",
+  "place": "Indianapolis",
+  "country": "Stati Uniti",
   "lat": 39.7684,
   "lon": -86.1581,
   "palette": "chalk-line",
@@ -5230,6 +6938,28 @@
   "zoom": 0.9
  },
  {
+  "id": "w-seattle--pl",
+  "place": "Seattle",
+  "country": "Stany Zjednoczone",
+  "lat": 47.6062,
+  "lon": -122.3321,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-seattle--it",
+  "place": "Seattle",
+  "country": "Stati Uniti",
+  "lat": 47.6062,
+  "lon": -122.3321,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
   "id": "w-denver",
   "place": "Denver",
   "country": "United States",
@@ -5290,6 +7020,26 @@
   "h": 1680
  },
  {
+  "id": "w-denver--pl",
+  "place": "Denver",
+  "country": "Stany Zjednoczone",
+  "lat": 39.7392,
+  "lon": -104.9903,
+  "palette": "coal-dune",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-denver--it",
+  "place": "Denver",
+  "country": "Stati Uniti",
+  "lat": 39.7392,
+  "lon": -104.9903,
+  "palette": "coal-dune",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-oklahoma-city",
   "place": "Oklahoma City",
   "country": "United States",
@@ -5343,6 +7093,26 @@
   "id": "w-oklahoma-city--nb",
   "place": "Oklahoma City",
   "country": "USA",
+  "lat": 35.4676,
+  "lon": -97.5164,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-oklahoma-city--pl",
+  "place": "Oklahoma City",
+  "country": "Stany Zjednoczone",
+  "lat": 35.4676,
+  "lon": -97.5164,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-oklahoma-city--it",
+  "place": "Oklahoma City",
+  "country": "Stati Uniti",
   "lat": 35.4676,
   "lon": -97.5164,
   "palette": "earth",
@@ -5416,6 +7186,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-nashville--pl",
+  "place": "Nashville",
+  "country": "Stany Zjednoczone",
+  "lat": 36.1627,
+  "lon": -86.7816,
+  "palette": "royal-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-nashville--it",
+  "place": "Nashville",
+  "country": "Stati Uniti",
+  "lat": 36.1627,
+  "lon": -86.7816,
+  "palette": "royal-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-washington-dc",
   "place": "Washington",
   "country": "United States",
@@ -5469,6 +7261,26 @@
   "id": "w-washington-dc--nb",
   "place": "Washington",
   "country": "USA",
+  "lat": 38.8935,
+  "lon": -77.02,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-washington-dc--pl",
+  "place": "Washington",
+  "country": "Stany Zjednoczone",
+  "lat": 38.8935,
+  "lon": -77.02,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-washington-dc--it",
+  "place": "Washington",
+  "country": "Stati Uniti",
   "lat": 38.8935,
   "lon": -77.02,
   "palette": "parchment-sepia",
@@ -5536,6 +7348,26 @@
   "h": 1680
  },
  {
+  "id": "w-el-paso--pl",
+  "place": "El Paso",
+  "country": "Stany Zjednoczone",
+  "lat": 31.7619,
+  "lon": -106.485,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-el-paso--it",
+  "place": "El Paso",
+  "country": "Stati Uniti",
+  "lat": 31.7619,
+  "lon": -106.485,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-las-vegas",
   "place": "Las Vegas",
   "country": "United States",
@@ -5594,6 +7426,28 @@
   "id": "w-las-vegas--nb",
   "place": "Las Vegas",
   "country": "USA",
+  "lat": 36.1147,
+  "lon": -115.1728,
+  "palette": "neon-tokyo",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-las-vegas--pl",
+  "place": "Las Vegas",
+  "country": "Stany Zjednoczone",
+  "lat": 36.1147,
+  "lon": -115.1728,
+  "palette": "neon-tokyo",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-las-vegas--it",
+  "place": "Las Vegas",
+  "country": "Stati Uniti",
   "lat": 36.1147,
   "lon": -115.1728,
   "palette": "neon-tokyo",
@@ -5668,6 +7522,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-boston--pl",
+  "place": "Boston",
+  "country": "Stany Zjednoczone",
+  "lat": 42.3555,
+  "lon": -71.064,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-boston--it",
+  "place": "Boston",
+  "country": "Stati Uniti",
+  "lat": 42.3555,
+  "lon": -71.064,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-hamburg",
   "place": "Hamburg",
   "country": "Germany",
@@ -5726,6 +7602,28 @@
   "id": "w-hamburg--nb",
   "place": "Hamburg",
   "country": "Tyskland",
+  "lat": 53.553,
+  "lon": 9.992,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-hamburg--pl",
+  "place": "Hamburg",
+  "country": "Niemcy",
+  "lat": 53.553,
+  "lon": 9.992,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "w-hamburg--it",
+  "place": "Amburgo",
+  "country": "Germania",
   "lat": 53.553,
   "lon": 9.992,
   "palette": "old-navy",
@@ -5794,6 +7692,26 @@
   "h": 1680
  },
  {
+  "id": "w-munich--pl",
+  "place": "Monachium",
+  "country": "Niemcy",
+  "lat": 48.1374,
+  "lon": 11.5755,
+  "palette": "emerald-gold-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-munich--it",
+  "place": "Monaco di Baviera",
+  "country": "Germania",
+  "lat": 48.1374,
+  "lon": 11.5755,
+  "palette": "emerald-gold-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-cologne",
   "place": "Cologne",
   "country": "Germany",
@@ -5847,6 +7765,26 @@
   "id": "w-cologne--nb",
   "place": "Köln",
   "country": "Tyskland",
+  "lat": 50.9375,
+  "lon": 6.9603,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-cologne--pl",
+  "place": "Kolonia",
+  "country": "Niemcy",
+  "lat": 50.9375,
+  "lon": 6.9603,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-cologne--it",
+  "place": "Colonia",
+  "country": "Germania",
   "lat": 50.9375,
   "lon": 6.9603,
   "palette": "graphite-gold",
@@ -5914,6 +7852,26 @@
   "h": 1680
  },
  {
+  "id": "w-frankfurt--pl",
+  "place": "Frankfurt",
+  "country": "Niemcy",
+  "lat": 50.1109,
+  "lon": 8.6821,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-frankfurt--it",
+  "place": "Francoforte",
+  "country": "Germania",
+  "lat": 50.1109,
+  "lon": 8.6821,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-stuttgart",
   "place": "Stuttgart",
   "country": "Germany",
@@ -5967,6 +7925,26 @@
   "id": "w-stuttgart--nb",
   "place": "Stuttgart",
   "country": "Tyskland",
+  "lat": 48.7758,
+  "lon": 9.1829,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-stuttgart--pl",
+  "place": "Stuttgart",
+  "country": "Niemcy",
+  "lat": 48.7758,
+  "lon": 9.1829,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-stuttgart--it",
+  "place": "Stoccarda",
+  "country": "Germania",
   "lat": 48.7758,
   "lon": 9.1829,
   "palette": "woodland",
@@ -6034,6 +8012,26 @@
   "h": 1680
  },
  {
+  "id": "w-dusseldorf--pl",
+  "place": "Düsseldorf",
+  "country": "Niemcy",
+  "lat": 51.2254,
+  "lon": 6.7763,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-dusseldorf--it",
+  "place": "Düsseldorf",
+  "country": "Germania",
+  "lat": 51.2254,
+  "lon": 6.7763,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-leipzig",
   "place": "Leipzig",
   "country": "Germany",
@@ -6092,6 +8090,28 @@
   "id": "w-leipzig--nb",
   "place": "Leipzig",
   "country": "Tyskland",
+  "lat": 51.3397,
+  "lon": 12.3731,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-leipzig--pl",
+  "place": "Lipsk",
+  "country": "Niemcy",
+  "lat": 51.3397,
+  "lon": 12.3731,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-leipzig--it",
+  "place": "Lipsia",
+  "country": "Germania",
   "lat": 51.3397,
   "lon": 12.3731,
   "palette": "ash-rose",
@@ -6166,6 +8186,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-dortmund--pl",
+  "place": "Dortmund",
+  "country": "Niemcy",
+  "lat": 51.5136,
+  "lon": 7.4653,
+  "palette": "coal-dune",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-dortmund--it",
+  "place": "Dortmund",
+  "country": "Germania",
+  "lat": 51.5136,
+  "lon": 7.4653,
+  "palette": "coal-dune",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-essen",
   "place": "Essen",
   "country": "Germany",
@@ -6224,6 +8266,28 @@
   "id": "w-essen--nb",
   "place": "Essen",
   "country": "Tyskland",
+  "lat": 51.4556,
+  "lon": 7.0116,
+  "palette": "graphite-line",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-essen--pl",
+  "place": "Essen",
+  "country": "Niemcy",
+  "lat": 51.4556,
+  "lon": 7.0116,
+  "palette": "graphite-line",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-essen--it",
+  "place": "Essen",
+  "country": "Germania",
   "lat": 51.4556,
   "lon": 7.0116,
   "palette": "graphite-line",
@@ -6298,6 +8362,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bremen--pl",
+  "place": "Brema",
+  "country": "Niemcy",
+  "lat": 53.0793,
+  "lon": 8.8017,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bremen--it",
+  "place": "Brema",
+  "country": "Germania",
+  "lat": 53.0793,
+  "lon": 8.8017,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-dresden",
   "place": "Dresden",
   "country": "Germany",
@@ -6364,6 +8450,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-dresden--pl",
+  "place": "Drezno",
+  "country": "Niemcy",
+  "lat": 51.0504,
+  "lon": 13.7373,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-dresden--it",
+  "place": "Dresda",
+  "country": "Germania",
+  "lat": 51.0504,
+  "lon": 13.7373,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-hanover",
   "place": "Hanover",
   "country": "Germany",
@@ -6417,6 +8525,26 @@
   "id": "w-hanover--nb",
   "place": "Hannover",
   "country": "Tyskland",
+  "lat": 52.3759,
+  "lon": 9.732,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-hanover--pl",
+  "place": "Hanower",
+  "country": "Niemcy",
+  "lat": 52.3759,
+  "lon": 9.732,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-hanover--it",
+  "place": "Hannover",
+  "country": "Germania",
   "lat": 52.3759,
   "lon": 9.732,
   "palette": "forest-brass",
@@ -6490,6 +8618,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-nuremberg--pl",
+  "place": "Norymberga",
+  "country": "Niemcy",
+  "lat": 49.4521,
+  "lon": 11.0767,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-nuremberg--it",
+  "place": "Norimberga",
+  "country": "Germania",
+  "lat": 49.4521,
+  "lon": 11.0767,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-duisburg",
   "place": "Duisburg",
   "country": "Germany",
@@ -6543,6 +8693,26 @@
   "id": "w-duisburg--nb",
   "place": "Duisburg",
   "country": "Tyskland",
+  "lat": 51.4344,
+  "lon": 6.7623,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-duisburg--pl",
+  "place": "Duisburg",
+  "country": "Niemcy",
+  "lat": 51.4344,
+  "lon": 6.7623,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-duisburg--it",
+  "place": "Duisburg",
+  "country": "Germania",
   "lat": 51.4344,
   "lon": 6.7623,
   "palette": "graphite-harbor",
@@ -6616,6 +8786,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bochum--pl",
+  "place": "Bochum",
+  "country": "Niemcy",
+  "lat": 51.4818,
+  "lon": 7.2162,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bochum--it",
+  "place": "Bochum",
+  "country": "Germania",
+  "lat": 51.4818,
+  "lon": 7.2162,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-wuppertal",
   "place": "Wuppertal",
   "country": "Germany",
@@ -6669,6 +8861,26 @@
   "id": "w-wuppertal--nb",
   "place": "Wuppertal",
   "country": "Tyskland",
+  "lat": 51.2562,
+  "lon": 7.1508,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-wuppertal--pl",
+  "place": "Wuppertal",
+  "country": "Niemcy",
+  "lat": 51.2562,
+  "lon": 7.1508,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-wuppertal--it",
+  "place": "Wuppertal",
+  "country": "Germania",
   "lat": 51.2562,
   "lon": 7.1508,
   "palette": "glacier-mist",
@@ -6734,6 +8946,28 @@
   "id": "w-bielefeld--nb",
   "place": "Bielefeld",
   "country": "Tyskland",
+  "lat": 52.0302,
+  "lon": 8.5325,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bielefeld--pl",
+  "place": "Bielefeld",
+  "country": "Niemcy",
+  "lat": 52.0302,
+  "lon": 8.5325,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bielefeld--it",
+  "place": "Bielefeld",
+  "country": "Germania",
   "lat": 52.0302,
   "lon": 8.5325,
   "palette": "earth",
@@ -6808,6 +9042,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bonn--pl",
+  "place": "Bonn",
+  "country": "Niemcy",
+  "lat": 50.7374,
+  "lon": 7.0982,
+  "palette": "cherry-blossom",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bonn--it",
+  "place": "Bonn",
+  "country": "Germania",
+  "lat": 50.7374,
+  "lon": 7.0982,
+  "palette": "cherry-blossom",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-munster",
   "place": "Münster",
   "country": "Germany",
@@ -6866,6 +9122,28 @@
   "id": "w-munster--nb",
   "place": "Münster",
   "country": "Tyskland",
+  "lat": 51.9607,
+  "lon": 7.6261,
+  "palette": "verdigris-dusk",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-munster--pl",
+  "place": "Münster",
+  "country": "Niemcy",
+  "lat": 51.9607,
+  "lon": 7.6261,
+  "palette": "verdigris-dusk",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-munster--it",
+  "place": "Münster",
+  "country": "Germania",
   "lat": 51.9607,
   "lon": 7.6261,
   "palette": "verdigris-dusk",
@@ -6940,6 +9218,28 @@
   "zoom": 1.3
  },
  {
+  "id": "w-ghent--pl",
+  "place": "Gandawa",
+  "country": "Belgia",
+  "lat": 51.0543,
+  "lon": 3.7174,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-ghent--it",
+  "place": "Gand",
+  "country": "Belgio",
+  "lat": 51.0543,
+  "lon": 3.7174,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "w-charleroi",
   "place": "Charleroi",
   "country": "Belgium",
@@ -6998,6 +9298,28 @@
   "id": "w-charleroi--nb",
   "place": "Charleroi",
   "country": "Belgia",
+  "lat": 50.4108,
+  "lon": 4.4446,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-charleroi--pl",
+  "place": "Charleroi",
+  "country": "Belgia",
+  "lat": 50.4108,
+  "lon": 4.4446,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-charleroi--it",
+  "place": "Charleroi",
+  "country": "Belgio",
   "lat": 50.4108,
   "lon": 4.4446,
   "palette": "graphite-gold",
@@ -7072,6 +9394,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-liege--pl",
+  "place": "Liège",
+  "country": "Belgia",
+  "lat": 50.6326,
+  "lon": 5.5797,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-liege--it",
+  "place": "Liegi",
+  "country": "Belgio",
+  "lat": 50.6326,
+  "lon": 5.5797,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-brussels",
   "place": "Brussels",
   "country": "Belgium",
@@ -7130,6 +9474,28 @@
   "id": "w-brussels--nb",
   "place": "Brussel",
   "country": "Belgia",
+  "lat": 50.8467,
+  "lon": 4.3525,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-brussels--pl",
+  "place": "Bruksela",
+  "country": "Belgia",
+  "lat": 50.8467,
+  "lon": 4.3525,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-brussels--it",
+  "place": "Bruxelles",
+  "country": "Belgio",
   "lat": 50.8467,
   "lon": 4.3525,
   "palette": "bordeaux-gold",
@@ -7204,6 +9570,28 @@
   "zoom": 1.4
  },
  {
+  "id": "w-bruges--pl",
+  "place": "Brugia",
+  "country": "Belgia",
+  "lat": 51.2093,
+  "lon": 3.2247,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-bruges--it",
+  "place": "Bruges",
+  "country": "Belgio",
+  "lat": 51.2093,
+  "lon": 3.2247,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
   "id": "w-namur",
   "place": "Namur",
   "country": "Belgium",
@@ -7262,6 +9650,28 @@
   "id": "w-namur--nb",
   "place": "Namur",
   "country": "Belgia",
+  "lat": 50.4674,
+  "lon": 4.872,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-namur--pl",
+  "place": "Namur",
+  "country": "Belgia",
+  "lat": 50.4674,
+  "lon": 4.872,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-namur--it",
+  "place": "Namur",
+  "country": "Belgio",
   "lat": 50.4674,
   "lon": 4.872,
   "palette": "woodland",
@@ -7336,6 +9746,28 @@
   "zoom": 1.4
  },
  {
+  "id": "w-leuven--pl",
+  "place": "Lowanium",
+  "country": "Belgia",
+  "lat": 50.8798,
+  "lon": 4.7005,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-leuven--it",
+  "place": "Lovanio",
+  "country": "Belgio",
+  "lat": 50.8798,
+  "lon": 4.7005,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
   "id": "w-mons",
   "place": "Mons",
   "country": "Belgium",
@@ -7394,6 +9826,28 @@
   "id": "w-mons--nb",
   "place": "Mons",
   "country": "Belgia",
+  "lat": 50.4542,
+  "lon": 3.9523,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-mons--pl",
+  "place": "Mons",
+  "country": "Belgia",
+  "lat": 50.4542,
+  "lon": 3.9523,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-mons--it",
+  "place": "Mons",
+  "country": "Belgio",
   "lat": 50.4542,
   "lon": 3.9523,
   "palette": "bronze",
@@ -7468,6 +9922,28 @@
   "zoom": 1.5
  },
  {
+  "id": "w-aalst--pl",
+  "place": "Aalst",
+  "country": "Belgia",
+  "lat": 50.9378,
+  "lon": 4.04,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-aalst--it",
+  "place": "Aalst",
+  "country": "Belgio",
+  "lat": 50.9378,
+  "lon": 4.04,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
   "id": "w-mechelen",
   "place": "Mechelen",
   "country": "Belgium",
@@ -7526,6 +10002,28 @@
   "id": "w-mechelen--nb",
   "place": "Mechelen",
   "country": "Belgia",
+  "lat": 51.0259,
+  "lon": 4.4776,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-mechelen--pl",
+  "place": "Mechelen",
+  "country": "Belgia",
+  "lat": 51.0259,
+  "lon": 4.4776,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-mechelen--it",
+  "place": "Malines",
+  "country": "Belgio",
   "lat": 51.0259,
   "lon": 4.4776,
   "palette": "mint-etching",
@@ -7600,6 +10098,28 @@
   "zoom": 1.3
  },
  {
+  "id": "w-la-louviere--pl",
+  "place": "La Louvière",
+  "country": "Belgia",
+  "lat": 50.4786,
+  "lon": 4.1871,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-la-louviere--it",
+  "place": "La Louvière",
+  "country": "Belgio",
+  "lat": 50.4786,
+  "lon": 4.1871,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "w-hasselt",
   "place": "Hasselt",
   "country": "Belgium",
@@ -7658,6 +10178,28 @@
   "id": "w-hasselt--nb",
   "place": "Hasselt",
   "country": "Belgia",
+  "lat": 50.9307,
+  "lon": 5.3378,
+  "palette": "plum-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-hasselt--pl",
+  "place": "Hasselt",
+  "country": "Belgia",
+  "lat": 50.9307,
+  "lon": 5.3378,
+  "palette": "plum-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "w-hasselt--it",
+  "place": "Hasselt",
+  "country": "Belgio",
   "lat": 50.9307,
   "lon": 5.3378,
   "palette": "plum-velvet",
@@ -7732,6 +10274,28 @@
   "zoom": 1.4
  },
  {
+  "id": "w-kortrijk--pl",
+  "place": "Kortrijk",
+  "country": "Belgia",
+  "lat": 50.828,
+  "lon": 3.2649,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-kortrijk--it",
+  "place": "Courtrai",
+  "country": "Belgio",
+  "lat": 50.828,
+  "lon": 3.2649,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
   "id": "w-sint-niklaas",
   "place": "Sint-Niklaas",
   "country": "Belgium",
@@ -7790,6 +10354,28 @@
   "id": "w-sint-niklaas--nb",
   "place": "Sint-Niklaas",
   "country": "Belgia",
+  "lat": 51.165,
+  "lon": 4.1437,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-sint-niklaas--pl",
+  "place": "Sint-Niklaas",
+  "country": "Belgia",
+  "lat": 51.165,
+  "lon": 4.1437,
+  "palette": "earth",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-sint-niklaas--it",
+  "place": "Sint-Niklaas",
+  "country": "Belgio",
   "lat": 51.165,
   "lon": 4.1437,
   "palette": "earth",
@@ -7864,6 +10450,28 @@
   "zoom": 1.3
  },
  {
+  "id": "w-ostend--pl",
+  "place": "Ostenda",
+  "country": "Belgia",
+  "lat": 51.23,
+  "lon": 2.92,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-ostend--it",
+  "place": "Ostenda",
+  "country": "Belgio",
+  "lat": 51.23,
+  "lon": 2.92,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "w-tournai",
   "place": "Tournai",
   "country": "Belgium",
@@ -7922,6 +10530,28 @@
   "id": "w-tournai--nb",
   "place": "Tournai",
   "country": "Belgia",
+  "lat": 50.6056,
+  "lon": 3.388,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-tournai--pl",
+  "place": "Tournai",
+  "country": "Belgia",
+  "lat": 50.6056,
+  "lon": 3.388,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-tournai--it",
+  "place": "Tournai",
+  "country": "Belgio",
   "lat": 50.6056,
   "lon": 3.388,
   "palette": "sepia-noir",
@@ -7996,6 +10626,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-genk--pl",
+  "place": "Genk",
+  "country": "Belgia",
+  "lat": 50.965,
+  "lon": 5.5,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-genk--it",
+  "place": "Genk",
+  "country": "Belgio",
+  "lat": 50.965,
+  "lon": 5.5,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-seraing",
   "place": "Seraing",
   "country": "Belgium",
@@ -8054,6 +10706,28 @@
   "id": "w-seraing--nb",
   "place": "Seraing",
   "country": "Belgia",
+  "lat": 50.5833,
+  "lon": 5.5,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-seraing--pl",
+  "place": "Seraing",
+  "country": "Belgia",
+  "lat": 50.5833,
+  "lon": 5.5,
+  "palette": "graphite-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-seraing--it",
+  "place": "Seraing",
+  "country": "Belgio",
   "lat": 50.5833,
   "lon": 5.5,
   "palette": "graphite-harbor",
@@ -8128,6 +10802,28 @@
   "zoom": 1.4
  },
  {
+  "id": "w-roeselare--pl",
+  "place": "Roeselare",
+  "country": "Belgia",
+  "lat": 50.9465,
+  "lon": 3.1226,
+  "palette": "chalk-line",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "w-roeselare--it",
+  "place": "Roeselare",
+  "country": "Belgio",
+  "lat": 50.9465,
+  "lon": 3.1226,
+  "palette": "chalk-line",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
   "id": "w-marseille",
   "place": "Marseille",
   "country": "France",
@@ -8181,6 +10877,26 @@
   "id": "w-marseille--nb",
   "place": "Marseille",
   "country": "Frankrike",
+  "lat": 43.2965,
+  "lon": 5.3698,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-marseille--pl",
+  "place": "Marsylia",
+  "country": "Francja",
+  "lat": 43.2965,
+  "lon": 5.3698,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-marseille--it",
+  "place": "Marsiglia",
+  "country": "Francia",
   "lat": 43.2965,
   "lon": 5.3698,
   "palette": "lagoon",
@@ -8248,6 +10964,26 @@
   "h": 1680
  },
  {
+  "id": "w-lyon--pl",
+  "place": "Lyon",
+  "country": "Francja",
+  "lat": 45.76,
+  "lon": 4.8357,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-lyon--it",
+  "place": "Lione",
+  "country": "Francia",
+  "lat": 45.76,
+  "lon": 4.8357,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-toulouse",
   "place": "Toulouse",
   "country": "France",
@@ -8306,6 +11042,28 @@
   "id": "w-toulouse--nb",
   "place": "Toulouse",
   "country": "Frankrike",
+  "lat": 43.6045,
+  "lon": 1.444,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-toulouse--pl",
+  "place": "Tuluza",
+  "country": "Francja",
+  "lat": 43.6045,
+  "lon": 1.444,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-toulouse--it",
+  "place": "Tolosa",
+  "country": "Francia",
   "lat": 43.6045,
   "lon": 1.444,
   "palette": "terracotta-sun",
@@ -8380,6 +11138,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-nice--pl",
+  "place": "Nicea",
+  "country": "Francja",
+  "lat": 43.699,
+  "lon": 7.27,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-nice--it",
+  "place": "Nizza",
+  "country": "Francia",
+  "lat": 43.699,
+  "lon": 7.27,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-nantes",
   "place": "Nantes",
   "country": "France",
@@ -8433,6 +11213,26 @@
   "id": "w-nantes--nb",
   "place": "Nantes",
   "country": "Frankrike",
+  "lat": 47.213,
+  "lon": -1.556,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-nantes--pl",
+  "place": "Nantes",
+  "country": "Francja",
+  "lat": 47.213,
+  "lon": -1.556,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-nantes--it",
+  "place": "Nantes",
+  "country": "Francia",
   "lat": 47.213,
   "lon": -1.556,
   "palette": "deep-teal",
@@ -8498,6 +11298,28 @@
   "id": "w-montpellier--nb",
   "place": "Montpellier",
   "country": "Frankrike",
+  "lat": 43.61,
+  "lon": 3.877,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-montpellier--pl",
+  "place": "Montpellier",
+  "country": "Francja",
+  "lat": 43.61,
+  "lon": 3.877,
+  "palette": "sandstone-lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-montpellier--it",
+  "place": "Montpellier",
+  "country": "Francia",
   "lat": 43.61,
   "lon": 3.877,
   "palette": "sandstone-lagoon",
@@ -8572,6 +11394,28 @@
   "zoom": 1.3
  },
  {
+  "id": "w-strasbourg--pl",
+  "place": "Strasburg",
+  "country": "Francja",
+  "lat": 48.58,
+  "lon": 7.75,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-strasbourg--it",
+  "place": "Strasburgo",
+  "country": "Francia",
+  "lat": 48.58,
+  "lon": 7.75,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "w-bordeaux",
   "place": "Bordeaux",
   "country": "France",
@@ -8625,6 +11469,26 @@
   "id": "w-bordeaux--nb",
   "place": "Bordeaux",
   "country": "Frankrike",
+  "lat": 44.84,
+  "lon": -0.57,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-bordeaux--pl",
+  "place": "Bordeaux",
+  "country": "Francja",
+  "lat": 44.84,
+  "lon": -0.57,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-bordeaux--it",
+  "place": "Bordeaux",
+  "country": "Francia",
   "lat": 44.84,
   "lon": -0.57,
   "palette": "claret",
@@ -8690,6 +11554,28 @@
   "id": "w-lille--nb",
   "place": "Lille",
   "country": "Frankrike",
+  "lat": 50.633,
+  "lon": 3.06,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-lille--pl",
+  "place": "Lille",
+  "country": "Francja",
+  "lat": 50.633,
+  "lon": 3.06,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-lille--it",
+  "place": "Lille",
+  "country": "Francia",
   "lat": 50.633,
   "lon": 3.06,
   "palette": "cobalt",
@@ -8764,6 +11650,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-rennes--pl",
+  "place": "Rennes",
+  "country": "Francja",
+  "lat": 48.111,
+  "lon": -1.68,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-rennes--it",
+  "place": "Rennes",
+  "country": "Francia",
+  "lat": 48.111,
+  "lon": -1.68,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-toulon",
   "place": "Toulon",
   "country": "France",
@@ -8822,6 +11730,28 @@
   "id": "w-toulon--nb",
   "place": "Toulon",
   "country": "Frankrike",
+  "lat": 43.1242,
+  "lon": 5.928,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-toulon--pl",
+  "place": "Toulon",
+  "country": "Francja",
+  "lat": 43.1242,
+  "lon": 5.928,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-toulon--it",
+  "place": "Toulon",
+  "country": "Francia",
   "lat": 43.1242,
   "lon": 5.928,
   "palette": "steel-blue",
@@ -8896,6 +11826,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-reims--pl",
+  "place": "Reims",
+  "country": "Francja",
+  "lat": 49.255,
+  "lon": 4.034,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-reims--it",
+  "place": "Reims",
+  "country": "Francia",
+  "lat": 49.255,
+  "lon": 4.034,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-saint-etienne",
   "place": "Saint-Étienne",
   "country": "France",
@@ -8954,6 +11906,28 @@
   "id": "w-saint-etienne--nb",
   "place": "Saint-Étienne",
   "country": "Frankrike",
+  "lat": 45.4397,
+  "lon": 4.3872,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-saint-etienne--pl",
+  "place": "Saint-Étienne",
+  "country": "Francja",
+  "lat": 45.4397,
+  "lon": 4.3872,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-saint-etienne--it",
+  "place": "Saint-Étienne",
+  "country": "Francia",
   "lat": 45.4397,
   "lon": 4.3872,
   "palette": "graphite-gold",
@@ -9028,6 +12002,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-le-havre--pl",
+  "place": "Le Havre",
+  "country": "Francja",
+  "lat": 49.4944,
+  "lon": 0.1079,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-le-havre--it",
+  "place": "Le Havre",
+  "country": "Francia",
+  "lat": 49.4944,
+  "lon": 0.1079,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-dijon",
   "place": "Dijon",
   "country": "France",
@@ -9086,6 +12082,28 @@
   "id": "w-dijon--nb",
   "place": "Dijon",
   "country": "Frankrike",
+  "lat": 47.322,
+  "lon": 5.041,
+  "palette": "mint-chocolate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-dijon--pl",
+  "place": "Dijon",
+  "country": "Francja",
+  "lat": 47.322,
+  "lon": 5.041,
+  "palette": "mint-chocolate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-dijon--it",
+  "place": "Dijon",
+  "country": "Francia",
   "lat": 47.322,
   "lon": 5.041,
   "palette": "mint-chocolate",
@@ -9160,6 +12178,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-grenoble--pl",
+  "place": "Grenoble",
+  "country": "Francja",
+  "lat": 45.1885,
+  "lon": 5.7245,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-grenoble--it",
+  "place": "Grenoble",
+  "country": "Francia",
+  "lat": 45.1885,
+  "lon": 5.7245,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-angers",
   "place": "Angers",
   "country": "France",
@@ -9218,6 +12258,28 @@
   "id": "w-angers--nb",
   "place": "Angers",
   "country": "Frankrike",
+  "lat": 47.472,
+  "lon": -0.552,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-angers--pl",
+  "place": "Angers",
+  "country": "Francja",
+  "lat": 47.472,
+  "lon": -0.552,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-angers--it",
+  "place": "Angers",
+  "country": "Francia",
   "lat": 47.472,
   "lon": -0.552,
   "palette": "slate",
@@ -9292,6 +12354,28 @@
   "zoom": 1.3
  },
  {
+  "id": "w-nimes--pl",
+  "place": "Nîmes",
+  "country": "Francja",
+  "lat": 43.838,
+  "lon": 4.36,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-nimes--it",
+  "place": "Nîmes",
+  "country": "Francia",
+  "lat": 43.838,
+  "lon": 4.36,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "w-clermont-ferrand",
   "place": "Clermont-Ferrand",
   "country": "France",
@@ -9350,6 +12434,28 @@
   "id": "w-clermont-ferrand--nb",
   "place": "Clermont-Ferrand",
   "country": "Frankrike",
+  "lat": 45.7772,
+  "lon": 3.087,
+  "palette": "coal-dune",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-clermont-ferrand--pl",
+  "place": "Clermont-Ferrand",
+  "country": "Francja",
+  "lat": 45.7772,
+  "lon": 3.087,
+  "palette": "coal-dune",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-clermont-ferrand--it",
+  "place": "Clermont-Ferrand",
+  "country": "Francia",
   "lat": 45.7772,
   "lon": 3.087,
   "palette": "coal-dune",
@@ -9418,6 +12524,26 @@
   "h": 1680
  },
  {
+  "id": "w-birmingham--pl",
+  "place": "Birmingham",
+  "country": "Wielka Brytania",
+  "lat": 52.4796,
+  "lon": -1.9026,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-birmingham--it",
+  "place": "Birmingham",
+  "country": "Regno Unito",
+  "lat": 52.4796,
+  "lon": -1.9026,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-glasgow",
   "place": "Glasgow",
   "country": "United Kingdom",
@@ -9478,6 +12604,26 @@
   "h": 1680
  },
  {
+  "id": "w-glasgow--pl",
+  "place": "Glasgow",
+  "country": "Wielka Brytania",
+  "lat": 55.8609,
+  "lon": -4.2514,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-glasgow--it",
+  "place": "Glasgow",
+  "country": "Regno Unito",
+  "lat": 55.8609,
+  "lon": -4.2514,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-liverpool",
   "place": "Liverpool",
   "country": "United Kingdom",
@@ -9531,6 +12677,26 @@
   "id": "w-liverpool--nb",
   "place": "Liverpool",
   "country": "Storbritannia",
+  "lat": 53.405,
+  "lon": -2.985,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-liverpool--pl",
+  "place": "Liverpool",
+  "country": "Wielka Brytania",
+  "lat": 53.405,
+  "lon": -2.985,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-liverpool--it",
+  "place": "Liverpool",
+  "country": "Regno Unito",
   "lat": 53.405,
   "lon": -2.985,
   "palette": "deep-teal",
@@ -9604,6 +12770,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bristol--pl",
+  "place": "Bristol",
+  "country": "Wielka Brytania",
+  "lat": 51.453,
+  "lon": -2.595,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bristol--it",
+  "place": "Bristol",
+  "country": "Regno Unito",
+  "lat": 51.453,
+  "lon": -2.595,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-manchester",
   "place": "Manchester",
   "country": "United Kingdom",
@@ -9657,6 +12845,26 @@
   "id": "w-manchester--nb",
   "place": "Manchester",
   "country": "Storbritannia",
+  "lat": 53.4794,
+  "lon": -2.2453,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-manchester--pl",
+  "place": "Manchester",
+  "country": "Wielka Brytania",
+  "lat": 53.4794,
+  "lon": -2.2453,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-manchester--it",
+  "place": "Manchester",
+  "country": "Regno Unito",
   "lat": 53.4794,
   "lon": -2.2453,
   "palette": "graphite-gold",
@@ -9724,6 +12932,26 @@
   "h": 1680
  },
  {
+  "id": "w-sheffield--pl",
+  "place": "Sheffield",
+  "country": "Wielka Brytania",
+  "lat": 53.3811,
+  "lon": -1.4701,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-sheffield--it",
+  "place": "Sheffield",
+  "country": "Regno Unito",
+  "lat": 53.3811,
+  "lon": -1.4701,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-leeds",
   "place": "Leeds",
   "country": "United Kingdom",
@@ -9777,6 +13005,26 @@
   "id": "w-leeds--nb",
   "place": "Leeds",
   "country": "Storbritannia",
+  "lat": 53.798,
+  "lon": -1.544,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-leeds--pl",
+  "place": "Leeds",
+  "country": "Wielka Brytania",
+  "lat": 53.798,
+  "lon": -1.544,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-leeds--it",
+  "place": "Leeds",
+  "country": "Regno Unito",
   "lat": 53.798,
   "lon": -1.544,
   "palette": "claret",
@@ -9842,6 +13090,28 @@
   "id": "w-edinburgh--nb",
   "place": "Edinburgh",
   "country": "Storbritannia",
+  "lat": 55.952,
+  "lon": -3.19,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-edinburgh--pl",
+  "place": "Edynburg",
+  "country": "Wielka Brytania",
+  "lat": 55.952,
+  "lon": -3.19,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-edinburgh--it",
+  "place": "Edimburgo",
+  "country": "Regno Unito",
   "lat": 55.952,
   "lon": -3.19,
   "palette": "slate",
@@ -9916,6 +13186,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-leicester--pl",
+  "place": "Leicester",
+  "country": "Wielka Brytania",
+  "lat": 52.634,
+  "lon": -1.133,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-leicester--it",
+  "place": "Leicester",
+  "country": "Regno Unito",
+  "lat": 52.634,
+  "lon": -1.133,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-coventry",
   "place": "Coventry",
   "country": "United Kingdom",
@@ -9974,6 +13266,28 @@
   "id": "w-coventry--nb",
   "place": "Coventry",
   "country": "Storbritannia",
+  "lat": 52.408,
+  "lon": -1.51,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-coventry--pl",
+  "place": "Coventry",
+  "country": "Wielka Brytania",
+  "lat": 52.408,
+  "lon": -1.51,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-coventry--it",
+  "place": "Coventry",
+  "country": "Regno Unito",
   "lat": 52.408,
   "lon": -1.51,
   "palette": "ash-rose",
@@ -10048,6 +13362,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bradford--pl",
+  "place": "Bradford",
+  "country": "Wielka Brytania",
+  "lat": 53.794,
+  "lon": -1.752,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bradford--it",
+  "place": "Bradford",
+  "country": "Regno Unito",
+  "lat": 53.794,
+  "lon": -1.752,
+  "palette": "clay-pot",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-cardiff",
   "place": "Cardiff",
   "country": "United Kingdom",
@@ -10101,6 +13437,26 @@
   "id": "w-cardiff--nb",
   "place": "Cardiff",
   "country": "Storbritannia",
+  "lat": 51.48,
+  "lon": -3.179,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-cardiff--pl",
+  "place": "Cardiff",
+  "country": "Wielka Brytania",
+  "lat": 51.48,
+  "lon": -3.179,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-cardiff--it",
+  "place": "Cardiff",
+  "country": "Regno Unito",
   "lat": 51.48,
   "lon": -3.179,
   "palette": "emerald-city",
@@ -10168,6 +13524,26 @@
   "h": 1680
  },
  {
+  "id": "w-belfast--pl",
+  "place": "Belfast",
+  "country": "Wielka Brytania",
+  "lat": 54.597,
+  "lon": -5.93,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-belfast--it",
+  "place": "Belfast",
+  "country": "Regno Unito",
+  "lat": 54.597,
+  "lon": -5.93,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-nottingham",
   "place": "Nottingham",
   "country": "United Kingdom",
@@ -10226,6 +13602,28 @@
   "id": "w-nottingham--nb",
   "place": "Nottingham",
   "country": "Storbritannia",
+  "lat": 52.953,
+  "lon": -1.15,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-nottingham--pl",
+  "place": "Nottingham",
+  "country": "Wielka Brytania",
+  "lat": 52.953,
+  "lon": -1.15,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-nottingham--it",
+  "place": "Nottingham",
+  "country": "Regno Unito",
   "lat": 52.953,
   "lon": -1.15,
   "palette": "forest-brass",
@@ -10300,6 +13698,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-hull--pl",
+  "place": "Hull",
+  "country": "Wielka Brytania",
+  "lat": 53.744,
+  "lon": -0.332,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-hull--it",
+  "place": "Hull",
+  "country": "Regno Unito",
+  "lat": 53.744,
+  "lon": -0.332,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-newcastle",
   "place": "Newcastle",
   "country": "United Kingdom",
@@ -10353,6 +13773,26 @@
   "id": "w-newcastle--nb",
   "place": "Newcastle",
   "country": "Storbritannia",
+  "lat": 54.972,
+  "lon": -1.61,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-newcastle--pl",
+  "place": "Newcastle",
+  "country": "Wielka Brytania",
+  "lat": 54.972,
+  "lon": -1.61,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-newcastle--it",
+  "place": "Newcastle",
+  "country": "Regno Unito",
   "lat": 54.972,
   "lon": -1.61,
   "palette": "cobalt",
@@ -10420,6 +13860,26 @@
   "h": 1680
  },
  {
+  "id": "w-stoke-on-trent--pl",
+  "place": "Stoke-on-Trent",
+  "country": "Wielka Brytania",
+  "lat": 53.025,
+  "lon": -2.175,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-stoke-on-trent--it",
+  "place": "Stoke-on-Trent",
+  "country": "Regno Unito",
+  "lat": 53.025,
+  "lon": -2.175,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-southampton",
   "place": "Southampton",
   "country": "United Kingdom",
@@ -10478,6 +13938,28 @@
   "id": "w-southampton--nb",
   "place": "Southampton",
   "country": "Storbritannia",
+  "lat": 50.905,
+  "lon": -1.404,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-southampton--pl",
+  "place": "Southampton",
+  "country": "Wielka Brytania",
+  "lat": 50.905,
+  "lon": -1.404,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-southampton--it",
+  "place": "Southampton",
+  "country": "Regno Unito",
   "lat": 50.905,
   "lon": -1.404,
   "palette": "lagoon",
@@ -10552,6 +14034,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-derby--pl",
+  "place": "Derby",
+  "country": "Wielka Brytania",
+  "lat": 52.922,
+  "lon": -1.476,
+  "palette": "mint-chocolate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-derby--it",
+  "place": "Derby",
+  "country": "Regno Unito",
+  "lat": 52.922,
+  "lon": -1.476,
+  "palette": "mint-chocolate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "z-oslo-warmup",
   "place": "Oslo",
   "country": "Noorwegen",
@@ -10615,6 +14119,26 @@
   "id": "w-oslo--nb",
   "place": "Oslo",
   "country": "Norge",
+  "lat": 59.9127,
+  "lon": 10.7461,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-oslo--pl",
+  "place": "Oslo",
+  "country": "Norwegia",
+  "lat": 59.9127,
+  "lon": 10.7461,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-oslo--it",
+  "place": "Oslo",
+  "country": "Norvegia",
   "lat": 59.9127,
   "lon": 10.7461,
   "palette": "deep-teal",
@@ -10698,6 +14222,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bergen--pl",
+  "place": "Bergen",
+  "country": "Norwegia",
+  "lat": 60.393,
+  "lon": 5.3241,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bergen--it",
+  "place": "Bergen",
+  "country": "Norvegia",
+  "lat": 60.393,
+  "lon": 5.3241,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-trondheim",
   "place": "Trondheim",
   "country": "Norway",
@@ -10756,6 +14302,28 @@
   "id": "w-trondheim--nb",
   "place": "Trondheim",
   "country": "Norge",
+  "lat": 63.4305,
+  "lon": 10.3951,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-trondheim--pl",
+  "place": "Trondheim",
+  "country": "Norwegia",
+  "lat": 63.4305,
+  "lon": 10.3951,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-trondheim--it",
+  "place": "Trondheim",
+  "country": "Norvegia",
   "lat": 63.4305,
   "lon": 10.3951,
   "palette": "claret",
@@ -10830,6 +14398,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-stavanger--pl",
+  "place": "Stavanger",
+  "country": "Norwegia",
+  "lat": 58.97,
+  "lon": 5.7331,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-stavanger--it",
+  "place": "Stavanger",
+  "country": "Norvegia",
+  "lat": 58.97,
+  "lon": 5.7331,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-drammen",
   "place": "Drammen",
   "country": "Norway",
@@ -10888,6 +14478,28 @@
   "id": "w-drammen--nb",
   "place": "Drammen",
   "country": "Norge",
+  "lat": 59.7439,
+  "lon": 10.2045,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-drammen--pl",
+  "place": "Drammen",
+  "country": "Norwegia",
+  "lat": 59.7439,
+  "lon": 10.2045,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-drammen--it",
+  "place": "Drammen",
+  "country": "Norvegia",
   "lat": 59.7439,
   "lon": 10.2045,
   "palette": "steel-blue",
@@ -10962,6 +14574,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-fredrikstad--pl",
+  "place": "Fredrikstad",
+  "country": "Norwegia",
+  "lat": 59.2181,
+  "lon": 10.9298,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-fredrikstad--it",
+  "place": "Fredrikstad",
+  "country": "Norvegia",
+  "lat": 59.2181,
+  "lon": 10.9298,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-kristiansand",
   "place": "Kristiansand",
   "country": "Norway",
@@ -11020,6 +14654,28 @@
   "id": "w-kristiansand--nb",
   "place": "Kristiansand",
   "country": "Norge",
+  "lat": 58.1467,
+  "lon": 7.9956,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-kristiansand--pl",
+  "place": "Kristiansand",
+  "country": "Norwegia",
+  "lat": 58.1467,
+  "lon": 7.9956,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-kristiansand--it",
+  "place": "Kristiansand",
+  "country": "Norvegia",
   "lat": 58.1467,
   "lon": 7.9956,
   "palette": "lagoon",
@@ -11094,6 +14750,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-sandnes--pl",
+  "place": "Sandnes",
+  "country": "Norwegia",
+  "lat": 58.8517,
+  "lon": 5.735,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-sandnes--it",
+  "place": "Sandnes",
+  "country": "Norvegia",
+  "lat": 58.8517,
+  "lon": 5.735,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-tromso",
   "place": "Tromsø",
   "country": "Norway",
@@ -11152,6 +14830,28 @@
   "id": "w-tromso--nb",
   "place": "Tromsø",
   "country": "Norge",
+  "lat": 69.6492,
+  "lon": 18.9553,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-tromso--pl",
+  "place": "Tromsø",
+  "country": "Norwegia",
+  "lat": 69.6492,
+  "lon": 18.9553,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-tromso--it",
+  "place": "Tromsø",
+  "country": "Norvegia",
   "lat": 69.6492,
   "lon": 18.9553,
   "palette": "midnight-copper",
@@ -11226,6 +14926,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-sarpsborg--pl",
+  "place": "Sarpsborg",
+  "country": "Norwegia",
+  "lat": 59.284,
+  "lon": 11.1096,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-sarpsborg--it",
+  "place": "Sarpsborg",
+  "country": "Norvegia",
+  "lat": 59.284,
+  "lon": 11.1096,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-skien",
   "place": "Skien",
   "country": "Norway",
@@ -11284,6 +15006,28 @@
   "id": "w-skien--nb",
   "place": "Skien",
   "country": "Norge",
+  "lat": 59.2096,
+  "lon": 9.609,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-skien--pl",
+  "place": "Skien",
+  "country": "Norwegia",
+  "lat": 59.2096,
+  "lon": 9.609,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-skien--it",
+  "place": "Skien",
+  "country": "Norvegia",
   "lat": 59.2096,
   "lon": 9.609,
   "palette": "sepia-noir",
@@ -11358,6 +15102,28 @@
   "zoom": 2.2
  },
  {
+  "id": "w-alesund--pl",
+  "place": "Ålesund",
+  "country": "Norwegia",
+  "lat": 62.4728,
+  "lon": 6.152,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 2.2
+ },
+ {
+  "id": "w-alesund--it",
+  "place": "Ålesund",
+  "country": "Norvegia",
+  "lat": 62.4728,
+  "lon": 6.152,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 2.2
+ },
+ {
   "id": "w-sandefjord",
   "place": "Sandefjord",
   "country": "Norway",
@@ -11416,6 +15182,28 @@
   "id": "w-sandefjord--nb",
   "place": "Sandefjord",
   "country": "Norge",
+  "lat": 59.1312,
+  "lon": 10.2167,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-sandefjord--pl",
+  "place": "Sandefjord",
+  "country": "Norwegia",
+  "lat": 59.1312,
+  "lon": 10.2167,
+  "palette": "bordeaux-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-sandefjord--it",
+  "place": "Sandefjord",
+  "country": "Norvegia",
   "lat": 59.1312,
   "lon": 10.2167,
   "palette": "bordeaux-gold",
@@ -11490,6 +15278,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-haugesund--pl",
+  "place": "Haugesund",
+  "country": "Norwegia",
+  "lat": 59.4138,
+  "lon": 5.268,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-haugesund--it",
+  "place": "Haugesund",
+  "country": "Norvegia",
+  "lat": 59.4138,
+  "lon": 5.268,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-tonsberg",
   "place": "Tønsberg",
   "country": "Norway",
@@ -11548,6 +15358,28 @@
   "id": "w-tonsberg--nb",
   "place": "Tønsberg",
   "country": "Norge",
+  "lat": 59.2675,
+  "lon": 10.4076,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-tonsberg--pl",
+  "place": "Tønsberg",
+  "country": "Norwegia",
+  "lat": 59.2675,
+  "lon": 10.4076,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-tonsberg--it",
+  "place": "Tønsberg",
+  "country": "Norvegia",
   "lat": 59.2675,
   "lon": 10.4076,
   "palette": "ash-rose",
@@ -11622,6 +15454,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-moss--pl",
+  "place": "Moss",
+  "country": "Norwegia",
+  "lat": 59.434,
+  "lon": 10.6577,
+  "palette": "mint-chocolate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-moss--it",
+  "place": "Moss",
+  "country": "Norvegia",
+  "lat": 59.434,
+  "lon": 10.6577,
+  "palette": "mint-chocolate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-porsgrunn",
   "place": "Porsgrunn",
   "country": "Norway",
@@ -11680,6 +15534,28 @@
   "id": "w-porsgrunn--nb",
   "place": "Porsgrunn",
   "country": "Norge",
+  "lat": 59.1405,
+  "lon": 9.6561,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-porsgrunn--pl",
+  "place": "Porsgrunn",
+  "country": "Norwegia",
+  "lat": 59.1405,
+  "lon": 9.6561,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-porsgrunn--it",
+  "place": "Porsgrunn",
+  "country": "Norvegia",
   "lat": 59.1405,
   "lon": 9.6561,
   "palette": "graphite-gold",
@@ -11754,6 +15630,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-bodo--pl",
+  "place": "Bodø",
+  "country": "Norwegia",
+  "lat": 67.2804,
+  "lon": 14.4049,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-bodo--it",
+  "place": "Bodø",
+  "country": "Norvegia",
+  "lat": 67.2804,
+  "lon": 14.4049,
+  "palette": "mint-etching",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-arendal",
   "place": "Arendal",
   "country": "Norway",
@@ -11820,6 +15718,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-arendal--pl",
+  "place": "Arendal",
+  "country": "Norwegia",
+  "lat": 58.4615,
+  "lon": 8.7724,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-arendal--it",
+  "place": "Arendal",
+  "country": "Norvegia",
+  "lat": 58.4615,
+  "lon": 8.7724,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-hamar",
   "place": "Hamar",
   "country": "Norway",
@@ -11878,6 +15798,28 @@
   "id": "w-hamar--nb",
   "place": "Hamar",
   "country": "Norge",
+  "lat": 60.7945,
+  "lon": 11.068,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-hamar--pl",
+  "place": "Hamar",
+  "country": "Norwegia",
+  "lat": 60.7945,
+  "lon": 11.068,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-hamar--it",
+  "place": "Hamar",
+  "country": "Norvegia",
   "lat": 60.7945,
   "lon": 11.068,
   "palette": "emerald-city",
@@ -11956,6 +15898,26 @@
   "h": 1680
  },
  {
+  "id": "w-stockholm--pl",
+  "place": "Sztokholm",
+  "country": "Szwecja",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-stockholm--it",
+  "place": "Stoccolma",
+  "country": "Svezia",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "deep-teal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "w-gothenburg",
   "place": "Gothenburg",
   "country": "Sweden",
@@ -12009,6 +15971,26 @@
   "id": "w-gothenburg--nb",
   "place": "Göteborg",
   "country": "Sverige",
+  "lat": 57.7089,
+  "lon": 11.9746,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-gothenburg--pl",
+  "place": "Göteborg",
+  "country": "Szwecja",
+  "lat": 57.7089,
+  "lon": 11.9746,
+  "palette": "old-navy",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "w-gothenburg--it",
+  "place": "Göteborg",
+  "country": "Svezia",
   "lat": 57.7089,
   "lon": 11.9746,
   "palette": "old-navy",
@@ -12074,6 +16056,28 @@
   "id": "w-malmo--nb",
   "place": "Malmö",
   "country": "Sverige",
+  "lat": 55.605,
+  "lon": 13.0038,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-malmo--pl",
+  "place": "Malmö",
+  "country": "Szwecja",
+  "lat": 55.605,
+  "lon": 13.0038,
+  "palette": "steel-blue",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-malmo--it",
+  "place": "Malmö",
+  "country": "Svezia",
   "lat": 55.605,
   "lon": 13.0038,
   "palette": "steel-blue",
@@ -12148,6 +16152,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-uppsala--pl",
+  "place": "Uppsala",
+  "country": "Szwecja",
+  "lat": 59.8586,
+  "lon": 17.6389,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-uppsala--it",
+  "place": "Uppsala",
+  "country": "Svezia",
+  "lat": 59.8586,
+  "lon": 17.6389,
+  "palette": "claret",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-vasteras",
   "place": "Västerås",
   "country": "Sweden",
@@ -12206,6 +16232,28 @@
   "id": "w-vasteras--nb",
   "place": "Västerås",
   "country": "Sverige",
+  "lat": 59.6099,
+  "lon": 16.5448,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-vasteras--pl",
+  "place": "Västerås",
+  "country": "Szwecja",
+  "lat": 59.6099,
+  "lon": 16.5448,
+  "palette": "lagoon",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-vasteras--it",
+  "place": "Västerås",
+  "country": "Svezia",
   "lat": 59.6099,
   "lon": 16.5448,
   "palette": "lagoon",
@@ -12280,6 +16328,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-orebro--pl",
+  "place": "Örebro",
+  "country": "Szwecja",
+  "lat": 59.2753,
+  "lon": 15.2134,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-orebro--it",
+  "place": "Örebro",
+  "country": "Svezia",
+  "lat": 59.2753,
+  "lon": 15.2134,
+  "palette": "forest-brass",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-linkoping",
   "place": "Linköping",
   "country": "Sweden",
@@ -12338,6 +16408,28 @@
   "id": "w-linkoping--nb",
   "place": "Linköping",
   "country": "Sverige",
+  "lat": 58.4108,
+  "lon": 15.6214,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-linkoping--pl",
+  "place": "Linköping",
+  "country": "Szwecja",
+  "lat": 58.4108,
+  "lon": 15.6214,
+  "palette": "slate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-linkoping--it",
+  "place": "Linköping",
+  "country": "Svezia",
   "lat": 58.4108,
   "lon": 15.6214,
   "palette": "slate",
@@ -12412,6 +16504,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-helsingborg--pl",
+  "place": "Helsingborg",
+  "country": "Szwecja",
+  "lat": 56.048,
+  "lon": 12.7,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-helsingborg--it",
+  "place": "Helsingborg",
+  "country": "Svezia",
+  "lat": 56.048,
+  "lon": 12.7,
+  "palette": "chalk-harbor",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-jonkoping",
   "place": "Jönköping",
   "country": "Sweden",
@@ -12470,6 +16584,28 @@
   "id": "w-jonkoping--nb",
   "place": "Jönköping",
   "country": "Sverige",
+  "lat": 57.7815,
+  "lon": 14.165,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-jonkoping--pl",
+  "place": "Jönköping",
+  "country": "Szwecja",
+  "lat": 57.7815,
+  "lon": 14.165,
+  "palette": "cobalt",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-jonkoping--it",
+  "place": "Jönköping",
+  "country": "Svezia",
   "lat": 57.7815,
   "lon": 14.165,
   "palette": "cobalt",
@@ -12544,6 +16680,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-norrkoping--pl",
+  "place": "Norrköping",
+  "country": "Szwecja",
+  "lat": 58.5877,
+  "lon": 16.1924,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-norrkoping--it",
+  "place": "Norrköping",
+  "country": "Svezia",
+  "lat": 58.5877,
+  "lon": 16.1924,
+  "palette": "graphite-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-lund",
   "place": "Lund",
   "country": "Sweden",
@@ -12602,6 +16760,28 @@
   "id": "w-lund--nb",
   "place": "Lund",
   "country": "Sverige",
+  "lat": 55.7047,
+  "lon": 13.191,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-lund--pl",
+  "place": "Lund",
+  "country": "Szwecja",
+  "lat": 55.7047,
+  "lon": 13.191,
+  "palette": "parchment-sepia",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "w-lund--it",
+  "place": "Lund",
+  "country": "Svezia",
   "lat": 55.7047,
   "lon": 13.191,
   "palette": "parchment-sepia",
@@ -12676,6 +16856,28 @@
   "zoom": 1.1
  },
  {
+  "id": "w-umea--pl",
+  "place": "Umeå",
+  "country": "Szwecja",
+  "lat": 63.8258,
+  "lon": 20.263,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "w-umea--it",
+  "place": "Umeå",
+  "country": "Svezia",
+  "lat": 63.8258,
+  "lon": 20.263,
+  "palette": "glacier-mist",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "w-gavle",
   "place": "Gävle",
   "country": "Sweden",
@@ -12734,6 +16936,28 @@
   "id": "w-gavle--nb",
   "place": "Gävle",
   "country": "Sverige",
+  "lat": 60.6749,
+  "lon": 17.1413,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-gavle--pl",
+  "place": "Gävle",
+  "country": "Szwecja",
+  "lat": 60.6749,
+  "lon": 17.1413,
+  "palette": "midnight-copper",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-gavle--it",
+  "place": "Gävle",
+  "country": "Svezia",
   "lat": 60.6749,
   "lon": 17.1413,
   "palette": "midnight-copper",
@@ -12808,6 +17032,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-boras--pl",
+  "place": "Borås",
+  "country": "Szwecja",
+  "lat": 57.721,
+  "lon": 12.9401,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-boras--it",
+  "place": "Borås",
+  "country": "Svezia",
+  "lat": 57.721,
+  "lon": 12.9401,
+  "palette": "woodland",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-sodertalje",
   "place": "Södertälje",
   "country": "Sweden",
@@ -12866,6 +17112,28 @@
   "id": "w-sodertalje--nb",
   "place": "Södertälje",
   "country": "Sverige",
+  "lat": 59.1955,
+  "lon": 17.6253,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-sodertalje--pl",
+  "place": "Södertälje",
+  "country": "Szwecja",
+  "lat": 59.1955,
+  "lon": 17.6253,
+  "palette": "emerald-city",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-sodertalje--it",
+  "place": "Södertälje",
+  "country": "Svezia",
   "lat": 59.1955,
   "lon": 17.6253,
   "palette": "emerald-city",
@@ -12940,6 +17208,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-eskilstuna--pl",
+  "place": "Eskilstuna",
+  "country": "Szwecja",
+  "lat": 59.3666,
+  "lon": 16.5077,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-eskilstuna--it",
+  "place": "Eskilstuna",
+  "country": "Svezia",
+  "lat": 59.3666,
+  "lon": 16.5077,
+  "palette": "sepia-noir",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-halmstad",
   "place": "Halmstad",
   "country": "Sweden",
@@ -12998,6 +17288,28 @@
   "id": "w-halmstad--nb",
   "place": "Halmstad",
   "country": "Sverige",
+  "lat": 56.6745,
+  "lon": 12.8578,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-halmstad--pl",
+  "place": "Halmstad",
+  "country": "Szwecja",
+  "lat": 56.6745,
+  "lon": 12.8578,
+  "palette": "terracotta-sun",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-halmstad--it",
+  "place": "Halmstad",
+  "country": "Svezia",
   "lat": 56.6745,
   "lon": 12.8578,
   "palette": "terracotta-sun",
@@ -13072,6 +17384,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-vaxjo--pl",
+  "place": "Växjö",
+  "country": "Szwecja",
+  "lat": 56.8777,
+  "lon": 14.8091,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-vaxjo--it",
+  "place": "Växjö",
+  "country": "Svezia",
+  "lat": 56.8777,
+  "lon": 14.8091,
+  "palette": "seafoam",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-karlstad",
   "place": "Karlstad",
   "country": "Sweden",
@@ -13138,6 +17472,28 @@
   "zoom": 1.2
  },
  {
+  "id": "w-karlstad--pl",
+  "place": "Karlstad",
+  "country": "Szwecja",
+  "lat": 59.3793,
+  "lon": 13.5036,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-karlstad--it",
+  "place": "Karlstad",
+  "country": "Svezia",
+  "lat": 59.3793,
+  "lon": 13.5036,
+  "palette": "bronze",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
   "id": "w-sundsvall",
   "place": "Sundsvall",
   "country": "Sweden",
@@ -13196,6 +17552,28 @@
   "id": "w-sundsvall--nb",
   "place": "Sundsvall",
   "country": "Sverige",
+  "lat": 62.3908,
+  "lon": 17.3069,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-sundsvall--pl",
+  "place": "Sundsvall",
+  "country": "Szwecja",
+  "lat": 62.3908,
+  "lon": 17.3069,
+  "palette": "ash-rose",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.2
+ },
+ {
+  "id": "w-sundsvall--it",
+  "place": "Sundsvall",
+  "country": "Svezia",
   "lat": 62.3908,
   "lon": 17.3069,
   "palette": "ash-rose",
@@ -15809,6 +20187,28 @@
   "orientation": "landscape"
  },
  {
+  "id": "l-copenhagen--pl",
+  "place": "Kopenhaga",
+  "country": "Dania",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
+  "id": "l-copenhagen--it",
+  "place": "Copenaghen",
+  "country": "Danimarca",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "deep-teal",
+  "w": 1680,
+  "h": 1200,
+  "orientation": "landscape"
+ },
+ {
   "id": "v-paris",
   "place": "Paris",
   "country": "France",
@@ -15871,6 +20271,28 @@
   "h": 1680
  },
  {
+  "id": "v-paris--pl",
+  "place": "Paryż",
+  "country": "Francja",
+  "lat": 48.8576,
+  "lon": 2.3448,
+  "palette": "sunset-boulevard",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
+  "id": "v-paris--it",
+  "place": "Parigi",
+  "country": "Francia",
+  "lat": 48.8576,
+  "lon": 2.3448,
+  "palette": "sunset-boulevard",
+  "w": 1200,
+  "h": 1680,
+  "retry": 1
+ },
+ {
   "id": "v-london",
   "place": "London",
   "country": "United Kingdom",
@@ -15925,6 +20347,26 @@
   "id": "v-london--nb",
   "place": "London",
   "country": "Storbritannia",
+  "lat": 51.509,
+  "lon": -0.11,
+  "palette": "lapis-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-london--pl",
+  "place": "Londyn",
+  "country": "Wielka Brytania",
+  "lat": 51.509,
+  "lon": -0.11,
+  "palette": "lapis-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-london--it",
+  "place": "Londra",
+  "country": "Regno Unito",
   "lat": 51.509,
   "lon": -0.11,
   "palette": "lapis-gold",
@@ -15992,6 +20434,26 @@
   "h": 1680
  },
  {
+  "id": "v-new-york--pl",
+  "place": "Nowy Jork",
+  "country": "Stany Zjednoczone",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "midnight-ember",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-new-york--it",
+  "place": "New York",
+  "country": "Stati Uniti",
+  "lat": 40.7484,
+  "lon": -73.9857,
+  "palette": "midnight-ember",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-rome",
   "place": "Rome",
   "country": "Italy",
@@ -16044,6 +20506,26 @@
  },
  {
   "id": "v-rome--nb",
+  "place": "Roma",
+  "country": "Italia",
+  "lat": 41.8986,
+  "lon": 12.4769,
+  "palette": "tuscan-sunset",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-rome--pl",
+  "place": "Rzym",
+  "country": "Włochy",
+  "lat": 41.8986,
+  "lon": 12.4769,
+  "palette": "tuscan-sunset",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-rome--it",
   "place": "Roma",
   "country": "Italia",
   "lat": 41.8986,
@@ -16114,6 +20596,26 @@
   "h": 1680
  },
  {
+  "id": "v-barcelona--pl",
+  "place": "Barcelona",
+  "country": "Hiszpania",
+  "lat": 41.391,
+  "lon": 2.17,
+  "palette": "desert-mirage",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-barcelona--it",
+  "place": "Barcellona",
+  "country": "Spagna",
+  "lat": 41.391,
+  "lon": 2.17,
+  "palette": "desert-mirage",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-lisbon",
   "place": "Lisbon",
   "country": "Portugal",
@@ -16167,6 +20669,26 @@
   "id": "v-lisbon--nb",
   "place": "Lisboa",
   "country": "Portugal",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-lisbon--pl",
+  "place": "Lizbona",
+  "country": "Portugalia",
+  "lat": 38.7139,
+  "lon": -9.1394,
+  "palette": "golden-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-lisbon--it",
+  "place": "Lisbona",
+  "country": "Portogallo",
   "lat": 38.7139,
   "lon": -9.1394,
   "palette": "golden-dusk",
@@ -16241,6 +20763,28 @@
   "zoom": 1.35
  },
  {
+  "id": "v-venice--pl",
+  "place": "Wenecja",
+  "country": "Włochy",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "palette": "rose-hour",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.35
+ },
+ {
+  "id": "v-venice--it",
+  "place": "Venezia",
+  "country": "Italia",
+  "lat": 45.4372,
+  "lon": 12.333,
+  "palette": "rose-hour",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.35
+ },
+ {
   "id": "v-prague",
   "place": "Prague",
   "country": "Czech Republic",
@@ -16295,6 +20839,26 @@
   "id": "v-prague--nb",
   "place": "Praha",
   "country": "Tsjekkia",
+  "lat": 50.0865,
+  "lon": 14.4185,
+  "palette": "amethyst-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-prague--pl",
+  "place": "Praga",
+  "country": "Czechy",
+  "lat": 50.0865,
+  "lon": 14.4185,
+  "palette": "amethyst-gold",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-prague--it",
+  "place": "Praga",
+  "country": "Repubblica Ceca",
   "lat": 50.0865,
   "lon": 14.4185,
   "palette": "amethyst-gold",
@@ -16363,6 +20927,26 @@
   "h": 1680
  },
  {
+  "id": "v-vienna--pl",
+  "place": "Wiedeń",
+  "country": "Austria",
+  "lat": 48.207,
+  "lon": 16.369,
+  "palette": "champagne-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-vienna--it",
+  "place": "Vienna",
+  "country": "Austria",
+  "lat": 48.207,
+  "lon": 16.369,
+  "palette": "champagne-dusk",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-berlin",
   "place": "Berlin",
   "country": "Germany",
@@ -16417,6 +21001,26 @@
   "id": "v-berlin--nb",
   "place": "Berlin",
   "country": "Tyskland",
+  "lat": 52.517,
+  "lon": 13.395,
+  "palette": "twilight-bloom",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-berlin--pl",
+  "place": "Berlin",
+  "country": "Niemcy",
+  "lat": 52.517,
+  "lon": 13.395,
+  "palette": "twilight-bloom",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-berlin--it",
+  "place": "Berlino",
+  "country": "Germania",
   "lat": 52.517,
   "lon": 13.395,
   "palette": "twilight-bloom",
@@ -16484,6 +21088,26 @@
   "h": 1680
  },
  {
+  "id": "v-madrid--pl",
+  "place": "Madrid",
+  "country": "Hiszpania",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "cherry-cola",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-madrid--it",
+  "place": "Madrid",
+  "country": "Spagna",
+  "lat": 40.418,
+  "lon": -3.7,
+  "palette": "cherry-cola",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-stockholm",
   "place": "Stockholm",
   "country": "Sweden",
@@ -16538,6 +21162,26 @@
   "place": "Stockholm",
   "country": "Sverige",
   "lat": 59.3293,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-stockholm--pl",
+  "place": "Sztokholm",
+  "country": "Szwecja",
+  "lat": 59.3294,
+  "lon": 18.0686,
+  "palette": "northern-lights",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-stockholm--it",
+  "place": "Stoccolma",
+  "country": "Svezia",
+  "lat": 59.3294,
   "lon": 18.0686,
   "palette": "northern-lights",
   "w": 1200,
@@ -16604,6 +21248,26 @@
   "h": 1680
  },
  {
+  "id": "v-oslo--pl",
+  "place": "Oslo",
+  "country": "Norwegia",
+  "lat": 59.9127,
+  "lon": 10.7461,
+  "palette": "marigold-night",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-oslo--it",
+  "place": "Oslo",
+  "country": "Norvegia",
+  "lat": 59.9127,
+  "lon": 10.7461,
+  "palette": "marigold-night",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-san-francisco",
   "place": "San Francisco",
   "country": "United States",
@@ -16657,6 +21321,26 @@
   "id": "v-san-francisco--nb",
   "place": "San Francisco",
   "country": "USA",
+  "lat": 37.7793,
+  "lon": -122.4193,
+  "palette": "velvet-flame",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-san-francisco--pl",
+  "place": "San Francisco",
+  "country": "Stany Zjednoczone",
+  "lat": 37.7793,
+  "lon": -122.4193,
+  "palette": "velvet-flame",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-san-francisco--it",
+  "place": "San Francisco",
+  "country": "Stati Uniti",
   "lat": 37.7793,
   "lon": -122.4193,
   "palette": "velvet-flame",
@@ -16730,6 +21414,28 @@
   "zoom": 1.1
  },
  {
+  "id": "v-edinburgh--pl",
+  "place": "Edynburg",
+  "country": "Wielka Brytania",
+  "lat": 55.952,
+  "lon": -3.19,
+  "palette": "forest-mist",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "v-edinburgh--it",
+  "place": "Edimburgo",
+  "country": "Regno Unito",
+  "lat": 55.952,
+  "lon": -3.19,
+  "palette": "forest-mist",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "v-brussels",
   "place": "Brussels",
   "country": "Belgium",
@@ -16788,6 +21494,28 @@
   "id": "v-brussels--nb",
   "place": "Brussel",
   "country": "Belgia",
+  "lat": 50.8467,
+  "lon": 4.3525,
+  "palette": "golden-wine",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "v-brussels--pl",
+  "place": "Bruksela",
+  "country": "Belgia",
+  "lat": 50.8467,
+  "lon": 4.3525,
+  "palette": "golden-wine",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "v-brussels--it",
+  "place": "Bruxelles",
+  "country": "Belgio",
   "lat": 50.8467,
   "lon": 4.3525,
   "palette": "golden-wine",
@@ -16863,6 +21591,28 @@
   "zoom": 1.3
  },
  {
+  "id": "v-antwerp--pl",
+  "place": "Antwerpia",
+  "country": "Belgia",
+  "lat": 51.2205,
+  "lon": 4.4005,
+  "palette": "pomegranate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "v-antwerp--it",
+  "place": "Anversa",
+  "country": "Belgio",
+  "lat": 51.2205,
+  "lon": 4.4005,
+  "palette": "pomegranate",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "v-los-angeles",
   "place": "Los Angeles",
   "country": "United States",
@@ -16921,6 +21671,28 @@
   "id": "v-los-angeles--nb",
   "place": "Los Angeles",
   "country": "USA",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "v-los-angeles--pl",
+  "place": "Los Angeles",
+  "country": "Stany Zjednoczone",
+  "lat": 34.0522,
+  "lon": -118.2437,
+  "palette": "ocean-drive",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.8
+ },
+ {
+  "id": "v-los-angeles--it",
+  "place": "Los Angeles",
+  "country": "Stati Uniti",
   "lat": 34.0522,
   "lon": -118.2437,
   "palette": "ocean-drive",
@@ -16989,6 +21761,26 @@
   "h": 1680
  },
  {
+  "id": "v-munich--pl",
+  "place": "Monachium",
+  "country": "Niemcy",
+  "lat": 48.1374,
+  "lon": 11.5755,
+  "palette": "olive-leaf",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-munich--it",
+  "place": "Monaco di Baviera",
+  "country": "Germania",
+  "lat": 48.1374,
+  "lon": 11.5755,
+  "palette": "olive-leaf",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-hamburg",
   "place": "Hamburg",
   "country": "Germany",
@@ -17047,6 +21839,28 @@
   "id": "v-hamburg--nb",
   "place": "Hamburg",
   "country": "Tyskland",
+  "lat": 53.553,
+  "lon": 9.992,
+  "palette": "sapphire-night",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "v-hamburg--pl",
+  "place": "Hamburg",
+  "country": "Niemcy",
+  "lat": 53.553,
+  "lon": 9.992,
+  "palette": "sapphire-night",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "v-hamburg--it",
+  "place": "Amburgo",
+  "country": "Germania",
   "lat": 53.553,
   "lon": 9.992,
   "palette": "sapphire-night",
@@ -17121,6 +21935,28 @@
   "zoom": 1.1
  },
  {
+  "id": "v-nice--pl",
+  "place": "Nicea",
+  "country": "Francja",
+  "lat": 43.699,
+  "lon": 7.27,
+  "palette": "raspberry-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
+  "id": "v-nice--it",
+  "place": "Nizza",
+  "country": "Francia",
+  "lat": 43.699,
+  "lon": 7.27,
+  "palette": "raspberry-velvet",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.1
+ },
+ {
   "id": "v-cologne",
   "place": "Cologne",
   "country": "Germany",
@@ -17174,6 +22010,26 @@
   "id": "v-cologne--nb",
   "place": "Köln",
   "country": "Tyskland",
+  "lat": 50.9375,
+  "lon": 6.9603,
+  "palette": "rose-gold-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-cologne--pl",
+  "place": "Kolonia",
+  "country": "Niemcy",
+  "lat": 50.9375,
+  "lon": 6.9603,
+  "palette": "rose-gold-noir",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-cologne--it",
+  "place": "Colonia",
+  "country": "Germania",
   "lat": 50.9375,
   "lon": 6.9603,
   "palette": "rose-gold-noir",
@@ -17242,6 +22098,26 @@
   "h": 1680
  },
  {
+  "id": "v-amsterdam--pl",
+  "place": "Amsterdam",
+  "country": "Holandia",
+  "lat": 52.3702,
+  "lon": 4.8952,
+  "palette": "golden-hour",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-amsterdam--it",
+  "place": "Amsterdam",
+  "country": "Paesi Bassi",
+  "lat": 52.3702,
+  "lon": 4.8952,
+  "palette": "golden-hour",
+  "w": 1200,
+  "h": 1680
+ },
+ {
   "id": "v-rotterdam",
   "place": "Rotterdam",
   "country": "Netherlands",
@@ -17296,6 +22172,26 @@
   "id": "v-rotterdam--nb",
   "place": "Rotterdam",
   "country": "Nederland",
+  "lat": 51.918,
+  "lon": 4.483,
+  "palette": "fire-opal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-rotterdam--pl",
+  "place": "Rotterdam",
+  "country": "Holandia",
+  "lat": 51.918,
+  "lon": 4.483,
+  "palette": "fire-opal",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-rotterdam--it",
+  "place": "Rotterdam",
+  "country": "Paesi Bassi",
   "lat": 51.918,
   "lon": 4.483,
   "palette": "fire-opal",
@@ -17361,6 +22257,28 @@
   "id": "v-the-hague--nb",
   "place": "Haag",
   "country": "Nederland",
+  "lat": 52.094,
+  "lon": 4.295,
+  "palette": "plum-orchard",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.85
+ },
+ {
+  "id": "v-the-hague--pl",
+  "place": "Haga",
+  "country": "Holandia",
+  "lat": 52.094,
+  "lon": 4.295,
+  "palette": "plum-orchard",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.85
+ },
+ {
+  "id": "v-the-hague--it",
+  "place": "L’Aia",
+  "country": "Paesi Bassi",
   "lat": 52.094,
   "lon": 4.295,
   "palette": "plum-orchard",
@@ -17436,6 +22354,28 @@
   "zoom": 1.5
  },
  {
+  "id": "v-utrecht--pl",
+  "place": "Utrecht",
+  "country": "Holandia",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "palette": "berry-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
+  "id": "v-utrecht--it",
+  "place": "Utrecht",
+  "country": "Paesi Bassi",
+  "lat": 52.0907,
+  "lon": 5.1214,
+  "palette": "berry-gold",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.5
+ },
+ {
   "id": "v-bruges",
   "place": "Bruges",
   "country": "Belgium",
@@ -17494,6 +22434,28 @@
   "id": "v-bruges--nb",
   "place": "Brugge",
   "country": "Belgia",
+  "lat": 51.2093,
+  "lon": 3.2247,
+  "palette": "amber-halo",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "v-bruges--pl",
+  "place": "Brugia",
+  "country": "Belgia",
+  "lat": 51.2093,
+  "lon": 3.2247,
+  "palette": "amber-halo",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.4
+ },
+ {
+  "id": "v-bruges--it",
+  "place": "Bruges",
+  "country": "Belgio",
   "lat": 51.2093,
   "lon": 3.2247,
   "palette": "amber-halo",
@@ -17568,6 +22530,28 @@
   "zoom": 1.3
  },
  {
+  "id": "v-ghent--pl",
+  "place": "Gandawa",
+  "country": "Belgia",
+  "lat": 51.0543,
+  "lon": 3.7174,
+  "palette": "emerald-halo",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
+  "id": "v-ghent--it",
+  "place": "Gand",
+  "country": "Belgio",
+  "lat": 51.0543,
+  "lon": 3.7174,
+  "palette": "emerald-halo",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 1.3
+ },
+ {
   "id": "v-copenhagen",
   "place": "Copenhagen",
   "country": "Denmark",
@@ -17621,6 +22605,26 @@
   "id": "v-copenhagen--nb",
   "place": "København",
   "country": "Danmark",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "iris-bay",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-copenhagen--pl",
+  "place": "Kopenhaga",
+  "country": "Dania",
+  "lat": 55.6786,
+  "lon": 12.5753,
+  "palette": "iris-bay",
+  "w": 1200,
+  "h": 1680
+ },
+ {
+  "id": "v-copenhagen--it",
+  "place": "Copenaghen",
+  "country": "Danimarca",
   "lat": 55.6786,
   "lon": 12.5753,
   "palette": "iris-bay",
@@ -17686,6 +22690,28 @@
   "id": "v-las-vegas--nb",
   "place": "Las Vegas",
   "country": "USA",
+  "lat": 36.1147,
+  "lon": -115.1728,
+  "palette": "tropical-dusk",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "v-las-vegas--pl",
+  "place": "Las Vegas",
+  "country": "Stany Zjednoczone",
+  "lat": 36.1147,
+  "lon": -115.1728,
+  "palette": "tropical-dusk",
+  "w": 1200,
+  "h": 1680,
+  "zoom": 0.9
+ },
+ {
+  "id": "v-las-vegas--it",
+  "place": "Las Vegas",
+  "country": "Stati Uniti",
   "lat": 36.1147,
   "lon": -115.1728,
   "palette": "tropical-dusk",
