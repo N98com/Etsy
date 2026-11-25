@@ -25,7 +25,7 @@ SHIPPING_POLICY="""<h2>Frais de livraison</h2>
 <h2>Adresse de livraison</h2>
 <p>Vérifiez soigneusement votre adresse de livraison. Si un colis ne peut pas être livré parce que l’adresse était incomplète ou erronée, contactez-nous et nous trouverons une solution ensemble.</p>""",
 TERMS_OF_SERVICE=f"""<h2>1. Qui sommes-nous</h2>
-<p>Les présentes conditions s’appliquent à toute commande passée sur n98maps.com. N°98 Maps est un nom commercial de N°98. Nos coordonnées d’entreprise, dont notre numéro d’immatriculation à la Chambre de commerce néerlandaise (KvK), figurent sur notre page d’informations de contact.</p>
+<p>Les présentes conditions s’appliquent à toute commande passée sur n98maps.com. N°98 Maps est immatriculée à la Chambre de commerce néerlandaise (KvK) sous le numéro 42231154. Toutes nos coordonnées d’entreprise figurent sur notre page d’informations de contact.</p>
 <h2>2. Votre design</h2>
 <p>Vous créez vous-même votre carte dans notre outil de design. Avant de commander, vérifiez attentivement dans l’aperçu le lieu, le texte, les noms, les dates et l’orthographe. Nous imprimons exactement le design que vous validez. Les données cartographiques proviennent de sources ouvertes et peuvent contenir de petites imprécisions ou ne pas être à jour ; il ne s’agit pas d’un défaut.</p>
 <h2>3. Votre texte</h2>

@@ -25,7 +25,7 @@ SHIPPING_POLICY="""<h2>Verzendkosten</h2>
 <h2>Afleveradres</h2>
 <p>Controleer je afleveradres zorgvuldig. Kan een pakket niet worden bezorgd omdat het adres onvolledig of onjuist was? Neem dan contact met ons op, dan zoeken we samen naar een oplossing.</p>""",
 TERMS_OF_SERVICE=f"""<h2>1. Over ons</h2>
-<p>Deze voorwaarden gelden voor elke bestelling op n98maps.com. N°98 Maps is een handelsnaam van N°98. Onze bedrijfsgegevens, waaronder ons KvK nummer, staan op onze pagina met contactgegevens.</p>
+<p>Deze voorwaarden gelden voor elke bestelling op n98maps.com. N°98 Maps is ingeschreven bij de Kamer van Koophandel (KvK) onder nummer 42231154. Al onze bedrijfsgegevens staan op onze pagina met contactgegevens.</p>
 <h2>2. Jouw ontwerp</h2>
 <p>Je ontwerpt je kaart zelf in onze designer. Controleer voor het bestellen in de preview goed de plaats, de tekst, namen, data en spelling. We drukken precies het ontwerp dat jij goedkeurt. Kaartgegevens komen uit open bronnen en kunnen kleine onnauwkeurigheden bevatten of verouderd zijn; dat is geen gebrek.</p>
 <h2>3. Jouw tekst</h2>
@@ -77,7 +77,7 @@ SHIPPING_POLICY="""<h2>Versandkosten</h2>
 <h2>Lieferadresse</h2>
 <p>Bitte prüfe deine Lieferadresse sorgfältig. Kann ein Paket nicht zugestellt werden, weil die Adresse unvollständig oder falsch war, melde dich bei uns, dann finden wir gemeinsam eine Lösung.</p>""",
 TERMS_OF_SERVICE=f"""<h2>1. Über uns</h2>
-<p>Diese Bedingungen gelten für jede Bestellung auf n98maps.com. N°98 Maps ist ein Handelsname von N°98. Unsere Firmenangaben, darunter unsere Handelsregisternummer (KvK), findest du auf unserer Seite mit den Kontaktinformationen.</p>
+<p>Diese Bedingungen gelten für jede Bestellung auf n98maps.com. N°98 Maps ist bei der niederländischen Handelskammer (KvK) unter der Nummer 42231154 eingetragen. Alle Firmenangaben findest du auf unserer Seite mit den Kontaktinformationen.</p>
 <h2>2. Dein Design</h2>
 <p>Du gestaltest deine Karte selbst in unserem Designer. Prüfe vor der Bestellung in der Vorschau sorgfältig den Ort, den Text, Namen, Daten und die Schreibweise. Wir drucken genau das Design, das du bestätigst. Kartendaten stammen aus offenen Quellen und können kleine Ungenauigkeiten enthalten oder veraltet sein; das ist kein Mangel.</p>
 <h2>3. Dein Text</h2>

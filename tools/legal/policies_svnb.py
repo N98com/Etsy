@@ -25,7 +25,7 @@ SHIPPING_POLICY="""<h2>Fraktkostnader</h2>
 <h2>Leveransadress</h2>
 <p>Kontrollera din leveransadress noga. Om ett paket inte kan levereras för att adressen var ofullständig eller felaktig, kontakta oss så hittar vi en lösning tillsammans.</p>""",
 TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
-<p>Dessa villkor gäller för alla beställningar på n98maps.com. N°98 Maps är ett varumärke som tillhör N°98. Våra företagsuppgifter, bland annat vårt registreringsnummer hos den nederländska handelskammaren (KvK), finns på vår sida med kontaktinformation.</p>
+<p>Dessa villkor gäller för alla beställningar på n98maps.com. N°98 Maps är registrerat hos den nederländska handelskammaren (KvK) med nummer 42231154. Alla våra företagsuppgifter finns på vår sida med kontaktinformation.</p>
 <h2>2. Din design</h2>
 <p>Du skapar din karta själv i vårt designverktyg. Kontrollera noga platsen, texten, namn, datum och stavning i förhandsvisningen innan du beställer. Vi trycker exakt den design du godkänner. Kartdata kommer från öppna källor och kan innehålla små felaktigheter eller vara inaktuella; det är inte ett fel i produkten.</p>
 <h2>3. Din text</h2>
@@ -77,7 +77,7 @@ SHIPPING_POLICY="""<h2>Fraktkostnader</h2>
 <h2>Leveringsadresse</h2>
 <p>Kontroller leveringsadressen din nøye. Hvis en pakke ikke kan leveres fordi adressen var ufullstendig eller feil, kontakt oss, så finner vi en løsning sammen.</p>""",
 TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
-<p>Disse vilkårene gjelder for alle bestillinger på n98maps.com. N°98 Maps er et handelsnavn for N°98. Firmaopplysningene våre, blant annet registreringsnummeret vårt i det nederlandske handelskammeret (KvK), står på siden vår med kontaktinformasjon.</p>
+<p>Disse vilkårene gjelder for alle bestillinger på n98maps.com. N°98 Maps er registrert i det nederlandske handelskammeret (KvK) med nummer 42231154. Alle firmaopplysningene våre står på siden vår med kontaktinformasjon.</p>
 <h2>2. Ditt design</h2>
 <p>Du lager kartet ditt selv i designverktøyet vårt. Kontroller stedet, teksten, navn, datoer og stavemåte nøye i forhåndsvisningen før du bestiller. Vi trykker nøyaktig det designet du godkjenner. Kartdata kommer fra åpne kilder og kan inneholde små unøyaktigheter eller være utdaterte; det er ikke en mangel.</p>
 <h2>3. Din tekst</h2>

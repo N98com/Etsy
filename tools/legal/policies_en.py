@@ -28,7 +28,7 @@ SHIPPING_POLICY="""<h2>Shipping costs</h2>
 <h2>Delivery address</h2>
 <p>Please check your delivery address carefully. If a parcel can't be delivered because the address was incomplete or incorrect, contact us and we'll find a solution together.</p>""",
 TERMS_OF_SERVICE=f"""<h2>1. About us</h2>
-<p>These terms apply to every order placed at n98maps.com. N°98 Maps is a trade name of N°98. Our company details, including our Chamber of Commerce (KvK) number, are on our contact information page.</p>
+<p>These terms apply to every order placed at n98maps.com. N°98 Maps is registered with the Dutch Chamber of Commerce (KvK) under number 42231154. Our full company details are on our contact information page.</p>
 <h2>2. Your design</h2>
 <p>You design your map yourself in our designer. Before you order, please check the place, the text, names, dates and spelling in the preview carefully. We print exactly the design you approve. Map data comes from open sources and can contain small inaccuracies or be out of date; this is not a defect.</p>
 <h2>3. Your text</h2>
