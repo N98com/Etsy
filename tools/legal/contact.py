@@ -39,4 +39,16 @@ C = {
 <h2>Kontakt</h2>
 <p>E-post: {MAIL}<br>Nettsted: n98maps.com</p>
 <p>Vi svarer vanligvis innen 2 virkedager. Dette er vår forretningsadresse og ingen butikk: bestillinger gjøres kun på nett.</p>""",
+'pl': f"""<h2>Dane firmy</h2>
+<p>N°98 Maps<br>{ADDR}Holandia</p>
+<p>Holenderska Izba Handlowa (KvK): {KVK}</p>
+<h2>Kontakt</h2>
+<p>E-mail: {MAIL}<br>Strona: n98maps.com</p>
+<p>Zwykle odpowiadamy w ciągu 2 dni roboczych. To nasz adres firmowy, a nie sklep: zamówienia składa się wyłącznie online.</p>""",
+'it': f"""<h2>Dati aziendali</h2>
+<p>N°98 Maps<br>{ADDR}Paesi Bassi</p>
+<p>Camera di Commercio dei Paesi Bassi (KvK): {KVK}</p>
+<h2>Contatti</h2>
+<p>Email: {MAIL}<br>Sito web: n98maps.com</p>
+<p>Di solito rispondiamo entro 2 giorni lavorativi. Questo è il nostro indirizzo aziendale e non un negozio: gli ordini si fanno solo online.</p>""",
 }

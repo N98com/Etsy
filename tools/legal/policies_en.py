@@ -1,7 +1,8 @@
 MAIL = '<a href="mailto:info@n98maps.com">info@n98maps.com</a>'
 UPDATED = {'en': 'Last updated: 17 November 2026', 'nl': 'Laatst bijgewerkt: 17 november 2026',
            'de': 'Zuletzt aktualisiert: 17. November 2026', 'fr': 'Dernière mise à jour : 17 novembre 2026',
-           'sv': 'Senast uppdaterad: 17 november 2026', 'nb': 'Sist oppdatert: 17. november 2026'}
+           'sv': 'Senast uppdaterad: 17 november 2026', 'nb': 'Sist oppdatert: 17. november 2026',
+           'pl': 'Ostatnia aktualizacja: 17 listopada 2026', 'it': 'Ultimo aggiornamento: 17 novembre 2026'}
 P = {}
 P['en'] = dict(
 REFUND_POLICY=f"""<p>Every N°98 map is printed to order from the design you make. This policy explains what happens if something isn't right.</p>

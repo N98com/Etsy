@@ -6,11 +6,12 @@ from policies_en import P as EN, UPDATED
 from policies_nl_de import P as NLDE
 from policies_fr import P as FR
 from policies_svnb import P as SVNB
+from policies_plit import P as PLIT
 from contact import C as CONTACT
-P = {**EN, **NLDE, **FR, **SVNB}
+P = {**EN, **NLDE, **FR, **SVNB, **PLIT}
 for _l, _b in CONTACT.items():
     P[_l] = {**P[_l], 'CONTACT_INFORMATION': _b}
-LANGS = ['en', 'nl', 'de', 'fr', 'sv', 'nb']
+LANGS = ['en', 'nl', 'de', 'fr', 'sv', 'nb', 'pl', 'it']
 out = {}
 for l in LANGS:
     for k, v in P[l].items():
