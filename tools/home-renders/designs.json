@@ -23768,5 +23768,25 @@
   "w": 1200,
   "h": 1680,
   "zoom": 1.2
+ },
+ {
+  "id": "m-ocean-drive",
+  "place": "Where we met",
+  "country": "Miami Beach · 14.02.2025",
+  "lat": 25.7835,
+  "lon": -80.1365,
+  "zoom": 1.6,
+  "palette": "ocean-drive",
+  "pins": [
+   {
+    "lat": 25.781,
+    "lon": -80.1302,
+    "icon": "heart"
+   }
+  ],
+  "pinColor": "#fff1f6",
+  "pinScale": 1.6,
+  "w": 1200,
+  "h": 1680
  }
 ]
