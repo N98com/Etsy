@@ -333,7 +333,8 @@
     {% if settings.logo %}
       "logo": {{ settings.logo | image_url: width: 500 | prepend: "https:" | json }},
     {% endif %}
-    "url": {{ shop.url | json }}
+    "url": {{ shop.url | json }},
+    "sameAs": ["https://www.instagram.com/n98.maps/", "https://www.pinterest.com/N98Maps/"]
   }
 </script>
 

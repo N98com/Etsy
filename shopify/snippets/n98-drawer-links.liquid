@@ -8,7 +8,7 @@
 <nav class="n98-small-links" aria-label="Mehr">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/de/#how-it-works">So funktioniert es</a>
@@ -16,6 +16,7 @@
     <a href="/de/#faq">Versand &amp; Rückgabe</a>
     <a href="/de/pages/contact">Kontakt</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- when 'fr' -%}
@@ -23,7 +24,7 @@
 <nav class="n98-small-links" aria-label="Plus">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/fr/#how-it-works">Comment ça marche</a>
@@ -31,6 +32,7 @@
     <a href="/fr/#faq">Livraison &amp; retours</a>
     <a href="/fr/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- when 'it' -%}
@@ -38,7 +40,7 @@
 <nav class="n98-small-links" aria-label="Altro">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/it/#how-it-works">Come funziona</a>
@@ -46,6 +48,7 @@
     <a href="/it/#faq">Spedizioni e resi</a>
     <a href="/it/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- when 'nb' -%}
@@ -53,7 +56,7 @@
 <nav class="n98-small-links" aria-label="Mer">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/nb/#how-it-works">Slik fungerer det</a>
@@ -61,6 +64,7 @@
     <a href="/nb/#faq">Frakt &amp; retur</a>
     <a href="/nb/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- when 'nl' -%}
@@ -68,7 +72,7 @@
 <nav class="n98-small-links" aria-label="Meer">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/nl/#how-it-works">Zo werkt het</a>
@@ -76,6 +80,7 @@
     <a href="/nl/#faq">Verzending &amp; retour</a>
     <a href="/nl/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- when 'pl' -%}
@@ -83,7 +88,7 @@
 <nav class="n98-small-links" aria-label="Więcej">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/pl/#how-it-works">Jak to działa</a>
@@ -91,6 +96,7 @@
     <a href="/pl/#faq">Wysyłka i zwroty</a>
     <a href="/pl/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- when 'sv' -%}
@@ -98,7 +104,7 @@
 <nav class="n98-small-links" aria-label="Mer">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/sv/#how-it-works">Så fungerar det</a>
@@ -106,6 +112,7 @@
     <a href="/sv/#faq">Frakt &amp; returer</a>
     <a href="/sv/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- else -%}
@@ -113,7 +120,7 @@
 <nav class="n98-small-links" aria-label="More">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/#how-it-works">How it works</a>
@@ -121,6 +128,7 @@
     <a href="/#faq">Shipping &amp; returns</a>
     <a href="/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
 {%- endcase -%}

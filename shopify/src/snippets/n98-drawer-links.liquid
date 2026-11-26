@@ -6,7 +6,7 @@
 <nav class="n98-small-links" aria-label="More">
   {%- if n98_small.links.size > 0 -%}
     {%- for link in n98_small.links -%}
-      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
+      <a href="{{ link.url }}"{% if link.url contains 'instagram.com' or link.url contains 'pinterest.' %} target="_blank" rel="noopener"{% endif %}>{{ link.title }}</a>
     {%- endfor -%}
   {%- else -%}
     <a href="/#how-it-works">How it works</a>
@@ -14,5 +14,6 @@
     <a href="/#faq">Shipping &amp; returns</a>
     <a href="/pages/contact">Contact</a>
     <a href="https://www.instagram.com/n98.maps/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.pinterest.com/N98Maps/" target="_blank" rel="noopener">Pinterest</a>
   {%- endif -%}
 </nav>
