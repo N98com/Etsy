@@ -1,0 +1,90 @@
+[
+{
+"filename": "locales/de.json",
+"md5": "30057aee3b71684295f89b8a0fdcb6cd"
+},
+{
+"filename": "locales/en.default.json",
+"md5": "480279ab2910c5637fa0bfb28e1cc312"
+},
+{
+"filename": "locales/fr.json",
+"md5": "bfa44bef8a2530515167588519760128"
+},
+{
+"filename": "locales/it.json",
+"md5": "24ecbb7d1f18e82fb5350f95d7f68fb1"
+},
+{
+"filename": "locales/nb.json",
+"md5": "2207aca820190dbcf4916bda17572e8a"
+},
+{
+"filename": "locales/nl.json",
+"md5": "f1466965b76397c5e07d78847c7943d7"
+},
+{
+"filename": "locales/pl.json",
+"md5": "3e15a007ec775a7c0349fc5467c2b71e"
+},
+{
+"filename": "locales/sv.json",
+"md5": "7a0098eecd4cda42659c57aa8f4dde6b"
+},
+{
+"filename": "sections/n98-occasion.liquid",
+"md5": "be37a4570bb18a0081776b86723816d2"
+},
+{
+"filename": "sections/n98-page-sizes.liquid",
+"md5": "4c7164e8bd2a635ccfeadef9e54e9f90"
+},
+{
+"filename": "sections/n98-page-story.liquid",
+"md5": "46cb1e20d8d239fcdaccab44e05a916a"
+},
+{
+"filename": "snippets/meta-tags.liquid",
+"md5": "8050107853dec483773cc3f396f17ac0"
+},
+{
+"filename": "snippets/n98-currency-switch.liquid",
+"md5": "46fd8c5f744c90aa70e6f11574bd74b0"
+},
+{
+"filename": "snippets/n98-home--de.liquid",
+"md5": "b5129ad5b3e60bb1f97fea7ea1277e8a"
+},
+{
+"filename": "snippets/n98-home--en.liquid",
+"md5": "d246f4d77dde3a57675b8a9355ae6a49"
+},
+{
+"filename": "snippets/n98-home--fr.liquid",
+"md5": "8133047c4ebf7cc9d93e2edadf1ed48e"
+},
+{
+"filename": "snippets/n98-home--it.liquid",
+"md5": "d4666e556fdd60102c568101029151c6"
+},
+{
+"filename": "snippets/n98-home--nb.liquid",
+"md5": "71d64167e2ac1421b141cc704b6a6edc"
+},
+{
+"filename": "snippets/n98-home--nl.liquid",
+"md5": "3917b508b95389b1d1663d3a4eb8b542"
+},
+{
+"filename": "snippets/n98-home--pl.liquid",
+"md5": "63c8c8f65f7b1fa84eae5cb90289da34"
+},
+{
+"filename": "snippets/n98-home--sv.liquid",
+"md5": "422172e0add1260555f85410be5fa5f5"
+},
+{
+"filename": "snippets/n98-locale-menu.liquid",
+"md5": "1ddeab2e845cb7ec56ee67621c9bcc1a"
+}
+]

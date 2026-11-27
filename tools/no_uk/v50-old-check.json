@@ -1,0 +1,90 @@
+[
+{
+"filename": "locales/de.json",
+"md5": "74ac33ff168e251237e6ffb3b00a02a4"
+},
+{
+"filename": "locales/en.default.json",
+"md5": "0ffe2fd7aac477f0c72bdbc1dc03cde9"
+},
+{
+"filename": "locales/fr.json",
+"md5": "166f7ca6a4627d4b23a3dcf1d716c457"
+},
+{
+"filename": "locales/it.json",
+"md5": "6eca82ce5a13794c9554f3a6edd0dd49"
+},
+{
+"filename": "locales/nb.json",
+"md5": "a4adc060227cc12c024a9378922a91e9"
+},
+{
+"filename": "locales/nl.json",
+"md5": "ef3ba4c4465b0779fec6648d4d48e234"
+},
+{
+"filename": "locales/pl.json",
+"md5": "49c2a0ef71a2aab04e31a697ab1a7380"
+},
+{
+"filename": "locales/sv.json",
+"md5": "03f1551e7a55b18a6a263609791bb4d6"
+},
+{
+"filename": "sections/n98-occasion.liquid",
+"md5": "993c8d6ce28222565c3e0c9618d8711a"
+},
+{
+"filename": "sections/n98-page-sizes.liquid",
+"md5": "a645a143118e25cc3aea19e132379ef5"
+},
+{
+"filename": "sections/n98-page-story.liquid",
+"md5": "fd3f8dbbf186513f7ec2d6fed46c1bef"
+},
+{
+"filename": "snippets/meta-tags.liquid",
+"md5": "8ba73698128d355ada6658e1cf5876f1"
+},
+{
+"filename": "snippets/n98-currency-switch.liquid",
+"md5": "a109b43ff51f8b535c78e49aaa99e3da"
+},
+{
+"filename": "snippets/n98-home--de.liquid",
+"md5": "37176e109e30191bebea3c0e5d650d1f"
+},
+{
+"filename": "snippets/n98-home--en.liquid",
+"md5": "5fccb5996c2b0eb556b310abd44a62ce"
+},
+{
+"filename": "snippets/n98-home--fr.liquid",
+"md5": "321fc90a48bfd3676ee83b00adfc261b"
+},
+{
+"filename": "snippets/n98-home--it.liquid",
+"md5": "93417e09d59748125b924ea7d3a1c312"
+},
+{
+"filename": "snippets/n98-home--nb.liquid",
+"md5": "f02025077e4b5b5b4d1d6d16877cc46f"
+},
+{
+"filename": "snippets/n98-home--nl.liquid",
+"md5": "8a09e50f344afec3f8c7852d1fe907d6"
+},
+{
+"filename": "snippets/n98-home--pl.liquid",
+"md5": "7fc62c2745a4d9cdbf191e64ecdceb82"
+},
+{
+"filename": "snippets/n98-home--sv.liquid",
+"md5": "5098e597426ec4008b4e495ce9f4c445"
+},
+{
+"filename": "snippets/n98-locale-menu.liquid",
+"md5": "f9548c2f94b1d722986dbdaea147cf1c"
+}
+]
