@@ -109,7 +109,7 @@ J['leaving'] = dict(
 <li>Gli anni in cui ci ha vissuto, per esempio <em>dal 2014 al 2026</em></li>
 </ul>
 <h3>4. Spediscila in anticipo</h3>
-<p>Questo è il vero vantaggio di una stampa. Invece di appesantire il bagaglio, falla consegnare incorniciata al nuovo indirizzo. Stampiamo su ordinazione vicino al cliente e spediamo gratis in UE, Regno Unito e Stati Uniti, così può aspettarlo al suo arrivo. Stai scegliendo il formato? Guarda la nostra <a href="/it/pages/sizes-and-frames">guida a formati e cornici</a>.</p>
+<p>Questo è il vero vantaggio di una stampa. Invece di appesantire il bagaglio, falla consegnare incorniciata al nuovo indirizzo. Stampiamo su ordinazione vicino al cliente e spediamo gratis in UE e Stati Uniti, così può aspettarlo al suo arrivo. Stai scegliendo il formato? Guarda la nostra <a href="/it/pages/sizes-and-frames">guida a formati e cornici</a>.</p>
 <h2>Un regalo di gruppo</h2>
 <p>Per colleghi o un gruppo di amici, una stampa incorniciata più grande, 50×70 cm, è un regalo di cui dividere la spesa. Scrivete i nomi di tutti nella piccola riga sotto il titolo, o mettete nel pacco un biglietto con tutti i messaggi.</p>
 <p>Vuoi vedere prima altre città? Sfoglia le nostre <a href="/it/pages/city-map-prints">mappe di città</a>.</p>''')

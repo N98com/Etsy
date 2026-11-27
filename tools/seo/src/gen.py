@@ -14,7 +14,7 @@ for slug, name, lat, lon, pal, zoom, why, ideas, hook, names in UK:
         {'namespace': 'n98', 'key': 'city', 'type': 'json', 'value': json.dumps({'name': name, 'country': 'Sweden', 'lat': lat, 'lon': lon, 'palette': pal, 'scale': int(round(18000 * zoom)), 'img': img}, ensure_ascii=False)},
         {'namespace': 'n98', 'key': 'lede', 'type': 'multi_line_text_field', 'value': 'A personalised map print of %s, drawn from real map data: %s, or just your own street. Your colours, your words, framed or unframed.' % (name, hook)},
         {'namespace': 'global', 'key': 'title_tag', 'type': 'single_line_text_field', 'value': '%s Map Print: Personalised City Map Poster' % name},
-        {'namespace': 'global', 'key': 'description_tag', 'type': 'single_line_text_field', 'value': 'Design your own %s map print with %s. 50+ palettes, your own words and pins. Framed or unframed, free shipping in Europe, the UK and the US.' % (name, hook)}]})
+        {'namespace': 'global', 'key': 'description_tag', 'type': 'single_line_text_field', 'value': 'Design your own %s map print with %s. 50+ palettes, your own words and pins. Framed or unframed, free shipping in Europe and the US.' % (name, hook)}]})
     e = {'s': slug, 'n': name, 'c': 'se', 'i': img}
     e.update({k: v for k, v in names.items()})
     lst.append(e)
@@ -36,19 +36,19 @@ def tr_items(ids):
                 t = {'title': 'Stadskaart %s' % n,
                      'body_html': '<h2>Waarom %s een prachtige kaart is</h2>\n<p>%s</p>\n<h2>Ideeën voor je kaart van %s</h2>\n<ul>\n%s\n</ul>\n<p>Alles bepaal jij: kies uit meer dan vijftig paletten, een klassieke rechthoek, een cirkel of een hart, en zet je eigen woorden, een datum en pins op de plekken die ertoe doen.</p>' % (n, why, n, li),
                      'meta_title': 'Stadskaart %s: gepersonaliseerde kaartposter' % n,
-                     'meta_description': 'Ontwerp je eigen stadskaart van %s met %s. Meer dan 50 paletten, je eigen woorden en pins. Met of zonder lijst, gratis verzending in Europa, het VK en de VS.' % (n, hook)}
+                     'meta_description': 'Ontwerp je eigen stadskaart van %s met %s. Meer dan 50 paletten, je eigen woorden en pins. Met of zonder lijst, gratis verzending in Europa en de VS.' % (n, hook)}
                 lede = 'Een gepersonaliseerde kaartprint van %s, getekend uit echte kaartdata: %s, of gewoon je eigen straat. Jouw kleuren, jouw woorden, met of zonder lijst.' % (n, hook)
             elif lang == 'de':
                 t = {'title': 'Stadtkarte %s' % n,
                      'body_html': '<h2>Warum %s eine wunderschöne Karte ergibt</h2>\n<p>%s</p>\n<h2>Ideen für deine Karte von %s</h2>\n<ul>\n%s\n</ul>\n<p>Alles bestimmst du: Wähle aus mehr als fünfzig Paletten, ein klassisches Rechteck, einen Kreis oder ein Herz, und setze deine eigenen Worte, ein Datum und Pins auf die Orte, die zählen.</p>' % (n, why, n, li),
                      'meta_title': 'Stadtkarte %s: personalisiertes Kartenposter' % n,
-                     'meta_description': 'Gestalte deine eigene Stadtkarte von %s und zeige %s oder deine eigene Straße. Über 50 Paletten, eigene Worte und Pins. Mit oder ohne Rahmen, kostenloser Versand in Europa, nach Großbritannien und in die USA.' % (n, hook)}
+                     'meta_description': 'Gestalte deine eigene Stadtkarte von %s und zeige %s oder deine eigene Straße. Über 50 Paletten, eigene Worte und Pins. Mit oder ohne Rahmen, kostenloser Versand nach Europa und in die USA.' % (n, hook)}
                 lede = 'Ein personalisierter Kartendruck von %s, gezeichnet aus echten Kartendaten. Er zeigt %s oder einfach deine eigene Straße. Deine Farben, deine Worte, mit oder ohne Rahmen.' % (n, hook)
             else:
                 t = {'title': 'Carte de %s' % n,
                      'body_html': '<h2>Pourquoi %s fait une si belle carte</h2>\n<p>%s</p>\n<h2>Idées pour votre carte de %s</h2>\n<ul>\n%s\n</ul>\n<p>Tout est à vous : choisissez parmi plus de cinquante palettes, un rectangle classique, un cercle ou un cœur, et ajoutez vos propres mots, une date et des repères sur les lieux qui comptent.</p>' % (n, why, n, li),
                      'meta_title': 'Carte de %s : affiche de carte personnalisée' % n,
-                     'meta_description': 'Créez votre propre carte de %s avec %s. Plus de 50 palettes, vos mots et vos repères. Avec ou sans cadre, livraison gratuite en Europe, au Royaume-Uni et aux États-Unis.' % (n, hook)}
+                     'meta_description': 'Créez votre propre carte de %s avec %s. Plus de 50 palettes, vos mots et vos repères. Avec ou sans cadre, livraison gratuite en Europe et aux États-Unis.' % (n, hook)}
                 lede = 'Une affiche de carte personnalisée de %s, dessinée à partir de vraies données cartographiques : %s, ou simplement votre propre rue. Vos couleurs, vos mots, avec ou sans cadre.' % (n, hook)
             if lang == 'fr':
                 el = lambda v: re.sub(r'\bde ([AEIOUÉÖÅÄ])', r'd’\1', v)

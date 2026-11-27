@@ -5,12 +5,12 @@ These live per theme in Shopify, so run this again for every new theme copy:
 import json, sys
 D = {  # resource, key, digest, {lang: value}
  ('OnlineStoreThemeSectionGroup/header-group', 'section.sections/header-group.json.header_announcements_9jGBFp.announcement_BxgCk9.text:pmxvxwkljjsj', '4a371ca7d6d11dfd892bca9faf48a9c65c3254b9861643c42bfaf20efe1590fa'): dict(
-  nl='Gratis verzending in de EU, het VK en de VS',
-  de='Kostenloser Versand in der EU, in Großbritannien und in den USA',
-  fr='Livraison offerte dans l’UE, au Royaume-Uni et aux États-Unis',
-  sv='Fri frakt inom EU, Storbritannien och USA',
-  nb='Gratis frakt i EU, Storbritannia og USA',
-  pl='Darmowa wysyłka w UE, Wielkiej Brytanii i USA', it='Spedizione gratuita in UE, Regno Unito e Stati Uniti'),
+  nl='Gratis verzending in de EU en de VS',
+  de='Kostenloser Versand in der EU und in den USA',
+  fr='Livraison offerte dans l’UE et aux États-Unis',
+  sv='Fri frakt inom EU och USA',
+  nb='Gratis frakt i EU og USA',
+  pl='Darmowa wysyłka w UE i USA', it='Spedizione gratuita in UE e Stati Uniti'),
  ('OnlineStoreThemeJsonTemplate/404', 'section.404.json.main.text_GqmVFf.text:2i368gao346xo', 'b93488eca6e606b6a169db2c12d968d2d973b6f2e7db9fbb3d077565131c3f40'): dict(
   nl='<h1>Pagina niet gevonden</h1>', de='<h1>Seite nicht gefunden</h1>', fr='<h1>Page introuvable</h1>',
   sv='<h1>Sidan hittades inte</h1>', nb='<h1>Siden ble ikke funnet</h1>',

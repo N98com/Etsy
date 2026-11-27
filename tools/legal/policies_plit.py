@@ -3,7 +3,7 @@ P = {}
 P['pl'] = dict(
 REFUND_POLICY=f"""<p>Każda mapa N°98 jest drukowana na zamówienie według projektu, który tworzysz. Tutaj wyjaśniamy, co się dzieje, jeśli coś jest nie tak.</p>
 <h2>Spersonalizowane wydruki</h2>
-<p>Ponieważ każda mapa powstaje według Twojego projektu, spersonalizowanych wydruków nie można zwrócić ani wymienić, jeśli po prostu zmienisz zdanie. Zgodnie z prawem konsumenckim UE i Wielkiej Brytanii 14-dniowe prawo odstąpienia od umowy nie dotyczy towarów wykonanych według specyfikacji klienta.</p>
+<p>Ponieważ każda mapa powstaje według Twojego projektu, spersonalizowanych wydruków nie można zwrócić ani wymienić, jeśli po prostu zmienisz zdanie. Zgodnie z prawem konsumenckim UE 14-dniowe prawo odstąpienia od umowy nie dotyczy towarów wykonanych według specyfikacji klienta.</p>
 <h2>Uszkodzony, wadliwy lub niezgodny z projektem</h2>
 <p>Jeśli wydruk lub rama dotrze uszkodzona, ma błąd druku albo nie zgadza się z zatwierdzonym projektem, bezpłatnie wyślemy nowy albo zwrócimy pełną kwotę, jak wolisz. Wyślij zdjęcie wydruku i opakowania wraz z numerem zamówienia na adres {MAIL}, najlepiej w ciągu 14 dni od dostawy. Nie musisz niczego odsyłać, chyba że o to poprosimy. Nie wpływa to na Twoje ustawowe prawa.</p>
 <h2>Zagubione paczki</h2>
@@ -13,9 +13,9 @@ REFUND_POLICY=f"""<p>Każda mapa N°98 jest drukowana na zamówienie według pro
 <h2>Jak zwracamy pieniądze</h2>
 <p>Zatwierdzone zwroty wypłacamy w ciągu 14 dni na pierwotną metodę płatności. W zależności od banku może minąć kilka dni, zanim kwota pojawi się na Twoim koncie.</p>""",
 SHIPPING_POLICY="""<h2>Koszty wysyłki</h2>
-<p>Wysyłka jest bezpłatna do Holandii i reszty Unii Europejskiej, Wielkiej Brytanii i Stanów Zjednoczonych. Dla innych krajów koszty wysyłki są obliczane przy składaniu zamówienia, na podstawie rozmiaru wydruku i tego, czy jest w ramie.</p>
+<p>Wysyłka jest bezpłatna do Holandii i reszty Unii Europejskiej i Stanów Zjednoczonych. Dla innych krajów koszty wysyłki są obliczane przy składaniu zamówienia, na podstawie rozmiaru wydruku i tego, czy jest w ramie.</p>
 <h2>Dokąd wysyłamy</h2>
-<p>Wysyłamy do Holandii i reszty Unii Europejskiej, Wielkiej Brytanii, Stanów Zjednoczonych, Norwegii i Szwajcarii, a także do innych krajów, które możesz wybrać przy składaniu zamówienia.</p>
+<p>Wysyłamy do Holandii i reszty Unii Europejskiej, Stanów Zjednoczonych, Norwegii i Szwajcarii, a także do innych krajów, które możesz wybrać przy składaniu zamówienia.</p>
 <h2>Drukowane blisko Ciebie</h2>
 <p>Każda mapa jest drukowana na świeżo po Twoim zamówieniu przez naszego partnera produkcyjnego Gelato, w drukarni najbliższej adresu dostawy. Dzięki temu droga jest krótka, a wydruk dociera w dobrym stanie.</p>
 <h2>Czas dostawy</h2>
@@ -31,7 +31,7 @@ TERMS_OF_SERVICE=f"""<h2>1. O nas</h2>
 <h2>3. Twój tekst</h2>
 <p>Dodawaj tylko tekst, którego masz prawo używać. Nie dodawaj treści niezgodnych z prawem, obraźliwych ani naruszających prawa innych osób. Możemy odmówić realizacji lub anulować zamówienie z taką treścią, z pełnym zwrotem pieniędzy.</p>
 <h2>4. Ceny i płatność</h2>
-<p>Ceny są podawane w walucie Twojego kraju lub regionu. Przy dostawach na terenie Unii Europejskiej ceny zawierają VAT. Wysyłka jest bezpłatna na terenie Unii Europejskiej, Wielkiej Brytanii i Stanów Zjednoczonych; dla innych krajów koszty wysyłki są pokazywane przy składaniu zamówienia. Płacisz przy składaniu zamówienia jedną z pokazanych tam metod płatności. Oczywiste błędy w cenach nas nie wiążą.</p>
+<p>Ceny są podawane w walucie Twojego kraju lub regionu. Przy dostawach na terenie Unii Europejskiej ceny zawierają VAT. Wysyłka jest bezpłatna na terenie Unii Europejskiej i Stanów Zjednoczonych; dla innych krajów koszty wysyłki są pokazywane przy składaniu zamówienia. Płacisz przy składaniu zamówienia jedną z pokazanych tam metod płatności. Oczywiste błędy w cenach nas nie wiążą.</p>
 <h2>5. Twoje zamówienie</h2>
 <p>Umowa zostaje zawarta, gdy otrzymasz od nas e-mail z potwierdzeniem zamówienia.</p>
 <h2>6. Produkcja i dostawa</h2>
@@ -55,7 +55,7 @@ TERMS_OF_SERVICE=f"""<h2>1. O nas</h2>
 P['it'] = dict(
 REFUND_POLICY=f"""<p>Ogni mappa N°98 è stampata su ordinazione a partire dal design che crei. Qui spieghiamo cosa succede se qualcosa non va.</p>
 <h2>Stampe personalizzate</h2>
-<p>Poiché ogni mappa è realizzata secondo il tuo design, le stampe personalizzate non possono essere restituite né sostituite se semplicemente cambi idea. Secondo la normativa sui consumatori dell’UE e del Regno Unito, il diritto di recesso di 14 giorni non si applica ai beni realizzati secondo le specifiche del cliente.</p>
+<p>Poiché ogni mappa è realizzata secondo il tuo design, le stampe personalizzate non possono essere restituite né sostituite se semplicemente cambi idea. Secondo la normativa sui consumatori dell’UE, il diritto di recesso di 14 giorni non si applica ai beni realizzati secondo le specifiche del cliente.</p>
 <h2>Danneggiata, difettosa o diversa dal design</h2>
 <p>Se la stampa o la cornice arriva danneggiata, ha un difetto di stampa o non corrisponde al design che hai approvato, ti mandiamo gratuitamente una nuova stampa o ti rimborsiamo per intero, come preferisci. Invia una foto della stampa e dell’imballaggio con il numero d’ordine a {MAIL}, possibilmente entro 14 giorni dalla consegna. Non devi rispedire nulla, a meno che non te lo chiediamo. Ciò non pregiudica i tuoi diritti di legge.</p>
 <h2>Pacchi smarriti</h2>
@@ -65,9 +65,9 @@ REFUND_POLICY=f"""<p>Ogni mappa N°98 è stampata su ordinazione a partire dal d
 <h2>Come rimborsiamo</h2>
 <p>I rimborsi approvati vengono effettuati sul metodo di pagamento originale entro 14 giorni. A seconda della tua banca, possono servire alcuni giorni in più prima che l’importo compaia sul tuo conto.</p>""",
 SHIPPING_POLICY="""<h2>Costi di spedizione</h2>
-<p>La spedizione è gratuita verso i Paesi Bassi e il resto dell’Unione Europea, il Regno Unito e gli Stati Uniti. Per gli altri paesi i costi di spedizione vengono calcolati al checkout, in base al formato della stampa e alla presenza della cornice.</p>
+<p>La spedizione è gratuita verso i Paesi Bassi e il resto dell’Unione Europea e gli Stati Uniti. Per gli altri paesi i costi di spedizione vengono calcolati al checkout, in base al formato della stampa e alla presenza della cornice.</p>
 <h2>Dove spediamo</h2>
-<p>Spediamo nei Paesi Bassi e nel resto dell’Unione Europea, nel Regno Unito, negli Stati Uniti, in Norvegia e in Svizzera, e negli altri paesi che puoi scegliere al checkout.</p>
+<p>Spediamo nei Paesi Bassi e nel resto dell’Unione Europea, negli Stati Uniti, in Norvegia e in Svizzera, e negli altri paesi che puoi scegliere al checkout.</p>
 <h2>Stampata vicino a te</h2>
 <p>Ogni mappa è stampata fresca dopo il tuo ordine dal nostro partner di produzione Gelato, nello studio di stampa più vicino all’indirizzo di consegna. Così il viaggio è breve e la stampa arriva in buone condizioni.</p>
 <h2>Tempi di consegna</h2>
@@ -83,7 +83,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Chi siamo</h2>
 <h2>3. Il tuo testo</h2>
 <p>Aggiungi solo testi che hai il diritto di usare. Non aggiungere contenuti illeciti, offensivi o che violano i diritti di altri. Possiamo rifiutare o annullare un ordine con tali contenuti, con rimborso completo.</p>
 <h2>4. Prezzi e pagamento</h2>
-<p>I prezzi sono indicati nella valuta del tuo paese o della tua regione. Per le consegne nell’Unione Europea i prezzi includono l’IVA. La spedizione è gratuita nell’Unione Europea, nel Regno Unito e negli Stati Uniti; per gli altri paesi i costi di spedizione sono indicati al checkout. Paghi al checkout con uno dei metodi di pagamento lì indicati. Non siamo vincolati da errori evidenti nei prezzi.</p>
+<p>I prezzi sono indicati nella valuta del tuo paese o della tua regione. Per le consegne nell’Unione Europea i prezzi includono l’IVA. La spedizione è gratuita nell’Unione Europea e negli Stati Uniti; per gli altri paesi i costi di spedizione sono indicati al checkout. Paghi al checkout con uno dei metodi di pagamento lì indicati. Non siamo vincolati da errori evidenti nei prezzi.</p>
 <h2>5. Il tuo ordine</h2>
 <p>Il contratto è concluso nel momento in cui ricevi via email la nostra conferma d’ordine.</p>
 <h2>6. Produzione e consegna</h2>

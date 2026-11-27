@@ -48,8 +48,8 @@ def build():
                 {'namespace': 'n98', 'key': 'city', 'type': 'json', 'value': json.dumps({'name': name, 'country': 'Netherlands', 'lat': lat, 'lon': lon, 'palette': pal, 'scale': int(round(SCALE * zoom)), 'img': img_id(slug), 'langs': LANGS}, ensure_ascii=False)},
                 {'namespace': 'n98', 'key': 'lede', 'type': 'multi_line_text_field', 'value': 'A personalised map print of %s, drawn from real map data: %s, or just your own street. Your colours, your words, framed or unframed.' % (name, hook)},
                 {'namespace': 'global', 'key': 'title_tag', 'type': 'single_line_text_field', 'value': '%s Map Print: Personalised City Map Poster' % name},
-                {'namespace': 'global', 'key': 'description_tag', 'type': 'single_line_text_field', 'value': fit(['Design your own %s map print with %s. 50+ palettes, your own words and pins. Framed or unframed, free shipping in Europe, the UK and the US.',
-                    'Design your own %s map print with %s. 50+ palettes, your own words and pins. Free shipping in Europe, the UK and the US.',
+                {'namespace': 'global', 'key': 'description_tag', 'type': 'single_line_text_field', 'value': fit(['Design your own %s map print with %s. 50+ palettes, your own words and pins. Framed or unframed, free shipping in Europe and the US.',
+                    'Design your own %s map print with %s. 50+ palettes, your own words and pins. Free shipping in Europe and the US.',
                     'Your own %s map print with %s. 50+ palettes, your words and pins, free shipping.'], name, hook)}]})
         lst.append({'s': slug, 'n': name, 'c': 'nl', 'i': img_id(slug), 'p': prov, 'o': LANGS})
     return designs, pages, lst
@@ -66,7 +66,7 @@ def tr_items(ids):
              'body_html': ('<h2>Waarom %s een prachtige kaart is</h2>\n<p>%s</p>\n<h2>Ideeën voor je kaart van %s</h2>\n<ul>\n%s\n</ul>\n'
                            '<p>Alles bepaal jij: kies uit meer dan vijftig paletten, een klassieke rechthoek, een cirkel of een hart, en zet je eigen woorden, een datum en pins op de plekken die ertoe doen.</p>') % (name, why, name, li),
              'meta_title': 'Stadskaart %s: gepersonaliseerde kaartposter' % name,
-             'meta_description': fit(['Ontwerp je eigen stadskaart van %s met %s. Meer dan 50 paletten, je eigen woorden en pins. Met of zonder lijst, gratis verzending in Europa, het VK en de VS.',
+             'meta_description': fit(['Ontwerp je eigen stadskaart van %s met %s. Meer dan 50 paletten, je eigen woorden en pins. Met of zonder lijst, gratis verzending in Europa en de VS.',
                  'Ontwerp je eigen stadskaart van %s met %s. Meer dan 50 paletten, je eigen woorden en pins. Gratis verzending in Europa.',
                  'Je eigen stadskaart van %s met %s. 50+ paletten, je eigen woorden en pins, gratis verzending.'], name, hook)}
         out.append({'id': pid, 'locale': 'nl', 't': t})

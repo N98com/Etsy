@@ -33,7 +33,7 @@ A = {
 <li>The years they lived there, for example <em>2014 to 2026</em></li>
 </ul>
 <h3>4. Send it ahead</h3>
-<p>This is the real advantage of a print. Instead of adding weight to their luggage, have it delivered framed to their new address. We print to order close to the customer and ship free to Europe, the United Kingdom and the United States, so it can be waiting for them when they arrive. Choosing a size? See our <a href="/pages/sizes-and-frames">guide to sizes and frames</a>.</p>
+<p>This is the real advantage of a print. Instead of adding weight to their luggage, have it delivered framed to their new address. We print to order close to the customer and ship free to Europe and the United States, so it can be waiting for them when they arrive. Choosing a size? See our <a href="/pages/sizes-and-frames">guide to sizes and frames</a>.</p>
 <h2>A gift from a group</h2>
 <p>For colleagues or a group of friends, a larger framed print, 50×70 cm, is a gift you can share the cost of. Write everyone's names in the small line under the title, or slip a card with all the messages into the parcel.</p>
 <p>Want to see more cities first? Browse our <a href="/pages/city-map-prints">city map prints</a>.</p>'''),
@@ -67,7 +67,7 @@ A = {
 <li>De jaren dat ze er woonden, bijvoorbeeld <em>2014 tot 2026</em></li>
 </ul>
 <h3>4. Stuur hem vooruit</h3>
-<p>Dit is het echte voordeel van een print. In plaats van extra gewicht in hun bagage laat je hem ingelijst bezorgen op hun nieuwe adres. We drukken op bestelling dicht bij de klant en verzenden gratis naar Europa, het Verenigd Koninkrijk en de Verenigde Staten, zodat hij al op hen wacht als ze aankomen. Een formaat kiezen? Bekijk onze <a href="/nl/pages/sizes-and-frames">gids met formaten en lijsten</a>.</p>
+<p>Dit is het echte voordeel van een print. In plaats van extra gewicht in hun bagage laat je hem ingelijst bezorgen op hun nieuwe adres. We drukken op bestelling dicht bij de klant en verzenden gratis naar Europa en de Verenigde Staten, zodat hij al op hen wacht als ze aankomen. Een formaat kiezen? Bekijk onze <a href="/nl/pages/sizes-and-frames">gids met formaten en lijsten</a>.</p>
 <h2>Een cadeau van een groep</h2>
 <p>Voor collega's of een vriendengroep is een grotere ingelijste print van 50×70 cm een cadeau waarvan je de kosten samen deelt. Zet ieders naam in de kleine regel onder de titel, of stop een kaart met alle berichten in het pakket.</p>
 <p>Eerst meer steden bekijken? Blader door onze <a href="/nl/pages/city-map-prints">stadskaarten</a>.</p>'''),
@@ -101,7 +101,7 @@ A = {
 <li>Die Jahre, die sie dort gewohnt haben, zum Beispiel <em>2014 bis 2026</em></li>
 </ul>
 <h3>4. Schick sie voraus</h3>
-<p>Das ist der eigentliche Vorteil eines Drucks. Statt das Gepäck schwerer zu machen, lässt du ihn gerahmt an die neue Adresse liefern. Wir drucken auf Bestellung in der Nähe der Kunden und versenden kostenlos nach Europa, ins Vereinigte Königreich und in die Vereinigten Staaten, sodass er schon wartet, wenn sie ankommen. Eine Größe wählen? Sieh dir unseren <a href="/de/pages/sizes-and-frames">Ratgeber zu Größen und Rahmen</a> an.</p>
+<p>Das ist der eigentliche Vorteil eines Drucks. Statt das Gepäck schwerer zu machen, lässt du ihn gerahmt an die neue Adresse liefern. Wir drucken auf Bestellung in der Nähe der Kunden und versenden kostenlos nach Europa und in die Vereinigten Staaten, sodass er schon wartet, wenn sie ankommen. Eine Größe wählen? Sieh dir unseren <a href="/de/pages/sizes-and-frames">Ratgeber zu Größen und Rahmen</a> an.</p>
 <h2>Ein Geschenk von einer Gruppe</h2>
 <p>Für Kollegen oder einen Freundeskreis ist ein größerer gerahmter Druck in 50×70 cm ein Geschenk, dessen Kosten man sich teilen kann. Schreib alle Namen in die kleine Zeile unter dem Titel, oder leg eine Karte mit allen Nachrichten ins Paket.</p>
 <p>Erst mehr Städte ansehen? Stöbere in unseren <a href="/de/pages/city-map-prints">Stadtkarten</a>.</p>'''),
@@ -135,7 +135,7 @@ A = {
 <li>Les années qu’ils y ont vécu, par exemple <em>de 2014 à 2026</em></li>
 </ul>
 <h3>4. Envoyez-la en avance</h3>
-<p>C’est le vrai avantage d’une affiche. Au lieu d’alourdir leurs bagages, faites-la livrer encadrée à leur nouvelle adresse. Nous imprimons à la commande près du client et livrons gratuitement en Europe, au Royaume-Uni et aux États-Unis : elle peut les attendre à leur arrivée. Pour choisir un format, consultez notre <a href="/fr/pages/sizes-and-frames">guide des formats et des cadres</a>.</p>
+<p>C’est le vrai avantage d’une affiche. Au lieu d’alourdir leurs bagages, faites-la livrer encadrée à leur nouvelle adresse. Nous imprimons à la commande près du client et livrons gratuitement en Europe et aux États-Unis : elle peut les attendre à leur arrivée. Pour choisir un format, consultez notre <a href="/fr/pages/sizes-and-frames">guide des formats et des cadres</a>.</p>
 <h2>Un cadeau de groupe</h2>
 <p>Pour des collègues ou une bande d’amis, une grande affiche encadrée en 50×70 cm est un cadeau dont on peut partager le prix. Écrivez tous les prénoms dans la petite ligne sous le titre, ou glissez une carte avec tous les messages dans le colis.</p>
 <p>Envie de voir d’autres villes ? Parcourez nos <a href="/fr/pages/city-map-prints">cartes de villes</a>.</p>'''),
@@ -170,7 +170,7 @@ A['sv'] = dict(
 <li>Åren de bodde där, till exempel <em>2014 till 2026</em></li>
 </ul>
 <h3>4. Skicka den i förväg</h3>
-<p>Det är den verkliga fördelen med ett tryck. I stället för att göra deras bagage tyngre skickar du det inramat till deras nya adress. Vi trycker på beställning nära kunden och skickar gratis till Europa, Storbritannien och USA, så att det kan vänta på dem när de kommer fram. Ska du välja storlek? Se vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a>.</p>
+<p>Det är den verkliga fördelen med ett tryck. I stället för att göra deras bagage tyngre skickar du det inramat till deras nya adress. Vi trycker på beställning nära kunden och skickar gratis till Europa och USA, så att det kan vänta på dem när de kommer fram. Ska du välja storlek? Se vår <a href="/sv/pages/sizes-and-frames">guide till storlekar och ramar</a>.</p>
 <h2>En present från en grupp</h2>
 <p>För kollegor eller ett kompisgäng är ett större inramat tryck på 50×70 cm en present man kan dela på. Skriv allas namn på den lilla raden under titeln, eller lägg ett kort med alla hälsningar i paketet.</p>
 <p>Vill du se fler städer först? Bläddra bland våra <a href="/sv/pages/city-map-prints">stadskartor</a>.</p>''')
@@ -204,7 +204,7 @@ A['nb'] = dict(
 <li>Årene de bodde der, for eksempel <em>2014 til 2026</em></li>
 </ul>
 <h3>4. Send det i forveien</h3>
-<p>Det er den virkelige fordelen med et trykk. I stedet for å gjøre bagasjen tyngre, får du det levert innrammet til den nye adressen. Vi trykker på bestilling nær kunden og sender gratis til Europa, Storbritannia og USA, så det kan vente på dem når de kommer frem. Skal du velge størrelse? Se vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a>.</p>
+<p>Det er den virkelige fordelen med et trykk. I stedet for å gjøre bagasjen tyngre, får du det levert innrammet til den nye adressen. Vi trykker på bestilling nær kunden og sender gratis til Europa og USA, så det kan vente på dem når de kommer frem. Skal du velge størrelse? Se vår <a href="/nb/pages/sizes-and-frames">guide til størrelser og rammer</a>.</p>
 <h2>En gave fra en gruppe</h2>
 <p>For kolleger eller en vennegjeng er et større innrammet trykk på 50×70 cm en gave man kan dele på. Skriv alles navn på den lille linjen under tittelen, eller legg et kort med alle hilsenene i pakken.</p>
 <p>Vil du se flere byer først? Bla gjennom våre <a href="/nb/pages/city-map-prints">bykart</a>.</p>''')

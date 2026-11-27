@@ -109,7 +109,7 @@ J['leaving'] = dict(
 <li>Lata, w których tam mieszkali, na przykład <em>2014 do 2026</em></li>
 </ul>
 <h3>4. Wyślij go przodem</h3>
-<p>To prawdziwa zaleta plakatu. Zamiast dokładać wagi do bagażu, zamów dostawę w ramie na nowy adres. Drukujemy na zamówienie blisko klienta i wysyłamy za darmo do UE, Wielkiej Brytanii i Stanów Zjednoczonych, więc może na nich czekać, gdy dotrą. Wybierasz rozmiar? Zobacz nasz <a href="/pl/pages/sizes-and-frames">poradnik rozmiarów i ram</a>.</p>
+<p>To prawdziwa zaleta plakatu. Zamiast dokładać wagi do bagażu, zamów dostawę w ramie na nowy adres. Drukujemy na zamówienie blisko klienta i wysyłamy za darmo do UE i Stanów Zjednoczonych, więc może na nich czekać, gdy dotrą. Wybierasz rozmiar? Zobacz nasz <a href="/pl/pages/sizes-and-frames">poradnik rozmiarów i ram</a>.</p>
 <h2>Prezent od grupy</h2>
 <p>Dla kolegów albo grupy przyjaciół większy plakat w ramie, 50×70 cm, to prezent, którego koszt można podzielić. Wpiszcie imiona wszystkich w małej linijce pod tytułem albo włóżcie do paczki kartkę ze wszystkimi życzeniami.</p>
 <p>Chcesz najpierw zobaczyć więcej miast? Przejrzyj nasze <a href="/pl/pages/city-map-prints">mapy miast</a>.</p>''')

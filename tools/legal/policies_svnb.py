@@ -3,7 +3,7 @@ P = {}
 P['sv'] = dict(
 REFUND_POLICY=f"""<p>Varje N°98 karta trycks på beställning utifrån designen du skapar. Här kan du läsa vad som händer om något inte stämmer.</p>
 <h2>Personliga tryck</h2>
-<p>Eftersom varje karta görs efter din egen design kan personliga tryck inte returneras eller bytas om du ångrar dig. Enligt konsumentlagstiftningen i EU och Storbritannien gäller inte ångerrätten på 14 dagar för varor som tillverkats enligt kundens anvisningar.</p>
+<p>Eftersom varje karta görs efter din egen design kan personliga tryck inte returneras eller bytas om du ångrar dig. Enligt konsumentlagstiftningen i EU gäller inte ångerrätten på 14 dagar för varor som tillverkats enligt kundens anvisningar.</p>
 <h2>Skadad, felaktig eller inte som designad</h2>
 <p>Om ditt tryck eller din ram kommer fram skadad, har ett tryckfel eller inte stämmer med designen du godkände, skickar vi ett nytt utan kostnad eller betalar tillbaka hela beloppet, vilket du föredrar. Mejla ett foto av trycket och förpackningen tillsammans med ditt ordernummer till {MAIL}, helst inom 14 dagar efter leveransen. Du behöver inte skicka tillbaka något om vi inte ber om det. Detta påverkar inte dina lagstadgade rättigheter.</p>
 <h2>Försvunna paket</h2>
@@ -13,9 +13,9 @@ REFUND_POLICY=f"""<p>Varje N°98 karta trycks på beställning utifrån designen
 <h2>Så betalar vi tillbaka</h2>
 <p>Godkända återbetalningar görs inom 14 dagar till det betalsätt du använde. Beroende på din bank kan det ta några dagar extra innan beloppet syns på ditt konto.</p>""",
 SHIPPING_POLICY="""<h2>Fraktkostnader</h2>
-<p>Frakten är gratis till Nederländerna och resten av Europeiska unionen, Storbritannien och USA. För andra länder beräknas fraktkostnaden i kassan, utifrån tryckets format och om det har ram.</p>
+<p>Frakten är gratis till Nederländerna och resten av Europeiska unionen och USA. För andra länder beräknas fraktkostnaden i kassan, utifrån tryckets format och om det har ram.</p>
 <h2>Vart vi skickar</h2>
-<p>Vi skickar till Nederländerna och resten av Europeiska unionen, Storbritannien, USA, Norge och Schweiz, samt till de andra länder du kan välja i kassan.</p>
+<p>Vi skickar till Nederländerna och resten av Europeiska unionen, USA, Norge och Schweiz, samt till de andra länder du kan välja i kassan.</p>
 <h2>Tryckt nära dig</h2>
 <p>Varje karta trycks efter din beställning av vår produktionspartner Gelato, på det tryckeri som ligger närmast leveransadressen. Det håller resan kort och trycket i gott skick.</p>
 <h2>Leveranstider</h2>
@@ -31,7 +31,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
 <h2>3. Din text</h2>
 <p>Lägg bara till text som du har rätt att använda. Lägg inte till innehåll som är olagligt, kränkande eller gör intrång i andras rättigheter. Vi kan neka eller avbryta en beställning med sådant innehåll, med full återbetalning.</p>
 <h2>4. Priser och betalning</h2>
-<p>Priserna visas i valutan för ditt land eller din region. Vid leverans inom Europeiska unionen ingår moms i priserna. Frakten är gratis inom Europeiska unionen, Storbritannien och USA; för andra länder visas fraktkostnaden i kassan. Du betalar i kassan med något av de betalsätt som visas där. Uppenbara prisfel är inte bindande för oss.</p>
+<p>Priserna visas i valutan för ditt land eller din region. Vid leverans inom Europeiska unionen ingår moms i priserna. Frakten är gratis inom Europeiska unionen och USA; för andra länder visas fraktkostnaden i kassan. Du betalar i kassan med något av de betalsätt som visas där. Uppenbara prisfel är inte bindande för oss.</p>
 <h2>5. Din beställning</h2>
 <p>Avtalet ingås så snart du får vår orderbekräftelse via mejl.</p>
 <h2>6. Tillverkning och leverans</h2>
@@ -55,7 +55,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
 P['nb'] = dict(
 REFUND_POLICY=f"""<p>Hvert N°98 kart trykkes på bestilling etter designet du lager. Her kan du lese hva som skjer hvis noe ikke stemmer.</p>
 <h2>Personlige trykk</h2>
-<p>Fordi hvert kart lages etter ditt eget design, kan personlige trykk ikke returneres eller byttes hvis du ombestemmer deg. Etter forbrukerretten i EU og Storbritannia gjelder ikke angreretten på 14 dager for varer som er laget etter kundens spesifikasjoner.</p>
+<p>Fordi hvert kart lages etter ditt eget design, kan personlige trykk ikke returneres eller byttes hvis du ombestemmer deg. Etter forbrukerretten i EU gjelder ikke angreretten på 14 dager for varer som er laget etter kundens spesifikasjoner.</p>
 <h2>Skadet, feil eller ikke som designet</h2>
 <p>Kommer trykket eller rammen skadet frem, har det en trykkfeil eller stemmer det ikke med designet du godkjente? Da sender vi deg et nytt kostnadsfritt eller betaler tilbake hele beløpet, det du foretrekker. Send et bilde av trykket og emballasjen sammen med ordrenummeret ditt til {MAIL}, helst innen 14 dager etter levering. Du trenger ikke sende noe tilbake med mindre vi ber om det. Dette påvirker ikke dine lovfestede rettigheter.</p>
 <h2>Pakker som har kommet bort</h2>
@@ -65,9 +65,9 @@ REFUND_POLICY=f"""<p>Hvert N°98 kart trykkes på bestilling etter designet du l
 <h2>Slik betaler vi tilbake</h2>
 <p>Godkjente tilbakebetalinger utbetales innen 14 dager til betalingsmåten du brukte. Avhengig av banken din kan det ta noen dager ekstra før beløpet vises på kontoen.</p>""",
 SHIPPING_POLICY="""<h2>Fraktkostnader</h2>
-<p>Frakten er gratis til Nederland og resten av Den europeiske union, Storbritannia og USA. For andre land beregnes fraktkostnaden i kassen, ut fra formatet på trykket og om det har ramme.</p>
+<p>Frakten er gratis til Nederland og resten av Den europeiske union og USA. For andre land beregnes fraktkostnaden i kassen, ut fra formatet på trykket og om det har ramme.</p>
 <h2>Hvor vi sender</h2>
-<p>Vi sender til Nederland og resten av Den europeiske union, Storbritannia, USA, Norge og Sveits, og til de andre landene du kan velge i kassen.</p>
+<p>Vi sender til Nederland og resten av Den europeiske union, USA, Norge og Sveits, og til de andre landene du kan velge i kassen.</p>
 <h2>Trykket nær deg</h2>
 <p>Hvert kart trykkes etter bestillingen av produksjonspartneren vår Gelato, hos trykkeriet som ligger nærmest leveringsadressen. Slik blir reisen kort og trykket kommer frem i god stand.</p>
 <h2>Leveringstider</h2>
@@ -83,7 +83,7 @@ TERMS_OF_SERVICE=f"""<h2>1. Om oss</h2>
 <h2>3. Din tekst</h2>
 <p>Legg bare til tekst du har rett til å bruke. Ikke legg til innhold som er ulovlig, krenkende eller som krenker andres rettigheter. Vi kan avvise eller kansellere en bestilling med slikt innhold, med full tilbakebetaling.</p>
 <h2>4. Priser og betaling</h2>
-<p>Prisene vises i valutaen for landet eller regionen din. Ved levering innenfor Den europeiske union inkluderer prisene merverdiavgift. Frakten er gratis innenfor Den europeiske union, Storbritannia og USA; for andre land vises fraktkostnaden i kassen. Du betaler i kassen med en av betalingsmåtene som vises der. Åpenbare prisfeil er ikke bindende for oss.</p>
+<p>Prisene vises i valutaen for landet eller regionen din. Ved levering innenfor Den europeiske union inkluderer prisene merverdiavgift. Frakten er gratis innenfor Den europeiske union og USA; for andre land vises fraktkostnaden i kassen. Du betaler i kassen med en av betalingsmåtene som vises der. Åpenbare prisfeil er ikke bindende for oss.</p>
 <h2>5. Din bestilling</h2>
 <p>Avtalen inngås så snart du mottar ordrebekreftelsen vår på e-post.</p>
 <h2>6. Produksjon og levering</h2>
