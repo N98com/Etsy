@@ -19,6 +19,8 @@
 // POST { action: 'pages_publish', url, publish? } publishes (or with publish: false hides) the pages [{ handle }] of a file.
 // POST { action: 'eu_shipping', type?: "PAGE", after?, dry? } rewrites "free shipping in Europe, the UK ..."
 //   to "the EU" (fixed rules, every language) in pages (title, body, SEO title and description) and their translations, 25 per call.
+// POST { action: 'no_uk', type?: PAGE|ARTICLE|PRODUCT|COLLECTION|other, after?, dry? } removes the UK from shipping texts
+//   (rules of tools/no_uk/rules.json) the same way; other types are only reported (dry) for changing by hand.
 const SHOP = Deno.env.get("SHOPIFY_SHOP") || "f5r3ux-ji.myshopify.com";
 const API_VERSION = "2026-10";
 const PREFIX = "https://raw.githubusercontent.com/N98com/Etsy/";
@@ -84,9 +86,11 @@ const EU_RULES: [RegExp, string][] = [
   [/\b(i|inom|till|Till) Europa(?=, Storbritannien)/g, "$1 EU"],
   [/\b(i|innenfor|til|Til) Europa(?=, Storbritannia)/g, "$1 EU"],
 ];
+const UK_RULES: [string, string][] = [[", the UK and the US", " and the US"], [", the UK &amp; the US", " &amp; the US"], [", the UK & the US", " & the US"], [", UK and US", " and US"], [", the United Kingdom and the United States", " and the United States"], [", the United Kingdom, the United States", ", the United States"], ["EU and UK consumer law", "EU consumer law"], [", het VK en de VS", " en de VS"], [", VK en VS", " en VS"], [", het Verenigd Koninkrijk en de Verenigde Staten", " en de Verenigde Staten"], [", het Verenigd Koninkrijk, de Verenigde Staten", ", de Verenigde Staten"], [", nach Großbritannien und in die USA", " und in die USA"], [", nach Großbritannien und in die Vereinigten Staaten", " und in die Vereinigten Staaten"], [", nach Großbritannien, in die Vereinigten Staaten", ", in die Vereinigten Staaten"], [", ins Vereinigte Königreich und in die Vereinigten Staaten", " und in die Vereinigten Staaten"], [", UK und USA", " und USA"], ["der EU und des Vereinigten Königreichs", "der EU"], [", au Royaume-Uni et aux États-Unis", " et aux États-Unis"], [", au Royaume-Uni, aux États-Unis", ", aux États-Unis"], ["de l’UE et du Royaume-Uni", "de l’UE"], [", Storbritannien och USA", " och USA"], [", Storbritannien, USA", ", USA"], ["i EU och Storbritannien", "i EU"], [", Storbritannia og USA", " og USA"], [", Storbritannia, USA", ", USA"], ["i EU og Storbritannia", "i EU"], [", Wielkiej Brytanii i USA", " i USA"], [", Wielkiej Brytanii i Stanów Zjednoczonych", " i Stanów Zjednoczonych"], [", Wielkiej Brytanii, Stanów Zjednoczonych", ", Stanów Zjednoczonych"], ["UE i Wielkiej Brytanii", "UE"], [", Regno Unito e Stati Uniti", " e Stati Uniti"], [", il Regno Unito e gli Stati Uniti", " e gli Stati Uniti"], [", nel Regno Unito e negli Stati Uniti", " e negli Stati Uniti"], [", nel Regno Unito, negli Stati Uniti", ", negli Stati Uniti"], ["dell’UE e del Regno Unito", "dell’UE"], [", het Verenigd Koninkrijk en de VS", " en de VS"], [", in Großbritannien und in den USA", " und in den USA"], [", Großbritannien und in die USA", " und in die USA"], [", Regno Unito e USA", " e USA"], ["Versand in der EU und in die USA", "Versand in die EU und in die USA"], ["Versand innerhalb der EU und in die USA", "Versand in die EU und in die USA"], ["Versand in Europa und in die USA", "Versand nach Europa und in die USA"], ["Versand innerhalb der EU und in die Vereinigten Staaten", "Versand in die EU und in die Vereinigten Staaten"], ["Versand in der EU und in die Vereinigten Staaten", "Versand in die EU und in die Vereinigten Staaten"]];
+const ukFix = (v: string) => UK_RULES.reduce((s, [a, b]) => s.split(a).join(b), v);
 const euFix = (v: string) => EU_RULES.reduce((s, [a, b]) => s.replace(a, b), v);
 const LOCALES = ["nl", "de", "fr", "sv", "nb", "pl", "it"];
-async function euShipping(b: any) {
+async function euShipping(b: any, fix: (v: string) => string = euFix) {
   const type = b.type || "PAGE";
   const tq = LOCALES.map((l) => `${l}: translations(locale: "${l}") { key value }`).join(" ");
   const d = await gql(`query($a: String) { translatableResources(resourceType: ${type}, first: 25, after: $a) { pageInfo { hasNextPage endCursor } nodes { resourceId translatableContent { key value digest } ${tq} } } }`, { a: b.after || null });
@@ -97,10 +101,11 @@ async function euShipping(b: any) {
     for (const c of n.translatableContent) dig[c.key] = c.digest;
     const pageInput: Record<string, string> = {}; const mfs: any[] = [];
     for (const c of n.translatableContent) {
-      if (!c.value || euFix(c.value) === c.value) continue;
-      const nv = euFix(c.value); changes.push({ id: n.resourceId, locale: "en", key: c.key, from: c.value, to: nv }); changed.add(c.key);
-      if (type !== "PAGE") { errors.push({ id: n.resourceId, key: c.key, error: "source not a page, change it by hand" }); continue; }
-      if (c.key === "body_html") pageInput.body = nv;
+      if (!c.value || fix(c.value) === c.value) continue;
+      const nv = fix(c.value); changes.push({ id: n.resourceId, locale: "en", key: c.key, from: c.value, to: nv }); changed.add(c.key);
+      if (!["PAGE", "ARTICLE", "PRODUCT", "COLLECTION"].includes(type)) { errors.push({ id: n.resourceId, key: c.key, error: "source not supported, change it by hand" }); continue; }
+      if (c.key === "body_html") pageInput[type === "PRODUCT" || type === "COLLECTION" ? "descriptionHtml" : "body"] = nv;
+      else if (c.key === "summary_html" && type === "ARTICLE") pageInput.summary = nv;
       else if (c.key === "title") pageInput.title = nv;
       else if (c.key === "meta_description") mfs.push({ ownerId: n.resourceId, namespace: "global", key: "description_tag", type: "single_line_text_field", value: nv });
       else if (c.key === "meta_title") mfs.push({ ownerId: n.resourceId, namespace: "global", key: "title_tag", type: "single_line_text_field", value: nv });
@@ -108,14 +113,21 @@ async function euShipping(b: any) {
     }
     if (!b.dry && (mfs.length || Object.keys(pageInput).length)) {
       if (mfs.length) { const m = await gql(`mutation($m: [MetafieldsSetInput!]!) { metafieldsSet(metafields: $m) { userErrors { field message } } }`, { m: mfs }); if (m.metafieldsSet.userErrors.length) errors.push({ id: n.resourceId, ue: m.metafieldsSet.userErrors }); }
-      if (Object.keys(pageInput).length) { const m = await gql(`mutation($id: ID!, $p: PageUpdateInput!) { pageUpdate(id: $id, page: $p) { userErrors { field message } } }`, { id: n.resourceId, p: pageInput }); if (m.pageUpdate.userErrors.length) errors.push({ id: n.resourceId, ue: m.pageUpdate.userErrors }); }
+      if (Object.keys(pageInput).length) {
+        let ue: any[] = [];
+        if (type === "PAGE") ue = (await gql(`mutation($id: ID!, $p: PageUpdateInput!) { pageUpdate(id: $id, page: $p) { userErrors { field message } } }`, { id: n.resourceId, p: pageInput })).pageUpdate.userErrors;
+        else if (type === "ARTICLE") ue = (await gql(`mutation($id: ID!, $p: ArticleUpdateInput!) { articleUpdate(id: $id, article: $p) { userErrors { field message } } }`, { id: n.resourceId, p: pageInput })).articleUpdate.userErrors;
+        else if (type === "PRODUCT") ue = (await gql(`mutation($p: ProductUpdateInput!) { productUpdate(product: $p) { userErrors { field message } } }`, { p: { id: n.resourceId, ...pageInput } })).productUpdate.userErrors;
+        else if (type === "COLLECTION") ue = (await gql(`mutation($p: CollectionInput!) { collectionUpdate(input: $p) { userErrors { field message } } }`, { p: { id: n.resourceId, ...pageInput } })).collectionUpdate.userErrors;
+        if (ue.length) errors.push({ id: n.resourceId, ue });
+      }
       const r = await gql(`query($id: ID!) { translatableResource(resourceId: $id) { translatableContent { key digest } } }`, { id: n.resourceId });
       for (const c of r.translatableResource.translatableContent) dig[c.key] = c.digest;
     }
     const tr: any[] = [];
     for (const l of LOCALES) for (const t of (n[l] || [])) {
       if (!t.value || !src[t.key]) continue;
-      const nv = euFix(t.value);
+      const nv = fix(t.value);
       if (nv === t.value && !changed.has(t.key)) continue;
       if (nv !== t.value) changes.push({ id: n.resourceId, locale: l, key: t.key, from: t.value, to: nv });
       tr.push({ locale: l, key: t.key, value: nv, translatableContentDigest: dig[t.key] });
@@ -182,6 +194,7 @@ Deno.serve(async (req) => {
     if (b.action === "scopes") { await shopifyToken(true); return out(await gql(`{ currentAppInstallation { accessScopes { handle } } }`)); }
     if (b.action === "policy_ids") return out(await gql(`{ shop { shopPolicies { id type title url } } }`));
     if (b.action === "eu_shipping") return out(await euShipping(b));
+    if (b.action === "no_uk") return out(await euShipping(b, ukFix));
     if (typeof b.url !== "string" || !b.url.startsWith(PREFIX)) return out({ error: "bad url" }, 400);
     if (b.action === "city_notes") return out(await cityNotes(b));
     if (b.action === "shop_metafield") {
