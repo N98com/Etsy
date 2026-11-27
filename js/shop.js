@@ -21,8 +21,8 @@
     { id: 'darkwood', label: 'Dark wood', swatch: '#5B3F2C' },
   ];
   const FRAMED_DEFAULT = {
-    in8x10: 65, in11x14: 79, in12x16: 89, in16x20: 115,
-    in18x24: 129, in20x28: 149, in24x36: 199, in28x40: 225,
+    in8x10: 69, in11x14: 89, in12x16: 95, in16x20: 119,
+    in18x24: 135, in20x28: 159, in24x36: 215, in28x40: 239,
   };
   const FRAMED = {}; // FRAMED[size][frame] = prijs
   Object.keys(FRAMED_DEFAULT).forEach(s => { FRAMED[s] = {}; FRAMES.slice(1).forEach(f => { FRAMED[s][f.id] = FRAMED_DEFAULT[s]; }); });
